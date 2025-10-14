@@ -1,13 +1,17 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=release-23.11";
+    nixpkgs.url = "github:meta-introspector/nixpkgs?ref=feature/CRQ-016-nixify";
     rust-overlay = {
-      url = "github:oxalica/rust-overlay";
+      url = "github:meta-introspector/rust-overlay?ref=feature/CRQ-016-nixify";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-utils.url = "github:meta-introspector/flake-utils?ref=feature/CRQ-016-nixify";
     flake-compat = {
-      url = "github:edolstra/flake-compat";
+      url = "github:meta-introspector/flake-compat?ref=feature/CRQ-016-nixify";
+      flake = false;
+    };
+    context = {
+      url = "github:meta-introspector/streamofrandom?ref=feature/foaf&dir=2025/10/10";
       flake = false;
     };
   };
@@ -164,5 +168,6 @@
       # version branch-off.
       overlay = builtins.trace
         "cargo2nix.overlay is deprecated.  Use cargo2nix.overlays.default" overlays.default;
+      crq = "016";
     };
 }
