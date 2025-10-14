@@ -52,14 +52,15 @@
           # target = "wasm32-wasi";
         };
 
-      in rec {
+      in
+      rec {
         # this is the output (recursive) set (expressed for each system)
 
         # the packages in `nix build .#packages.<system>.<name>`
         packages = {
           # nix build .#cross-compiling
           # nix build .#packages.x86_64-linux.cross-compiling
-          cross-compiling = (rustPkgs.workspace.cross-compiling {});
+          cross-compiling = rustPkgs.workspace.cross-compiling { };
           # nix build
           default = packages.cross-compiling;
         };

@@ -30,14 +30,15 @@
           packageFun = import ./Cargo.nix;
         };
 
-      in rec {
+      in
+      rec {
         # this is the output (recursive) set (expressed for each system)
 
         # the packages in `nix build .#packages.<system>.<name>`
         packages = {
           # nix build .#hello-world
           # nix build .#packages.x86_64-linux.hello-world
-          hello-world = (rustPkgs.workspace.hello-world {});
+          hello-world = rustPkgs.workspace.hello-world { };
           # nix build
           default = packages.hello-world; # rec
         };
