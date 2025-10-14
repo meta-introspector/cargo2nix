@@ -80,7 +80,7 @@
         rustPkgs = pkgs.rustBuilder.makePackageSet {
           packageFun = import ./Cargo.nix;
           rustVersion = "1.83.0";
-          packageOverrides = pkgs: pkgs.rustBuilder.overrides.all;
+
         };
         # `rustPkgs` now contains all crates in the dependency graph.
         # To build normal binaries, use `rustPkgs.<registry>.<crate>.<version> { }`.
