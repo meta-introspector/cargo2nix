@@ -81,7 +81,7 @@
           #     If you are already passing a target spec file to `target`, this will be filled in for you automatically.
           rustPkgs = pkgs.rustBuilder.makePackageSet {
             packageFun = import ./Cargo.nix;
-            rustChannel = "nightly";
+            rustChannel = "stable";
 
           };
           # `rustPkgs` now contains all crates in the dependency graph.
