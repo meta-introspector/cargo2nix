@@ -17,7 +17,6 @@
     time-rs-submodule = {
       url = "./vendor/time-rs";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.cargo2nix.follows = "self"; # Assuming cargo2nix is the current flake
     };
   };
 
