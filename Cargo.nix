@@ -4543,6 +4543,7 @@ else
       version = "0.2.20";
       registry = "registry+https://github.com/meta-introspector/crates.io-index";
       src = fetchCratesIo { inherit name version; sha256 = "e8093bc3e81c3bc5f7879de09619d06c9a5a5e45ca44dfeeb7225bae38005c5c"; };
+      rustcBuildFlags = [ "--allow=unknown_lints" ];
       features = builtins.concatLists [
         [ "formatting" ]
         [ "parsing" ]
