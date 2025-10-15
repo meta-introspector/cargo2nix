@@ -14,10 +14,6 @@
       url = "github:meta-introspector/streamofrandom?ref=feature/foaf&dir=2025/10/10";
       flake = false;
     };
-    time-rs-submodule = {
-      url = "./vendor/time-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs: with inputs;
