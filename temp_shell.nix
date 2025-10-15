@@ -1,0 +1,1 @@
+with import <nixpkgs> {}; mkShell { buildInputs = [ openssl.dev pkg-config ]; }
