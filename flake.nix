@@ -82,6 +82,7 @@
           rustPkgs = pkgs.rustBuilder.makePackageSet {
             packageFun = import ./Cargo.nix;
             rustChannel = "stable";
+            rustVersion = "1.75.0";
 
           };
           # `rustPkgs` now contains all crates in the dependency graph.
