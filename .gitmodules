@@ -1,3 +1,6 @@
 [submodule "vendor/time-rs"]
 	path = vendor/time-rs
 	url = https://github.com/meta-introspector/time-rs
+[submodule "vendor/allocator-api2"]
+	path = vendor/allocator-api2
+	url = https://github.com/meta-introspector/allocator-api2

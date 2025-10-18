@@ -81,9 +81,8 @@
           #     If you are already passing a target spec file to `target`, this will be filled in for you automatically.
           rustPkgs = pkgs.rustBuilder.makePackageSet {
             packageFun = import ./Cargo.nix;
-            rustChannel = "stable";
-            rustVersion = "1.81.0";
-
+            rustChannel = "nightly";
+            rustVersion = "latest";
           };
           # `rustPkgs` now contains all crates in the dependency graph.
           # To build normal binaries, use `rustPkgs.<registry>.<crate>.<version> { }`.
@@ -137,6 +136,8 @@
             inherit cargo2nix;
             # nix build
             default = cargo2nix;
+
+            timeMacros = rustPkgs.workspace.time-macros { };
 
             # `runTests` runs all tests for a crate inside a Nix derivation.  This
             # may be problematic as Nix may restrict filesystem, network access,
