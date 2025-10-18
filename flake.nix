@@ -32,6 +32,9 @@
             overlays = [
               combinedOverlay
             ];
+            config = {
+              permittedInsecurePackages = [ "openssl-1.1.1w" ];
+            };
             # set `crossSystem` (see examples/3-cross-compiling) for configuring cross
           };
 
@@ -82,8 +85,8 @@
           #     If you are already passing a target spec file to `target`, this will be filled in for you automatically.
           rustPkgs = pkgs.rustBuilder.makePackageSet {
             packageFun = import ./Cargo.nix;
-            rustChannel = "nightly";
-            rustVersion = "latest";
+            rustChannel = "stable";
+            rustVersion = "1.81.0";
             workspaceSrc = self;
             packageOverrides = pkgs: [
               (pkgs.rustBuilder.rustLib.makeOverride {
@@ -122,10 +125,12 @@
           # Passes through all arguments to pkgs.mkShell for adding supplemental
           # dependencies.
           workspaceShell = rustPkgs.workspaceShell {
-            packages = [ pkgs.statix ];
-            # shellHook = ''
-            #   export PS1="\033[0;31m☠dev-shell☠ $ \033[0m"
-            # '';
+            packages = [ pkgs.statix pkgs.openssl_1_1 rustPkgs.unknown.toolchain."0.0.0" ];
+            shellHook = ''
+              export OPENSSL_DIR=${pkgs.openssl_1_1}
+              export PKG_CONFIG_PATH=${pkgs.openssl_1_1}/lib/pkgconfig:$PKG_CONFIG_PATH
+              export PATH=${rustPkgs.toolchain}/bin:$PATH
+            '';
           }; # supports override & overrideAttrs
 
           # A shell for users to quickly bootstrap projects.  Contains cargo2nix
