@@ -14,6 +14,7 @@
       url = "github:meta-introspector/streamofrandom?ref=feature/foaf&dir=2025/10/10";
       flake = false;
     };
+    allocator-api2.url = "github:meta-introspector/allocator-api2?ref=feature/CRQ-016-nixify";
   };
 
   outputs = inputs: with inputs;
@@ -83,6 +84,21 @@
             packageFun = import ./Cargo.nix;
             rustChannel = "nightly";
             rustVersion = "latest";
+            workspaceSrc = self;
+            packageOverrides = pkgs: [
+              (pkgs.rustBuilder.rustLib.makeOverride {
+                name = "allocator-api2";
+                overrideAttrs = old: {
+                  src = allocator-api2;
+                };
+              })
+              (pkgs.rustBuilder.rustLib.makeOverride {
+                name = "time-macros";
+                overrideAttrs = old: {
+                  rustcBuildFlags = [ "--allow=unused_imports" ];
+                };
+              })
+            ];
           };
           # `rustPkgs` now contains all crates in the dependency graph.
           # To build normal binaries, use `rustPkgs.<registry>.<crate>.<version> { }`.
