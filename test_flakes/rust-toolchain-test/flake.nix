@@ -17,7 +17,7 @@
           permittedInsecurePackages = [ "openssl-1.1.1w" ];
         };
       };
-      rustToolchain = pkgs.rust-bin.stable."1.81.0".default;
+      rustToolchain = pkgs.rust-bin.nightly."2025-10-16".default;
     in
     {
       devShells.${system}.default = pkgs.mkShell {

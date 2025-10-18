@@ -121,7 +121,7 @@ fn read_version_attribute(path: &PathBuf) -> Result<Version> {
         })
         .ok_or_else(|| {
             anyhow!(
-                "valid {} not found in {}",
+                "Could not find a valid '{}' in '{}'. This might happen if the file is empty or malformed. If you are generating Cargo.nix for the first time, you can safely delete the existing file or use the --overwrite flag.",
                 VERSION_ATTRIBUTE_NAME,
                 path.display()
             )

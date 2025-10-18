@@ -35,8 +35,9 @@
             config = {
               permittedInsecurePackages = [ "openssl-1.1.1w" ];
             };
-            # set `crossSystem` (see examples/3-cross-compiling) for configuring cross
           };
+
+          rustToolchain = pkgs.rust-bin.nightly."2025-10-06".default;
 
           # 2. Builds the rust package set, which contains all crates in your cargo workspace's dependency graph.
           # `makePackageSet` accepts the following arguments:
@@ -84,9 +85,8 @@
           #     Most users do not need this, even when cross-compiling.
           #     If you are already passing a target spec file to `target`, this will be filled in for you automatically.
           rustPkgs = pkgs.rustBuilder.makePackageSet {
-            packageFun = import ./Cargo.nix;
-            rustChannel = "stable";
-            rustVersion = "1.81.0";
+            # packageFun = import ./Cargo.nix;
+            inherit rustToolchain;
             workspaceSrc = self;
             packageOverrides = pkgs: [
               (pkgs.rustBuilder.rustLib.makeOverride {
@@ -95,12 +95,7 @@
                   src = allocator-api2;
                 };
               })
-              (pkgs.rustBuilder.rustLib.makeOverride {
-                name = "time-macros";
-                overrideAttrs = old: {
-                  rustcBuildFlags = [ "--allow=unused_imports" ];
-                };
-              })
+
             ];
           };
           # `rustPkgs` now contains all crates in the dependency graph.
@@ -125,11 +120,10 @@
           # Passes through all arguments to pkgs.mkShell for adding supplemental
           # dependencies.
           workspaceShell = rustPkgs.workspaceShell {
-            packages = [ pkgs.statix pkgs.openssl_1_1 rustPkgs.unknown.toolchain."0.0.0" ];
+            packages = [ pkgs.statix pkgs.openssl_1_1.dev ];
             shellHook = ''
-              export OPENSSL_DIR=${pkgs.openssl_1_1}
-              export PKG_CONFIG_PATH=${pkgs.openssl_1_1}/lib/pkgconfig:$PKG_CONFIG_PATH
-              export PATH=${rustPkgs.toolchain}/bin:$PATH
+              export PKG_CONFIG_PATH=${pkgs.openssl_1_1.dev}/lib/pkgconfig:$PKG_CONFIG_PATH
+              export PATH=${rustToolchain}/bin:$PATH
             '';
           }; # supports override & overrideAttrs
 
