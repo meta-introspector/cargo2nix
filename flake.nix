@@ -85,9 +85,10 @@
           #     Most users do not need this, even when cross-compiling.
           #     If you are already passing a target spec file to `target`, this will be filled in for you automatically.
           rustPkgs = pkgs.rustBuilder.makePackageSet {
-            # packageFun = import ./Cargo.nix;
+            packageFun = import ./Cargo.nix;
             inherit rustToolchain;
             workspaceSrc = self;
+            rootFeatures = [ "time-macros/large-dates" ];
             packageOverrides = pkgs: [
               (pkgs.rustBuilder.rustLib.makeOverride {
                 name = "allocator-api2";
@@ -95,100 +96,127 @@
                   src = allocator-api2;
                 };
               })
+              (pkgs.rustBuilder.rustLib.makeOverride {
+                name = "time-macros";
+                overrideAttrs = old: {
+                  features = [ "large-dates" "formatting" "parsing" "serde" ];
+                };
+              })
+              (pkgs.rustBuilder.rustLib.makeOverride {
+                name = "cargo";
+                overrideAttrs = old: { extraCargoBuildFlags ? [ ]
+                                     , runCargo = ''
+                    (
+                      set -euo pipefail
+                      if (( NIX_DEBUG >= 1 )); then
+                        set -x
+                      fi
+                      env \
+                        "CC_aarch64-unknown-linux-gnu"="/nix/store/hf8w753nxqwkc5y5kjx33fx8fxw2dczp-gcc-wrapper-14.3.0/bin/cc" \
+                        "CXX_aarch64-unknown-linux-gnu"="/nix/store/hf8w753nxqwkc5y5kjx33fx8fxw2dczp-gcc-wrapper-14.3.0/bin/c++" \
+                        "CC_aarch64-unknown-linux-gnu"="/nix/store/hf8w753nxqwkc5y5kjx33fx8fxw2dczp-gcc-wrapper-14.3.0/bin/cc" \
+                        "CXX_aarch64-unknown-linux-gnu"="/nix/store/hf8w753nxqwkc5y5kjx33fx8fxw2dczp-gcc-wrapper-14.3.0/bin/c++" \
+                        /nix/store/z1kz8iqh3qds9gjp28kscihjif18f4x-rust-default-1.92.0-nightly-2025-10-06/bin/cargo build $CARGO_VERBOSE --release --target aarch64-unknown-linux-gnu \
+                        ${pkgs.lib.strings.concatStringsSep " " extraCargoBuildFlags} \
+                      --message-format json-diagnostic-rendered-ansi | tee .cargo-build-output \
+                      1> >(jq 'select(.message != null) .message.rendered' -r)\
+                    )
+                  '';
+                                     };
+                })
+                ];
+                };
+                # `rustPkgs` now contains all crates in the dependency graph.
+                # To build normal binaries, use `rustPkgs.<registry>.<crate>.<version> { }`.
+                # To build test binaries (equivalent to `cargo build --tests`), use
+                #   `rustPkgs.<registry>.<crate>.<version>{ compileMode = "test"; }`.
+                # To build bench binaries (equivalent to `cargo build --benches`), use
+                #   `rustPkgs.<registry>.<crate>.<version>{ compileMode = "bench"; }`.
+                # For convenience, you can also refer to the crates in the workspace using
+                #   `rustPkgs.workspace.<crate>`.
+                #
+                # When a crate is not associated with any registry, such as when building
+                # locally, the registry is "unknown" as shown below:
+                # rustPkgs.unknown.cargo2nix."0.12.0"
+                # An example of a crates.io path:
+                # rustPkgs."registry+https://github.com/rust-lang/crates.io-index".openssl."0.10.30"
 
-            ];
-          };
-          # `rustPkgs` now contains all crates in the dependency graph.
-          # To build normal binaries, use `rustPkgs.<registry>.<crate>.<version> { }`.
-          # To build test binaries (equivalent to `cargo build --tests`), use
-          #   `rustPkgs.<registry>.<crate>.<version>{ compileMode = "test"; }`.
-          # To build bench binaries (equivalent to `cargo build --benches`), use
-          #   `rustPkgs.<registry>.<crate>.<version>{ compileMode = "bench"; }`.
-          # For convenience, you can also refer to the crates in the workspace using
-          #   `rustPkgs.workspace.<crate>`.
-          #
-          # When a crate is not associated with any registry, such as when building
-          # locally, the registry is "unknown" as shown below:
-          # rustPkgs.unknown.cargo2nix."0.12.0"
-          # An example of a crates.io path:
-          # rustPkgs."registry+https://github.com/rust-lang/crates.io-index".openssl."0.10.30"
+                cargo2nix = rustPkgs.workspace.cargo2nix { }; # supports override & overrideAttrs
 
-          cargo2nix = rustPkgs.workspace.cargo2nix { }; # supports override & overrideAttrs
-
-          # The workspace defines a development shell with all of the dependencies
-          # and environment settings necessary for a regular `cargo build`.
-          # Passes through all arguments to pkgs.mkShell for adding supplemental
-          # dependencies.
-          workspaceShell = rustPkgs.workspaceShell {
-            packages = [ pkgs.statix pkgs.openssl_1_1.dev ];
-            shellHook = ''
+                # The workspace defines a development shell with all of the dependencies
+                # and environment settings necessary for a regular `cargo build`.
+                # Passes through all arguments to pkgs.mkShell for adding supplemental
+                # dependencies.
+                workspaceShell = rustPkgs.workspaceShell {
+                packages = [ pkgs.statix pkgs.openssl_1_1.dev ];
+                shellHook = ''
               export PKG_CONFIG_PATH=${pkgs.openssl_1_1.dev}/lib/pkgconfig:$PKG_CONFIG_PATH
               export PATH=${rustToolchain}/bin:$PATH
             '';
-          }; # supports override & overrideAttrs
+                }; # supports override & overrideAttrs
 
-          # A shell for users to quickly bootstrap projects.  Contains cargo2nix
-          # and the rustToolchain used to build this cargo2nix.
-          bootstrapShell = pkgs.mkShell {
-            packages = [ cargo2nix ];
-            # inputsFrom = [ cargo2nix ];
-            inherit (cargo2nix) nativeBuildInputs;
-          };
+                # A shell for users to quickly bootstrap projects.  Contains cargo2nix
+                # and the rustToolchain used to build this cargo2nix.
+                bootstrapShell = pkgs.mkShell {
+                packages = [ cargo2nix ];
+                # inputsFrom = [ cargo2nix ];
+                inherit (cargo2nix) nativeBuildInputs;
+                };
 
-        in
-        rec {
+                in
+                rec {
 
-          devShells = {
-            # nix develop
-            default = workspaceShell;
-            # nix develop .#bootstrap
-            bootstrap = bootstrapShell;
-          };
+                devShells = {
+                # nix develop
+                default = workspaceShell;
+                # nix develop .#bootstrap
+                bootstrap = bootstrapShell;
+                };
 
-          packages = rec {
-            # nix build .#packages.x86_64-linux.cargo2nix
-            # nix build .#cargo2nix
-            inherit cargo2nix;
-            # nix build
-            default = cargo2nix;
+                packages = rec {
+                # nix build .#packages.x86_64-linux.cargo2nix
+                # nix build .#cargo2nix
+                inherit cargo2nix;
+                # nix build
+                default = cargo2nix;
 
-            timeMacros = rustPkgs.workspace.time-macros { };
+                timeMacros = rustPkgs.workspace.time-macros { };
 
-            # `runTests` runs all tests for a crate inside a Nix derivation.  This
-            # may be problematic as Nix may restrict filesystem, network access,
-            # socket creation, which the test binary may need.
-            # If you run to those problems, build test binaries (as shown above in
-            # workspace derivation arguments) and run them manually outside a Nix
-            # derivation.s
-            ci = pkgs.rustBuilder.runTests rustPkgs.workspace.cargo2nix {
-              /* Add `depsBuildBuild` test-only deps here, if any. */
-            };
+                # `runTests` runs all tests for a crate inside a Nix derivation.  This
+                # may be problematic as Nix may restrict filesystem, network access,
+                # socket creation, which the test binary may need.
+                # If you run to those problems, build test binaries (as shown above in
+                # workspace derivation arguments) and run them manually outside a Nix
+                # derivation.s
+                ci = pkgs.rustBuilder.runTests rustPkgs.workspace.cargo2nix {
+                /* Add `depsBuildBuild` test-only deps here, if any. */
+                };
 
-            # for legacy users
-            shell = devShells.default;
-          };
+                # for legacy users
+                shell = devShells.default;
+                };
 
-          apps = rec {
-            # nix run .#cargo2nix
-            # nix run github:cargo2nix/cargo2nix
-            cargo2nix = { type = "app"; program = "${packages.default}/bin/cargo2nix"; };
-            # nix run
-            # nix run github:cargo2nix/cargo2nix
-            default = cargo2nix;
-          };
-        }
-      ) // {
-      # The above outputs are mapped over system for `nix run` and `nix develop`
-      # workflows.  They are merged with these system-independent attributes,
-      # which are top level attributes can be used directly in downstream
-      # flakes.  If `cargo2nix` is your flake input, `cargo2nix.overlay` is the
-      # overlay.
-      inherit overlays;
-      # Nix flake check complains.  I will keep this attribute alive until next
-      # version branch-off.
-      overlay = builtins.trace
-        "cargo2nix.overlay is deprecated.  Use cargo2nix.overlays.default"
-        overlays.default;
-      crq = "016";
-    };
-}
+                apps = rec {
+                # nix run .#cargo2nix
+                # nix run github:cargo2nix/cargo2nix
+                cargo2nix = { type = "app"; program = "${packages.default}/bin/cargo2nix"; };
+                # nix run
+                # nix run github:cargo2nix/cargo2nix
+                default = cargo2nix;
+                };
+                }
+                ) // {
+                # The above outputs are mapped over system for `nix run` and `nix develop`
+                # workflows.  They are merged with these system-independent attributes,
+                # which are top level attributes can be used directly in downstream
+                # flakes.  If `cargo2nix` is your flake input, `cargo2nix.overlay` is the
+                # overlay.
+                inherit overlays;
+                # Nix flake check complains.  I will keep this attribute alive until next
+                # version branch-off.
+                overlay = builtins.trace
+                "cargo2nix.overlay is deprecated.  Use cargo2nix.overlays.default"
+                overlays.default;
+                crq = "016";
+                };
+                }
