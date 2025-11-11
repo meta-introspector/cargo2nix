@@ -5,3 +5,6 @@
 .direnv/
 logs
 .env
+/build_output.log
+/cargo_build_log.log
+/full_build_log.log
