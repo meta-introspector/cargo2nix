@@ -428,6 +428,7 @@ dependencies = [
  "sha2",
  "tempfile",
  "tera",
+ "time",
  "time-macros",
  "toml",
 ]
@@ -3309,23 +3310,16 @@ dependencies = [
 [[package]]
 name = "time"
 version = "0.3.44"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "91e7d9e3bb61134e77bde20dd4825b97c010155709965fedf0f49bb138e52a9d"
+source = "git+https://github.com/meta-introspector/time-rs?branch=feature%2FCRQ-016-nixify#fc540559c2a091744eb58947faa0b87493ca624b"
 dependencies = [
  "deranged",
  "itoa",
  "num-conv",
  "powerfmt",
- "serde",
- "time-core 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde_core",
+ "time-core",
  "time-macros",
 ]
-
-[[package]]
-name = "time-core"
-version = "0.1.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "40868e7c1d2f0b8d73e4a8c7f0ff63af4f6d19be117e90bd73eb1d62cf831c6b"
 
 [[package]]
 name = "time-core"
@@ -3338,7 +3332,7 @@ version = "0.2.24"
 source = "git+https://github.com/meta-introspector/time-rs?branch=feature%2FCRQ-016-nixify#fc540559c2a091744eb58947faa0b87493ca624b"
 dependencies = [
  "num-conv",
- "time-core 0.1.6 (git+https://github.com/meta-introspector/time-rs?branch=feature%2FCRQ-016-nixify)",
+ "time-core",
 ]
 
 [[package]]
