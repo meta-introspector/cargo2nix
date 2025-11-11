@@ -129,6 +129,12 @@
                     '';
                   };
               })
+              (pkgs.rustBuilder.rustLib.makeOverride {
+                name = "openssl-sys";
+                overrideAttrs = old: {
+                  nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config pkgs.openssl ];
+                };
+              })
             ];
           };
           # `rustPkgs` now contains all crates in the dependency graph.
