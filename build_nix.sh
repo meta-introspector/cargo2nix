@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Running nix build -vv..."
-nix build -vv > nix_build_output.log 2>&1
+nix build -vvv > nix_build_output.log 2>&1
 BUILD_EXIT_CODE=$?
 
 if [ $BUILD_EXIT_CODE -eq 0 ]; then

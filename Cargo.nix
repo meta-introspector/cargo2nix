@@ -25,7 +25,7 @@ args@{ release ? true
 ,
 }:
 let
-  nixifiedLockHash = "a157055b87ce872d787e7bd5651a5f7160b673b8d1ead657dd5ad1115ee000f7";
+  nixifiedLockHash = "fc33af3318820b99bde19f00b5a754ad5d199429801e0c7f6ff5a86493e92df1";
   workspaceSrc = if args.workspaceSrc == null then ./. else args.workspaceSrc;
   currentLockHash = builtins.hashFile "sha256" (workspaceSrc + /Cargo.lock);
   lockHashIgnored =
@@ -3543,7 +3543,7 @@ else
       dependencies = {
         base64 = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".base64."0.22.1" { inherit profileName; }).out;
         indexmap = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".indexmap."2.12.0" { inherit profileName; }).out;
-        quick_xml = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".quick-xml."0.38.3" { inherit profileName; }).out;
+        quick_xml = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".quick-xml."0.38.4" { inherit profileName; }).out;
         serde = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".serde."1.0.228" { inherit profileName; }).out;
         time = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".time."0.3.44" { inherit profileName; }).out;
       };
@@ -3648,11 +3648,11 @@ else
       };
     });
 
-    "registry+https://github.com/rust-lang/crates.io-index".quick-xml."0.38.3" = overridableMkRustCrate (profileName: rec {
+    "registry+https://github.com/rust-lang/crates.io-index".quick-xml."0.38.4" = overridableMkRustCrate (profileName: rec {
       name = "quick-xml";
-      version = "0.38.3";
+      version = "0.38.4";
       registry = "registry+https://github.com/rust-lang/crates.io-index";
-      src = fetchCratesIo { inherit name version; sha256 = "42a232e7487fc2ef313d96dde7948e7a3c05101870d8985e4fd8d26aedd27b89"; };
+      src = fetchCratesIo { inherit name version; sha256 = "b66c2058c55a409d601666cffe35f04333cf1013010882cec174a7467cd4e21c"; };
       features = builtins.concatLists [
         [ "default" ]
       ];
