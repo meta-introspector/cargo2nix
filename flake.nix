@@ -15,6 +15,7 @@
       flake = false;
     };
     allocator-api2.url = "github:meta-introspector/allocator-api2?ref=feature/CRQ-016-nixify";
+    time-rs.url = "github:meta-introspector/time-rs?ref=feature/CRQ-016-nixify";
   };
 
   outputs = inputs: with inputs;
