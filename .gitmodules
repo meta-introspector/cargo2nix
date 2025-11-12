@@ -4,3 +4,12 @@
 [submodule "vendor/allocator-api2"]
 	path = vendor/allocator-api2
 	url = https://github.com/meta-introspector/allocator-api2
+[submodule "vendor/rust-base64"]
+	path = vendor/rust-base64
+	url = https://github.com/meta-introspector/rust-base64
+[submodule "vendor/ron-rs"]
+	path = vendor/ron-rs
+	url = https://github.com/meta-introspector/ron-rs
+[submodule "vendor/config-rs"]
+	path = vendor/config-rs
+	url = https://github.com/meta-introspector/config-rs

@@ -9,7 +9,7 @@ cargo2nix: build
 	target/debug/cargo2nix --overwrite
 
 nix-build: cargo2nix
-	nix build
+	nix build -vvv
 
 clean:
 	rm -f Cargo.nix
