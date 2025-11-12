@@ -133,7 +133,7 @@
                           "CXX_aarch64-unknown-linux-gnu"="/nix/store/hf8w753nxqwkc5y5kjx33fx8fxw2dczp-gcc-wrapper-14.3.0/bin/c++" \
                           "CC_aarch64-unknown-linux-gnu"="/nix/store/hf8w753nxqwkc5y5kjx33fx8fxw2dczp-gcc-wrapper-14.3.0/bin/cc" \
                           "CXX_aarch64-unknown-linux-gnu"="/nix/store/hf8w753nxqwkc5y5kjx33fx8fxw2dczp-gcc-wrapper-14.3.0/bin/c++" \
-                          /nix/store/z1kz8iqh3qds9gjp28kscihjif18f4x-rust-default-1.92.0-nightly-2025-10-06/bin/cargo build $CARGO_VERBOSE --release --target aarch64-unknown-linux-gnu \
+                          ${rustToolchain}/bin/cargo build $CARGO_VERBOSE --release --target aarch64-unknown-linux-gnu \
                           ${pkgs.lib.strings.concatStringsSep " " extraCargoBuildFlags} \
                         --message-format json-diagnostic-rendered-ansi | tee .cargo-build-output \
                         1> >(jq 'select(.message != null) .message.rendered' -r)\

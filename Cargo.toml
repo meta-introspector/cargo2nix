@@ -6,7 +6,7 @@ version = "0.12.0"
 
 [dependencies]
 anyhow = {version = "1.0.75", features = ["backtrace"]}
-cargo = "0.86.0"
+cargo = "0.92.0"
 cargo-platform = "0.2.0"
 clap = {version = "4.4.6", features = ["derive"]}
 clap_complete = {version = "4.4.3"}
