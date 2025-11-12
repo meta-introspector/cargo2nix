@@ -14,6 +14,9 @@ cargo2nix: build
 nix-build:
 	nix develop --command cargo build 
 
+run-nix-build: #cargo2nix
+	nix build -f full-flake.nix -vvv --trace-verbose  --show-trace --keep-build-log --keep-derivations  --keep-env-derivations --keep-failed --keep-going --keep-outputs 2>&1 | tee nixbuild.log
+
 nix-eval-cargo2nix-attrs:
 	nix eval --raw --impure --expr 'builtins.attrNames (import ./flake.nix { }).packages.aarch64-linux.cargo2nix'
 
