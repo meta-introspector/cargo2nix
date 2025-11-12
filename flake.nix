@@ -104,6 +104,18 @@
                 };
               })
               (pkgs.rustBuilder.rustLib.makeOverride {
+                name = "time";
+                overrideAttrs = old: {
+                  features = [ "std" "alloc" "formatting" "parsing" "serde" "local-offset" "wasm-bindgen" ];
+                };
+              })
+              (pkgs.rustBuilder.rustLib.makeOverride {
+                name = "time";
+                overrideAttrs = old: {
+                  features = [ "std" "alloc" "formatting" "parsing" "serde" "local-offset" "wasm-bindgen" ];
+                };
+              })
+              (pkgs.rustBuilder.rustLib.makeOverride {
                 name = "cargo";
                 overrideAttrs = old:
                   let
