@@ -49,7 +49,7 @@
           # - `packageFun` (required): The generated `Cargo.nix` file, which returns the whole dependency graph.
           # - `ignoreLockHash` (optional): Set to `true` to turn off the hash check between Cargo.lock and Cargo.nix.
           # - `workspaceSrc` (optional): Sources for the workspace can be provided or default to the current directory.
-          # You must set some combination of `rustChannel` + `rustVersion` or `rustToolchain`.
+          # You must set xsome combination of `rustChannel` + `rustVersion` or `rustToolchain`.
           # - `rustToolchain` (optional): Completely override the toolchain.  Must provide rustc, cargo, rust-std, and rust-src components
           # - `rustChannel` (optional): "nightly" "stable" "beta".  To support legacy use, this can be a version when supplied alone.  If unspecified, defaults to "stable".
           # - `rustVersion` (optional): "1.75.0" "2023-12-30".  If not supplied, "latest" will be assumed.
@@ -91,10 +91,19 @@
           #     If you are already passing a target spec file to `target`, this will be filled in for you automatically.
           rustPkgs = pkgs.rustBuilder.makePackageSet {
             packageFun = import ./Cargo.nix;
-            inherit rustToolchain;
-            workspaceSrc = self;
-            rootFeatures = [ "time-macros/large-dates" ];
+            rustChannel = "nightly";
+            rustVersion = "latest";
+
+            #inherit rustToolchain;
+            #workspaceSrc = self;
+            #rootFeatures = [ "time-macros/large-dates" ];
             packageOverrides = pkgs: [
+              (pkgs.rustBuilder.rustLib.makeOverride {
+                name = "heapless";
+                overrideAttrs = old: {
+                  rustcBuildFlags = (old.rustcBuildFlags or [ ]) ++ [ "--allow=warnings" "--allow=dead_code" ];
+                };
+              })
               (pkgs.rustBuilder.rustLib.makeOverride {
                 name = "allocator-api2";
                 overrideAttrs = old: {
@@ -133,14 +142,12 @@
                           set -x
                         fi
                         env \
-                          "CC_aarch64-unknown-linux-gnu"="/nix/store/hf8w753nxqwkc5y5kjx33fx8fxw2dczp-gcc-wrapper-14.3.0/bin/cc" \
-                          "CXX_aarch64-unknown-linux-gnu"="/nix/store/hf8w753nxqwkc5y5kjx33fx8fxw2dczp-gcc-wrapper-14.3.0/bin/c++" \
-                          "CC_aarch64-unknown-linux-gnu"="/nix/store/hf8w753nxqwkc5y5kjx33fx8fxw2dczp-gcc-wrapper-14.3.0/bin/cc" \
-                          "CXX_aarch64-unknown-linux-gnu"="/nix/store/hf8w753nxqwkc5y5kjx33fx8fxw2dczp-gcc-wrapper-14.3.0/bin/c++" \
+                          "CC_aarch64-unknown-linux-gnu"="${pkgs.gcc}/bin/cc" \
+                          "CXX_aarch64-unknown-linux-gnu"="${pkgs.gcc}/bin/c++" \
                           ${rustToolchain}/bin/cargo build $CARGO_VERBOSE --release --target aarch64-unknown-linux-gnu \
                           ${pkgs.lib.strings.concatStringsSep " " extraCargoBuildFlags} \
                         --message-format json-diagnostic-rendered-ansi | tee .cargo-build-output \
-                        1> >(jq 'select(.message != null) .message.rendered' -r)\
+                        1> >(jq 'select(.message != null) .message.rendered' -r)
                       )
                     '';
                   };
@@ -168,7 +175,7 @@
           # An example of a crates.io path:
           # rustPkgs."registry+https://github.com/rust-lang/crates.io-index".openssl."0.10.30"
 
-          cargo2nix = rustPkgs.workspace.cargo2nix; # supports override & overrideAttrs
+          cargo2nix = rustPkgs.workspace.cargo2nix { }; # supports override & overrideAttrs
 
           # The workspace defines a development shell with all of the dependencies
           # and environment settings necessary for a regular `cargo build`.

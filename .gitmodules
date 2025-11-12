@@ -1,15 +1,37 @@
-[submodule "vendor/time-rs"]
-	path = vendor/time-rs
-	url = https://github.com/meta-introspector/time-rs
-[submodule "vendor/allocator-api2"]
-	path = vendor/allocator-api2
-	url = https://github.com/meta-introspector/allocator-api2
-[submodule "vendor/rust-base64"]
-	path = vendor/rust-base64
+[submodule "submodules/rust-base64"]
+	path = submodules/rust-base64
 	url = https://github.com/meta-introspector/rust-base64
-[submodule "vendor/ron-rs"]
-	path = vendor/ron-rs
-	url = https://github.com/meta-introspector/ron-rs
-[submodule "vendor/config-rs"]
-	path = vendor/config-rs
+	branch = feature/CRQ-016-nixify
+[submodule "submodules/config-rs"]
+	path = submodules/config-rs
 	url = https://github.com/meta-introspector/config-rs
+	branch = feature/CRQ-016-nixify
+[submodule "submodules/ron-rs"]
+	path = submodules/ron-rs
+	url = https://github.com/meta-introspector/ron-rs
+	branch = feature/CRQ-016-nixify
+[submodule "submodules/time-rs"]
+	path = submodules/time-rs
+	url = https://github.com/meta-introspector/time-rs
+	branch = feature/CRQ-016-nixify
+[submodule "submodules/cargo"]
+	path = submodules/cargo
+	url = https://github.com/rust-lang/cargo
+[submodule "submodules/rust-ini"]
+	path = submodules/rust-ini
+	url = https://github.com/zonyitoo/rust-ini
+[submodule "submodules/ordered-multimap-rs"]
+	path = submodules/ordered-multimap-rs
+	url = https://github.com/sgodwincs/ordered-multimap-rs
+[submodule "submodules/heapless"]
+	path = submodules/heapless
+	url = https://github.com/rust-embedded/heapless
+[submodule "submodules/gitoxide"]
+	path = submodules/gitoxide
+	url = https://github.com/GitoxideLabs/gitoxide
+[submodule "submodules/faster-hex"]
+	path = submodules/faster-hex
+	url = https://github.com/NervosFoundation/faster-hex
+[submodule "submodules/dlv-list-rs"]
+	path = submodules/dlv-list-rs
+	url = https://github.com/sgodwincs/dlv-list-rs

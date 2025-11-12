@@ -8,8 +8,9 @@ build:
 cargo2nix: build
 	target/debug/cargo2nix --overwrite
 
-nix-build: cargo2nix
-	nix build -vvv
+nix-build: #cargo2nix
+	#nix build -vvv
+	nix build -vvv --trace-verbose  --show-trace --keep-build-log --keep-derivations  --keep-env-derivations --keep-failed --keep-going --keep-outputs 2>&1 | tee nixbuild.log 
 
 nix-eval-cargo2nix-attrs:
 	nix eval --raw --impure --expr 'builtins.attrNames (import ./flake.nix { }).packages.aarch64-linux.cargo2nix'

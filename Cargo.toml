@@ -20,9 +20,8 @@ tempfile = "3.8.0"
 tera = {version = "1.19.1", default-features = false}
 toml = "0.9.8"
 
-time-macros = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify", features = ["default",  "formatting", "large-dates",   "parsing",   "serde" ] }
-time = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify", features = [
-"default", "alloc", "formatting", "large-dates", "local-offset", "macros", "parsing", "quickcheck", "serde-human-readable", "serde-well-known", "std", "rand", "serde" , "wasm-bindgen"] }
+time-macros = { path = "submodules/time-rs/time-macros", features = ["default", "formatting", "large-dates", "parsing", "serde"] }
+time = { path = "submodules/time-rs/time", features = ["default", "alloc", "formatting", "large-dates", "local-offset", "macros", "parsing", "quickcheck", "serde-human-readable", "serde-well-known", "std", "rand", "serde", "wasm-bindgen"] }
 
 base64 = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/meta-introspector/rust-base64" }
 ron = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/meta-introspector/ron-rs" }
