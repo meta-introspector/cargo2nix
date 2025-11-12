@@ -6,7 +6,8 @@ version = "0.12.0"
 
 [dependencies]
 anyhow = {version = "1.0.75", features = ["backtrace"]}
-cargo = "0.92.0"
+#cargo = { git = "https://github.com/meta-introspector/cargo", branch = "feature/CRQ-016-nixify" }
+cargo = "*"
 cargo-platform = "0.3.1"
 clap = {version = "4.4.6", features = ["derive"]}
 clap_complete = {version = "4.4.3"}
@@ -19,9 +20,14 @@ sha2 = "0.10.8"
 tempfile = "3.8.0"
 tera = {version = "1.19.1", default-features = false}
 toml = "0.9.8"
+rust-ini = { git = "https://github.com/meta-introspector/rust-ini", branch = "feature/CRQ-016-nixify" }
+ordered-multimap = { git = "https://github.com/meta-introspector/ordered-multimap-rs", branch = "feature/CRQ-016-nixify" }
+heapless = { git = "https://github.com/meta-introspector/heapless", branch = "feature/CRQ-016-nixify" }
+faster-hex = { git = "https://github.com/meta-introspector/faster-hex", branch = "feature/CRQ-016-nixify" }
+dlv-list = { git = "https://github.com/meta-introspector/dlv-list-rs", branch = "feature/CRQ-016-nixify" }
 
-time-macros = { path = "submodules/time-rs/time-macros", features = ["default", "formatting", "large-dates", "parsing", "serde"] }
-time = { path = "submodules/time-rs/time", features = ["default", "alloc", "formatting", "large-dates", "local-offset", "macros", "parsing", "quickcheck", "serde-human-readable", "serde-well-known", "std", "rand", "serde", "wasm-bindgen"] }
+time-macros = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify", features = ["default", "formatting", "large-dates", "parsing", "serde"] }
+time = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify", features = ["default", "alloc", "formatting", "large-dates", "local-offset", "macros", "parsing", "quickcheck", "serde-human-readable", "serde-well-known", "std", "rand", "serde", "wasm-bindgen"] }
 
 base64 = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/meta-introspector/rust-base64" }
 ron = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/meta-introspector/ron-rs" }
@@ -34,10 +40,16 @@ base64 = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/met
 ron = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/meta-introspector/ron-rs" }
 config = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/meta-introspector/config-rs" }
 
-#ron = "0.11.0"
+#cargo = { git = "https://github.com/meta-introspector/cargo", branch = "feature/CRQ-016-nixify" }
+rust-ini = { git = "https://github.com/meta-introspector/rust-ini", branch = "feature/CRQ-016-nixify" }
+ordered-multimap = { git = "https://github.com/meta-introspector/ordered-multimap-rs", branch = "feature/CRQ-016-nixify" }
+heapless = { git = "https://github.com/meta-introspector/heapless", branch = "feature/CRQ-016-nixify" }
+faster-hex = { git = "https://github.com/meta-introspector/faster-hex", branch = "feature/CRQ-016-nixify" }
+dlv-list = { git = "https://github.com/meta-introspector/dlv-list-rs", branch = "feature/CRQ-016-nixify" }
 #base64 = "0.22.1"
 #time-macros = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify" }
 #time = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify" }
 #    23 - time-macros = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify" }
 [workspace]
 
+#members = ["vendor/cargo"]

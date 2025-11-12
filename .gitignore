@@ -8,3 +8,14 @@ logs
 /build_output.log
 /cargo_build_log.log
 /full_build_log.log
+
+vendor/
+# Temporary files
+#*#
+.#*
+diff.txt
+nixbuild.log
+submodules/#*#
+submodules/.#*
+submodules/*.sh~
+submodules/todo.txt
