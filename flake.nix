@@ -38,7 +38,11 @@
             };
           };
 
-          rustToolchain = pkgs.rust-bin.nightly."2025-10-06".default;
+          #rustToolchain = pkgs.rust-bin.stable."1.81.0".default;
+          #rustToolchain = pkgs.rust-bin.nightly."2025-10-06".default;
+          #rustToolchain = pkgs.rust-bin.nightly."2025-10-08".default;
+          #rustToolchain = pkgs.rust-bin.nightly."2025-10-16".default;          
+          rustToolchain = pkgs.rust-bin.nightly."2025-09-16".default;
 
           # 2. Builds the rust package set, which contains all crates in your cargo workspace's dependency graph.
           # `makePackageSet` accepts the following arguments:
@@ -164,7 +168,7 @@
           # An example of a crates.io path:
           # rustPkgs."registry+https://github.com/rust-lang/crates.io-index".openssl."0.10.30"
 
-          cargo2nix = rustPkgs.workspace.cargo2nix { }; # supports override & overrideAttrs
+          cargo2nix = rustPkgs.workspace.cargo2nix; # supports override & overrideAttrs
 
           # The workspace defines a development shell with all of the dependencies
           # and environment settings necessary for a regular `cargo build`.
@@ -198,9 +202,8 @@
 
           packages = rec {
             # nix build .#packages.x86_64-linux.cargo2nix
-            # nix build .#cargo2nix
             inherit cargo2nix;
-            # nix build
+            # nix build .#cargo2nix
             default = cargo2nix;
 
             timeMacros = rustPkgs.workspace.time-macros { };

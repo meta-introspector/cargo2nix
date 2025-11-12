@@ -81,5 +81,7 @@ fn cfg_to_expr(cfg: &CfgExpr, platform_var: &str) -> BoolExpr {
             }
             _ => False,
         },
+        CfgExpr::True => BoolExpr::True,
+        CfgExpr::False => BoolExpr::False,
     }
 }

@@ -228,7 +228,7 @@ fn generate_cargo_nix(workspace_directory: &PathBuf, locked: bool) -> Result<Str
     let mut target_data = RustcTargetData::new(&ws, &requested_kinds)?;
 
     // Resolve entire workspace.
-    let specs = Packages::All.to_package_id_specs(&ws)?;
+    let specs = Packages::All(vec![]).to_package_id_specs(&ws)?;
     let force_all = cargo::core::resolver::features::ForceAllTargets::Yes;
 
     // Note that even with --filter-platform we end up downloading host dependencies as well,
