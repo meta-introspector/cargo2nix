@@ -38,3 +38,9 @@
 [submodule "submodules/allocator-api2"]
 	path = submodules/allocator-api2
 	url = https://github.com/meta-introspector/allocator-api2.git
+[submodule "submodules/dashmap"]
+	path = submodules/dashmap
+	url = https://github.com/meta-introspector/dashmap.git
+[submodule "submodules/hashbrown"]
+	path = submodules/hashbrown
+	url = https://github.com/meta-introspector/hashbrown.git
