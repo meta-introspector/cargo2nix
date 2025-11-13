@@ -12,7 +12,7 @@ cargo2nix: nix-cargo-build
 	target/debug/cargo2nix --overwrite
 
 nix-build:
-	nix develop --command cargo build 
+	nix develop ./flake-phase1.nix#default --command cargo build 
 
 run-nix-build: #cargo2nix
 	nix build -f full-flake.nix -vvv --trace-verbose  --show-trace --keep-build-log --keep-derivations  --keep-env-derivations --keep-failed --keep-going --keep-outputs 2>&1 | tee nixbuild.log
