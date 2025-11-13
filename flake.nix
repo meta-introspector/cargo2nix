@@ -27,6 +27,17 @@
         rustPkgs = pkgs.rustBuilder.makePackageSet {
           packageFun = import ./Cargo.nix;
           rustToolchain = myRustc;
+          packageOverrides = pkgs: [
+            (pkgs.rustBuilder.rustLib.makeOverride {
+              name = "config";
+              version = "0.15.18"; # Specify the version of the config crate
+              overrideAttrs = old: {
+                # Explicitly set the edition, as it's failing to inherit from workspace
+                CARGO_PROFILE_RELEASE_BUILD_OVERRIDE_EDITION = "2024";
+                CARGO_PROFILE_DEV_BUILD_OVERRIDE_EDITION = "2024";
+              };
+            })
+          ];
         };
 
         #       cargo = rustPkgs.workspace.cargo2nix { };
