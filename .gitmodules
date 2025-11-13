@@ -35,3 +35,6 @@
 [submodule "submodules/dlv-list-rs"]
 	path = submodules/dlv-list-rs
 	url = https://github.com/sgodwincs/dlv-list-rs
+[submodule "submodules/allocator-api2"]
+	path = submodules/allocator-api2
+	url = https://github.com/meta-introspector/allocator-api2.git

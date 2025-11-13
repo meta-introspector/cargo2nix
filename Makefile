@@ -2,6 +2,9 @@
 
 all: nix-build
 
+mCargo.nix:
+	~/nix/vendor/rust/cargo2nix/target/cargo2nix --overwrite # Corrected path for cargo2nix
+
 build:
 	nix develop ./flake-phase1.nix#default --command cargo build
 
