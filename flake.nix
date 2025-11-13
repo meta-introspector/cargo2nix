@@ -47,7 +47,7 @@
             (pkgs.rustBuilder.rustLib.makeOverride {
               name = "allocator-api2";
               version = "0.3.1"; # Specify the version of the allocator-api2 crate
-              src = inputs.allocator-api2; # Use the local submodule as source
+              src = self.inputs.allocator-api2; # Correctly reference the input
             })
           ];
         };
