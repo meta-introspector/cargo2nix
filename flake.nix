@@ -9,6 +9,13 @@
     };
     flake-utils.url = "github:meta-introspector/flake-utils?ref=feature/CRQ-016-nixify";
     cargo2nix.url = "github:cargo2nix/cargo2nix/release-0.12";
+    allocator-api2 = {
+      url = "file:./submodules/allocator-api2";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.cargo2nix.follows = "cargo2nix";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
   };
 
   outputs = { self, nixpkgs, rust-overlay, flake-utils, cargo2nix }:
@@ -36,6 +43,11 @@
                 CARGO_PROFILE_RELEASE_BUILD_OVERRIDE_EDITION = "2024";
                 CARGO_PROFILE_DEV_BUILD_OVERRIDE_EDITION = "2024";
               };
+            })
+            (pkgs.rustBuilder.rustLib.makeOverride {
+              name = "allocator-api2";
+              version = "0.3.1"; # Specify the version of the allocator-api2 crate
+              src = inputs.allocator-api2; # Use the local submodule as source
             })
           ];
         };
