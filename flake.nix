@@ -45,14 +45,13 @@
         };
 
         packages = rec {
-          #          inherit cargo;
-          #          workspaceCrates = rustPkgs.workspace;
-          #          default = cargo;
+          cargo2nixDrv = rustPkgs.workspace.cargo2nix {}; # Get the derivation
+          default = cargo2nixDrv;
         };
 
         apps = rec {
-          #          cargo = { type = "app"; program = "${packages.cargo}/bin/cargo"; };
-          #          default = cargo;
+          cargo2nixApp = { type = "app"; program = "${packages.default}/bin/cargo2nix"; };
+          default = cargo2nixApp;
         };
       }
     );
