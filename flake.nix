@@ -29,7 +29,7 @@
           rustToolchain = myRustc;
         };
 
-        cargo = rustPkgs.workspace.cargo { };
+        cargo = rustPkgs.workspace.cargo2nix { };
 
         workspaceShell = pkgs.mkShell {
           packages = [ pkgs.statix pkgs.openssl_1_1.dev ];

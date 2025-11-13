@@ -25,7 +25,7 @@ args@{ release ? true
 ,
 }:
 let
-  nixifiedLockHash = "1d0019a2b02b3cc44e63f10f31a702789c7f34a4a21c139672c72a8d15121fbd";
+  nixifiedLockHash = "ed11dc1328e23efe75566b897740e55007ded805c5a9f2018edc3d9da0185397";
   workspaceSrc = if args.workspaceSrc == null then ./. else args.workspaceSrc;
   currentLockHash = builtins.hashFile "sha256" (workspaceSrc + /Cargo.lock);
   lockHashIgnored =
@@ -288,7 +288,7 @@ else
         url = "https://github.com/meta-introspector/rust-base64";
         name = "base64";
         version = "0.22.1";
-        rev = "bf44ac0b08e62bc1f2de5bbd81ea13db1e771854";
+        rev = "bfaf1a4455cbb6612f9ca7137333562cc7987d74";
         ref = "feature/CRQ-016-nixify";
       };
       features = builtins.concatLists [
@@ -453,7 +453,7 @@ else
         curl = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".curl."0.4.49" { inherit profileName; }).out;
         curl_sys = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".curl-sys."0.4.84+curl-8.17.0" { inherit profileName; }).out;
         filetime = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".filetime."0.2.26" { inherit profileName; }).out;
-        flat2 = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".flat2."1.1.5" { inherit profileName; }).out;
+        flate2 = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".flate2."1.1.5" { inherit profileName; }).out;
         git2 = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".git2."0.20.2" { inherit profileName; }).out;
         git2_curl = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".git2-curl."0.21.0" { inherit profileName; }).out;
         gix = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".gix."0.73.0" { inherit profileName; }).out;
@@ -510,7 +510,7 @@ else
         winnow = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".winnow."0.7.13" { inherit profileName; }).out;
       };
       buildDependencies = {
-        flat2 = (buildRustPackages."registry+https://github.com/rust-lang/crates.io-index".flat2."1.1.5" { profileName = "__noProfile"; }).out;
+        flate2 = (buildRustPackages."registry+https://github.com/rust-lang/crates.io-index".flate2."1.1.5" { profileName = "__noProfile"; }).out;
         tar = (buildRustPackages."registry+https://github.com/rust-lang/crates.io-index".tar."0.4.44" { profileName = "__noProfile"; }).out;
       };
     });
@@ -810,7 +810,7 @@ else
         url = "https://github.com/meta-introspector/config-rs";
         name = "config";
         version = "0.15.18";
-        rev = "0f5716ba013a75998fc0ba6129a824075142c112";
+        rev = "c7fc283224b43b0b1f6205be5ac45c4e4e933d06";
         ref = "feature/CRQ-016-nixify";
       };
       features = builtins.concatLists [
@@ -1278,13 +1278,16 @@ else
         url = "https://github.com/meta-introspector/dlv-list-rs";
         name = "dlv-list";
         version = "0.6.0";
-        rev = "422548ddd5398399a19290cafccca23da0d6b3a7";
+        rev = "081004977c6db4fb3d0300d54fa7db37123f2f2a";
         ref = "feature/CRQ-016-nixify";
       };
       features = builtins.concatLists [
         [ "default" ]
         [ "std" ]
       ];
+      dependencies = {
+        syn = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".syn."2.0.110" { inherit profileName; }).out;
+      };
     });
 
     "registry+https://github.com/rust-lang/crates.io-index".dunce."1.0.5" = overridableMkRustCrate (profileName: rec {
@@ -1459,7 +1462,7 @@ else
         url = "https://github.com/meta-introspector/faster-hex";
         name = "faster-hex";
         version = "0.10.0";
-        rev = "970740134cc587474250391d20a6579c8855d946";
+        rev = "57fcd982a0357e2880e71bda7c1db540690ac5dc";
         ref = "feature/CRQ-016-nixify";
       };
       features = builtins.concatLists [
@@ -1528,8 +1531,8 @@ else
       src = fetchCratesIo { inherit name version; sha256 = "52051878f80a721bb68ebfbc930e07b65ba72f2da88968ea5c06fd6ca3d3a127"; };
     });
 
-    "registry+https://github.com/rust-lang/crates.io-index".flat2."1.1.5" = overridableMkRustCrate (profileName: rec {
-      name = "flat2";
+    "registry+https://github.com/rust-lang/crates.io-index".flate2."1.1.5" = overridableMkRustCrate (profileName: rec {
+      name = "flate2";
       version = "1.1.5";
       registry = "registry+https://github.com/rust-lang/crates.io-index";
       src = fetchCratesIo { inherit name version; sha256 = "bfe33edd8e85a12a67454e37f8c75e730830d83e313556ab9ebf9ee7fbeb3bfb"; };
@@ -1628,7 +1631,7 @@ else
       dependencies = {
         cfg_if = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".cfg-if."1.0.4" { inherit profileName; }).out;
         ${ if hostPlatform.parsed.cpu.name == "wasm32" && (hostPlatform.parsed.kernel.name == "unknown" || hostPlatform.parsed.kernel.name == "none") && builtins.elem "atomics" hostPlatformFeatures then "js_sys" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".js-sys."0.3.82" { inherit profileName; }).out;
-        ${ if (hostPlatform.parsed.kernel.name == "linux" || hostPlatform.parsed.kernel.name == "android") && !(hostPlatform.parsed.kernel.name == "linux" && hostPlatform.parsed.abi.name == "") || hostPlatform.parsed.kernel.name == "dragonfly" || hostPlatform.parsed.kernel.name == "freebsd" || hostPlatform.parsed.kernel.name == "hurd" || hostPlatform.parsed.kernel.name == "illumos" || hostPlatform.parsed.kernel.name == "cygwin" || hostPlatform.parsed.kernel.name == "horizon" && (hostPlatform.parsed.cpu.name == "armv6l" || hostPlatform.parsed.cpu.name == "armv7l") || hostPlatform.parsed.kernel.name == "haiku" || hostPlatform.parsed.kernel.name == "redox" || hostPlatform.parsed.kernel.name == "not" || hostPlatform.parsed.kernel.name == "aix" || hostPlatform.parsed.kernel.name == "ios" || hostPlatform.parsed.kernel.name == "visionos" || hostPlatform.parsed.kernel.name == "watchos" || hostPlatform.parsed.kernel.name == "tvos" || hostPlatform.parsed.kernel.name == "darwin" || hostPlatform.parsed.kernel.name == "openbsd" || hostPlatform.parsed.kernel.name == "vita" || hostPlatform.parsed.kernel.name == "emscripten" || hostPlatform.parsed.kernel.name == "netbsd" || hostPlatform.parsed.kernel.name == "solaris" || hostPlatform.parsed.kernel.name == "vxworks" then "libc" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".libc."0.2.177" { inherit profileName; }).out;
+        ${ if (hostPlatform.parsed.kernel.name == "linux" || hostPlatform.parsed.kernel.name == "android") && !(hostPlatform.parsed.kernel.name == "linux" && hostPlatform.parsed.abi.name == "") || hostPlatform.parsed.kernel.name == "dragonfly" || hostPlatform.parsed.kernel.name == "freebsd" || hostPlatform.parsed.kernel.name == "hurd" || hostPlatform.parsed.kernel.name == "illumos" || hostPlatform.parsed.kernel.name == "cygwin" || hostPlatform.parsed.kernel.name == "horizon" && (hostPlatform.parsed.cpu.name == "armv6l" || hostPlatform.parsed.cpu.name == "armv7l") || hostPlatform.parsed.kernel.name == "haiku" || hostPlatform.parsed.kernel.name == "redox" || hostPlatform.parsed.kernel.name == "nto" || hostPlatform.parsed.kernel.name == "aix" || hostPlatform.parsed.kernel.name == "ios" || hostPlatform.parsed.kernel.name == "visionos" || hostPlatform.parsed.kernel.name == "watchos" || hostPlatform.parsed.kernel.name == "tvos" || hostPlatform.parsed.kernel.name == "darwin" || hostPlatform.parsed.kernel.name == "openbsd" || hostPlatform.parsed.kernel.name == "vita" || hostPlatform.parsed.kernel.name == "emscripten" || hostPlatform.parsed.kernel.name == "netbsd" || hostPlatform.parsed.kernel.name == "solaris" || hostPlatform.parsed.kernel.name == "vxworks" then "libc" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".libc."0.2.177" { inherit profileName; }).out;
         ${ if false then "r_efi" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".r-efi."5.3.0" { inherit profileName; }).out;
         ${ if hostPlatform.parsed.cpu.name == "wasm32" && hostPlatform.parsed.kernel.name == "wasi" && hostPlatform.parsed.abi.name == "p2" then "wasip2" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".wasip2."1.0.1+wasi-0.2.4" { inherit profileName; }).out;
         ${ if hostPlatform.parsed.cpu.name == "wasm32" && (hostPlatform.parsed.kernel.name == "unknown" || hostPlatform.parsed.kernel.name == "none") then "wasm_bindgen" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".wasm-bindgen."0.2.105" { inherit profileName; }).out;
@@ -1992,7 +1995,7 @@ else
         bytes = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".bytes."1.10.1" { inherit profileName; }).out;
         crc32fast = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".crc32fast."1.5.0" { inherit profileName; }).out;
         crossbeam_channel = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".crossbeam-channel."0.5.15" { inherit profileName; }).out;
-        flat2 = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".flat2."1.1.5" { inherit profileName; }).out;
+        flate2 = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".flate2."1.1.5" { inherit profileName; }).out;
         gix_path = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".gix-path."0.10.21" { inherit profileName; }).out;
         gix_trace = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".gix-trace."0.1.15" { inherit profileName; }).out;
         gix_utils = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".gix-utils."0.3.1" { inherit profileName; }).out;
@@ -2749,7 +2752,7 @@ else
         url = "https://github.com/meta-introspector/heapless";
         name = "heapless";
         version = "0.9.2";
-        rev = "75192be01a2487bdd0c8ab7adcd4031a44c700bc";
+        rev = "33b4339e35cccb479b615da5cb8ae76792bd8e31";
         ref = "feature/CRQ-016-nixify";
       };
       dependencies = {
@@ -3628,7 +3631,7 @@ else
         url = "https://github.com/meta-introspector/ordered-multimap-rs";
         name = "ordered-multimap";
         version = "0.7.4";
-        rev = "4c939e479c01da195f4a4ca7d8a59c4da0f325b0";
+        rev = "46ff4e77bd29b7e3573ca5b97fc1d8c6b51bedd1";
         ref = "feature/CRQ-016-nixify";
       };
       features = builtins.concatLists [
@@ -4284,7 +4287,7 @@ else
         url = "https://github.com/meta-introspector/ron-rs";
         name = "ron";
         version = "0.11.0";
-        rev = "69e3e50fe62bfcf3f3eb565fa1f51628fb4dc88a";
+        rev = "6f53365caae5b015285c8058aa451c61e004f210";
         ref = "feature/CRQ-016-nixify";
       };
       features = builtins.concatLists [
@@ -4327,7 +4330,7 @@ else
         url = "https://github.com/meta-introspector/rust-ini";
         name = "rust-ini";
         version = "0.21.3";
-        rev = "af83e00ed0aa2a62262b85ccffcb317787cbc2aa";
+        rev = "953503eb326e5290f7e4caafb00c0d33d234b9f6";
         ref = "feature/CRQ-016-nixify";
       };
       features = builtins.concatLists [
@@ -4982,7 +4985,7 @@ else
         url = "https://github.com/meta-introspector/time-rs";
         name = "time";
         version = "0.3.44";
-        rev = "fc540559c2a091744eb58947faa0b87493ca624b";
+        rev = "233fc84e73b01a354a1df4b050cb5ea1fb4cccbf";
         ref = "feature/CRQ-016-nixify";
       };
       features = builtins.concatLists [
@@ -5028,7 +5031,7 @@ else
         url = "https://github.com/meta-introspector/time-rs";
         name = "time-core";
         version = "0.1.6";
-        rev = "fc540559c2a091744eb58947faa0b87493ca624b";
+        rev = "233fc84e73b01a354a1df4b050cb5ea1fb4cccbf";
         ref = "feature/CRQ-016-nixify";
       };
     });
@@ -5041,7 +5044,7 @@ else
         url = "https://github.com/meta-introspector/time-rs";
         name = "time-macros";
         version = "0.2.24";
-        rev = "fc540559c2a091744eb58947faa0b87493ca624b";
+        rev = "233fc84e73b01a354a1df4b050cb5ea1fb4cccbf";
         ref = "feature/CRQ-016-nixify";
       };
       features = builtins.concatLists [
