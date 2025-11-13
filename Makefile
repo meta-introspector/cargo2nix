@@ -3,7 +3,7 @@
 all: nix-build
 
 build:
-	cargo build
+	nix develop ./flake-phase1.nix#default --command cargo build
 
 nix-cargo-build:
 	nix develop ./flake-phase1.nix#default --command cargo build
