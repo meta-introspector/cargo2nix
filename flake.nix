@@ -10,7 +10,7 @@
     flake-utils.url = "github:meta-introspector/flake-utils?ref=feature/CRQ-016-nixify";
     cargo2nix.url = "github:cargo2nix/cargo2nix/release-0.12";
     allocator-api2 = {
-      url = "file:./submodules/allocator-api2";
+      url = "github:meta-introspector/allocator-api2/feature/CRQ-016-nixify";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
       inputs.cargo2nix.follows = "cargo2nix";
