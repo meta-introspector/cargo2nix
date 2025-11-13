@@ -8,28 +8,51 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:meta-introspector/flake-utils?ref=feature/CRQ-016-nixify";
+    cargo2nix.url = "github:cargo2nix/cargo2nix/release-0.12";
   };
 
-  outputs = { self, nixpkgs, rust-overlay, flake-utils }:
+  outputs = { self, nixpkgs, rust-overlay, flake-utils, cargo2nix }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        overlays = [ (import rust-overlay) ];
+        overlays = [ cargo2nix.overlays.default rust-overlay.overlays.default ];
         pkgs = import nixpkgs {
           inherit system overlays;
-          config.allowUnfree = true; # Allow unfree packages if needed
+          config = {
+            permittedInsecurePackages = [ "openssl-1.1.1w" ];
+          };
+        };
+
+        myRustc = pkgs.rust-bin.nightly."2025-09-16".default;
+
+        rustPkgs = pkgs.rustBuilder.makePackageSet {
+          packageFun = import ./Cargo.nix;
+          rustToolchain = myRustc;
+        };
+
+        cargo = rustPkgs.workspace.cargo { };
+
+        workspaceShell = pkgs.mkShell {
+          packages = [ pkgs.statix pkgs.openssl_1_1.dev ];
+          shellHook = ''
+            export PKG_CONFIG_PATH=${pkgs.openssl_1_1.dev}/lib/pkgconfig:$PKG_CONFIG_PATH
+            export PATH=${myRustc}/bin:${cargo}/bin:$PATH
+          '';
         };
       in
-      {
-        devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            rustc
-            cargo
-            openssl.dev # Include OpenSSL development libraries
-            pkg-config # Often needed for C dependencies
-          ];
-          # Set environment variables if necessary, e.g., for OpenSSL
-          # OPENSSL_DIR = "${pkgs.openssl}";
-          # OPENSSL_STATIC = "1"; # If static linking is desired
+      rec {
+        devShells = {
+          default = workspaceShell;
+        };
+
+        packages = rec {
+          inherit cargo;
+          workspaceCrates = rustPkgs.workspace;
+          default = cargo;
+        };
+
+        apps = rec {
+          cargo = { type = "app"; program = "${packages.cargo}/bin/cargo"; };
+          default = cargo;
         };
       }
     );
