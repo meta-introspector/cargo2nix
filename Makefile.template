@@ -6,10 +6,10 @@ build:
 	cargo build
 
 nix-build:
-	nix develop --command cargo build
+	nix develop --command cargo build --override-input cargo2nix-root $(CARGO2NIX_ROOT)
 
 nix-flake-build:
-	nix build
+	nix build --override-input cargo2nix-root $(CARGO2NIX_ROOT)
 
 clean:
 	rm -f Cargo.nix

@@ -8,11 +8,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:meta-introspector/flake-utils?ref=feature/CRQ-016-nixify";
-    # Assuming cargo2nix is available as an input, or we can reference it from the main project
-    cargo2nix-root.url = "path:../.."; # Relative path to the main cargo2nix project
   };
 
-  outputs = { self, nixpkgs, rust-overlay, flake-utils, cargo2nix-root }:
+  outputs = { self, nixpkgs, rust-overlay, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         overlays = [ (import rust-overlay) ];
@@ -21,9 +19,6 @@
           config.allowUnfree = true;
         };
 
-        # Use the cargo2nix from the root project to generate the package set
-        cargo2nixPkgs = cargo2nix-root.packages.${system}.rustPkgs;
-        
         # The name of the crate in this directory. This needs to be dynamic.
         # For now, let's assume the crate name is the directory name.
         # This might need adjustment if the Cargo.toml has a different name.

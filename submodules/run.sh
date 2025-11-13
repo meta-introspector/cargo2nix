@@ -30,6 +30,12 @@ do echo $x;
    cp ../../flake.nix.template flake.nix
    cp ../../Makefile.template Makefile
 
+   # Run cargo build within a nix develop shell using the Makefile
+   make nix-build
+
+   # Run nix build for the submodule using the Makefile
+   make nix-flake-build
+
    git add .cargo Cargo.nix flake.nix Makefile # Ensure all relevant files are staged (vendor is explicitly NOT staged)
    if ! git diff --cached --exit-code; then
        git commit -m "feat: Add/update Nix build files for $(basename $(pwd))"
