@@ -6,9 +6,9 @@ build:
 	cargo build
 
 nix-cargo-build:
-	nix develop --command cargo build
+	nix develop ./flake-phase1.nix#default --command cargo build
 
-cargo2nix: build
+cargo2nix: nix-cargo-build
 	target/debug/cargo2nix --overwrite
 
 nix-build:

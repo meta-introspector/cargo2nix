@@ -1,5 +1,5 @@
 {
-  description = "A minimal development shell for cargo2nix";
+  description = "A minimal development shell for cargo2nix (Phase 1: uses pre-built cargo)";
 
   inputs = {
     nixpkgs.url = "github:meta-introspector/nixpkgs?ref=feature/CRQ-016-nixify";
@@ -29,30 +29,31 @@
           rustToolchain = myRustc;
         };
 
-        #       cargo = rustPkgs.workspace.cargo2nix { };
+        # Use pre-built cargo from nixpkgs for Phase 1
+        cargo = pkgs.cargo;
 
         workspaceShell = pkgs.mkShell {
           packages = [ pkgs.statix pkgs.openssl_1_1.dev ];
           shellHook = ''
             export PKG_CONFIG_PATH=${pkgs.openssl_1_1.dev}/lib/pkgconfig:$PKG_CONFIG_PATH
+            export PATH=${myRustc}/bin:${cargo}/bin:$PATH
           '';
         };
       in
-      #            export PATH=${myRustc}/bin:${cargo}/bin:$PATH
       rec {
         devShells = {
           default = workspaceShell;
         };
 
         packages = rec {
-          #          inherit cargo;
-          #          workspaceCrates = rustPkgs.workspace;
-          #          default = cargo;
+          inherit cargo;
+          workspaceCrates = rustPkgs.workspace;
+          default = cargo;
         };
 
         apps = rec {
-          #          cargo = { type = "app"; program = "${packages.cargo}/bin/cargo"; };
-          #          default = cargo;
+          cargo = { type = "app"; program = "${packages.cargo}/bin/cargo"; };
+          default = cargo;
         };
       }
     );
