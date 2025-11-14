@@ -16,11 +16,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1763144477,
-        "narHash": "sha256-PGl1sg0q6blGzHnzbXpIZDz/BSynJxBKm12aEY26Mec=",
+        "lastModified": 1763146356,
+        "narHash": "sha256-fCHoLWRC7c4bOHIhb/GzifbEBAOg1xkQV0lr7cuppBM=",
         "owner": "meta-introspector",
         "repo": "allocator-api2",
-        "rev": "7c0c38a648758715c2b5af8f564ef461ff3f3669",
+        "rev": "2f6493fe6ad780dfa702c37c45664c61ab0f5a27",
         "type": "github"
       },
       "original": {
