@@ -56,6 +56,7 @@ update-submodules-and-build:
 	fi
 	@for submodule in $(SUBMODULES); do \
 		echo "--- Processing submodule: $$submodule (Depth: $(CURRENT_RECURSION_DEPTH)) ---"; \
+		cp Makefile.submodule $$submodule/Makefile; \
 		$(MAKE) -C $$submodule submodule-build-and-push \
 			CARGO2NIX_ROOT=$(CURDIR) \
 			CURRENT_RECURSION_DEPTH=$$(($(CURRENT_RECURSION_DEPTH)+1)); \
