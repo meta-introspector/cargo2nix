@@ -4,7 +4,7 @@ all: nix-build
 
 generate-cargo-nix:
 	/nix/store/1x74bj4qh82967g90knam14sc51rqhfk-cargo-1.89.0-aarch64-unknown-linux-gnu/bin/cargo update
-	target/debug/cargo2nix --overwrite -o Cargo.nix
+	target/cargo2nix -o Cargo.nix
 
 mCargo.nix:
 	~/nix/vendor/rust/cargo2nix/target/cargo2nix --overwrite # Corrected path for cargo2nix

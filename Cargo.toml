@@ -42,6 +42,7 @@ time = { git = "https://github.com/meta-introspector/time-rs", branch = "feature
 base64 = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/meta-introspector/rust-base64" }
 ron = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/meta-introspector/ron-rs" }
 config = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/meta-introspector/config-rs" }
+hashbrown = { git = "https://github.com/meta-introspector/hashbrown", branch = "feature/CRQ-016-nixify" }
 
 #cargo = { git = "https://github.com/meta-introspector/cargo", branch = "feature/CRQ-016-nixify" }
 rust-ini = { git = "https://github.com/meta-introspector/rust-ini", branch = "feature/CRQ-016-nixify" }
