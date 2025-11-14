@@ -2,6 +2,9 @@
   "nodes": {
     "allocator-api2": {
       "inputs": {
+        "cargo2nix": [
+          "cargo2nix"
+        ],
         "flake-utils": [
           "flake-utils"
         ],
@@ -13,11 +16,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1760790639,
-        "narHash": "sha256-tW7QACjn3B7HUN+Xm1jPLdZlpv2WmJgMSZCGAPuw9YM=",
+        "lastModified": 1763141412,
+        "narHash": "sha256-ZqBvAo3L26ZRXs/YxujZR1S4ZlNyxARKkOxnbzOKipY=",
         "owner": "meta-introspector",
         "repo": "allocator-api2",
-        "rev": "291a618795755527fc2c8f9d7e678cecf0e238e5",
+        "rev": "6b72b25c23711840af40c06497cfd3e55215802d",
         "type": "github"
       },
       "original": {
