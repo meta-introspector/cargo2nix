@@ -69,11 +69,29 @@ update-submodules-and-build:
 	@echo "--- Pushing main project changes ---"
 	git push origin feature/CRQ-016-nixify
 
+CARGO_GIT_MANAGE_BIN := /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cargo/target/debug/cargo-git-manage
+CARGO_GIT_MANAGE_BIN_DIR := /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cargo/target/debug
+CARGO2NIX_BIN_PATH := /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/target/debug/cargo2nix
+
 submodule-build-and-push:
 	@echo "Building and pushing submodule $(notdir $(CURDIR)) (Depth: $(CURRENT_RECURSION_DEPTH))"
-	/nix/store/1x74bj4qh82967g90knam14sc51rqhfk-cargo-1.89.0-aarch64-unknown-linux-gnu/bin/cargo update
-	/nix/store/1x74bj4qh82967g90knam14sc51rqhfk-cargo-1.89.0-aarch64-unknown-linux-gnu/bin/cargo vendor
-	$(CARGO2NIX_ROOT)/target/debug/cargo2nix -o Cargo.nix
+
+	# Inject cargo2nix_path into Cargo.toml if not present
+	@if ! grep -q "\[package\.metadata\.cargo2nix\]" Cargo.toml; then \
+		echo "Adding [package.metadata.cargo2nix] to Cargo.toml"; \
+		echo "" >> Cargo.toml; \
+		echo "[package.metadata.cargo2nix]" >> Cargo.toml; \
+		echo "cargo2nix_path = \"$(CARGO2NIX_BIN_PATH)\"" >> Cargo.toml; \
+	elif ! grep -q "cargo2nix_path" Cargo.toml; then \
+		echo "Adding cargo2nix_path to [package.metadata.cargo2nix] in Cargo.toml"; \
+		sed -i "/\[package\.metadata\.cargo2nix\]/a cargo2nix_path = \"$(CARGO2NIX_BIN_PATH)\"" Cargo.toml; \
+	else \
+		echo "Updating cargo2nix_path in Cargo.toml"; \
+		sed -i "s|cargo2nix_path = \".*\"|cargo2nix_path = \"$(CARGO2NIX_BIN_PATH)\"|" Cargo.toml; \
+	fi
+
+	PATH=$(CARGO_GIT_MANAGE_BIN_DIR):$$PATH \
+	$(CARGO_GIT_MANAGE_BIN)
 	nix build
 	git add .
 	git commit -m "feat: Update, vendor, cargo2nix, and build for $(notdir $(CURDIR))"

@@ -10,7 +10,7 @@
   outputs = { self, nixpkgs, flake-utils, rust-overlay }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        overlays = [ rust-overlay.overlays.default ]; # Only rust-overlay for now
+        overlays = [ rust-overlay.overlays.default ];
         pkgs = import nixpkgs {
           inherit system overlays;
           config = {
@@ -20,19 +20,21 @@
 
         myRustc = pkgs.rust-bin.nightly."2025-09-16".default;
 
-      in
-      {
-        packages.cargo2nix-bin = pkgs.rustPlatform.buildRustPackage {
+        cargo2nixPackage = pkgs.rustPlatform.buildRustPackage {
           pname = "cargo2nix";
-          version = "0.12.0"; # Assuming this is the version of cargo2nix
-          src = self; # Build from the current flake's source
+          version = "0.12.0";
+          src = ./.; # Explicitly point to the current directory
+          manifestDir = "."; # Explicitly set the manifest directory
 
-          cargoLock = pkgs.lib.mkForce ./Cargo.lock; # Use the project's Cargo.lock
+          cargoLock = pkgs.lib.mkForce ./Cargo.lock;
           rustToolchain = myRustc;
-
-          # Add any other build inputs or dependencies required by cargo2nix
-          # buildInputs = [ pkgs.openssl ]; # Example
+          package = "cargo2nix"; # Explicitly specify the package to build
         };
+
+      in
+      rec {
+        packages.cargo2nix-bin = cargo2nixPackage;
+        defaultPackage = self.packages.${system}.cargo2nix-bin;
       }
     );
 }

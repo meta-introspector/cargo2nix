@@ -1,0 +1,4 @@
+name = "Define cargo git-manage CLI structure"
+description = "Set up the clap arguments for the main 'git-manage' command and its subcommands ('submodule', 'branch'), including 'submodule add' and 'branch create' initial arguments."
+status = "todo"
+depends_on = []
