@@ -1,0 +1,5 @@
+description = "Update the `main` function of `cargo-git-manage` to include the new `GitPullCommand`, `NixBuildCommand`, and `GitAddCommitPushCommand` in the execution flow, respecting their `needs_execution` logic."
+steps = [
+    "Add new commands to the `commands` vector in `main`.",
+    "Ensure the order of execution is logical (e.g., `GitPull` before `CargoUpdate`, `NixBuild` before `GitAddCommitPush`)."
+]

@@ -1,0 +1,5 @@
+description = "Update `CargoUpdateCommand::needs_execution` to leverage Git state tracking. It should return `true` if `Cargo.toml` is newer than `Cargo.lock`, or if any Git dependency (as determined by Git state tracking) has been updated upstream."
+steps = [
+    "Modify `CargoUpdateCommand::needs_execution` to use the Git state tracking functions.",
+    "Consider if `cargo update` should always run if `Cargo.toml` has changed, regardless of `Cargo.lock` timestamp, to pick up new dependencies."
+]
