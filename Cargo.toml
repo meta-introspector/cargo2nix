@@ -32,6 +32,9 @@ time = { git = "https://github.com/meta-introspector/time-rs", branch = "feature
 base64 = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/meta-introspector/rust-base64" }
 ron = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/meta-introspector/ron-rs" }
 config = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/meta-introspector/config-rs" }
+dashmap = { git = "https://github.com/meta-introspector/dashmap", branch = "feature/CRQ-016-nixify" }
+hashbrown = { git = "https://github.com/meta-introspector/hashbrown", branch = "feature/CRQ-016-nixify" }
+allocator-api2 = { git = "https://github.com/meta-introspector/allocator-api2", branch = "feature/CRQ-016-nixify" }
 
 [patch.crates-io]
 time-macros = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify", features = [ "default", "formatting", "large-dates",   "parsing",   "serde" ] }

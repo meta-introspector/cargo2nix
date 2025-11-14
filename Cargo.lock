@@ -33,6 +33,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "683d7910e743518b0e34f1186f92494becacb047c7b6bf616c96772180fef923"
 
 [[package]]
+name = "allocator-api2"
+version = "0.3.1"
+source = "git+https://github.com/meta-introspector/allocator-api2?branch=feature%2FCRQ-016-nixify#291a618795755527fc2c8f9d7e678cecf0e238e5"
+
+[[package]]
 name = "annotate-snippets"
 version = "0.12.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -431,6 +436,7 @@ dependencies = [
 name = "cargo2nix"
 version = "0.12.0"
 dependencies = [
+ "allocator-api2 0.3.1",
  "anyhow",
  "base64",
  "cargo",
@@ -439,8 +445,10 @@ dependencies = [
  "clap_complete",
  "colorify",
  "config",
+ "dashmap 7.0.0-rc2",
  "dlv-list 0.6.0",
  "faster-hex",
+ "hashbrown 0.16.0 (git+https://github.com/meta-introspector/hashbrown?branch=feature%2FCRQ-016-nixify)",
  "heapless 0.9.2",
  "ordered-multimap",
  "pathdiff",
@@ -789,6 +797,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "dashmap"
+version = "7.0.0-rc2"
+source = "git+https://github.com/meta-introspector/dashmap?branch=feature%2FCRQ-016-nixify#c35d33582343d7eb87982b25c1c2005cd8a3fc9f"
+dependencies = [
+ "cfg-if",
+ "crossbeam-utils",
+ "equivalent",
+ "hashbrown 0.16.0 (git+https://github.com/meta-introspector/hashbrown?branch=feature%2FCRQ-016-nixify)",
+ "lock_api",
+ "parking_lot_core",
+]
+
+[[package]]
 name = "defmt"
 version = "0.3.100"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1069,6 +1090,12 @@ name = "foldhash"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d9c4f5dac5e15c24eb999c26181a6ca40b39fe946cbe4c263c7209467bc83af2"
+
+[[package]]
+name = "foldhash"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77ce24cb58228fbb8aa041425bb1050850ac19177686ea6e0f41a70416f56fdb"
 
 [[package]]
 name = "form_urlencoded"
@@ -1861,7 +1888,7 @@ version = "18.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "666c0041bcdedf5fa05e9bef663c897debab24b7dc1741605742412d1d47da57"
 dependencies = [
- "dashmap",
+ "dashmap 6.1.0",
  "gix-fs",
  "libc",
  "once_cell",
@@ -2027,9 +2054,9 @@ version = "0.15.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9229cfe53dfd69f0609a49f65461bd93001ea1ef889cd5529dd176593f5338a1"
 dependencies = [
- "allocator-api2",
+ "allocator-api2 0.2.21",
  "equivalent",
- "foldhash",
+ "foldhash 0.1.5",
 ]
 
 [[package]]
@@ -2037,6 +2064,17 @@ name = "hashbrown"
 version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5419bdc4f6a9207fbeba6d11b604d481addf78ecd10c11ad51e76c2f6482748d"
+
+[[package]]
+name = "hashbrown"
+version = "0.16.0"
+source = "git+https://github.com/meta-introspector/hashbrown?branch=feature%2FCRQ-016-nixify#061804bc54744c8b2acdb273f0cfab70a11829b2"
+dependencies = [
+ "allocator-api2 0.2.21",
+ "equivalent",
+ "foldhash 0.2.0",
+ "parking_lot_core",
+]
 
 [[package]]
 name = "hashlink"
@@ -2262,7 +2300,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6717a8d2a5a929a1a2eb43a12812498ed141a0bcfb7e8f7844fbdbe4303bba9f"
 dependencies = [
  "equivalent",
- "hashbrown 0.16.0",
+ "hashbrown 0.16.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]

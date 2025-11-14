@@ -18,7 +18,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, rust-overlay, flake-utils, cargo2nix }:
+  outputs = { self, nixpkgs, rust-overlay, flake-utils, cargo2nix, allocator-api2 }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         overlays = [ cargo2nix.overlays.default rust-overlay.overlays.default ];
@@ -44,18 +44,21 @@
                 CARGO_PROFILE_DEV_BUILD_OVERRIDE_EDITION = "2024";
               };
             })
-            (pkgs.rustBuilder.rustLib.makeOverride {
-              name = "allocator-api2";
-              version = "0.3.1"; # Specify the version of the allocator-api2 crate
-              src = self.inputs.allocator-api2; # Correctly reference the input
-            })
+            #(pkgs.rustBuilder.rustLib.makeOverride {
+            #  name = "allocator-api2";
+            #  version = "0.3.1"; # Specify the version of the allocator-api2 crate
+            #src = self.inputs.allocator-api2; # Correctly reference the input
+            #})
+
           ];
         };
 
         #       cargo = rustPkgs.workspace.cargo2nix { };
 
+        cargo2nixDrv = rustPkgs.workspace.cargo2nix { }; # Get the derivation
+
         workspaceShell = pkgs.mkShell {
-          packages = [ pkgs.statix pkgs.openssl_1_1.dev ];
+          packages = [ pkgs.statix pkgs.openssl_1_1.dev cargo2nixDrv ];
           shellHook = ''
             export PKG_CONFIG_PATH=${pkgs.openssl_1_1.dev}/lib/pkgconfig:$PKG_CONFIG_PATH
           '';
@@ -68,7 +71,6 @@
         };
 
         packages = rec {
-          cargo2nixDrv = rustPkgs.workspace.cargo2nix {}; # Get the derivation
           default = cargo2nixDrv;
         };
 

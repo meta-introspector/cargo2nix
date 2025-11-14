@@ -1,5 +1,32 @@
 {
   "nodes": {
+    "allocator-api2": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1760790639,
+        "narHash": "sha256-tW7QACjn3B7HUN+Xm1jPLdZlpv2WmJgMSZCGAPuw9YM=",
+        "owner": "meta-introspector",
+        "repo": "allocator-api2",
+        "rev": "291a618795755527fc2c8f9d7e678cecf0e238e5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "meta-introspector",
+        "ref": "feature/CRQ-016-nixify",
+        "repo": "allocator-api2",
+        "type": "github"
+      }
+    },
     "cargo2nix": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -109,6 +136,7 @@
     },
     "root": {
       "inputs": {
+        "allocator-api2": "allocator-api2",
         "cargo2nix": "cargo2nix",
         "flake-utils": "flake-utils_2",
         "nixpkgs": "nixpkgs_2",

@@ -19,3 +19,9 @@ submodules/#*#
 submodules/.#*
 submodules/*.sh~
 submodules/todo.txt
+# Emacs backup files
+*~
+# Emacs auto-save files
+\#*#
+# Emacs lock files (for some configurations)
+.#*
