@@ -54,5 +54,4 @@ dlv-list = { git = "https://github.com/meta-introspector/dlv-list-rs", branch = 
 #time = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify" }
 #    23 - time-macros = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify" }
 [workspace]
-
-#members = ["vendor/cargo"]
+#members = ["submodules/cargo/cargo-submodule-tool"]

@@ -6,6 +6,34 @@
 
 Bring [Nix](https://nixos.org/nix) dependency management to your Rust project!
 
+## cargo-git-manage: Streamlining Git Operations in Nix Ecosystems
+
+`cargo-git-manage` is a companion tool designed to simplify and automate common Git operations, particularly around submodules and branches, within a `cargo2nix`-managed Rust project. It integrates seamlessly with your Nix development workflow, providing features for reproducible and controlled Git actions.
+
+### Key Features:
+- **Submodule Management:** Easily add, update, and remove Git submodules.
+- **Branch Management:** Streamline creation, deletion, and merging of branches.
+- **Dry Run Mode:** Simulate any operation without making actual changes, allowing for safe planning and verification.
+- **Execution Plans:** Define and execute complex sequences of Git and Cargo commands using `plan.lock` files, with support for dependency resolution.
+- **Reporting:** Review detailed logs of past operations for auditing and debugging.
+
+### Usage:
+`cargo-git-manage` is typically run from within your project's development shell.
+
+```bash
+# Example: Run a dry run of the default plan
+cargo git-manage --dry-run plan run
+
+# Example: Generate a plan.lock file from your tasks
+cargo git-manage plan generate
+
+# Example: Run a specific step from your plan.lock
+cargo git-manage plan run --step "Implement Dry Run Feature"
+
+# Example: View logs for a specific submodule
+cargo git-manage report --submodule my-submodule
+```
+
 - **Development Shell** - knowing all the dependencies means easy creation of
   complete shells.  Run `nix develop` or `direnv allow` in this repo and see!
 - **Caching** - CI & CD pipelines move faster when purity guarantees allow
@@ -14,10 +42,10 @@ Bring [Nix](https://nixos.org/nix) dependency management to your Rust project!
   [nixpkgs](https://github.com/NixOS/nixpkgs) for repeatable environment setup
   across multiple distributions and platforms
 
-## Run it now!
+## Run cargo2nix
 
 With [nix](https://nixos.org/nix) (with flake support) installed, generate a
-`Cargo.nix` for your project:
+`Cargo.nix` for your project using the `cargo2nix` tool:
 
 ```bash
 # Use nix to get cargo2nix & rust toolchain on your path
@@ -26,11 +54,20 @@ nix develop github:meta-introspector/cargo2nix?ref=release-0.12#bootstrap
 # In directory with Cargo.toml & Cargo.lock files (cargo generate-lockfile)
 cargo2nix
 
-# Or skip the shell and run it directly
-nix run github:cargo2nix/cargo2nix
-
 # You'll need this in version control
 git add Cargo.nix
+```
+
+## Run cargo-git-manage
+
+The `cargo-git-manage` tool is built as part of the `cargo` submodule within this project. To use it, you typically enter the development shell and then invoke it:
+
+```bash
+# Enter the development shell (from the project root)
+nix develop
+
+# Then, from within the shell, you can run cargo-git-manage commands
+cargo git-manage --help
 ```
 
 ### Use what you generated!
@@ -101,7 +138,7 @@ a bare NixOS system or fresh OSX environment with no dependencies or toolchains
 installed, you will have everything you need to run `cargo build`.  See the
 `devShell` attribute in `flake.nix` to see how to prepare this kind of shell.
 
-The `workspaceShell` function, created by [`makePackagSet`](#Arguments), accepts
+The `workspaceShell` function, created by [`makePackageSet`](#Arguments), accepts
 all the same options as the nix [`mkShell`] function.
 
 [`mkShell`]: https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-mkShell
