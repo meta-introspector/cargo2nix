@@ -1,5 +1,55 @@
-#[source.crates-io]
-#replace-with = "vendored-sources"
+# [source.crates-io]
+# replace-with = "vendored-sources"
 
-[source.vendored-sources]
-directory = "vendor"
+# [source.vendored-sources]
+# directory = "vendor"
+
+# [source."git+https://github.com/meta-introspector/time-rs?branch=feature/CRQ-016-nixify"]
+# git = "https://github.com/meta-introspector/time-rs"
+# branch = "feature/CRQ-016-nixify"
+# replace-with = "vendored-sources"
+
+# [source."git+https://github.com/meta-introspector/rust-base64?branch=feature/CRQ-016-nixify"]
+# git = "https://github.com/meta-introspector/rust-base64"
+# branch = "feature/CRQ-016-nixify"
+# replace-with = "vendored-sources"
+
+# [source."git+https://github.com/meta-introspector/ron-rs?branch=feature/CRQ-016-nixify"]
+# git = "https://github.com/meta-introspector/ron-rs"
+# branch = "feature/CRQ-016-nixify"
+# replace-with = "vendored-sources"
+
+# [source."git+https://github.com/meta-introspector/hashbrown?branch=feature/CRQ-016-nixify"]
+# git = "https://github.com/meta-introspector/hashbrown"
+# branch = "feature/CRQ-016-nixify"
+# replace-with = "vendored-sources"
+
+# [source."git+https://github.com/meta-introspector/allocator-api2?branch=feature/CRQ-016-nixify"]
+# git = "https://github.com/meta-introspector/allocator-api2"
+# branch = "feature/CRQ-016-nixify"
+# replace-with = "vendored-sources"
+
+# [source."git+https://github.com/meta-introspector/rust-ini?branch=feature/CRQ-016-nixify"]
+# git = "https://github.com/meta-introspector/rust-ini"
+# branch = "feature/CRQ-016-nixify"
+# replace-with = "vendored-sources"
+
+# [source."git+https://github.com/meta-introspector/ordered-multimap-rs?branch=feature/CRQ-016-nixify"]
+# git = "https://github.com/meta-introspector/ordered-multimap-rs"
+# branch = "feature/CRQ-016-nixify"
+# replace-with = "vendored-sources"
+
+# [source."git+https://github.com/meta-introspector/heapless?branch=feature/CRQ-016-nixify"]
+# git = "https://github.com/meta-introspector/heapless"
+# branch = "feature/CRQ-016-nixify"
+# replace-with = "vendored-sources"
+
+# [source."git+https://github.com/meta-introspector/faster-hex?branch=feature/CRQ-016-nixify"]
+# git = "https://github.com/meta-introspector/faster-hex"
+# branch = "feature/CRQ-016-nixify"
+# replace-with = "vendored-sources"
+
+# [source."git+https://github.com/meta-introspector/dlv-list-rs?branch=feature/CRQ-016-nixify"]
+# git = "https://github.com/meta-introspector/dlv-list-rs"
+# branch = "feature/CRQ-016-nixify"
+# replace-with = "vendored-sources"

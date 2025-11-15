@@ -2830,7 +2830,7 @@ else
         [ "raw-entry" ]
       ];
       dependencies = {
-        allocator_api2 = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".allocator-api2."0.2.21" { inherit profileName; }).out;
+        allocator_api2 = (rustPackages."git+https://github.com/meta-introspector/allocator-api2".allocator-api2."0.3.1" { inherit profileName; }).out;
         equivalent = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".equivalent."1.0.2" { inherit profileName; }).out;
         foldhash = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".foldhash."0.2.0" { inherit profileName; }).out;
         parking_lot_core = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".parking_lot_core."0.9.12" { inherit profileName; }).out;

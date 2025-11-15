@@ -106,3 +106,7 @@ clean:
 	rm -f Cargo.nix
 	cargo clean
 	nix store gc --optimise
+
+.PHONY: process-repolist
+process-repolist:
+	./process_repolist.sh repolist.json

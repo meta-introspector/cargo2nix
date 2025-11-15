@@ -44,3 +44,774 @@
 [submodule "submodules/hashbrown"]
 	path = submodules/hashbrown
 	url = https://github.com/meta-introspector/hashbrown.git
+[submodule "submodules/bumpalo"]
+	path = submodules/bumpalo
+	url = https://github.com/meta-introspector/bumpalo.git
+[submodule "submodules/hashlink"]
+	path = submodules/hashlink
+	url = https://github.com/meta-introspector/hashlink.git
+[submodule "submodules/imara-diff"]
+	path = submodules/imara-diff
+	url = https://github.com/pascalkuthe/imara-diff
+[submodule "submodules/lru-rs"]
+	path = submodules/lru-rs
+	url = https://github.com/meta-introspector/lru-rs.git
+[submodule "submodules/rusqlite"]
+	path = submodules/rusqlite
+	url = https://github.com/rusqlite/rusqlite
+[submodule "submodules/typesize"]
+	path = submodules/typesize
+	url = https://github.com/meta-introspector/typesize.git
+[submodule "submodules/prodash"]
+	path = submodules/prodash
+	url = https://github.com/meta-introspector/prodash.git
+[submodule "submodules/rust-csv"]
+	path = submodules/rust-csv
+	url = https://github.com/meta-introspector/rust-csv.git
+[submodule "submodules/walkdir"]
+	path = submodules/walkdir
+	url = https://github.com/meta-introspector/walkdir.git
+[submodule "submodules/nom"]
+	path = submodules/nom
+	url = https://github.com/meta-introspector/nom.git
+[submodule "submodules/strum"]
+	path = submodules/strum
+	url = https://github.com/Peternator7/strum
+[submodule "submodules/ident_case"]
+	path = submodules/ident_case
+	url = https://github.com/TedDriggs/ident_case
+[submodule "submodules/cfg-if"]
+	path = submodules/cfg-if
+	url = https://github.com/meta-introspector/cfg-if.git
+[submodule "submodules/wait-timeout"]
+	path = submodules/wait-timeout
+	url = https://github.com/meta-introspector/wait-timeout.git
+[submodule "submodules/TinyTemplate"]
+	path = submodules/TinyTemplate
+	url = https://github.com/meta-introspector/TinyTemplate.git
+[submodule "submodules/criterion.rs"]
+	path = submodules/criterion.rs
+	url = https://github.com/meta-introspector/criterion.rs
+[submodule "submodules/im-rs"]
+	path = submodules/im-rs
+	url = https://github.com/meta-introspector/im-rs.git
+[submodule "submodules/clap"]
+	path = submodules/clap
+	url = https://github.com/meta-introspector/clap.git
+[submodule "submodules/cryptocorrosion"]
+	path = submodules/cryptocorrosion
+	url = https://github.com/meta-introspector/cryptocorrosion.git
+[submodule "submodules/subtle"]
+	path = submodules/subtle
+	url = https://github.com/meta-introspector/subtle.git
+[submodule "submodules/tiny-keccak"]
+	path = submodules/tiny-keccak
+	url = https://github.com/meta-introspector/tiny-keccak.git
+[submodule "submodules/ciborium"]
+	path = submodules/ciborium
+	url = https://github.com/meta-introspector/ciborium.git
+[submodule "submodules/generic-array"]
+	path = submodules/generic-array
+	url = https://github.com/meta-introspector/generic-array.git
+[submodule "submodules/inotify"]
+	path = submodules/inotify
+	url = https://github.com/meta-introspector/inotify.git
+[submodule "submodules/inotify-sys"]
+	path = submodules/inotify-sys
+	url = https://github.com/meta-introspector/inotify-sys.git
+[submodule "submodules/rust-cexpr"]
+	path = submodules/rust-cexpr
+	url = https://github.com/meta-introspector/rust-cexpr.git
+[submodule "submodules/ipnet"]
+	path = submodules/ipnet
+	url = https://github.com/meta-introspector/ipnet.git
+[submodule "submodules/textwrap"]
+	path = submodules/textwrap
+	url = https://github.com/meta-introspector/textwrap.git
+[submodule "submodules/serde_urlencoded"]
+	path = submodules/serde_urlencoded
+	url = https://github.com/meta-introspector/serde_urlencoded.git
+[submodule "submodules/static-assertions-rs"]
+	path = submodules/static-assertions-rs
+	url = https://github.com/meta-introspector/static-assertions-rs.git
+[submodule "submodules/cbor"]
+	path = submodules/cbor
+	url = https://github.com/pyfisch/cbor
+[submodule "submodules/rust-jni-sys"]
+	path = submodules/rust-jni-sys
+	url = https://github.com/sfackler/rust-jni-sys
+[submodule "submodules/atty"]
+	path = submodules/atty
+	url = https://github.com/softprops/atty
+[submodule "submodules/signal-hook"]
+	path = submodules/signal-hook
+	url = https://github.com/vorner/signal-hook
+[submodule "submodules/quick-error"]
+	path = submodules/quick-error
+	url = https://github.com/meta-introspector/quick-error.git
+[submodule "submodules/mime_guess"]
+	path = submodules/mime_guess
+	url = https://github.com/meta-introspector/mime_guess.git
+[submodule "submodules/sync_wrapper"]
+	path = submodules/sync_wrapper
+	url = https://github.com/meta-introspector/sync_wrapper.git
+[submodule "submodules/unicode-truncate"]
+	path = submodules/unicode-truncate
+	url = https://github.com/meta-introspector/unicode-truncate.git
+[submodule "submodules/crc-catalog"]
+	path = submodules/crc-catalog
+	url = https://github.com/meta-introspector/crc-catalog.git
+[submodule "submodules/vte"]
+	path = submodules/vte
+	url = https://github.com/meta-introspector/vte.git
+[submodule "submodules/cap"]
+	path = submodules/cap
+	url = https://github.com/meta-introspector/cap.git
+[submodule "submodules/curl-rust"]
+	path = submodules/curl-rust
+	url = https://github.com/meta-introspector/curl-rust.git
+[submodule "submodules/filetime"]
+	path = submodules/filetime
+	url = https://github.com/meta-introspector/filetime.git
+[submodule "submodules/nghttp2-rs"]
+	path = submodules/nghttp2-rs
+	url = https://github.com/meta-introspector/nghttp2-rs.git
+[submodule "submodules/openssl-probe"]
+	path = submodules/openssl-probe
+	url = https://github.com/meta-introspector/openssl-probe.git
+[submodule "submodules/openssl-src-rs"]
+	path = submodules/openssl-src-rs
+	url = https://github.com/meta-introspector/openssl-src-rs.git
+[submodule "submodules/rustc-demangle"]
+	path = submodules/rustc-demangle
+	url = https://github.com/meta-introspector/rustc-demangle.git
+[submodule "submodules/scoped-tls"]
+	path = submodules/scoped-tls
+	url = https://github.com/meta-introspector/scoped-tls.git
+[submodule "submodules/ssh2-rs"]
+	path = submodules/ssh2-rs
+	url = https://github.com/meta-introspector/ssh2-rs.git
+[submodule "submodules/tar-rs"]
+	path = submodules/tar-rs
+	url = https://github.com/meta-introspector/tar-rs.git
+[submodule "submodules/xz2-rs"]
+	path = submodules/xz2-rs
+	url = https://github.com/meta-introspector/xz2-rs.git
+[submodule "submodules/minimal-lexical"]
+	path = submodules/minimal-lexical
+	url = https://github.com/meta-introspector/minimal-lexical.git
+[submodule "submodules/rusty-fork"]
+	path = submodules/rusty-fork
+	url = https://github.com/meta-introspector/rusty-fork.git
+[submodule "submodules/parking_lot"]
+	path = submodules/parking_lot
+	url = https://github.com/meta-introspector/parking_lot.git
+[submodule "submodules/thread_local-rs"]
+	path = submodules/thread_local-rs
+	url = https://github.com/meta-introspector/thread_local-rs.git
+[submodule "submodules/defer"]
+	path = submodules/defer
+	url = https://github.com/meta-introspector/defer.git
+[submodule "submodules/fs-err"]
+	path = submodules/fs-err
+	url = https://github.com/meta-introspector/fs-err.git
+[submodule "submodules/arraydeque"]
+	path = submodules/arraydeque
+	url = https://github.com/meta-introspector/arraydeque.git
+[submodule "submodules/serde-value"]
+	path = submodules/serde-value
+	url = https://github.com/meta-introspector/serde-value.git
+[submodule "submodules/snapbox"]
+	path = submodules/snapbox
+	url = https://github.com/meta-introspector/snapbox.git
+[submodule "submodules/trycmd"]
+	path = submodules/trycmd
+	url = https://github.com/meta-introspector/trycmd.git
+[submodule "submodules/async-attributes"]
+	path = submodules/async-attributes
+	url = https://github.com/meta-introspector/async-attributes.git
+[submodule "submodules/async-std"]
+	path = submodules/async-std
+	url = https://github.com/meta-introspector/async-std.git
+[submodule "submodules/futures-timer"]
+	path = submodules/futures-timer
+	url = https://github.com/meta-introspector/futures-timer.git
+[submodule "submodules/aws-lc-rs"]
+	path = submodules/aws-lc-rs
+	url = https://github.com/meta-introspector/aws-lc-rs.git
+[submodule "submodules/criterion"]
+	path = submodules/criterion
+	url = https://github.com/meta-introspector/criterion.git
+[submodule "submodules/bitflags"]
+	path = submodules/bitflags
+	url = https://github.com/meta-introspector/bitflags.git
+[submodule "submodules/BLAKE3"]
+	path = submodules/BLAKE3
+	url = https://github.com/meta-introspector/BLAKE3.git
+[submodule "submodules/arrayvec"]
+	path = submodules/arrayvec
+	url = https://github.com/meta-introspector/arrayvec.git
+[submodule "submodules/indexmap"]
+	path = submodules/indexmap
+	url = https://github.com/meta-introspector/indexmap.git
+[submodule "submodules/maplit"]
+	path = submodules/maplit
+	url = https://github.com/meta-introspector/maplit.git
+[submodule "submodules/permutohedron"]
+	path = submodules/permutohedron
+	url = https://github.com/meta-introspector/permutohedron.git
+[submodule "submodules/scopeguard"]
+	path = submodules/scopeguard
+	url = https://github.com/meta-introspector/scopeguard.git
+[submodule "submodules/human-format-rs"]
+	path = submodules/human-format-rs
+	url = https://github.com/meta-introspector/human-format-rs.git
+[submodule "submodules/bitmaps"]
+	path = submodules/bitmaps
+	url = https://github.com/meta-introspector/bitmaps.git
+[submodule "submodules/sized-chunks"]
+	path = submodules/sized-chunks
+	url = https://github.com/meta-introspector/sized-chunks.git
+[submodule "submodules/ring"]
+	path = submodules/ring
+	url = https://github.com/meta-introspector/ring.git
+[submodule "submodules/untrusted"]
+	path = submodules/untrusted
+	url = https://github.com/meta-introspector/untrusted.git
+[submodule "submodules/pasetors"]
+	path = submodules/pasetors
+	url = https://github.com/meta-introspector/pasetors.git
+[submodule "submodules/aho-corasick"]
+	path = submodules/aho-corasick
+	url = https://github.com/meta-introspector/aho-corasick.git
+[submodule "submodules/bstr"]
+	path = submodules/bstr
+	url = https://github.com/meta-introspector/bstr.git
+[submodule "submodules/byteorder"]
+	path = submodules/byteorder
+	url = https://github.com/meta-introspector/byteorder.git
+[submodule "submodules/jiff"]
+	path = submodules/jiff
+	url = https://github.com/meta-introspector/jiff.git
+[submodule "submodules/memchr"]
+	path = submodules/memchr
+	url = https://github.com/meta-introspector/memchr.git
+[submodule "submodules/quickcheck"]
+	path = submodules/quickcheck
+	url = https://github.com/meta-introspector/quickcheck.git
+[submodule "submodules/same-file"]
+	path = submodules/same-file
+	url = https://github.com/meta-introspector/same-file.git
+[submodule "submodules/termcolor"]
+	path = submodules/termcolor
+	url = https://github.com/meta-introspector/termcolor.git
+[submodule "submodules/ucd-generate"]
+	path = submodules/ucd-generate
+	url = https://github.com/meta-introspector/ucd-generate.git
+[submodule "submodules/winapi-util"]
+	path = submodules/winapi-util
+	url = https://github.com/meta-introspector/winapi-util.git
+[submodule "submodules/jwalk"]
+	path = submodules/jwalk
+	url = https://github.com/meta-introspector/jwalk.git
+[submodule "submodules/open-rs"]
+	path = submodules/open-rs
+	url = https://github.com/meta-introspector/open-rs.git
+[submodule "submodules/tui-crates"]
+	path = submodules/tui-crates
+	url = https://github.com/meta-introspector/tui-crates.git
+[submodule "submodules/rustix"]
+	path = submodules/rustix
+	url = https://github.com/meta-introspector/rustix.git
+[submodule "submodules/wasi"]
+	path = submodules/wasi
+	url = https://github.com/meta-introspector/wasi.git
+[submodule "submodules/wasi-rs"]
+	path = submodules/wasi-rs
+	url = https://github.com/meta-introspector/wasi-rs.git
+[submodule "submodules/wit-bindgen"]
+	path = submodules/wit-bindgen
+	url = https://github.com/meta-introspector/wit-bindgen.git
+[submodule "submodules/bytesize"]
+	path = submodules/bytesize
+	url = https://github.com/meta-introspector/bytesize.git
+[submodule "submodules/json5-rs"]
+	path = submodules/json5-rs
+	url = https://github.com/meta-introspector/json5-rs.git
+[submodule "submodules/unarray"]
+	path = submodules/unarray
+	url = https://github.com/meta-introspector/unarray.git
+[submodule "submodules/camino"]
+	path = submodules/camino
+	url = https://github.com/meta-introspector/camino.git
+[submodule "submodules/constant_time_eq"]
+	path = submodules/constant_time_eq
+	url = https://github.com/meta-introspector/constant_time_eq.git
+[submodule "submodules/chrono"]
+	path = submodules/chrono
+	url = https://github.com/meta-introspector/chrono.git
+[submodule "submodules/num-modular"]
+	path = submodules/num-modular
+	url = https://github.com/meta-introspector/num-modular.git
+[submodule "submodules/num-order"]
+	path = submodules/num-order
+	url = https://github.com/meta-introspector/num-order.git
+[submodule "submodules/kstring"]
+	path = submodules/kstring
+	url = https://github.com/meta-introspector/kstring.git
+[submodule "submodules/colorify"]
+	path = submodules/colorify
+	url = https://github.com/meta-introspector/colorify.git
+[submodule "submodules/rust-derive-builder"]
+	path = submodules/rust-derive-builder
+	url = https://github.com/meta-introspector/rust-derive-builder.git
+[submodule "submodules/rust-shlex"]
+	path = submodules/rust-shlex
+	url = https://github.com/meta-introspector/rust-shlex.git
+[submodule "submodules/console"]
+	path = submodules/console
+	url = https://github.com/meta-introspector/console.git
+[submodule "submodules/bit-set"]
+	path = submodules/bit-set
+	url = https://github.com/meta-introspector/bit-set.git
+[submodule "submodules/bit-vec"]
+	path = submodules/bit-vec
+	url = https://github.com/meta-introspector/bit-vec.git
+[submodule "submodules/corn"]
+	path = submodules/corn
+	url = https://github.com/meta-introspector/corn.git
+[submodule "submodules/escargot"]
+	path = submodules/escargot
+	url = https://github.com/meta-introspector/escargot.git
+[submodule "submodules/crossbeam"]
+	path = submodules/crossbeam
+	url = https://github.com/meta-introspector/crossbeam.git
+[submodule "submodules/crossterm"]
+	path = submodules/crossterm
+	url = https://github.com/meta-introspector/crossterm.git
+[submodule "submodules/crossterm-winapi"]
+	path = submodules/crossterm-winapi
+	url = https://github.com/meta-introspector/crossterm-winapi.git
+[submodule "submodules/hashes"]
+	path = submodules/hashes
+	url = https://github.com/meta-introspector/hashes.git
+[submodule "submodules/autocfg"]
+	path = submodules/autocfg
+	url = https://github.com/meta-introspector/autocfg.git
+[submodule "submodules/equivalent"]
+	path = submodules/equivalent
+	url = https://github.com/meta-introspector/equivalent.git
+[submodule "submodules/web-time"]
+	path = submodules/web-time
+	url = https://github.com/meta-introspector/web-time.git
+[submodule "submodules/rustc-hex"]
+	path = submodules/rustc-hex
+	url = https://github.com/meta-introspector/rustc-hex.git
+[submodule "submodules/normalize-line-endings"]
+	path = submodules/normalize-line-endings
+	url = https://github.com/meta-introspector/normalize-line-endings.git
+[submodule "submodules/strsim-rs"]
+	path = submodules/strsim-rs
+	url = https://github.com/meta-introspector/strsim-rs.git
+[submodule "submodules/rustc-version-rs"]
+	path = submodules/rustc-version-rs
+	url = https://github.com/meta-introspector/rustc-version-rs.git
+[submodule "submodules/arrayref"]
+	path = submodules/arrayref
+	url = https://github.com/meta-introspector/arrayref.git
+[submodule "submodules/anyhow"]
+	path = submodules/anyhow
+	url = https://github.com/meta-introspector/anyhow.git
+[submodule "submodules/async-trait"]
+	path = submodules/async-trait
+	url = https://github.com/meta-introspector/async-trait.git
+[submodule "submodules/dyn-clone"]
+	path = submodules/dyn-clone
+	url = https://github.com/meta-introspector/dyn-clone.git
+[submodule "submodules/erased-serde"]
+	path = submodules/erased-serde
+	url = https://github.com/meta-introspector/erased-serde.git
+[submodule "submodules/inventory"]
+	path = submodules/inventory
+	url = https://github.com/meta-introspector/inventory.git
+[submodule "submodules/itoa"]
+	path = submodules/itoa
+	url = https://github.com/meta-introspector/itoa.git
+[submodule "submodules/paste"]
+	path = submodules/paste
+	url = https://github.com/meta-introspector/paste.git
+[submodule "submodules/prettyplease"]
+	path = submodules/prettyplease
+	url = https://github.com/meta-introspector/prettyplease.git
+[submodule "submodules/proc-macro2"]
+	path = submodules/proc-macro2
+	url = https://github.com/meta-introspector/proc-macro2.git
+[submodule "submodules/quote"]
+	path = submodules/quote
+	url = https://github.com/meta-introspector/quote.git
+[submodule "submodules/ref-cast"]
+	path = submodules/ref-cast
+	url = https://github.com/meta-introspector/ref-cast.git
+[submodule "submodules/rustversion"]
+	path = submodules/rustversion
+	url = https://github.com/meta-introspector/rustversion.git
+[submodule "submodules/ryu"]
+	path = submodules/ryu
+	url = https://github.com/meta-introspector/ryu.git
+[submodule "submodules/semver"]
+	path = submodules/semver
+	url = https://github.com/meta-introspector/semver.git
+[submodule "submodules/serde-ignored"]
+	path = submodules/serde-ignored
+	url = https://github.com/meta-introspector/serde-ignored.git
+[submodule "submodules/serde-untagged"]
+	path = submodules/serde-untagged
+	url = https://github.com/meta-introspector/serde-untagged.git
+[submodule "submodules/syn"]
+	path = submodules/syn
+	url = https://github.com/meta-introspector/syn.git
+[submodule "submodules/target-triple"]
+	path = submodules/target-triple
+	url = https://github.com/meta-introspector/target-triple.git
+[submodule "submodules/thiserror"]
+	path = submodules/thiserror
+	url = https://github.com/meta-introspector/thiserror.git
+[submodule "submodules/trybuild"]
+	path = submodules/trybuild
+	url = https://github.com/meta-introspector/trybuild.git
+[submodule "submodules/typeid"]
+	path = submodules/typeid
+	url = https://github.com/meta-introspector/typeid.git
+[submodule "submodules/typetag"]
+	path = submodules/typetag
+	url = https://github.com/meta-introspector/typetag.git
+[submodule "submodules/unicode-ident"]
+	path = submodules/unicode-ident
+	url = https://github.com/meta-introspector/unicode-ident.git
+[submodule "submodules/cassowary-rs"]
+	path = submodules/cassowary-rs
+	url = https://github.com/meta-introspector/cassowary-rs.git
+[submodule "submodules/normpath"]
+	path = submodules/normpath
+	url = https://github.com/meta-introspector/normpath.git
+[submodule "submodules/os_str_bytes"]
+	path = submodules/os_str_bytes
+	url = https://github.com/meta-introspector/os_str_bytes.git
+[submodule "submodules/rust-plist"]
+	path = submodules/rust-plist
+	url = https://github.com/meta-introspector/rust-plist.git
+[submodule "submodules/crunchy"]
+	path = submodules/crunchy
+	url = https://github.com/meta-introspector/crunchy.git
+[submodule "submodules/terminal-size"]
+	path = submodules/terminal-size
+	url = https://github.com/meta-introspector/terminal-size.git
+[submodule "submodules/cesu8-rs"]
+	path = submodules/cesu8-rs
+	url = https://github.com/meta-introspector/cesu8-rs.git
+[submodule "submodules/env_logger"]
+	path = submodules/env_logger
+	url = https://github.com/meta-introspector/env_logger.git
+[submodule "submodules/yaml-rust2"]
+	path = submodules/yaml-rust2
+	url = https://github.com/meta-introspector/yaml-rust2.git
+[submodule "submodules/is_executable"]
+	path = submodules/is_executable
+	url = https://github.com/meta-introspector/is_executable.git
+[submodule "submodules/maybe-async-rs"]
+	path = submodules/maybe-async-rs
+	url = https://github.com/meta-introspector/maybe-async-rs.git
+[submodule "submodules/miniz_oxide"]
+	path = submodules/miniz_oxide
+	url = https://github.com/meta-introspector/miniz_oxide.git
+[submodule "submodules/winreg-rs"]
+	path = submodules/winreg-rs
+	url = https://github.com/meta-introspector/winreg-rs.git
+[submodule "submodules/globwalk"]
+	path = submodules/globwalk
+	url = https://github.com/meta-introspector/globwalk.git
+[submodule "submodules/memoffset"]
+	path = submodules/memoffset
+	url = https://github.com/meta-introspector/memoffset.git
+[submodule "submodules/addr2line"]
+	path = submodules/addr2line
+	url = https://github.com/meta-introspector/addr2line.git
+[submodule "submodules/gimli"]
+	path = submodules/gimli
+	url = https://github.com/meta-introspector/gimli.git
+[submodule "submodules/leb128"]
+	path = submodules/leb128
+	url = https://github.com/meta-introspector/leb128.git
+[submodule "submodules/object"]
+	path = submodules/object
+	url = https://github.com/meta-introspector/object.git
+[submodule "submodules/proc-macro-error-2"]
+	path = submodules/proc-macro-error-2
+	url = https://github.com/meta-introspector/proc-macro-error-2.git
+[submodule "submodules/zerocopy"]
+	path = submodules/zerocopy
+	url = https://github.com/meta-introspector/zerocopy.git
+[submodule "submodules/schemars"]
+	path = submodules/schemars
+	url = https://github.com/meta-introspector/schemars.git
+[submodule "submodules/sysinfo"]
+	path = submodules/sysinfo
+	url = https://github.com/meta-introspector/sysinfo.git
+[submodule "submodules/option_set"]
+	path = submodules/option_set
+	url = https://github.com/meta-introspector/option_set.git
+[submodule "submodules/matchers"]
+	path = submodules/matchers
+	url = https://github.com/meta-introspector/matchers.git
+[submodule "submodules/sharded-slab"]
+	path = submodules/sharded-slab
+	url = https://github.com/meta-introspector/sharded-slab.git
+[submodule "submodules/libhermit-rs"]
+	path = submodules/libhermit-rs
+	url = https://github.com/meta-introspector/libhermit-rs.git
+[submodule "submodules/hermit-rs"]
+	path = submodules/hermit-rs
+	url = https://github.com/meta-introspector/hermit-rs.git
+[submodule "submodules/kernel"]
+	path = submodules/kernel
+	url = https://github.com/meta-introspector/kernel.git
+[submodule "submodules/encoding_rs"]
+	path = submodules/encoding_rs
+	url = https://github.com/meta-introspector/encoding_rs.git
+[submodule "submodules/idna_adapter"]
+	path = submodules/idna_adapter
+	url = https://github.com/meta-introspector/idna_adapter.git
+[submodule "submodules/utf16_iter"]
+	path = submodules/utf16_iter
+	url = https://github.com/meta-introspector/utf16_iter.git
+[submodule "submodules/utf8_iter"]
+	path = submodules/utf8_iter
+	url = https://github.com/meta-introspector/utf8_iter.git
+[submodule "submodules/write16"]
+	path = submodules/write16
+	url = https://github.com/meta-introspector/write16.git
+[submodule "submodules/h2"]
+	path = submodules/h2
+	url = https://github.com/meta-introspector/h2.git
+[submodule "submodules/headers"]
+	path = submodules/headers
+	url = https://github.com/meta-introspector/headers.git
+[submodule "submodules/http"]
+	path = submodules/http
+	url = https://github.com/meta-introspector/http.git
+[submodule "submodules/http-body"]
+	path = submodules/http-body
+	url = https://github.com/meta-introspector/http-body.git
+[submodule "submodules/hyper"]
+	path = submodules/hyper
+	url = https://github.com/meta-introspector/hyper.git
+[submodule "submodules/hyper-tls"]
+	path = submodules/hyper-tls
+	url = https://github.com/meta-introspector/hyper-tls.git
+[submodule "submodules/hyper-util"]
+	path = submodules/hyper-util
+	url = https://github.com/meta-introspector/hyper-util.git
+[submodule "submodules/mime"]
+	path = submodules/mime
+	url = https://github.com/meta-introspector/mime.git
+[submodule "submodules/lazycell"]
+	path = submodules/lazycell
+	url = https://github.com/meta-introspector/lazycell.git
+[submodule "submodules/cast"]
+	path = submodules/cast
+	url = https://github.com/meta-introspector/cast.git
+[submodule "submodules/hash32"]
+	path = submodules/hash32
+	url = https://github.com/meta-introspector/hash32.git
+[submodule "submodules/ufmt"]
+	path = submodules/ufmt
+	url = https://github.com/meta-introspector/ufmt.git
+[submodule "submodules/rust-ct-codecs"]
+	path = submodules/rust-ct-codecs
+	url = https://github.com/meta-introspector/rust-ct-codecs.git
+[submodule "submodules/rust-ed25519-compact"]
+	path = submodules/rust-ed25519-compact
+	url = https://github.com/meta-introspector/rust-ed25519-compact.git
+[submodule "submodules/deranged"]
+	path = submodules/deranged
+	url = https://github.com/meta-introspector/deranged.git
+[submodule "submodules/num-conv"]
+	path = submodules/num-conv
+	url = https://github.com/meta-introspector/num-conv.git
+[submodule "submodules/num_threads"]
+	path = submodules/num_threads
+	url = https://github.com/meta-introspector/num_threads.git
+[submodule "submodules/powerfmt"]
+	path = submodules/powerfmt
+	url = https://github.com/meta-introspector/powerfmt.git
+[submodule "submodules/partial_ref"]
+	path = submodules/partial_ref
+	url = https://github.com/meta-introspector/partial_ref.git
+[submodule "submodules/varisat"]
+	path = submodules/varisat
+	url = https://github.com/meta-introspector/varisat.git
+[submodule "submodules/vec_mut_scan"]
+	path = submodules/vec_mut_scan
+	url = https://github.com/meta-introspector/vec_mut_scan.git
+[submodule "submodules/jni-rs"]
+	path = submodules/jni-rs
+	url = https://github.com/meta-introspector/jni-rs.git
+[submodule "submodules/jni-sys"]
+	path = submodules/jni-sys
+	url = https://github.com/meta-introspector/jni-sys.git
+[submodule "submodules/cfg_aliases"]
+	path = submodules/cfg_aliases
+	url = https://github.com/meta-introspector/cfg_aliases.git
+[submodule "submodules/tera"]
+	path = submodules/tera
+	url = https://github.com/meta-introspector/tera.git
+[submodule "submodules/async-global-executor"]
+	path = submodules/async-global-executor
+	url = https://github.com/meta-introspector/async-global-executor.git
+[submodule "submodules/defmt"]
+	path = submodules/defmt
+	url = https://github.com/meta-introspector/defmt.git
+[submodule "submodules/rust-hex"]
+	path = submodules/rust-hex
+	url = https://github.com/meta-introspector/rust-hex.git
+[submodule "submodules/rust-security-framework"]
+	path = submodules/rust-security-framework
+	url = https://github.com/meta-introspector/rust-security-framework.git
+[submodule "submodules/clang-sys"]
+	path = submodules/clang-sys
+	url = https://github.com/meta-introspector/clang-sys.git
+[submodule "submodules/rstest"]
+	path = submodules/rstest
+	url = https://github.com/meta-introspector/rstest.git
+[submodule "submodules/rust-errno"]
+	path = submodules/rust-errno
+	url = https://github.com/meta-introspector/rust-errno.git
+[submodule "submodules/iri-string"]
+	path = submodules/iri-string
+	url = https://github.com/meta-introspector/iri-string.git
+[submodule "submodules/tinyvec"]
+	path = submodules/tinyvec
+	url = https://github.com/meta-introspector/tinyvec.git
+[submodule "submodules/litrs"]
+	path = submodules/litrs
+	url = https://github.com/meta-introspector/litrs.git
+[submodule "submodules/objc2"]
+	path = submodules/objc2
+	url = https://github.com/meta-introspector/objc2.git
+[submodule "submodules/html-escape"]
+	path = submodules/html-escape
+	url = https://github.com/meta-introspector/html-escape.git
+[submodule "submodules/utf8-width"]
+	path = submodules/utf8-width
+	url = https://github.com/meta-introspector/utf8-width.git
+[submodule "submodules/pathdiff"]
+	path = submodules/pathdiff
+	url = https://github.com/meta-introspector/pathdiff.git
+[submodule "submodules/clru-rs"]
+	path = submodules/clru-rs
+	url = https://github.com/meta-introspector/clru-rs.git
+[submodule "submodules/combine"]
+	path = submodules/combine
+	url = https://github.com/meta-introspector/combine.git
+[submodule "submodules/once_cell"]
+	path = submodules/once_cell
+	url = https://github.com/meta-introspector/once_cell.git
+[submodule "submodules/vcpkg-rs"]
+	path = submodules/vcpkg-rs
+	url = https://github.com/meta-introspector/vcpkg-rs.git
+[submodule "submodules/simd-adler32"]
+	path = submodules/simd-adler32
+	url = https://github.com/meta-introspector/simd-adler32.git
+[submodule "submodules/windows-rs"]
+	path = submodules/windows-rs
+	url = https://github.com/meta-introspector/windows-rs.git
+[submodule "submodules/float-cmp"]
+	path = submodules/float-cmp
+	url = https://github.com/meta-introspector/float-cmp.git
+[submodule "submodules/fiat-crypto"]
+	path = submodules/fiat-crypto
+	url = https://github.com/meta-introspector/fiat-crypto.git
+[submodule "submodules/insta"]
+	path = submodules/insta
+	url = https://github.com/meta-introspector/insta.git
+[submodule "submodules/similar"]
+	path = submodules/similar
+	url = https://github.com/meta-introspector/similar.git
+[submodule "submodules/crc-rs"]
+	path = submodules/crc-rs
+	url = https://github.com/meta-introspector/crc-rs.git
+[submodule "submodules/ntapi"]
+	path = submodules/ntapi
+	url = https://github.com/meta-introspector/ntapi.git
+[submodule "submodules/system-configuration-rs"]
+	path = submodules/system-configuration-rs
+	url = https://github.com/meta-introspector/system-configuration-rs.git
+[submodule "submodules/assert_matches"]
+	path = submodules/assert_matches
+	url = https://github.com/meta-introspector/assert_matches.git
+[submodule "submodules/synstructure"]
+	path = submodules/synstructure
+	url = https://github.com/meta-introspector/synstructure.git
+[submodule "submodules/layout"]
+	path = submodules/layout
+	url = https://github.com/meta-introspector/layout.git
+[submodule "submodules/rust_libloading"]
+	path = submodules/rust_libloading
+	url = https://github.com/meta-introspector/rust_libloading.git
+[submodule "submodules/android_system_properties"]
+	path = submodules/android_system_properties
+	url = https://github.com/meta-introspector/android_system_properties.git
+[submodule "submodules/nix"]
+	path = submodules/nix
+	url = https://github.com/meta-introspector/nix.git
+[submodule "submodules/notify"]
+	path = submodules/notify
+	url = https://github.com/meta-introspector/notify.git
+[submodule "submodules/nu-ansi-term"]
+	path = submodules/nu-ansi-term
+	url = https://github.com/meta-introspector/nu-ansi-term.git
+[submodule "submodules/ripgrep"]
+	path = submodules/ripgrep
+	url = https://github.com/BurntSushi/ripgrep
+[submodule "submodules/fsevent-rust"]
+	path = submodules/fsevent-rust
+	url = https://github.com/octplane/fsevent-rust
+[submodule "submodules/elliptic-curves"]
+	path = submodules/elliptic-curves
+	url = https://github.com/RustCrypto/elliptic-curves
+[submodule "submodules/signatures"]
+	path = submodules/signatures
+	url = https://github.com/RustCrypto/signatures
+[submodule "submodules/compiler-builtins"]
+	path = submodules/compiler-builtins
+	url = https://github.com/rust-lang/compiler-builtins
+[submodule "submodules/miri"]
+	path = submodules/miri
+	url = https://github.com/rust-lang/miri
+[submodule "submodules/portable-simd"]
+	path = submodules/portable-simd
+	url = https://github.com/rust-lang/portable-simd
+[submodule "submodules/rust"]
+	path = submodules/rust
+	url = https://github.com/rust-lang/rust/
+[submodule "submodules/rust-analyzer"]
+	path = submodules/rust-analyzer
+	url = https://github.com/rust-lang/rust-analyzer
+[submodule "submodules/rust-clippy"]
+	path = submodules/rust-clippy
+	url = https://github.com/rust-lang/rust-clippy
+[submodule "submodules/rustfmt"]
+	path = submodules/rustfmt
+	url = https://github.com/rust-lang/rustfmt
+[submodule "submodules/stdarch"]
+	path = submodules/stdarch
+	url = https://github.com/rust-lang/stdarch
+[submodule "submodules/gloo"]
+	path = submodules/gloo
+	url = https://github.com/rustwasm/gloo
+[submodule "submodules/ungrammar"]
+	path = submodules/ungrammar
+	url = https://github.com/matklad/ungrammar
+[submodule "submodules/text-size"]
+	path = submodules/text-size
+	url = https://github.com/rust-analyzer/text-size
