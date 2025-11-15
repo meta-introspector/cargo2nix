@@ -418,6 +418,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "cargo-repo-sync"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "lazy_static",
+ "pathdiff",
+ "regex",
+ "serde",
+ "serde_json",
+ "toml_edit",
+ "url",
+ "walkdir",
+]
+
+[[package]]
 name = "cargo-util"
 version = "0.2.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
