@@ -42,6 +42,11 @@ nix-eval-cargo2nix-attrs-json:
 nix-eval-cargo2nix-raw-json:
 	nix eval --json --impure --expr '(import ./flake.nix { }).packages.aarch64-linux.rustPkgs.workspace.cargo2nix'
 
+.PHONY: build-submodule-tool
+build-submodule-tool:
+	@echo "Building cargo-submodule-tool..."
+	cd submodules/cargo/cargo-submodule-tool && nix develop ../../../flake-phase1.nix#default --command cargo build
+
 SUBMODULES := $(shell git config --file .gitmodules --get-regexp path | awk '{ print $$2 }')
 MAX_RECURSION_DEPTH ?= 8
 CURRENT_RECURSION_DEPTH ?= 0

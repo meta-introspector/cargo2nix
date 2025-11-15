@@ -181,6 +181,12 @@ checksum = "4c7f02d4ea65f2c1853089ffd8d2787bdbc63de2f0d29dedbcf8ccdfa0ccd4cf"
 [[package]]
 name = "base64"
 version = "0.22.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "72b3254f16251a8381aa12e40e3c4d2f0199f8c6508fbecb9d91f575e0fbb8c6"
+
+[[package]]
+name = "base64"
+version = "0.22.1"
 source = "git+https://github.com/meta-introspector/rust-base64?branch=feature%2FCRQ-016-nixify#7c30912009f31b602ec2085398b9a0334553e3c2"
 
 [[package]]
@@ -283,7 +289,7 @@ dependencies = [
  "anstream",
  "anstyle",
  "anyhow",
- "base64",
+ "base64 0.22.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "blake3",
  "cargo-credential",
  "cargo-credential-libsecret",
@@ -341,7 +347,7 @@ dependencies = [
  "tar",
  "tempfile",
  "thiserror",
- "time",
+ "time 0.3.44 (registry+https://github.com/rust-lang/crates.io-index)",
  "toml",
  "toml_edit",
  "tracing",
@@ -367,7 +373,7 @@ dependencies = [
  "serde",
  "serde_json",
  "thiserror",
- "time",
+ "time 0.3.44 (registry+https://github.com/rust-lang/crates.io-index)",
  "windows-sys 0.60.2",
 ]
 
@@ -456,7 +462,7 @@ version = "0.12.0"
 dependencies = [
  "allocator-api2 0.3.1",
  "anyhow",
- "base64",
+ "base64 0.22.1 (git+https://github.com/meta-introspector/rust-base64?branch=feature%2FCRQ-016-nixify)",
  "cargo",
  "cargo-platform",
  "clap",
@@ -465,20 +471,20 @@ dependencies = [
  "config",
  "dashmap 7.0.0-rc2",
  "dlv-list 0.6.0",
- "faster-hex",
- "hashbrown 0.16.0",
+ "faster-hex 0.10.0 (git+https://github.com/meta-introspector/faster-hex?branch=feature%2FCRQ-016-nixify)",
+ "hashbrown 0.16.0 (git+https://github.com/meta-introspector/hashbrown?branch=feature%2FCRQ-016-nixify)",
  "heapless 0.9.2",
- "ordered-multimap",
+ "ordered-multimap 0.7.4",
  "pathdiff",
  "ron",
- "rust-ini",
+ "rust-ini 0.21.3 (git+https://github.com/meta-introspector/rust-ini?branch=feature%2FCRQ-016-nixify)",
  "semver",
  "serde",
  "sha2",
  "tempfile",
  "tera",
- "time",
- "time-macros",
+ "time 0.3.44 (git+https://github.com/meta-introspector/time-rs?branch=feature%2FCRQ-016-nixify)",
+ "time-macros 0.2.24 (git+https://github.com/meta-introspector/time-rs?branch=feature%2FCRQ-016-nixify)",
  "toml",
 ]
 
@@ -604,12 +610,12 @@ version = "0.15.18"
 source = "git+https://github.com/meta-introspector/config-rs?branch=feature%2FCRQ-016-nixify#c7fc283224b43b0b1f6205be5ac45c4e4e933d06"
 dependencies = [
  "async-trait",
- "base64",
+ "base64 0.22.1 (git+https://github.com/meta-introspector/rust-base64?branch=feature%2FCRQ-016-nixify)",
  "convert_case",
  "json5",
  "pathdiff",
  "ron",
- "rust-ini",
+ "rust-ini 0.21.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde-untagged",
  "serde_core",
  "serde_json",
@@ -828,7 +834,7 @@ dependencies = [
  "cfg-if",
  "crossbeam-utils",
  "equivalent",
- "hashbrown 0.16.0",
+ "hashbrown 0.16.0 (git+https://github.com/meta-introspector/hashbrown?branch=feature%2FCRQ-016-nixify)",
  "lock_api",
  "parking_lot_core",
 ]
@@ -1051,6 +1057,16 @@ name = "fallible-streaming-iterator"
 version = "0.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7360491ce676a36bf9bb3c56c1aa791658183a54d2744120f27285738d90465a"
+
+[[package]]
+name = "faster-hex"
+version = "0.10.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7223ae2d2f179b803433d9c830478527e92b8117eab39460edae7f1614d9fb73"
+dependencies = [
+ "heapless 0.8.0",
+ "serde",
+]
 
 [[package]]
 name = "faster-hex"
@@ -1540,7 +1556,7 @@ version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "251fad79796a731a2a7664d9ea95ee29a9e99474de2769e152238d4fdb69d50e"
 dependencies = [
- "faster-hex",
+ "faster-hex 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "gix-features",
  "sha1-checked",
  "thiserror",
@@ -1694,7 +1710,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "64286a8b5148e76ab80932e72762dd27ccf6169dd7a134b027c8a262a8262fcf"
 dependencies = [
  "bstr",
- "faster-hex",
+ "faster-hex 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "gix-trace",
  "thiserror",
 ]
@@ -1706,7 +1722,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "89c59c3ad41e68cb38547d849e9ef5ccfc0d00f282244ba1441ae856be54d001"
 dependencies = [
  "bstr",
- "faster-hex",
+ "faster-hex 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "gix-trace",
  "thiserror",
 ]
@@ -1942,7 +1958,7 @@ version = "0.48.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "12f7cc0179fc89d53c54e1f9ce51229494864ab4bf136132d69db1b011741ca3"
 dependencies = [
- "base64",
+ "base64 0.22.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "bstr",
  "curl",
  "gix-command",
@@ -2092,6 +2108,12 @@ dependencies = [
  "equivalent",
  "foldhash 0.1.5",
 ]
+
+[[package]]
+name = "hashbrown"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5419bdc4f6a9207fbeba6d11b604d481addf78ecd10c11ad51e76c2f6482748d"
 
 [[package]]
 name = "hashbrown"
@@ -2328,7 +2350,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6717a8d2a5a929a1a2eb43a12812498ed141a0bcfb7e8f7844fbdbe4303bba9f"
 dependencies = [
  "equivalent",
- "hashbrown 0.16.0",
+ "hashbrown 0.16.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -2922,6 +2944,16 @@ dependencies = [
 
 [[package]]
 name = "ordered-multimap"
+version = "0.7.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "49203cdcae0030493bad186b28da2fa25645fa276a51b6fec8010d281e02ef79"
+dependencies = [
+ "dlv-list 0.5.2",
+ "hashbrown 0.14.5",
+]
+
+[[package]]
+name = "ordered-multimap"
 version = "0.7.4"
 source = "git+https://github.com/meta-introspector/ordered-multimap-rs?branch=feature%2FCRQ-016-nixify#46ff4e77bd29b7e3573ca5b97fc1d8c6b51bedd1"
 dependencies = [
@@ -3008,7 +3040,7 @@ dependencies = [
  "serde_json",
  "sha2",
  "subtle",
- "time",
+ "time 0.3.44 (registry+https://github.com/rust-lang/crates.io-index)",
  "zeroize",
 ]
 
@@ -3305,6 +3337,21 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7a2d987857b319362043e95f5353c0535c1f58eec5336fdfcf626430af7def58"
 
 [[package]]
+name = "repo_manager"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "lazy_static",
+ "regex",
+ "serde",
+ "serde_json",
+ "toml_edit",
+ "url",
+ "walkdir",
+]
+
+[[package]]
 name = "rfc6979"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3319,7 +3366,7 @@ name = "ron"
 version = "0.11.0"
 source = "git+https://github.com/meta-introspector/ron-rs?branch=feature%2FCRQ-016-nixify#6f53365caae5b015285c8058aa451c61e004f210"
 dependencies = [
- "base64",
+ "base64 0.22.1 (git+https://github.com/meta-introspector/rust-base64?branch=feature%2FCRQ-016-nixify)",
  "bitflags 2.10.0",
  "serde",
  "serde_derive",
@@ -3343,10 +3390,20 @@ dependencies = [
 [[package]]
 name = "rust-ini"
 version = "0.21.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "796e8d2b6696392a43bea58116b667fb4c29727dc5abd27d6acf338bb4f688c7"
+dependencies = [
+ "cfg-if",
+ "ordered-multimap 0.7.3",
+]
+
+[[package]]
+name = "rust-ini"
+version = "0.21.3"
 source = "git+https://github.com/meta-introspector/rust-ini?branch=feature%2FCRQ-016-nixify#953503eb326e5290f7e4caafb00c0d33d234b9f6"
 dependencies = [
  "cfg-if",
- "ordered-multimap",
+ "ordered-multimap 0.7.3",
 ]
 
 [[package]]
@@ -3809,6 +3866,21 @@ dependencies = [
 [[package]]
 name = "time"
 version = "0.3.44"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "91e7d9e3bb61134e77bde20dd4825b97c010155709965fedf0f49bb138e52a9d"
+dependencies = [
+ "deranged",
+ "itoa",
+ "num-conv",
+ "powerfmt",
+ "serde",
+ "time-core 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "time-macros 0.2.24 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "time"
+version = "0.3.44"
 source = "git+https://github.com/meta-introspector/time-rs?branch=feature%2FCRQ-016-nixify#233fc84e73b01a354a1df4b050cb5ea1fb4cccbf"
 dependencies = [
  "deranged",
@@ -3822,9 +3894,15 @@ dependencies = [
  "rand 0.8.5",
  "rand 0.9.2",
  "serde_core",
- "time-core",
- "time-macros",
+ "time-core 0.1.6 (git+https://github.com/meta-introspector/time-rs?branch=feature%2FCRQ-016-nixify)",
+ "time-macros 0.2.24 (git+https://github.com/meta-introspector/time-rs?branch=feature%2FCRQ-016-nixify)",
 ]
+
+[[package]]
+name = "time-core"
+version = "0.1.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "40868e7c1d2f0b8d73e4a8c7f0ff63af4f6d19be117e90bd73eb1d62cf831c6b"
 
 [[package]]
 name = "time-core"
@@ -3834,10 +3912,20 @@ source = "git+https://github.com/meta-introspector/time-rs?branch=feature%2FCRQ-
 [[package]]
 name = "time-macros"
 version = "0.2.24"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "30cfb0125f12d9c277f35663a0a33f8c30190f4e4574868a330595412d34ebf3"
+dependencies = [
+ "num-conv",
+ "time-core 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "time-macros"
+version = "0.2.24"
 source = "git+https://github.com/meta-introspector/time-rs?branch=feature%2FCRQ-016-nixify#233fc84e73b01a354a1df4b050cb5ea1fb4cccbf"
 dependencies = [
  "num-conv",
- "time-core",
+ "time-core 0.1.6 (git+https://github.com/meta-introspector/time-rs?branch=feature%2FCRQ-016-nixify)",
 ]
 
 [[package]]

@@ -36,23 +36,24 @@ dashmap = { git = "https://github.com/meta-introspector/dashmap", branch = "feat
 hashbrown = { git = "https://github.com/meta-introspector/hashbrown", branch = "feature/CRQ-016-nixify" }
 allocator-api2 = { git = "https://github.com/meta-introspector/allocator-api2", branch = "feature/CRQ-016-nixify" }
 
-[patch.crates-io]
-time-macros = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify", features = [ "default", "formatting", "large-dates",   "parsing",   "serde" ] }
-time = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify", features = [  "default", "alloc", "formatting", "large-dates", "local-offset", "macros", "parsing", "quickcheck", "serde-human-readable", "serde-well-known", "std", "rand", "serde",  "wasm-bindgen"] }
-base64 = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/meta-introspector/rust-base64" }
-ron = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/meta-introspector/ron-rs" }
-config = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/meta-introspector/config-rs" }
-hashbrown = { git = "https://github.com/meta-introspector/hashbrown", branch = "feature/CRQ-016-nixify" }
+#[patch.crates-io]
+#time-macros = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify", features = [ "default", "formatting", "large-dates",   "parsing",   "serde" ] }
+#time = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify", features = [  "default", "alloc", "formatting", "large-dates", "local-offset", "macros", "parsing", "quickcheck", "serde-human-readable", "serde-well-known", "std", "rand", "serde",  "wasm-bindgen"] }
+#base64 = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/meta-introspector/rust-base64" }
+#ron = { branch = "feature/CRQ-016-nixify",      git = "https://github.com/meta-introspector/ron-rs" }
+#hashbrown = { git = "https://github.com/meta-introspector/hashbrown", branch = "feature/CRQ-016-nixify" }
+#allocator-api2 = { git = "https://github.com/meta-introspector/allocator-api2", branch = "feature/CRQ-016-nixify", version = "0.3.1" }
 
-#cargo = { git = "https://github.com/meta-introspector/cargo", branch = "feature/CRQ-016-nixify" }
-rust-ini = { git = "https://github.com/meta-introspector/rust-ini", branch = "feature/CRQ-016-nixify" }
-ordered-multimap = { git = "https://github.com/meta-introspector/ordered-multimap-rs", branch = "feature/CRQ-016-nixify" }
-heapless = { git = "https://github.com/meta-introspector/heapless", branch = "feature/CRQ-016-nixify" }
-faster-hex = { git = "https://github.com/meta-introspector/faster-hex", branch = "feature/CRQ-016-nixify" }
-dlv-list = { git = "https://github.com/meta-introspector/dlv-list-rs", branch = "feature/CRQ-016-nixify" }
-#base64 = "0.22.1"
-#time-macros = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify" }
-#time = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify" }
-#    23 - time-macros = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify" }
+##cargo = { git = "https://github.com/meta-introspector/cargo", branch = "feature/CRQ-016-nixify" }
+#rust-ini = { git = "https://github.com/meta-introspector/rust-ini", branch = "feature/CRQ-016-nixify" }
+#ordered-multimap = { git = "https://github.com/meta-introspector/ordered-multimap-rs", branch = "feature/CRQ-016-nixify" }
+#heapless = { git = "https://github.com/meta-introspector/heapless", branch = "feature/CRQ-016-nixify" }
+#faster-hex = { git = "https://github.com/meta-introspector/faster-hex", branch = "feature/CRQ-016-nixify" }
+#dlv-list = { git = "https://github.com/meta-introspector/dlv-list-rs", branch = "feature/CRQ-016-nixify" }
+##base64 = "0.22.1"
+##time-macros = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify" }
+##time = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify" }
+##    23 - time-macros = { git = "https://github.com/meta-introspector/time-rs", branch = "feature/CRQ-016-nixify" }
 [workspace]
+members = ["tools/repo_manager"]
 #members = ["submodules/cargo/cargo-submodule-tool"]
