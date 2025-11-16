@@ -1371,3 +1371,6 @@
 [submodule "submodules/zlib-rs"]
 	path = submodules/zlib-rs
 	url = https://github.com/meta-introspector/zlib-rs
+[submodule "submodules/oorandom"]
+	path = submodules/oorandom
+	url = https://github.com/meta-introspector/oorandom
