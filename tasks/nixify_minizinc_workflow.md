@@ -1,0 +1,7 @@
+description = "Create Nix derivations for MiniZinc and any associated solvers, and package existing MiniZinc models and data files for reproducible execution within the Nix ecosystem."
+steps = [
+    "Identify the specific MiniZinc version and solver(s) used.",
+    "Create a Nix derivation for MiniZinc and its solver(s) (if not already available in `nixpkgs`).",
+    "Package existing MiniZinc models (`.mzn` files) and data files (`.dzn` files) as Nix derivations.",
+    "Ensure that the Nix build environment provides MiniZinc and its models in a reproducible manner."
+]
