@@ -169,6 +169,12 @@ name = "base64"
 version = "0.22.1"
 
 [[package]]
+name = "base64"
+version = "0.22.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "72b3254f16251a8381aa12e40e3c4d2f0199f8c6508fbecb9d91f575e0fbb8c6"
+
+[[package]]
 name = "base64ct"
 version = "1.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -264,7 +270,7 @@ dependencies = [
  "anstream",
  "anstyle",
  "anyhow",
- "base64",
+ "base64 0.22.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "blake3",
  "bytesize",
  "cargo-credential",
@@ -473,7 +479,7 @@ version = "0.12.0"
 dependencies = [
  "allocator-api2 0.3.1",
  "anyhow",
- "base64",
+ "base64 0.22.1",
  "cargo",
  "cargo-platform",
  "clap",
@@ -485,9 +491,9 @@ dependencies = [
  "faster-hex 0.10.0",
  "hashbrown 0.16.0",
  "heapless 0.9.2",
- "ordered-multimap",
+ "ordered-multimap 0.7.4",
  "pathdiff",
- "ron",
+ "ron 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "rust-ini 0.21.3",
  "semver",
  "serde",
@@ -609,11 +615,11 @@ name = "config"
 version = "0.15.18"
 dependencies = [
  "async-trait",
- "base64",
+ "base64 0.22.1",
  "convert_case",
  "json5",
  "pathdiff",
- "ron",
+ "ron 0.11.0",
  "rust-ini 0.21.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde-untagged",
  "serde_core",
@@ -776,9 +782,9 @@ version = "1.1.6"
 
 [[package]]
 name = "curl"
-version = "0.4.48"
+version = "0.4.49"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9e2d5c8f48d9c0c23250e52b55e82a6ab4fdba6650c931f5a0a57a43abda812b"
+checksum = "79fc3b6dd0b87ba36e565715bf9a2ced221311db47bd18011676f24a6066edbc"
 dependencies = [
  "curl-sys",
  "libc",
@@ -1865,7 +1871,7 @@ version = "0.44.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dd04d91e507a8713cfa2318d5a85d75b36e53a40379cc7eb7634ce400ecacbaf"
 dependencies = [
- "base64",
+ "base64 0.22.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "bstr",
  "curl",
  "gix-command",
@@ -2033,6 +2039,12 @@ dependencies = [
  "foldhash 0.2.0",
  "parking_lot_core 0.9.12 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
+
+[[package]]
+name = "hashbrown"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5419bdc4f6a9207fbeba6d11b604d481addf78ecd10c11ad51e76c2f6482748d"
 
 [[package]]
 name = "hashlink"
@@ -2253,7 +2265,7 @@ name = "indexmap"
 version = "2.12.0"
 dependencies = [
  "equivalent",
- "hashbrown 0.16.0",
+ "hashbrown 0.16.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -2556,9 +2568,9 @@ dependencies = [
 
 [[package]]
 name = "nix"
-version = "0.30.0"
+version = "0.30.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "537bc3c4a347b87fd52ac6c03a02ab1302962cfd93373c5d7a112cdc337854cc"
+checksum = "74523f3a35e05aba87a1d978330aef40f67b0304ac79c1c00b294c9830543db6"
 dependencies = [
  "bitflags 2.10.0",
  "cfg-if",
@@ -2822,6 +2834,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "68f19d67e5a2795c94e73e0bb1cc1a7edeb2e28efd39e2e1c9b7a40c1108b11c"
 dependencies = [
  "num-traits",
+]
+
+[[package]]
+name = "ordered-multimap"
+version = "0.7.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "49203cdcae0030493bad186b28da2fa25645fa276a51b6fec8010d281e02ef79"
+dependencies = [
+ "dlv-list 0.5.2",
+ "hashbrown 0.14.5",
 ]
 
 [[package]]
@@ -3238,7 +3260,20 @@ dependencies = [
 name = "ron"
 version = "0.11.0"
 dependencies = [
- "base64",
+ "base64 0.22.1",
+ "bitflags 2.10.0",
+ "serde",
+ "serde_derive",
+ "unicode-ident",
+]
+
+[[package]]
+name = "ron"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "db09040cc89e461f1a265139777a2bde7f8d8c67c4936f700c63ce3e2904d468"
+dependencies = [
+ "base64 0.22.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "bitflags 2.10.0",
  "serde",
  "serde_derive",
@@ -3264,7 +3299,7 @@ name = "rust-ini"
 version = "0.21.3"
 dependencies = [
  "cfg-if",
- "ordered-multimap",
+ "ordered-multimap 0.7.3",
 ]
 
 [[package]]
@@ -3274,7 +3309,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "796e8d2b6696392a43bea58116b667fb4c29727dc5abd27d6acf338bb4f688c7"
 dependencies = [
  "cfg-if",
- "ordered-multimap",
+ "ordered-multimap 0.7.3",
 ]
 
 [[package]]
@@ -3564,12 +3599,12 @@ checksum = "67b1b7a3b5fe4f1376887184045fcf45c69e92af734b7aaddc05fb777b6fbd03"
 
 [[package]]
 name = "socket2"
-version = "0.5.10"
+version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e22376abed350d73dd1cd119b57ffccad95b4e585a7cda43e286245ce23c0678"
+checksum = "17129e116933cf371d018bb80ae557e889637989d8638274fb25622827b03881"
 dependencies = [
  "libc",
- "windows-sys 0.52.0",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -4011,6 +4046,8 @@ version = "1.12.0"
 [[package]]
 name = "unicode-width"
 version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b4ac048d71ede7ee76d585517add45da530660ef4390e49b098733c6e897f254"
 
 [[package]]
 name = "unicode-xid"
@@ -4425,795 +4462,3 @@ dependencies = [
  "quote",
  "syn",
 ]
-
-[[patch.unused]]
-name = "assert_matches"
-version = "1.5.0"
-
-[[patch.unused]]
-name = "async-attributes"
-version = "1.1.2"
-
-[[patch.unused]]
-name = "async-channel"
-version = "2.5.0"
-
-[[patch.unused]]
-name = "async-executor"
-version = "1.13.3"
-
-[[patch.unused]]
-name = "async-global-executor"
-version = "3.1.0"
-
-[[patch.unused]]
-name = "async-io"
-version = "2.6.0"
-
-[[patch.unused]]
-name = "async-lock"
-version = "3.4.1"
-
-[[patch.unused]]
-name = "async-net"
-version = "2.0.0"
-
-[[patch.unused]]
-name = "async-std"
-version = "1.13.2"
-
-[[patch.unused]]
-name = "async-task"
-version = "4.7.1"
-
-[[patch.unused]]
-name = "atomic-waker"
-version = "1.1.2"
-
-[[patch.unused]]
-name = "atty"
-version = "0.2.14"
-
-[[patch.unused]]
-name = "bit-set"
-version = "0.8.0"
-
-[[patch.unused]]
-name = "bit-vec"
-version = "0.8.0"
-
-[[patch.unused]]
-name = "bitmaps"
-version = "3.2.1"
-
-[[patch.unused]]
-name = "blink-alloc"
-version = "0.3.1"
-
-[[patch.unused]]
-name = "blocking"
-version = "1.6.2"
-
-[[patch.unused]]
-name = "bytesize"
-version = "2.2.0"
-
-[[patch.unused]]
-name = "camino"
-version = "1.2.1"
-
-[[patch.unused]]
-name = "cap"
-version = "0.1.2"
-
-[[patch.unused]]
-name = "cargo"
-version = "0.94.0"
-
-[[patch.unused]]
-name = "cargo_metadata"
-version = "0.23.1"
-
-[[patch.unused]]
-name = "cassowary"
-version = "0.3.0"
-
-[[patch.unused]]
-name = "cast"
-version = "0.3.0"
-
-[[patch.unused]]
-name = "castaway"
-version = "0.2.4"
-
-[[patch.unused]]
-name = "cesu8"
-version = "1.1.0"
-
-[[patch.unused]]
-name = "cexpr"
-version = "0.6.0"
-
-[[patch.unused]]
-name = "chrono"
-version = "0.4.42"
-
-[[patch.unused]]
-name = "clang-sys"
-version = "1.9.0"
-
-[[patch.unused]]
-name = "clippy"
-version = "0.1.93"
-
-[[patch.unused]]
-name = "cmake"
-version = "0.1.54"
-
-[[patch.unused]]
-name = "combine"
-version = "4.6.7"
-
-[[patch.unused]]
-name = "concurrent-queue"
-version = "2.5.0"
-
-[[patch.unused]]
-name = "conpty"
-version = "0.7.0"
-
-[[patch.unused]]
-name = "console"
-version = "0.16.1"
-
-[[patch.unused]]
-name = "constant_time_eq"
-version = "0.4.2"
-
-[[patch.unused]]
-name = "content_inspector"
-version = "0.2.4"
-
-[[patch.unused]]
-name = "coverage-helper"
-version = "0.2.4"
-
-[[patch.unused]]
-name = "crc"
-version = "3.3.0"
-
-[[patch.unused]]
-name = "crc-catalog"
-version = "2.4.0"
-
-[[patch.unused]]
-name = "criterion"
-version = "0.7.0"
-
-[[patch.unused]]
-name = "critical-section"
-version = "1.2.0"
-
-[[patch.unused]]
-name = "crossbeam"
-version = "0.8.4"
-
-[[patch.unused]]
-name = "crossterm"
-version = "0.29.0"
-
-[[patch.unused]]
-name = "crypto-bigint"
-version = "0.7.0-rc.10"
-
-[[patch.unused]]
-name = "csv"
-version = "1.4.0"
-
-[[patch.unused]]
-name = "curl"
-version = "0.4.49"
-
-[[patch.unused]]
-name = "darling"
-version = "0.21.3"
-
-[[patch.unused]]
-name = "defer"
-version = "0.2.1"
-
-[[patch.unused]]
-name = "diff"
-version = "0.1.13"
-
-[[patch.unused]]
-name = "document-features"
-version = "0.2.12"
-
-[[patch.unused]]
-name = "dyn-clone"
-version = "1.0.20"
-
-[[patch.unused]]
-name = "encode_unicode"
-version = "1.0.0"
-
-[[patch.unused]]
-name = "env_logger"
-version = "0.11.8"
-
-[[patch.unused]]
-name = "escargot"
-version = "0.5.15"
-
-[[patch.unused]]
-name = "event-listener"
-version = "5.4.1"
-
-[[patch.unused]]
-name = "event-listener-strategy"
-version = "0.5.4"
-
-[[patch.unused]]
-name = "expectrl"
-version = "0.8.0"
-
-[[patch.unused]]
-name = "float-cmp"
-version = "0.11.0-pre"
-
-[[patch.unused]]
-name = "fs-err"
-version = "3.1.3"
-
-[[patch.unused]]
-name = "fs_extra"
-version = "1.3.0"
-
-[[patch.unused]]
-name = "fsevent"
-version = "2.2.0"
-
-[[patch.unused]]
-name = "futures-lite"
-version = "2.6.1"
-
-[[patch.unused]]
-name = "futures-timer"
-version = "3.0.3"
-
-[[patch.unused]]
-name = "generic-array"
-version = "1.3.5"
-
-[[patch.unused]]
-name = "git2"
-version = "0.21.0"
-
-[[patch.unused]]
-name = "gitoxide"
-version = "0.46.0"
-
-[[patch.unused]]
-name = "gloo"
-version = "0.11.0"
-
-[[patch.unused]]
-name = "h2"
-version = "0.4.12"
-
-[[patch.unused]]
-name = "half"
-version = "2.7.1"
-
-[[patch.unused]]
-name = "handlebars"
-version = "6.3.2"
-
-[[patch.unused]]
-name = "hash32"
-version = "1.0.0"
-
-[[patch.unused]]
-name = "hashlink"
-version = "0.11.0"
-
-[[patch.unused]]
-name = "headers"
-version = "0.4.1"
-
-[[patch.unused]]
-name = "html-escape"
-version = "0.2.13"
-
-[[patch.unused]]
-name = "http"
-version = "1.3.1"
-
-[[patch.unused]]
-name = "httparse"
-version = "1.10.1"
-
-[[patch.unused]]
-name = "httpdate"
-version = "1.0.3"
-
-[[patch.unused]]
-name = "hyper"
-version = "1.8.1"
-
-[[patch.unused]]
-name = "hyper-rustls"
-version = "0.27.7"
-
-[[patch.unused]]
-name = "hyper-tls"
-version = "0.6.0"
-
-[[patch.unused]]
-name = "hyper-util"
-version = "0.1.18"
-
-[[patch.unused]]
-name = "iana-time-zone"
-version = "0.1.64"
-
-[[patch.unused]]
-name = "ident_case"
-version = "1.0.1"
-
-[[patch.unused]]
-name = "im"
-version = "15.1.0"
-
-[[patch.unused]]
-name = "imara-diff"
-version = "0.2.0"
-
-[[patch.unused]]
-name = "inotify"
-version = "0.11.0"
-
-[[patch.unused]]
-name = "inotify-sys"
-version = "0.1.5"
-
-[[patch.unused]]
-name = "instant"
-version = "0.1.13"
-
-[[patch.unused]]
-name = "inventory"
-version = "0.3.21"
-
-[[patch.unused]]
-name = "io-uring"
-version = "0.7.11"
-
-[[patch.unused]]
-name = "ipnet"
-version = "2.11.0"
-
-[[patch.unused]]
-name = "iri-string"
-version = "0.7.9"
-
-[[patch.unused]]
-name = "is-docker"
-version = "0.2.0"
-
-[[patch.unused]]
-name = "is-terminal"
-version = "0.4.17"
-
-[[patch.unused]]
-name = "is-wsl"
-version = "0.4.0"
-
-[[patch.unused]]
-name = "is_ci"
-version = "1.2.0"
-
-[[patch.unused]]
-name = "itertools"
-version = "0.14.0"
-
-[[patch.unused]]
-name = "jni"
-version = "0.21.1"
-
-[[patch.unused]]
-name = "jni-sys"
-version = "0.4.0"
-
-[[patch.unused]]
-name = "jwalk"
-version = "0.8.1"
-
-[[patch.unused]]
-name = "kv-log-macro"
-version = "1.0.8"
-
-[[patch.unused]]
-name = "leb128"
-version = "0.2.5"
-
-[[patch.unused]]
-name = "libc"
-version = "1.0.0-alpha.1"
-
-[[patch.unused]]
-name = "libloading"
-version = "0.9.0"
-
-[[patch.unused]]
-name = "linux-raw-sys"
-version = "0.12.0"
-
-[[patch.unused]]
-name = "litrs"
-version = "1.0.0"
-
-[[patch.unused]]
-name = "lru"
-version = "0.16.2"
-
-[[patch.unused]]
-name = "lru-slab"
-version = "0.1.2"
-
-[[patch.unused]]
-name = "maplit"
-version = "1.0.2"
-
-[[patch.unused]]
-name = "memoffset"
-version = "0.9.1"
-
-[[patch.unused]]
-name = "mime"
-version = "0.4.0-a.0"
-
-[[patch.unused]]
-name = "mime_guess"
-version = "2.0.5"
-
-[[patch.unused]]
-name = "mio"
-version = "1.1.0"
-
-[[patch.unused]]
-name = "miri"
-version = "0.1.0"
-
-[[patch.unused]]
-name = "native-tls"
-version = "0.2.14"
-
-[[patch.unused]]
-name = "nix"
-version = "0.30.1"
-
-[[patch.unused]]
-name = "nom"
-version = "8.0.0"
-
-[[patch.unused]]
-name = "normalize-line-endings"
-version = "0.3.0"
-
-[[patch.unused]]
-name = "ntapi"
-version = "0.4.1"
-
-[[patch.unused]]
-name = "num-conv"
-version = "0.2.0"
-
-[[patch.unused]]
-name = "num-modular"
-version = "0.6.1"
-
-[[patch.unused]]
-name = "num-order"
-version = "1.2.0"
-
-[[patch.unused]]
-name = "open"
-version = "5.3.2"
-
-[[patch.unused]]
-name = "openssl-src"
-version = "300.5.4+3.5.4"
-
-[[patch.unused]]
-name = "option_set"
-version = "0.4.0"
-
-[[patch.unused]]
-name = "ordered-float"
-version = "5.1.0"
-
-[[patch.unused]]
-name = "os_str_bytes"
-version = "7.1.1"
-
-[[patch.unused]]
-name = "parking"
-version = "2.2.1"
-
-[[patch.unused]]
-name = "paste"
-version = "1.0.15"
-
-[[patch.unused]]
-name = "permutohedron"
-version = "0.3.0"
-
-[[patch.unused]]
-name = "pin-project"
-version = "1.1.10"
-
-[[patch.unused]]
-name = "pin-utils"
-version = "0.1.0"
-
-[[patch.unused]]
-name = "piper"
-version = "0.2.4"
-
-[[patch.unused]]
-name = "plist"
-version = "1.8.0"
-
-[[patch.unused]]
-name = "polling"
-version = "3.11.0"
-
-[[patch.unused]]
-name = "prettyplease"
-version = "0.2.37"
-
-[[patch.unused]]
-name = "prodash"
-version = "30.0.1"
-
-[[patch.unused]]
-name = "ptyprocess"
-version = "0.5.0"
-
-[[patch.unused]]
-name = "quick-error"
-version = "2.0.1"
-
-[[patch.unused]]
-name = "quick-xml"
-version = "0.38.4"
-
-[[patch.unused]]
-name = "rand"
-version = "0.10.0-rc.5"
-
-[[patch.unused]]
-name = "rayon"
-version = "1.11.0"
-
-[[patch.unused]]
-name = "ref-cast"
-version = "1.0.25"
-
-[[patch.unused]]
-name = "reqwest"
-version = "0.12.24"
-
-[[patch.unused]]
-name = "ring"
-version = "0.17.14"
-
-[[patch.unused]]
-name = "ripgrep"
-version = "15.1.0"
-
-[[patch.unused]]
-name = "rusqlite"
-version = "0.37.0"
-
-[[patch.unused]]
-name = "rustc-hex"
-version = "2.1.0"
-
-[[patch.unused]]
-name = "rustls-native-certs"
-version = "0.8.2"
-
-[[patch.unused]]
-name = "rusty-fork"
-version = "0.3.1"
-
-[[patch.unused]]
-name = "scoped-tls"
-version = "1.0.1"
-
-[[patch.unused]]
-name = "serde_urlencoded"
-version = "0.7.1"
-
-[[patch.unused]]
-name = "signal-hook"
-version = "0.3.18"
-
-[[patch.unused]]
-name = "similar"
-version = "2.7.0"
-
-[[patch.unused]]
-name = "sized-chunks"
-version = "0.7.0"
-
-[[patch.unused]]
-name = "slab"
-version = "0.4.11"
-
-[[patch.unused]]
-name = "smallvec"
-version = "2.0.0-alpha.11"
-
-[[patch.unused]]
-name = "socket2"
-version = "0.6.1"
-
-[[patch.unused]]
-name = "ssh2"
-version = "0.9.5"
-
-[[patch.unused]]
-name = "stability"
-version = "0.2.1"
-
-[[patch.unused]]
-name = "sync_wrapper"
-version = "1.0.2"
-
-[[patch.unused]]
-name = "sysinfo"
-version = "0.37.2"
-
-[[patch.unused]]
-name = "target-triple"
-version = "1.0.0"
-
-[[patch.unused]]
-name = "temp-env"
-version = "0.3.6"
-
-[[patch.unused]]
-name = "termcolor"
-version = "1.4.1"
-
-[[patch.unused]]
-name = "termtree"
-version = "0.5.1"
-
-[[patch.unused]]
-name = "text-size"
-version = "1.1.1"
-
-[[patch.unused]]
-name = "textwrap"
-version = "0.16.2"
-
-[[patch.unused]]
-name = "tokio-rustls"
-version = "0.26.4"
-
-[[patch.unused]]
-name = "tracing-chrome"
-version = "0.7.0"
-
-[[patch.unused]]
-name = "try-lock"
-version = "0.2.5"
-
-[[patch.unused]]
-name = "trybuild"
-version = "1.0.114"
-
-[[patch.unused]]
-name = "typesize"
-version = "0.1.14"
-
-[[patch.unused]]
-name = "typetag"
-version = "0.2.21"
-
-[[patch.unused]]
-name = "ucd-generate"
-version = "0.3.1"
-
-[[patch.unused]]
-name = "ufmt"
-version = "0.2.0"
-
-[[patch.unused]]
-name = "uluru"
-version = "3.1.0"
-
-[[patch.unused]]
-name = "unarray"
-version = "0.1.4"
-
-[[patch.unused]]
-name = "ungrammar"
-version = "1.16.1"
-
-[[patch.unused]]
-name = "unicode-truncate"
-version = "2.0.0"
-
-[[patch.unused]]
-name = "untrusted"
-version = "0.9.0"
-
-[[patch.unused]]
-name = "utf16_iter"
-version = "1.0.5"
-
-[[patch.unused]]
-name = "utf8-width"
-version = "0.1.7"
-
-[[patch.unused]]
-name = "value-bag"
-version = "1.11.1"
-
-[[patch.unused]]
-name = "vec_mut_scan"
-version = "0.5.0"
-
-[[patch.unused]]
-name = "vte"
-version = "0.15.0"
-
-[[patch.unused]]
-name = "wait-timeout"
-version = "0.2.1"
-
-[[patch.unused]]
-name = "want"
-version = "0.3.1"
-
-[[patch.unused]]
-name = "warp"
-version = "0.4.2"
-
-[[patch.unused]]
-name = "wasi"
-version = "0.14.7+wasi-0.2.4"
-
-[[patch.unused]]
-name = "web-time"
-version = "1.1.0"
-
-[[patch.unused]]
-name = "winapi"
-version = "0.3.9"
-
-[[patch.unused]]
-name = "winreg"
-version = "0.55.0"
-
-[[patch.unused]]
-name = "write16"
-version = "1.0.0"
-
-[[patch.unused]]
-name = "xattr"
-version = "1.6.1"
-
-[[patch.unused]]
-name = "xz2"
-version = "0.1.7"
-
-[[patch.unused]]
-name = "yansi"
-version = "1.0.1"
