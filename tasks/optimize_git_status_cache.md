@@ -1,1 +1,1 @@
-work on the stat trait cache, read in all the subdirs systems collect all the trees in a one time snapshot, use that to determine the git status quickly, right now with all the submodules it takes way too long. we wil maintain this new lock ourselves.
+work on the stat trait cache, read in all the subdirs systems collect all the trees in a one time snapshot, use that to determine the git status quickly, right now with all the submodules it takes way too long. we will maintain this new lock ourselves.
