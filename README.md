@@ -6,32 +6,37 @@
 
 Bring [Nix](https://nixos.org/nix) dependency management to your Rust project!
 
-## cargo-git-manage: Streamlining Git Operations in Nix Ecosystems
+## cargo-repo-sync: Streamlining Git Operations in Nix Ecosystems
 
-`cargo-git-manage` is a companion tool designed to simplify and automate common Git operations, particularly around submodules and branches, within a `cargo2nix`-managed Rust project. It integrates seamlessly with your Nix development workflow, providing features for reproducible and controlled Git actions.
+cargo-repo-sync designed to simplify and automate common Git operations, particularly around submodules and branches, within a `cargo2nix`-managed Rust project. It integrates seamlessly with your Nix development workflow, providing features for reproducible and controlled Git actions.
 
 ### Key Features:
+- **Cargo.toml/Cargo.lock Discovery:** Automatically locate all `Cargo.toml` and `Cargo.lock` files within the project and its submodules.
+- **Automated Cargo.nix Generation:** Generate `Cargo.nix` files for each discovered Rust project, integrating them into the Nix ecosystem.
+- **Super Fast Resolution System (rollup.lock):** Leverage `rollup.lock` to cache metadata and conditionally generate `Cargo.nix` files only when changes are detected, significantly speeding up the build process.
+- **Unified Dependency Management:** Aim for a single, consistent version of each crate across all submodules, simplifying dependency graphs and reducing conflicts.
 - **Submodule Management:** Easily add, update, and remove Git submodules.
 - **Branch Management:** Streamline creation, deletion, and merging of branches.
 - **Dry Run Mode:** Simulate any operation without making actual changes, allowing for safe planning and verification.
 - **Execution Plans:** Define and execute complex sequences of Git and Cargo commands using `plan.lock` files, with support for dependency resolution.
 - **Reporting:** Review detailed logs of past operations for auditing and debugging.
+- **Full Git Submodule Automation:** Automate the entire lifecycle of vendored Git repositories, including adding, committing, branching, and pushing.
 
 ### Usage:
-`cargo-git-manage` is typically run from within your project's development shell.
+`cargo repo-sync` is typically run from within your project's development shell.
 
 ```bash
 # Example: Run a dry run of the default plan
-cargo git-manage --dry-run plan run
+cargo repo-sync --dry-run
 
 # Example: Generate a plan.lock file from your tasks
-cargo git-manage plan generate
+cargo repo-sync plan generate
 
 # Example: Run a specific step from your plan.lock
-cargo git-manage plan run --step "Implement Dry Run Feature"
+cargo repo-sync plan run --step <STEP_ID>
 
 # Example: View logs for a specific submodule
-cargo git-manage report --submodule my-submodule
+cargo repo-sync report --submodule <SUBMODULE_NAME>
 ```
 
 - **Development Shell** - knowing all the dependencies means easy creation of
@@ -58,16 +63,16 @@ cargo2nix
 git add Cargo.nix
 ```
 
-## Run cargo-git-manage
+cargo repo-sync
 
-The `cargo-git-manage` tool is built as part of the `cargo` submodule within this project. To use it, you typically enter the development shell and then invoke it:
+cargo repo-sync
 
 ```bash
 # Enter the development shell (from the project root)
 nix develop
 
-# Then, from within the shell, you can run cargo-git-manage commands
-cargo git-manage --help
+cargo repo-sync
+cargo repo-sync
 ```
 
 ### Use what you generated!
@@ -259,50 +264,35 @@ rust-overlay version.
 
 ## How it works
 
-- The `cargo2nix` utility reads the Rust workspace configuration and
-  `Cargo.lock` and generates nix expressions that encode some of the feature,
-  platform, and target logic into a `Cargo.nix`
+The `cargo2nix` ecosystem works by combining several powerful mechanisms to provide robust and reproducible Rust dependency management within Nix:
 
-- The cargo2nix [Nixpkgs](https://github.com/NixOS/nixpkgs) [overlay](./overlay)
-  consumes the `Cargo.nix`, feeding it what you pass to `makePackageSet` to
-  provide workspace outputs you can expose in your nix flake
+- **Cargo.toml/Cargo.lock Discovery and Metadata Caching:** The `cargo-repo-sync` tool automatically discovers `Cargo.toml` and `Cargo.lock` files across your project and its submodules. It then calculates and caches their metadata (e.g., hash, modification time) in a `rollup.lock` file. This cache is crucial for the "Super Fast Resolution System."
 
-- Because we know all of the dependencies, it's easy to create a shell from those
-  dependencies as environment setup using the `workspaceShell` function and
-  exposing the result in the `devShell` flake output
+- **Super Fast Resolution System:** Before generating a `Cargo.nix` file for a Rust project, `cargo-repo-sync` compares the current metadata of `Cargo.toml` and `Cargo.lock` against the stored metadata in `rollup.lock`. If no changes are detected, the `Cargo.nix` generation is skipped, significantly speeding up subsequent builds and ensuring that only necessary updates are processed. If changes are found, `Cargo.nix` is regenerated, and `rollup.lock` is updated with the new metadata.
 
-### Building crates isolated from each other
+- **Automated Cargo.nix Generation:** The `cargo2nix` utility reads the Rust workspace configuration and `Cargo.lock` and generates Nix expressions that encode feature, platform, and target logic into a `Cargo.nix` file for each Rust project.
 
-Just like regular `cargo` builds, the Nix dependencies form a [DAG][DAG], but
-purity means we only expose essential information to dependencies and manually
-invoke `cargo`.  Communication from dependencies to dependents is handled by
-writing some extra outputs and then reading those outputs inside the next
-dependent build.
+- **Nixpkgs Overlay Consumption:** The `cargo2nix` [Nixpkgs](https://github.com/NixOS/nixpkgs) [overlay](./overlay) consumes these generated `Cargo.nix` files, feeding them to `makePackageSet` to provide workspace outputs that can be exposed in your Nix flake.
 
-There's two broad categories of information that need to be transmitted when
-hand-building crates in isolation:
+- **Unified Dependency Management (Ultimate Vision):** The long-term goal is to centralize the management of all Rust dependencies across submodules. This involves generating a single, unified `Cargo.nix` and `flake.nix` that enforce a single version of each crate, automatically generating overrides as needed, and fully automating the Git submodule lifecycle (adding, committing, branching, pushing) for a seamless and highly efficient vendored Git repository management system.
+
+- **Development Shell:** Because we know all of the dependencies, it's easy to create a shell from those dependencies as environment setup using the `workspaceShell` function and exposing the result in the `devShell` flake output.
+
+- **Building Crates Isolated from Each Other:** Just like regular `cargo` builds, the Nix dependencies form a [DAG][DAG]. Purity means we only expose essential information to dependencies and manually invoke `cargo`. Communication from dependencies to dependents is handled by writing some extra outputs and then reading those outputs inside the next dependent build.
+
+There's two broad categories of information that need to be transmitted when hand-building crates in isolation:
 
 - **Global information**
-
   - target such as `x86_64-unknown-linux-gnu`
   - cargo actions such as `build` or `test`
-  - features which turn on optional dependencies & downstream features via logic
-    in the [`Cargo.nix`](./Cargo.nix) expressions
+  - features which turn on optional dependencies & downstream features via logic in the [`Cargo.nix`](./Cargo.nix) expressions
 
-  This information is known before any of the crates are built.  It's used at
-  evaluation time to decide what will be built. See `nix show-derivation` results.
+  This information is known before any of the crates are built. It's used at evaluation time to decide what will be built. See `nix show-derivation` results.
 
 - **Propagated information**
+  Each dependency writes information such as linker flags alongside its rlib and other outputs. When the dependent is going to consume the dependency, it reads this information back.
 
-  Each dependency writes information such as linker flags alongside its rlib and
-  other outputs.  When the dependent is going to consume the dependency, it
-  reads this information back.
-
-Derivations are evaluated in Nix with global information available.  During the
-build, rlibs and dependency information are propagated back up the DAG.  Each
-derivation's build shell combines the linking, features, target, and other
-information.  You can see how it's used in
-[`mkcrate.nix`](./overlay/mkcrate.nix)
+Derivations are evaluated in Nix with global information available. During the build, rlibs and dependency information are propagated back up the DAG. Each derivation's build shell combines the linking, features, target, and other information. You can see how it's used in [`mkcrate.nix`](./overlay/mkcrate.nix)
 
 [DAG]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
 

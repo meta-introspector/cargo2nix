@@ -1,5 +1,8 @@
 .PHONY: all build cargo2nix nix-build clean generate-cargo-nix
 
+update.txt:
+	cargo update --recursive --verbose  > update.txt 2>&1
+
 all: nix-build
 
 generate-cargo-nix:

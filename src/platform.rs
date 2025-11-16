@@ -79,9 +79,7 @@ fn cfg_to_expr(cfg: &CfgExpr, platform_var: &str) -> BoolExpr {
                     Single(format!("{0}.cargo2nix.max-atomic-width >= {0}.cargo2nix.target-pointer-width", platform_var))
                 }
             }
-            _ => False,
-        },
-        CfgExpr::True => BoolExpr::True,
-        CfgExpr::False => BoolExpr::False,
+            _ => False, // This handles unmatched Cfg::KeyPair values
+        }, // This closes the CfgExpr::Value(Cfg::KeyPair(k, v)) arm
     }
 }

@@ -1,8 +1,16 @@
-pub fn execute_actions_plan(
+use anyhow::{Context, Result};
+use std::path::Path;
+use crate::executors::{GitExecutor, GhExecutor, SystemGitExecutor, SystemGhExecutor};
+use crate::traits::execv::Execv;
+use crate::RepoAction; // Assuming RepoAction is in main.rs or a common module
+use crate::AddSubmodulesArgs; // Assuming AddSubmodulesArgs is in main.rs
+use crate::update_cargo_config::update_cargo_config; // Import update_cargo_config
+
+pub fn execute_actions_plan<E: Execv>(
     actions_plan: &Vec<RepoAction>,
-    args: &Args,
-    git_executable_path: &Path,
-    gh_executable_path: &Path,
+    args: &AddSubmodulesArgs,
+    git_executor: &SystemGitExecutor<E>,
+    gh_executor: &SystemGhExecutor<E>,
 ) -> Result<()> {
     println!("Executing actions plan...");
 
@@ -11,36 +19,9 @@ pub fn execute_actions_plan(
 
         // 1. Fork the repository if it doesn't exist in target_org
         let forked_repo_url = format!("https://github.com/{}/{}.git", args.target_org, action.repo_name);
-        let gh_repo_check_output = Command::new(gh_executable_path)
-            .arg("repo")
-            .arg("view")
-            .arg(&forked_repo_url)
-            .arg("--json")
-            .arg("name")
-            .output()
-            .context(format!("Failed to check if {} exists in {}", action.repo_name, args.target_org))?;
-
-        if !gh_repo_check_output.status.success() || String::from_utf8_lossy(&gh_repo_check_output.stdout).trim().is_empty() {
+        if !gh_executor.repo_view(&forked_repo_url)? {
             println!("Forking {} to {}...", action.repo_name, args.target_org);
-            let fork_output = Command::new(gh_executable_path)
-                .arg("repo")
-                .arg("fork")
-                .arg(&action.repo_url)
-                .arg("--org")
-                .arg(&args.target_org)
-                .arg("--remote") // Add remote to the forked repo
-                .arg("--clone=false") // Don't clone immediately, we'll add as submodule
-                .output()
-                .context(format!("Failed to fork {} to {}", action.repo_name, args.target_org))?;
-
-            if !fork_output.status.success() {
-                eprintln!(
-                    "Failed to fork {}: {}",
-                    action.repo_name,
-                    String::from_utf8_lossy(&fork_output.stderr)
-                );
-                anyhow::bail!("Forking failed for {}", action.repo_name);
-            }
+            gh_executor.repo_fork(&action.repo_url, &args.target_org)?;
             println!("Successfully forked {}.", action.repo_name);
         } else {
             println!("Repository {} already exists in {}. Skipping fork.", action.repo_name, args.target_org);
@@ -49,22 +30,7 @@ pub fn execute_actions_plan(
         // 2. Add as git submodule
         if !action.submodule_path.exists() {
             println!("Adding {} as submodule...", action.repo_name);
-            let add_submodule_output = Command::new(git_executable_path)
-                .arg("submodule")
-                .arg("add")
-                .arg(&forked_repo_url)
-                .arg(&action.submodule_path)
-                .output()
-                .context(format!("Failed to add {} as submodule", action.repo_name))?;
-
-            if !add_submodule_output.status.success() {
-                eprintln!(
-                    "Failed to add submodule {}: {}",
-                    action.repo_name,
-                    String::from_utf8_lossy(&add_submodule_output.stderr)
-                );
-                anyhow::bail!("Adding submodule failed for {}", action.repo_name);
-            }
+            git_executor.submodule_add(&forked_repo_url, &action.submodule_path)?;
             println!("Successfully added {} as submodule.", action.repo_name);
         } else {
             println!("Submodule {} already exists at {:?}. Skipping add.", action.repo_name, action.submodule_path);
@@ -72,23 +38,7 @@ pub fn execute_actions_plan(
 
         // 3. Checkout target branch in submodule
         println!("Checking out branch '{}' in submodule {}...", action.target_branch, action.repo_name);
-        let checkout_output = Command::new(git_executable_path)
-            .arg("-C")
-            .arg(&action.submodule_path)
-            .arg("checkout")
-            .arg(&action.target_branch)
-            .output()
-            .context(format!("Failed to checkout branch {} in submodule {}", action.target_branch, action.repo_name))?;
-
-        if !checkout_output.status.success() {
-            eprintln!(
-                "Failed to checkout branch '{}' in submodule {}: {}",
-                action.target_branch,
-                action.repo_name,
-                String::from_utf8_lossy(&checkout_output.stderr)
-            );
-            anyhow::bail!("Branch checkout failed for {}", action.repo_name);
-        }
+        git_executor.checkout_branch(&action.submodule_path, &action.target_branch)?;
         println!("Successfully checked out branch '{}' in submodule {}.", action.target_branch, action.repo_name);
     }
 

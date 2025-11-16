@@ -1,3 +1,9 @@
+use anyhow::{Context, Result};
+use std::fs;
+use std::path::Path;
+use toml_edit::DocumentMut;
+use crate::RepoAction; // Assuming RepoAction is in main.rs or a common module
+
 fn update_cargo_config(actions_plan: &[RepoAction], root_dir: &Path) -> Result<()> {
     println!("Updating .cargo/config.toml...");
     let cargo_config_dir = root_dir.join(".cargo");
