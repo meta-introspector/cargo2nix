@@ -34,6 +34,8 @@ pub enum Commands {
     GenerateNix(GenerateNixArgs),
     /// Generates .cargo/config.toml patch entries for workspace submodules
     GeneratePatches(GeneratePatchesArgs),
+    /// Analyzes dependency graph, non-vendored modules, and generates config patches
+    Analyze(AnalyzeArgs),
 }
 
 #[derive(Parser, Debug)]
@@ -48,4 +50,35 @@ pub struct GeneratePatchesArgs {
     /// The root directory to start scanning for Cargo.toml files.
     #[arg(long, default_value = ".")]
     pub root_dir: PathBuf,
+}
+
+#[derive(Parser, Debug)]
+pub struct AnalyzeArgs {
+    /// Path to the depgraph.dot file.
+    #[arg(long, default_value = "depgraph.dot")]
+    pub depgraph_dot_file: PathBuf,
+
+    /// Path to the tree.txt file.
+    #[arg(long, default_value = "tree.txt")]
+    pub tree_file: PathBuf,
+
+    /// Path to the Cargo.lock file.
+    #[arg(long, default_value = "Cargo.lock")]
+    pub cargo_lock_file: PathBuf,
+
+    /// Path to the .cargo/config.toml file.
+    #[arg(long, default_value = ".cargo/config.toml")]
+    pub cargo_config_file: PathBuf,
+
+    /// Path to the submodules/members.txt file.
+    #[arg(long, default_value = "submodules/members.txt")]
+    pub members_file: PathBuf,
+
+    /// Path to the submodules directory.
+    #[arg(long, default_value = "submodules")]
+    pub submodules_dir: PathBuf,
+
+    /// The root directory of the project.
+    #[arg(long, default_value = ".")]
+    pub project_root: PathBuf,
 }

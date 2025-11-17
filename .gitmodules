@@ -1461,3 +1461,63 @@
 [submodule "gg-alloc"]
 	path = gg-alloc
 	url = https://github.com/Badel2/gg-alloc
+[submodule "submodules/rust-x86"]
+	path = submodules/rust-x86
+	url = https://github.com/meta-introspector/rust-x86
+[submodule "submodules/borsh-rs"]
+	path = submodules/borsh-rs
+	url = https://github.com/meta-introspector/borsh-rs
+[submodule "submodules/proc-macro-crate"]
+	path = submodules/proc-macro-crate
+	url = https://github.com/meta-introspector/proc-macro-crate
+[submodule "submodules/sval"]
+	path = submodules/sval
+	url = https://github.com/meta-introspector/sval
+[submodule "submodules/wasm_sync"]
+	path = submodules/wasm_sync
+	url = https://github.com/meta-introspector/wasm_sync
+[submodule "submodules/serde-rs-bytes"]
+	path = submodules/serde-rs-bytes
+	url = https://github.com/meta-introspector/serde-rs-bytes
+[submodule "submodules/test-strategy"]
+	path = submodules/test-strategy
+	url = https://github.com/meta-introspector/test-strategy
+[submodule "submodules/derive-ex"]
+	path = submodules/derive-ex
+	url = https://github.com/meta-introspector/derive-ex
+[submodule "submodules/structmeta"]
+	path = submodules/structmeta
+	url = https://github.com/meta-introspector/structmeta
+[submodule "submodules/googletest-rust"]
+	path = submodules/googletest-rust
+	url = https://github.com/meta-introspector/googletest-rust
+[submodule "submodules/petgraph"]
+	path = submodules/petgraph
+	url = https://github.com/meta-introspector/petgraph
+[submodule "submodules/actix"]
+	path = submodules/actix
+	url = https://github.com/meta-introspector/actix
+[submodule "submodules/dot-parser"]
+	path = submodules/dot-parser
+	url = https://codeberg.org/bromind/dot-parser.git
+[submodule "submodules/fixedbitset"]
+	path = submodules/fixedbitset
+	url = https://github.com/meta-introspector/fixedbitset
+[submodule "submodules/bincode"]
+	path = submodules/bincode
+	url = https://github.com/meta-introspector/bincode
+[submodule "submodules/defmac"]
+	path = submodules/defmac
+	url = https://github.com/meta-introspector/defmac
+[submodule "submodules/fxhash"]
+	path = submodules/fxhash
+	url = https://github.com/meta-introspector/fxhash
+[submodule "submodules/odds"]
+	path = submodules/odds
+	url = https://github.com/meta-introspector/odds
+[submodule "submodules/actix-net"]
+	path = submodules/actix-net
+	url = https://github.com/meta-introspector/actix-net
+[submodule "submodules/loom"]
+	path = submodules/loom
+	url = https://github.com/meta-introspector/loom

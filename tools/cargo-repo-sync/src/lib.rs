@@ -5,6 +5,7 @@ pub mod fs_writer;
 
 // New modules for split-out declarations
 pub mod repo_sync_lib;
+pub mod analysis;
 
 // Re-export everything from the new modules
 pub use repo_sync_lib::repo_action::RepoAction;
