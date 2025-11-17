@@ -4,10 +4,10 @@ import os
 import sys
 
 def find_non_vendored_modules(tree_file, cargo_lock_file):
-    unvendored_modules = set()
+    module_usage_counts = {}
     
     # Regex to extract package name and path from any dependency line in tree.txt
-    package_path_regex = re.compile(r'(?:─\s+)?(\S+)\s+v\S+(?:\s+\(([^)]+)\))?')
+    package_path_regex = re.compile(r'^[│\s]*(?:├──|└──)?\s*(\w[\w-]*)\s+v\S+(?:\s+\(([^)]+)\))?')
 
     sys.stderr.write(f"Processing tree file: {tree_file}\n")
 
@@ -28,18 +28,18 @@ def find_non_vendored_modules(tree_file, cargo_lock_file):
                 sys.stderr.write(f"  Is vendored: {is_vendored}\n")
 
                 if not is_vendored:
-                    unvendored_modules.add(package_name)
-                    sys.stderr.write(f"  Added to unvendored: {package_name}\n")
+                    module_usage_counts[package_name] = module_usage_counts.get(package_name, 0) + 1
+                    sys.stderr.write(f"  Incremented usage for: {package_name}\n")
             else:
                 sys.stderr.write(f"  No match found for line.\n")
     
-    sys.stderr.write(f"Final unvendored modules: {unvendored_modules}\n")
+    sys.stderr.write(f"Final non-vendored module usage counts: {module_usage_counts}\n")
                     
 
-    # Only print module names, one per line, if any are found
-    if unvendored_modules:
-        for module in unvendored_modules:
-            print(module)
+    # Print module names and their usage counts, one per line, if any are found
+    if module_usage_counts:
+        for module, count in module_usage_counts.items():
+            print(f"{module} {count}")
 
 # Define file paths
 tree_file = '/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tree.txt'

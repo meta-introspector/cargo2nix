@@ -1374,3 +1374,90 @@
 [submodule "submodules/oorandom"]
 	path = submodules/oorandom
 	url = https://github.com/meta-introspector/oorandom
+[submodule "submodules/minicov"]
+	path = submodules/minicov
+	url = https://github.com/Amanieu/minicov
+[submodule "submodules/gg-alloc"]
+	path = submodules/gg-alloc
+	url = https://github.com/Badel2/gg-alloc
+[submodule "submodules/itertools-num"]
+	path = submodules/itertools-num
+	url = https://github.com/bluss/itertools-num
+[submodule "submodules/approx"]
+	path = submodules/approx
+	url = https://github.com/brendanzab/approx
+[submodule "submodules/humantime"]
+	path = submodules/humantime
+	url = https://github.com/chronotope/humantime
+[submodule "submodules/dbus-rs"]
+	path = submodules/dbus-rs
+	url = https://github.com/diwic/dbus-rs
+[submodule "submodules/automod"]
+	path = submodules/automod
+	url = https://github.com/dtolnay/automod
+[submodule "submodules/build-alert"]
+	path = submodules/build-alert
+	url = https://github.com/dtolnay/build-alert
+[submodule "submodules/dissimilar"]
+	path = submodules/dissimilar
+	url = https://github.com/dtolnay/dissimilar
+[submodule "submodules/indoc"]
+	path = submodules/indoc
+	url = https://github.com/dtolnay/indoc
+[submodule "submodules/no-panic"]
+	path = submodules/no-panic
+	url = https://github.com/dtolnay/no-panic
+[submodule "submodules/serde-stacker"]
+	path = submodules/serde-stacker
+	url = https://github.com/dtolnay/serde-stacker
+[submodule "submodules/sha1-smol"]
+	path = submodules/sha1-smol
+	url = https://github.com/mitsuhiko/sha1-smol
+[submodule "submodules/ar_archive_writer"]
+	path = submodules/ar_archive_writer
+	url = https://github.com/rust-lang/ar_archive_writer
+[submodule "submodules/stacker"]
+	path = submodules/stacker
+	url = https://github.com/rust-lang/stacker
+[submodule "submodules/num-complex"]
+	path = submodules/num-complex
+	url = https://github.com/rust-num/num-complex
+[submodule "submodules/async-fs"]
+	path = submodules/async-fs
+	url = https://github.com/smol-rs/async-fs
+[submodule "submodules/async-process"]
+	path = submodules/async-process
+	url = https://github.com/smol-rs/async-process
+[submodule "submodules/async-signal"]
+	path = submodules/async-signal
+	url = https://github.com/smol-rs/async-signal
+[submodule "submodules/smol"]
+	path = submodules/smol
+	url = https://github.com/smol-rs/smol
+[submodule "submodules/md5"]
+	path = submodules/md5
+	url = https://github.com/stainless-steel/md5
+[submodule "submodules/ahash"]
+	path = submodules/ahash
+	url = https://github.com/tkaitchuck/ahash
+[submodule "submodules/color-print"]
+	path = submodules/color-print
+	url = https://gitlab.com/dajoha/color-print
+[submodule "submodules/dunce"]
+	path = submodules/dunce
+	url = https://gitlab.com/kornelski/dunce
+[submodule "submodules/unicode-bom"]
+	path = submodules/unicode-bom
+	url = https://gitlab.com/philbooth/unicode-bom
+[submodule "submodules/libredox"]
+	path = submodules/libredox
+	url = https://gitlab.redox-os.org/redox-os/libredox.git
+[submodule "submodules/syscall"]
+	path = submodules/syscall
+	url = https://gitlab.redox-os.org/redox-os/syscall
+[submodule "minicov"]
+	path = minicov
+	url = https://github.com/Amanieu/minicov
+[submodule "gg-alloc"]
+	path = gg-alloc
+	url = https://github.com/Badel2/gg-alloc

@@ -1,0 +1,4 @@
+name = "Generate Cargo Config Patches"
+description = "Use `cargo-repo-sync submodule patch` to generate the necessary `[patch.crates-io]` entries in `.cargo/config.toml` to redirect crates.io dependencies to their local submodule paths, thereby resolving all code to our git submodules tree."
+status = "todo"
+depends_on = ["integrate_generated_root_workspace_dependencies.toml"]

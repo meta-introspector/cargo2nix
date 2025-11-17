@@ -1,0 +1,4 @@
+name = "Implement Submodule Workspace Patching"
+description = "Modify `cargo-submodule-tool` to directly identify workspace submodules and their members, then generate `[patch.\"https://github.com/meta-introspector/<submodule_name>\"]` entries for these workspace members in `.cargo/config.toml`, ensuring all code resolves to our git submodules tree."
+status = "in-progress"
+depends_on = []

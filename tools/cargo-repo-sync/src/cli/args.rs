@@ -32,44 +32,19 @@ pub enum Commands {
     SubmoduleStatus(SubmoduleStatusArgs),
     /// Generates Cargo.nix files for all discovered Cargo.toml/Cargo.lock pairs
     GenerateNix(GenerateNixArgs),
-}
-
-#[derive(Parser, Debug)]
-pub struct AddSubmodulesArgs {
-    /// The root directory to start scanning for Cargo.toml files.
-    #[arg(long, default_value = ".")]
-    pub root_dir: PathBuf,
-
-    /// The GitHub organization to fork repositories to.
-    #[arg(long, default_value = "meta-introspector")]
-    pub target_org: String,
-
-    /// The branch to checkout and use for dependencies.
-    #[arg(long, default_value = "feature/CRQ-016-nixify")]
-    pub target_branch: String,
-
-    /// Optional: Write the JSON plan to this file instead of stdout.
-    #[arg(long)]
-    pub output_file: Option<PathBuf>,
-
-    /// Optional: Read the actions plan from a JSON file instead of discovering repositories.
-    #[arg(long)]
-    pub json_input_file: Option<PathBuf>,
-}
-
-#[derive(Parser, Debug)]
-pub struct SubmoduleStatusArgs {
-    /// The root directory to start scanning for Cargo.toml files.
-    #[arg(long, default_value = ".")]
-    pub root_dir: PathBuf,
-
-    /// Optional: Read the actions plan from a JSON file instead of discovering repositories.
-    #[arg(long)]
-    pub json_input_file: Option<PathBuf>,
+    /// Generates .cargo/config.toml patch entries for workspace submodules
+    GeneratePatches(GeneratePatchesArgs),
 }
 
 #[derive(Parser, Debug)]
 pub struct GenerateNixArgs {
+    /// The root directory to start scanning for Cargo.toml files.
+    #[arg(long, default_value = ".")]
+    pub root_dir: PathBuf,
+}
+
+#[derive(Parser, Debug)]
+pub struct GeneratePatchesArgs {
     /// The root directory to start scanning for Cargo.toml files.
     #[arg(long, default_value = ".")]
     pub root_dir: PathBuf,

@@ -25,3 +25,4 @@ submodules/todo.txt
 \#*#
 # Emacs lock files (for some configurations)
 .#*
+vendor-hide

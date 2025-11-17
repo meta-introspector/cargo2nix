@@ -1,3 +1,4 @@
+
 # cargo2nix
 
 [![darwin & linux CI](https://github.com/cargo2nix/cargo2nix/actions/workflows/ci.yml/badge.svg)](https://github.com/cargo2nix/cargo2nix/actions/?workflow=CI)
@@ -5,6 +6,19 @@
 [![latest release](https://img.shields.io/github/v/tag/cargo2nix/cargo2nix?color=%23009922&label=release)](https://github.com/cargo2nix/cargo2nix/releases)
 
 Bring [Nix](https://nixos.org/nix) dependency management to your Rust project!
+
+## plan 
+
+1. replace python and shell scripts with rust traits and functors
+2. create a new nix submodule rust resolver that resolves all code to our git submodules tree and ignores all uses. any use will resolve to our our store. 
+3. decl level resolution. each decl is a standalone object and compiled separatly from all others in a virtual canonical file system that is mapped into nix.
+4. compile caching
+5. export to legacy rust. we can regenerate and replace existing Cargo.toml code with our system.
+6. compiler stages as nix derivations. 
+because we want to support many target compilers (wasm, ebpf, zk circom) etc we want to 
+be able to build new rust compilers minimally as possible and port all functions if possible to those new restricted platforms, we want to do this without editing all the cargo files and messing with everything.
+7. every binary is a thin wrapper around layers or a lattice of functions, each function adding only one thing to the mix each step.
+
 
 ## cargo-repo-sync: Streamlining Git Operations in Nix Ecosystems
 

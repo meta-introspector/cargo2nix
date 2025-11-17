@@ -20,6 +20,7 @@ sha1 = "0.10"
 lru = "0.12" # Add lru crate for LRU cache # Use sha1 crate for SHA-1 hashing # Add git2 crate for direct Git operations
 sha2 = "0.10"
 cargo2nix = { path = "../../" }
+cargo_metadata = "0.18"
 
 [lib]
 path = "src/lib.rs"

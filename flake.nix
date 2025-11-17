@@ -41,9 +41,9 @@
       cargo = pkgs.cargo;
 
       workspaceShell = pkgs.mkShell {
-        packages = [ pkgs.statix pkgs.openssl_1_1.dev ];
+        packages = [ pkgs.statix pkgs.openssl_1_1.dev pkgs.zlib.dev ];
         shellHook = ''
-          export PKG_CONFIG_PATH=${pkgs.openssl_1_1.dev}/lib/pkgconfig:$PKG_CONFIG_PATH
+          export PKG_CONFIG_PATH=${pkgs.openssl_1_1.dev}/lib/pkgconfig:${pkgs.zlib.dev}/lib/pkgconfig:$PKG_CONFIG_PATH
           export PATH=${myRustc}/bin:${cargo}/bin:$PATH
         '';
       };

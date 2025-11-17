@@ -30,7 +30,9 @@ ron = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/ca
 [patch."https://github.com/meta-introspector/rust-ini"]
 rust-ini = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-ini" }
 [patch."https://github.com/meta-introspector/time-rs"]
-time = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/time-rs/time" }
+#time = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/time-rs/time" }
+time-core = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/time-rs/time-core" }
+time-macros = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/time-rs/time-macros" }
 [patch.crates-io]
 backtrace = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/backtrace-rs" }
 addr2line = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/addr2line" }
@@ -97,7 +99,7 @@ colorify = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/ru
 #crc = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/crc-rs" }
 #crc-catalog = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/crc-catalog" }
 crc32fast = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-crc32fast" }
-#criterion = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/criterion" }
+criterion = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/criterion" }
 #critical-section = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/critical-section" }
 #crossbeam = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/crossbeam" }
 #crossterm = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/crossterm" }
@@ -110,6 +112,7 @@ ct-codecs = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/r
 #defer = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/defer" }
 #diff = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/diff" }
 displaydoc = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/displaydoc" }
+deranged = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/deranged/deranged" }
 #document-features = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/document-features" }
 #dyn-clone = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/dyn-clone" }
 ed25519-compact = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-ed25519-compact" }
@@ -222,7 +225,7 @@ miow = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/c
 normpath = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/normpath" }
 #ntapi = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/ntapi" }
 nu-ansi-term = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/nu-ansi-term" }
-#num-conv = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/num-conv" }
+num-conv = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/num-conv" }
 #num-modular = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/num-modular" }
 #num-order = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/num-order" }
 num-traits = { path = "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/num-traits" }

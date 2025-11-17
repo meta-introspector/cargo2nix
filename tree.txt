@@ -1,0 +1,1129 @@
+cargo2nix v0.12.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix)
+├── allocator-api2 v0.3.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/allocator-api2)
+├── anyhow v1.0.100 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/anyhow)
+│   └── backtrace v0.3.76 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/backtrace-rs)
+│       ├── addr2line v0.25.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/addr2line)
+│       │   └── gimli v0.32.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/gimli)
+│       ├── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│       ├── libc v0.2.177
+│       ├── miniz_oxide v0.8.9
+│       │   ├── adler2 v2.0.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/adler2)
+│       │   └── simd-adler32 v0.3.7 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/simd-adler32)
+│       ├── object v0.37.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/object)
+│       │   └── memchr v2.7.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memchr)
+│       └── rustc-demangle v0.1.26 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rustc-demangle)
+├── base64 v0.22.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-base64)
+├── cargo v0.86.0
+│   ├── annotate-snippets v0.11.5
+│   │   ├── anstyle v1.0.13
+│   │   └── unicode-width v0.2.2
+│   ├── anstream v0.6.21
+│   │   ├── anstyle v1.0.13
+│   │   ├── anstyle-parse v0.2.7
+│   │   │   └── utf8parse v0.2.2
+│   │   ├── anstyle-query v1.1.5
+│   │   ├── colorchoice v1.0.4
+│   │   ├── is_terminal_polyfill v1.70.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/is_terminal_polyfill)
+│   │   └── utf8parse v0.2.2
+│   ├── anstyle v1.0.13
+│   ├── anyhow v1.0.100 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/anyhow) (*)
+│   ├── base64 v0.22.1
+│   ├── blake3 v1.8.2
+│   │   ├── arrayref v0.3.9 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/arrayref)
+│   │   ├── arrayvec v0.7.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/arrayvec)
+│   │   ├── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   │   └── constant_time_eq v0.3.1
+│   │   [build-dependencies]
+│   │   └── cc v1.2.46 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cc-rs)
+│   │       ├── find-msvc-tools v0.1.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cc-rs/find-msvc-tools)
+│   │       ├── jobserver v0.1.34 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/jobserver-rs)
+│   │       │   └── libc v0.2.177
+│   │       ├── libc v0.2.177
+│   │       └── shlex v1.3.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-shlex)
+│   ├── bytesize v1.3.3
+│   ├── cargo-credential v0.4.9
+│   │   ├── anyhow v1.0.100 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/anyhow) (*)
+│   │   ├── libc v0.2.177
+│   │   ├── serde v1.0.228
+│   │   │   ├── serde_core v1.0.228
+│   │   │   └── serde_derive v1.0.228 (proc-macro)
+│   │   │       ├── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2)
+│   │   │       │   └── unicode-ident v1.0.22 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/unicode-ident)
+│   │   │       ├── quote v1.0.42 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quote)
+│   │   │       │   └── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2) (*)
+│   │   │       └── syn v2.0.110 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/syn)
+│   │   │           ├── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2) (*)
+│   │   │           ├── quote v1.0.42 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quote) (*)
+│   │   │           └── unicode-ident v1.0.22 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/unicode-ident)
+│   │   ├── serde_json v1.0.145
+│   │   │   ├── itoa v1.0.15 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/itoa)
+│   │   │   ├── memchr v2.7.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memchr)
+│   │   │   ├── ryu v1.0.20 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/ryu)
+│   │   │   └── serde_core v1.0.228
+│   │   ├── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror)
+│   │   │   └── thiserror-impl v2.0.17 (proc-macro) (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror/impl)
+│   │   │       ├── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2) (*)
+│   │   │       ├── quote v1.0.42 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quote) (*)
+│   │   │       └── syn v2.0.110 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/syn) (*)
+│   │   └── time v0.3.44
+│   │       ├── deranged v0.5.5
+│   │       │   ├── powerfmt v0.2.0
+│   │       │   ├── quickcheck v1.0.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quickcheck)
+│   │       │   │   └── rand v0.9.2
+│   │       │   │       └── rand_core v0.9.3
+│   │       │   │           └── getrandom v0.3.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/getrandom)
+│   │       │   │               ├── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   │       │   │               └── libc v0.2.177
+│   │       │   ├── rand v0.8.5
+│   │       │   │   ├── libc v0.2.177
+│   │       │   │   ├── rand_chacha v0.3.1
+│   │       │   │   │   ├── ppv-lite86 v0.2.21
+│   │       │   │   │   │   └── zerocopy v0.8.27 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/zerocopy)
+│   │       │   │   │   └── rand_core v0.6.4
+│   │       │   │   │       └── getrandom v0.2.16
+│   │       │   │   │           ├── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   │       │   │   │           └── libc v0.2.177
+│   │       │   │   └── rand_core v0.6.4 (*)
+│   │       │   ├── rand v0.9.2 (*)
+│   │       │   └── serde_core v1.0.228
+│   │       ├── itoa v1.0.15 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/itoa)
+│   │       ├── num-conv v0.1.0
+│   │       ├── powerfmt v0.2.0
+│   │       ├── serde v1.0.228 (*)
+│   │       └── time-core v0.1.6
+│   ├── cargo-credential-libsecret v0.4.14
+│   │   ├── anyhow v1.0.100 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/anyhow) (*)
+│   │   ├── cargo-credential v0.4.9 (*)
+│   │   └── libloading v0.8.9
+│   │       └── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   ├── cargo-platform v0.2.0
+│   │   └── serde v1.0.228 (*)
+│   ├── cargo-util v0.2.24
+│   │   ├── anyhow v1.0.100 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/anyhow) (*)
+│   │   ├── filetime v0.2.26 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/filetime)
+│   │   │   ├── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   │   │   └── libc v0.2.177
+│   │   ├── hex v0.4.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-hex)
+│   │   ├── ignore v0.4.25
+│   │   │   ├── crossbeam-deque v0.8.6
+│   │   │   │   ├── crossbeam-epoch v0.9.18
+│   │   │   │   │   └── crossbeam-utils v0.8.21
+│   │   │   │   └── crossbeam-utils v0.8.21
+│   │   │   ├── globset v0.4.18
+│   │   │   │   ├── aho-corasick v1.1.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/aho-corasick)
+│   │   │   │   │   └── memchr v2.7.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memchr)
+│   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr)
+│   │   │   │   │   ├── memchr v2.7.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memchr)
+│   │   │   │   │   └── regex-automata v0.4.13
+│   │   │   │   │       ├── aho-corasick v1.1.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/aho-corasick) (*)
+│   │   │   │   │       ├── memchr v2.7.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memchr)
+│   │   │   │   │       └── regex-syntax v0.8.8
+│   │   │   │   ├── log v0.4.28 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/log)
+│   │   │   │   ├── regex-automata v0.4.13 (*)
+│   │   │   │   └── regex-syntax v0.8.8
+│   │   │   ├── log v0.4.28 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/log)
+│   │   │   ├── memchr v2.7.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memchr)
+│   │   │   ├── regex-automata v0.4.13 (*)
+│   │   │   ├── same-file v1.0.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/same-file)
+│   │   │   └── walkdir v2.5.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/walkdir)
+│   │   │       └── same-file v1.0.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/same-file)
+│   │   ├── jobserver v0.1.34 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/jobserver-rs) (*)
+│   │   ├── libc v0.2.177
+│   │   ├── same-file v1.0.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/same-file)
+│   │   ├── sha2 v0.10.9
+│   │   │   ├── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   │   │   ├── cpufeatures v0.2.17
+│   │   │   │   └── libc v0.2.177
+│   │   │   └── digest v0.10.7
+│   │   │       ├── block-buffer v0.10.4
+│   │   │       │   └── generic-array v0.14.7
+│   │   │       │       ├── typenum v1.19.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/typenum)
+│   │   │       │       └── zeroize v1.8.2
+│   │   │       │       [build-dependencies]
+│   │   │       │       └── version_check v0.9.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/version_check)
+│   │   │       ├── const-oid v0.9.6
+│   │   │       ├── crypto-common v0.1.7
+│   │   │       │   ├── generic-array v0.14.7 (*)
+│   │   │       │   └── typenum v1.19.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/typenum)
+│   │   │       └── subtle v2.6.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/subtle)
+│   │   ├── shell-escape v0.1.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/shell-escape)
+│   │   ├── tempfile v3.23.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/tempfile)
+│   │   │   ├── fastrand v2.3.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/fastrand)
+│   │   │   ├── getrandom v0.3.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/getrandom) (*)
+│   │   │   ├── once_cell v1.21.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/once_cell)
+│   │   │   └── rustix v1.1.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rustix)
+│   │   │       ├── bitflags v2.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bitflags)
+│   │   │       │   └── serde_core v1.0.228
+│   │   │       └── linux-raw-sys v0.11.0
+│   │   ├── tracing v0.1.41
+│   │   │   ├── pin-project-lite v0.2.16 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/pin-project-lite)
+│   │   │   ├── tracing-attributes v0.1.30 (proc-macro)
+│   │   │   │   ├── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2) (*)
+│   │   │   │   ├── quote v1.0.42 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quote) (*)
+│   │   │   │   └── syn v2.0.110 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/syn) (*)
+│   │   │   └── tracing-core v0.1.34
+│   │   │       └── once_cell v1.21.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/once_cell)
+│   │   └── walkdir v2.5.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/walkdir) (*)
+│   ├── cargo-util-schemas v0.7.2
+│   │   ├── semver v1.0.27 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/semver)
+│   │   │   └── serde_core v1.0.228
+│   │   ├── serde v1.0.228 (*)
+│   │   ├── serde-untagged v0.1.9 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/serde-untagged)
+│   │   │   ├── erased-serde v0.4.9 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/erased-serde)
+│   │   │   │   ├── serde_core v1.0.228
+│   │   │   │   └── typeid v1.0.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/typeid)
+│   │   │   ├── serde_core v1.0.228
+│   │   │   └── typeid v1.0.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/typeid)
+│   │   ├── serde-value v0.7.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/serde-value)
+│   │   │   ├── ordered-float v2.10.1
+│   │   │   │   └── num-traits v0.2.19 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/num-traits)
+│   │   │   │       [build-dependencies]
+│   │   │   │       └── autocfg v1.5.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/autocfg)
+│   │   │   └── serde v1.0.228 (*)
+│   │   ├── thiserror v1.0.69
+│   │   │   └── thiserror-impl v1.0.69 (proc-macro)
+│   │   │       ├── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2) (*)
+│   │   │       ├── quote v1.0.42 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quote) (*)
+│   │   │       └── syn v2.0.110 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/syn) (*)
+│   │   ├── toml v0.8.23
+│   │   │   ├── serde v1.0.228 (*)
+│   │   │   ├── serde_spanned v0.6.9
+│   │   │   │   └── serde v1.0.228 (*)
+│   │   │   ├── toml_datetime v0.6.11
+│   │   │   │   └── serde v1.0.228 (*)
+│   │   │   └── toml_edit v0.22.27
+│   │   │       ├── indexmap v2.12.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/indexmap)
+│   │   │       │   ├── equivalent v1.0.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/equivalent)
+│   │   │       │   └── hashbrown v0.16.0
+│   │   │       ├── serde v1.0.228 (*)
+│   │   │       ├── serde_spanned v0.6.9 (*)
+│   │   │       ├── toml_datetime v0.6.11 (*)
+│   │   │       ├── toml_write v0.1.2
+│   │   │       └── winnow v0.7.13 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/winnow)
+│   │   ├── unicode-xid v0.2.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/unicode-xid)
+│   │   └── url v2.5.7
+│   │       ├── form_urlencoded v1.2.2
+│   │       │   └── percent-encoding v2.3.2
+│   │       ├── idna v1.1.0
+│   │       │   ├── idna_adapter v1.2.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/idna_adapter)
+│   │       │   │   ├── icu_normalizer v2.1.1
+│   │       │   │   │   ├── icu_collections v2.1.1
+│   │       │   │   │   │   ├── displaydoc v0.2.5 (proc-macro) (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/displaydoc)
+│   │       │   │   │   │   │   ├── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2) (*)
+│   │       │   │   │   │   │   ├── quote v1.0.42 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quote) (*)
+│   │       │   │   │   │   │   └── syn v2.0.110 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/syn) (*)
+│   │       │   │   │   │   ├── potential_utf v0.1.4
+│   │       │   │   │   │   │   └── zerovec v0.11.5
+│   │       │   │   │   │   │       ├── yoke v0.8.1
+│   │       │   │   │   │   │       │   ├── stable_deref_trait v1.2.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/stable_deref_trait)
+│   │       │   │   │   │   │       │   ├── yoke-derive v0.8.1 (proc-macro)
+│   │       │   │   │   │   │       │   │   ├── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2) (*)
+│   │       │   │   │   │   │       │   │   ├── quote v1.0.42 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quote) (*)
+│   │       │   │   │   │   │       │   │   ├── syn v2.0.110 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/syn) (*)
+│   │       │   │   │   │   │       │   │   └── synstructure v0.13.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/synstructure)
+│   │       │   │   │   │   │       │   │       ├── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2) (*)
+│   │       │   │   │   │   │       │   │       ├── quote v1.0.42 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quote) (*)
+│   │       │   │   │   │   │       │   │       └── syn v2.0.110 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/syn) (*)
+│   │       │   │   │   │   │       │   └── zerofrom v0.1.6
+│   │       │   │   │   │   │       │       └── zerofrom-derive v0.1.6 (proc-macro)
+│   │       │   │   │   │   │       │           ├── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2) (*)
+│   │       │   │   │   │   │       │           ├── quote v1.0.42 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quote) (*)
+│   │       │   │   │   │   │       │           ├── syn v2.0.110 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/syn) (*)
+│   │       │   │   │   │   │       │           └── synstructure v0.13.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/synstructure) (*)
+│   │       │   │   │   │   │       ├── zerofrom v0.1.6 (*)
+│   │       │   │   │   │   │       └── zerovec-derive v0.11.2 (proc-macro)
+│   │       │   │   │   │   │           ├── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2) (*)
+│   │       │   │   │   │   │           ├── quote v1.0.42 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quote) (*)
+│   │       │   │   │   │   │           └── syn v2.0.110 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/syn) (*)
+│   │       │   │   │   │   ├── yoke v0.8.1 (*)
+│   │       │   │   │   │   ├── zerofrom v0.1.6 (*)
+│   │       │   │   │   │   └── zerovec v0.11.5 (*)
+│   │       │   │   │   ├── icu_normalizer_data v2.1.1
+│   │       │   │   │   ├── icu_provider v2.1.1
+│   │       │   │   │   │   ├── displaydoc v0.2.5 (proc-macro) (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/displaydoc) (*)
+│   │       │   │   │   │   ├── icu_locale_core v2.1.1
+│   │       │   │   │   │   │   ├── displaydoc v0.2.5 (proc-macro) (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/displaydoc) (*)
+│   │       │   │   │   │   │   ├── litemap v0.8.1
+│   │       │   │   │   │   │   ├── tinystr v0.8.2
+│   │       │   │   │   │   │   │   ├── displaydoc v0.2.5 (proc-macro) (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/displaydoc) (*)
+│   │       │   │   │   │   │   │   └── zerovec v0.11.5 (*)
+│   │       │   │   │   │   │   ├── writeable v0.6.2
+│   │       │   │   │   │   │   └── zerovec v0.11.5 (*)
+│   │       │   │   │   │   ├── writeable v0.6.2
+│   │       │   │   │   │   ├── yoke v0.8.1 (*)
+│   │       │   │   │   │   ├── zerofrom v0.1.6 (*)
+│   │       │   │   │   │   ├── zerotrie v0.2.3
+│   │       │   │   │   │   │   ├── displaydoc v0.2.5 (proc-macro) (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/displaydoc) (*)
+│   │       │   │   │   │   │   ├── yoke v0.8.1 (*)
+│   │       │   │   │   │   │   └── zerofrom v0.1.6 (*)
+│   │       │   │   │   │   └── zerovec v0.11.5 (*)
+│   │       │   │   │   ├── smallvec v1.15.1
+│   │       │   │   │   └── zerovec v0.11.5 (*)
+│   │       │   │   └── icu_properties v2.1.1
+│   │       │   │       ├── icu_collections v2.1.1 (*)
+│   │       │   │       ├── icu_locale_core v2.1.1 (*)
+│   │       │   │       ├── icu_properties_data v2.1.1
+│   │       │   │       ├── icu_provider v2.1.1 (*)
+│   │       │   │       ├── zerotrie v0.2.3 (*)
+│   │       │   │       └── zerovec v0.11.5 (*)
+│   │       │   ├── smallvec v1.15.1
+│   │       │   └── utf8_iter v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/utf8_iter)
+│   │       ├── percent-encoding v2.3.2
+│   │       └── serde v1.0.228 (*)
+│   ├── clap v4.5.51 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/clap)
+│   │   ├── clap_builder v4.5.51 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/clap/clap_builder)
+│   │   │   ├── anstream v0.6.21 (*)
+│   │   │   ├── anstyle v1.0.13
+│   │   │   ├── clap_lex v0.7.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/clap/clap_lex)
+│   │   │   ├── strsim v0.11.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/strsim-rs)
+│   │   │   └── terminal_size v0.4.3
+│   │   │       └── rustix v1.1.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rustix) (*)
+│   │   └── clap_derive v4.5.49 (proc-macro) (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/clap/clap_derive)
+│   │       ├── heck v0.5.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/heck)
+│   │       ├── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2) (*)
+│   │       ├── quote v1.0.42 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quote) (*)
+│   │       └── syn v2.0.110 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/syn) (*)
+│   ├── clap_complete v4.5.60
+│   │   ├── clap v4.5.51 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/clap) (*)
+│   │   ├── clap_lex v0.7.6
+│   │   ├── is_executable v1.0.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/is_executable)
+│   │   └── shlex v1.3.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-shlex)
+│   ├── color-print v0.3.7
+│   │   └── color-print-proc-macro v0.3.7 (proc-macro)
+│   │       ├── nom v7.1.3
+│   │       │   ├── memchr v2.7.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memchr)
+│   │       │   └── minimal-lexical v0.2.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/minimal-lexical)
+│   │       ├── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2) (*)
+│   │       ├── quote v1.0.42 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quote) (*)
+│   │       └── syn v2.0.110 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/syn) (*)
+│   ├── crates-io v0.40.14
+│   │   ├── curl v0.4.49
+│   │   │   ├── curl-sys v0.4.84+curl-8.17.0
+│   │   │   │   ├── libc v0.2.177
+│   │   │   │   ├── libnghttp2-sys v0.1.11+1.64.0
+│   │   │   │   │   └── libc v0.2.177
+│   │   │   │   │   [build-dependencies]
+│   │   │   │   │   └── cc v1.2.46 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cc-rs) (*)
+│   │   │   │   ├── libz-sys v1.1.23 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/libz-sys)
+│   │   │   │   │   └── libc v0.2.177
+│   │   │   │   │   [build-dependencies]
+│   │   │   │   │   ├── cc v1.2.46 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cc-rs) (*)
+│   │   │   │   │   ├── pkg-config v0.3.32 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/pkg-config-rs)
+│   │   │   │   │   └── vcpkg v0.2.15 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/vcpkg-rs)
+│   │   │   │   └── openssl-sys v0.9.111
+│   │   │   │       └── libc v0.2.177
+│   │   │   │       [build-dependencies]
+│   │   │   │       ├── cc v1.2.46 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cc-rs) (*)
+│   │   │   │       ├── pkg-config v0.3.32 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/pkg-config-rs)
+│   │   │   │       └── vcpkg v0.2.15 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/vcpkg-rs)
+│   │   │   │   [build-dependencies]
+│   │   │   │   ├── cc v1.2.46 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cc-rs) (*)
+│   │   │   │   └── pkg-config v0.3.32 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/pkg-config-rs)
+│   │   │   ├── libc v0.2.177
+│   │   │   ├── openssl-probe v0.1.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/openssl-probe)
+│   │   │   ├── openssl-sys v0.9.111 (*)
+│   │   │   └── socket2 v0.6.1
+│   │   │       └── libc v0.2.177
+│   │   ├── percent-encoding v2.3.2
+│   │   ├── serde v1.0.228 (*)
+│   │   ├── serde_json v1.0.145 (*)
+│   │   ├── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   └── url v2.5.7 (*)
+│   ├── curl v0.4.49 (*)
+│   ├── curl-sys v0.4.84+curl-8.17.0 (*)
+│   ├── filetime v0.2.26 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/filetime) (*)
+│   ├── flate2 v1.1.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/flate2-rs)
+│   │   ├── crc32fast v1.5.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-crc32fast)
+│   │   │   └── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   │   ├── libz-sys v1.1.23 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/libz-sys) (*)
+│   │   └── miniz_oxide v0.8.9 (*)
+│   ├── git2 v0.19.0
+│   │   ├── bitflags v2.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bitflags) (*)
+│   │   ├── libc v0.2.177
+│   │   ├── libgit2-sys v0.17.0+1.8.1
+│   │   │   ├── libc v0.2.177
+│   │   │   ├── libssh2-sys v0.3.1
+│   │   │   │   ├── libc v0.2.177
+│   │   │   │   ├── libz-sys v1.1.23 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/libz-sys) (*)
+│   │   │   │   └── openssl-sys v0.9.111 (*)
+│   │   │   │   [build-dependencies]
+│   │   │   │   ├── cc v1.2.46 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cc-rs) (*)
+│   │   │   │   └── pkg-config v0.3.32 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/pkg-config-rs)
+│   │   │   ├── libz-sys v1.1.23 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/libz-sys) (*)
+│   │   │   └── openssl-sys v0.9.111 (*)
+│   │   │   [build-dependencies]
+│   │   │   ├── cc v1.2.46 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cc-rs) (*)
+│   │   │   └── pkg-config v0.3.32 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/pkg-config-rs)
+│   │   ├── log v0.4.28 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/log)
+│   │   ├── openssl-probe v0.1.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/openssl-probe)
+│   │   ├── openssl-sys v0.9.111 (*)
+│   │   └── url v2.5.7 (*)
+│   ├── git2-curl v0.20.0
+│   │   ├── curl v0.4.49 (*)
+│   │   ├── git2 v0.19.0 (*)
+│   │   ├── log v0.4.28 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/log)
+│   │   └── url v2.5.7 (*)
+│   ├── gix v0.69.1
+│   │   ├── gix-actor v0.33.2
+│   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   ├── gix-date v0.9.4
+│   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   ├── itoa v1.0.15 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/itoa)
+│   │   │   │   ├── jiff v0.2.16 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/jiff)
+│   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   ├── gix-utils v0.1.14
+│   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   ├── fastrand v2.3.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/fastrand)
+│   │   │   │   └── unicode-normalization v0.1.25 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/unicode-normalization)
+│   │   │   │       └── tinyvec v1.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/tinyvec)
+│   │   │   │           └── tinyvec_macros v0.1.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/tinyvec_macros)
+│   │   │   ├── itoa v1.0.15 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/itoa)
+│   │   │   ├── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   └── winnow v0.6.26
+│   │   │       └── memchr v2.7.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memchr)
+│   │   ├── gix-attributes v0.23.1
+│   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   ├── gix-glob v0.17.1
+│   │   │   │   ├── bitflags v2.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bitflags) (*)
+│   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   ├── gix-features v0.39.1
+│   │   │   │   │   ├── bytes v1.11.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bytes)
+│   │   │   │   │   ├── crc32fast v1.5.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-crc32fast) (*)
+│   │   │   │   │   ├── crossbeam-channel v0.5.15
+│   │   │   │   │   │   └── crossbeam-utils v0.8.21
+│   │   │   │   │   ├── flate2 v1.1.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/flate2-rs) (*)
+│   │   │   │   │   ├── gix-hash v0.15.1
+│   │   │   │   │   │   ├── faster-hex v0.9.0
+│   │   │   │   │   │   │   └── serde v1.0.228 (*)
+│   │   │   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   │   │   ├── gix-trace v0.1.15
+│   │   │   │   │   ├── gix-utils v0.1.14 (*)
+│   │   │   │   │   ├── libc v0.2.177
+│   │   │   │   │   ├── once_cell v1.21.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/once_cell)
+│   │   │   │   │   ├── parking_lot v0.12.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/parking_lot)
+│   │   │   │   │   │   ├── lock_api v0.4.14 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/parking_lot/lock_api)
+│   │   │   │   │   │   │   └── scopeguard v1.2.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/scopeguard)
+│   │   │   │   │   │   └── parking_lot_core v0.9.12 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/parking_lot/core)
+│   │   │   │   │   │       ├── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   │   │   │   │   │       ├── libc v0.2.177
+│   │   │   │   │   │       └── smallvec v1.15.1
+│   │   │   │   │   ├── prodash v29.0.2
+│   │   │   │   │   │   ├── log v0.4.28 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/log)
+│   │   │   │   │   │   └── parking_lot v0.12.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/parking_lot) (*)
+│   │   │   │   │   ├── sha1_smol v1.0.1
+│   │   │   │   │   ├── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   │   │   └── walkdir v2.5.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/walkdir) (*)
+│   │   │   │   └── gix-path v0.10.21
+│   │   │   │       ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │       ├── gix-trace v0.1.15
+│   │   │   │       ├── gix-validate v0.10.1
+│   │   │   │       │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │       │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   │       ├── home v0.5.12
+│   │   │   │       └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-quote v0.4.15
+│   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   ├── gix-utils v0.1.14 (*)
+│   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   ├── gix-trace v0.1.15
+│   │   │   ├── kstring v2.0.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/kstring)
+│   │   │   │   └── static_assertions v1.1.0
+│   │   │   ├── smallvec v1.15.1
+│   │   │   ├── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   └── unicode-bom v2.0.3
+│   │   ├── gix-command v0.4.1
+│   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-trace v0.1.15
+│   │   │   └── shell-words v1.1.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/shell-words)
+│   │   ├── gix-commitgraph v0.25.1
+│   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   ├── gix-chunk v0.4.12
+│   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   ├── gix-features v0.39.1 (*)
+│   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   ├── memmap2 v0.9.9 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memmap2-rs)
+│   │   │   │   └── libc v0.2.177
+│   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   ├── gix-config v0.42.0
+│   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   ├── gix-config-value v0.14.12
+│   │   │   │   ├── bitflags v2.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bitflags) (*)
+│   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   ├── libc v0.2.177
+│   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   ├── gix-features v0.39.1 (*)
+│   │   │   ├── gix-glob v0.17.1 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-ref v0.49.1
+│   │   │   │   ├── gix-actor v0.33.2 (*)
+│   │   │   │   ├── gix-features v0.39.1 (*)
+│   │   │   │   ├── gix-fs v0.12.1
+│   │   │   │   │   ├── fastrand v2.3.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/fastrand)
+│   │   │   │   │   ├── gix-features v0.39.1 (*)
+│   │   │   │   │   └── gix-utils v0.1.14 (*)
+│   │   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   │   ├── gix-lock v15.0.1
+│   │   │   │   │   ├── gix-tempfile v15.0.0
+│   │   │   │   │   │   ├── gix-fs v0.12.1 (*)
+│   │   │   │   │   │   ├── libc v0.2.177
+│   │   │   │   │   │   ├── once_cell v1.21.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/once_cell)
+│   │   │   │   │   │   ├── parking_lot v0.12.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/parking_lot) (*)
+│   │   │   │   │   │   └── tempfile v3.23.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/tempfile) (*)
+│   │   │   │   │   ├── gix-utils v0.1.14 (*)
+│   │   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   │   ├── gix-object v0.46.1
+│   │   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   │   ├── gix-actor v0.33.2 (*)
+│   │   │   │   │   ├── gix-date v0.9.4 (*)
+│   │   │   │   │   ├── gix-features v0.39.1 (*)
+│   │   │   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   │   │   ├── gix-hashtable v0.6.0
+│   │   │   │   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   │   │   │   ├── hashbrown v0.14.5
+│   │   │   │   │   │   │   ├── ahash v0.8.12
+│   │   │   │   │   │   │   │   ├── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   │   │   │   │   │   │   │   ├── once_cell v1.21.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/once_cell)
+│   │   │   │   │   │   │   │   └── zerocopy v0.8.27 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/zerocopy)
+│   │   │   │   │   │   │   │   [build-dependencies]
+│   │   │   │   │   │   │   │   └── version_check v0.9.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/version_check)
+│   │   │   │   │   │   │   └── allocator-api2 v0.2.21
+│   │   │   │   │   │   └── parking_lot v0.12.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/parking_lot) (*)
+│   │   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   │   ├── gix-utils v0.1.14 (*)
+│   │   │   │   │   ├── gix-validate v0.9.4
+│   │   │   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   │   │   ├── itoa v1.0.15 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/itoa)
+│   │   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   │   ├── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   │   │   └── winnow v0.6.26 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   ├── gix-tempfile v15.0.0 (*)
+│   │   │   │   ├── gix-utils v0.1.14 (*)
+│   │   │   │   ├── gix-validate v0.9.4 (*)
+│   │   │   │   ├── memmap2 v0.9.9 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memmap2-rs) (*)
+│   │   │   │   ├── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   │   └── winnow v0.6.26 (*)
+│   │   │   ├── gix-sec v0.10.12
+│   │   │   │   ├── bitflags v2.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bitflags) (*)
+│   │   │   │   └── libc v0.2.177
+│   │   │   ├── memchr v2.7.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memchr)
+│   │   │   ├── once_cell v1.21.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/once_cell)
+│   │   │   ├── smallvec v1.15.1
+│   │   │   ├── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   ├── unicode-bom v2.0.3
+│   │   │   └── winnow v0.6.26 (*)
+│   │   ├── gix-credentials v0.26.0
+│   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   ├── gix-command v0.4.1 (*)
+│   │   │   ├── gix-config-value v0.14.12 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-prompt v0.9.1
+│   │   │   │   ├── gix-command v0.4.1 (*)
+│   │   │   │   ├── gix-config-value v0.14.12 (*)
+│   │   │   │   ├── parking_lot v0.12.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/parking_lot) (*)
+│   │   │   │   ├── rustix v0.38.44
+│   │   │   │   │   ├── bitflags v2.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bitflags) (*)
+│   │   │   │   │   └── linux-raw-sys v0.4.15
+│   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   ├── gix-sec v0.10.12 (*)
+│   │   │   ├── gix-trace v0.1.15
+│   │   │   ├── gix-url v0.28.2
+│   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   ├── gix-features v0.39.1 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   ├── percent-encoding v2.3.2
+│   │   │   │   ├── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   │   └── url v2.5.7 (*)
+│   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   ├── gix-date v0.9.4 (*)
+│   │   ├── gix-diff v0.49.0
+│   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   ├── gix-object v0.46.1 (*)
+│   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   ├── gix-dir v0.11.0
+│   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   ├── gix-discover v0.37.0
+│   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   ├── gix-fs v0.12.1 (*)
+│   │   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   ├── gix-ref v0.49.1 (*)
+│   │   │   │   ├── gix-sec v0.10.12 (*)
+│   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   ├── gix-fs v0.12.1 (*)
+│   │   │   ├── gix-ignore v0.12.1
+│   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   ├── gix-glob v0.17.1 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   ├── gix-trace v0.1.15
+│   │   │   │   └── unicode-bom v2.0.3
+│   │   │   ├── gix-index v0.37.0
+│   │   │   │   ├── bitflags v2.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bitflags) (*)
+│   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   ├── filetime v0.2.26 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/filetime) (*)
+│   │   │   │   ├── fnv v1.0.7 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-fnv)
+│   │   │   │   ├── gix-bitmap v0.2.15
+│   │   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   │   ├── gix-features v0.39.1 (*)
+│   │   │   │   ├── gix-fs v0.12.1 (*)
+│   │   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   │   ├── gix-lock v15.0.1 (*)
+│   │   │   │   ├── gix-object v0.46.1 (*)
+│   │   │   │   ├── gix-traverse v0.43.1
+│   │   │   │   │   ├── bitflags v2.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bitflags) (*)
+│   │   │   │   │   ├── gix-commitgraph v0.25.1 (*)
+│   │   │   │   │   ├── gix-date v0.9.4 (*)
+│   │   │   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   │   │   ├── gix-hashtable v0.6.0 (*)
+│   │   │   │   │   ├── gix-object v0.46.1 (*)
+│   │   │   │   │   ├── gix-revwalk v0.17.0
+│   │   │   │   │   │   ├── gix-commitgraph v0.25.1 (*)
+│   │   │   │   │   │   ├── gix-date v0.9.4 (*)
+│   │   │   │   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   │   │   │   ├── gix-hashtable v0.6.0 (*)
+│   │   │   │   │   │   ├── gix-object v0.46.1 (*)
+│   │   │   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   │   ├── gix-utils v0.1.14 (*)
+│   │   │   │   ├── gix-validate v0.9.4 (*)
+│   │   │   │   ├── hashbrown v0.14.5 (*)
+│   │   │   │   ├── itoa v1.0.15 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/itoa)
+│   │   │   │   ├── libc v0.2.177
+│   │   │   │   ├── memmap2 v0.9.9 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memmap2-rs) (*)
+│   │   │   │   ├── rustix v0.38.44 (*)
+│   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   ├── gix-object v0.46.1 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-pathspec v0.8.1
+│   │   │   │   ├── bitflags v2.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bitflags) (*)
+│   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   ├── gix-attributes v0.23.1 (*)
+│   │   │   │   ├── gix-config-value v0.14.12 (*)
+│   │   │   │   ├── gix-glob v0.17.1 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   ├── gix-trace v0.1.15
+│   │   │   ├── gix-utils v0.1.14 (*)
+│   │   │   ├── gix-worktree v0.38.0
+│   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   ├── gix-attributes v0.23.1 (*)
+│   │   │   │   ├── gix-features v0.39.1 (*)
+│   │   │   │   ├── gix-fs v0.12.1 (*)
+│   │   │   │   ├── gix-glob v0.17.1 (*)
+│   │   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   │   ├── gix-ignore v0.12.1 (*)
+│   │   │   │   ├── gix-index v0.37.0 (*)
+│   │   │   │   ├── gix-object v0.46.1 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   └── gix-validate v0.9.4 (*)
+│   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   ├── gix-discover v0.37.0 (*)
+│   │   ├── gix-features v0.39.1 (*)
+│   │   ├── gix-filter v0.16.0
+│   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   ├── encoding_rs v0.8.35 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/encoding_rs)
+│   │   │   │   └── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   │   │   ├── gix-attributes v0.23.1 (*)
+│   │   │   ├── gix-command v0.4.1 (*)
+│   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   ├── gix-object v0.46.1 (*)
+│   │   │   ├── gix-packetline-blocking v0.18.3
+│   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   ├── faster-hex v0.9.0 (*)
+│   │   │   │   ├── gix-trace v0.1.15
+│   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-quote v0.4.15 (*)
+│   │   │   ├── gix-trace v0.1.15
+│   │   │   ├── gix-utils v0.1.14 (*)
+│   │   │   ├── smallvec v1.15.1
+│   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   ├── gix-fs v0.12.1 (*)
+│   │   ├── gix-glob v0.17.1 (*)
+│   │   ├── gix-hash v0.15.1 (*)
+│   │   ├── gix-hashtable v0.6.0 (*)
+│   │   ├── gix-ignore v0.12.1 (*)
+│   │   ├── gix-index v0.37.0 (*)
+│   │   ├── gix-lock v15.0.1 (*)
+│   │   ├── gix-negotiate v0.17.0
+│   │   │   ├── bitflags v2.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bitflags) (*)
+│   │   │   ├── gix-commitgraph v0.25.1 (*)
+│   │   │   ├── gix-date v0.9.4 (*)
+│   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   ├── gix-object v0.46.1 (*)
+│   │   │   ├── gix-revwalk v0.17.0 (*)
+│   │   │   ├── smallvec v1.15.1
+│   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   ├── gix-object v0.46.1 (*)
+│   │   ├── gix-odb v0.66.0
+│   │   │   ├── arc-swap v1.7.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/arc-swap)
+│   │   │   ├── gix-date v0.9.4 (*)
+│   │   │   ├── gix-features v0.39.1 (*)
+│   │   │   ├── gix-fs v0.12.1 (*)
+│   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   ├── gix-hashtable v0.6.0 (*)
+│   │   │   ├── gix-object v0.46.1 (*)
+│   │   │   ├── gix-pack v0.56.0
+│   │   │   │   ├── clru v0.6.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/clru-rs)
+│   │   │   │   ├── gix-chunk v0.4.12 (*)
+│   │   │   │   ├── gix-features v0.39.1 (*)
+│   │   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   │   ├── gix-hashtable v0.6.0 (*)
+│   │   │   │   ├── gix-object v0.46.1 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   ├── gix-tempfile v15.0.0 (*)
+│   │   │   │   ├── memmap2 v0.9.9 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memmap2-rs) (*)
+│   │   │   │   ├── parking_lot v0.12.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/parking_lot) (*)
+│   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-quote v0.4.15 (*)
+│   │   │   ├── parking_lot v0.12.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/parking_lot) (*)
+│   │   │   ├── tempfile v3.23.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/tempfile) (*)
+│   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   ├── gix-pack v0.56.0 (*)
+│   │   ├── gix-path v0.10.21 (*)
+│   │   ├── gix-pathspec v0.8.1 (*)
+│   │   ├── gix-prompt v0.9.1 (*)
+│   │   ├── gix-protocol v0.47.0
+│   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   ├── gix-credentials v0.26.0 (*)
+│   │   │   ├── gix-date v0.9.4 (*)
+│   │   │   ├── gix-features v0.39.1 (*)
+│   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   ├── gix-lock v15.0.1 (*)
+│   │   │   ├── gix-negotiate v0.17.0 (*)
+│   │   │   ├── gix-object v0.46.1 (*)
+│   │   │   ├── gix-ref v0.49.1 (*)
+│   │   │   ├── gix-refspec v0.27.0
+│   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   │   ├── gix-revision v0.31.1
+│   │   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   │   ├── gix-commitgraph v0.25.1 (*)
+│   │   │   │   │   ├── gix-date v0.9.4 (*)
+│   │   │   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   │   │   ├── gix-object v0.46.1 (*)
+│   │   │   │   │   ├── gix-revwalk v0.17.0 (*)
+│   │   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   │   ├── gix-validate v0.9.4 (*)
+│   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   ├── gix-revwalk v0.17.0 (*)
+│   │   │   ├── gix-shallow v0.1.0
+│   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   ├── gix-hash v0.15.1 (*)
+│   │   │   │   ├── gix-lock v15.0.1 (*)
+│   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   ├── gix-trace v0.1.15
+│   │   │   ├── gix-transport v0.44.0
+│   │   │   │   ├── base64 v0.22.1
+│   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   ├── curl v0.4.49 (*)
+│   │   │   │   ├── gix-command v0.4.1 (*)
+│   │   │   │   ├── gix-credentials v0.26.0 (*)
+│   │   │   │   ├── gix-features v0.39.1 (*)
+│   │   │   │   ├── gix-packetline v0.18.4
+│   │   │   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   │   │   ├── faster-hex v0.9.0 (*)
+│   │   │   │   │   ├── gix-trace v0.1.15
+│   │   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   │   ├── gix-quote v0.4.15 (*)
+│   │   │   │   ├── gix-sec v0.10.12 (*)
+│   │   │   │   ├── gix-url v0.28.2 (*)
+│   │   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   ├── gix-utils v0.1.14 (*)
+│   │   │   ├── maybe-async v0.2.10 (proc-macro) (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/maybe-async-rs)
+│   │   │   │   ├── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2) (*)
+│   │   │   │   ├── quote v1.0.42 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quote) (*)
+│   │   │   │   └── syn v2.0.110 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/syn) (*)
+│   │   │   ├── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   │   └── winnow v0.6.26 (*)
+│   │   ├── gix-ref v0.49.1 (*)
+│   │   ├── gix-refspec v0.27.0 (*)
+│   │   ├── gix-revision v0.31.1 (*)
+│   │   ├── gix-revwalk v0.17.0 (*)
+│   │   ├── gix-sec v0.10.12 (*)
+│   │   ├── gix-shallow v0.1.0 (*)
+│   │   ├── gix-submodule v0.16.0
+│   │   │   ├── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   │   │   ├── gix-config v0.42.0 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-pathspec v0.8.1 (*)
+│   │   │   ├── gix-refspec v0.27.0 (*)
+│   │   │   ├── gix-url v0.28.2 (*)
+│   │   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   ├── gix-tempfile v15.0.0 (*)
+│   │   ├── gix-trace v0.1.15
+│   │   ├── gix-transport v0.44.0 (*)
+│   │   ├── gix-traverse v0.43.1 (*)
+│   │   ├── gix-url v0.28.2 (*)
+│   │   ├── gix-utils v0.1.14 (*)
+│   │   ├── gix-validate v0.9.4 (*)
+│   │   ├── gix-worktree v0.38.0 (*)
+│   │   ├── once_cell v1.21.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/once_cell)
+│   │   ├── prodash v29.0.2 (*)
+│   │   ├── smallvec v1.15.1
+│   │   └── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   ├── glob v0.3.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/glob)
+│   ├── hex v0.4.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-hex)
+│   ├── hmac v0.12.1
+│   │   └── digest v0.10.7 (*)
+│   ├── home v0.5.12
+│   ├── http-auth v0.1.10 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/http-auth)
+│   │   └── memchr v2.7.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memchr)
+│   ├── humantime v2.3.0
+│   ├── ignore v0.4.25 (*)
+│   ├── im-rc v15.1.0
+│   │   ├── bitmaps v2.1.0
+│   │   │   └── typenum v1.19.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/typenum)
+│   │   ├── rand_core v0.6.4 (*)
+│   │   ├── rand_xoshiro v0.6.0
+│   │   │   └── rand_core v0.6.4 (*)
+│   │   ├── sized-chunks v0.6.5
+│   │   │   ├── bitmaps v2.1.0 (*)
+│   │   │   └── typenum v1.19.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/typenum)
+│   │   └── typenum v1.19.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/typenum)
+│   │   [build-dependencies]
+│   │   └── version_check v0.9.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/version_check)
+│   ├── indexmap v2.12.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/indexmap) (*)
+│   ├── itertools v0.13.0
+│   │   └── either v1.15.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/either)
+│   ├── jobserver v0.1.34 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/jobserver-rs) (*)
+│   ├── lazycell v1.3.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/lazycell)
+│   ├── libc v0.2.177
+│   ├── libgit2-sys v0.17.0+1.8.1 (*)
+│   ├── memchr v2.7.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memchr)
+│   ├── opener v0.7.2
+│   │   └── bstr v1.12.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bstr) (*)
+│   ├── os_info v3.13.0
+│   │   ├── log v0.4.28 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/log)
+│   │   └── nix v0.30.1
+│   │       ├── bitflags v2.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bitflags) (*)
+│   │       ├── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   │       └── libc v0.2.177
+│   │       [build-dependencies]
+│   │       └── cfg_aliases v0.2.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg_aliases)
+│   ├── pasetors v0.7.7 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/pasetors)
+│   │   ├── ct-codecs v1.1.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-ct-codecs)
+│   │   ├── ed25519-compact v2.1.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-ed25519-compact)
+│   │   │   └── getrandom v0.2.16 (*)
+│   │   ├── getrandom v0.3.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/getrandom) (*)
+│   │   ├── orion v0.17.11 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/orion)
+│   │   │   ├── fiat-crypto v0.3.0
+│   │   │   ├── subtle v2.6.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/subtle)
+│   │   │   └── zeroize v1.8.2
+│   │   ├── p384 v0.13.1
+│   │   │   ├── ecdsa v0.16.9
+│   │   │   │   ├── der v0.7.10
+│   │   │   │   │   ├── const-oid v0.9.6
+│   │   │   │   │   ├── pem-rfc7468 v0.7.0
+│   │   │   │   │   │   └── base64ct v1.8.0
+│   │   │   │   │   └── zeroize v1.8.2
+│   │   │   │   ├── digest v0.10.7 (*)
+│   │   │   │   ├── elliptic-curve v0.13.8
+│   │   │   │   │   ├── base16ct v0.2.0
+│   │   │   │   │   ├── crypto-bigint v0.5.5
+│   │   │   │   │   │   ├── generic-array v0.14.7 (*)
+│   │   │   │   │   │   ├── rand_core v0.6.4 (*)
+│   │   │   │   │   │   ├── subtle v2.6.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/subtle)
+│   │   │   │   │   │   └── zeroize v1.8.2
+│   │   │   │   │   ├── digest v0.10.7 (*)
+│   │   │   │   │   ├── ff v0.13.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/ff)
+│   │   │   │   │   │   ├── rand_core v0.6.4 (*)
+│   │   │   │   │   │   └── subtle v2.6.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/subtle)
+│   │   │   │   │   ├── generic-array v0.14.7 (*)
+│   │   │   │   │   ├── group v0.13.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/group)
+│   │   │   │   │   │   ├── ff v0.13.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/ff) (*)
+│   │   │   │   │   │   ├── rand_core v0.6.4 (*)
+│   │   │   │   │   │   └── subtle v2.6.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/subtle)
+│   │   │   │   │   ├── hkdf v0.12.4
+│   │   │   │   │   │   └── hmac v0.12.1 (*)
+│   │   │   │   │   ├── pem-rfc7468 v0.7.0 (*)
+│   │   │   │   │   ├── pkcs8 v0.10.2
+│   │   │   │   │   │   ├── der v0.7.10 (*)
+│   │   │   │   │   │   └── spki v0.7.3
+│   │   │   │   │   │       └── der v0.7.10 (*)
+│   │   │   │   │   ├── rand_core v0.6.4 (*)
+│   │   │   │   │   ├── sec1 v0.7.3
+│   │   │   │   │   │   ├── base16ct v0.2.0
+│   │   │   │   │   │   ├── der v0.7.10 (*)
+│   │   │   │   │   │   ├── generic-array v0.14.7 (*)
+│   │   │   │   │   │   ├── pkcs8 v0.10.2 (*)
+│   │   │   │   │   │   ├── subtle v2.6.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/subtle)
+│   │   │   │   │   │   └── zeroize v1.8.2
+│   │   │   │   │   ├── subtle v2.6.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/subtle)
+│   │   │   │   │   └── zeroize v1.8.2
+│   │   │   │   ├── rfc6979 v0.4.0
+│   │   │   │   │   ├── hmac v0.12.1 (*)
+│   │   │   │   │   └── subtle v2.6.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/subtle)
+│   │   │   │   ├── signature v2.2.0
+│   │   │   │   │   ├── digest v0.10.7 (*)
+│   │   │   │   │   └── rand_core v0.6.4 (*)
+│   │   │   │   └── spki v0.7.3 (*)
+│   │   │   ├── elliptic-curve v0.13.8 (*)
+│   │   │   ├── primeorder v0.13.6
+│   │   │   │   └── elliptic-curve v0.13.8 (*)
+│   │   │   └── sha2 v0.10.9 (*)
+│   │   ├── rand_core v0.6.4 (*)
+│   │   ├── regex v1.12.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/regex)
+│   │   │   ├── aho-corasick v1.1.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/aho-corasick) (*)
+│   │   │   ├── memchr v2.7.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memchr)
+│   │   │   ├── regex-automata v0.4.13 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/regex/regex-automata)
+│   │   │   │   ├── aho-corasick v1.1.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/aho-corasick) (*)
+│   │   │   │   ├── memchr v2.7.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memchr)
+│   │   │   │   └── regex-syntax v0.8.8 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/regex/regex-syntax)
+│   │   │   └── regex-syntax v0.8.8 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/regex/regex-syntax)
+│   │   ├── serde v1.0.228 (*)
+│   │   ├── serde_derive v1.0.228 (proc-macro) (*)
+│   │   ├── serde_json v1.0.145 (*)
+│   │   ├── sha2 v0.10.9 (*)
+│   │   ├── subtle v2.6.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/subtle)
+│   │   ├── time v0.3.44 (*)
+│   │   └── zeroize v1.8.2
+│   ├── pathdiff v0.2.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/pathdiff)
+│   ├── rand v0.8.5 (*)
+│   ├── regex v1.12.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/regex) (*)
+│   ├── rusqlite v0.32.1
+│   │   ├── bitflags v2.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bitflags) (*)
+│   │   ├── fallible-iterator v0.3.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-fallible-iterator)
+│   │   ├── fallible-streaming-iterator v0.1.9 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/fallible-streaming-iterator)
+│   │   ├── hashlink v0.9.1
+│   │   │   └── hashbrown v0.14.5 (*)
+│   │   ├── libsqlite3-sys v0.30.1
+│   │   │   [build-dependencies]
+│   │   │   ├── cc v1.2.46 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cc-rs) (*)
+│   │   │   ├── pkg-config v0.3.32 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/pkg-config-rs)
+│   │   │   └── vcpkg v0.2.15 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/vcpkg-rs)
+│   │   └── smallvec v1.15.1
+│   ├── rustc-hash v2.1.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rustc-hash)
+│   ├── rustc-stable-hash v0.1.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rustc-stable-hash)
+│   ├── rustfix v0.9.3
+│   │   ├── serde v1.0.228 (*)
+│   │   ├── serde_json v1.0.145 (*)
+│   │   ├── thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror) (*)
+│   │   └── tracing v0.1.41 (*)
+│   ├── same-file v1.0.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/same-file)
+│   ├── semver v1.0.27 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/semver) (*)
+│   ├── serde v1.0.228 (*)
+│   ├── serde-untagged v0.1.9 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/serde-untagged) (*)
+│   ├── serde_ignored v0.1.14
+│   │   └── serde_core v1.0.228
+│   ├── serde_json v1.0.145 (*)
+│   ├── sha1 v0.10.6
+│   │   ├── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   │   ├── cpufeatures v0.2.17 (*)
+│   │   └── digest v0.10.7 (*)
+│   ├── shell-escape v0.1.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/shell-escape)
+│   ├── supports-hyperlinks v3.1.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/supports-hyperlinks)
+│   ├── supports-unicode v3.0.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/supports-unicode)
+│   ├── tar v0.4.44 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/tar-rs)
+│   │   ├── filetime v0.2.26 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/filetime) (*)
+│   │   └── libc v0.2.177
+│   ├── tempfile v3.23.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/tempfile) (*)
+│   ├── thiserror v1.0.69 (*)
+│   ├── time v0.3.44 (*)
+│   ├── toml v0.8.23 (*)
+│   ├── toml_edit v0.22.27 (*)
+│   ├── tracing v0.1.41 (*)
+│   ├── tracing-chrome v0.7.2
+│   │   ├── serde_json v1.0.145 (*)
+│   │   ├── tracing-core v0.1.34 (*)
+│   │   └── tracing-subscriber v0.3.20
+│   │       ├── matchers v0.2.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/matchers)
+│   │       │   └── regex-automata v0.4.13 (*)
+│   │       ├── nu-ansi-term v0.50.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/nu-ansi-term)
+│   │       ├── once_cell v1.21.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/once_cell)
+│   │       ├── regex-automata v0.4.13 (*)
+│   │       ├── sharded-slab v0.1.7 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/sharded-slab)
+│   │       │   └── lazy_static v1.5.0
+│   │       ├── smallvec v1.15.1
+│   │       ├── thread_local v1.1.9 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thread_local-rs)
+│   │       │   └── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   │       ├── tracing v0.1.41 (*)
+│   │       ├── tracing-core v0.1.34 (*)
+│   │       └── tracing-log v0.2.0
+│   │           ├── log v0.4.28 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/log)
+│   │           ├── once_cell v1.21.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/once_cell)
+│   │           └── tracing-core v0.1.34 (*)
+│   ├── tracing-subscriber v0.3.20 (*)
+│   ├── unicase v2.8.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/unicase)
+│   ├── unicode-width v0.2.2
+│   ├── url v2.5.7 (*)
+│   └── walkdir v2.5.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/walkdir) (*)
+│   [build-dependencies]
+│   ├── flate2 v1.1.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/flate2-rs)
+│   │   ├── crc32fast v1.5.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-crc32fast) (*)
+│   │   └── libz-sys v1.1.23 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/libz-sys)
+│   │       [build-dependencies]
+│   │       ├── cc v1.2.46 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cc-rs) (*)
+│   │       ├── pkg-config v0.3.32 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/pkg-config-rs)
+│   │       └── vcpkg v0.2.15 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/vcpkg-rs)
+│   └── tar v0.4.44 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/tar-rs) (*)
+├── cargo-platform v0.2.0 (*)
+├── clap v4.5.51 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/clap) (*)
+├── clap_complete v4.5.60 (*)
+├── colorify v0.2.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/colorify)
+├── config v0.15.18 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/config-rs)
+│   ├── async-trait v0.1.89 (proc-macro) (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/async-trait)
+│   │   ├── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2) (*)
+│   │   ├── quote v1.0.42 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quote) (*)
+│   │   └── syn v2.0.110 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/syn) (*)
+│   ├── base64 v0.22.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-base64)
+│   ├── convert_case v0.6.0
+│   │   └── unicode-segmentation v1.12.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/unicode-segmentation)
+│   ├── json5 v0.4.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/json5-rs)
+│   │   ├── pest v2.8.3
+│   │   │   ├── memchr v2.7.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memchr)
+│   │   │   └── ucd-trie v0.1.7
+│   │   ├── pest_derive v2.8.3 (proc-macro)
+│   │   │   ├── pest v2.8.3 (*)
+│   │   │   └── pest_generator v2.8.3
+│   │   │       ├── pest v2.8.3 (*)
+│   │   │       ├── pest_meta v2.8.3
+│   │   │       │   └── pest v2.8.3 (*)
+│   │   │       │   [build-dependencies]
+│   │   │       │   └── sha2 v0.10.9
+│   │   │       │       ├── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   │   │       │       ├── cpufeatures v0.2.17 (*)
+│   │   │       │       └── digest v0.10.7
+│   │   │       │           ├── block-buffer v0.10.4 (*)
+│   │   │       │           └── crypto-common v0.1.7
+│   │   │       │               ├── generic-array v0.14.7
+│   │   │       │               │   └── typenum v1.19.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/typenum)
+│   │   │       │               │   [build-dependencies]
+│   │   │       │               │   └── version_check v0.9.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/version_check)
+│   │   │       │               └── typenum v1.19.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/typenum)
+│   │   │       ├── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2) (*)
+│   │   │       ├── quote v1.0.42 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quote) (*)
+│   │   │       └── syn v2.0.110 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/syn) (*)
+│   │   └── serde v1.0.228 (*)
+│   ├── pathdiff v0.2.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/pathdiff)
+│   ├── ron v0.11.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/ron-rs)
+│   │   ├── base64 v0.22.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-base64)
+│   │   ├── bitflags v2.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bitflags) (*)
+│   │   ├── serde v1.0.228 (*)
+│   │   ├── serde_derive v1.0.228 (proc-macro) (*)
+│   │   └── unicode-ident v1.0.22 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/unicode-ident)
+│   ├── rust-ini v0.21.3
+│   │   ├── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   │   └── ordered-multimap v0.7.3
+│   │       ├── dlv-list v0.5.2
+│   │       │   └── const-random v0.1.18
+│   │       │       └── const-random-macro v0.1.16 (proc-macro)
+│   │       │           ├── getrandom v0.2.16
+│   │       │           │   ├── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   │       │           │   └── libc v0.2.177
+│   │       │           ├── once_cell v1.21.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/once_cell)
+│   │       │           └── tiny-keccak v2.0.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/tiny-keccak)
+│   │       │               └── crunchy v0.2.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/crunchy)
+│   │       └── hashbrown v0.14.5 (*)
+│   ├── serde-untagged v0.1.9 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/serde-untagged) (*)
+│   ├── serde_core v1.0.228
+│   ├── serde_json v1.0.145 (*)
+│   ├── toml v0.9.8
+│   │   ├── serde_core v1.0.228
+│   │   ├── serde_spanned v1.0.3
+│   │   │   └── serde_core v1.0.228
+│   │   ├── toml_datetime v0.7.3
+│   │   │   └── serde_core v1.0.228
+│   │   ├── toml_parser v1.0.4
+│   │   │   └── winnow v0.7.13 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/winnow)
+│   │   ├── toml_writer v1.0.4
+│   │   └── winnow v0.7.13 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/winnow)
+│   ├── winnow v0.7.13 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/winnow)
+│   └── yaml-rust2 v0.10.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/yaml-rust2)
+│       ├── arraydeque v0.5.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/arraydeque)
+│       ├── encoding_rs v0.8.35 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/encoding_rs) (*)
+│       └── hashlink v0.10.0
+│           └── hashbrown v0.15.5
+│               └── foldhash v0.1.5
+├── dashmap v7.0.0-rc2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/dashmap)
+│   ├── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   ├── crossbeam-utils v0.8.21
+│   ├── equivalent v1.0.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/equivalent)
+│   ├── hashbrown v0.16.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/hashbrown)
+│   │   ├── allocator-api2 v0.2.21
+│   │   ├── equivalent v1.0.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/equivalent)
+│   │   ├── foldhash v0.2.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/foldhash)
+│   │   └── parking_lot_core v0.9.12
+│   │       ├── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   │       ├── libc v0.2.177
+│   │       └── smallvec v1.15.1
+│   ├── lock_api v0.4.14
+│   │   └── scopeguard v1.2.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/scopeguard)
+│   └── parking_lot_core v0.9.12 (*)
+├── dlv-list v0.6.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/dlv-list-rs)
+│   └── syn v2.0.110 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/syn)
+│       ├── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2)
+│       │   └── unicode-ident v1.0.22 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/unicode-ident)
+│       ├── quote v1.0.42 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quote)
+│       │   └── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2) (*)
+│       └── unicode-ident v1.0.22 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/unicode-ident)
+├── faster-hex v0.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/faster-hex)
+│   ├── heapless v0.8.0
+│   │   ├── hash32 v0.3.1
+│   │   │   └── byteorder v1.5.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/byteorder)
+│   │   └── stable_deref_trait v1.2.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/stable_deref_trait)
+│   └── serde v1.0.228 (*)
+├── hashbrown v0.16.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/hashbrown) (*)
+├── heapless v0.9.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/heapless)
+│   ├── hash32 v0.3.1 (*)
+│   └── stable_deref_trait v1.2.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/stable_deref_trait)
+├── ordered-multimap v0.7.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/ordered-multimap-rs)
+│   ├── dlv-list v0.5.2 (*)
+│   └── hashbrown v0.14.5 (*)
+├── pathdiff v0.2.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/pathdiff)
+├── ron v0.11.0
+│   ├── base64 v0.22.1
+│   ├── bitflags v2.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bitflags) (*)
+│   ├── serde v1.0.228 (*)
+│   ├── serde_derive v1.0.228 (proc-macro) (*)
+│   └── unicode-ident v1.0.22 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/unicode-ident)
+├── rust-ini v0.21.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-ini)
+│   ├── cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)
+│   └── ordered-multimap v0.7.3 (*)
+├── semver v1.0.27 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/semver) (*)
+├── serde v1.0.228 (*)
+├── sha2 v0.10.9 (*)
+├── tempfile v3.23.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/tempfile) (*)
+├── tera v1.20.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/tera)
+│   ├── globwalk v0.9.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/globwalk)
+│   │   ├── bitflags v2.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bitflags) (*)
+│   │   ├── ignore v0.4.25 (*)
+│   │   └── walkdir v2.5.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/walkdir) (*)
+│   ├── lazy_static v1.5.0
+│   ├── pest v2.8.3 (*)
+│   ├── pest_derive v2.8.3 (proc-macro) (*)
+│   ├── regex v1.12.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/regex) (*)
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.145 (*)
+│   └── unicode-segmentation v1.12.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/unicode-segmentation)
+├── time v0.3.44 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/time-rs/time)
+│   ├── deranged v0.5.5 (*)
+│   ├── itoa v1.0.15 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/itoa)
+│   ├── libc v0.2.177
+│   ├── num-conv v0.1.0
+│   ├── num_threads v0.1.7 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/num_threads)
+│   ├── powerfmt v0.2.0
+│   ├── quickcheck v1.0.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quickcheck) (*)
+│   ├── rand v0.8.5 (*)
+│   ├── rand v0.9.2 (*)
+│   ├── serde_core v1.0.228
+│   ├── time-core v0.1.6
+│   └── time-macros v0.2.24 (proc-macro)
+│       ├── num-conv v0.1.0
+│       └── time-core v0.1.6
+├── time-macros v0.2.24 (proc-macro) (https://github.com/meta-introspector/time-rs?branch=feature%2FCRQ-016-nixify#233fc84e)
+│   ├── num-conv v0.1.0
+│   └── time-core v0.1.6 (https://github.com/meta-introspector/time-rs?branch=feature%2FCRQ-016-nixify#233fc84e)
+├── toml v0.9.8 (*)
+└── walkdir v2.5.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/walkdir) (*)
