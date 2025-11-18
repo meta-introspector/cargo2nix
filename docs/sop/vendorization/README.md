@@ -8,6 +8,10 @@ This document outlines the process for vendorizing Rust crates within the `cargo
 2.  **Consistency:** Ensure that dependency names (e.g., `serde_core` vs `serde-core`) are consistent across feature definitions, `[dependencies]` sections, and `[workspace.dependencies]` entries.
 3.  **Optional Dependencies:** If a feature conditionally enables a dependency using `dep:crate_name` or `crate_name?/feature`, the corresponding dependency in the `[dependencies]` section *must* be marked with `optional = true`.
 4.  **Workspace Definition:** The root `Cargo.toml`'s `[workspace.dependencies]` section should define common dependencies as path dependencies to their respective submodules.
+5.  **`Cargo.toml` Modifications for Vendored Crates:** When vendoring crates, it's often necessary to modify their `Cargo.toml` files to align with the workspace's dependency management strategy.
+    *   **`rust-version`:** The `rust-version` field in `Cargo.toml` files of vendored crates should be commented out (`# rust-version = "X.Y"`) to prevent conflicts with the workspace's Rust toolchain requirements.
+    *   **Workspace Dependencies:** Dependencies within vendored crates should be updated to use `workspace = true` where applicable, referencing the root `Cargo.toml`'s `[workspace.dependencies]` section. For example, `cfg-if = "1.0.0"` becomes `cfg-if.workspace = true`.
+    *   **Feature Management:** Features that pull in external dependencies (e.g., `deadlock_detection = ["petgraph", "backtrace"]`) might need to have those dependencies commented out or adjusted if they are managed differently in the workspace or cause circular dependencies. For example, `deadlock_detection = ["#petgraph", "#backtrace"]` or `deadlock_detection = []` if the dependencies are handled elsewhere.
 
 ## Troubleshooting Common Issues
 
