@@ -1455,12 +1455,6 @@
 [submodule "submodules/syscall"]
 	path = submodules/syscall
 	url = https://gitlab.redox-os.org/redox-os/syscall
-[submodule "minicov"]
-	path = minicov
-	url = https://github.com/Amanieu/minicov
-[submodule "gg-alloc"]
-	path = gg-alloc
-	url = https://github.com/Badel2/gg-alloc
 [submodule "submodules/rust-x86"]
 	path = submodules/rust-x86
 	url = https://github.com/meta-introspector/rust-x86
@@ -1521,3 +1515,27 @@
 [submodule "submodules/loom"]
 	path = submodules/loom
 	url = https://github.com/meta-introspector/loom
+[submodule "submodules/twox-hash"]
+	path = submodules/twox-hash
+	url = https://github.com/meta-introspector/twox-hash
+[submodule "submodules/iai"]
+	path = submodules/iai
+	url = https://github.com/meta-introspector/iai
+[submodule "submodules/postcard"]
+	path = submodules/postcard
+	url = https://github.com/meta-introspector/postcard
+[submodule "submodules/rand_distr"]
+	path = submodules/rand_distr
+	url = https://github.com/meta-introspector/rand_distr
+[submodule "submodules/msgpack-rust"]
+	path = submodules/msgpack-rust
+	url = https://github.com/meta-introspector/msgpack-rust
+[submodule "submodules/eyre"]
+	path = submodules/eyre
+	url = https://github.com/meta-introspector/eyre
+[submodule "submodules/generator-rs"]
+	path = submodules/generator-rs
+	url = https://github.com/meta-introspector/generator-rs
+[submodule "submodules/atomic-maybe-uninit"]
+	path = submodules/atomic-maybe-uninit
+	url = https://github.com/meta-introspector/atomic-maybe-uninit
