@@ -1539,3 +1539,36 @@
 [submodule "submodules/atomic-maybe-uninit"]
 	path = submodules/atomic-maybe-uninit
 	url = https://github.com/meta-introspector/atomic-maybe-uninit
+[submodule "submodules/cpp_demangle"]
+	path = submodules/cpp_demangle
+	url = https://github.com/meta-introspector/cpp_demangle
+[submodule "submodules/rust-typed-arena"]
+	path = submodules/rust-typed-arena
+	url = https://github.com/meta-introspector/rust-typed-arena
+[submodule "submodules/findshlibs"]
+	path = submodules/findshlibs
+	url = https://github.com/meta-introspector/findshlibs
+[submodule "submodules/libtest-mimic"]
+	path = submodules/libtest-mimic
+	url = https://github.com/meta-introspector/libtest-mimic
+[submodule "submodules/zstd-rs"]
+	path = submodules/zstd-rs
+	url = https://github.com/meta-introspector/zstd-rs
+[submodule "submodules/async-stream"]
+	path = submodules/async-stream
+	url = https://github.com/meta-introspector/async-stream
+[submodule "submodules/futures-concurrency"]
+	path = submodules/futures-concurrency
+	url = https://github.com/meta-introspector/futures-concurrency
+[submodule "submodules/mockall"]
+	path = submodules/mockall
+	url = https://github.com/meta-introspector/mockall
+[submodule "submodules/mio-aio"]
+	path = submodules/mio-aio
+	url = https://github.com/meta-introspector/mio-aio
+[submodule "submodules/macrotest"]
+	path = submodules/macrotest
+	url = https://github.com/meta-introspector/macrotest
+[submodule "submodules/assert-impl"]
+	path = submodules/assert-impl
+	url = https://github.com/meta-introspector/assert-impl

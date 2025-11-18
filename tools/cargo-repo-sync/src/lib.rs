@@ -2,6 +2,8 @@ pub mod executors;
 pub mod traits;
 pub mod fs_cache;
 pub mod fs_writer;
+pub mod repo_discovery;
+pub mod cargo_toml_patcher;
 
 // New modules for split-out declarations
 pub mod repo_sync_lib;

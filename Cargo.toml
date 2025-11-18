@@ -46,30 +46,30 @@ self_named_module_files = "warn"
 
 
 [workspace.dependencies]
- # [workspace.dependencies]
- # aarch64-dit = { path = "submodules/utils/aarch64-dit" }
- # access = { path = "submodules/kstring" }
- # accuracy = { path = "submodules/backtrace-rs" }
- # addr2line = { path = "submodules/addr2line" }
- # adler2 = { path = "submodules/adler2" }
- # adv_server_codegen = { path = "submodules/dbus-rs/dbus-codegen" }
- # afl = { path = "submodules/faster-hex/afl" }
- # ahash = { path = "submodules/ahash" }
- # ahash-cbindings = { path = "submodules/ahash/smhasher/ahash-cbindings" }
- # ahash-compare = { path = "submodules/ahash/compare" }
- # ahash_c = { path = "submodules/ahash/smhasher/ahash-cbindings" }
- # aho-corasick = { path = "submodules/aho-corasick" }
- # aho-corasick-debug = { path = "submodules/aho-corasick/aho-corasick-debug" }
- # aho_corasick = { path = "submodules/aho-corasick" }
- # all = { path = "submodules/rust-url/idna" }
- # alloc = { path = "submodules/rust/library/alloc" }
- # allocator-api2 = { path = "submodules/allocator-api2" }
- # allocator_api = { path = "submodules/bumpalo" }
- # alt-core = { path = "submodules/rayon/ci/alt-core" }
- # alts = { path = "submodules/simd-adler32" }
- # and_list = { path = "submodules/icu4x/components/icu" }
- # android_system_properties = { path = "submodules/android_system_properties" }
- # anes = { path = "submodules/anes-rs/anes" }
+# [workspace.dependencies]
+# aarch64-dit = { path = "submodules/utils/aarch64-dit" }
+# access = { path = "submodules/kstring" }
+# accuracy = { path = "submodules/backtrace-rs" }
+# addr2line = { path = "submodules/addr2line" }
+# adler2 = { path = "submodules/adler2" }
+# adv_server_codegen = { path = "submodules/dbus-rs/dbus-codegen" }
+# afl = { path = "submodules/faster-hex/afl" }
+# ahash = { path = "submodules/ahash" }
+# ahash-cbindings = { path = "submodules/ahash/smhasher/ahash-cbindings" }
+# ahash-compare = { path = "submodules/ahash/compare" }
+# ahash_c = { path = "submodules/ahash/smhasher/ahash-cbindings" }
+# aho-corasick = { path = "submodules/aho-corasick" }
+# aho-corasick-debug = { path = "submodules/aho-corasick/aho-corasick-debug" }
+# aho_corasick = { path = "submodules/aho-corasick" }
+# all = { path = "submodules/rust-url/idna" }
+# alloc = { path = "submodules/rust/library/alloc" }
+# allocator-api2 = { path = "submodules/allocator-api2" }
+# allocator_api = { path = "submodules/bumpalo" }
+# alt-core = { path = "submodules/rayon/ci/alt-core" }
+# alts = { path = "submodules/simd-adler32" }
+# and_list = { path = "submodules/icu4x/components/icu" }
+# android_system_properties = { path = "submodules/android_system_properties" }
+# anes = { path = "submodules/anes-rs/anes" }
  # annotate-snippets = { path = "submodules/annotate-snippets-rs" }
  # ansi-x963-kdf = { path = "submodules/KDFs/ansi-x963-kdf" }
  # ansiterm = { path = "submodules/ansiterm-rs" }
@@ -840,7 +840,6 @@ self_named_module_files = "warn"
  # once_cell = { path = "submodules/once_cell" }
  # once_cell_polyfill = { path = "submodules/once_cell_polyfill" }
  # one-step-kdf = { path = "submodules/KDFs/one-step-kdf" }
-# openssl-sys = { path = "submodules/rust-openssl/openssl-sys" }
  # operands = { path = "submodules/icu4x/components/plurals" }
  # opt-dist = { path = "submodules/rust/src/tools/opt-dist" }
  # option_set = { path = "submodules/option_set" }
@@ -1457,8 +1456,8 @@ self_named_module_files = "warn"
  # zip = { path = "submodules/zip2" }
  # zlib-rs = { path = "submodules/zlib-rs/zlib-rs" }
  # zoneinfo64 = { path = "submodules/icu4x/utils/zoneinfo64" }
- # zstd = { path = "submodules/reqwest" }
  # zv_serde = { path = "submodules/icu4x/utils/zerovec" }
+ libtest-mimic = { path = "./submodules/libtest-mimic" }
 # +
 # +[patch.crates-io]
 # +aarch64-dit = { path = "submodules/utils/aarch64-dit" }
@@ -2754,7 +2753,6 @@ self_named_module_files = "warn"
 # +open = { path = "submodules/open-rs" }
 # +opener = { path = "submodules/opener/opener" }
 # +opener-bin = { path = "submodules/opener/opener-bin" }
-#openssl = { path = "submodules/rust-openssl/openssl" }
 # +openssl-errors = { path = "submodules/rust-openssl/openssl-errors" }
 # +openssl-macros = { path = "submodules/rust-openssl/openssl-macros" }
 # +openssl-probe = { path = "submodules/openssl-probe" }
@@ -3608,9 +3606,36 @@ self_named_module_files = "warn"
 # +zoneinfo64 = { path = "submodules/icu4x/utils/zoneinfo64" }
 # +zstd = { path = "submodules/reqwest" }
 # +zv_serde = { path = "submodules/icu4x/utils/zerovec" }
+# openssl-sys = { path = "submodules/rust-openssl/openssl-sys" }
+#accept-rustls = { path = "submodules/actix-net/actix-tls" }
+#aead = { path = "submodules/ring/bench" }
+#ascon-hash = { path = "submodules/hashes/benches" }
+#base64 = { path = "submodules/ron" }
+#builtins-test-intrinsics = { path = "submodules/compiler-builtins/builtins-test-intrinsics" }
+#compact_str = { path = "submodules/compact_str/fuzz" }
+#comparison = { path = "submodules/compact_str/bench" }
+#compiler-rt.path = "submodules/compiler-rt"
+#compiler_builtins = { path = "submodules/compiler-builtins/builtins-shim" 
+#defmac = { path = "submodules/defmac" }
+#derive-ex = { path = "submodules/derive-ex/derive-ex" }
+#digest = { path = "submodules/ring/bench" }
+#ecdsa = { path = "submodules/ring/bench" }
+#fixedbitset = { path = "submodules/fixedbitset" }
+#fxhash = { path = "submodules/fxhash" }
+#inline = { path = "submodules/ratatui/examples/apps/inline" }
+#lazy_static = { path = "submodules/once_cell" }
+#openssl = { path = "submodules/rust-openssl/openssl" }
+#os_info = { path = "submodules/os_info/cli" }
+#petgraph = { path = "submodules/petgraph" }
+#playground = { path = "submodules/handlebars-rust/playground" }
+#proc-macro-crate = { path = "submodules/proc-macro-crate" }
+#serde = { path = "submodules/corn" }
+#smallvec = { path = "submodules/tinyvec" }
+#tracing = { path = "submodules/warp" }
+#zstd = { path = "submodules/reqwest" }
+
 aHash = { path = "submodules/ahash/benchmark_tools" }
 aarch64-dit = { path = "submodules/utils/aarch64-dit" }
-#accept-rustls = { path = "submodules/actix-net/actix-tls" }
 accept-rustls = { path = "submodules/actix-net/actix-tls" }
 access = { path = "submodules/kstring" }
 accuracy = { path = "submodules/backtrace-rs" }
@@ -3630,7 +3655,6 @@ addr2line = { path = "submodules/addr2line" }
 adler2 = { path = "submodules/adler2" }
 adv_server_codegen = { path = "submodules/dbus-rs/dbus-codegen" }
 advanced-widget-impl = { path = "submodules/ratatui/examples/apps/advanced-widget-impl" }
-#aead = { path = "submodules/ring/bench" }
 aead = { path = "submodules/traits/aead" }
 aead_benchmark = { path = "submodules/aws-lc-rs/aws-lc-rs-testing" }
 afl = { path = "submodules/faster-hex/afl" }
@@ -3702,7 +3726,6 @@ as-if-std = { path = "submodules/backtrace-rs/crates/as-if-std" }
 ascii_reader = { path = "submodules/rust-plist/fuzz" }
 asciitrie_test = { path = "submodules/icu4x/utils/zerotrie" }
 ascon-hash = { path = "submodules/hashes/ascon-hash" }
-#ascon-hash = { path = "submodules/hashes/benches" }
 asmasm = { path = "submodules/twox-hash/asmasm" }
 assert-instr-macro = { path = "submodules/stdarch/crates/assert-instr-macro" }
 assert_matches = { path = "submodules/assert_matches" }
@@ -3731,6 +3754,7 @@ async-transport = { path = "submodules/gitoxide/gix-transport" }
 async_monitor = { path = "submodules/notify/examples" }
 async_source = { path = "submodules/config-rs" }
 atexit = { path = "submodules/curl-rust" }
+atomic-maybe-uninit = { path = "submodules/atomic-maybe-uninit" }
 atomic-waker = { path = "submodules/atomic-waker" }
 atomic_failure = { path = "submodules/web-time/tests-web" }
 atomic_success = { path = "submodules/web-time/tests-web" }
@@ -3769,7 +3793,6 @@ bare-rust-version = { path = "submodules/cargo_metadata/tests/all/bare-rust-vers
 base-db = { path = "submodules/rust-analyzer/crates/base-db" }
 base16ct = { path = "submodules/formats/base16ct" }
 base32ct = { path = "submodules/formats/base32ct" }
-#base64 = { path = "submodules/ron" }
 base64 = { path = "submodules/rust-base64" }
 base64-fuzz = { path = "submodules/rust-base64/fuzz" }
 base64ct = { path = "submodules/formats/base64ct" }
@@ -3852,7 +3875,6 @@ build-rs-test-lib = { path = "submodules/cargo/crates/build-rs-test-lib" }
 build_helper = { path = "submodules/rust/src/build_helper" }
 builder_test = { path = "submodules/icu4x/utils/zerotrie" }
 builtins-test = { path = "submodules/compiler-builtins/builtins-test" }
-builtins-test-intrinsics = { path = "submodules/compiler-builtins/builtins-test-intrinsics" }
 bump-stage0 = { path = "submodules/rust/src/tools/bump-stage0" }
 bumpalo = { path = "submodules/bumpalo" }
 bus = { path = "submodules/crossbeam/crossbeam-channel/benchmarks" }
@@ -3988,17 +4010,15 @@ combine = { path = "submodules/combine" }
 common = { path = "submodules/ufmt/nopanic" }
 commonmark_js = { path = "submodules/pulldown-cmark/fuzz" }
 compact_str = { path = "submodules/compact_str/compact_str" }
-#compact_str = { path = "submodules/compact_str/fuzz" }
 compact_str-fuzz = { path = "submodules/compact_str/fuzz" }
 compact_str_iai = { path = "submodules/compact_str/bench" }
 compare = { path = "submodules/ahash/compare" }
 compare_self = { path = "submodules/icu4x/components/normalizer/fuzz" }
 compare_std = { path = "submodules/utf8_iter/fuzz" }
 compare_utf16 = { path = "submodules/icu4x/components/collator/fuzz" }
-#comparison = { path = "submodules/compact_str/bench" }
 comparison = { path = "submodules/twox-hash/comparison" }
 compile-test = { path = "submodules/rust-clippy" }
-compiler_builtins = { path = "submodules/compiler-builtins/builtins-shim" }
+compiler_builtins = { path = "submodules/rust/library/compiler-builtins/compiler-builtins/"}
 compiler_version = { path = "submodules/BLAKE3/tools/compiler_version" }
 compiletest = { path = "submodules/proc-macro2/tests/ui" }
 complex = { path = "submodules/clap/clap_bench" }
@@ -4059,6 +4079,7 @@ correctness = { path = "submodules/addr2line" }
 cors = { path = "submodules/warp" }
 coverage-dump = { path = "submodules/rust/src/tools/coverage-dump" }
 coverage-helper = { path = "submodules/coverage-helper" }
+cpp_demangle = { path = "submodules/cpp_demangle" }
 cpp_smoke_test = { path = "submodules/backtrace-rs/crates/cpp_smoke_test" }
 cppwinrt = { path = "submodules/windows-rs/crates/libs/cppwinrt" }
 cpufeatures = { path = "submodules/utils/cpufeatures" }
@@ -4152,7 +4173,6 @@ default_xcode_app = { path = "submodules/objc2/examples/app" }
 default_xcode_game = { path = "submodules/objc2/examples/metal" }
 defer = { path = "submodules/defer" }
 deflate = { path = "submodules/reqwest" }
-#defmac = { path = "submodules/defmac" }
 defmac = { path = "submodules/defmac" }
 defmt = { path = "submodules/defmt/defmt" }
 defmt-decoder = { path = "submodules/defmt/decoder" }
@@ -4180,7 +4200,6 @@ der_derive = { path = "submodules/formats/der_derive" }
 deranged = { path = "submodules/deranged/deranged" }
 deranged-macros = { path = "submodules/deranged/deranged-macros" }
 derive = { path = "submodules/ff" }
-#derive-ex = { path = "submodules/derive-ex/derive-ex" }
 derive-ex = { path = "submodules/derive-ex/derive-ex" }
 derive_arbitrary = { path = "submodules/arbitrary/derive" }
 derive_builder = { path = "submodules/rust-derive-builder/derive_builder" }
@@ -4197,7 +4216,6 @@ diesel-postgres-test = { path = "submodules/jiff/examples/diesel-postgres" }
 diesel-sqlite-test = { path = "submodules/jiff/examples/diesel-sqlite" }
 diff = { path = "submodules/diff" }
 different_name = { path = "submodules/cargo_metadata/tests/all/namedep" }
-#digest = { path = "submodules/ring/bench" }
 digest = { path = "submodules/traits/digest" }
 digest-io = { path = "submodules/utils/digest-io" }
 digest_benchmark = { path = "submodules/aws-lc-rs/aws-lc-rs-testing" }
@@ -4240,7 +4258,6 @@ dyn-clone = { path = "submodules/dyn-clone" }
 dynamic = { path = "submodules/clap/clap_complete" }
 dynamic-libz-sys = { path = "submodules/zlib-rs/dynamic-libz-sys" }
 ebr = { path = "submodules/scalable-delayed-dealloc" }
-#ecdsa = { path = "submodules/ring/bench" }
 ecdsa = { path = "submodules/signatures/ecdsa" }
 ecdsa_benchmark = { path = "submodules/aws-lc-rs/aws-lc-rs-testing" }
 echo = { path = "submodules/hyper" }
@@ -4370,11 +4387,11 @@ find = { path = "submodules/clap" }
 find-msvc-tools = { path = "submodules/cc-rs/find-msvc-tools" }
 find_internet_password = { path = "submodules/rust-security-framework/security-framework" }
 find_slice = { path = "submodules/winnow" }
+findshlibs.path = "submodules/findshlibs"
 firmware = { path = "submodules/defmt/firmware/qemu" }
 fixed_decimal = { path = "submodules/icu4x/utils/fixed_decimal" }
 fixed_decimal_format = { path = "submodules/icu4x/components/decimal" }
 fixedbitset = { path = "submodules/fixedbitset" }
-#fixedbitset = { path = "submodules/fixedbitset" }
 flamegraph-resolve = { path = "submodules/iri-string" }
 flate2 = { path = "submodules/flate2-rs" }
 flate2-fuzz = { path = "submodules/flate2-rs/fuzz" }
@@ -4416,7 +4433,8 @@ fsb = { path = "submodules/hashes/fsb" }
 fsevent = { path = "submodules/fsevent-rust" }
 fsevent-sys = { path = "submodules/fsevent-rust/fsevent-sys" }
 fuse_test = { path = "submodules/hermit-rs/examples/fuse_test" }
-futures = { path = "submodules/warp" }
+#futures = { path = "submodules/warp" }
+futures = { path = "submodules/futures-rs/futures" }
 futures-channel = { path = "submodules/futures-rs/futures-channel" }
 futures-core = { path = "submodules/futures-rs/futures-core" }
 futures-example-functional = { path = "submodules/futures-rs/examples/functional" }
@@ -4480,7 +4498,6 @@ fuzz_types = { path = "submodules/pasetors/fuzz" }
 fuzz_value = { path = "submodules/gitoxide/gix-config-value/fuzz" }
 fuzz_write = { path = "submodules/zip2/fuzz_write" }
 fxhash = { path = "submodules/fxhash" }
-#fxhash = { path = "submodules/fxhash" }
 gateway = { path = "submodules/hyper" }
 gauge = { path = "submodules/ratatui/examples/apps/gauge" }
 gba-test = { path = "submodules/portable-atomic/tests/gba" }
@@ -4495,6 +4512,7 @@ generate-copyright = { path = "submodules/rust/src/tools/generate-copyright" }
 generate-readme = { path = "submodules/zerocopy/tools/generate-readme" }
 generate-windows-sys = { path = "submodules/rust/src/tools/generate-windows-sys" }
 generate_schema_schema = { path = "submodules/borsh-rs/borsh" }
+generator = { path = "submodules/generator-rs" }
 generators = { path = "submodules/rand/benches" }
 generic-array = { path = "submodules/generic-array" }
 generic_array = { path = "submodules/generic-array" }
@@ -4816,7 +4834,6 @@ ini_str = { path = "submodules/nom" }
 init-twice-retains-filter = { path = "submodules/env_logger" }
 init_zero_threads = { path = "submodules/rust/compiler/rustc_thread_pool" }
 inline = { path = "submodules/bincode" }
-#inline = { path = "submodules/ratatui/examples/apps/inline" }
 inline_array = { path = "submodules/sized-chunks/fuzz" }
 inout = { path = "submodules/utils/inout" }
 input-form = { path = "submodules/ratatui/examples/apps/input-form" }
@@ -4942,7 +4959,6 @@ layout-cli = { path = "submodules/layout" }
 layout-rs = { path = "submodules/layout/layout" }
 lazy-static-example = { path = "submodules/syn/examples/lazy-static/example" }
 lazy_static = { path = "submodules/lazy-static" }
-#lazy_static = { path = "submodules/once_cell" }
 lazycell = { path = "submodules/lazycell" }
 leb128 = { path = "submodules/leb128" }
 lib = { path = "submodules/pulldown-cmark/bench" }
@@ -5382,7 +5398,6 @@ ordered-multimap = { path = "submodules/ordered-multimap-rs" }
 ordset = { path = "submodules/im-rs/fuzz" }
 original-slices = { path = "submodules/similar" }
 orion = { path = "submodules/orion" }
-#os_info = { path = "submodules/os_info/cli" }
 os_info = { path = "submodules/os_info/os_info" }
 os_info_cli = { path = "submodules/os_info/cli" }
 os_str_bytes = { path = "submodules/os_str_bytes" }
@@ -5466,7 +5481,6 @@ pest_meta = { path = "submodules/pest/meta" }
 pest_meta-fuzz = { path = "submodules/pest/meta/fuzz" }
 pest_vm = { path = "submodules/pest/vm" }
 petgraph = { path = "submodules/petgraph" }
-#petgraph = { path = "submodules/petgraph" }
 pin-project = { path = "submodules/pin-project" }
 pin-project-auxiliary-macro = { path = "submodules/pin-project/tests/auxiliary/macro" }
 pin-project-internal = { path = "submodules/pin-project/pin-project-internal" }
@@ -5483,7 +5497,6 @@ pkcs12 = { path = "submodules/formats/pkcs12" }
 pkcs5 = { path = "submodules/formats/pkcs5" }
 pkcs8 = { path = "submodules/formats/pkcs8" }
 pkg-config = { path = "submodules/pkg-config-rs" }
-#playground = { path = "submodules/handlebars-rust/playground" }
 playground = { path = "submodules/rstest/playground" }
 plist = { path = "submodules/rust-plist" }
 plist-fuzz = { path = "submodules/rust-plist/fuzz" }
@@ -5530,7 +5543,6 @@ print_each_packet = { path = "submodules/tokio/examples" }
 private_key = { path = "submodules/pki-types/fuzz" }
 proc-macro-api = { path = "submodules/rust-analyzer/crates/proc-macro-api" }
 proc-macro-crate = { path = "submodules/proc-macro-crate" }
-#proc-macro-crate = { path = "submodules/proc-macro-crate" }
 proc-macro-error-attr2 = { path = "submodules/proc-macro-error-2/proc-macro-error-attr" }
 proc-macro-error2 = { path = "submodules/proc-macro-error-2" }
 proc-macro-srv = { path = "submodules/rust-analyzer/crates/proc-macro-srv" }
@@ -5841,6 +5853,7 @@ rustup = { path = "submodules/clap/clap_bench" }
 rustversion = { path = "submodules/rustversion" }
 rusty-fork = { path = "submodules/rusty-fork" }
 rusty_demo = { path = "submodules/hermit-rs/examples/demo" }
+ruzstd.path = "submodules/zstd-rs/ruzstd"
 ryu = { path = "submodules/ryu" }
 ryu-fuzz = { path = "submodules/ryu/fuzz" }
 s_expression = { path = "submodules/nom" }
@@ -5870,7 +5883,6 @@ semver-check = { path = "submodules/cargo/crates/semver-check" }
 semver-fuzz = { path = "submodules/semver/fuzz" }
 send_file = { path = "submodules/hyper" }
 seq_choose = { path = "submodules/rand/benches" }
-#serde = { path = "submodules/corn" }
 serde = { path = "submodules/serde/serde" }
 serde-de = { path = "submodules/quick-xml" }
 serde-de-enum = { path = "submodules/quick-xml" }
@@ -5962,7 +5974,6 @@ slice-get-unchecked = { path = "submodules/miri/bench-cargo-miri/slice-get-unche
 sm2 = { path = "submodules/elliptic-curves/sm2" }
 sm3 = { path = "submodules/hashes/sm3" }
 smallvec = { path = "submodules/rust-smallvec" }
-#smallvec = { path = "submodules/tinyvec" }
 smallvec-fuzz = { path = "submodules/rust-smallvec/fuzz" }
 smallvec_ops = { path = "submodules/rust-smallvec/fuzz" }
 smoke = { path = "submodules/backtrace-rs" }
@@ -6246,7 +6257,6 @@ tower-test = { path = "submodules/tower/tower-test" }
 trace-var = { path = "submodules/syn/examples/trace-var/trace-var" }
 trace-var-example = { path = "submodules/syn/examples/trace-var/example" }
 tracing = { path = "submodules/tracing/tracing" }
-#tracing = { path = "submodules/warp" }
 tracing-appender = { path = "submodules/tracing/tracing-appender" }
 tracing-attributes = { path = "submodules/tracing/tracing-attributes" }
 tracing-chrome = { path = "submodules/tracing-chrome" }
@@ -6300,6 +6310,7 @@ tutorial_harfbuzz = { path = "submodules/icu4x/examples/cargo/harfbuzz" }
 tutorial_sync = { path = "submodules/icu4x/examples/cargo/sync" }
 twox-hash = { path = "submodules/twox-hash" }
 twox-hash-sum = { path = "submodules/twox-hash/twox-hash-sum" }
+typed-arena.path = "submodules/rust-typed-arena"
 typed-derive = { path = "submodules/clap" }
 typeid = { path = "submodules/typeid" }
 typenum = { path = "submodules/typenum" }
@@ -6607,29 +6618,80 @@ zip-equal = { path = "submodules/miri/bench-cargo-miri/zip-equal" }
 zlib-rs = { path = "submodules/zlib-rs/zlib-rs" }
 zlib-rs-fuzz = { path = "submodules/zlib-rs/fuzz" }
 zoneinfo64 = { path = "submodules/icu4x/utils/zoneinfo64" }
-zstd = { path = "submodules/reqwest" }
+zstd = { path = "submodules/zstd-rs/ruzstd" }
 zv_serde = { path = "submodules/icu4x/utils/zerovec" }
-atomic-maybe-uninit = { path = "submodules/atomic-maybe-uninit" }
-generator = { path = "submodules/generator-rs" }
-
-
+async-stream = { path = "submodules/async-stream/async-stream" }
+futures-concurrency.path = "submodules/futures-concurrency"
+mockall.path = "submodules/mockall/mockall"
+socket2.path = "submodules/socket2"
+mio-aio.path = "submodules/mio-aio"
+nix.path = "submodules/nix"
+macrotest.path = "submodules/macrotest"
+assert-impl.path = "submodules/assert-impl"
 [patch.crates-io]
+macrotest.path = "submodules/macrotest"
+assert-impl.path = "submodules/assert-impl"
+nix.path = "submodules/nix"
+mio-aio.path = "submodules/mio-aio"
+socket2.path = "submodules/socket2"
+mockall.path = "submodules/mockall/mockall"
+async-stream = { path = "submodules/async-stream/async-stream" }
 aarch64-dit = { path = "submodules/utils/aarch64-dit" }
-#accept-rustls = { path = "submodules/actix-net/actix-tls" }
-#access = { path = "submodules/kstring" }
-#accuracy = { path = "submodules/backtrace-rs" }
-# actix = { path = "submodules/actix/actix" }
-# actix-broker = { path = "submodules/actix/actix-broker" }
-# actix-codec = { path = "submodules/actix-net/actix-codec" }
-# actix-macros = { path = "submodules/actix-net/actix-macros" }
-# actix-rt = { path = "submodules/actix-net/actix-rt" }
-# actix-server = { path = "submodules/actix-net/actix-server" }
-# actix-service = { path = "submodules/actix-net/actix-service" }
-# actix-tls = { path = "submodules/actix-net/actix-tls" }
-# actix-tracing = { path = "submodules/actix-net/actix-tracing" }
-# actix-utils = { path = "submodules/actix-net/actix-utils" }
-# actix_derive = { path = "submodules/actix/actix-derive" }
-# addr2line = { path = "submodules/addr2line" }
+actix = { path = "submodules/actix/actix" }
+actix-broker = { path = "submodules/actix/actix-broker" }
+actix-codec = { path = "submodules/actix-net/actix-codec" }
+actix-macros = { path = "submodules/actix-net/actix-macros" }
+actix-rt = { path = "submodules/actix-net/actix-rt" }
+git2 = { path = "submodules/git2-rs" }
+git2-curl = { path = "submodules/git2-rs/git2-curl" }
+hashbrown = { path = "submodules/hashbrown" }
+indexmap = { path = "submodules/indexmap" }
+ruzstd = { path = "submodules/zstd-rs/ruzstd" }
+futures-concurrency.path = "submodules/futures-concurrency"
+
+
+
+
+ # serde-de-enum = { path = "submodules/quick-xml" }
+ # serde-de-seq = { path = "submodules/quick-xml" }
+ # serde-de-xsi = { path = "submodules/quick-xml" }
+ # serde-issues = { path = "submodules/quick-xml" }
+ # serde-se = { path = "submodules/quick-xml" }
+ actix-server = { path = "submodules/actix-net/actix-server" }
+ actix-service = { path = "submodules/actix-net/actix-service" }
+ actix-tls = { path = "submodules/actix-net/actix-tls" }
+ actix-tracing = { path = "submodules/actix-net/actix-tracing" }
+ actix-utils = { path = "submodules/actix-net/actix-utils" }
+ actix_derive = { path = "submodules/actix/actix-derive" }
+ addr2line = { path = "submodules/addr2line" }
+ curl = { path = "submodules/curl-rust" }
+ curl-sys = { path = "submodules/curl-rust/curl-sys" }
+ openssl = { path = "submodules/rust-openssl/openssl" }
+ openssl-errors = { path = "submodules/rust-openssl/openssl-errors" }
+ openssl-macros = { path = "submodules/rust-openssl/openssl-macros" }
+ openssl-probe = { path = "submodules/openssl-probe" }
+ openssl-sys = { path = "submodules/rust-openssl/openssl-sys" }
+ pretty_assertions = { path = "submodules/rust-pretty-assertions/pretty_assertions" }
+ prettyplease = { path = "submodules/prettyplease" }
+ prettyplease-update = { path = "submodules/prettyplease/cargo-expand/update" }
+ rayon = { path = "submodules/rayon" }
+ rayon-core = { path = "submodules/rayon/rayon-core" }
+ serde-untagged = { path = "submodules/serde-untagged" }
+ serde-value = { path = "submodules/serde-value" }
+ serde_bytes = { path = "submodules/serde-rs-bytes" }
+ serde_cbor = { path = "submodules/cbor" }
+ serde_core = { path = "submodules/serde/serde_core" }
+ serde_derive = { path = "submodules/serde/serde_derive" }
+ serde_derive_internals = { path = "submodules/serde/serde_derive_internals" }
+ serde_ignored = { path = "submodules/serde-ignored" }
+ serde_json = { path = "submodules/json" }
+ tokio = { path = "submodules/tokio/tokio" }
+ tokio-macros = { path = "submodules/tokio/tokio-macros" }
+ tokio-native-tls = { path = "submodules/tls/tokio-native-tls" }
+ tokio-rustls = { path = "submodules/tokio-rustls" }
+ tokio-stream = { path = "submodules/tokio/tokio-stream" }
+ tokio-util = { path = "submodules/tokio/tokio-util" }
+ toml = { path = "submodules/toml/crates/toml" }
 # adler2 = { path = "submodules/adler2" }
 # adv_server_codegen = { path = "submodules/dbus-rs/dbus-codegen" }
 # aead = { path = "submodules/traits/aead" }
@@ -6959,8 +7021,6 @@ aarch64-dit = { path = "submodules/utils/aarch64-dit" }
 # csv-core = { path = "submodules/rust-csv/csv-core" }
 # csv-index = { path = "submodules/rust-csv/csv-index" }
 # ct-codecs = { path = "submodules/rust-ct-codecs" }
- curl = { path = "submodules/curl-rust" }
- curl-sys = { path = "submodules/curl-rust/curl-sys" }
 # current-exe-mismatch = { path = "submodules/backtrace-rs" }
 # cursor_at = { path = "submodules/console" }
 # custom_error = { path = "submodules/nom" }
@@ -7164,7 +7224,7 @@ aarch64-dit = { path = "submodules/utils/aarch64-dit" }
 # fsb = { path = "submodules/hashes/fsb" }
 # fsevent = { path = "submodules/fsevent-rust" }
 # fsevent-sys = { path = "submodules/fsevent-rust/fsevent-sys" }
-# futures = { path = "submodules/warp" }
+futures = { path = "submodules/futures-rs/futures" }
 # futures-channel = { path = "submodules/futures-rs/futures-channel" }
 # futures-core = { path = "submodules/futures-rs/futures-core" }
 # futures-executor = { path = "submodules/futures-rs/futures-executor" }
@@ -7199,8 +7259,6 @@ aarch64-dit = { path = "submodules/utils/aarch64-dit" }
 # gimli = { path = "submodules/gimli" }
 # git-derive = { path = "submodules/clap" }
 # git-rustfmt = { path = "submodules/rustfmt" }
-git2 = { path = "submodules/git2-rs" }
-git2-curl = { path = "submodules/git2-rs/git2-curl" }
 # gitoxide = { path = "submodules/gitoxide" }
 # gitoxide-core = { path = "submodules/gitoxide/gitoxide-core" }
 # gix = { path = "submodules/gitoxide" }
@@ -7310,7 +7368,6 @@ git2-curl = { path = "submodules/git2-rs/git2-curl" }
 # hash_cache = { path = "submodules/scalable-concurrent-containers" }
 # hash_index = { path = "submodules/scalable-concurrent-containers" }
 # hash_map = { path = "submodules/scalable-concurrent-containers" }
-hashbrown = { path = "submodules/hashbrown" }
 # hashlink = { path = "submodules/hashlink" }
 # header = { path = "submodules/warp" }
 # header-translator = { path = "submodules/objc2/crates/header-translator" }
@@ -7427,7 +7484,6 @@ hashbrown = { path = "submodules/hashbrown" }
 # im = { path = "submodules/im-rs" }
 # im-rc = { path = "submodules/im-rs/rc" }
 # imara-diff = { path = "submodules/imara-diff" }
-indexmap = { path = "submodules/indexmap" }
 # indoc = { path = "submodules/indoc" }
 # ini = { path = "submodules/nom" }
 # ini_str = { path = "submodules/nom" }
@@ -7531,7 +7587,6 @@ indexmap = { path = "submodules/indexmap" }
 # libcorn = { path = "submodules/corn" }
 # libdbus-sys = { path = "submodules/dbus-rs/libdbus-sys" }
 # libgit2-sys = { path = "submodules/git2-rs/libgit2-sys" }
-#libgit2_sys = { path = "submodules/git2-rs/libgit2-sys" }
 # libloading = { path = "submodules/rust_libloading" }
 # libm = { path = "submodules/compiler-builtins/libm" }
 # libm-macros = { path = "submodules/compiler-builtins/crates/libm-macros" }
@@ -7856,12 +7911,7 @@ indexmap = { path = "submodules/indexmap" }
 # open = { path = "submodules/open-rs" }
 # opener = { path = "submodules/opener/opener" }
 # opener-bin = { path = "submodules/opener/opener-bin" }
- openssl = { path = "submodules/rust-openssl/openssl" }
- openssl-errors = { path = "submodules/rust-openssl/openssl-errors" }
- openssl-macros = { path = "submodules/rust-openssl/openssl-macros" }
- openssl-probe = { path = "submodules/openssl-probe" }
 # openssl-src = { path = "submodules/openssl-src-rs" }
- openssl-sys = { path = "submodules/rust-openssl/openssl-sys" }
 # operands = { path = "submodules/icu4x/components/plurals" }
 # opt-dist = { path = "submodules/rust/src/tools/opt-dist" }
 # option_set = { path = "submodules/option_set" }
@@ -7960,9 +8010,6 @@ indexmap = { path = "submodules/indexmap" }
 # powershell = { path = "submodules/expectrl" }
 # ppv-lite86 = { path = "submodules/cryptocorrosion/utils-simd/ppv-lite86" }
 # ppv-null = { path = "submodules/cryptocorrosion/utils-simd/ppv-null" }
- pretty_assertions = { path = "submodules/rust-pretty-assertions/pretty_assertions" }
- prettyplease = { path = "submodules/prettyplease" }
- prettyplease-update = { path = "submodules/prettyplease/cargo-expand/update" }
 # primefield = { path = "submodules/elliptic-curves/primefield" }
 # primeorder = { path = "submodules/elliptic-curves/primeorder" }
 # proc-macro-api = { path = "submodules/rust-analyzer/crates/proc-macro-api" }
@@ -8018,8 +8065,6 @@ indexmap = { path = "submodules/indexmap" }
 # ratatui-termwiz = { path = "submodules/ratatui/ratatui-termwiz" }
 # ratatui-widgets = { path = "submodules/ratatui/ratatui-widgets" }
 # raw = { path = "submodules/backtrace-rs" }
- rayon = { path = "submodules/rayon" }
- rayon-core = { path = "submodules/rayon/rayon-core" }
 # rayon-demo = { path = "submodules/rayon/rayon-demo" }
 # read = { path = "submodules/icu4x/utils/tinystr" }
 # read_entry = { path = "submodules/zip2" }
@@ -8062,6 +8107,7 @@ indexmap = { path = "submodules/indexmap" }
 # ripgrep = { path = "submodules/ripgrep" }
 # rmp = { path = "submodules/msgpack-rust/rmp" }
 # rmp-serde = { path = "submodules/msgpack-rust/rmp-serde" }
+serde = { path = "submodules/serde/serde" }
 # rmpv = { path = "submodules/msgpack-rust/rmpv" }
 # ron = { path = "submodules/ron" }
 # routing = { path = "submodules/warp" }
@@ -8215,21 +8261,6 @@ indexmap = { path = "submodules/indexmap" }
 # send_file = { path = "submodules/hyper" }
 # serde = { path = "submodules/corn" }
 # serde-de = { path = "submodules/quick-xml" }
- # serde-de-enum = { path = "submodules/quick-xml" }
- # serde-de-seq = { path = "submodules/quick-xml" }
- # serde-de-xsi = { path = "submodules/quick-xml" }
- # serde-issues = { path = "submodules/quick-xml" }
- # serde-se = { path = "submodules/quick-xml" }
- serde-untagged = { path = "submodules/serde-untagged" }
- serde-value = { path = "submodules/serde-value" }
- serde_bytes = { path = "submodules/serde-rs-bytes" }
- serde_cbor = { path = "submodules/cbor" }
- serde_core = { path = "submodules/serde/serde_core" }
- serde_derive = { path = "submodules/serde/serde_derive" }
- serde_derive_internals = { path = "submodules/serde/serde_derive_internals" }
- serde_ignored = { path = "submodules/serde-ignored" }
- serde_json = { path = "submodules/json" }
-#serde_json_value = { path = "submodules/borsh-rs/borsh" }
 # serde_spanned = { path = "submodules/toml/crates/serde_spanned" }
 # serde_stacker = { path = "submodules/serde-stacker" }
 # serde_toml = { path = "submodules/toml/crates/serde_toml" }
@@ -8394,20 +8425,13 @@ indexmap = { path = "submodules/indexmap" }
 # tls_codec_derive = { path = "submodules/formats/tls_codec/derive" }
 # tls_vec = { path = "submodules/formats/tls_codec" }
 # todos = { path = "submodules/warp" }
-# tokio = { path = "submodules/tokio/tokio" }
-# tokio-macros = { path = "submodules/tokio/tokio-macros" }
-# tokio-native-tls = { path = "submodules/tls/tokio-native-tls" }
-# tokio-rustls = { path = "submodules/tokio-rustls" }
-# tokio-stream = { path = "submodules/tokio/tokio-stream" }
-# tokio-util = { path = "submodules/tokio/tokio-util" }
 # tokio_adv_server_cr = { path = "submodules/dbus-rs/dbus-tokio" }
 # tokio_server_cr = { path = "submodules/dbus-rs/dbus-tokio" }
-# toml = { path = "submodules/toml/crates/toml" }
 # toml2json = { path = "submodules/toml/crates/toml" }
 # toml_datetime = { path = "submodules/toml/crates/toml_datetime" }
 # toml_edit = { path = "submodules/toml/crates/toml_edit" }
 # toml_parser = { path = "submodules/toml/crates/toml_parser" }
-# toml_writer = { path = "submodules/toml/crates/toml_writer" }
+toml_writer = { path = "submodules/toml/crates/toml_writer" }
 # tool_bindgen = { path = "submodules/windows-rs/crates/tools/bindgen" }
 # tool_bindings = { path = "submodules/windows-rs/crates/tools/bindings" }
 # tool_gnu = { path = "submodules/windows-rs/crates/tools/gnu" }
@@ -8667,5 +8691,9 @@ indexmap = { path = "submodules/indexmap" }
 # zoneinfo64 = { path = "submodules/icu4x/utils/zoneinfo64" }
 # zstd = { path = "submodules/reqwest" }
 # zv_serde = { path = "submodules/icu4x/utils/zerovec" }
-
-
+#accept-rustls = { path = "submodules/actix-net/actix-tls" }
+#access = { path = "submodules/kstring" }
+#accuracy = { path = "submodules/backtrace-rs" }
+#compiler-rt.path = "submodules/zstd-rs/compiler-rt"
+#libgit2_sys = { path = "submodules/git2-rs/libgit2-sys" }
+#serde_json_value = { path = "submodules/borsh-rs/borsh" }

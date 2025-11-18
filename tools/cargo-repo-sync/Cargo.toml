@@ -24,6 +24,10 @@ cargo_metadata.workspace = true
 [lib]
 path = "src/lib.rs"
 
+[[bin]]
+name = "add_submodules"
+path = "src/bin/add_submodules.rs"
+
 [package.metadata.repo-manager] # Keeping this for now, will adapt as needed
 git_path = "/data/data/com.termux.nix/files/home/.nix-profile/bin/git"
 gh_path = "/data/data/com.termux.nix/files/home/.nix-profile/bin/gh"
