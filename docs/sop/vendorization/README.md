@@ -93,3 +93,25 @@ This document outlines the process for vendorizing Rust crates within the `cargo
     *   **Action:** Corrected `dep:serde-core` to `dep:serde_core` in `time/Cargo.toml`'s `serde` feature.
 12. **Next Error:** `error inheriting 'proc-macro2' from workspace root manifest's 'workspace.dependencies.proc-macro2' Caused by: 'dependency.proc-macro2' was not found in 'workspace.dependencies'`
     *   **Action:** Added `proc-macro2 = { path = "./submodules/proc-macro2" }` to root `Cargo.toml`'s `[workspace.dependencies]`.
+13. **Problem:** Refactoring `deadlock_impl.rs` in `parking_lot_core` caused multiple build errors related to type mismatches and missing imports.
+    *   **Cause:** The refactoring involved changing how `ThreadData` was accessed and managed, leading to inconsistencies in type usage and trait imports across several files within the `parking_lot_core` crate. Specifically, `DeadlockData` was removed, and `td.payload.inner` was introduced, requiring updates to all functions interacting with thread data. Additionally, `with_thread_data` was incorrectly imported or not properly exposed, and `UnparkHandleT` and `UncheckedOptionExt` traits were not in scope where their methods were used.
+    *   **Resolution Steps:**
+        *   **Refactored `deadlock_impl.rs`:**
+            *   Removed the `DeadlockData` struct definition and its `impl` block.
+            *   Updated `on_unpark`, `acquire_resource`, `release_resource`, `check_wait_graph_fast`, and `check_wait_graph_slow` functions to use `td.payload.inner` for accessing thread-specific data.
+            *   Removed redundant `use` statements for `Cell`, `UnsafeCell`, `HashSet`, `mpsc`, and `ThreadId` from the inner `deadlock_impl` module, as they were already imported at the top level.
+            *   Added `use std::cell::{Cell, UnsafeCell};` to the inner `deadlock_impl` module to explicitly bring `Cell` and `UnsafeCell` into scope for `DeadlockDataPayload`.
+        *   **Fixed `park.rs`:**
+            *   Removed the incorrect import `use crate::word_lock::with_thread_data;`.
+            *   Made `with_thread_data` public in `core/src/parking_lot/with_thread_data.rs` and exported it from `core/src/parking_lot/mod.rs` using `pub use with_thread_data::with_thread_data;`.
+            *   Added `use crate::parking_lot::ThreadData;` to `core/src/parking_lot/with_thread_data.rs` to resolve `ThreadData` not found in scope.
+            *   Corrected the import in `park.rs` to `use crate::parking_lot::with_thread_data;`.
+        *   **Fixed `unpark_all.rs`:**
+            *   Corrected the `SmallVec` initialization to use fully-qualified syntax: `SmallVec::<<ThreadParker as ThreadParkerT>::UnparkHandle, 8>::new()`.
+            *   Added `use crate::thread_parker::UnparkHandleT;` to bring the trait into scope for the `unpark` method.
+        *   **Fixed `unpark_requeue.rs`:**
+            *   Added `use crate::thread_parker::UnparkHandleT;` to bring the trait into scope for the `unpark` method.
+        *   **Fixed `unpark_filter.rs`:**
+            *   Corrected the type of the `threads` `SmallVec` to `SmallVec::<(*const ThreadData, Option<<ThreadParker as ThreadParkerT>::UnparkHandle>), 8>::new()` to match the pushed tuple type.
+            *   Added `use crate::util::UncheckedOptionExt;` to bring the trait into scope for the `unchecked_unwrap` method.
+            *   Added `use crate::parking_lot::ThreadData;` to resolve `ThreadData` not found in scope.
