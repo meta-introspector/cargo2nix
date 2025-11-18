@@ -13558,12 +13558,12 @@ dependencies = [
 ]
 
 [[patch.unused]]
-name = "time-core"
-version = "0.1.6"
+name = "allocator-api2"
+version = "0.3.1"
 
 [[patch.unused]]
-name = "time-macros"
-version = "0.2.24"
+name = "heapless"
+version = "0.9.2"
 
 [[patch.unused]]
 name = "faster-hex"
@@ -13662,29 +13662,29 @@ name = "prettyplease-update"
 version = "0.0.0"
 
 [[patch.unused]]
-name = "ron"
-version = "0.11.0"
-
-[[patch.unused]]
-name = "allocator-api2"
-version = "0.3.1"
-
-[[patch.unused]]
-name = "heapless"
-version = "0.9.2"
-
-[[patch.unused]]
-name = "ordered-multimap"
-version = "0.7.4"
-
-[[patch.unused]]
-name = "dlv-list"
-version = "0.6.0"
-
-[[patch.unused]]
 name = "config"
 version = "0.15.18"
 
 [[patch.unused]]
 name = "rust-ini"
 version = "0.21.3"
+
+[[patch.unused]]
+name = "dlv-list"
+version = "0.6.0"
+
+[[patch.unused]]
+name = "ordered-multimap"
+version = "0.7.4"
+
+[[patch.unused]]
+name = "time-core"
+version = "0.1.6"
+
+[[patch.unused]]
+name = "time-macros"
+version = "0.2.24"
+
+[[patch.unused]]
+name = "ron"
+version = "0.11.0"
