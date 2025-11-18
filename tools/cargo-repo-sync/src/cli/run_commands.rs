@@ -20,61 +20,80 @@ use cargo_repo_sync::analysis::dep_graph_data_merger::{DepGraphDataMerger, RealD
 use cargo_repo_sync::analysis::layer0_analyzer::{Layer0Analyzer, RealLayer0Analyzer};
 use cargo_repo_sync::analysis::cargo_config_patcher::{CargoConfigPatcher, RealCargoConfigPatcher};
 use cargo_repo_sync::analysis::submodule_config_patcher::{SubmoduleConfigPatcher, RealSubmoduleConfigPatcher};
-use cargo_repo_sync::analysis::workspace_remover::{WorkspaceRemover, RealWorkspaceRemover};
-
-pub fn run_add_submodules_command(args: &AddSubmodulesArgs, cli: &Cli) -> Result<()> {
-    let root_dir = args.root_dir.canonicalize().context("Failed to canonicalize root_dir")?;
-    let repo = Arc::new(Mutex::new(Repository::open(&root_dir).context("Failed to open git repository")?)); // Open the repository and wrap in Mutex
-    let rollup_lock_arc = Arc::new(Mutex::new(RollupLock::load(&root_dir)?));
-    let real_file_system_stat = RealFileSystemStat::new(repo.clone()); // Pass the repository
-
-    let _file_system_writer: Box<dyn FileSystemWriter> = if cli.dry_run {
-        Box::new(CachedFileSystemWriter::new(Arc::new(real_file_system_stat.clone()), rollup_lock_arc.clone(), root_dir.clone()))
-    } else {
-        Box::new(RealFileSystemWriter)
-    };
-
-    let _config = RepoSyncConfig {
-        root_dir: args.root_dir.clone(),
-        target_org: args.target_org.clone(),
-        target_branch: args.target_branch.clone(),
-        output_file: args.output_file.clone(),
-        json_input_file: args.json_input_file.clone(),
-        dry_run: cli.dry_run,
-        json_log_file: cli.json_log_file.clone(),
-        report: cli.report,
-        use_pure_rust_git: cli.pure_rust_git,
-    };
-    // run_add_submodules(config, file_system_writer.as_ref())
-    Ok(())
-}
-
-pub fn run_submodule_status_command(args: &SubmoduleStatusArgs, cli: &Cli) -> Result<()> {
-    let config = RepoSyncConfig {
-        root_dir: args.root_dir.clone(),
-        target_org: String::new(), // Not used for status, provide dummy
-        target_branch: String::new(), // Not used for status, provide dummy
-        output_file: None, // Not used for status
-        json_input_file: args.json_input_file.clone(),
-        dry_run: cli.dry_run,
-        json_log_file: cli.json_log_file.clone(),
-        report: cli.report,
-        use_pure_rust_git: cli.pure_rust_git,
-    };
-    run_submodule_status(config)
-}
-
 pub fn run_generate_nix_command(args: &GenerateNixArgs, cli: &Cli) -> Result<()> {
     let root_dir = args.root_dir.canonicalize().context("Failed to canonicalize root_dir")?;
-    let repo = Arc::new(Mutex::new(Repository::open(&root_dir).context("Failed to open git repository")?)); // Open the repository and wrap in Mutex
+    let repo = Arc::new(Mutex::new(Repository::open(&root_dir).context("Failed to open git repository")?));
     let rollup_lock_arc = Arc::new(Mutex::new(RollupLock::load(&root_dir)?));
-    let real_file_system_stat = RealFileSystemStat::new(repo.clone()); // Pass the repository
+    let real_file_system_stat = RealFileSystemStat::new(repo.clone());
 
-    let _file_system_writer: Box<dyn FileSystemWriter> = if cli.dry_run {
+    let file_system_writer: Box<dyn FileSystemWriter> = if cli.dry_run {
         Box::new(CachedFileSystemWriter::new(Arc::new(real_file_system_stat.clone()), rollup_lock_arc.clone(), root_dir.clone()))
     } else {
         Box::new(RealFileSystemWriter)
     };
+
+    // --- Read executable paths from Cargo.toml metadata ---
+    let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    let cargo_toml_path = manifest_dir.join("Cargo.toml");
+    let cargo_toml_content = fs::read_to_string(&cargo_toml_path)
+        .with_context(|| format!("Failed to read Cargo.toml at {:?}", cargo_toml_path))?;
+    let cargo_toml_doc = cargo_toml_content
+        .parse::<toml_edit::DocumentMut>()
+        .with_context(|| format!("Failed to parse Cargo.toml at {:?}", cargo_toml_path))?;
+
+    let git_executable_path = cargo_toml_doc
+        .get("package")
+        .and_then(|item| item.as_table())
+        .and_then(|table| table.get("metadata"))
+        .and_then(|item| item.as_table())
+        .and_then(|table| table.get("repo-manager"))
+        .and_then(|item| item.as_table())
+        .and_then(|table| table.get("git_path"))
+        .and_then(|item| item.as_str())
+        .map(PathBuf::from)
+        .ok_or_else(|| anyhow::anyhow!("'git_path' not found in Cargo.toml metadata"))?;
+
+    let gh_executable_path = cargo_toml_doc
+        .get("package")
+        .and_then(|item| item.as_table())
+        .and_then(|table| table.get("metadata"))
+        .and_then(|item| item.as_table())
+        .and_then(|table| table.get("repo-manager"))
+        .and_then(|item| item.as_table())
+        .and_then(|table| table.get("gh_path"))
+        .and_then(|item| item.as_str())
+        .map(PathBuf::from)
+        .ok_or_else(|| anyhow::anyhow!("'gh_path' not found in Cargo.toml metadata"))?;
+    // --- End Read executable paths from Cargo.toml metadata ---
+
+    // --- Executor Setup with Decorators ---
+    let mut base_executor: Arc<dyn Execv> = Arc::new(SystemExecv);
+    let json_capture_executor: Option<Arc<JsonCaptureExecv>> = if cli.json_log_file.is_some() {
+        let json_exec = Arc::new(JsonCaptureExecv::new(base_executor.clone()));
+        base_executor = json_exec.clone();
+        Some(json_exec)
+    } else {
+        None
+    };
+
+    if cli.report {
+        base_executor = Arc::new(ReportExecv::new(base_executor.clone()));
+    }
+
+    if cli.dry_run {
+        base_executor = Arc::new(DryRunExecv::new(base_executor.clone()));
+        println!("--- DRY RUN MODE ACTIVE ---");
+    }
+
+    let git_executor: Box<dyn GitExecutor>;
+    if cli.use_pure_rust_git {
+        git_executor = Box::new(PureRustGitExecutor::new(Arc::new(real_file_system_stat.clone()), rollup_lock_arc.clone(), root_dir.clone()));
+    } else {
+        git_executor = Box::new(SystemGitExecutor::new(git_executable_path.clone(), base_executor.clone(), rollup_lock_arc.clone(), root_dir.clone()));
+    }
+    // The gh_executor is not directly used in generate_nix, but it's part of the common setup.
+    let _gh_executor = SystemGhExecutor::new(gh_executable_path.clone(), base_executor.clone());
+    // --- End Executor Setup ---
 
     println!("Discovering Cargo.toml and Cargo.lock files in: {}", args.root_dir.display());
 
@@ -123,7 +142,7 @@ pub fn run_generate_nix_command(args: &GenerateNixArgs, cli: &Cli) -> Result<()>
         if should_generate {
             println!("    Generating Cargo.nix for {}", manifest_path.display());
             let rendered_nix = generate_cargo_nix(&parent_dir, false)?; // Assuming not locked for now
-            _file_system_writer.write_file(&output_nix_path, rendered_nix.as_bytes())?;
+            file_system_writer.write_file(&output_nix_path, rendered_nix.as_bytes())?;
 
             // Update metadata in rollup_lock
             let mut rollup_lock_guard = rollup_lock_arc.lock().unwrap();
@@ -141,7 +160,7 @@ pub fn run_generate_nix_command(args: &GenerateNixArgs, cli: &Cli) -> Result<()>
     //     println!("  Cargo.lock: {}", lock_path.display());
     // }
 
-    _file_system_writer.save_lock()?;
+    file_system_writer.save_lock()?;
     Ok(())
 }
 

@@ -4,31 +4,37 @@ use std::sync::Arc;
 use crate::traits::execv::Execv;
 use git2::{Repository, SubmoduleUpdateOptions};
 use crate::fs_cache::FileSystemStat;
+use crate::RollupLock;
+use crate::repo_sync_lib::git_snapshot::create_snapshot;
 use std::collections::HashSet;
 
 // --- GitExecutor Trait ---
 pub trait GitExecutor {
-    fn submodule_add(&self, repo_url: &str, submodule_path: &Path) -> Result<()>;
-    fn checkout_branch(&self, submodule_path: &Path, branch: &str) -> Result<()>;
+    fn submodule_add(&self, repo_url: &str, submodule_path: &Path, rollup_lock: Arc<Mutex<RollupLock>>, root_dir: &Path) -> Result<()>;
+    fn checkout_branch(&self, submodule_path: &Path, branch: &str, rollup_lock: Arc<Mutex<RollupLock>>, root_dir: &Path) -> Result<()>;
     fn status(&self, submodule_path: &Path) -> Result<String>; // For submodule status
 }
 
 pub struct SystemGitExecutor {
     git_executable_path: PathBuf,
     executor: Arc<dyn Execv>,
+    rollup_lock: Arc<Mutex<RollupLock>>,
+    root_dir: PathBuf,
 }
 
 impl SystemGitExecutor {
-    pub fn new(git_executable_path: PathBuf, executor: Arc<dyn Execv>) -> Self {
+    pub fn new(git_executable_path: PathBuf, executor: Arc<dyn Execv>, rollup_lock: Arc<Mutex<RollupLock>>, root_dir: PathBuf) -> Self {
         SystemGitExecutor {
             git_executable_path,
             executor,
+            rollup_lock,
+            root_dir,
         }
     }
 }
 
 impl GitExecutor for SystemGitExecutor {
-    fn submodule_add(&self, repo_url: &str, submodule_path: &Path) -> Result<()> {
+    fn submodule_add(&self, repo_url: &str, submodule_path: &Path, rollup_lock: Arc<Mutex<RollupLock>>, root_dir: &Path) -> Result<()> {
         println!("Executing git submodule add {} {:?}", repo_url, submodule_path);
         let output = self.executor.execv(
             &self.git_executable_path,
@@ -45,10 +51,11 @@ impl GitExecutor for SystemGitExecutor {
             anyhow::bail!("Adding submodule failed for {}", repo_url); // Corrected format string
         }
         println!("Successfully added {} as submodule.", repo_url);
+        create_snapshot(root_dir, rollup_lock)?;
         Ok(())
     }
 
-    fn checkout_branch(&self, submodule_path: &Path, branch: &str) -> Result<()> {
+    fn checkout_branch(&self, submodule_path: &Path, branch: &str, rollup_lock: Arc<Mutex<RollupLock>>, root_dir: &Path) -> Result<()> {
         println!("Executing git -C {:?} checkout {}", submodule_path, branch);
         let output = self.executor.execv(
             &self.git_executable_path,
@@ -66,6 +73,7 @@ impl GitExecutor for SystemGitExecutor {
             anyhow::bail!("Branch checkout failed for {:?}", submodule_path); // Corrected format string
         }
         println!("Successfully checked out branch '{}' in submodule {:?}.", branch, submodule_path);
+        create_snapshot(root_dir, rollup_lock)?;
         Ok(())
     }
 
@@ -92,16 +100,18 @@ impl GitExecutor for SystemGitExecutor {
 // --- PureRustGitExecutor Implementation ---
 pub struct PureRustGitExecutor {
     file_system_stat: Arc<dyn FileSystemStat>,
+    rollup_lock: Arc<Mutex<RollupLock>>,
+    root_dir: PathBuf,
 }
 
 impl PureRustGitExecutor {
-    pub fn new(file_system_stat: Arc<dyn FileSystemStat>) -> Self {
-        PureRustGitExecutor { file_system_stat }
+    pub fn new(file_system_stat: Arc<dyn FileSystemStat>, rollup_lock: Arc<Mutex<RollupLock>>, root_dir: PathBuf) -> Self {
+        PureRustGitExecutor { file_system_stat, rollup_lock, root_dir }
     }
 }
 
 impl GitExecutor for PureRustGitExecutor {
-    fn submodule_add(&self, repo_url: &str, submodule_path: &Path) -> Result<()> {
+    fn submodule_add(&self, repo_url: &str, submodule_path: &Path, rollup_lock: Arc<Mutex<RollupLock>>, root_dir: &Path) -> Result<()> {
         println!("Executing pure Rust git submodule add {} {:?}", repo_url, submodule_path);
         let repo = Repository::open_from_env()
             .context("Failed to open current git repository")?;
@@ -124,10 +134,11 @@ impl GitExecutor for PureRustGitExecutor {
         index.write().context("Failed to write index")?;
 
         println!("Successfully added {} as submodule using pure Rust.", repo_url);
+        create_snapshot(root_dir, rollup_lock)?;
         Ok(())
     }
 
-    fn checkout_branch(&self, submodule_path: &Path, branch: &str) -> Result<()> {
+    fn checkout_branch(&self, submodule_path: &Path, branch: &str, rollup_lock: Arc<Mutex<RollupLock>>, root_dir: &Path) -> Result<()> {
         println!("Executing pure Rust git -C {:?} checkout {}", submodule_path, branch);
         let submodule_repo = Repository::open(submodule_path)
             .context(format!("Failed to open submodule repository at {:?}", submodule_path))?;
@@ -148,6 +159,7 @@ impl GitExecutor for PureRustGitExecutor {
         };
 
         println!("Successfully checked out branch '{}' in submodule {:?} using pure Rust.", branch, submodule_path);
+        create_snapshot(root_dir, rollup_lock)?;
         Ok(())
     }
 

@@ -1,7 +1,7 @@
 use anyhow::{Context, Result};
 use std::{
     path::{Path, PathBuf},
-    process::Command,
+
     sync::Arc,
 };
 use super::submodule_stat::SubmoduleStat;
@@ -18,12 +18,11 @@ pub struct RealSubmoduleStatProvider {
 impl SubmoduleStatProvider for RealSubmoduleStatProvider {
     fn get_submodule_stat(&self, path: &Path) -> Result<SubmoduleStat> {
         // Get HEAD commit
-        let head_commit_output = Command::new(&self.git_executable_path)
-            .arg("rev-parse")
-            .arg("HEAD")
-            .current_dir(path)
-            .output()
-            .context(format!("Failed to get HEAD commit for {:?}", path))?;
+        let head_commit_output = self.base_executor.execute(
+            self.git_executable_path.to_str().unwrap(),
+            &["rev-parse", "HEAD"],
+            Some(path),
+        ).context(format!("Failed to get HEAD commit for {:?}", path))?;
 
         if !head_commit_output.status.success() {
             anyhow::bail!(
@@ -35,12 +34,11 @@ impl SubmoduleStatProvider for RealSubmoduleStatProvider {
         let head_commit = String::from_utf8_lossy(&head_commit_output.stdout).trim().to_string();
 
         // Get workdir hash (simplified: hash of git status --porcelain output)
-        let workdir_status_output = Command::new(&self.git_executable_path)
-            .arg("status")
-            .arg("--porcelain")
-            .current_dir(path)
-            .output()
-            .context(format!("Failed to get workdir status for {:?}", path))?;
+        let workdir_status_output = self.base_executor.execute(
+            self.git_executable_path.to_str().unwrap(),
+            &["status", "--porcelain"],
+            Some(path),
+        ).context(format!("Failed to get workdir status for {:?}", path))?;
 
         if !workdir_status_output.status.success() {
             anyhow::bail!(

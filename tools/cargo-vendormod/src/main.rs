@@ -6,11 +6,15 @@ use std::{
     fs,
     path::{Path, PathBuf},
     process::Command,
+    sync::{Arc, Mutex}, // Added
 };
 use toml_edit::Document;
 use walkdir::WalkDir;
 use lazy_static::lazy_static;
 use regex::Regex;
+
+use crate::RollupLock; // Added
+use crate::repo_sync_lib::git_snapshot::create_snapshot; // Added
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -218,8 +222,10 @@ fn main() -> Result<()> {
     let json_plan = serde_json::to_string_pretty(&actions_plan)
         .context("Failed to serialize actions plan to JSON")?;
 
+    let rollup_lock_data = Arc::new(Mutex::new(RollupLock::load(&root_dir)?));
+
     if !args.dry_run {
-        execute_actions_plan(actions_plan, &args, &git_executable_path, &gh_executable_path)?;
+        execute_actions_plan(actions_plan, &args, &git_executable_path, &gh_executable_path, rollup_lock_data, &root_dir)?;
     } else {
         // If dry_run, print the plan to stdout or file
         if let Some(output_file_path) = args.output_file {
@@ -239,6 +245,8 @@ fn execute_actions_plan(
     args: &Args,
     git_executable_path: &Path,
     gh_executable_path: &Path,
+    rollup_lock: Arc<Mutex<RollupLock>>,
+    root_dir: &Path,
 ) -> Result<()> {
     println!("Executing actions plan...");
 
@@ -302,6 +310,7 @@ fn execute_actions_plan(
                 anyhow::bail!("Adding submodule failed for {}", action.repo_name);
             }
             println!("Successfully added {} as submodule.", action.repo_name);
+            create_snapshot(root_dir, rollup_lock.clone())?;
         } else {
             println!("Submodule {} already exists at {:?}. Skipping add.", action.repo_name, action.submodule_path);
         }
@@ -326,6 +335,7 @@ fn execute_actions_plan(
             anyhow::bail!("Branch checkout failed for {}", action.repo_name);
         }
         println!("Successfully checked out branch '{}' in submodule {}.", action.target_branch, action.repo_name);
+        create_snapshot(root_dir, rollup_lock.clone())?;
     }
 
     update_cargo_config(&actions_plan, &args.root_dir)?;

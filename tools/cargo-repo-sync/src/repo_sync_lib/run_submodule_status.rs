@@ -150,9 +150,9 @@ pub fn run_submodule_status(config: RepoSyncConfig) -> Result<()> {
 
     let git_executor: Box<dyn GitExecutor>;
     if config.use_pure_rust_git {
-        git_executor = Box::new(PureRustGitExecutor::new(file_system_stat.clone()));
+        git_executor = Box::new(PureRustGitExecutor::new(file_system_stat.clone(), rollup_lock_data.clone(), root_dir.clone()));
     } else {
-        git_executor = Box::new(SystemGitExecutor::new(git_executable_path.clone(), base_executor.clone()));
+        git_executor = Box::new(SystemGitExecutor::new(git_executable_path.clone(), base_executor.clone(), rollup_lock_data.clone(), root_dir.clone()));
     }
     let gh_executor = SystemGhExecutor::new(gh_executable_path.clone(), base_executor.clone());
     // --- End Executor Setup ---

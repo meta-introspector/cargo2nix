@@ -6,6 +6,7 @@ use crate::repo_sync_lib::repo_action::RepoAction;
 use crate::executors::{GitExecutor, SystemGhExecutor, GhExecutor};
 use crate::fs_writer::FileSystemWriter;
 use crate::update_cargo_config;
+use crate::RollupLock;
 
 pub fn execute_actions_plan(
     actions_plan: &Vec<RepoAction>,
@@ -15,6 +16,7 @@ pub fn execute_actions_plan(
     git_executor: &Box<dyn GitExecutor>,
     gh_executor: &SystemGhExecutor,
     file_system_writer: &dyn FileSystemWriter,
+    rollup_lock: Arc<Mutex<RollupLock>>,
 ) -> Result<()> {
     println!("Executing actions plan...");
 
@@ -34,7 +36,7 @@ pub fn execute_actions_plan(
         // 2. Add as git submodule
         if !action.submodule_path.exists() {
             println!("Adding {} as submodule...", action.repo_name);
-            git_executor.submodule_add(&forked_repo_url, &action.submodule_path)?;
+            git_executor.submodule_add(&forked_repo_url, &action.submodule_path, rollup_lock.clone(), root_dir)?;
             println!("Successfully added {} as submodule.", action.repo_name);
         } else {
             println!("Submodule {} already exists at {:?}. Skipping add.", action.repo_name, action.submodule_path);
@@ -42,7 +44,7 @@ pub fn execute_actions_plan(
 
         // 3. Checkout target branch in submodule
         println!("Checking out branch '{}' in submodule {}...", target_branch, action.repo_name);
-        git_executor.checkout_branch(&action.submodule_path, target_branch)?;
+        git_executor.checkout_branch(&action.submodule_path, target_branch, rollup_lock.clone(), root_dir)?;
         println!("Successfully checked out branch '{}' in submodule {}.", target_branch, action.repo_name);
     }
 
