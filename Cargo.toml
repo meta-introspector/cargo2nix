@@ -85,7 +85,6 @@ unnecessary_cast = "allow"
 used_underscore_binding = "allow"
 
 [workspace.dependencies]
-
  
 serde = { version = "1.0.228", path = "submodules/serde/serde", features = ["derive"] }
 serde_json = { path = "submodules/json", version= "1.0.120" }
@@ -478,7 +477,7 @@ compare_std = { path = "submodules/utf8_iter/fuzz" }
 compare_utf16 = { path = "submodules/icu4x/components/collator/fuzz" }
 comparison = { path = "submodules/twox-hash/comparison" }
 compile-test = { path = "submodules/rust-clippy" }
-compiler_builtins = { path = "submodules/rust/library/compiler-builtins/compiler-builtins/"}
+compiler_builtins = { path = "submodules/compiler-builtins", features = ["rustc-dep-of-std"] }
 compiler_version = { path = "submodules/BLAKE3/tools/compiler_version" }
 compiletest = { path = "submodules/proc-macro2/tests/ui" }
 complex = { path = "submodules/clap/clap_bench" }
@@ -1404,7 +1403,6 @@ kmac = { path = "submodules/tiny-keccak" }
 kstring = { path = "submodules/kstring" }
 kupyna = { path = "submodules/hashes/kupyna" }
 kv-log-macro = { path = "submodules/kv-log-macro" }
-kvm = { path = "submodules/rust-x86" }
 l4re-test = { path = "submodules/portable-atomic/tests/l4re" }
 la-arena = { path = "submodules/rust-analyzer/lib/la-arena" }
 lang_tests_debug = { path = "submodules/rust/compiler/rustc_codegen_gcc" }
@@ -3038,7 +3036,6 @@ x509-cert-test-support = { path = "submodules/formats/x509-cert/test-support" }
 x509-fuzz = { path = "submodules/formats/x509-cert/fuzz" }
 x509-ocsp = { path = "submodules/formats/x509-ocsp" }
 x509-tsp = { path = "submodules/formats/x509-tsp" }
-x86 = { path = "submodules/rust-x86" }
 xattr = { path = "submodules/xattr" }
 xid = { path = "submodules/unicode-xid" }
 xml_reader = { path = "submodules/rust-plist/fuzz" }

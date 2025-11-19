@@ -1575,3 +1575,9 @@
 [submodule "submodules/wasm-worker"]
 	path = submodules/wasm-worker
 	url = https://github.com/daxpedda/wasm-worker
+[submodule "submodules/kvm-sys-rs"]
+	path = submodules/kvm-sys-rs
+	url = https://github.com/meta-introspector/kvm-sys-rs
+[submodule "submodules/rustc-build-sysroot"]
+	path = submodules/rustc-build-sysroot
+	url = https://github.com/anza-xyz/rustc-build-sysroot
