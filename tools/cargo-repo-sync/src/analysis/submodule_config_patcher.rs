@@ -34,11 +34,11 @@ impl SubmoduleConfigPatcher for RealSubmoduleConfigPatcher {
 
                 let submodule_base_path_rel = PathBuf::from(cargo_toml_rel_path)
                     .parent()
-                    .context("Invalid Cargo.toml path in members file")?;
+                    .context("Invalid Cargo.toml path in members file")?
                     .to_path_buf();
                 let submodule_name = submodule_base_path_rel
                     .file_name()
-                    .context("Invalid submodule base path")?;
+                    .context("Invalid submodule base path")?
                     .to_string_lossy()
                     .to_string();
 

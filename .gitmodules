@@ -1572,3 +1572,6 @@
 [submodule "submodules/assert-impl"]
 	path = submodules/assert-impl
 	url = https://github.com/meta-introspector/assert-impl
+[submodule "submodules/wasm-worker"]
+	path = submodules/wasm-worker
+	url = https://github.com/daxpedda/wasm-worker

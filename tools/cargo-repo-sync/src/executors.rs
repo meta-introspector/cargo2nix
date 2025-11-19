@@ -1,6 +1,6 @@
 use anyhow::{Context, Result};
 use std::path::{Path, PathBuf};
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 use crate::traits::execv::Execv;
 use git2::{Repository, SubmoduleUpdateOptions};
 use crate::fs_cache::FileSystemStat;

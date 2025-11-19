@@ -1,10 +1,10 @@
 [package]
-name = "cargo-repo-sync"
+name = "cargo-repo-sync-cli"
 version = "0.1.0"
 edition = "2021" # Using 2021 edition for new Rust projects
 
 [dependencies]
-clap.workspace = true
+clap = { workspace = true }
 anyhow.workspace = true
 toml_edit.workspace = true
 walkdir.workspace = true
@@ -19,6 +19,7 @@ git2.workspace = true
 sha1.workspace = true
 lru = "0.12"
 sha2.workspace = true
+hex = "0.4"
 cargo_metadata.workspace = true
 
 [lib]

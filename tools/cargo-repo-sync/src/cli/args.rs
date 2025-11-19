@@ -36,6 +36,12 @@ pub enum Commands {
     GeneratePatches(GeneratePatchesArgs),
     /// Analyzes dependency graph, non-vendored modules, and generates config patches
     Analyze(AnalyzeArgs),
+    /// Updates the [workspace.dependencies] section of a Cargo.toml file
+    UpdateCargoToml(UpdateCargoTomlArgs),
+    /// Processes the tt.txt file to generate workspace dependencies
+    ProcessTtTxt(ProcessTtTxtArgs),
+    /// Collects and displays the current state of the repository (Git, Cargo, Nix)
+    CollectRepoState(CollectRepoStateArgs),
 }
 
 #[derive(Parser, Debug)]
@@ -78,6 +84,39 @@ pub struct AnalyzeArgs {
     #[arg(long, default_value = "submodules")]
     pub submodules_dir: PathBuf,
 
+    /// The root directory of the project.
+    #[arg(long, default_value = ".")]
+    pub project_root: PathBuf,
+}
+
+#[derive(Parser, Debug)]
+pub struct UpdateCargoTomlArgs {
+    /// Path to the names.txt file containing crate names and paths.
+    #[arg(long, default_value = "names.txt")]
+    pub names_txt_path: PathBuf,
+
+    /// Path to the Cargo.toml file to be updated.
+    #[arg(long, default_value = "Cargo.toml")]
+    pub cargo_toml_path: PathBuf,
+
+    /// The root directory of the project.
+    #[arg(long, default_value = ".")]
+    pub project_root: PathBuf,
+}
+
+#[derive(Parser, Debug)]
+pub struct ProcessTtTxtArgs {
+    /// Path to the tt.txt file to be processed.
+    #[arg(long, default_value = "tt.txt")]
+    pub tt_txt_path: PathBuf,
+
+    /// Path to the submodules directory.
+    #[arg(long, default_value = "submodules")]
+    pub submodules_dir: PathBuf,
+}
+
+#[derive(Parser, Debug)]
+pub struct CollectRepoStateArgs {
     /// The root directory of the project.
     #[arg(long, default_value = ".")]
     pub project_root: PathBuf,

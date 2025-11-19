@@ -2,6 +2,7 @@ use anyhow::{Result, Context};
 use std::collections::{HashMap, HashSet};
 use std::path::Path;
 use regex::Regex;
+use lazy_static::lazy_static; // Add lazy_static import
 
 pub trait DepGraphProcessor {
     fn parse_dot_file(&self, dot_file_path: &Path) -> Result<(HashMap<String, Vec<String>>, HashSet<String>)>;
@@ -11,7 +12,13 @@ pub trait DepGraphProcessor {
 pub struct RealDepGraphProcessor;
 
 impl DepGraphProcessor for RealDepGraphProcessor {
-    fn parse_dot_file(&self, dot_file_path: &Path) -> Result<(HashMap<String, Vec<String>>, HashSet<String>)>) {
+    fn parse_dot_file(&self, dot_file_path: &Path) -> Result<(HashMap<String, Vec<String>>, HashSet<String>)> {
+        lazy_static! {
+            static ref NODE_RE: Regex = Regex::new(r#"(\d+)\s*\[\s*label\s*=\s*"([^"]+)""#).unwrap();
+            static ref EDGE_RE: Regex = Regex::new(r"(\d+)\s*->\s*(\d+)").unwrap();
+            static ref VERSION_RE: Regex = Regex::new(r"\s+\d+\.\d+\.\d+.*\").unwrap(); // Regex for version removal
+        }
+
         let mut graph = HashMap::new();
         let mut nodes = HashSet::new();
         let mut node_id_to_name = HashMap::new();
@@ -19,22 +26,16 @@ impl DepGraphProcessor for RealDepGraphProcessor {
         let content = std::fs::read_to_string(dot_file_path)
             .with_context(|| format!("Failed to read dot file: {}", dot_file_path.display()))?;
 
-        let node_re = Regex::new(r"(\d+)\s*\[\s*label\s*=\s*\"([^\"]+)\"")?;
-        let edge_re = Regex::new(r"(\d+)\s*->\s*(\d+)")?;
-
         for line in content.lines() {
-            if let Some(captures) = node_re.captures(line) {
+            if let Some(captures) = NODE_RE.captures(line) {
                 let node_id = captures[1].to_string();
                 let mut node_name = captures[2].to_string();
-                // Remove version numbers from node_name
-                if let Some(version_start) = node_name.rfind(" ") {
-                    if node_name[version_start..].contains(".") { // Heuristic to check if it's a version
-                        node_name.truncate(version_start);
-                    }
-                }
+                // Remove version numbers from node_name for cleaner processing
+                node_name = VERSION_RE.replace_all(&node_name, "").trim().to_string();
+                
                 node_id_to_name.insert(node_id, node_name.clone());
                 nodes.insert(node_name);
-            } else if let Some(captures) = edge_re.captures(line) {
+            } else if let Some(captures) = EDGE_RE.captures(line) {
                 let source_id = &captures[1];
                 let target_id = &captures[2];
 
@@ -66,7 +67,7 @@ impl DepGraphProcessor for RealDepGraphProcessor {
 
             for potential_next_layer_node in all_nodes.iter().filter(|node| !processed_nodes.contains(*node)) {
                 let mut all_deps_assigned = true;
-                if let Some(dependencies) = graph.get(*potential_next_layer_node) {
+                if let Some(dependencies) = graph.get(potential_next_layer_node) {
                     for dep in dependencies {
                         if !processed_nodes.contains(dep) {
                             all_deps_assigned = false;

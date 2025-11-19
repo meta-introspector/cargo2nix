@@ -5,3 +5,7 @@ pub mod layer0_analyzer;
 pub mod cargo_config_patcher;
 pub mod submodule_config_patcher;
 pub mod workspace_remover;
+pub mod cargo_metadata_provider;
+pub mod cargo_toml_updater;
+pub mod workspace_deps_generator;
+pub mod repo_state_collector;

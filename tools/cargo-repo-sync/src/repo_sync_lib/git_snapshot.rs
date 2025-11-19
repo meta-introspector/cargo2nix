@@ -1,13 +1,4 @@
-use anyhow::{Result, Context};
-use std::path::{Path, PathBuf};
-use std::sync::{Arc, Mutex};
-use std::time::SystemTime;
-use std::fs;
-use git2::{Repository, TreeWalkMode, TreeWalkResult, StatusOptions};
-use sha2::{Sha256, Digest};
 
-use crate::RollupLock;
-use crate::fs_cache::{FileMetadata, RealFileSystemStat, FileSystemStat};
 
 use anyhow::{Result, Context};
 use std::path::{Path, PathBuf};
@@ -16,6 +7,7 @@ use std::time::SystemTime;
 use std::fs;
 use git2::{Repository, TreeWalkMode, TreeWalkResult, StatusOptions, Oid};
 use sha2::{Sha256, Digest};
+use hex;
 
 use crate::RollupLock;
 use crate::fs_cache::{FileMetadata, RealFileSystemStat, FileSystemStat};
@@ -102,7 +94,7 @@ fn traverse_git_tree(
                         submodule_workdir_hasher.update(format!("{:?}", status_entry.status()));
                     }
                 }
-                let workdir_hash = format!("{:x}", submodule_workdir_hasher.finalize());
+                let workdir_hash = hex::encode(submodule_workdir_hasher.finalize());
 
                 let submodule_composite_hash = format!("{}:{}:{}", sub_head_commit.id(), sub_tree_hash, workdir_hash);
                 rollup_lock_guard.submodule_hashes.insert(entry_path.clone(), submodule_composite_hash.clone());
@@ -117,7 +109,7 @@ fn traverse_git_tree(
         current_tree_hasher.update(hash_part);
     }
 
-    Ok(format!("{:x}", current_tree_hasher.finalize()))
+    Ok(hex::encode(current_tree_hasher.finalize()))
 }
 
 
@@ -180,7 +172,7 @@ pub fn create_snapshot(repo_path: &Path, rollup_lock: Arc<Mutex<RollupLock>>) ->
             crate_hasher.update(hash);
         }
 
-        let crate_hash = format!("{:x}", crate_hasher.finalize());
+        let crate_hash = hex::encode(crate_hasher.finalize());
         rollup_lock_guard.crate_hashes.insert(cargo_toml_path, crate_hash);
     }
 

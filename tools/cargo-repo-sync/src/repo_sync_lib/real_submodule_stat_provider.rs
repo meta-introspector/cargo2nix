@@ -18,10 +18,10 @@ pub struct RealSubmoduleStatProvider {
 impl SubmoduleStatProvider for RealSubmoduleStatProvider {
     fn get_submodule_stat(&self, path: &Path) -> Result<SubmoduleStat> {
         // Get HEAD commit
-        let head_commit_output = self.base_executor.execute(
-            self.git_executable_path.to_str().unwrap(),
+        let head_commit_output = self.base_executor.execv(
+            &self.git_executable_path,
             &["rev-parse", "HEAD"],
-            Some(path),
+            Some(&path.to_path_buf()),
         ).context(format!("Failed to get HEAD commit for {:?}", path))?;
 
         if !head_commit_output.status.success() {
@@ -34,10 +34,10 @@ impl SubmoduleStatProvider for RealSubmoduleStatProvider {
         let head_commit = String::from_utf8_lossy(&head_commit_output.stdout).trim().to_string();
 
         // Get workdir hash (simplified: hash of git status --porcelain output)
-        let workdir_status_output = self.base_executor.execute(
-            self.git_executable_path.to_str().unwrap(),
+        let workdir_status_output = self.base_executor.execv(
+            &self.git_executable_path,
             &["status", "--porcelain"],
-            Some(path),
+            Some(&path.to_path_buf()),
         ).context(format!("Failed to get workdir status for {:?}", path))?;
 
         if !workdir_status_output.status.success() {

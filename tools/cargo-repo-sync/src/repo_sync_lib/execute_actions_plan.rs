@@ -1,5 +1,6 @@
 use anyhow::{Result, Context};
 use std::path::Path;
+use std::sync::{Arc, Mutex};
 
 use crate::RepoSyncConfig;
 use crate::repo_sync_lib::repo_action::RepoAction;
