@@ -114,8 +114,6 @@ version = "0.0.0"
 dependencies = [
  "compiler_builtins",
  "core",
- "rand 0.8.5",
- "rand_xorshift 0.3.0",
 ]
 
 [[package]]
@@ -1552,7 +1550,6 @@ dependencies = [
  "jobserver",
  "libc 0.2.177",
  "shlex",
- "tempfile",
 ]
 
 [[package]]
@@ -1909,11 +1906,10 @@ dependencies = [
 
 [[package]]
 name = "compiler_builtins"
-version = "0.1.138"
+version = "0.1.160"
 dependencies = [
  "cc",
  "core",
- "panic-handler",
 ]
 
 [[package]]
@@ -2039,10 +2035,6 @@ dependencies = [
 [[package]]
 name = "core"
 version = "0.0.0"
-dependencies = [
- "rand 0.8.5",
- "rand_xorshift 0.3.0",
-]
 
 [[package]]
 name = "core-foundation"
@@ -7662,10 +7654,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "panic-handler"
-version = "0.1.0"
-
-[[package]]
 name = "parking"
 version = "2.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -8563,15 +8551,6 @@ dependencies = [
  "bincode",
  "rand_core 0.10.0-rc-2",
  "serde",
-]
-
-[[package]]
-name = "rand_xorshift"
-version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d25bf25ec5ae4a3f1b92f929810509a2f53d7dca2f50b794ff57e3face536c8f"
-dependencies = [
- "rand_core 0.6.4",
 ]
 
 [[package]]
