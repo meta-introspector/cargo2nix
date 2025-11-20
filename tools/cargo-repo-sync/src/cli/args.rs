@@ -42,6 +42,27 @@ pub enum Commands {
     ProcessTtTxt(ProcessTtTxtArgs),
     /// Collects and displays the current state of the repository (Git, Cargo, Nix)
     CollectRepoState(CollectRepoStateArgs),
+    /// Generates a lattice of workspaces based on dependency analysis
+    GenerateWorkspaces(GenerateWorkspacesArgs),
+}
+
+#[derive(Parser, Debug)]
+pub struct GenerateWorkspacesArgs {
+    /// The root directory of the project.
+    #[arg(long, default_value = ".")]
+    pub project_root: PathBuf,
+
+    /// The output directory for the generated workspaces.
+    #[arg(long, default_value = "generated_workspaces")]
+    pub output_dir: PathBuf,
+
+    /// Path to the depgraph.dot file.
+    #[arg(long, default_value = "depgraph.dot")]
+    pub depgraph_dot_file: PathBuf,
+
+    /// Path to the tree.txt file.
+    #[arg(long, default_value = "tree.txt")]
+    pub tree_file: PathBuf,
 }
 
 #[derive(Parser, Debug)]
@@ -91,10 +112,6 @@ pub struct AnalyzeArgs {
 
 #[derive(Parser, Debug)]
 pub struct UpdateCargoTomlArgs {
-    /// Path to the names.txt file containing crate names and paths.
-    #[arg(long, default_value = "names.txt")]
-    pub names_txt_path: PathBuf,
-
     /// Path to the Cargo.toml file to be updated.
     #[arg(long, default_value = "Cargo.toml")]
     pub cargo_toml_path: PathBuf,
@@ -120,4 +137,34 @@ pub struct CollectRepoStateArgs {
     /// The root directory of the project.
     #[arg(long, default_value = ".")]
     pub project_root: PathBuf,
+}
+
+#[derive(Parser, Debug)]
+pub struct AddSubmodulesArgs {
+    /// The root directory of the project.
+    #[arg(long, default_value = ".")]
+    pub root_dir: PathBuf,
+
+    /// The target organization for submodules.
+    #[arg(long)]
+    pub target_org: String,
+
+    /// The target branch for submodules.
+    #[arg(long)]
+    pub target_branch: String,
+
+    /// The output file for the generated submodule list.
+    #[arg(long, default_value = "submodules.txt")]
+    pub output_file: PathBuf,
+
+    /// Path to a JSON input file for submodules.
+    #[arg(long)]
+    pub json_input_file: Option<PathBuf>,
+}
+
+#[derive(Parser, Debug)]
+pub struct SubmoduleStatusArgs {
+    /// The root directory of the project.
+    #[arg(long, default_value = ".")]
+    pub root_dir: PathBuf,
 }
