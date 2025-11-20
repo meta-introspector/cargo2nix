@@ -31,20 +31,20 @@ pub enum Commands {
     AddSubmodules(AddSubmodulesArgs),
     /// Reports status of submodules
     SubmoduleStatus(SubmoduleStatusArgs),
-    // /// Generates Cargo.nix files for all discovered Cargo.toml/Cargo.lock pairs
-    // GenerateNix(GenerateNixArgs),
-    // /// Generates .cargo/config.toml patch entries for workspace submodules
-    // GeneratePatches(GeneratePatchesArgs),
-    // /// Analyzes dependency graph, non-vendored modules, and generates config patches
-    // Analyze(AnalyzeArgs),
-    // /// Updates the [workspace.dependencies] section of a Cargo.toml file
-    // UpdateCargoToml(UpdateCargoTomlArgs),
-    // /// Processes the tt.txt file to generate workspace dependencies
-    // ProcessTtTxt(ProcessTtTxtArgs),
-    // /// Collects and displays the current state of the repository (Git, Cargo, Nix)
-    // CollectRepoState(CollectRepoStateArgs),
-    // /// Generates a lattice of workspaces based on dependency analysis
-    // GenerateWorkspaces(GenerateWorkspacesArgs),
+    /// Generates Cargo.nix files for all discovered Cargo.toml/Cargo.lock pairs
+    GenerateNix(GenerateNixArgs),
+    /// Generates .cargo/config.toml patch entries for workspace submodules
+    GeneratePatches(GeneratePatchesArgs),
+    /// Analyzes dependency graph, non-vendored modules, and generates config patches
+    Analyze(AnalyzeArgs),
+    /// Updates the [workspace.dependencies] section of a Cargo.toml file
+    UpdateCargoToml(UpdateCargoTomlArgs),
+    /// Processes the tt.txt file to generate workspace dependencies
+    ProcessTtTxt(ProcessTtTxtArgs),
+    /// Collects and displays the current state of the repository (Git, Cargo, Nix)
+    CollectRepoState(CollectRepoStateArgs),
+    /// Generates a lattice of workspaces based on dependency analysis
+    GenerateWorkspaces(GenerateWorkspacesArgs),
 }
 
 impl FromArgMatches for Commands {
@@ -52,6 +52,13 @@ impl FromArgMatches for Commands {
         match matches.subcommand() {
             Some(("add-submodules", args)) => Ok(Self::AddSubmodules(AddSubmodulesArgs::from_arg_matches(args)?)),
             Some(("submodule-status", args)) => Ok(Self::SubmoduleStatus(SubmoduleStatusArgs::from_arg_matches(args)?)),
+            Some(("generate-nix", args)) => Ok(Self::GenerateNix(GenerateNixArgs::from_arg_matches(args)?)),
+            Some(("generate-patches", args)) => Ok(Self::GeneratePatches(GeneratePatchesArgs::from_arg_matches(args)?)),
+            Some(("analyze", args)) => Ok(Self::Analyze(AnalyzeArgs::from_arg_matches(args)?)),
+            Some(("update-cargo-toml", args)) => Ok(Self::UpdateCargoToml(UpdateCargoTomlArgs::from_arg_matches(args)?)),
+            Some(("process-tt-txt", args)) => Ok(Self::ProcessTtTxt(ProcessTtTxtArgs::from_arg_matches(args)?)),
+            Some(("collect-repo-state", args)) => Ok(Self::CollectRepoState(CollectRepoStateArgs::from_arg_matches(args)?)),
+            Some(("generate-workspaces", args)) => Ok(Self::GenerateWorkspaces(GenerateWorkspacesArgs::from_arg_matches(args)?)),
             _ => Err(Error::raw(ErrorKind::InvalidSubcommand, "Valid subcommand is `add-submodules` or `submodule-status`")),
         }
     }
@@ -60,6 +67,13 @@ impl FromArgMatches for Commands {
         match matches.subcommand() {
             Some(("add-submodules", args)) => *self = Self::AddSubmodules(AddSubmodulesArgs::from_arg_matches(args)?),
             Some(("submodule-status", args)) => *self = Self::SubmoduleStatus(SubmoduleStatusArgs::from_arg_matches(args)?),
+            Some(("generate-nix", args)) => *self = Self::GenerateNix(GenerateNixArgs::from_arg_matches(args)?),
+            Some(("generate-patches", args)) => *self = Self::GeneratePatches(GeneratePatchesArgs::from_arg_matches(args)?),
+            Some(("analyze", args)) => *self = Self::Analyze(AnalyzeArgs::from_arg_matches(args)?),
+            Some(("update-cargo-toml", args)) => *self = Self::UpdateCargoToml(UpdateCargoTomlArgs::from_arg_matches(args)?),
+            Some(("process-tt-txt", args)) => *self = Self::ProcessTtTxt(ProcessTtTxtArgs::from_arg_matches(args)?),
+            Some(("collect-repo-state", args)) => *self = Self::CollectRepoState(CollectRepoStateArgs::from_arg_matches(args)?),
+            Some(("generate-workspaces", args)) => *self = Self::GenerateWorkspaces(GenerateWorkspacesArgs::from_arg_matches(args)?),
             _ => (),
         }
         Ok(())
@@ -70,17 +84,31 @@ impl Subcommand for Commands {
     fn augment_subcommands(cmd: Command) -> Command {
         cmd.subcommand(AddSubmodulesArgs::augment_args(Command::new("add-submodules")))
             .subcommand(SubmoduleStatusArgs::augment_args(Command::new("submodule-status")))
+            .subcommand(GenerateNixArgs::augment_args(Command::new("generate-nix")))
+            .subcommand(GeneratePatchesArgs::augment_args(Command::new("generate-patches")))
+            .subcommand(AnalyzeArgs::augment_args(Command::new("analyze")))
+            .subcommand(UpdateCargoTomlArgs::augment_args(Command::new("update-cargo-toml")))
+            .subcommand(ProcessTtTxtArgs::augment_args(Command::new("process-tt-txt")))
+            .subcommand(CollectRepoStateArgs::augment_args(Command::new("collect-repo-state")))
+            .subcommand(GenerateWorkspacesArgs::augment_args(Command::new("generate-workspaces")))
             .subcommand_required(true)
     }
 
     fn augment_subcommands_for_update(cmd: Command) -> Command {
         cmd.subcommand(AddSubmodulesArgs::augment_args(Command::new("add-submodules")))
             .subcommand(SubmoduleStatusArgs::augment_args(Command::new("submodule-status")))
+            .subcommand(GenerateNixArgs::augment_args(Command::new("generate-nix")))
+            .subcommand(GeneratePatchesArgs::augment_args(Command::new("generate-patches")))
+            .subcommand(AnalyzeArgs::augment_args(Command::new("analyze")))
+            .subcommand(UpdateCargoTomlArgs::augment_args(Command::new("update-cargo-toml")))
+            .subcommand(ProcessTtTxtArgs::augment_args(Command::new("process-tt-txt")))
+            .subcommand(CollectRepoStateArgs::augment_args(Command::new("collect-repo-state")))
+            .subcommand(GenerateWorkspacesArgs::augment_args(Command::new("generate-workspaces")))
             .subcommand_required(true)
     }
 
     fn has_subcommand(name: &str) -> bool {
-        matches!(name, "add-submodules" | "submodule-status")
+        matches!(name, "add-submodules" | "submodule-status" | "generate-nix" | "generate-patches" | "analyze" | "update-cargo-toml" | "process-tt-txt" | "collect-repo-state" | "generate-workspaces")
     }
 }
 
@@ -97,6 +125,10 @@ pub struct GenerateWorkspacesArgs {
     /// Path to the depgraph.dot file.
     #[arg(long, default_value = "depgraph.dot")]
     pub depgraph_dot_file: PathBuf,
+
+    /// Path to the tree.txt file.
+    #[arg(long, default_value = "tree.txt")]
+    pub tree_file: PathBuf,
 }
 
 #[derive(Parser, Debug)]
@@ -118,6 +150,10 @@ pub struct AnalyzeArgs {
     /// Path to the depgraph.dot file.
     #[arg(long, default_value = "depgraph.dot")]
     pub depgraph_dot_file: PathBuf,
+
+    /// Path to the tree.txt file.
+    #[arg(long, default_value = "tree.txt")]
+    pub tree_file: PathBuf,
 
     /// Path to the Cargo.lock file.
     #[arg(long, default_value = "Cargo.lock")]
