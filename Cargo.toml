@@ -1,19 +1,12 @@
-[workspace]
-members = [
-    "submodules/cargo",
-    "submodules/h2",
-    "submodules/cargo/cargo-submodule-tool",
-    "tools/dep2submodule",
-    "tools/cargo-repo-sync",
-]
-exclude = []
+
+
 
 [workspace.package]
 categories = []
 version = "0.1.0"
 authors = ["Your Name <your.email@example.com>"]
 rust-version = "1.89"
-edition = "2021"
+edition = "2024"
 resolver = "3"
 license = "MIT OR Apache-2.0"
 homepage = "https://github.com/meta-introspector/cargo2nix"
@@ -29,10 +22,24 @@ include = [
   "examples/**/*"
 ]
 
+[workspace]
+members = [
+    "crates/cargo2nix",
+    "submodules/cargo",
+    "submodules/h2",
+    "submodules/cargo/cargo-submodule-tool",
+    "tools/dep2submodule",
+    "tools/cargo-repo-sync",
+]
+exclude = []
+
+
+
 
 [workspace.lints.rust]
-rust_2018_idioms = "warn" # TODO: could this be removed?
-unexpected_cfgs = { level = "warn", check-cfg = [
+incomplete_features = "allow"
+rust_2018_idioms = "allow" # TODO: could this be removed?
+unexpected_cfgs = { level = "allow", check-cfg = [
     'cfg(atomic_maybe_uninit_test_prefer_kuser_cmpxchg)',
     'cfg(crossbeam_loom)',
     'cfg(crossbeam_sanitize)',
@@ -48,7 +55,6 @@ unexpected_cfgs = { level = "warn", check-cfg = [
     'cfg(maybe_uninit)',
     'cfg(stable_const)',
     'cfg(stable_offset_of)',
-
     'cfg(feature, values("borsh"))',
     'cfg(feature, values("sval"))',
     'cfg(feature, values("rayon"))',
@@ -59,26 +65,27 @@ unexpected_cfgs = { level = "warn", check-cfg = [
     'cfg(target_os, values("bitrig"))',
 ] }
 unused_qualifications = "allow"
+warnings = "allow"
 
 [workspace.lints.rustdoc]
 private_intra_doc_links = "allow"
 
 [workspace.lints.clippy]
 all = { level = "allow", priority = -2 }
-correctness = { level = "warn", priority = -1 }
-dbg_macro = "warn"
-disallowed_methods = "warn"
-print_stderr = "warn"
-print_stdout = "warn"
-self_named_module_files = "warn"
-explicit_iter_loop = "warn"
+correctness = { level = "allow", priority = -1 }
+dbg_macro = "allow"
+disallowed_methods = "allow"
+print_stderr = "allow"
+print_stdout = "allow"
+self_named_module_files = "allow"
+explicit_iter_loop = "allow"
 identity_op = "allow"
-manual_assert = "warn"
-map_unwrap_or = "warn"
+manual_assert = "allow"
+map_unwrap_or = "allow"
 missing_safety_doc = "allow"
 non_minimal_cfg = "allow"
-ptr_as_ptr = "warn"
-unnecessary_semicolon = "warn"
+ptr_as_ptr = "allow"
+unnecessary_semicolon = "allow"
 expl_impl_clone_on_copy = "allow"
 uninlined_format_args = "allow"
 unnecessary_cast = "allow"
@@ -126,7 +133,7 @@ aho-corasick-debug = { path = "submodules/aho-corasick/aho-corasick-debug" }
 aho-corasick-fuzz = { path = "submodules/aho-corasick/fuzz" }
 aho_corasick = { path = "submodules/aho-corasick" }
 all = { path = "submodules/rust-url/idna" }
-alloc = { path = "submodules/rust/library/alloc" }
+#alloc = { path = "submodules/rust/library/alloc" }
 alloc_benchmarks = { path = "submodules/hermit-rs/benches/alloc" }
 alloc_dealloc = { path = "submodules/gg-alloc/fuzz" }
 allocator-api2 = { path = "submodules/allocator-api2" }
@@ -273,6 +280,7 @@ bench_main = { path = "submodules/criterion" }
 bencher_example = { path = "submodules/criterion/bencher_compat" }
 benches = { path = "submodules/diff" }
 libtest-mimic = { path = "submodules/libtest-mimic" }
+object = { version = "0.37.0", default-features = false, features = ['read_core', 'elf', 'macho', 'pe', 'xcoff', 'unaligned', 'archive'] }
 benchmark = { path = "submodules/mime_guess" }
 benchmarks = { path = "submodules/webpki" }
 benchsuite = { path = "submodules/cargo/benches/benchsuite" }
@@ -344,7 +352,6 @@ c2-chacha = { path = "submodules/cryptocorrosion/stream-ciphers/chacha" }
 cache = { path = "submodules/rusqlite" }
 calendar-explorer = { path = "submodules/ratatui/examples/apps/calendar-explorer" }
 calendrical_calculations = { path = "submodules/icu4x/utils/calendrical_calculations" }
-
 camino-examples = { path = "submodules/camino/camino-examples" }
 canvas = { path = "submodules/wasm-bindgen/examples/canvas" }
 cap = { path = "submodules/cap" }
@@ -362,7 +369,6 @@ cargo-fmt = { path = "submodules/rustfmt" }
 cargo-insta = { path = "submodules/insta/cargo-insta" }
 cargo-miri = { path = "submodules/miri/cargo-miri" }
 cargo-miri-test = { path = "submodules/miri/test-cargo-miri" }
-
 cargo-repo-sync = { path = "submodules/cargo/cargo-submodule-tool" }
 cargo-test-macro = { path = "submodules/cargo/crates/cargo-test-macro" }
 cargo-test-support = { path = "submodules/cargo/crates/cargo-test-support" }
@@ -521,7 +527,7 @@ convert_case = { path = "submodules/convert-case" }
 cookie = { path = "submodules/warp" }
 copy = { path = "submodules/tokio/benches" }
 copy-to-clipboard = { path = "submodules/crossterm" }
-core = { path = "submodules/rust/library/core" }
+#core = { path = "submodules/rust/library/core" }
 core-foundation = { path = "submodules/core-foundation-rs/core-foundation" }
 core-foundation-sys = { path = "submodules/core-foundation-rs/core-foundation-sys" }
 core-graphics = { path = "submodules/core-foundation-rs/core-graphics" }
@@ -1827,7 +1833,7 @@ objc2-xc-test = { path = "submodules/objc2/framework-crates/objc2-xc-test" }
 objc2-xc-ui-automation = { path = "submodules/objc2/framework-crates/objc2-xc-ui-automation" }
 objcopy = { path = "submodules/object/crates/examples" }
 objdump = { path = "submodules/object/crates/examples" }
-object = { path = "submodules/object" }
+#object = { path = "submodules/object" }
 object-examples = { path = "submodules/object/crates/examples" }
 object-rewrite = { path = "submodules/object/crates/rewrite" }
 objectmap = { path = "submodules/object/crates/examples" }
@@ -1906,7 +1912,7 @@ parser-map-tag-print = { path = "submodules/pulldown-cmark/pulldown-cmark" }
 partial_ref = { path = "submodules/partial_ref/partial_ref" }
 partial_ref_derive = { path = "submodules/partial_ref/partial_ref_derive" }
 partial_ref_tests = { path = "submodules/partial_ref/partial_ref_tests" }
-pasetors = { path = "submodules/pasetors" }
+pasetors = { path = "submodules/pasetors", features = ["v3"] }
 pasetors-fuzz = { path = "submodules/pasetors/fuzz" }
 password-hash = { path = "submodules/traits/password-hash" }
 paste = { path = "submodules/paste" }
@@ -2436,8 +2442,8 @@ smoke-test = { path = "submodules/minimal-lexical/etc/correctness" }
 smol = { path = "submodules/smol" }
 smol_str = { path = "submodules/rust-analyzer/lib/smol_str" }
 snap-fixture = { path = "submodules/trycmd/crates/snapbox" }
-snapbox = { path = "submodules/trycmd/crates/snapbox" }
-snapbox-macros = { path = "submodules/trycmd/crates/snapbox-macros" }
+snapbox = { path = "submodules/snapbox/crates/snapbox", features = ["dir", "regex"] }
+snapbox-macros = { path = "submodules/snapbox/crates/snapbox-macros" }
 sort_version = { path = "submodules/semver/fuzz" }
 span = { path = "submodules/rust-analyzer/crates/span" }
 span_fields = { path = "submodules/tracing/tracing" }
@@ -2530,7 +2536,7 @@ syn-codegen = { path = "submodules/syn/json" }
 syn-dev = { path = "submodules/syn/dev" }
 syn-fuzz = { path = "submodules/syn/fuzz" }
 syn-internal-codegen = { path = "submodules/syn/codegen" }
-syn-test-suite = { path = "submodules/syn/tests/features" }
+#syn-test-suite = { path = "submodules/syn/tests/features" }
 sync = { path = "submodules/rust/library/std" }
 sync_broadcast = { path = "submodules/tokio/benches" }
 sync_mpsc = { path = "submodules/tokio/benches" }
@@ -3078,13 +3084,17 @@ async-stream = { path = "submodules/async-stream/async-stream" }
 futures-concurrency.path = "submodules/futures-concurrency"
 mockall.path = "submodules/mockall/mockall"
 socket2.path = "submodules/socket2"
-mio-aio.path = "submodules/mio-aio"
+#mio-aio.path = "submodules/mio-aio"
 nix.path = "submodules/nix"
 macrotest.path = "submodules/macrotest"
 assert-impl.path = "submodules/assert-impl"
 web-thread = { path = "submodules/wasm-worker" }
 
 [patch.crates-io]
+curl = { path = "submodules/curl-rust", features = ["http2"]  }
+#curl = { version = "0.4.49"}
+anstyle = { path = "submodules/anstyle/crates/anstyle" }
+bit-vec = { path = "submodules/bit-vec" }
 #aarch64-dit = { path = "submodules/utils/aarch64-dit" }
 #actix = { path = "submodules/actix/actix" }
 #actix-broker = { path = "submodules/actix/actix-broker" }
@@ -3192,7 +3202,7 @@ openssl-probe = { path = "submodules/openssl-probe" }
 openssl-sys = { path = "submodules/rust-openssl/openssl-sys" }
 orion = { path = "submodules/orion" }
 parking_lot = { path = "submodules/parking_lot" }
-pasetors = { path = "submodules/pasetors" }
+pasetors = { path = "submodules/pasetors", features = ["v3"] }
 pathdiff = { path = "submodules/pathdiff" }
 pin-project-lite = { path = "submodules/pin-project-lite" }
 pkg-config = { path = "submodules/pkg-config-rs" }
@@ -3257,4 +3267,9 @@ winapi-util = { path = "submodules/winapi-util" }
 winnow = { path = "submodules/winnow" }
 zerocopy = { path = "submodules/zerocopy" }
 
-[workspace.lints]
+#[workspace.lints]
+#[warn(incomplete_features)]
+# [PROJECT_DIR]/Cargo.toml
+
+
+

@@ -51,29 +51,18 @@ fn main() -> Result<()> {
         match metadata_result {
             Ok(metadata) => {
                 // Check if this submodule is a workspace itself
-                if let Some(workspace_root) = metadata.workspace_root.to_str() {
-                    if Path::new(workspace_root) == submodule_root {
-                        // This is a submodule that is also a workspace
-                        println!("Found submodule workspace: {}", submodule_root.display());
-                        for member_id in &metadata.workspace_members {
-                            if let Some(member_package) = metadata.packages.iter().find(|p| &p.id == member_id) {
-                                let member_manifest_path = PathBuf::from(&member_package.manifest_path);
-                                let member_crate_root = member_manifest_path.parent().unwrap();
-                                let relative_path = pathdiff::diff_paths(member_crate_root, &project_root)
-                                    .context(format!("Failed to get relative path for member crate {}", member_package.name))?;
-                                workspace_dependencies.insert(
-                                    member_package.name.clone(),
-                                    format!("{{ path = \"{}\" }}", relative_path.display()),
-                                );
-                            }
-                        }
-                    } else {
-                        // It's a regular package within a submodule
-                        if let Some(package) = metadata.packages.get(0) {
-                            let relative_path = pathdiff::diff_paths(submodule_root, &project_root)
-                                .context(format!("Failed to get relative path for package {}", package.name))?;
+                let workspace_root = metadata.workspace_root.to_string();
+                if Path::new(&workspace_root) == submodule_root {
+                    // This is a submodule that is also a workspace
+                    println!("Found submodule workspace: {}", submodule_root.display());
+                    for member_id in &metadata.workspace_members {
+                        if let Some(member_package) = metadata.packages.iter().find(|p| &p.id == member_id) {
+                            let member_manifest_path = PathBuf::from(&member_package.manifest_path);
+                            let member_crate_root = member_manifest_path.parent().unwrap();
+                            let relative_path = pathdiff::diff_paths(member_crate_root, &project_root)
+                                .context(format!("Failed to get relative path for member crate {}", member_package.name))?;
                             workspace_dependencies.insert(
-                                package.name.clone(),
+                                member_package.name.to_string(),
                                 format!("{{ path = \"{}\" }}", relative_path.display()),
                             );
                         }
@@ -84,7 +73,7 @@ fn main() -> Result<()> {
                         let relative_path = pathdiff::diff_paths(submodule_root, &project_root)
                             .context(format!("Failed to get relative path for package {}", package.name))?;
                         workspace_dependencies.insert(
-                            package.name.clone(),
+                            package.name.to_string(),
                             format!("{{ path = \"{}\" }}", relative_path.display()),
                         );
                     }
@@ -126,7 +115,7 @@ fn main() -> Result<()> {
     sorted_deps.sort_by(|a, b| a.0.cmp(&b.0));
 
     for (name, definition) in sorted_deps {
-        new_workspace_deps_table.insert(&name, Item::Value(value(definition)));
+        new_workspace_deps_table.insert(&name, value(definition));
     }
 
     // Replace the [workspace.dependencies] section

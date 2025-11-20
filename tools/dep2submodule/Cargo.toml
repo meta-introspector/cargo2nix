@@ -13,6 +13,8 @@ anyhow.workspace = true
 walkdir.workspace = true
 toml_edit.workspace = true
 cargo_metadata.workspace = true
+clap = { workspace = true, features = ["derive"] }
+pathdiff.workspace = true
 
 [lints]
 workspace = true

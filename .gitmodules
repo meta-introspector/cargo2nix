@@ -98,6 +98,7 @@
 [submodule "submodules/clap"]
 	path = submodules/clap
 	url = https://github.com/meta-introspector/clap.git
+	branch = master
 [submodule "submodules/cryptocorrosion"]
 	path = submodules/cryptocorrosion
 	url = https://github.com/meta-introspector/cryptocorrosion.git

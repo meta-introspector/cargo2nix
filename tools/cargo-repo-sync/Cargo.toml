@@ -21,6 +21,7 @@ lru = "0.12"
 sha2.workspace = true
 hex = "0.4"
 cargo_metadata.workspace = true
+cargo2nix = { path = "../../crates/cargo2nix" }
 
 [lib]
 path = "src/lib.rs"
