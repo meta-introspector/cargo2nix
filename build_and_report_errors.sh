@@ -6,7 +6,8 @@ CONTEXT_LINES=5 # Number of context lines to show after an error (approximate fo
 
 echo "Running cargo build and logging output to $LOG_FILE..."
 export PATH="$HOME/.cargo/bin:$PATH"
-#cargo build --verbose > "$LOG_FILE" 2>&1
+mkdir -p "/tmp/sc"
+export SCCACHE_DIR="/tmp/sc"
 cargo build  > "$LOG_FILE" 2>&1
 
 if [ $? -eq 0 ]; then

@@ -85,12 +85,6 @@ name = "anyhow"
 version = "1.0.100"
 
 [[package]]
-name = "anyhow"
-version = "1.0.100"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a23eb6b1614318a8071c9b2521f36b424b2c83db5eb3a0fead4a6c0809af6e61"
-
-[[package]]
 name = "arbitrary"
 version = "1.4.2"
 
@@ -260,14 +254,14 @@ dependencies = [
  "annotate-snippets",
  "anstream",
  "anstyle",
- "anyhow 1.0.100",
+ "anyhow",
  "base64 0.22.1",
  "blake3",
  "cargo-credential",
  "cargo-credential-libsecret",
  "cargo-credential-macos-keychain",
  "cargo-credential-wincred",
- "cargo-platform 0.3.2",
+ "cargo-platform",
  "cargo-util",
  "cargo-util-schemas",
  "clap",
@@ -338,7 +332,7 @@ dependencies = [
 name = "cargo-credential"
 version = "0.4.9"
 dependencies = [
- "anyhow 1.0.100",
+ "anyhow",
  "libc 0.2.175",
  "serde",
  "serde_json",
@@ -351,7 +345,7 @@ dependencies = [
 name = "cargo-credential-libsecret"
 version = "0.5.4"
 dependencies = [
- "anyhow 1.0.100",
+ "anyhow",
  "cargo-credential",
  "libloading",
 ]
@@ -373,12 +367,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "cargo-platform"
-version = "0.3.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "122ec45a44b270afd1402f351b782c676b173e3c3fb28d86ff7ebfb4d86a4ee4"
+name = "cargo-edit-lib"
+version = "0.1.0"
 dependencies = [
- "serde",
+ "anyhow",
+ "cargo_metadata",
+ "git-wrapper-lib",
 ]
 
 [[package]]
@@ -390,34 +384,32 @@ dependencies = [
 ]
 
 [[package]]
-name = "cargo-repo-sync-lib"
+name = "cargo-submodule-tool-lib"
 version = "0.1.0"
 dependencies = [
- "anyhow 1.0.100",
- "cargo2nix",
- "cargo_metadata",
- "clap",
- "git2",
- "hex",
- "lazy_static 1.5.0",
- "lru",
- "md5",
- "pathdiff",
- "regex",
+ "anyhow",
+ "cargo-toml-editor-lib",
+ "git-wrapper-lib",
+ "nix-generator-lib",
  "serde",
  "serde_json",
- "sha1 0.11.0-rc.3",
- "sha2 0.11.0-rc.3",
+]
+
+[[package]]
+name = "cargo-toml-editor-lib"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "serde",
+ "serde_json",
  "toml_edit",
- "url 2.5.7",
- "walkdir",
 ]
 
 [[package]]
 name = "cargo-util"
 version = "0.2.26"
 dependencies = [
- "anyhow 1.0.100",
+ "anyhow",
  "core-foundation 0.10.1",
  "filetime",
  "hex",
@@ -452,9 +444,9 @@ dependencies = [
 name = "cargo2nix"
 version = "0.1.0"
 dependencies = [
- "anyhow 1.0.100",
+ "anyhow",
  "cargo",
- "cargo-platform 0.3.2",
+ "cargo-platform",
  "clap",
  "clap_complete",
  "colorify",
@@ -474,7 +466,7 @@ name = "cargo_metadata"
 version = "0.23.1"
 dependencies = [
  "camino",
- "cargo-platform 0.3.1",
+ "cargo-platform",
  "semver",
  "serde",
  "serde_json",
@@ -485,8 +477,21 @@ dependencies = [
 name = "cargo_repo_sync_lib_test_pkg"
 version = "0.1.0"
 dependencies = [
- "anyhow 1.0.100 (registry+https://github.com/rust-lang/crates.io-index)",
- "cargo-repo-sync-lib",
+ "anyhow",
+ "cargo-edit-lib",
+ "cargo_metadata",
+ "git-wrapper-lib",
+ "nix-generator-lib",
+ "serde_json",
+]
+
+[[package]]
+name = "cargo_submodule_tool_test_pkg"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "cargo-submodule-tool-lib",
+ "git-wrapper-lib",
 ]
 
 [[package]]
@@ -953,11 +958,9 @@ dependencies = [
 
 [[package]]
 name = "ed25519-compact"
-version = "2.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "33ce99a9e19c84beb4cc35ece85374335ccc398240712114c85038319ed709bd"
+version = "2.1.1"
 dependencies = [
- "getrandom 0.3.4",
+ "getrandom 0.2.16",
 ]
 
 [[package]]
@@ -1030,7 +1033,7 @@ name = "errno"
 version = "0.3.14"
 dependencies = [
  "libc 0.2.177",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -1139,8 +1142,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "335ff9f135e4384c8150d6f27c6daed433577f86b4750418338c01a1a2528592"
 dependencies = [
  "cfg-if",
+ "js-sys",
  "libc 0.2.177",
  "wasi",
+ "wasm-bindgen",
 ]
 
 [[package]]
@@ -1153,6 +1158,19 @@ dependencies = [
  "r-efi",
  "wasip2",
  "wasm-bindgen",
+]
+
+[[package]]
+name = "git-wrapper-lib"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "pathdiff",
+ "regex",
+ "serde",
+ "serde_json",
+ "toml_edit",
+ "walkdir",
 ]
 
 [[package]]
@@ -2032,8 +2050,6 @@ version = "0.15.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9229cfe53dfd69f0609a49f65461bd93001ea1ef889cd5529dd176593f5338a1"
 dependencies = [
- "allocator-api2",
- "equivalent",
  "foldhash 0.1.5",
 ]
 
@@ -2432,10 +2448,6 @@ dependencies = [
 [[package]]
 name = "lazy_static"
 version = "1.5.0"
-
-[[package]]
-name = "lazy_static"
-version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bbd2bcb4c963f2ddae06a2efc7e9f3591312473c50c6685e1f298068316e66fe"
 
@@ -2552,15 +2564,6 @@ name = "log"
 version = "0.4.28"
 
 [[package]]
-name = "lru"
-version = "0.12.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "234cf4f4a04dc1f57e24b96cc0cd600cf2af460d4161ac5ecdd0af8e1f3b2a38"
-dependencies = [
- "hashbrown 0.15.5",
-]
-
-[[package]]
 name = "maybe-async"
 version = "0.2.10"
 dependencies = [
@@ -2578,10 +2581,6 @@ dependencies = [
  "cfg-if",
  "digest 0.10.7",
 ]
-
-[[package]]
-name = "md5"
-version = "0.8.0"
 
 [[package]]
 name = "memchr"
@@ -2626,6 +2625,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "nix-generator-lib"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "cargo-edit-lib",
+ "cargo2nix",
+ "cargo_metadata",
+ "git-wrapper-lib",
+ "serde",
+]
+
+[[package]]
 name = "nom"
 version = "7.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2648,7 +2659,7 @@ dependencies = [
 name = "nu-ansi-term"
 version = "0.50.3"
 dependencies = [
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -2827,9 +2838,10 @@ version = "1.21.3"
 
 [[package]]
 name = "once_cell_polyfill"
-version = "1.70.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "384b8ab6d37215f3c5301a95a4accb5d64aa607f1fcb26a11b5303878451b4fe"
+version = "1.56.1"
+dependencies = [
+ "once_cell",
+]
 
 [[package]]
 name = "opener"
@@ -2984,9 +2996,9 @@ checksum = "9b4f627cb1b25917193a259e49bdad08f671f8d9708acfd5fe0a8c1455d87220"
 
 [[package]]
 name = "pest"
-version = "2.8.3"
+version = "2.8.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "989e7521a040efde50c3ab6bbadafbe15ab6dc042686926be59ac35d74607df4"
+checksum = "cbcfd20a6d4eeba40179f05735784ad32bdaef05ce8e8af05f180d45bb3e7e22"
 dependencies = [
  "memchr",
  "ucd-trie",
@@ -2994,9 +3006,9 @@ dependencies = [
 
 [[package]]
 name = "pest_derive"
-version = "2.8.3"
+version = "2.8.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "187da9a3030dbafabbbfb20cb323b976dc7b7ce91fcd84f2f74d6e31d378e2de"
+checksum = "51f72981ade67b1ca6adc26ec221be9f463f2b5839c7508998daa17c23d94d7f"
 dependencies = [
  "pest",
  "pest_generator",
@@ -3004,9 +3016,9 @@ dependencies = [
 
 [[package]]
 name = "pest_generator"
-version = "2.8.3"
+version = "2.8.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "49b401d98f5757ebe97a26085998d6c0eecec4995cad6ab7fc30ffdf4b052843"
+checksum = "dee9efd8cdb50d719a80088b76f81aec7c41ed6d522ee750178f83883d271625"
 dependencies = [
  "pest",
  "pest_meta",
@@ -3017,9 +3029,9 @@ dependencies = [
 
 [[package]]
 name = "pest_meta"
-version = "2.8.3"
+version = "2.8.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "72f27a2cfee9f9039c4d86faa5af122a0ac3851441a34865b8a043b46be0065a"
+checksum = "bf1d70880e76bdc13ba52eafa6239ce793d85c8e43896507e43dd8984ff05b82"
 dependencies = [
  "pest",
  "sha2 0.10.9",
@@ -3360,7 +3372,7 @@ dependencies = [
  "errno",
  "libc 0.2.177",
  "linux-raw-sys",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -3552,7 +3564,7 @@ dependencies = [
 name = "sharded-slab"
 version = "0.1.7"
 dependencies = [
- "lazy_static 1.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "lazy_static",
 ]
 
 [[package]]
@@ -3685,9 +3697,7 @@ version = "0.11.1"
 
 [[package]]
 name = "subtle"
-version = "2.6.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "13c2bddecc57b384dee18652358fb23172facb8a2c51ccc10d74c157bdea3292"
+version = "2.6.0"
 
 [[package]]
 name = "supports-hyperlinks"
@@ -3747,7 +3757,7 @@ dependencies = [
  "chrono-tz",
  "globwalk",
  "humansize",
- "lazy_static 1.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "lazy_static",
  "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "pest",
  "pest_derive",
@@ -4136,7 +4146,7 @@ checksum = "ac3b87c63620426dd9b991e5ce0329eff545bccbbb34f3be09ff6fb6ab51b7b6"
 name = "winapi-util"
 version = "0.1.11"
 dependencies = [
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -4522,10 +4532,6 @@ name = "crunchy"
 version = "0.2.4"
 
 [[patch.unused]]
-name = "ed25519-compact"
-version = "2.1.1"
-
-[[patch.unused]]
 name = "futures-concurrency"
 version = "7.6.3"
 
@@ -4558,10 +4564,6 @@ name = "num_threads"
 version = "0.1.7"
 
 [[patch.unused]]
-name = "once_cell_polyfill"
-version = "1.56.1"
-
-[[patch.unused]]
 name = "prettyplease"
 version = "0.2.37"
 
@@ -4572,10 +4574,6 @@ version = "0.1.26"
 [[patch.unused]]
 name = "ruzstd"
 version = "0.8.2"
-
-[[patch.unused]]
-name = "subtle"
-version = "2.6.0"
 
 [[patch.unused]]
 name = "unicode-xid"

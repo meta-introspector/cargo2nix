@@ -34,71 +34,57 @@ pub struct SubmoduleWorkspaceInfo {
 /// Represents all workspace information parsed from the members.txt file.
 pub type WorkspaceInfo = Vec<SubmoduleWorkspaceInfo>;
 
-/// Parses .gitmodules to get a list of (relative_submodule_path, members_list) tuples.
-pub fn parse_members_file(
-    git_adapter: &dyn GitAdapter, // Changed from git_executor
-    cargo_metadata_provider: &dyn CargoMetadataProvider,
-    project_root: &Path
-) -> anyhow::Result<WorkspaceInfo> {
-    let mut workspace_info = Vec::new();
+use anyhow::{Context, Result};
+use cargo_metadata::Metadata;
+use git_wrapper_lib::git_adapters::GitAdapter;
+use std::path::{Path, PathBuf};
+use cargo_edit_lib::{WorkspaceInfo, WorkspaceInfoProvider, CargoMetadataProvider as CargoMetadataProviderTrait}; // Added
 
-    for (url, submodule_path_rel) in git_adapter.list_submodules(project_root)? { // Changed from git_executor
-        let submodule_abs_path = project_root.join(&submodule_path_rel);
+pub struct CargoConfigGeneratorImpl; // New struct
 
-        let mut member_crates = Vec::new();
+impl WorkspaceInfoProvider for CargoConfigGeneratorImpl {
+    fn parse_members_file(
+        &self,
+        git_adapter: &dyn GitAdapter,
+        cargo_metadata_provider: &dyn CargoMetadataProviderTrait, // Use the trait from cargo_edit_lib
+        project_root: &Path,
+    ) -> Result<Vec<WorkspaceInfo>> {
+        let members_file_path = project_root.join("submodules/members.txt");
+        let members_file_content = std::fs::read_to_string(&members_file_path)
+            .context(format!("Failed to read members file at {:?}", members_file_path))?;
 
-        // Check if the submodule itself is a Rust package or workspace
-        let submodule_cargo_toml = submodule_abs_path.join("Cargo.toml");
-        if submodule_cargo_toml.exists() {
-            let metadata = cargo_metadata_provider.provide_metadata(&submodule_cargo_toml)?;
-            
-            if metadata.workspace_root == submodule_cargo_toml.parent().unwrap() {
-                // It's a workspace, add all its members
-                for member_id in &metadata.workspace_members {
-                    if let Some(pkg) = metadata.packages.iter().find(|p| &p.id == member_id) {
-                        member_crates.push(pkg.name.to_string());
-                    }
-                }
-            } else {
-                // It's a single package within the submodule root
-                if let Some(pkg) = metadata.packages.first() {
-                    member_crates.push(pkg.name.to_string());
-                }
-            }
-        }
+        let mut workspace_infos = Vec::new();
 
-        // Also search for Cargo.toml files in subdirectories of the submodule
-        for entry in WalkDir::new(&submodule_abs_path)
-            .min_depth(1) // Start searching from subdirectories
-            .into_iter()
-            .filter_map(|e| e.ok())
-            .filter(|e| e.file_type().is_file() && e.file_name() == "Cargo.toml")
-        {
-            let sub_cargo_toml_path = entry.path();
-            // Avoid re-processing the root Cargo.toml if already handled
-            if sub_cargo_toml_path == submodule_cargo_toml {
+        for line in members_file_content.lines() {
+            let line = line.trim();
+            if line.is_empty() || line.starts_with('#') {
                 continue;
             }
 
-            let metadata = cargo_metadata_provider.provide_metadata(sub_cargo_toml_path)?;
-            
-            if let Some(pkg) = metadata.packages.first() {
-                member_crates.push(pkg.name.to_string());
+            let parts: Vec<&str> = line.splitn(2, ':').collect();
+            if parts.len() != 2 {
+                eprintln!("Warning: Malformed line in members.txt: {}", line);
+                continue;
             }
-        }
 
-        // Deduplicate member crates
-        member_crates.sort_unstable();
-        member_crates.dedup();
+            let submodule_path_str = parts[0];
+            let member_crates_str = parts[1];
 
-        if !member_crates.is_empty() {
-            workspace_info.push(SubmoduleWorkspaceInfo {
-                submodule_base_path_rel: submodule_path_rel,
+            let submodule_base_path_rel = PathBuf::from(submodule_path_str);
+            let member_crates: Vec<String> = member_crates_str
+                .split(',')
+                .map(|s| s.trim().to_string())
+                .filter(|s| !s.is_empty())
+                .collect();
+
+            workspace_infos.push(WorkspaceInfo {
                 member_crates,
+                submodule_base_path_rel,
             });
         }
+
+        Ok(workspace_infos)
     }
-    Ok(workspace_info)
 }
 
 /// Generates [patch] entries for .cargo/config.toml for each workspace member.

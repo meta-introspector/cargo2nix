@@ -6,6 +6,7 @@ mod adapters_factory;
 use adapters_factory::Mode;
 
 mod cargo_config_generator;
+use crate::cargo_config_generator; // Added
 mod cargo_metadata_provider;
 mod cargo_toml_updater;
 mod generate_workspaces;
@@ -101,7 +102,8 @@ fn main() -> Result<()> {
             println!("Output Path: {:?}", output_path);
             println!("Mode: {:?}", mode);
 
-            let (git_adapter, cargo_metadata_provider, nix_adapter, _syn_adapter, _cargo_edit_adapter) = adapters_factory::get_adapters((*mode).into())?;
+            let (git_adapter, cargo_metadata_provider, nix_adapter, _syn_adapter, cargo_edit_adapter) = adapters_factory::get_adapters((*mode).into())?;
+            let workspace_info_provider = cargo_config_generator::CargoConfigGeneratorImpl; // Instantiate the implementation
 
             nix_generator_lib::cli::commands::generate_nix::generate_nix(
                 project_root,
@@ -109,6 +111,8 @@ fn main() -> Result<()> {
                 git_adapter.as_ref(),
                 cargo_metadata_provider.as_ref(),
                 nix_adapter.as_ref(),
+                cargo_edit_adapter.as_ref(), // Pass cargo_edit_adapter
+                &workspace_info_provider, // Pass the new workspace_info_provider
             )
             .context("Failed to generate Nix expressions")?;
 

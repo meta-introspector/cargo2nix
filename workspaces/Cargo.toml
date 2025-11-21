@@ -2,6 +2,7 @@
 members = [
     "dummy_crate_test",
     "cargo_repo_sync_lib_test",
+    "cargo_submodule_tool_test",
 ]
 
 [patch.crates-io]
@@ -183,3 +184,7 @@ wasm-bindgen = { path = "../submodules/wasm-bindgen" }
 winapi-util = { path = "../submodules/winapi-util" }
 winnow = { path = "../submodules/winnow" }
 zerocopy = { path = "../submodules/zerocopy" }
+
+
+[workspace.lints.rust]
+unexpected_cfgs = { level = "allow" }

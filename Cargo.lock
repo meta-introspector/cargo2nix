@@ -1789,6 +1789,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "cargo-edit-lib"
+version = "0.1.0"
+dependencies = [
+ "anyhow 1.0.100",
+ "cargo_metadata 0.23.1",
+ "git-wrapper-lib",
+]
+
+[[package]]
+name = "cargo-edit-tool"
+version = "0.1.0"
+dependencies = [
+ "anyhow 1.0.100",
+ "cargo-edit-lib",
+ "cargo2nix",
+ "cargo_metadata 0.23.1",
+ "clap 4.5.53",
+ "git-wrapper-lib",
+ "nix-generator-lib",
+ "syn-adapter-lib",
+ "toml_edit 0.23.7",
+ "walkdir",
+]
+
+[[package]]
 name = "cargo-platform"
 version = "0.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1809,10 +1834,9 @@ dependencies = [
 name = "cargo-repo-sync"
 version = "0.1.0"
 dependencies = [
- "cargo-repo-sync-lib",
+ "cargo-submodule-tool-lib",
  "clap 4.5.53",
  "clap_derive 4.5.53",
- "git2",
  "lazy_static 1.5.0",
  "pathdiff",
  "serde",
@@ -1823,25 +1847,25 @@ dependencies = [
 ]
 
 [[package]]
-name = "cargo-repo-sync-lib"
+name = "cargo-submodule-tool-lib"
 version = "0.1.0"
 dependencies = [
  "anyhow 1.0.100",
+ "cargo-toml-editor-lib",
  "cargo2nix",
  "cargo_metadata 0.23.1",
  "clap 4.5.53",
- "git2",
- "hex",
+ "git-wrapper-lib",
  "lazy_static 1.5.0",
  "lru 0.12.5",
  "md5",
+ "nix-generator-lib",
  "pathdiff",
  "regex",
  "serde",
  "serde_json",
- "sha1 0.11.0-rc.3",
  "sha2 0.11.0-rc.3",
- "toml_edit 0.23.7",
+ "toml 0.9.8",
  "url 2.5.7",
  "walkdir",
 ]
@@ -1876,6 +1900,16 @@ dependencies = [
  "url 2.5.7",
  "walkdir",
  "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "cargo-toml-editor-lib"
+version = "0.1.0"
+dependencies = [
+ "anyhow 1.0.100",
+ "serde",
+ "serde_json",
+ "toml_edit 0.23.7",
 ]
 
 [[package]]
@@ -1975,6 +2009,15 @@ dependencies = [
  "serde",
  "serde_json",
  "thiserror 2.0.17",
+]
+
+[[package]]
+name = "cargo_submodule_tool_test_pkg"
+version = "0.1.0"
+dependencies = [
+ "anyhow 1.0.100",
+ "cargo-submodule-tool-lib",
+ "git-wrapper-lib",
 ]
 
 [[package]]
@@ -4383,7 +4426,7 @@ name = "generate_workspace_deps"
 version = "0.1.0"
 dependencies = [
  "anyhow 1.0.100",
- "cargo-repo-sync-lib",
+ "cargo-submodule-tool-lib",
  "cargo_metadata 0.23.1",
  "git2",
  "regex",
@@ -4500,6 +4543,22 @@ dependencies = [
  "rustc-std-workspace-core",
  "stable_deref_trait",
  "test-assembler",
+]
+
+[[package]]
+name = "git-wrapper-lib"
+version = "0.1.0"
+dependencies = [
+ "anyhow 1.0.100",
+ "git2",
+ "hex",
+ "pathdiff",
+ "regex",
+ "serde",
+ "serde_json",
+ "sha1 0.11.0-rc.3",
+ "toml_edit 0.23.7",
+ "walkdir",
 ]
 
 [[package]]
@@ -8060,6 +8119,16 @@ dependencies = [
  "semver 1.0.27",
  "sysctl",
  "tempfile",
+]
+
+[[package]]
+name = "nix-generator-lib"
+version = "0.1.0"
+dependencies = [
+ "anyhow 1.0.100",
+ "cargo2nix",
+ "cargo_metadata 0.23.1",
+ "serde",
 ]
 
 [[package]]
@@ -11855,6 +11924,16 @@ dependencies = [
  "termcolor",
  "unicode-ident",
  "walkdir",
+]
+
+[[package]]
+name = "syn-adapter-lib"
+version = "0.1.0"
+dependencies = [
+ "anyhow 1.0.100",
+ "proc-macro2 1.0.103",
+ "quote 1.0.42",
+ "syn 2.0.110",
 ]
 
 [[package]]

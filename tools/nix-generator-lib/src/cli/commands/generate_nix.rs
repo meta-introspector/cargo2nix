@@ -1,9 +1,8 @@
 use anyhow::{Context, Result};
 use std::path::{Path, PathBuf};
 
-use crate::nix_adapters::{NixAdapter, CrateInfo}; // Added
-use cargo_edit_tool::cargo_config_generator;
-use cargo_edit_tool::cargo_metadata_provider::CargoMetadataProvider;
+use crate::nix_adapters::{NixAdapter, CrateInfo};
+use cargo_edit_lib::{CargoEditAdapter, CargoMetadataProvider, WorkspaceInfoProvider}; // Corrected import
 use git_wrapper_lib::git_adapters::GitAdapter;
 
 pub fn generate_nix(
@@ -11,11 +10,13 @@ pub fn generate_nix(
     output_path: &Path,
     git_adapter: &dyn GitAdapter,
     cargo_metadata_provider: &dyn CargoMetadataProvider,
-    nix_adapter: &dyn NixAdapter, // Added
+    nix_adapter: &dyn NixAdapter,
+    cargo_edit_adapter: &dyn CargoEditAdapter,
+    workspace_info_provider: &dyn WorkspaceInfoProvider, // Added workspace_info_provider
 ) -> Result<()> {
     println!("Generating Nix expressions...");
 
-    let workspace_info = cargo_config_generator::parse_members_file(
+    let workspace_info = workspace_info_provider.parse_members_file(
         git_adapter,
         cargo_metadata_provider,
         project_root,

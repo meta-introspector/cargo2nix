@@ -27,10 +27,11 @@ members = [
     "crates/cargo2nix",
     "submodules/h2",
     "tools/cargo-submodule-tool",
-    "tools/cargo-repo-sync-lib",
     "tools/dep2submodule",
     "tools/generate_workspace_deps",
     "tools/cargo-workspace-from-tree", "tools/secret-manager-rs",
+    "tools/cargo-submodule-tool-lib",
+    "workspaces/cargo_submodule_tool_test", "tools/cargo-edit-tool", "tools/syn-adapter-lib",
 ]
 exclude = []
 
@@ -40,31 +41,32 @@ exclude = []
 [workspace.lints.rust]
 incomplete_features = "allow"
 rust_2018_idioms = "allow" # TODO: could this be removed?
-unexpected_cfgs = { level = "allow", check-cfg = [
-    'cfg(atomic_maybe_uninit_test_prefer_kuser_cmpxchg)',
-    'cfg(crossbeam_loom)',
-    'cfg(crossbeam_sanitize)',
-    'cfg(emulate_second_only_system)',
-    'cfg(tracing_unstable)',
-    'cfg(__powerfmt_docs)',
-    'cfg(xxx_debug_only_print_generated_code)',
-    'cfg(wasm_bindgen_unstable_test_coverage)',
-    'cfg(doctests)',
-    'cfg(raw_ref_macros)',
-    'cfg(allow_clippy)',
-    'cfg(tuple_ty)',
-    'cfg(maybe_uninit)',
-    'cfg(stable_const)',
-    'cfg(stable_offset_of)',
-    'cfg(feature, values("borsh"))',
-    'cfg(feature, values("sval"))',
-    'cfg(feature, values("rayon"))',
-    'cfg(feature, values("arbitrary"))',
-    'cfg(feature, values("quickcheck"))',
-    'cfg(feature, values("serde"))',
-    'cfg(feature, values("document-features"))',
-    'cfg(target_os, values("bitrig"))',
-] }
+unexpected_cfgs = { level = "allow" }
+# unexpected_cfgs = { level = "allow", check-cfg = [
+#     'cfg(atomic_maybe_uninit_test_prefer_kuser_cmpxchg)',
+#     'cfg(crossbeam_loom)',
+#     'cfg(crossbeam_sanitize)',
+#     'cfg(emulate_second_only_system)',
+#     'cfg(tracing_unstable)',
+#     'cfg(__powerfmt_docs)',
+#     'cfg(xxx_debug_only_print_generated_code)',
+#     'cfg(wasm_bindgen_unstable_test_coverage)',
+#     'cfg(doctests)',
+#     'cfg(raw_ref_macros)',
+#     'cfg(allow_clippy)',
+#     'cfg(tuple_ty)',
+#     'cfg(maybe_uninit)',
+#     'cfg(stable_const)',
+#     'cfg(stable_offset_of)',
+#     'cfg(feature, values("borsh"))',
+#     'cfg(feature, values("sval"))',
+#     'cfg(feature, values("rayon"))',
+#     'cfg(feature, values("arbitrary"))',
+#     'cfg(feature, values("quickcheck"))',
+#     'cfg(feature, values("serde"))',
+#     'cfg(feature, values("document-features"))',
+#     'cfg(target_os, values("bitrig"))',
+# ] }
 unused_qualifications = "allow"
 warnings = "allow"
 
