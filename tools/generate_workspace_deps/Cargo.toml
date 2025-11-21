@@ -4,4 +4,10 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+anyhow.workspace = true
+git2.workspace = true
+cargo_metadata.workspace = true
+walkdir.workspace = true
+regex.workspace = true
+cargo-repo-sync-lib = { path = "../cargo-repo-sync-lib" }
 

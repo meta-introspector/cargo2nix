@@ -25,11 +25,12 @@ include = [
 [workspace]
 members = [
     "crates/cargo2nix",
-    "submodules/cargo",
     "submodules/h2",
-    "submodules/cargo/cargo-submodule-tool",
+    "tools/cargo-submodule-tool",
+    "tools/cargo-repo-sync-lib",
     "tools/dep2submodule",
-    "tools/cargo-repo-sync",
+    "tools/generate_workspace_deps",
+    "tools/cargo-workspace-from-tree", "tools/secret-manager-rs",
 ]
 exclude = []
 
@@ -312,7 +313,8 @@ blobby = { path = "submodules/utils/blobby" }
 block-buffer = { path = "submodules/utils/block-buffer" }
 block-padding = { path = "submodules/utils/block-padding" }
 block2 = { path = "submodules/objc2/crates/block2" }
-blocking = { path = "submodules/reqwest" }
+#blocking = { path = "submodules/reqwest" }
+blocking = { path = "submodules/blocking" }
 blocking-packetline = { path = "submodules/gitoxide/gix-packetline" }
 blocking-transport = { path = "submodules/gitoxide/gix-transport" }
 blocking-transport-http-only = { path = "submodules/gitoxide/gix-transport" }
@@ -3091,6 +3093,7 @@ assert-impl.path = "submodules/assert-impl"
 web-thread = { path = "submodules/wasm-worker" }
 
 [patch.crates-io]
+blocking = { path = "submodules/blocking" }
 curl = { path = "submodules/curl-rust", features = ["http2"]  }
 #curl = { version = "0.4.49"}
 anstyle = { path = "submodules/anstyle/crates/anstyle" }

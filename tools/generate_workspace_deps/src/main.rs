@@ -1,45 +1,30 @@
-use std::fs;
-use std::path::Path;
+use anyhow::Result;
+use std::path::{Path, PathBuf};
+use std::collections::HashMap;
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let root_dir = Path::new("/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix");
+use cargo_repo_sync_lib::workspace_deps_generator::{RealWorkspaceDepsGenerator, WorkspaceDepsGenerator};
+
+
+fn main() -> Result<()> {
+    let root_dir = PathBuf::from("/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix");
     let submodules_dir = root_dir.join("submodules");
 
     println!("[workspace.dependencies]");
 
-    let mut submodule_names: Vec<String> = fs::read_dir(&submodules_dir)?
-        .filter_map(|entry| {
-            let entry = entry.ok()?;
-            if entry.file_type().ok()?.is_dir() {
-                entry.file_name().into_string().ok()
-            } else {
-                None
-            }
-        })
-        .collect();
+    let generator = RealWorkspaceDepsGenerator;
+    let submodule_path_map = generator.generate_submodule_path_map(&submodules_dir)?;
 
-    submodule_names.sort();
+    // Sort the keys for consistent output
+    let mut sorted_keys: Vec<&String> = submodule_path_map.keys().collect();
+    sorted_keys.sort();
 
-    for submodule in submodule_names {
-        match submodule.as_str() {
-            "serde" => {
-                println!("serde = {{ path = \"./submodules/serde\" }}");
-                println!("serde_derive = {{ path = \"./submodules/serde/serde_derive\" }}");
-                println!("serde_core = {{ path = \"./submodules/serde/serde_core\" }}");
-            },
-            "time-rs" => {
-                println!("time = {{ path = \"./submodules/time-rs/time\" }}");
-                println!("time-core = {{ path = \"./submodules/time-rs/time-core\" }}");
-                println!("time-macros = {{ path = \"./submodules/time-rs/time-macros\" }}");
-            },
-            "rand" => {
-                println!("rand = {{ path = \"./submodules/rand\" }}");
-                println!("rand08 = {{ path = \"./submodules/rand\" }}");
-                println!("rand09 = {{ path = \"./submodules/rand\" }}");
-            },
-            _ => {
-                println!("{} = {{ path = \"./submodules/{}\" }}", submodule, submodule);
-            }
+    for crate_name in sorted_keys {
+        if let Some(relative_path) = submodule_path_map.get(crate_name) {
+            // The relative_path from generate_submodule_path_map is relative to the project root.
+            // We need to make it relative to the Cargo.toml where [workspace.dependencies] is defined.
+            // In this case, it's the project root itself, so we just need to prefix with "./"
+            let path_str = format!("./{}", relative_path.display());
+            println!("{} = {{ path = \"{}\" }}", crate_name, path_str);
         }
     }
 

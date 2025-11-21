@@ -1,0 +1,14 @@
+[package]
+name = "cargo-workspace-from-tree"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0"
+clap.workspace = true
+cargo_metadata.workspace = true
+toml_edit.workspace = true
+walkdir.workspace = true
+pathdiff.workspace = true
+regex.workspace = true
+lazy_static.workspace = true

@@ -143,6 +143,8 @@ plan = [
     "Analyze the shell script's functionality (likely generating workspace dependencies).",
     "Implement equivalent logic in Rust."
 ]
+status = "completed"
+note = "Translated to Rust as `tools/generate_workspace_deps` executable, leveraging `cargo-repo-sync-cli` for submodule path generation."
 
 [[shell_script_translation_plan]]
 name = "process_repolist.sh"

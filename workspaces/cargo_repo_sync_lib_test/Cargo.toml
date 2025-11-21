@@ -1,0 +1,8 @@
+[package]
+name = "cargo_repo_sync_lib_test_pkg"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+cargo-repo-sync-lib = { path = "../../tools/cargo-repo-sync-lib" }
+anyhow = "1.0.100"

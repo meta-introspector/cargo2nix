@@ -1,0 +1,1 @@
+In the future, we will capture all data that is needed to be parsed directly from the compiler and feed it forward to the app. Reading files produced by debug information is old. The new way is our introspector framework of static typed data that makes everything you need directly and securely available with zk and a sat solver.

@@ -1,0 +1,89 @@
+name = "QA Plan for Implement Plan Generation"
+description = "Verify that the `plan generate` subcommand correctly reads TOML task definitions from the `tasks/` directory, processes them, and generates a valid `plan.lock` file."
+status = "draft"
+
+[scope]
+cli_command = "cargo-git-manage plan generate"
+input_directory = "tasks/"
+output_file = "plan.lock"
+
+[test_strategy]
+functional_verification = "Test with various task TOML files."
+output_verification = "Ensure `plan.lock` is correctly generated and formatted."
+error_handling = "Test with malformed task files and missing dependencies."
+
+[[test_cases]]
+name = "Basic Plan Generation"
+precondition = "A `tasks/` directory containing one or more valid TOML task files (e.g., `task1.toml`, `task2.toml`)."
+action = "Run `cargo git-manage plan generate`."
+expected_result = [
+    "A `plan.lock` file should be created in the current working directory.",
+    "The `plan.lock` file should contain the parsed tasks from the `tasks/` directory, correctly formatted.",
+    "The command should exit successfully."
+]
+commands = [
+    "cargo run -p cargo-git-manage -- plan generate",
+    "ls plan.lock",
+    "cat plan.lock"
+]
+verification = "Inspect content of `plan.lock`."
+
+[[test_cases]]
+name = "Plan with Dependencies"
+precondition = "`tasks/` contains `task_a.toml` and `task_b.toml`, where `task_b.toml` specifies `depends_on = ["task_a.toml"]`."
+action = "Run `cargo git-manage plan generate`."
+expected_result = "plan.lock should correctly represent the dependency relationship, ensuring `task_a` is listed before `task_b` or that the dependency is correctly encoded."
+commands = [
+    "cargo run -p cargo-git-manage -- plan generate",
+    "cat plan.lock"
+]
+verification = "Inspect content of `plan.lock` for correct dependency representation."
+
+[[test_cases]]
+name = "Empty `tasks/` Directory"
+precondition = "An empty `tasks/` directory."
+action = "Run `cargo git-manage plan generate`."
+expected_result = [
+    "A `plan.lock` file should still be created, but it should be empty or contain an empty task list.",
+    "The command should exit successfully."
+]
+commands = [
+    "cargo run -p cargo-git-manage -- plan generate",
+    "cat plan.lock"
+]
+verification = "Inspect content of `plan.lock`."
+
+[[test_cases]]
+name = "Malformed Task TOML File"
+precondition = "A `tasks/` directory containing at least one malformed TOML file (e.g., invalid syntax, missing required fields)."
+action = "Run `cargo git-manage plan generate`."
+expected_result = "The command should fail with a clear error message indicating the malformed file and the nature of the parsing error."
+commands = [
+    "cargo run -p cargo-git-manage -- plan generate"
+]
+verification = "Observe error message and non-zero exit code."
+
+[[test_cases]]
+name = "Task with Non-existent Dependency"
+precondition = "A `tasks/` directory containing `task_c.toml` which specifies `depends_on = ["non_existent_task.toml"]`."
+action = "Run `cargo git-manage plan generate`."
+expected_result = "The command should report an error about the unresolved dependency and fail."
+commands = [
+    "cargo run -p cargo-git-manage -- plan generate"
+]
+verification = "Observe error message and non-zero exit code."
+
+[[test_cases]]
+name = "Overwriting Existing `plan.lock`"
+precondition = "An existing `plan.lock` file."
+action = "Run `cargo git-manage plan generate`."
+expected_result = "The existing `plan.lock` should be overwritten with the newly generated content."
+commands = [
+    "echo 'old content' > plan.lock",
+    "cargo run -p cargo-git-manage -- plan generate",
+    "cat plan.lock"
+]
+verification = "Inspect content of `plan.lock` to confirm it's new."
+
+[code_review]
+focus = "Review the Rust source code for the `plan generate` subcommand, focusing on file system traversal of `tasks/`, TOML parsing, and `plan.lock` serialization. Ensure robust error handling for file I/O and parsing."

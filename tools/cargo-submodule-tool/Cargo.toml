@@ -1,0 +1,28 @@
+[package]
+name = "cargo-repo-sync"
+version = "0.1.0"
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+homepage.workspace = true
+repository.workspace = true
+
+[package.metadata.cargo-repo-sync]
+bootstrap_cargo_path = "/nix/store/z32kvhmvy0j5gj4shjvz3qi13a199jlm-rust-minimal-1.92.0-nightly-2025-10-16/bin/cargo"
+
+[dependencies]
+clap.workspace = true # = { version = "*", features = ["derive"] }
+clap_derive.workspace = true # = "*"
+git2.workspace = true #
+serde.workspace = true # = { version = "1.0", features = ["derive"] }
+serde_json.workspace = true
+toml.workspace = true # = "0.9.8"
+toml_edit.workspace = true # = "0.23.7"
+pathdiff.workspace = true # = "0.2.1"
+walkdir.workspace = true # = "2.5.0"
+lazy_static.workspace = true # = "1.4.0"
+cargo-repo-sync-lib = { path = "../cargo-repo-sync-lib" }
+
+#clap_derive = { version = "4.0.0-rc.1" }
+[lints]
+workspace = true

@@ -1,0 +1,66 @@
+name = "QA Plan for Implement Report Feature"
+description = "Verify that the `report` subcommand correctly reads and displays logs from previous runs of `cargo-git-manage` commands."
+status = "draft"
+
+[scope]
+cli_command = "cargo-git-manage report"
+log_files = "Location where `cargo-git-manage` stores its logs (e.g., `.logs/` directory or a specific file)."
+
+[test_strategy]
+functional_verification = "Test with existing log files and various scenarios."
+output_verification = "Ensure logs are displayed accurately and informatively."
+error_handling = "Test with missing or malformed log files."
+
+[[test_cases]]
+name = "Display Existing Logs"
+precondition = "One or more `cargo-git-manage` commands have been executed previously, generating log entries."
+action = "Run `cargo git-manage report`."
+expected_result = "The command should display a list of previous command executions, including relevant details (e.g., command, timestamp, status, output summary)."
+commands = [
+    "cargo run -p cargo-git-manage -- report"
+]
+verification = "Visually inspect the output for correctness and completeness of log entries."
+
+[[test_cases]]
+name = "No Logs Available"
+precondition = "No previous `cargo-git-manage` commands have been executed, or log files have been cleared/deleted."
+action = "Run `cargo git-manage report`."
+expected_result = "The command should indicate that no logs are available and exit successfully."
+commands = [
+    "cargo run -p cargo-git-manage -- report"
+]
+verification = "Observe the output message and successful exit code."
+
+[[test_cases]]
+name = "Specific Log Filtering/Viewing (if implemented)"
+precondition = "Multiple log entries exist."
+action = "If the `report` subcommand supports filtering (e.g., by command name, date range) or viewing a specific log entry (e.g., `cargo git-manage report <log_id>`), test these functionalities."
+expected_result = "Only the relevant log entries should be displayed, or the specific log entry should be shown in detail."
+commands = [
+    "cargo run -p cargo-git-manage -- report --last 5", # Example for last 5 logs
+    "cargo run -p cargo-git-manage -- report <log_id>" # Example for specific log ID
+]
+verification = "Verify filtered/specific log output against expected results."
+
+[[test_cases]]
+name = "Malformed Log File"
+precondition = "A log file exists but is malformed (e.g., corrupted JSON, invalid format)."
+action = "Run `cargo git-manage report`."
+expected_result = "The command should handle the malformed file gracefully, reporting an error for that specific log entry (or skipping it) without crashing, and continue to display other valid logs if any."
+commands = [
+    "cargo run -p cargo-git-manage -- report"
+]
+verification = "Observe error messages for malformed entries and continued operation for valid ones."
+
+[[test_cases]]
+name = "Large Number of Logs"
+precondition = "A very large number of log entries (e.g., hundreds or thousands). This might require generating dummy log data."
+action = "Run `cargo git-manage report`."
+expected_result = "The command should display the logs efficiently, potentially with pagination or a summary, without excessive memory usage or performance degradation."
+commands = [
+    "cargo run -p cargo-git-manage -- report"
+]
+verification = "Monitor command execution time and memory usage. Check for pagination/summary if implemented."
+
+[code_review]
+focus = "Review the Rust source code for the `report` subcommand, focusing on log file reading, parsing, and display logic. Ensure proper error handling for file I/O and data deserialization."

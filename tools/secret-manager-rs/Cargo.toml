@@ -1,0 +1,30 @@
+[package]
+name = "secret-manager-rs"
+categories.workspace = true
+version.workspace = true
+authors.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+
+license.workspace = true
+homepage.workspace = true
+repository.workspace = true
+keywords.workspace = true
+include.workspace = true
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+clap = { version = "4", features = ["derive"] }
+anyhow = "1"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+aws-sdk-ssm = "0.33" # For AWS Parameter Store
+serde = { version = "1", features = ["derive"] }
+serde_yaml = "0.9"
+async-trait = "0.1" # For async traits if needed, good practice for AWS SDK
+# For GPG key generation, we'll shell out to `gpg` for simplicity and robustness.
+# For SSH key generation, we'll shell out to `ssh-keygen`.
+
+
+[lints]
+workspace = true

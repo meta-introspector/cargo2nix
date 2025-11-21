@@ -1,0 +1,7 @@
+[package]
+name = "dummy_crate_test_pkg"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+dummy_crate = { path = "../../submodules/dummy_crate" }

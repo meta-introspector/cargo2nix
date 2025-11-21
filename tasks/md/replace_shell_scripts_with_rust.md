@@ -119,6 +119,7 @@ For shell scripts, the translation often involves reimplementing the shell comma
     *   **Plan**:
         *   Analyze the shell script's functionality (likely generating workspace dependencies).
         *   Implement equivalent logic in Rust.
+    *   **Status**: Completed. Translated to Rust as `tools/generate_workspace_deps` executable, leveraging `cargo-repo-sync-cli` for submodule path generation.
 
 9.  **`process_repolist.sh`**:
     *   **Task**: Translate `process_repolist.sh` to Rust.
