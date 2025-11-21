@@ -1,0 +1,29 @@
+[package]
+name = "cargo-edit-tool"
+categories.workspace = true
+version.workspace = true
+authors.workspace = true
+rust-version.workspace = true
+#edition.workspace = true
+#resolver = true
+license.workspace = true
+homepage.workspace = true
+repository.workspace = true
+keywords.workspace = true
+include.workspace = true
+
+[dependencies]
+anyhow = { path = "../../submodules/anyhow" }
+toml_edit = { workspace = true, optional = true }
+walkdir = { workspace = true }
+cargo_metadata = { workspace = true, optional = true }
+git-wrapper-lib = { path = "../git-wrapper-lib", features = ["git2"] }
+clap = { workspace = true, features = ["derive"] }
+nix-generator-lib = { path = "../nix-generator-lib" }
+syn-adapter-lib = { path = "../syn-adapter-lib", features = ["syn-parsing"] }
+cargo-edit-lib = { path = "../cargo-edit-lib" } # Added
+cargo2nix = { path = "../../crates/cargo2nix", optional = true }
+
+[features]
+default = ["toml_edit", "cargo_metadata", "cargo2nix"]
+nix_generation = []

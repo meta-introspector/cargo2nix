@@ -1,0 +1,19 @@
+[package]
+name = "git-wrapper-lib"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = { workspace = true }
+git2 = { workspace = true, optional=true }
+walkdir = { workspace = true }
+regex = { workspace = true }
+toml_edit = { workspace = true }
+pathdiff = { workspace = true }
+sha1 = { workspace = true, optional = true }
+hex = { workspace = true, optional = true }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+
+[features]
+git2 = ["dep:git2", "dep:sha1", "dep:hex"]

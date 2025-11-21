@@ -1,0 +1,46 @@
+[package]
+name = "cargo-submodule-tool-lib"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = { workspace = true }
+cargo-toml-editor-lib = { path = "../cargo-toml-editor-lib" }
+nix-generator-lib = { path = "../nix-generator-lib" }
+git-wrapper-lib = { path = "../git-wrapper-lib" }
+clap = { workspace = true, optional = true }
+serde = { workspace = true,  features = ["derive"] }
+serde_json = { workspace = true }
+toml = { workspace = true, optional = true }
+
+pathdiff = { workspace = true, optional = true }
+walkdir = { workspace = true, optional = true }
+lazy_static = { workspace = true, optional = true }
+cargo_metadata = { workspace = true, optional = true } # Now explicitly optional
+cargo2nix = { path = "../../crates/cargo2nix", optional = true } # Now explicitly optional
+url = { workspace = true, optional = true }
+regex = { workspace = true, optional = true }
+md5 = { workspace = true, optional = true }
+lru = { version = "0.12", optional = true }
+sha2 = { workspace = true, optional = true }
+
+[features]
+default = ["full"]
+full = [
+    "clap",
+#    "serde",
+#    "serde_json",
+    "toml",
+    "pathdiff",
+    "walkdir",
+    "lazy_static",
+    "url",
+    "regex_enabled",
+    "md5",
+    "lru",
+    "sha2",
+]
+# Feature for Nix generation related functionalities
+nix_generation = ["cargo_metadata", "cargo2nix"]
+regex_enabled = ["dep:regex"]
+walkdir = ["dep:walkdir"]

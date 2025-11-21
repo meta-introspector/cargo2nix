@@ -9,5 +9,5 @@ git2.workspace = true
 cargo_metadata.workspace = true
 walkdir.workspace = true
 regex.workspace = true
-cargo-repo-sync-lib = { path = "../cargo-repo-sync-lib" }
+cargo-submodule-tool-lib = { path = "../cargo-submodule-tool-lib", features = ["full"] }
 

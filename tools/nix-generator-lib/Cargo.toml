@@ -1,0 +1,10 @@
+[package]
+name = "nix-generator-lib"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = { workspace = true }
+cargo_metadata = { workspace = true }
+cargo2nix = { path = "../../crates/cargo2nix" }
+serde = { workspace = true, features = ["derive"] } # Added

@@ -1,0 +1,9 @@
+[package]
+name = "cargo-edit-lib"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = { workspace = true }
+cargo_metadata = { workspace = true }
+git-wrapper-lib = { path = "../git-wrapper-lib" }

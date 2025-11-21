@@ -11,17 +11,16 @@ repository.workspace = true
 bootstrap_cargo_path = "/nix/store/z32kvhmvy0j5gj4shjvz3qi13a199jlm-rust-minimal-1.92.0-nightly-2025-10-16/bin/cargo"
 
 [dependencies]
-clap.workspace = true # = { version = "*", features = ["derive"] }
-clap_derive.workspace = true # = "*"
-git2.workspace = true #
-serde.workspace = true # = { version = "1.0", features = ["derive"] }
+cargo-submodule-tool-lib = { path = "../cargo-submodule-tool-lib", features = ["full"] }
+clap.workspace = true
+clap_derive.workspace = true
+serde.workspace = true
 serde_json.workspace = true
-toml.workspace = true # = "0.9.8"
-toml_edit.workspace = true # = "0.23.7"
-pathdiff.workspace = true # = "0.2.1"
-walkdir.workspace = true # = "2.5.0"
-lazy_static.workspace = true # = "1.4.0"
-cargo-repo-sync-lib = { path = "../cargo-repo-sync-lib" }
+toml.workspace = true
+toml_edit.workspace = true
+pathdiff.workspace = true
+walkdir.workspace = true
+lazy_static.workspace = true
 
 #clap_derive = { version = "4.0.0-rc.1" }
 [lints]
