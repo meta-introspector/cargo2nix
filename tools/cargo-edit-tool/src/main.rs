@@ -1,12 +1,28 @@
+extern crate anyhow;
+extern crate clap;
+extern crate git_wrapper_lib;
+extern crate nix_generator_lib;
+extern crate syn_adapter_lib;
+extern crate cargo_edit_lib;
+extern crate cargo_toml_editor_lib;
+extern crate cargo_submodule_tool_lib;
+extern crate regex;
+extern crate toml_edit;
+extern crate walkdir;
+extern crate serde;
+extern crate cargo_metadata;
+extern crate git2;
+
+extern crate lazy_static;
+
 use anyhow::{Context, Result};
-use clap::{Parser, Subcommand, ValueEnum};
+use clap::{Parser, Subcommand, ValueEnum, Args};
 use std::path::{Path, PathBuf};
 
 mod adapters_factory;
 use adapters_factory::Mode;
 
-mod cargo_config_generator;
-use crate::cargo_config_generator; // Added
+
 mod cargo_metadata_provider;
 mod cargo_toml_updater;
 mod generate_workspaces;
@@ -88,8 +104,11 @@ fn main() -> Result<()> {
             std::fs::create_dir_all(cargo_dir)
                 .map_err(|e| anyhow::anyhow!("Failed to create directory {:?}: {}", cargo_dir, e))?;
 
-            let generated_config_content = cargo_edit_adapter.generate_cargo_config()
-                .context("Failed to generate cargo config using CargoEditAdapter")?;
+            let generated_config_content = cargo_edit_adapter.generate_cargo_config(
+                git_adapter.as_ref(),
+                cargo_metadata_provider.as_ref(),
+            )
+            .context("Failed to generate cargo config using CargoEditAdapter")?;
 
             std::fs::write(output_config, generated_config_content)
                 .context(format!("Failed to write updated config.toml: {:?}", output_config))?;
@@ -103,7 +122,7 @@ fn main() -> Result<()> {
             println!("Mode: {:?}", mode);
 
             let (git_adapter, cargo_metadata_provider, nix_adapter, _syn_adapter, cargo_edit_adapter) = adapters_factory::get_adapters((*mode).into())?;
-            let workspace_info_provider = cargo_config_generator::CargoConfigGeneratorImpl; // Instantiate the implementation
+            let workspace_info_provider = cargo_edit_lib::CargoConfigGeneratorImpl; // Instantiate the implementation
 
             nix_generator_lib::cli::commands::generate_nix::generate_nix(
                 project_root,

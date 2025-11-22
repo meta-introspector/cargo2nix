@@ -1,0 +1,20 @@
+name = "Optimize Git Status Cache"
+description = "Significantly reduce the time taken to determine Git status, especially for repositories with many submodules, by implementing a stat trait cache and a one-time snapshot mechanism. This will involve enhancing the `RollupLock` to store Git-specific metadata and modifying existing Git status logic to leverage this cache, thereby enabling a Super Fast Resolution System and compile caching."
+status = "todo"
+depends_on = ["implement_file_system_monitoring_and_hashing.toml", "implement_solana_pda_program_for_rollup_lock.toml", "integrate_rollup_lock_with_cargo_repo_sync.toml"]
+steps = [
+    "Phase 1: Enhance `RollupLock` Schema and `FileSystemStat` for Git Metadata",
+    "  - Extend `FileMetadata` in `src/fs_cache.rs` with `git_object_hash: Option<String>` and `is_git_tracked: bool`.",
+    "  - Update `RollupLock` in `src/repo_sync_lib/rollup_lock.rs` to store extended `FileMetadata` and potentially `git_tree_cache: HashMap<PathBuf, String>`.",
+    "  - Update `RealFileSystemStat` in `src/fs_cache.rs` to capture Git object hashes and tracking status.",
+    "Phase 2: Implement Snapshot Mechanism",
+    "  - Create a `GitSnapshot` module (e.g., `src/repo_sync_lib/git_snapshot.rs`) with `fn create_snapshot(...)`.",
+    "  - Implement logic within `create_snapshot` to traverse the main repository and all submodules, collecting Git object hashes.",
+    "  - Populate `RollupLock` with the snapshot data, including `FileMetadata` and `git_tree_cache`.",
+    "Phase 3: Integrate Cache into Git Status Logic",
+    "  - Modify `run_submodule_status` in `src/repo_sync_lib/run_submodule_status.rs` to check `RollupLock` for cached Git status before expensive operations.",
+    "  - Implement cache invalidation strategy: invalidate after Git commands that modify state, file system changes, or potentially time-based.",
+    "Phase 4: Refinement and Testing",
+    "  - Write comprehensive unit and integration tests for `FileMetadata`, `RealFileSystemStat`, `create_snapshot`, and `run_submodule_status`'s cache usage.",
+    "  - Perform performance benchmarking to measure improvement."
+]

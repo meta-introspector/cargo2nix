@@ -1,0 +1,12 @@
+name = "Abstract Git Operations"
+description = "Refactor `cargo-submodule-tool-lib` to abstract all Git operations behind the `GitExecutor` trait. This will allow for flexible switching between `git2` (pure Rust) and `SystemGitExecutor` (system `git` command) implementations, significantly reducing compile times by making `git2` optional, and improving testability."
+status = "in-progress"
+depends_on = []
+steps = [
+    "Ensure `GitExecutor` trait is fully defined with all necessary Git operations (submodule_add, checkout_branch, status, list_submodules, clone, get_file_git_info, etc.).",
+    "Verify `SystemGitExecutor` and `PureRustGitExecutor` implementations are complete and correct.",
+    "Update `src/fs_cache.rs` to use `GitExecutor` for `is_git_tracked` and `git_object_hash` in `get_metadata`.",
+    "Refactor all remaining files directly using `git2` or direct `git` commands to use the `GitExecutor` trait.",
+    "Review and update `commit_and_push_submodule` in `src/submodule_manager.rs` to use `SystemGitExecutor` for its operations, adding methods to `GitExecutor` if necessary.",
+    "Ensure `git2` is an optional dependency of `cargo-submodule-tool-lib` and is only enabled when the `system_git` feature (or similar) is active, allowing for minimal builds without `git2`."
+]

@@ -5,5 +5,21 @@ edition = "2021"
 
 [dependencies]
 anyhow = { workspace = true }
-cargo_metadata = { workspace = true }
+cargo_metadata = { workspace = true, optional = true } # Made optional
+serde = { workspace = true, optional = true } # Made optional
+serde_json = { workspace = true, optional = true } # Made optional
 git-wrapper-lib = { path = "../git-wrapper-lib" }
+regex = { workspace = true, optional = true }
+lazy_static = { workspace = true, optional = true }
+toml_edit = { workspace = true, optional = true }
+walkdir = { workspace = true, optional = true }
+
+[features]
+default = [] # No default features
+serde_enabled = ["dep:serde"]
+serde_json_enabled = ["dep:serde_json"]
+real_cargo_metadata = ["dep:cargo_metadata"] # Feature to enable real cargo_metadata
+regex_enabled = ["dep:regex"]
+lazy_static_enabled = ["dep:lazy_static"]
+toml_edit_enabled = ["dep:toml_edit"]
+walkdir_enabled = ["dep:walkdir"]

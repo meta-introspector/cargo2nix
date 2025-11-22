@@ -23,6 +23,7 @@ include = [
 ]
 
 [workspace]
+resolver = "3"
 members = [
     "crates/cargo2nix",
     "submodules/h2",
@@ -31,7 +32,9 @@ members = [
     "tools/generate_workspace_deps",
     "tools/cargo-workspace-from-tree", "tools/secret-manager-rs",
     "tools/cargo-submodule-tool-lib",
-    "workspaces/cargo_submodule_tool_test", "tools/cargo-edit-tool", "tools/syn-adapter-lib",
+    "tools/syn-adapter-lib",
+    "tools/feature-permutation-builder",
+    "tools/cargo-feature-adapter",
 ]
 exclude = []
 
@@ -3094,187 +3097,187 @@ macrotest.path = "submodules/macrotest"
 assert-impl.path = "submodules/assert-impl"
 web-thread = { path = "submodules/wasm-worker" }
 
-[patch.crates-io]
-blocking = { path = "submodules/blocking" }
-curl = { path = "submodules/curl-rust", features = ["http2"]  }
-#curl = { version = "0.4.49"}
-anstyle = { path = "submodules/anstyle/crates/anstyle" }
-bit-vec = { path = "submodules/bit-vec" }
-#aarch64-dit = { path = "submodules/utils/aarch64-dit" }
-#actix = { path = "submodules/actix/actix" }
-#actix-broker = { path = "submodules/actix/actix-broker" }
-#actix-codec = { path = "submodules/actix-net/actix-codec" }
-#actix-macros = { path = "submodules/actix-net/actix-macros" }
-#actix-rt = { path = "submodules/actix-net/actix-rt" }
-#arraydeque = { path = "submodules/arraydeque" }
-#bumpalo = { path = "submodules/bumpalo" }
-#colorify = { path = "submodules/colorify" }
-#globwalk = { path = "submodules/globwalk" }
-#json5 = { path = "submodules/json5-rs" }
-#normpath = { path = "submodules/normpath" }
-#object = { path = "submodules/object" }
-#semver = { path = "submodules/semver" }
-#serde_json = { path = "submodules/json" }
-#tera = { path = "submodules/tera" }
-#tiny-keccak = { path = "submodules/tiny-keccak" }
-#web-thread = { path = "submodules/wasm-worker" }
-#yaml-rust2 = { path = "submodules/yaml-rust2" }
-#actix-macros = { path = "submodules/actix-net/actix-macros" }
-#addr2line = { path = "submodules/addr2line" }
-#adler2 = { path = "submodules/adler2" }
-#aho-corasick = { path = "submodules/aho-corasick" }
-#android_system_properties = { path = "submodules/android_system_properties" }
-#anyhow = { path = "submodules/anyhow" }
-#arc-swap = { path = "submodules/arc-swap" }
-#arrayref = { path = "submodules/arrayref" }
-#arrayvec = { path = "submodules/arrayvec" }
-#assert-impl.path = "submodules/assert-impl"
-#async-stream = { path = "submodules/async-stream/async-stream" }
-#async-trait = { path = "submodules/async-trait" }
-#autocfg = { path = "submodules/autocfg" }
-#backtrace = { path = "submodules/backtrace-rs" }
-#bitflags = { path = "submodules/bitflags" }
-#bstr = { path = "submodules/bstr" }
-#byteorder = { path = "submodules/byteorder" }
-#bytes = { path = "submodules/bytes" }
-camino = { path = "submodules/camino", version= "1.2.1" }
-cargo-platform = { path = "submodules/cargo/crates/cargo-platform" , version = "0.3.2"}
-cc = { path = "submodules/cc-rs" }
-cfg-if = { path = "submodules/cfg-if" }
-cfg_aliases = { path = "submodules/cfg_aliases" }
-clap = { path = "submodules/clap" }
-clru = { path = "submodules/clru-rs" }
-crc32fast = { path = "submodules/rust-crc32fast" }
-criterion = { path = "submodules/criterion" }
-crunchy = { path = "submodules/crunchy" }
-ct-codecs = { path = "submodules/rust-ct-codecs" }
-curl-sys = { path = "submodules/curl-rust/curl-sys" }
-deranged = { path = "submodules/deranged/deranged" }
-displaydoc = { path = "submodules/displaydoc" }
-ed25519-compact = { path = "submodules/rust-ed25519-compact" }
-either = { path = "submodules/either" }
-encoding_rs = { path = "submodules/encoding_rs" }
-equivalent = { path = "submodules/equivalent" }
-erased-serde = { path = "submodules/erased-serde" }
-errno = { path = "submodules/rust-errno" }
-fallible-iterator = { path = "submodules/rust-fallible-iterator" }
-fallible-streaming-iterator = { path = "submodules/fallible-streaming-iterator" }
-fastrand = { path = "submodules/fastrand" }
-ff = { path = "submodules/ff" }
-filetime = { path = "submodules/filetime" }
-flate2 = { path = "submodules/flate2-rs" }
-fnv = { path = "submodules/rust-fnv" }
-foldhash = { path = "submodules/foldhash" }
-futures-concurrency.path = "submodules/futures-concurrency"
-getrandom = { path = "submodules/getrandom" }
-gimli = { path = "submodules/gimli" }
-git2 = { path = "submodules/git2-rs" }
-git2-curl = { path = "submodules/git2-rs/git2-curl" }
-glob = { path = "submodules/glob" }
-group = { path = "submodules/group" }
-hashbrown = { path = "submodules/hashbrown" }
-heck = { path = "submodules/heck" }
-hex = { path = "submodules/rust-hex" }
-http-auth = { path = "submodules/http-auth" }
-idna_adapter = { path = "submodules/idna_adapter" }
-indexmap = { path = "submodules/indexmap" }
-is_executable = { path = "submodules/is_executable" }
-is_terminal_polyfill = { path = "submodules/is_terminal_polyfill" }
-itoa = { path = "submodules/itoa" }
-jiff = { path = "submodules/jiff" }
-jobserver = { path = "submodules/jobserver-rs" }
-kstring = { path = "submodules/kstring" }
-lazycell = { path = "submodules/lazycell" }
-libz-sys = { path = "submodules/libz-sys" }
-log = { path = "submodules/log" }
-macrotest.path = "submodules/macrotest"
-matchers = { path = "submodules/matchers" }
-maybe-async = { path = "submodules/maybe-async-rs" }
-memchr = { path = "submodules/memchr" }
-memmap2 = { path = "submodules/memmap2-rs" }
-minimal-lexical = { path = "submodules/minimal-lexical" }
-mio-aio.path = "submodules/mio-aio"
-miow = { path = "submodules/miow" }
-mockall.path = "submodules/mockall/mockall"
-nix.path = "submodules/nix"
-nu-ansi-term = { path = "submodules/nu-ansi-term" }
-num-conv = { path = "submodules/num-conv" }
-num-traits = { path = "submodules/num-traits" }
-num_threads = { path = "submodules/num_threads" }
-once_cell = { path = "submodules/once_cell" }
-once_cell_polyfill = { path = "submodules/once_cell_polyfill" }
-openssl-probe = { path = "submodules/openssl-probe" }
-openssl-sys = { path = "submodules/rust-openssl/openssl-sys" }
-orion = { path = "submodules/orion" }
-parking_lot = { path = "submodules/parking_lot" }
-pasetors = { path = "submodules/pasetors", features = ["v3"] }
-pathdiff = { path = "submodules/pathdiff" }
-pin-project-lite = { path = "submodules/pin-project-lite" }
-pkg-config = { path = "submodules/pkg-config-rs" }
-portable-atomic = { path = "submodules/portable-atomic" }
-prettyplease = { path = "submodules/prettyplease" }
-proc-macro2 = { path = "submodules/proc-macro2" }
-quickcheck = { path = "submodules/quickcheck" }
-quote = { path = "submodules/quote" }
-r-efi = { path = "submodules/r-efi" }
-rayon = { path = "submodules/rayon" }
-rayon-core = { path = "submodules/rayon/rayon-core" }
-regex = { path = "submodules/regex" }
-rustc-demangle = { path = "submodules/rustc-demangle" }
-rustc-hash = { path = "submodules/rustc-hash" }
-rustc-stable-hash = { path = "submodules/rustc-stable-hash" }
-rustix = { path = "submodules/rustix" }
-rustversion = { path = "submodules/rustversion" }
-ruzstd = { path = "submodules/zstd-rs/ruzstd" }
-ryu = { path = "submodules/ryu" }
-same-file = { path = "submodules/same-file" }
-schannel = { path = "submodules/schannel-rs" }
-scopeguard = { path = "submodules/scopeguard" }
-serde = { version = "1.0.228", path = "submodules/serde/serde", features = ["derive"] }
-serde_core = { path = "submodules/serde/serde_core", features = ["derive"] }
-serde_derive = { path = "submodules/serde/serde_derive" }
-serde-untagged = { path = "submodules/serde-untagged" }
-serde-value = { path = "submodules/serde-value" }
-serde_json = { path = "submodules/json", version= "1.0.120" }
-sharded-slab = { path = "submodules/sharded-slab" }
-shell-escape = { path = "submodules/shell-escape" }
-shell-words = { path = "submodules/shell-words" }
-shlex = { path = "submodules/rust-shlex" }
-simd-adler32 = { path = "submodules/simd-adler32" }
-socket2.path = "submodules/socket2"
-stable_deref_trait = { path = "submodules/stable_deref_trait" }
-strsim = { path = "submodules/strsim-rs" }
-subtle = { path = "submodules/subtle" }
-supports-hyperlinks = { path = "submodules/supports-hyperlinks" }
-supports-unicode = { path = "submodules/supports-unicode" }
-syn = { path = "submodules/syn" }
-synstructure = { path = "submodules/synstructure" }
-tar = { path = "submodules/tar-rs" }
-tempfile = { path = "submodules/tempfile" }
-thiserror = { path = "submodules/thiserror" }
-thread_local = { path = "submodules/thread_local-rs" }
-time = { path = "submodules/time/time" }
-tinyvec = { path = "submodules/tinyvec" }
-tinyvec_macros = { path = "submodules/tinyvec_macros" }
-typeid = { path = "submodules/typeid" }
-typenum = { path = "submodules/typenum" }
-unicase = { path = "submodules/unicase" }
-unicode-ident = { path = "submodules/unicode-ident" }
-unicode-normalization = { path = "submodules/unicode-normalization" }
-unicode-segmentation = { path = "submodules/unicode-segmentation" }
-unicode-xid = { path = "submodules/unicode-xid" }
-utf8_iter = { path = "submodules/utf8_iter" }
-vcpkg = { path = "submodules/vcpkg-rs" }
-version_check = { path = "submodules/version_check" }
-walkdir = { path = "submodules/walkdir" }
-wasm-bindgen = { path = "submodules/wasm-bindgen" }
-winapi-util = { path = "submodules/winapi-util" }
-winnow = { path = "submodules/winnow" }
-zerocopy = { path = "submodules/zerocopy" }
+# [patch.crates-io]
+# blocking = { path = "submodules/blocking" }
+# curl = { path = "submodules/curl-rust", features = ["http2"]  }
+# #curl = { version = "0.4.49"}
+# anstyle = { path = "submodules/anstyle/crates/anstyle" }
+# bit-vec = { path = "submodules/bit-vec" }
+# #aarch64-dit = { path = "submodules/utils/aarch64-dit" }
+# #actix = { path = "submodules/actix/actix" }
+# #actix-broker = { path = "submodules/actix/actix-broker" }
+# #actix-codec = { path = "submodules/actix-net/actix-codec" }
+# #actix-macros = { path = "submodules/actix-net/actix-macros" }
+# #actix-rt = { path = "submodules/actix-net/actix-rt" }
+# #arraydeque = { path = "submodules/arraydeque" }
+# #bumpalo = { path = "submodules/bumpalo" }
+# #colorify = { path = "submodules/colorify" }
+# #globwalk = { path = "submodules/globwalk" }
+# #json5 = { path = "submodules/json5-rs" }
+# #normpath = { path = "submodules/normpath" }
+# #object = { path = "submodules/object" }
+# #semver = { path = "submodules/semver" }
+# #serde_json = { path = "submodules/json" }
+# #tera = { path = "submodules/tera" }
+# #tiny-keccak = { path = "submodules/tiny-keccak" }
+# #web-thread = { path = "submodules/wasm-worker" }
+# #yaml-rust2 = { path = "submodules/yaml-rust2" }
+# #actix-macros = { path = "submodules/actix-net/actix-macros" }
+# #addr2line = { path = "submodules/addr2line" }
+# #adler2 = { path = "submodules/adler2" }
+# #aho-corasick = { path = "submodules/aho-corasick" }
+# #android_system_properties = { path = "submodules/android_system_properties" }
+# #anyhow = { path = "submodules/anyhow" }
+# #arc-swap = { path = "submodules/arc-swap" }
+# #arrayref = { path = "submodules/arrayref" }
+# #arrayvec = { path = "submodules/arrayvec" }
+# #assert-impl.path = "submodules/assert-impl"
+# #async-stream = { path = "submodules/async-stream/async-stream" }
+# #async-trait = { path = "submodules/async-trait" }
+# #autocfg = { path = "submodules/autocfg" }
+# #backtrace = { path = "submodules/backtrace-rs" }
+# #bitflags = { path = "submodules/bitflags" }
+# #bstr = { path = "submodules/bstr" }
+# #byteorder = { path = "submodules/byteorder" }
+# #bytes = { path = "submodules/bytes" }
+# camino = { path = "submodules/camino", version= "1.2.1" }
+# cargo-platform = { path = "submodules/cargo/crates/cargo-platform" , version = "0.3.2"}
+# cc = { path = "submodules/cc-rs" }
+# cfg-if = { path = "submodules/cfg-if" }
+# cfg_aliases = { path = "submodules/cfg_aliases" }
+# clap = { path = "submodules/clap" }
+# clru = { path = "submodules/clru-rs" }
+# crc32fast = { path = "submodules/rust-crc32fast" }
+# criterion = { path = "submodules/criterion" }
+# crunchy = { path = "submodules/crunchy" }
+# ct-codecs = { path = "submodules/rust-ct-codecs" }
+# curl-sys = { path = "submodules/curl-rust/curl-sys" }
+# deranged = { path = "submodules/deranged/deranged" }
+# displaydoc = { path = "submodules/displaydoc" }
+# ed25519-compact = { path = "submodules/rust-ed25519-compact" }
+# either = { path = "submodules/either" }
+# encoding_rs = { path = "submodules/encoding_rs" }
+# equivalent = { path = "submodules/equivalent" }
+# erased-serde = { path = "submodules/erased-serde" }
+# errno = { path = "submodules/rust-errno" }
+# fallible-iterator = { path = "submodules/rust-fallible-iterator" }
+# fallible-streaming-iterator = { path = "submodules/fallible-streaming-iterator" }
+# fastrand = { path = "submodules/fastrand" }
+# ff = { path = "submodules/ff" }
+# filetime = { path = "submodules/filetime" }
+# flate2 = { path = "submodules/flate2-rs" }
+# fnv = { path = "submodules/rust-fnv" }
+# foldhash = { path = "submodules/foldhash" }
+# futures-concurrency.path = "submodules/futures-concurrency"
+# getrandom = { path = "submodules/getrandom" }
+# gimli = { path = "submodules/gimli" }
+# git2 = { path = "submodules/git2-rs" }
+# git2-curl = { path = "submodules/git2-rs/git2-curl" }
+# glob = { path = "submodules/glob" }
+# group = { path = "submodules/group" }
+# hashbrown = { path = "submodules/hashbrown" }
+# heck = { path = "submodules/heck" }
+# hex = { path = "submodules/rust-hex" }
+# http-auth = { path = "submodules/http-auth" }
+# idna_adapter = { path = "submodules/idna_adapter" }
+# indexmap = { path = "submodules/indexmap" }
+# is_executable = { path = "submodules/is_executable" }
+# is_terminal_polyfill = { path = "submodules/is_terminal_polyfill" }
+# itoa = { path = "submodules/itoa" }
+# jiff = { path = "submodules/jiff" }
+# jobserver = { path = "submodules/jobserver-rs" }
+# kstring = { path = "submodules/kstring" }
+# lazycell = { path = "submodules/lazycell" }
+# libz-sys = { path = "submodules/libz-sys" }
+# log = { path = "submodules/log" }
+# macrotest.path = "submodules/macrotest"
+# matchers = { path = "submodules/matchers" }
+# maybe-async = { path = "submodules/maybe-async-rs" }
+# memchr = { path = "submodules/memchr" }
+# memmap2 = { path = "submodules/memmap2-rs" }
+# minimal-lexical = { path = "submodules/minimal-lexical" }
+# mio-aio.path = "submodules/mio-aio"
+# miow = { path = "submodules/miow" }
+# mockall.path = "submodules/mockall/mockall"
+# nix.path = "submodules/nix"
+# nu-ansi-term = { path = "submodules/nu-ansi-term" }
+# num-conv = { path = "submodules/num-conv" }
+# num-traits = { path = "submodules/num-traits" }
+# num_threads = { path = "submodules/num_threads" }
+# once_cell = { path = "submodules/once_cell" }
+# once_cell_polyfill = { path = "submodules/once_cell_polyfill" }
+# openssl-probe = { path = "submodules/openssl-probe" }
+# openssl-sys = { path = "submodules/rust-openssl/openssl-sys" }
+# orion = { path = "submodules/orion" }
+# parking_lot = { path = "submodules/parking_lot" }
+# pasetors = { path = "submodules/pasetors", features = ["v3"] }
+# pathdiff = { path = "submodules/pathdiff" }
+# pin-project-lite = { path = "submodules/pin-project-lite" }
+# pkg-config = { path = "submodules/pkg-config-rs" }
+# portable-atomic = { path = "submodules/portable-atomic" }
+# prettyplease = { path = "submodules/prettyplease" }
+# proc-macro2 = { path = "submodules/proc-macro2" }
+# quickcheck = { path = "submodules/quickcheck" }
+# quote = { path = "submodules/quote" }
+# r-efi = { path = "submodules/r-efi" }
+# rayon = { path = "submodules/rayon" }
+# rayon-core = { path = "submodules/rayon/rayon-core" }
+# regex = { path = "submodules/regex" }
+# rustc-demangle = { path = "submodules/rustc-demangle" }
+# rustc-hash = { path = "submodules/rustc-hash" }
+# rustc-stable-hash = { path = "submodules/rustc-stable-hash" }
+# rustix = { path = "submodules/rustix" }
+# rustversion = { path = "submodules/rustversion" }
+# ruzstd = { path = "submodules/zstd-rs/ruzstd" }
+# ryu = { path = "submodules/ryu" }
+# same-file = { path = "submodules/same-file" }
+# schannel = { path = "submodules/schannel-rs" }
+# scopeguard = { path = "submodules/scopeguard" }
+# serde = { version = "1.0.228", path = "submodules/serde/serde", features = ["derive"] }
+# serde_core = { path = "submodules/serde/serde_core", features = ["derive"] }
+# serde_derive = { path = "submodules/serde/serde_derive" }
+# serde-untagged = { path = "submodules/serde-untagged" }
+# serde-value = { path = "submodules/serde-value" }
+# serde_json = { path = "submodules/json", version= "1.0.120" }
+# sharded-slab = { path = "submodules/sharded-slab" }
+# shell-escape = { path = "submodules/shell-escape" }
+# shell-words = { path = "submodules/shell-words" }
+# shlex = { path = "submodules/rust-shlex" }
+# simd-adler32 = { path = "submodules/simd-adler32" }
+# socket2.path = "submodules/socket2"
+# stable_deref_trait = { path = "submodules/stable_deref_trait" }
+# strsim = { path = "submodules/strsim-rs" }
+# subtle = { path = "submodules/subtle" }
+# supports-hyperlinks = { path = "submodules/supports-hyperlinks" }
+# supports-unicode = { path = "submodules/supports-unicode" }
+# syn = { path = "submodules/syn" }
+# synstructure = { path = "submodules/synstructure" }
+# tar = { path = "submodules/tar-rs" }
+# tempfile = { path = "submodules/tempfile" }
+# thiserror = { path = "submodules/thiserror" }
+# thread_local = { path = "submodules/thread_local-rs" }
+# time = { path = "submodules/time/time" }
+# tinyvec = { path = "submodules/tinyvec" }
+# tinyvec_macros = { path = "submodules/tinyvec_macros" }
+# typeid = { path = "submodules/typeid" }
+# typenum = { path = "submodules/typenum" }
+# unicase = { path = "submodules/unicase" }
+# unicode-ident = { path = "submodules/unicode-ident" }
+# unicode-normalization = { path = "submodules/unicode-normalization" }
+# unicode-segmentation = { path = "submodules/unicode-segmentation" }
+# unicode-xid = { path = "submodules/unicode-xid" }
+# utf8_iter = { path = "submodules/utf8_iter" }
+# vcpkg = { path = "submodules/vcpkg-rs" }
+# version_check = { path = "submodules/version_check" }
+# walkdir = { path = "submodules/walkdir" }
+# wasm-bindgen = { path = "submodules/wasm-bindgen" }
+# winapi-util = { path = "submodules/winapi-util" }
+# winnow = { path = "submodules/winnow" }
+# zerocopy = { path = "submodules/zerocopy" }
 
-#[workspace.lints]
-#[warn(incomplete_features)]
-# [PROJECT_DIR]/Cargo.toml
+# #[workspace.lints]
+# #[warn(incomplete_features)]
+# # [PROJECT_DIR]/Cargo.toml
 
 
 

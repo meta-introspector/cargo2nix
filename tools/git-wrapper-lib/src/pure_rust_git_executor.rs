@@ -1,4 +1,21 @@
+#[cfg(feature = "with-anyhow")]
 use anyhow::{Context, Result};
+#[cfg(not(feature = "with-anyhow"))]
+use std::error::Error; // For fallback Result
+#[cfg(not(feature = "with-anyhow"))]
+type Result<T> = std::result::Result<T, Box<dyn Error>>; // Fallback for Result
+#[cfg(not(feature = "with-anyhow"))]
+trait Context<T> { // Fallback for anyhow::Context
+    fn context<C>(self, _context: C) -> Result<T> where C: std::fmt::Display + Send + Sync + 'static;
+}
+#[cfg(not(feature = "with-anyhow"))]
+impl<T, E> Context<T> for std::result::Result<T, E> where E: std::error::Error + Send + Sync + 'static {
+    fn context<C>(self, _context: C) -> Result<T> where C: std::fmt::Display + Send + Sync + 'static {
+        self.map_err(|e| Box::new(e) as Box<dyn Error>)
+    }
+}
+
+
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 use std::any::Any;
@@ -53,7 +70,12 @@ impl GitExecutor for PureRustGitExecutor {
 
     #[cfg(not(feature = "git2"))]
     fn submodule_add(&self, repo_url: &str, submodule_path: &Path, _rollup_lock: Arc<Mutex<RollupLock>>, _root_dir: &Path) -> Result<()> {
+        #[cfg(feature = "with-trace")]
+        println!("TRACE: submodule_add called with repo_url: {}, submodule_path: {:?}", repo_url, submodule_path);
+        #[cfg(feature = "with-anyhow")]
         anyhow::bail!("PureRustGitExecutor::submodule_add requires the 'git2' feature, which is not enabled.");
+        #[cfg(not(feature = "with-anyhow"))]
+        return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "PureRustGitExecutor::submodule_add requires the 'git2' feature, which is not enabled.")));
     }
 
     #[cfg(feature = "git2")]
@@ -82,7 +104,12 @@ impl GitExecutor for PureRustGitExecutor {
 
     #[cfg(not(feature = "git2"))]
     fn checkout_branch(&self, submodule_path: &Path, branch: &str, _rollup_lock: Arc<Mutex<RollupLock>>, _root_dir: &Path) -> Result<()> {
+        #[cfg(feature = "with-trace")]
+        println!("TRACE: checkout_branch called with submodule_path: {:?}, branch: {}", submodule_path, branch);
+        #[cfg(feature = "with-anyhow")]
         anyhow::bail!("PureRustGitExecutor::checkout_branch requires the 'git2' feature, which is not enabled.");
+        #[cfg(not(feature = "with-anyhow"))]
+        return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "PureRustGitExecutor::checkout_branch requires the 'git2' feature, which is not enabled.")));
     }
 
     #[cfg(feature = "git2")]
@@ -188,7 +215,10 @@ impl GitExecutor for PureRustGitExecutor {
 
     #[cfg(not(feature = "git2"))]
     fn status(&self, _repo_path: &Path) -> Result<String> {
+        #[cfg(feature = "with-anyhow")]
         anyhow::bail!("PureRustGitExecutor::status requires the 'git2' feature, which is not enabled.");
+        #[cfg(not(feature = "with-anyhow"))]
+        return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "PureRustGitExecutor::status requires the 'git2' feature, which is not enabled.")));
     }
 
     #[cfg(feature = "git2")]
@@ -210,7 +240,10 @@ impl GitExecutor for PureRustGitExecutor {
 
     #[cfg(not(feature = "git2"))]
     fn list_submodules(&self, _root_dir: &Path) -> Result<Vec<(String, PathBuf)>> {
+        #[cfg(feature = "with-anyhow")]
         anyhow::bail!("PureRustGitExecutor::list_submodules requires the 'git2' feature, which is not enabled.");
+        #[cfg(not(feature = "with-anyhow"))]
+        return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "PureRustGitExecutor::list_submodules requires the 'git2' feature, which is not enabled.")));
     }
 
     #[cfg(feature = "git2")]
@@ -224,7 +257,12 @@ impl GitExecutor for PureRustGitExecutor {
 
     #[cfg(not(feature = "git2"))]
     fn clone(&self, repo_url: &str, target_path: &Path) -> Result<()> {
+        #[cfg(feature = "with-trace")]
+        println!("TRACE: clone called with repo_url: {}, target_path: {:?}", repo_url, target_path);
+        #[cfg(feature = "with-anyhow")]
         anyhow::bail!("PureRustGitExecutor::clone requires the 'git2' feature, which is not enabled.");
+        #[cfg(not(feature = "with-anyhow"))]
+        return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "PureRustGitExecutor::clone requires the 'git2' feature, which is not enabled.")));
     }
 
     #[cfg(feature = "git2")]
@@ -256,7 +294,10 @@ impl GitExecutor for PureRustGitExecutor {
 
     #[cfg(not(feature = "git2"))]
     fn get_file_git_info(&self, _repo_path: &Path, _file_path: &Path) -> Result<(bool, Option<String>)> {
+        #[cfg(feature = "with-anyhow")]
         anyhow::bail!("PureRustGitExecutor::get_file_git_info requires the 'git2' feature, which is not enabled.");
+        #[cfg(not(feature = "with-anyhow"))]
+        return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "PureRustGitExecutor::get_file_git_info requires the 'git2' feature, which is not enabled.")));
     }
 
     #[cfg(all(feature = "git2", feature = "sha1"))]
@@ -297,7 +338,10 @@ impl GitExecutor for PureRustGitExecutor {
 
     #[cfg(not(all(feature = "git2", feature = "sha1")))]
     fn get_submodule_head_and_workdir_hash(&self, _path: &Path) -> Result<SubmoduleStat> {
+        #[cfg(feature = "with-anyhow")]
         anyhow::bail!("PureRustGitExecutor::get_submodule_head_and_workdir_hash requires both 'git2' and 'sha1' features, which are not enabled.");
+        #[cfg(not(feature = "with-anyhow"))]
+        return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "PureRustGitExecutor::get_submodule_head_and_workdir_hash requires both 'git2' and 'sha1' features, which are not enabled.")));
     }
 
     fn as_any(&self) -> &dyn Any {

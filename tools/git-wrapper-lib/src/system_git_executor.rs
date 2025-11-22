@@ -1,4 +1,20 @@
+#[cfg(feature = "with-anyhow")]
 use anyhow::{Context, Result};
+#[cfg(not(feature = "with-anyhow"))]
+use std::error::Error; // For fallback Result
+#[cfg(not(feature = "with-anyhow"))]
+type Result<T> = std::result::Result<T, Box<dyn Error>>; // Fallback for Result
+#[cfg(not(feature = "with-anyhow"))]
+trait Context<T> { // Fallback for anyhow::Context
+    fn context<C>(self, _context: C) -> Result<T> where C: std::fmt::Display + Send + Sync + 'static;
+}
+#[cfg(not(feature = "with-anyhow"))]
+impl<T, E> Context<T> for std::result::Result<T, E> where E: std::error::Error + Send + Sync + 'static {
+    fn context<C>(self, _context: C) -> Result<T> where C: std::fmt::Display + Send + Sync + 'static {
+        self.map_err(|e| Box::new(e) as Box<dyn Error>)
+    }
+}
+
 use std::ffi::OsStr;
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
@@ -34,6 +50,8 @@ impl SystemGitExecutor {
 
 impl GitExecutor for SystemGitExecutor {
     fn submodule_add(&self, repo_url: &str, submodule_path: &Path, rollup_lock: Arc<Mutex<RollupLock>>, root_dir: &Path) -> Result<()> {
+        #[cfg(feature = "with-trace")]
+        println!("TRACE: submodule_add called with repo_url: {}, submodule_path: {:?}, rollup_lock: {:?}, root_dir: {:?}", repo_url, submodule_path, rollup_lock, root_dir);
         println!("Executing git submodule add {} ?{:?}", repo_url, submodule_path);
         let program = self.git_executable_path.as_os_str();
         let args = &[
@@ -54,7 +72,9 @@ impl GitExecutor for SystemGitExecutor {
                 repo_url,
                 String::from_utf8_lossy(&output.stderr)
             );
-            anyhow::bail!("Adding submodule failed for {}", repo_url);
+            #[cfg(feature = "with-anyhow")]
+            #[cfg(not(feature = "with-anyhow"))]
+            return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, format!("Adding submodule failed for {}", repo_url))));
         }
         println!("Successfully added {} as submodule.", repo_url);
         // create_snapshot(root_dir, rollup_lock, Arc::new(self.clone()))?; // Commented out
@@ -62,6 +82,8 @@ impl GitExecutor for SystemGitExecutor {
     }
 
     fn checkout_branch(&self, submodule_path: &Path, branch: &str, rollup_lock: Arc<Mutex<RollupLock>>, root_dir: &Path) -> Result<()> {
+        #[cfg(feature = "with-trace")]
+        println!("TRACE: checkout_branch called with submodule_path: {:?}, branch: {}, rollup_lock: {:?}, root_dir: {:?}", submodule_path, branch, rollup_lock, root_dir);
         println!("Executing git -C ?{:?} checkout ?{}", submodule_path, branch);
         let program = self.git_executable_path.as_os_str();
         let args = &[
@@ -81,7 +103,10 @@ impl GitExecutor for SystemGitExecutor {
                 submodule_path,
                 String::from_utf8_lossy(&output.stderr)
             );
+            #[cfg(feature = "with-anyhow")]
             anyhow::bail!("Branch checkout failed for ?{:?}", submodule_path);
+            #[cfg(not(feature = "with-anyhow"))]
+            return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, format!("Branch checkout failed for ?{:?}", submodule_path))));
         }
         println!("Successfully checked out branch '{}' in submodule ?{:?}.", branch, submodule_path);
         // create_snapshot(root_dir, rollup_lock, Arc::new(self.clone()))?; // Commented out
@@ -106,7 +131,10 @@ impl GitExecutor for SystemGitExecutor {
                 submodule_path,
                 String::from_utf8_lossy(&output.stderr)
             );
+            #[cfg(feature = "with-anyhow")]
             anyhow::bail!("Failed to get status for ?{:?}", submodule_path);
+            #[cfg(not(feature = "with-anyhow"))]
+            return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, format!("Failed to get status for ?{:?}", submodule_path))));
         }
         Ok(String::from_utf8_lossy(&output.stdout).to_string())
     }
@@ -131,7 +159,10 @@ impl GitExecutor for SystemGitExecutor {
                 root_dir,
                 String::from_utf8_lossy(&output.stderr)
             );
+            #[cfg(feature = "with-anyhow")]
             anyhow::bail!("Failed to list submodules in ?{:?}", root_dir);
+            #[cfg(not(feature = "with-anyhow"))]
+            return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, format!("Failed to list submodules in ?{:?}", root_dir))));
         }
 
         let stdout = String::from_utf8_lossy(&output.stdout);
@@ -189,9 +220,12 @@ impl GitExecutor for SystemGitExecutor {
                 repo_url,
                 String::from_utf8_lossy(&output.stderr)
             );
+            #[cfg(feature = "with-anyhow")]
             anyhow::bail!("Cloning failed for {}", repo_url);
+            #[cfg(not(feature = "with-anyhow"))]
+            return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, format!("Cloning failed for {}", repo_url))));
         }
-        println!("Successfully cloned {} to ?{:?}.", repo_url, target_path);
+        println!("Successfully cloned {} to ?{:?} using pure Rust.", repo_url, target_path);
         Ok(())
     }
 
@@ -211,7 +245,10 @@ impl GitExecutor for SystemGitExecutor {
             None,
         )?;
         if !head_commit_output.status.success() {
+            #[cfg(feature = "with-anyhow")]
             anyhow::bail!("Failed to get HEAD commit for ?{:?}: ?{}", path, String::from_utf8_lossy(&head_commit_output.stderr));
+            #[cfg(not(feature = "with-anyhow"))]
+            return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, format!("Failed to get HEAD commit for ?{:?}: ?{}", path, String::from_utf8_lossy(&head_commit_output.stderr)))));
         }
         let head_commit = String::from_utf8_lossy(&head_commit_output.stdout).trim().to_string();
 
@@ -227,7 +264,10 @@ impl GitExecutor for SystemGitExecutor {
             None,
         )?;
         if !workdir_status_output.status.success() {
+            #[cfg(feature = "with-anyhow")]
             anyhow::bail!("Failed to get workdir status for ?{:?}: ?{}", path, String::from_utf8_lossy(&workdir_status_output.stderr));
+            #[cfg(not(feature = "with-anyhow"))]
+            return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, format!("Failed to get workdir status for ?{:?}: ?{}", path, String::from_utf8_lossy(&workdir_status_output.stderr)))));
         }
         let mut hasher = Sha1::new();
         hasher.update(&workdir_status_output.stdout);
@@ -244,7 +284,10 @@ impl GitExecutor for SystemGitExecutor {
 
     #[cfg(not(feature = "sha1"))]
     fn get_submodule_head_and_workdir_hash(&self, _path: &Path) -> Result<SubmoduleStat> {
+        #[cfg(feature = "with-anyhow")]
         anyhow::bail!("SystemGitExecutor::get_submodule_head_and_workdir_hash requires the 'sha1' feature, which is not enabled.");
+        #[cfg(not(feature = "with-anyhow"))]
+        return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "SystemGitExecutor::get_submodule_head_and_workdir_hash requires the 'sha1' feature, which is not enabled.")));
     }
 
     fn get_file_git_info(&self, repo_path: &Path, file_path: &Path) -> Result<(bool, Option<String>)> {

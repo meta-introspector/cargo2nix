@@ -4,7 +4,9 @@ use std::fs;
 use std::sync::{Arc, Mutex};
 
 use crate::fs_cache::{FileSystemStat};
-use git_wrapper_lib::git_types::RollupLock;
+use crate::executors::RollupLock; // Use our re-exported RollupLock
+#[cfg(not(feature = "git_enabled"))]
+use crate::executors::DummyRollupLock;
 
 pub trait FileSystemWriter {
     fn write_file(&self, path: &Path, contents: &[u8]) -> Result<()>;
@@ -44,12 +46,14 @@ impl FileSystemWriter for RealFileSystemWriter {
     }
 }
 
+#[cfg(feature = "git_enabled")]
 pub struct CachedFileSystemWriter {
-    file_system_stat: Arc<dyn FileSystemStat>, // To get updated metadata after write
-    rollup_lock: Arc<Mutex<RollupLock>>,
-    root_dir: PathBuf, // Need root_dir to save the rollup.lock
+    pub inner: Arc<dyn FileSystemStat>,
+    pub rollup_lock: Arc<Mutex<RollupLock>>,
+    pub root_dir: PathBuf, // Need root_dir to save the rollup.lock
 }
 
+#[cfg(feature = "git_enabled")]
 impl CachedFileSystemWriter {
     pub fn new(
         file_system_stat: Arc<dyn FileSystemStat>,
@@ -57,13 +61,14 @@ impl CachedFileSystemWriter {
         root_dir: PathBuf,
     ) -> Self {
         CachedFileSystemWriter {
-            file_system_stat,
+            inner,
             rollup_lock,
             root_dir,
         }
     }
 }
 
+#[cfg(feature = "git_enabled")]
 impl FileSystemWriter for CachedFileSystemWriter {
     fn write_file(&self, path: &Path, contents: &[u8]) -> Result<()> {
         fs::write(path, contents)
@@ -103,3 +108,46 @@ impl FileSystemWriter for CachedFileSystemWriter {
         rollup_lock.save(&self.root_dir)
     }
 }
+
+#[cfg(not(feature = "git_enabled"))]
+pub struct CachedFileSystemWriter;
+
+#[cfg(not(feature = "git_enabled"))]
+impl CachedFileSystemWriter {
+    pub fn new(
+        _file_system_stat: Arc<dyn FileSystemStat>,
+        _rollup_lock: Arc<Mutex<RollupLock>>,
+        _root_dir: PathBuf,
+    ) -> Self {
+        CachedFileSystemWriter {}
+    }
+}
+
+#[cfg(not(feature = "git_enabled"))]
+impl FileSystemWriter for CachedFileSystemWriter {
+    fn write_file(&self, path: &Path, _contents: &[u8]) -> Result<()> {
+        println!("Dummy CachedFileSystemWriter: write_file to {:?}", path);
+        Ok(())
+    }
+
+    fn create_dir_all(&self, path: &Path) -> Result<()> {
+        println!("Dummy CachedFileSystemWriter: create_dir_all {:?}", path);
+        Ok(())
+    }
+
+    fn remove_file(&self, path: &Path) -> Result<()> {
+        println!("Dummy CachedFileSystemWriter: remove_file {:?}", path);
+        Ok(())
+    }
+
+    fn remove_dir_all(&self, path: &Path) -> Result<()> {
+        println!("Dummy CachedFileSystemWriter: remove_dir_all {:?}", path);
+        Ok(())
+    }
+
+    fn save_lock(&self) -> Result<()> {
+        println!("Dummy CachedFileSystemWriter: save_lock");
+        Ok(())
+    }
+}
+

@@ -1,6 +1,8 @@
+#[cfg(feature = "clap_enabled")]
 use clap::Parser;
 use std::path::PathBuf;
 
+#[cfg(feature = "clap_enabled")]
 #[derive(Parser, Debug)]
 pub struct AnalyzeArgs {
     /// Path to the depgraph.dot file.
@@ -29,5 +31,17 @@ pub struct AnalyzeArgs {
 
     /// The root directory of the project.
     #[arg(long, default_value = ".")]
+    pub project_root: PathBuf,
+}
+
+#[cfg(not(feature = "clap_enabled"))]
+#[derive(Debug)]
+pub struct AnalyzeArgs {
+    pub depgraph_dot_file: PathBuf,
+    pub tree_file: PathBuf,
+    pub cargo_lock_file: PathBuf,
+    pub cargo_config_file: PathBuf,
+    pub members_file: PathBuf,
+    pub submodules_dir: PathBuf,
     pub project_root: PathBuf,
 }

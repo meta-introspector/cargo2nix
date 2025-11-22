@@ -3,6 +3,7 @@ members = [
     "dummy_crate_test",
     "cargo_repo_sync_lib_test",
     "cargo_submodule_tool_test",
+    "cargo_submodule_tool_lib_test",
 ]
 
 [patch.crates-io]

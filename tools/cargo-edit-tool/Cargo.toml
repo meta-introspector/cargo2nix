@@ -13,17 +13,26 @@ keywords.workspace = true
 include.workspace = true
 
 [dependencies]
-anyhow = { path = "../../submodules/anyhow" }
-toml_edit = { workspace = true, optional = true }
+anyhow = "1.0"
+toml_edit = { workspace = true }
 walkdir = { workspace = true }
-cargo_metadata = { workspace = true, optional = true }
+cargo_metadata = { workspace = true }
 git-wrapper-lib = { path = "../git-wrapper-lib", features = ["git2"] }
 clap = { workspace = true, features = ["derive"] }
 nix-generator-lib = { path = "../nix-generator-lib" }
 syn-adapter-lib = { path = "../syn-adapter-lib", features = ["syn-parsing"] }
-cargo-edit-lib = { path = "../cargo-edit-lib" } # Added
-cargo2nix = { path = "../../crates/cargo2nix", optional = true }
+cargo-edit-lib = { path = "../cargo-edit-lib" }
+cargo-toml-editor-lib = { path = "../cargo-toml-editor-lib" }
+cargo-submodule-tool-lib = { path = "../cargo-submodule-tool-lib" }
+#cargo2nix = { path = "../../crates/cargo2nix", optional = true }
+pathdiff = { workspace = true }
+regex = { workspace = true }
+lazy_static = "1.4.0"
+serde = { workspace = true, features = ["derive"] }
+git2 = { workspace = true }
 
 [features]
-default = ["toml_edit", "cargo_metadata", "cargo2nix"]
+default = ["cargo2nix"]
 nix_generation = []
+real_cargo_metadata = []
+real_toml_edit = []

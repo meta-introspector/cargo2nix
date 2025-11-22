@@ -5,11 +5,14 @@ use cargo_edit_lib::CargoMetadataProvider;
 #[cfg(feature = "cargo_metadata")]
 use crate::cargo_metadata_provider::{MockCargoMetadataProvider, RealCargoMetadataProvider};
 #[cfg(not(feature = "cargo_metadata"))]
-use crate::cargo_metadata_provider::NoopCargoMetadataProvider;
+#[cfg(feature = "real_cargo_metadata")]
+use crate::cargo_metadata_provider::RealCargoMetadataProvider;
+#[cfg(not(feature = "real_cargo_metadata"))]
+use crate::cargo_metadata_provider::DummyCargoMetadataProvider;
 use nix_generator_lib::nix_adapters::{NixAdapter, MockNixAdapter, ShellNixAdapter};
 use syn_adapter_lib::{SynAdapter, MockSynAdapter, LibSynAdapter};
-use cargo_edit_lib::CargoEditAdapter;
-use crate::cargo_edit_adapter_impl::CargoEditAdapterImpl;
+use cargo_toml_editor_lib::executor::{CargoEditExecutor, RealCargoEditExecutor, DummyCargoEditExecutor};
+
 
 #[derive(Debug, PartialEq, Eq)]
 pub enum Mode {
@@ -18,7 +21,13 @@ pub enum Mode {
     Lib,
 }
 
-pub fn get_adapters(mode: Mode) -> Result<(Box<dyn GitAdapter>, Box<dyn CargoMetadataProvider>, Box<dyn NixAdapter>, Box<dyn SynAdapter>, Box<dyn CargoEditAdapter>)> {
+pub fn get_adapters(mode: Mode) -> Result<(
+    Box<dyn GitAdapter + Send + Sync>,
+    Box<dyn CargoMetadataProvider + Send + Sync>,
+    Box<dyn NixAdapter + Send + Sync>,
+    Box<dyn SynAdapter + Send + Sync>,
+    Box<dyn CargoEditExecutor + Send + Sync>, // Changed to CargoEditExecutor
+)> {
     let git_adapter: Box<dyn GitAdapter> = match mode {
         Mode::DryRun => Box::new(MockGitAdapter::new()),
         Mode::Shell => Box::new(ShellGitAdapter::new(Box::new(SystemExecv))),
@@ -34,29 +43,11 @@ pub fn get_adapters(mode: Mode) -> Result<(Box<dyn GitAdapter>, Box<dyn CargoMet
         }
     };
 
-    let cargo_metadata_provider: Box<dyn CargoMetadataProvider> = match mode {
-        Mode::DryRun => {
-            #[cfg(feature = "cargo_metadata")]
-            {
-                Box::new(MockCargoMetadataProvider::new())
-            }
-            #[cfg(not(feature = "cargo_metadata"))]
-            {
-                Box::new(NoopCargoMetadataProvider)
-            }
-        },
-        // For Shell and Lib modes, we'll use RealCargoMetadataProvider as it's already a library-based approach
-        Mode::Shell | Mode::Lib => {
-            #[cfg(feature = "cargo_metadata")]
-            {
-                Box::new(RealCargoMetadataProvider)
-            }
-            #[cfg(not(feature = "cargo_metadata"))]
-            {
-                Box::new(NoopCargoMetadataProvider)
-            }
-        }
-    };
+                let cargo_metadata_provider: Box<dyn CargoMetadataProvider + Send + Sync> =                    if cfg!(feature = "real_cargo_metadata") {
+                        Box::new(RealCargoMetadataProvider)
+                    } else {
+                        Box::new(DummyCargoMetadataProvider)
+                    };
 
     let nix_adapter: Box<dyn NixAdapter> = match mode {
         Mode::DryRun => Box::new(MockNixAdapter::new()),
@@ -78,9 +69,12 @@ pub fn get_adapters(mode: Mode) -> Result<(Box<dyn GitAdapter>, Box<dyn CargoMet
         }
     };
 
-    let cargo_edit_adapter: Box<dyn CargoEditAdapter> = match mode {
-        Mode::DryRun | Mode::Shell | Mode::Lib => Box::new(CargoEditAdapterImpl),
-    };
+    let cargo_edit_executor: Box<dyn CargoEditExecutor + Send + Sync> = // Changed to CargoEditExecutor
+        if cfg!(feature = "real_toml_edit") {
+            Box::new(RealCargoEditExecutor::new(PathBuf::from("cargo-toml-editor-tool"))) // Assuming a binary name
+        } else {
+            Box::new(DummyCargoEditExecutor)
+        };
 
-    Ok((git_adapter, cargo_metadata_provider, nix_adapter, syn_adapter, cargo_edit_adapter))
+    Ok((git_adapter, cargo_metadata_provider, nix_adapter, syn_adapter, cargo_edit_executor))
 }

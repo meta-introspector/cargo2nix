@@ -4,7 +4,10 @@ use cargo_metadata::{MetadataCommand, Package, PackageId};
 use crate::cli::args::{Cli, GeneratePatchesArgs};
 use crate::{run_submodule_status, RepoSyncConfig};
 use crate::fs_cache::{RealFileSystemStat, FileSystemStat};
-use git_wrapper_lib::git_types::RollupLock;
+#[cfg(feature = "git_enabled")]
+use crate::executors::RollupLock; // Use our re-exported RollupLock
+#[cfg(not(feature = "git_enabled"))]
+use crate::executors::DummyRollupLock as RollupLock; // Use dummy for RollupLock when git is not enabled
 #[cfg(feature = "nix_generation")]
 use std::path::{Path, PathBuf};
 #[cfg(feature = "nix_generation")]
@@ -19,13 +22,22 @@ use std::sync::{Arc, Mutex};
 // Import analysis modules
 use crate::cargo_config_generator::{parse_members_file, generate_patch_entries, update_config_toml};
 
+#[cfg(feature = "cargo-toml-editor-lib")]
 use crate::analysis::workspace_remover::RealWorkspaceRemover;
-use git_wrapper_lib::execv::RealExecv;
-use git_wrapper_lib::git_traits::GitExecutor;
-use git_wrapper_lib::pure_rust_git_executor::PureRustGitExecutor;
-use git_wrapper_lib::system_git_executor::SystemGitExecutor; // Added for non-git2 case
-use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Added for default dummy git
+#[cfg(feature = "git_enabled")]
+use crate::executors::RealExecv; // Use our re-exported RealExecv
+#[cfg(not(feature = "git_enabled"))]
+use crate::executors::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
+use crate::executors::GitExecutor; // Use our re-exported GitExecutor
+#[cfg(feature = "git_enabled")]
+use crate::executors::PureRustGitExecutor;
+#[cfg(feature = "git_enabled")]
+use crate::executors::SystemGitExecutor; // Added for non-git2 case
+#[cfg(not(feature = "git_enabled"))]
+use crate::executors::DummyGitExecutor; // Use our dummy GitExecutor
 use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
+#[cfg(not(feature = "nix_generation"))]
+use crate::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
 
 
 #[cfg(feature = "nix_generation")]
@@ -42,13 +54,13 @@ pub fn run_generate_patches_command(args: &GeneratePatchesArgs, cli: &Cli) -> Re
 
     // Initialize GitExecutor
     let git_executor: Arc<dyn GitExecutor + Send + Sync> = {
-        #[cfg(feature = "git2")]
+        #[cfg(feature = "git_enabled")]
         {
             Arc::new(PureRustGitExecutor::new(rollup_lock_arc.clone(), project_root.clone()))
         }
-        #[cfg(not(feature = "git2"))]
+        #[cfg(not(feature = "git_enabled"))]
         {
-            Arc::new(DummyGitExecutor::new())
+            Arc::new(DummyGitExecutor) // Use the dummy struct directly
         }
     };
 

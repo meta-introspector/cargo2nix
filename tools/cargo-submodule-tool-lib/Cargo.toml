@@ -5,42 +5,66 @@ edition = "2021"
 
 [dependencies]
 anyhow = { workspace = true }
-cargo-toml-editor-lib = { path = "../cargo-toml-editor-lib" }
+cargo-toml-editor-lib = { path = "../cargo-toml-editor-lib", optional = true }
 nix-generator-lib = { path = "../nix-generator-lib" }
 git-wrapper-lib = { path = "../git-wrapper-lib" }
-clap = { workspace = true, optional = true }
 serde = { workspace = true,  features = ["derive"] }
 serde_json = { workspace = true }
-toml = { workspace = true, optional = true }
+toml_edit = { workspace = true, optional = true } # Made optional again
 
+cargo-repo-sync-lib = { path = "../cargo-repo-sync-lib", optional = true }
+
+# Optional dependencies
+clap = { workspace = true, optional = true }
+toml = { workspace = true, optional = true }
 pathdiff = { workspace = true, optional = true }
 walkdir = { workspace = true, optional = true }
 lazy_static = { workspace = true, optional = true }
-cargo_metadata = { workspace = true, optional = true } # Now explicitly optional
-cargo2nix = { path = "../../crates/cargo2nix", optional = true } # Now explicitly optional
+cargo_metadata = { workspace = true, optional = true }
+#cargo2nix = { path = "../../crates/cargo2nix", optional = true }
 url = { workspace = true, optional = true }
 regex = { workspace = true, optional = true }
 md5 = { workspace = true, optional = true }
 lru = { version = "0.12", optional = true }
 sha2 = { workspace = true, optional = true }
+hex = { workspace=true, optional = true }
+git2 = { workspace=true, optional = true }
 
 [features]
-default = ["full"]
-full = [
-    "clap",
-#    "serde",
-#    "serde_json",
-    "toml",
-    "pathdiff",
-    "walkdir",
-    "lazy_static",
-    "url",
-    "regex_enabled",
-    "md5",
-    "lru",
-    "sha2",
+default = [] # New default feature
+dummy_tools = [] # No optional dependencies enabled by default
+
+cargo_repo_sync_lib_enabled = ["dep:cargo-repo-sync-lib"]
+nix_generation = ["dep:cargo_metadata",
+#"dep:cargo2nix"
 ]
-# Feature for Nix generation related functionalities
-nix_generation = ["cargo_metadata", "cargo2nix"]
 regex_enabled = ["dep:regex"]
-walkdir = ["dep:walkdir"]
+walkdir_enabled = ["dep:walkdir"]
+toml_edit_enabled = ["dep:toml_edit", "cargo-toml-editor-lib/real_toml_edit"]
+git_enabled = ["dep:git2"]
+hex_enabled = ["dep:hex"]
+md5_enabled = ["dep:md5"]
+sha2_enabled = ["dep:sha2"]
+lazy_static_enabled = ["dep:lazy_static"]
+pathdiff_enabled = ["dep:pathdiff"]
+url_enabled = ["dep:url"]
+lru_enabled = ["dep:lru"]
+clap_enabled = ["dep:clap"]
+toml_enabled = ["dep:toml"]
+
+full = [
+    "nix_generation",
+    "regex_enabled",
+    "walkdir_enabled",
+    "toml_edit_enabled",
+    "git_enabled",
+    "hex_enabled",
+    "md5_enabled",
+    "sha2_enabled",
+    "lazy_static_enabled",
+    "pathdiff_enabled",
+    "url_enabled",
+    "lru_enabled",
+    "clap_enabled",
+    "toml_enabled",
+]

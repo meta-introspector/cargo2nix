@@ -2,8 +2,11 @@ use anyhow::{Context, Result};
 use std::collections::HashSet;
 use std::fs;
 use std::path::Path;
+
+#[cfg(feature = "real_toml_edit")]
 use toml_edit::{DocumentMut, Item, RawString};
 
+#[cfg(feature = "real_toml_edit")]
 pub fn patch_cargo_toml(
     cargo_toml_path: &Path,
     _submodule_name: &str,
@@ -71,5 +74,15 @@ pub fn patch_cargo_toml(
     fs::write(cargo_toml_path, doc.to_string())
         .with_context(|| format!("Failed to write patched Cargo.toml to {:?}", cargo_toml_path))?;
 
+    Ok(())
+}
+
+#[cfg(not(feature = "real_toml_edit"))]
+pub fn patch_cargo_toml(
+    cargo_toml_path: &Path,
+    _submodule_name: &str,
+    _vendored_crates: &HashSet<String>,
+) -> Result<()> {
+    println!("Dummy patch_cargo_toml: Skipping patching for {:?}", cargo_toml_path);
     Ok(())
 }

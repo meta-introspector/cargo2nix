@@ -1,13 +1,16 @@
-use anyhow::Result;
+use anyhow::{Result, anyhow};
 use std::collections::HashMap;
-use git_wrapper_lib::git_types::MergedCrateInfo; // Import MergedCrateInfo from git_wrapper_lib
+use crate::analysis::dep_graph_data_merger::MergedCrateInfo; // Corrected import
 
+#[cfg(feature = "nix_generation")]
 pub trait Layer0Analyzer {
     fn find_most_used_layer0_module(&self, merged_data: &HashMap<String, MergedCrateInfo>) -> Result<Option<(String, u32)>>;
 }
 
+#[cfg(feature = "nix_generation")]
 pub struct RealLayer0Analyzer;
 
+#[cfg(feature = "nix_generation")]
 impl Layer0Analyzer for RealLayer0Analyzer {
     fn find_most_used_layer0_module(&self, merged_data: &HashMap<String, MergedCrateInfo>) -> Result<Option<(String, u32)>> {
         let mut most_used_module: Option<(String, u32)> = None;
@@ -32,5 +35,20 @@ impl Layer0Analyzer for RealLayer0Analyzer {
             }
         }
         Ok(most_used_module)
+    }
+}
+
+#[cfg(not(feature = "nix_generation"))]
+pub trait Layer0Analyzer {
+    fn find_most_used_layer0_module(&self, merged_data: &HashMap<String, MergedCrateInfo>) -> Result<Option<(String, u32)>>;
+}
+
+#[cfg(not(feature = "nix_generation"))]
+pub struct RealLayer0Analyzer;
+
+#[cfg(not(feature = "nix_generation"))]
+impl Layer0Analyzer for RealLayer0Analyzer {
+    fn find_most_used_layer0_module(&self, _merged_data: &HashMap<String, MergedCrateInfo>) -> Result<Option<(String, u32)>> {
+        Err(anyhow!("`Layer0Analyzer` requires the `nix_generation` feature to be enabled."))
     }
 }

@@ -2,8 +2,8 @@ use anyhow::{Result, Context};
 use std::path::Path;
 use std::fs;
 
-use crate::repo_sync_lib::repo_action::RepoAction;
-use crate::fs_writer::FileSystemWriter;
+use git_wrapper_lib::repo_sync_lib::repo_action::RepoAction;
+use cargo_submodule_tool_lib::fs_writer::{FileSystemWriter, RealFileSystemWriter, CachedFileSystemWriter};
 
 pub fn update_cargo_config(actions_plan: &[RepoAction], root_dir: &Path, file_system_writer: &dyn FileSystemWriter) -> Result<()> {
     println!("Updating .cargo/config.toml...");

@@ -9,10 +9,12 @@ pub trait CargoEditExecutor: Send + Sync {
     fn apply_patches(&self, path: &Path, patches: Vec<CargoTomlPatch>) -> Result<()>;
 }
 
+#[cfg(feature = "real_toml_edit")]
 pub struct RealCargoEditExecutor {
     binary_path: PathBuf,
 }
 
+#[cfg(feature = "real_toml_edit")]
 impl RealCargoEditExecutor {
     pub fn new(binary_path: PathBuf) -> Self {
         RealCargoEditExecutor { binary_path }
@@ -41,6 +43,7 @@ impl RealCargoEditExecutor {
     }
 }
 
+#[cfg(feature = "real_toml_edit")]
 impl CargoEditExecutor for RealCargoEditExecutor {
     fn read_cargo_toml(&self, path: &Path) -> Result<String> {
         let request = CargoEditRequest::ReadCargoToml { path: path.to_path_buf() };
@@ -67,8 +70,10 @@ impl CargoEditExecutor for RealCargoEditExecutor {
     }
 }
 
+#[cfg(not(feature = "real_toml_edit"))]
 pub struct DummyCargoEditExecutor;
 
+#[cfg(not(feature = "real_toml_edit"))]
 impl CargoEditExecutor for DummyCargoEditExecutor {
     fn read_cargo_toml(&self, path: &Path) -> Result<String> {
         println!("DummyCargoEditExecutor: Reading Cargo.toml from {:?}", path);

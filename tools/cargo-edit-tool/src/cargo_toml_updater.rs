@@ -2,15 +2,18 @@
 use anyhow::{Result, Context};
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
-#[cfg(feature = "toml_edit_enabled")] //toml_edit_enabled
 use toml_edit::{DocumentMut, Item, Table, value};
-#[cfg(feature = "walkdir")]
 use walkdir::WalkDir;
 
 #[cfg(feature = "nix_generation")]
 use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider, DummyCargoMetadataProvider};
-use crate::cargo_edit_api::CargoTomlPatch;
-use crate::cargo_edit_executor::{CargoEditExecutor, RealCargoEditExecutor, DummyCargoEditExecutor};
+use cargo_toml_editor_lib::api::CargoTomlPatch;
+use cargo_edit_lib::CargoMetadataProvider;
+use cargo_toml_editor_lib::executor::CargoEditExecutor;
+#[cfg(feature = "real_toml_edit")]
+use cargo_toml_editor_lib::executor::RealCargoEditExecutor;
+#[cfg(not(feature = "real_toml_edit"))]
+use cargo_toml_editor_lib::executor::DummyCargoEditExecutor;
 
 pub trait CargoTomlUpdater {
     fn generate_deps_from_submodules(&self, project_root: &Path) -> Result<Vec<String>>;

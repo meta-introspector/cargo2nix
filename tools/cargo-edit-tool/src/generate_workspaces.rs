@@ -2,11 +2,11 @@ use anyhow::{Result, Context};
 use std::collections::{HashMap, HashSet};
 use std::fs;
 use std::path::{Path, PathBuf};
-use crate::cli::args::GenerateWorkspacesArgs;
-use crate::cli::args::Cli;
-use crate::analysis::dep_graph_processor::{DepGraphProcessor, RealDepGraphProcessor};
-use crate::analysis::non_vendored_module_finder::{NonVendoredModuleFinder, RealNonVendoredModuleFinder};
-use crate::analysis::dep_graph_data_merger::{DepGraphDataMerger, RealDepGraphDataMerger, MergedCrateInfo};
+use cargo_submodule_tool_lib::cli::args::generate_workspaces::GenerateWorkspacesArgs;
+use cargo_submodule_tool_lib::cli::args::Cli;
+use cargo_submodule_tool_lib::analysis::dep_graph_processor::{DepGraphProcessor, RealDepGraphProcessor};
+use cargo_submodule_tool_lib::analysis::non_vendored_module_finder::{NonVendoredModuleFinder, RealNonVendoredModuleFinder};
+use cargo_submodule_tool_lib::analysis::dep_graph_data_merger::{DepGraphDataMerger, RealDepGraphDataMerger, MergedCrateInfo};
 use walkdir::WalkDir;
 #[cfg(feature = "nix_generation")]
 use cargo_metadata::MetadataCommand;

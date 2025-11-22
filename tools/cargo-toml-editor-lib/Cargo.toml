@@ -5,6 +5,10 @@ edition = "2021"
 
 [dependencies]
 anyhow = { workspace = true }
-toml_edit = { workspace = true }
+toml_edit = { workspace = true, optional = true } # Made optional
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
+
+[features]
+default = [] # No default features, so toml_edit is not enabled by default
+real_toml_edit = ["dep:toml_edit"] # Feature to enable real toml_edit

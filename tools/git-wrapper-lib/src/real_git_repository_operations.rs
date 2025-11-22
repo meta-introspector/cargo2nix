@@ -1,5 +1,21 @@
+#[cfg(feature = "with-anyhow")]
 use anyhow::{Context, Result};
-use std::path::{Path, PathBuf};
+#[cfg(not(feature = "with-anyhow"))]
+use std::error::Error; // For fallback Result
+#[cfg(not(feature = "with-anyhow"))]
+type Result<T> = std::result::Result<T, Box<dyn Error>>; // Fallback for Result
+#[cfg(not(feature = "with-anyhow"))]
+trait Context<T> { // Fallback for anyhow::Context
+    fn context<C>(self, _context: C) -> Result<T> where C: std::fmt::Display + Send + Sync + 'static;
+}
+#[cfg(not(feature = "with-anyhow"))]
+impl<T, E> Context<T> for std::result::Result<T, E> where E: std::error::Error + Send + Sync + 'static {
+    fn context<C>(self, _context: C) -> Result<T> where C: std::fmt::Display + Send + Sync + 'static {
+        self.map_err(|e| Box::new(e) as Box<dyn Error>)
+    }
+}
+
+use std::path::Path;
 use std::sync::Arc;
 use std::process::{Command, Output, ExitStatus};
 use std::os::unix::process::ExitStatusExt; // Needed for ExitStatus::from_raw
@@ -138,3 +154,5 @@ impl GitRepositoryOperations for RealGitRepositoryOperations {
         Ok(submodules_info)
     }
 }
+
+pub mod mock_git_repository_operations;

@@ -85,6 +85,12 @@ name = "anyhow"
 version = "1.0.100"
 
 [[package]]
+name = "anyhow"
+version = "1.0.100"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a23eb6b1614318a8071c9b2521f36b424b2c83db5eb3a0fead4a6c0809af6e61"
+
+[[package]]
 name = "arbitrary"
 version = "1.4.2"
 
@@ -254,7 +260,7 @@ dependencies = [
  "annotate-snippets",
  "anstream",
  "anstyle",
- "anyhow",
+ "anyhow 1.0.100",
  "base64 0.22.1",
  "blake3",
  "cargo-credential",
@@ -332,7 +338,7 @@ dependencies = [
 name = "cargo-credential"
 version = "0.4.9"
 dependencies = [
- "anyhow",
+ "anyhow 1.0.100",
  "libc 0.2.175",
  "serde",
  "serde_json",
@@ -345,7 +351,7 @@ dependencies = [
 name = "cargo-credential-libsecret"
 version = "0.5.4"
 dependencies = [
- "anyhow",
+ "anyhow 1.0.100",
  "cargo-credential",
  "libloading",
 ]
@@ -370,9 +376,32 @@ dependencies = [
 name = "cargo-edit-lib"
 version = "0.1.0"
 dependencies = [
- "anyhow",
+ "anyhow 1.0.100",
  "cargo_metadata",
  "git-wrapper-lib",
+]
+
+[[package]]
+name = "cargo-edit-tool"
+version = "0.1.0"
+dependencies = [
+ "anyhow 1.0.100 (registry+https://github.com/rust-lang/crates.io-index)",
+ "cargo-edit-lib",
+ "cargo-submodule-tool-lib",
+ "cargo-toml-editor-lib",
+ "cargo2nix",
+ "cargo_metadata",
+ "clap",
+ "git-wrapper-lib",
+ "git2",
+ "lazy_static",
+ "nix-generator-lib",
+ "pathdiff",
+ "regex",
+ "serde",
+ "syn-adapter-lib",
+ "toml_edit",
+ "walkdir",
 ]
 
 [[package]]
@@ -387,8 +416,7 @@ dependencies = [
 name = "cargo-submodule-tool-lib"
 version = "0.1.0"
 dependencies = [
- "anyhow",
- "cargo-toml-editor-lib",
+ "anyhow 1.0.100",
  "git-wrapper-lib",
  "nix-generator-lib",
  "serde",
@@ -399,17 +427,16 @@ dependencies = [
 name = "cargo-toml-editor-lib"
 version = "0.1.0"
 dependencies = [
- "anyhow",
+ "anyhow 1.0.100",
  "serde",
  "serde_json",
- "toml_edit",
 ]
 
 [[package]]
 name = "cargo-util"
 version = "0.2.26"
 dependencies = [
- "anyhow",
+ "anyhow 1.0.100",
  "core-foundation 0.10.1",
  "filetime",
  "hex",
@@ -444,7 +471,7 @@ dependencies = [
 name = "cargo2nix"
 version = "0.1.0"
 dependencies = [
- "anyhow",
+ "anyhow 1.0.100",
  "cargo",
  "cargo-platform",
  "clap",
@@ -477,8 +504,9 @@ dependencies = [
 name = "cargo_repo_sync_lib_test_pkg"
 version = "0.1.0"
 dependencies = [
- "anyhow",
+ "anyhow 1.0.100",
  "cargo-edit-lib",
+ "cargo-edit-tool",
  "cargo_metadata",
  "git-wrapper-lib",
  "nix-generator-lib",
@@ -486,10 +514,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "cargo_submodule_tool_lib_test_pkg"
+version = "0.1.0"
+dependencies = [
+ "anyhow 1.0.100",
+ "cargo-submodule-tool-lib",
+]
+
+[[package]]
 name = "cargo_submodule_tool_test_pkg"
 version = "0.1.0"
 dependencies = [
- "anyhow",
+ "anyhow 1.0.100",
  "cargo-submodule-tool-lib",
  "git-wrapper-lib",
 ]
@@ -1164,11 +1200,14 @@ dependencies = [
 name = "git-wrapper-lib"
 version = "0.1.0"
 dependencies = [
- "anyhow",
+ "anyhow 1.0.100",
+ "git2",
+ "hex",
  "pathdiff",
  "regex",
  "serde",
  "serde_json",
+ "sha1 0.11.0-rc.3",
  "toml_edit",
  "walkdir",
 ]
@@ -2628,7 +2667,7 @@ dependencies = [
 name = "nix-generator-lib"
 version = "0.1.0"
 dependencies = [
- "anyhow",
+ "anyhow 1.0.100",
  "cargo-edit-lib",
  "cargo2nix",
  "cargo_metadata",
@@ -3718,6 +3757,16 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-ident",
+]
+
+[[package]]
+name = "syn-adapter-lib"
+version = "0.1.0"
+dependencies = [
+ "anyhow 1.0.100",
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]

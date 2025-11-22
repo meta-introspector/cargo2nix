@@ -4,16 +4,37 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-anyhow = { workspace = true }
+anyhow = { workspace = true, optional = true }
 git2 = { workspace = true, optional=true }
-walkdir = { workspace = true }
-regex = { workspace = true }
-toml_edit = { workspace = true }
-pathdiff = { workspace = true }
+walkdir = { workspace = true, optional = true }
+regex = { workspace = true, optional = true }
+toml_edit = { workspace = true, optional = true }
+pathdiff = { workspace = true, optional = true }
 sha1 = { workspace = true, optional = true }
 hex = { workspace = true, optional = true }
-serde = { workspace = true, features = ["derive"] }
-serde_json = { workspace = true }
+serde = { workspace = true, features = ["derive"], optional = true }
+serde_json = { workspace = true, optional = true }
 
 [features]
-git2 = ["dep:git2", "dep:sha1", "dep:hex"]
+default = [
+    "with-anyhow",
+    "with-walkdir",
+    "with-regex",
+    "with-toml_edit",
+    "with-pathdiff",
+    "with-serde",
+    "with-serde_json",
+    "sha1",
+    "hex",
+]
+with-anyhow = ["dep:anyhow"]
+with-walkdir = ["dep:walkdir"]
+with-regex = ["dep:regex"]
+with-toml_edit = ["dep:toml_edit"]
+with-pathdiff = ["dep:pathdiff"]
+with-serde = ["dep:serde"]
+with-serde_json = ["dep:serde_json"]
+git2 = ["dep:git2", "sha1", "hex"]
+sha1 = ["dep:sha1"]
+hex = ["dep:hex"]
+with-trace = []

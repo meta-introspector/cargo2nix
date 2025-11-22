@@ -3,14 +3,25 @@ use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 
 use crate::cli::args::SubmoduleStatusArgs;
+use crate::executors::GitExecutor; // Use our re-exported GitExecutor
+#[cfg(feature = "git_enabled")]
 use git_wrapper_lib::git_traits::GhExecutor;
+#[cfg(feature = "git_enabled")]
 use git_wrapper_lib::pure_rust_git_executor::PureRustGitExecutor;
+#[cfg(feature = "git_enabled")]
 use git_wrapper_lib::system_git_executor::SystemGitExecutor; // Added for non-git2 case
-use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Added for default dummy git
-use git_wrapper_lib::git_traits::GitExecutor;
-use git_wrapper_lib::execv::RealExecv;
+#[cfg(not(feature = "git_enabled"))]
+use crate::executors::DummyGitExecutor; // Use our dummy GitExecutor
+#[cfg(feature = "git_enabled")]
+use crate::executors::RealExecv; // Use our re-exported RealExecv
+#[cfg(not(feature = "git_enabled"))]
+use crate::executors::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
 use crate::fs_cache::RealFileSystemStat; // Still in cargo-submodule-tool-lib
-use git_wrapper_lib::git_types::RollupLock;
+#[cfg(feature = "git_enabled")]
+use crate::executors::RollupLock; // Use our re-exported RollupLock
+#[cfg(not(feature = "git_enabled"))]
+use crate::executors::DummyRollupLock as RollupLock; // Use dummy for RollupLock when git is not enabled
+
 
 pub fn run_submodule_status_command(args: &SubmoduleStatusArgs) -> Result<()> {
     let root_dir = args.root_dir.canonicalize().context("Failed to canonicalize root_dir")?;
@@ -22,13 +33,13 @@ pub fn run_submodule_status_command(args: &SubmoduleStatusArgs) -> Result<()> {
 
     // Initialize GitExecutor
     let git_executor: Arc<dyn GitExecutor + Send + Sync> = {
-        #[cfg(feature = "git2")]
+        #[cfg(feature = "git_enabled")]
         {
             Arc::new(PureRustGitExecutor::new(rollup_lock_arc.clone(), root_dir.clone()))
         }
-        #[cfg(not(feature = "git2"))]
+        #[cfg(not(feature = "git_enabled"))]
         {
-            Arc::new(DummyGitExecutor::new())
+            Arc::new(DummyGitExecutor) // Use the dummy struct directly
         }
     };
 

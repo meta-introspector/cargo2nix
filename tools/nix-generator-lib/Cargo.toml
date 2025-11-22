@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 anyhow = { workspace = true }
 cargo_metadata = { workspace = true }
-cargo2nix = { path = "../../crates/cargo2nix" }
+#cargo2nix = { path = "../../crates/cargo2nix" }
 serde = { workspace = true, features = ["derive"] } # Added
 cargo-edit-lib = { path = "../cargo-edit-lib" }
 git-wrapper-lib = { path = "../git-wrapper-lib" }

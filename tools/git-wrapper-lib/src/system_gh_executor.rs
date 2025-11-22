@@ -1,5 +1,21 @@
+#[cfg(feature = "with-anyhow")]
 use anyhow::{Context, Result};
-use std::path::{Path, PathBuf};
+#[cfg(not(feature = "with-anyhow"))]
+use std::error::Error; // For fallback Result
+#[cfg(not(feature = "with-anyhow"))]
+type Result<T> = std::result::Result<T, Box<dyn Error>>; // Fallback for Result
+#[cfg(not(feature = "with-anyhow"))]
+trait Context<T> { // Fallback for anyhow::Context
+    fn context<C>(self, _context: C) -> Result<T> where C: std::fmt::Display + Send + Sync + 'static;
+}
+#[cfg(not(feature = "with-anyhow"))]
+impl<T, E> Context<T> for std::result::Result<T, E> where E: std::error::Error + Send + Sync + 'static {
+    fn context<C>(self, _context: C) -> Result<T> where C: std::fmt::Display + Send + Sync + 'static {
+        self.map_err(|e| Box::new(e) as Box<dyn Error>)
+    }
+}
+
+use std::path::PathBuf;
 use std::sync::Arc;
 use std::ffi::OsStr;
 
@@ -45,7 +61,10 @@ impl GhExecutor for SystemGhExecutor {
                 repo_url,
                 String::from_utf8_lossy(&fork_output.stderr)
             );
+            #[cfg(feature = "with-anyhow")]
             anyhow::bail!("Forking failed for {}", repo_url);
+            #[cfg(not(feature = "with-anyhow"))]
+            return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, format!("Forking failed for {}", repo_url))));
         }
         println!("Successfully forked {}.", repo_url);
         Ok(())
@@ -70,3 +89,4 @@ impl GhExecutor for SystemGhExecutor {
         Ok(gh_repo_check_output.status.success() && !String::from_utf8_lossy(&gh_repo_check_output.stdout).trim().is_empty())
     }
 }
+pub mod mock_gh_executor;

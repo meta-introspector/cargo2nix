@@ -5,7 +5,7 @@ use regex::Regex;
 #[cfg(feature = "nix_generation")] // Conditionally compile lazy_static
 use lazy_static::lazy_static; // Add lazy_static import
 
-use git_wrapper_lib::git_types::MergedCrateInfo; // Import MergedCrateInfo from git_wrapper_lib
+use crate::analysis::dep_graph_data_merger::MergedCrateInfo;
 
 pub trait DepGraphProcessor {
     fn process_dep_graph(&self, dot_content: &str) -> Result<HashMap<String, MergedCrateInfo>>;

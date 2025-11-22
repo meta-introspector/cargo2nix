@@ -1,4 +1,8 @@
+#[cfg(feature = "with-anyhow")]
 use anyhow::Result;
+#[cfg(not(feature = "with-anyhow"))]
+type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>; // Fallback for Result
+
 use std::path::{Path, PathBuf};
 use std::any::Any;
 use std::sync::{Arc, Mutex};

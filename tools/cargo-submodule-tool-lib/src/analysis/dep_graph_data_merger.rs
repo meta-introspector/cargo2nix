@@ -1,8 +1,10 @@
 use anyhow::Result;
 use std::collections::HashMap;
+#[cfg(feature = "serde")]
 use serde::{Serialize, Deserialize};
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Debug, PartialEq, Eq, Clone)]
 pub struct MergedCrateInfo {
     pub layer: i32,
     pub usage_count: u32,

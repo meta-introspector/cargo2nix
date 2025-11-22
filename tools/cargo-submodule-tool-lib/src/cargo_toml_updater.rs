@@ -1,17 +1,15 @@
-use anyhow::{Result, Context};
-use std::collections::HashMap;
-use std::path::{Path, PathBuf};
-use std::fs;
-use regex::Regex;
-use toml_edit::{DocumentMut, Item, Table, value};
+use anyhow::{anyhow, Result};
+use std::path::Path;
 
 pub trait CargoTomlUpdater {
     fn generate_deps_from_names_txt(&self, names_txt_path: &Path, project_root: &Path) -> Result<Vec<String>>;
     fn update_cargo_toml(&self, cargo_toml_path: &Path, generated_deps_content: &[String]) -> Result<()>;
 }
 
+#[cfg(all(feature = "toml_edit_enabled", feature = "regex_enabled"))]
 pub struct RealCargoTomlUpdater;
 
+#[cfg(all(feature = "toml_edit_enabled", feature = "regex_enabled"))]
 impl CargoTomlUpdater for RealCargoTomlUpdater {
     fn generate_deps_from_names_txt(&self, names_txt_path: &Path, project_root: &Path) -> Result<Vec<String>> {
         let mut candidate_entries: HashMap<String, (PathBuf, usize)> = HashMap::new(); // { crate_name: (path_buf, path_length) }
@@ -96,7 +94,7 @@ impl CargoTomlUpdater for RealCargoTomlUpdater {
         workspace_deps_table.clear();
         for dep_line in generated_deps_content {
             // Parse the dependency line to extract crate name and path
-            let dep_re = Regex::new(r"(\S+)\s*=\s*\{\s*path\s*=\s*\"(.+)\"\s*\}")?;
+            let dep_re = Regex::new(r"(\S+)\s*=\s*{\s*path\s*=\s*\"(.+)\"\s*}")?;
             if let Some(captures) = dep_re.captures(dep_line) {
                 let crate_name = captures[1].to_string();
                 let path_str = captures[2].to_string();
@@ -113,5 +111,19 @@ impl CargoTomlUpdater for RealCargoTomlUpdater {
             .with_context(|| format!("Failed to write updated Cargo.toml to {}", cargo_toml_path.display()))?;
 
         Ok(())
+    }
+}
+
+#[cfg(not(all(feature = "toml_edit_enabled", feature = "regex_enabled")))]
+pub struct RealCargoTomlUpdater;
+
+#[cfg(not(all(feature = "toml_edit_enabled", feature = "regex_enabled")))]
+impl CargoTomlUpdater for RealCargoTomlUpdater {
+    fn generate_deps_from_names_txt(&self, _names_txt_path: &Path, _project_root: &Path) -> Result<Vec<String>> {
+        Err(anyhow!("`generate_deps_from_names_txt` is not available without `toml_edit_enabled` and `regex_enabled` features."))
+    }
+
+    fn update_cargo_toml(&self, _cargo_toml_path: &Path, _generated_deps_content: &[String]) -> Result<()> {
+        Err(anyhow!("`update_cargo_toml` is not available without `toml_edit_enabled` and `regex_enabled` features."))
     }
 }

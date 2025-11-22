@@ -1,7 +1,24 @@
+#[cfg(feature = "with-anyhow")]
 use anyhow::{Result, Context};
+#[cfg(not(feature = "with-anyhow"))]
+use std::error::Error; // For fallback Result
+#[cfg(not(feature = "with-anyhow"))]
+type Result<T> = std::result::Result<T, Box<dyn Error>>; // Fallback for Result
+#[cfg(not(feature = "with-anyhow"))]
+trait Context<T> { // Fallback for anyhow::Context
+    fn context<C>(self, _context: C) -> Result<T> where C: std::fmt::Display + Send + Sync + 'static;
+}
+#[cfg(not(feature = "with-anyhow"))]
+impl<T, E> Context<T> for std::result::Result<T, E> where E: std::error::Error + Send + Sync + 'static {
+    fn context<C>(self, _context: C) -> Result<T> where C: std::fmt::Display + Send + Sync + 'static {
+        self.map_err(|e| Box::new(e) as Box<dyn Error>)
+    }
+}
+
 use std::path::{Path, PathBuf};
 use std::any::Any;
 use std::ffi::OsStr;
+use std::sync::Arc; // Added
 
 use crate::git_types::SubmoduleStat; // SubmoduleInfo is not used
 use crate::git_traits::Execv;
@@ -58,11 +75,11 @@ impl GitAdapter for MockGitAdapter {
 
 /// Shell implementation of `GitAdapter` that uses external `git` commands.
 pub struct ShellGitAdapter {
-    execv: Box<dyn Execv>,
+    execv: Arc<dyn Execv + Send + Sync>, // Changed from Box to Arc
 }
 
 impl ShellGitAdapter {
-    pub fn new(execv: Box<dyn Execv>) -> Self {
+    pub fn new(execv: Arc<dyn Execv + Send + Sync>) -> Self { // Changed from Box to Arc
         ShellGitAdapter { execv }
     }
 }

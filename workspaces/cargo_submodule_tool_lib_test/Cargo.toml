@@ -1,0 +1,9 @@
+[package]
+name = "cargo_submodule_tool_lib_test_pkg"
+version = "0.1.0"
+edition = "2024"
+resolver = "3"
+
+[dependencies]
+cargo-submodule-tool-lib = { path = "../../tools/cargo-submodule-tool-lib", default-features = false, features = [] }
+anyhow = { path = "../../submodules/anyhow" }

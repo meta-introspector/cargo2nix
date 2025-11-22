@@ -1,4 +1,8 @@
+#[cfg(feature = "with-anyhow")]
 use anyhow::Result;
+#[cfg(not(feature = "with-anyhow"))]
+type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>; // Fallback for Result
+
 use std::ffi::OsStr;
 use std::path::Path;
 use std::process::{Command, Output};
@@ -17,3 +21,5 @@ impl Execv for RealExecv {
         Ok(command.output()?)
     }
 }
+
+pub mod mock_execv;

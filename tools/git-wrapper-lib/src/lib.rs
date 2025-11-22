@@ -10,3 +10,7 @@ pub mod system_gh_executor;
 pub mod real_git_repository_operations;
 pub mod executors; // New
 pub mod git_adapters; // New
+pub mod git_wrapper_lib_trait; // Added
+pub use git_wrapper_lib_trait::GitWrapperLibTrait; // Added
+pub mod real_git_wrapper_lib; // Added
+pub mod mock_git_wrapper_lib; // Added

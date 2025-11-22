@@ -1,4 +1,5 @@
 use cargo_edit_lib::{CargoEditAdapter, CargoMetadataProvider};
+use cargo_edit_tool::cargo_metadata_provider::RealCargoMetadataProvider;
 use git_wrapper_lib::git_adapters::GitAdapter;
 use git_wrapper_lib::system_git_executor::SystemGitExecutor;
 use git_wrapper_lib::git_types::RollupLock;
@@ -9,28 +10,6 @@ use cargo_metadata::Metadata; // Only import Metadata
 use cargo_metadata::camino::Utf8PathBuf; // Corrected import
 use serde_json;
 
-// Dummy implementation of CargoMetadataProvider for testing
-struct DummyCargoMetadataProvider;
-
-impl CargoMetadataProvider for DummyCargoMetadataProvider {
-    fn get_metadata(&self, _cargo_toml_path: &Path) -> Result<Metadata> {
-        // Return a minimal, valid Metadata object by deserializing a JSON string
-        let json_str = r#"{
-            "packages": [],
-            "workspace_members": [],
-            "resolve": null,
-            "workspace_root": "/",
-            "target_directory": "/tmp",
-            "version": 1,
-            "workspace_default_members": [],
-            "build_script_overrides": {},
-            "build_directory": null,
-            "custom_metadata": null
-        }"#;
-        let metadata: Metadata = serde_json::from_str(json_str)?;
-        Ok(metadata)
-    }
-}
 
 fn main() -> Result<()> {
     println!("cargo_repo_sync_lib_test_pkg is a test package.");
@@ -46,7 +25,7 @@ fn main() -> Result<()> {
         rollup_lock,
         root_dir.clone(),
     ));
-    let cargo_metadata_provider: Box<dyn CargoMetadataProvider> = Box::new(DummyCargoMetadataProvider);
+    let cargo_metadata_provider: Box<dyn CargoMetadataProvider> = Box::new(RealCargoMetadataProvider);
 
     // Test GitAdapter
     println!("\n--- Testing GitAdapter ---");

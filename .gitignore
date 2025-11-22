@@ -27,3 +27,5 @@ submodules/todo.txt
 # Emacs lock files (for some configurations)
 .#*
 vendor-hide
+feature_permutation_cache.json
+feature_permutation_report.json
