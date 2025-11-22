@@ -20,7 +20,7 @@ serde_json = { workspace = true }
 
 [dev-dependencies]
 # For testing the adapter itself
-tempfile = "3.10.1"
+tempfile.workspace = true
 
 [build-dependencies]
 # No build.rs for this tool itself, but might be needed for adapted crates
