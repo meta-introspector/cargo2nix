@@ -241,9 +241,6 @@
 [submodule "submodules/aws-lc-rs"]
 	path = submodules/aws-lc-rs
 	url = https://github.com/meta-introspector/aws-lc-rs.git
-[submodule "submodules/criterion"]
-	path = submodules/criterion
-	url = https://github.com/meta-introspector/criterion.git
 [submodule "submodules/bitflags"]
 	path = submodules/bitflags
 	url = https://github.com/meta-introspector/bitflags.git
@@ -918,7 +915,7 @@
 	url = https://github.com/meta-introspector/darling
 [submodule "submodules/diff"]
 	path = submodules/diff
-	url = https://github.com/meta-introspector/diff.git
+	url = https://github.com/meta-introspector/diff-rs
 [submodule "submodules/displaydoc"]
 	path = submodules/displaydoc
 	url = https://github.com/meta-introspector/displaydoc
@@ -1584,7 +1581,7 @@
 	url = https://github.com/anza-xyz/rustc-build-sysroot
 [submodule "tools/rust-bootstrap-nix"]
 	path = tools/rust-bootstrap-nix
-	url = /data/data/com.termux.nix/files/home/rust-bootstrap-nix/
+	url = https://github.com/meta-introspector/rust-bootstrap-nix/
 [submodule "tools/eigenvalues"]
 	path = tools/eigenvalues
 	url = https://github.com/meta-introspector/eigenvalues.git
