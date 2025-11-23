@@ -1,7 +1,6 @@
 use thiserror::Error;
 use std::io;
 use toml::de::Error as TomlDeError;
-use syn::Error as SynError;
 
 #[derive(Error, Debug)]
 pub enum AppError {
@@ -9,10 +8,10 @@ pub enum AppError {
     Io(#[from] io::Error),
     #[error("TOML deserialization error: {0}")]
     TomlDe(#[from] TomlDeError),
-    #[error("Syn error: {0}")]
-    Syn(#[from] SynError),
-    #[error("Serde JSON error: {0}")]
-    Serde(#[from] serde_json::Error),
-    #[error("Custom error: {0}")]
-    Custom(String),
+    #[error("Walkdir error: {0}")]
+    Walkdir(#[from] walkdir::Error),
+    #[error("JSON serialization error: {0}")]
+    Json(#[from] serde_json::Error),
+    #[error("Other error: {0}")]
+    Other(String),
 }

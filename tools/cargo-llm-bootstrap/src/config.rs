@@ -5,6 +5,7 @@ use toml;
 
 use crate::traits::ConfigHandler;
 use crate::error::AppError;
+use crate::rustc_options::RustcOptions; // Import RustcOptions
 
 #[derive(Debug, Default, Deserialize, Serialize, Clone)]
 pub struct CompilerConfig {
@@ -20,6 +21,7 @@ pub struct CompilerConfig {
     pub cargo_path: Option<PathBuf>,
     #[serde(rename = "build-dir")]
     pub build_dir: Option<PathBuf>,
+    pub rustc_options: RustcOptions, // Add RustcOptions field
     // Add other relevant fields from AppConfig as needed, but keep it minimal initially
 }
 
@@ -55,6 +57,8 @@ impl ConfigHandler<CompilerConfig> for CompilerConfig {
         if let Some(build_dir) = overlay.build_dir {
             base.build_dir = Some(build_dir);
         }
+        // Merge rustc_options
+        base.rustc_options.unpretty_expanded = overlay.rustc_options.unpretty_expanded;
         base
     }
 }

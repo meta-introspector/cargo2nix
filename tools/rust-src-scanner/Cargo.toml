@@ -1,0 +1,25 @@
+[package]
+name = "rust-src-scanner"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+chrono = { version = "0.4", features = ["serde"] }
+walkdir = "2.3"
+clap = { version = "4.0", features = ["derive"] }
+toml = "0.8" # Added for Cargo.toml parsing
+syn = { version = "2.0", features = ["full", "extra-traits", "visit"] } # For parsing Rust code
+quote = "1.0" # Often used with syn for code generation
+proc-macro2 = { version = "1.0", features = ["proc-macro", "span-locations"] } # Explicitly add proc-macro2 with span-locations
+sha2 = "0.10" # For hash_directory
+thiserror = "1.0" # For custom error types
+petgraph = "0.6" # For building and traversing dependency graphs
+hex = "0.4"
+
+# Future dependencies for advanced semantic analysis, LMFDB integration,
+# and eigenmatrix construction (e.g., nalgebra, petgraph) will be added here.
+
+[features]
+disable-eigenvector = []

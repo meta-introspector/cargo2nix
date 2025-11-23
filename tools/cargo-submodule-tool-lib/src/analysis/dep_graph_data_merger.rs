@@ -1,3 +1,4 @@
+#[cfg(feature = "anyhow_enabled")]
 use anyhow::Result;
 use std::collections::HashMap;
 

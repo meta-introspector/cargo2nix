@@ -1,4 +1,6 @@
+#[cfg(feature = "tool_traits_lib_enabled")]
 use crate::analysis::dep_graph_data_merger::MergedCrateInfo;
+#[cfg(feature = "anyhow_enabled")]
 use anyhow::{anyhow, Result};
 use std::collections::HashMap; // Corrected import
 

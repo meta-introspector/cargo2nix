@@ -1,4 +1,4 @@
-.PHONY: all build cargo2nix nix-build clean generate-cargo-nix
+.PHONY: all build cargo2nix nix-build clean generate-cargo-nix run-rust-src-scanner
 
 update.txt:
 	cargo update --recursive --verbose  > update.txt 2>&1
@@ -109,6 +109,13 @@ clean:
 	rm -f Cargo.nix
 	cargo clean
 	nix store gc --optimise
+
+.PHONY: run-rust-src-scanner
+run-rust-src-scanner:
+	@echo "Running rust-src-scanner..."
+	cd tools/rust-src-scanner && cargo run --package rust-src-scanner -- \
+		--rust-src-path /path/to/your/rust/source \
+		--output-dir /path/to/your/output/directory
 
 .PHONY: process-repolist
 process-repolist:

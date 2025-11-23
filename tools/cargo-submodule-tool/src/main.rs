@@ -6,6 +6,7 @@ use std::{
     path::{Path, PathBuf},
     sync::{Arc, Mutex},
 };
+#[cfg(feature = "toml_edit_enabled")]
 use toml_edit::DocumentMut;
 
 use cargo_submodule_tool_lib::cli;

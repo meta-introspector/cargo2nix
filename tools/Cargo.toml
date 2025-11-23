@@ -35,7 +35,8 @@ members = [
     "syn-adapter-lib",
     "feature-permutation-builder",
     "cargo-feature-adapter",
-    "cargo-llm-bootstrap",
+    "cargo-llm-bootstrap", "rust-src-scanner",
+    "graph-petal-generator", # Add this line
 ]
 exclude = []
 
