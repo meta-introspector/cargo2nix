@@ -22,16 +22,16 @@ pub struct SemanticId {
     pub unique_idx: usize,
     pub weight: f64,
     pub depth: usize,
-    pub lmfdb_match: Option<String>, // Simplified for now
-    pub type_signature_hash: u64,
-    pub expression_hash: u64,
+    pub lmfdb_id: Option<String>,
+    pub ast_types_count: u64,
+    pub expressions_count: u64,
 }
 
 impl std::fmt::Display for SemanticId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "ID:{}-W:{:.2}-D:{}-LMFDB:{:?}-Types:{}-Exprs:{}",
-               self.unique_idx, self.weight, self.depth, self.lmfdb_match,
-               self.type_signature_hash, self.expression_hash)
+               self.unique_idx, self.weight, self.depth, self.lmfdb_id,
+               self.ast_types_count, self.expressions_count)
     }
 }
 
