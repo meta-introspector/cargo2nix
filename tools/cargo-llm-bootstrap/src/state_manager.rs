@@ -7,7 +7,7 @@ use serde::{Serialize, Deserialize};
 use serde_json;
 
 use crate::error::AppError;
-// Removed: use crate::hasher::hash_directory; // Import the hash_directory function
+use crate::results::CompilationResult; // Import CompilationResult
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone, Copy)]
 pub enum FileStatus {
@@ -20,8 +20,13 @@ pub enum FileStatus {
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct FileEntry {
     pub path: PathBuf,
+    #[serde(default = "default_file_status")]
     pub status: FileStatus,
     pub last_attempt_timestamp: Option<DateTime<Utc>>,
+}
+
+fn default_file_status() -> FileStatus {
+    FileStatus::Pending
 }
 
 #[derive(Debug, Serialize, Deserialize, Default)]
@@ -36,6 +41,7 @@ pub struct State {
     pub last_saved_timestamp: DateTime<Utc>,
     pub output_dir: PathBuf, // Directory where compilation results are initially saved
     pub done_dir: PathBuf,   // Directory for successfully processed files
+    pub cache: HashMap<PathBuf, CompilationResult>, // New cache field
 }
 
 impl State {
@@ -45,15 +51,35 @@ impl State {
         if main_state_path.exists() {
             println!("Loading main state from: {:?}", main_state_path.display());
             let content = fs::read_to_string(main_state_path).map_err(AppError::Io)?;
-            let mut loaded_state: State = serde_json::from_str(&content).map_err(AppError::Serde)?;
-
-            // Ensure output_dir and done_dir are updated if they changed
-            loaded_state.output_dir = output_dir;
-            loaded_state.done_dir = done_dir;
-
-            Ok(loaded_state)
+            match serde_json::from_str::<State>(&content) {
+                Ok(mut loaded_state) => {
+                    // Ensure output_dir and done_dir are updated if they changed
+                    loaded_state.output_dir = output_dir;
+                    loaded_state.done_dir = done_dir;
+                    Ok(loaded_state)
+                },
+                Err(e) => {
+                    println!("Warning: Failed to parse main state file at {:?}: {}. Returning default state.", main_state_path, e);
+                    Ok(State {
+                        rust_src_path_hash: String::new(),
+                        index_file_paths: Vec::new(),
+                        last_saved_timestamp: Utc::now(),
+                        output_dir,
+                        done_dir,
+                        cache: HashMap::new(), // Initialize cache
+                    })
+                }
+            }
         } else {
-            Err(AppError::Custom(format!("Main state file not found: {:?}", main_state_path)))
+            println!("Main state file not found at {:?}. Returning default state.", main_state_path);
+            Ok(State {
+                rust_src_path_hash: String::new(),
+                index_file_paths: Vec::new(),
+                last_saved_timestamp: Utc::now(),
+                output_dir,
+                done_dir,
+                cache: HashMap::new(), // Initialize cache
+            })
         }
     }
 
@@ -66,16 +92,21 @@ impl State {
     pub fn update_file_status(&mut self, file_path: &Path, status: FileStatus) -> Result<(), AppError> {
         for index_path in &self.index_file_paths {
             let content = fs::read_to_string(index_path).map_err(AppError::Io)?;
-            let mut file_index: FileIndex = serde_json::from_str(&content).map_err(AppError::Serde)?;
+            match serde_json::from_str::<FileIndex>(&content) {
+                Ok(mut file_index) => {
+                    if let Some(entry) = file_index.files.get_mut(file_path) {
+                        entry.status = status;
+                        entry.last_attempt_timestamp = Some(Utc::now());
+                        self.last_saved_timestamp = Utc::now(); // Update main state timestamp
 
-            if let Some(entry) = file_index.files.get_mut(file_path) {
-                entry.status = status;
-                entry.last_attempt_timestamp = Some(Utc::now());
-                self.last_saved_timestamp = Utc::now(); // Update main state timestamp
-
-                let updated_content = serde_json::to_string_pretty(&file_index).map_err(AppError::Serde)?;
-                fs::write(index_path, updated_content).map_err(AppError::Io)?;
-                return Ok(());
+                        let updated_content = serde_json::to_string_pretty(&file_index).map_err(AppError::Serde)?;
+                        fs::write(index_path, updated_content).map_err(AppError::Io)?;
+                        return Ok(());
+                    }
+                },
+                Err(e) => {
+                    println!("Warning: Failed to parse file index at {:?}: {}. Skipping this index file for update.", index_path, e);
+                }
             }
         }
         Err(AppError::Custom(format!("File not found in state: {:?}", file_path)))
@@ -85,14 +116,19 @@ impl State {
         let mut pending_files = Vec::new();
         for index_path in &self.index_file_paths {
             let content = fs::read_to_string(index_path).map_err(AppError::Io)?;
-            let file_index: FileIndex = serde_json::from_str(&content).map_err(AppError::Serde)?;
-
-            pending_files.extend(
-                file_index.files
-                    .values()
-                    .filter(|entry| entry.status == FileStatus::Pending || entry.status == FileStatus::Failed)
-                    .map(|entry| entry.path.clone())
-            );
+            match serde_json::from_str::<FileIndex>(&content) {
+                Ok(file_index) => {
+                    pending_files.extend(
+                        file_index.files
+                            .values()
+                            .filter(|entry| entry.status == FileStatus::Pending || entry.status == FileStatus::Failed)
+                            .map(|entry| entry.path.clone())
+                    );
+                },
+                Err(e) => {
+                    println!("Warning: Failed to parse file index at {:?}: {}. Skipping this index file.", index_path, e);
+                }
+            }
         }
         Ok(pending_files)
     }

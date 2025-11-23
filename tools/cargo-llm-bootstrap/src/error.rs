@@ -13,6 +13,8 @@ pub enum AppError {
     Syn(#[from] SynError),
     #[error("Serde JSON error: {0}")]
     Serde(#[from] serde_json::Error),
+    #[error("Walkdir error: {0}")]
+    Walkdir(#[from] walkdir::Error),
     #[error("Custom error: {0}")]
     Custom(String),
 }

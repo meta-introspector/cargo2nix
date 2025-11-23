@@ -86,60 +86,39 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
-    // --- Layering Logic (BFS) ---
+    // --- NEW Layering Logic (Reverse BFS from leaves) ---
     let mut crate_layers: HashMap<String, usize> = HashMap::new();
-    let mut queue: VecDeque<(NodeIndex, usize)> = VecDeque::new();
-    let mut visited: HashSet<NodeIndex> = HashSet::new();
+    let mut queue: VecDeque<NodeIndex> = VecDeque::new();
 
-    // Determine root nodes (nodes with no incoming edges or specified root_crate)
-    let mut root_nodes = Vec::new();
-    if let Some(root_crate_name) = &args.root_crate {
-        if let Some(&root_idx) = package_name_to_node_index.get(root_crate_name) {
-            root_nodes.push(root_idx);
-            println!("Starting layering from specified root crate: {}", root_crate_name);
-        } else {
-            eprintln!("Warning: Specified root crate '{}' not found in graph. Falling back to all nodes with no incoming edges.", root_crate_name);
-        }
-    }
-
-    if root_nodes.is_empty() {
-        for node_idx in graph.node_indices() {
-            if graph.neighbors_directed(node_idx, petgraph::Direction::Incoming).count() == 0 {
-                root_nodes.push(node_idx);
-            }
-        }
-        println!("Starting layering from {} root nodes (no incoming edges).", root_nodes.len());
-    }
-
-    for &root_idx in &root_nodes {
-        if visited.insert(root_idx) {
-            queue.push_back((root_idx, 0));
-            crate_layers.insert(graph[root_idx].clone(), 0);
-        }
-    }
-
-    while let Some((current_node_idx, current_layer)) = queue.pop_front() {
-        for neighbor_idx in graph.neighbors_directed(current_node_idx, petgraph::Direction::Outgoing) {
-            if visited.insert(neighbor_idx) {
-                let neighbor_name = graph[neighbor_idx].clone();
-                let new_layer = current_layer + 1;
-                crate_layers.insert(neighbor_name.clone(), new_layer);
-                queue.push_back((neighbor_idx, new_layer));
-            }
-        }
-    }
-
-    // --- Identify Leaf Crates ---
-    let mut leaf_crates: Vec<String> = Vec::new();
+    // 1. Identify true leaf nodes (nodes with no outgoing edges) and initialize their layer to 0
     for node_idx in graph.node_indices() {
         if graph.neighbors_directed(node_idx, petgraph::Direction::Outgoing).count() == 0 {
-            leaf_crates.push(graph[node_idx].clone());
+            let crate_name = graph[node_idx].clone();
+            crate_layers.insert(crate_name, 0);
+            queue.push_back(node_idx);
         }
     }
-    leaf_crates.sort(); // Sort alphabetically for consistent output
+
+    // 2. Perform a BFS-like traversal from leaves upwards
+    while let Some(current_node_idx) = queue.pop_front() {
+        let current_layer = *crate_layers.get(&graph[current_node_idx]).unwrap_or(&0); // Should always be present for nodes in queue
+
+        // Iterate through predecessors (nodes that point to current_node_idx)
+        for predecessor_idx in graph.neighbors_directed(current_node_idx, petgraph::Direction::Incoming) {
+            let predecessor_name = graph[predecessor_idx].clone();
+            let potential_new_layer = current_layer + 1;
+
+            let current_predecessor_layer = *crate_layers.get(&predecessor_name).unwrap_or(&0); // Default to 0 if not yet assigned
+
+            if potential_new_layer > current_predecessor_layer {
+                crate_layers.insert(predecessor_name.clone(), potential_new_layer);
+                queue.push_back(predecessor_idx); // Add to queue to process its predecessors
+            }
+        }
+    }
 
     // --- Output Results ---
-    println!("\n--- Layered Graph Analysis ---");
+    println!("\n--- Layered Graph Analysis (Leaves as Layer 0) ---");
     let mut layers_output: HashMap<usize, Vec<String>> = HashMap::new();
     for (crate_name, layer) in &crate_layers {
         layers_output.entry(*layer).or_default().push(crate_name.clone());
@@ -156,7 +135,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
-    println!("\n--- Leaf Crates ---");
+    // --- Identify Leaf Crates (still useful for verification) ---
+    let mut leaf_crates: Vec<String> = Vec::new();
+    for node_idx in graph.node_indices() {
+        if graph.neighbors_directed(node_idx, petgraph::Direction::Outgoing).count() == 0 {
+            leaf_crates.push(graph[node_idx].clone());
+        }
+    }
+    leaf_crates.sort(); // Sort alphabetically for consistent output
+
+    println!("\n--- Original Leaf Crates (Layer 0 in new analysis) ---");
     for leaf in leaf_crates {
         println!("  - {}", leaf);
     }

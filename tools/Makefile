@@ -111,3 +111,10 @@ generate-build-plan: run-rust-src-scanner
 		--output-path ../cargo-llm-bootstrap/compilation_results/layered_graph.json \
 		--root-crate rustc-main
 	@echo "Build plan generated and layered graph saved to ../cargo-llm-bootstrap/compilation_results/layered_graph.json"
+
+.PHONY: rust-solana-level-10
+rust-solana-level-10:
+	@echo "Running cargo-llm-bootstrap for level 10 (dry run)..."
+	cd cargo-llm-bootstrap && cargo run --package cargo-llm-bootstrap -- \
+		--rust-src-path $(RUST_SRC_PATH) \
+		--level 10
