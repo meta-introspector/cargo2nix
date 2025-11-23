@@ -621,7 +621,7 @@
 	url = https://github.com/meta-introspector/lazycell.git
 [submodule "submodules/cast"]
 	path = submodules/cast
-	url = https://github.com/meta-introspector/cast.git
+	url = https://github.com/meta-introspector/cast.rs
 [submodule "submodules/hash32"]
 	path = submodules/hash32
 	url = https://github.com/meta-introspector/hash32.git
@@ -1588,3 +1588,5 @@
 [submodule "/data/data/com.termux.nix/files/home/experiments/pick-up-nix/vendor/nix/cargo2nix/tools/eigenvalues"]
 	path = /data/data/com.termux.nix/files/home/experiments/pick-up-nix/vendor/nix/cargo2nix/tools/eigenvalues
 	url = https://github.com/meta-introspector/eigenvalues.git
+[submodule "cast"]
+	url = https://github.com/meta-introspector/cast.rs
