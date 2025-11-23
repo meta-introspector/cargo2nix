@@ -1,27 +1,36 @@
-#[cfg(feature = "with-anyhow")]
-use anyhow::{Result, Context};
-#[cfg(not(feature = "with-anyhow"))]
+#[cfg(feature = "anyhow_enabled")]
+use anyhow::{Context, Result};
+#[cfg(not(feature = "anyhow_enabled"))]
 use std::error::Error; // For fallback Result
-#[cfg(not(feature = "with-anyhow"))]
+#[cfg(not(feature = "anyhow_enabled"))]
 type Result<T> = std::result::Result<T, Box<dyn Error>>; // Fallback for Result
-#[cfg(not(feature = "with-anyhow"))]
-trait Context<T> { // Fallback for anyhow::Context
-    fn context<C>(self, _context: C) -> Result<T> where C: std::fmt::Display + Send + Sync + 'static;
+#[cfg(not(feature = "anyhow_enabled"))]
+trait Context<T> {
+    // Fallback for anyhow::Context
+    fn context<C>(self, _context: C) -> Result<T>
+    where
+        C: std::fmt::Display + Send + Sync + 'static;
 }
-#[cfg(not(feature = "with-anyhow"))]
-impl<T, E> Context<T> for std::result::Result<T, E> where E: std::error::Error + Send + Sync + 'static {
-    fn context<C>(self, _context: C) -> Result<T> where C: std::fmt::Display + Send + Sync + 'static {
+#[cfg(not(feature = "anyhow_enabled"))]
+impl<T, E> Context<T> for std::result::Result<T, E>
+where
+    E: std::error::Error + Send + Sync + 'static,
+{
+    fn context<C>(self, _context: C) -> Result<T>
+    where
+        C: std::fmt::Display + Send + Sync + 'static,
+    {
         self.map_err(|e| Box::new(e) as Box<dyn Error>)
     }
 }
 
-use std::path::{Path, PathBuf};
 use std::any::Any;
 use std::ffi::OsStr;
+use std::path::{Path, PathBuf};
 use std::sync::Arc; // Added
 
-use crate::git_types::SubmoduleStat; // SubmoduleInfo is not used
 use crate::git_traits::Execv;
+use crate::git_types::SubmoduleStat; // SubmoduleInfo is not used
 
 #[cfg(feature = "git2")]
 use git2::Repository; // Submodule is not used
@@ -79,7 +88,8 @@ pub struct ShellGitAdapter {
 }
 
 impl ShellGitAdapter {
-    pub fn new(execv: Arc<dyn Execv + Send + Sync>) -> Self { // Changed from Box to Arc
+    pub fn new(execv: Arc<dyn Execv + Send + Sync>) -> Self {
+        // Changed from Box to Arc
         ShellGitAdapter { execv }
     }
 }
@@ -89,7 +99,11 @@ impl GitAdapter for ShellGitAdapter {
         println!("[ShellGitAdapter] Listing submodules in {:?}", root_dir);
         let output = self.execv.execv(
             OsStr::new("git"),
-            &[OsStr::new("submodule"), OsStr::new("status"), OsStr::new("--recursive")],
+            &[
+                OsStr::new("submodule"),
+                OsStr::new("status"),
+                OsStr::new("--recursive"),
+            ],
             Some(root_dir),
         )?;
 
@@ -117,7 +131,9 @@ impl GitAdapter for ShellGitAdapter {
             &[OsStr::new("rev-parse"), OsStr::new("HEAD")],
             Some(path),
         )?;
-        let head_commit = String::from_utf8_lossy(&head_output.stdout).trim().to_string();
+        let head_commit = String::from_utf8_lossy(&head_output.stdout)
+            .trim()
+            .to_string();
 
         let status_output = self.execv.execv(
             OsStr::new("git"),

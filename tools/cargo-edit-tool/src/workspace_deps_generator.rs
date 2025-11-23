@@ -1,27 +1,37 @@
-use anyhow::{Result, Context};
-use std::collections::HashMap;
-use std::path::{Path, PathBuf};
-use std::fs;
-use regex::Regex;
-use git2::Repository; // Import git2
+use anyhow::{Context, Result};
 use cargo_metadata::MetadataCommand; // Import cargo_metadata
+use git2::Repository; // Import git2
+use regex::Regex;
+use std::collections::HashMap;
+use std::fs;
+use std::path::{Path, PathBuf};
 use walkdir::WalkDir; // Import walkdir
 
 pub trait WorkspaceDepsGenerator {
-    fn generate_submodule_path_map(&self, submodules_dir: &Path) -> Result<HashMap<String, PathBuf>>;
+    fn generate_submodule_path_map(
+        &self,
+        submodules_dir: &Path,
+    ) -> Result<HashMap<String, PathBuf>>;
     fn process_tt_txt_accurate(&self, tt_txt_path: &Path, submodules_dir: &Path) -> Result<String>;
 }
 
 pub struct RealWorkspaceDepsGenerator;
 
 impl WorkspaceDepsGenerator for RealWorkspaceDepsGenerator {
-    fn generate_submodule_path_map(&self, submodules_dir: &Path) -> Result<HashMap<String, PathBuf>> {
+    fn generate_submodule_path_map(
+        &self,
+        submodules_dir: &Path,
+    ) -> Result<HashMap<String, PathBuf>> {
         let mut submodule_path_map = HashMap::new();
 
         // The project root is the parent of the 'submodules' directory
-        let project_root = submodules_dir.parent().context("Submodules directory has no parent")?;
-        let repo = Repository::open(project_root)
-            .context(format!("Failed to open git repository at {:?}", project_root))?;
+        let project_root = submodules_dir
+            .parent()
+            .context("Submodules directory has no parent")?;
+        let repo = Repository::open(project_root).context(format!(
+            "Failed to open git repository at {:?}",
+            project_root
+        ))?;
 
         for submodule in repo.submodules().context("Failed to read submodules")? {
             let submodule_path_rel = submodule.path();
@@ -29,7 +39,10 @@ impl WorkspaceDepsGenerator for RealWorkspaceDepsGenerator {
 
             // Ensure the submodule directory exists
             if !submodule_abs_path.is_dir() {
-                eprintln!("Warning: Submodule directory {:?} does not exist, skipping.", submodule_abs_path);
+                eprintln!(
+                    "Warning: Submodule directory {:?} does not exist, skipping.",
+                    submodule_abs_path
+                );
                 continue;
             }
 
@@ -40,22 +53,37 @@ impl WorkspaceDepsGenerator for RealWorkspaceDepsGenerator {
                 .filter(|e| e.file_type().is_file() && e.file_name() == "Cargo.toml")
             {
                 let cargo_toml_path = entry.path();
-                
+
                 // Get metadata for each Cargo.toml
                 let metadata = MetadataCommand::new()
                     .manifest_path(&cargo_toml_path)
                     .current_dir(project_root)
                     .no_deps() // We only need info about the package itself, not its dependencies
                     .exec()
-                    .with_context(|| format!("Failed to get cargo metadata for manifest: {:?}", cargo_toml_path))?;
-                
+                    .with_context(|| {
+                        format!(
+                            "Failed to get cargo metadata for manifest: {:?}",
+                            cargo_toml_path
+                        )
+                    })?;
+
                 for package in metadata.packages {
                     // Calculate the relative path from the project root to the package's manifest directory
-                    let package_manifest_dir = PathBuf::from(package.manifest_path).parent().unwrap().to_path_buf();
-                    let relative_package_path = package_manifest_dir.strip_prefix(project_root)
-                        .context(format!("Failed to get relative path for package {:?} from project root {:?}", package.name, project_root))?;
-                    
-                    submodule_path_map.insert(package.name.to_string(), relative_package_path.to_path_buf());
+                    let package_manifest_dir = PathBuf::from(package.manifest_path)
+                        .parent()
+                        .unwrap()
+                        .to_path_buf();
+                    let relative_package_path = package_manifest_dir
+                        .strip_prefix(project_root)
+                        .context(format!(
+                            "Failed to get relative path for package {:?} from project root {:?}",
+                            package.name, project_root
+                        ))?;
+
+                    submodule_path_map.insert(
+                        package.name.to_string(),
+                        relative_package_path.to_path_buf(),
+                    );
                 }
             }
         }

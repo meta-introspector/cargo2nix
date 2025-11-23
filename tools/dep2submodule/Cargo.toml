@@ -9,12 +9,39 @@ homepage.workspace = true
 repository.workspace = true
 
 [dependencies]
-anyhow.workspace = true
-walkdir.workspace = true
-toml_edit.workspace = true
-cargo_metadata.workspace = true
-clap = { workspace = true, features = ["derive"] }
-pathdiff.workspace = true
+cargo-submodule-tool-lib = { workspace = true, optional = true }
+syn = { version = "*", optional = true }
+cargo-repo-sync-lib = { workspace = true, optional = true }
+git2 = { version = "*", optional = true }
+hex = { version = "*", optional = true }
+sha1 = { version = "*", optional = true }
+serde = { version = "*", optional = true }
+serde_json = { version = "*", optional = true }
+git-wrapper-lib = { workspace = true, optional = true }
+anyhow = { workspace = true, optional = true }
+walkdir = { workspace = true, optional = true }
+toml_edit = { workspace = true, optional = true }
+cargo_metadata = { workspace = true, optional = true }
+clap = { workspace = true, features = ["derive"], optional = true }
+pathdiff = { workspace = true, optional = true }
+
+[features]
+cargo_submodule_tool_lib_enabled = ["dep:cargo-submodule-tool-lib"]
+syn_enabled = ["dep:syn"]
+cargo_repo_sync_lib_enabled = ["dep:cargo-repo-sync-lib"]
+git2_enabled = ["dep:git2"]
+hex_enabled = ["dep:hex"]
+sha1_enabled = ["dep:sha1"]
+serde_enabled = ["dep:serde"]
+serde_json_enabled = ["dep:serde_json"]
+git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
+default = []
+anyhow_enabled = ["dep:anyhow"]
+walkdir_enabled = ["dep:walkdir"]
+toml_edit_enabled = ["dep:toml_edit"]
+cargo_metadata_enabled = ["dep:cargo_metadata"]
+clap_enabled = ["dep:clap"]
+pathdiff_enabled = ["dep:pathdiff"]
 
 [lints]
 workspace = true

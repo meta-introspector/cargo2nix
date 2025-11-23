@@ -2,14 +2,18 @@ use anyhow::Result;
 use std::path::Path;
 
 // Conditionally import the real CargoMetadataProvider trait and implementations
-#[cfg(feature = "nix_generation")] // Using nix_generation feature to enable real cargo_metadata
+#[cfg(feature = "nix_generation")]
+// Using nix_generation feature to enable real cargo_metadata
 pub use cargo_edit_lib::{CargoMetadataProvider, RealCargoMetadataProvider};
 
 // Dummy CargoMetadataProvider for when nix_generation feature is not active
 #[cfg(not(feature = "nix_generation"))]
 pub trait CargoMetadataProvider: Send + Sync {
     fn get_metadata(&self, cargo_toml_path: &Path) -> Result<DummyMetadata> {
-        anyhow::bail!("Dummy CargoMetadataProvider: get_metadata not implemented for {:?}", cargo_toml_path)
+        anyhow::bail!(
+            "Dummy CargoMetadataProvider: get_metadata not implemented for {:?}",
+            cargo_toml_path
+        )
     }
 }
 

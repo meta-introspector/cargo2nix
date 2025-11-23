@@ -1,14 +1,14 @@
-use anyhow::{Result, Context};
-use std::collections::{HashMap, HashSet};
-use std::path::{Path, PathBuf};
-#[cfg(feature = "nix_generation")] // Conditionally compile regex
-use regex::Regex;
-#[cfg(feature = "toml_edit_enabled")] // Conditionally compile toml_edit
-use toml_edit::DocumentMut;
+use crate::analysis::cargo_metadata_provider::CargoMetadataProvider;
+use anyhow::{Context, Result};
 #[cfg(feature = "nix_generation")] // Conditionally compile pathdiff
 use pathdiff::diff_paths;
+#[cfg(feature = "nix_generation")] // Conditionally compile regex
+use regex::Regex;
+use std::collections::{HashMap, HashSet};
+use std::path::{Path, PathBuf};
 use std::sync::Arc; // Import Arc
-use crate::analysis::cargo_metadata_provider::CargoMetadataProvider; // Import the trait and its real implementation
+#[cfg(feature = "toml_edit_enabled")] // Conditionally compile toml_edit
+use toml_edit::DocumentMut; // Import the trait and its real implementation
 
 pub trait CargoConfigPatcher {
     fn generate_patches(
@@ -45,9 +45,13 @@ impl CargoConfigPatcher for RealCargoConfigPatcher {
         let mut submodule_paths: HashMap<String, PathBuf> = HashMap::new();
         let tree_content = std::fs::read_to_string(tree_file)
             .with_context(|| format!("Failed to read tree file: {}", tree_file.display()))?;
-        
-        let submodules_path_pattern = regex::escape(&project_root.join("submodules").to_string_lossy());
-        let submodule_path_re = Regex::new(&format!(r"^\s*├──\s+(\S+)\s+v\S+\s+.*? (?P<path>{}[^\s)]+)", submodules_path_pattern))?;
+
+        let submodules_path_pattern =
+            regex::escape(&project_root.join("submodules").to_string_lossy());
+        let submodule_path_re = Regex::new(&format!(
+            r"^\s*├──\s+(\S+)\s+v\S+\s+.*? (?P<path>{}[^\s)]+)",
+            submodules_path_pattern
+        ))?;
 
         for line in tree_content.lines() {
             if let Some(captures) = submodule_path_re.captures(line) {
@@ -60,22 +64,33 @@ impl CargoConfigPatcher for RealCargoConfigPatcher {
         }
 
         // 2. Parse Cargo.lock to get all package names using CargoMetadataProvider
-        let cargo_lock_packages = self.metadata_provider.get_package_names_from_lock_file(cargo_lock_file)?;
+        let cargo_lock_packages = self
+            .metadata_provider
+            .get_package_names_from_lock_file(cargo_lock_file)?;
 
         // 3. Read existing config.toml to identify already patched/commented packages
         let mut existing_patched_packages = HashSet::new();
         let commented_out_packages: HashSet<String> = HashSet::new(); // This is not currently used, but kept for future consistency
-        
+
         let config_doc = if config_file.exists() {
-            let content = std::fs::read_to_string(config_file)
-                .with_context(|| format!("Failed to read config file: {}", config_file.display()))?;
-            content.parse::<DocumentMut>().context("Failed to parse config.toml")? // Corrected: removed unnecessary escape for "
+            let content = std::fs::read_to_string(config_file).with_context(|| {
+                format!("Failed to read config file: {}", config_file.display())
+            })?;
+            content
+                .parse::<DocumentMut>()
+                .context("Failed to parse config.toml")? // Corrected: removed unnecessary escape for "
         } else {
             DocumentMut::new()
         };
 
-        if let Some(patch_table) = config_doc.get("patch").and_then(|item| item.as_table_like()) {
-            if let Some(crates_io_table) = patch_table.get("crates-io").and_then(|item| item.as_table_like()) {
+        if let Some(patch_table) = config_doc
+            .get("patch")
+            .and_then(|item| item.as_table_like())
+        {
+            if let Some(crates_io_table) = patch_table
+                .get("crates-io")
+                .and_then(|item| item.as_table_like())
+            {
                 for (key, value) in crates_io_table.iter() {
                     if value.is_inline_table() {
                         existing_patched_packages.insert(key.to_string());
@@ -88,7 +103,9 @@ impl CargoConfigPatcher for RealCargoConfigPatcher {
         let mut new_crates_io_patches_to_add: Vec<String> = Vec::new();
         for package_name in cargo_lock_packages {
             if let Some(relative_path) = submodule_paths.get(&package_name) {
-                if !existing_patched_packages.contains(&package_name) && !commented_out_packages.contains(&package_name) {
+                if !existing_patched_packages.contains(&package_name)
+                    && !commented_out_packages.contains(&package_name)
+                {
                     new_crates_io_patches_to_add.push(format!(
                         "    {} = {{ path = \"{}\" }}", // Corrected: escaped " inside format! macro
                         package_name,

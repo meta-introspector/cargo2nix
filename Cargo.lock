@@ -707,8 +707,10 @@ name = "cargo-submodule-tool-lib"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "cargo-edit-lib",
  "cargo-repo-sync-lib",
  "cargo-toml-editor-lib",
+ "cargo2nix",
  "cargo_metadata",
  "clap",
  "git-wrapper-lib",
@@ -725,6 +727,7 @@ dependencies = [
  "sha2",
  "toml",
  "toml_edit",
+ "tool-traits-lib",
  "url",
  "walkdir",
 ]
@@ -1473,6 +1476,7 @@ name = "generate_workspace_deps"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "cargo-repo-sync-lib",
  "cargo-submodule-tool-lib",
  "cargo_metadata",
  "git2",
@@ -2061,14 +2065,13 @@ dependencies = [
 
 [[package]]
 name = "gix-path"
-version = "0.10.21"
+version = "0.10.22"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0416b41cd00ff292af9b94b0660880c44bd2ed66828ddca9a2b333535cbb71b8"
+checksum = "7cb06c3e4f8eed6e24fd915fa93145e28a511f4ea0e768bae16673e05ed3f366"
 dependencies = [
  "bstr",
  "gix-trace",
  "gix-validate",
- "home",
  "thiserror",
 ]
 
@@ -4244,9 +4247,9 @@ checksum = "0fda2ff0d084019ba4d7c6f371c95d8fd75ce3524c3cb8fb653a3023f6323e64"
 
 [[package]]
 name = "signal-hook-registry"
-version = "1.4.6"
+version = "1.4.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b2a4719bff48cee6b39d12c020eeb490953ad2443b7055bd0b21fca26bd8c28b"
+checksum = "7664a098b8e616bdfcc2dc0e9ac44eb231eedf41db4e9fe95d8d32ec728dedad"
 dependencies = [
  "libc",
 ]
@@ -4658,6 +4661,17 @@ name = "toml_writer"
 version = "1.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "df8b2b54733674ad286d16267dcfc7a71ed5c776e4ac7aa3c3e2561f7c637bf2"
+
+[[package]]
+name = "tool-traits-lib"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "regex",
+ "serde_json",
+ "toml_edit",
+ "walkdir",
+]
 
 [[package]]
 name = "tower"

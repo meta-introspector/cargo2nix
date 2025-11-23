@@ -1,23 +1,28 @@
 // tools/cargo-feature-adapter/src/cargo_toml_adapter.rs
-use anyhow::{Result, Context};
+use anyhow::{Context, Result};
 use std::collections::BTreeMap;
 use std::fs;
 use std::path::Path;
-use toml_edit::{Document, Item, Table, Value, Array};
+use toml_edit::{Array, Document, Item, Table, Value};
 
 pub fn adapt_cargo_toml(input_path: &Path, output_path: &Path) -> Result<()> {
     let original_cargo_toml_path = input_path.join("Cargo.toml");
     let adapted_cargo_toml_path = output_path.join("Cargo.toml");
 
     // 1. Read Original Cargo.toml
-    let original_content = fs::read_to_string(&original_cargo_toml_path)
-        .context(format!("Failed to read original Cargo.toml from {:?}", original_cargo_toml_path))?;
-    let mut doc = original_content.parse::<Document<_>>()
+    let original_content = fs::read_to_string(&original_cargo_toml_path).context(format!(
+        "Failed to read original Cargo.toml from {:?}",
+        original_cargo_toml_path
+    ))?;
+    let mut doc = original_content
+        .parse::<Document<_>>()
         .context("Failed to parse original Cargo.toml")?;
 
     // Ensure output directory exists
-    fs::create_dir_all(output_path)
-        .context(format!("Failed to create output directory {:?}", output_path))?;
+    fs::create_dir_all(output_path).context(format!(
+        "Failed to create output directory {:?}",
+        output_path
+    ))?;
 
     // 2. Identify Dependencies and Generate New Features
     let mut new_features = BTreeMap::new();
@@ -44,20 +49,26 @@ pub fn adapt_cargo_toml(input_path: &Path, output_path: &Path) -> Result<()> {
                             dep_table.insert(inline_key, Item::Value(inline_value.clone()));
                         }
                     }
-                },
+                }
                 Item::Table(t) => {
                     for (inline_key, inline_value) in t.iter() {
                         dep_table.insert(inline_key, inline_value.clone());
                     }
-                },
+                }
                 _ => {} // Should not happen for dependencies
             }
-            
+
             // Ensure optional is true
             dep_table.insert("optional", Item::Value(Value::from(true)));
 
             dependencies.insert(&key, Item::Table(dep_table));
-            new_features.insert(feature_name.clone(), Item::Value(Value::Array(Array::from_iter(vec![Value::from(format!("dep:{}", key))]))));
+            new_features.insert(
+                feature_name.clone(),
+                Item::Value(Value::Array(Array::from_iter(vec![Value::from(format!(
+                    "dep:{}",
+                    key
+                ))]))),
+            );
             default_features_list.push(feature_name);
         }
     }
@@ -72,22 +83,33 @@ pub fn adapt_cargo_toml(input_path: &Path, output_path: &Path) -> Result<()> {
             features_table.insert(&feature_name, feature_deps);
         }
         // Set default features
-        features_table.insert("default", Item::Value(Value::Array(Array::from_iter(default_features_list.into_iter().map(Value::from)))));
+        features_table.insert(
+            "default",
+            Item::Value(Value::Array(Array::from_iter(
+                default_features_list.into_iter().map(Value::from),
+            ))),
+        );
     }
 
     // 3. Update package name
     if let Some(Item::Table(package_table)) = doc.get_mut("package") {
-        if let Some(Item::Value(name)) = package_table.get_mut("name") {
-            if let Some(s) = name.as_str_mut() {
-                *s = format!("{}-adaptive", s);
+        if let Some(Item::Value(name_value)) = package_table.get_mut("name") {
+            if let Some(s) = name_value.as_str() {
+                let new_name = format!("{}-adaptive", s);
+                *name_value = Value::from(new_name);
             }
         }
     }
 
     // 4. Write the new Cargo.toml
-    fs::write(&adapted_cargo_toml_path, doc.to_string())
-        .context(format!("Failed to write adapted Cargo.toml to {:?}", adapted_cargo_toml_path))?;
+    fs::write(&adapted_cargo_toml_path, doc.to_string()).context(format!(
+        "Failed to write adapted Cargo.toml to {:?}",
+        adapted_cargo_toml_path
+    ))?;
 
-    println!("Adapted Cargo.toml written to {:?}", adapted_cargo_toml_path);
+    println!(
+        "Adapted Cargo.toml written to {:?}",
+        adapted_cargo_toml_path
+    );
     Ok(())
 }

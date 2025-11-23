@@ -1,5 +1,8 @@
 use anyhow::{Context, Result};
 use clap::Parser;
+use lazy_static::lazy_static;
+use regex::Regex;
+#[cfg(feature = "serde_enabled")]
 use serde::Serialize;
 use std::{
     collections::HashSet,
@@ -9,8 +12,6 @@ use std::{
 };
 use toml_edit::Document;
 use walkdir::WalkDir;
-use lazy_static::lazy_static;
-use regex::Regex;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -37,7 +38,7 @@ struct Args {
     output_file: Option<PathBuf>,
 }
 
-#[derive(Debug, Serialize)]
+#[cfg_attr(feature = "serde_enabled", derive(Debug, Serialize))]
 struct RepoAction {
     repo_url: String,
     owner: String,
@@ -119,7 +120,10 @@ fn main() -> Result<()> {
     }
     // --- End Diagnostic ---
 
-    let root_dir = args.root_dir.canonicalize().context("Failed to canonicalize root_dir")?;
+    let root_dir = args
+        .root_dir
+        .canonicalize()
+        .context("Failed to canonicalize root_dir")?;
     let submodules_dir = root_dir.join("submodules");
 
     if args.dry_run {
@@ -142,7 +146,9 @@ fn main() -> Result<()> {
         .filter(|e| e.file_type().is_file() && e.file_name() == "Cargo.toml")
         .filter(|e| {
             let path = e.path();
-            !(path.components().any(|c| c.as_os_str() == "tests" || c.as_os_str() == "examples"))
+            !(path
+                .components()
+                .any(|c| c.as_os_str() == "tests" || c.as_os_str() == "examples"))
         })
     {
         let cargo_toml_path = entry.path();
@@ -169,7 +175,8 @@ fn main() -> Result<()> {
     for repo_url_str in unique_repo_urls {
         // Use regex to extract owner and repo name more robustly
         lazy_static! {
-            static ref GITHUB_URL_RE: Regex = Regex::new(r"github\.com/([^/]+)/([^/.]+)(?:/tree/[^/]+/.+)?(\.git)?").unwrap();
+            static ref GITHUB_URL_RE: Regex =
+                Regex::new(r"github\.com/([^/]+)/([^/.]+)(?:/tree/[^/]+/.+)?(\.git)?").unwrap();
         }
 
         let (owner, repo_name) = if let Some(captures) = GITHUB_URL_RE.captures(&repo_url_str) {
@@ -177,12 +184,18 @@ fn main() -> Result<()> {
             let repo_name = captures.get(2).map_or("", |m| m.as_str());
             (owner.to_string(), repo_name.to_string())
         } else {
-            eprintln!("Could not extract owner or repository name from {}. Skipping.", repo_url_str);
+            eprintln!(
+                "Could not extract owner or repository name from {}. Skipping.",
+                repo_url_str
+            );
             continue;
         };
 
         if owner.is_empty() || repo_name.is_empty() {
-            eprintln!("Could not extract owner or repository name from {}. Skipping.", repo_url_str);
+            eprintln!(
+                "Could not extract owner or repository name from {}. Skipping.",
+                repo_url_str
+            );
             continue;
         }
 
@@ -201,8 +214,11 @@ fn main() -> Result<()> {
     }
 
     // Serialize the actions plan to JSON
+    #[cfg(feature = "serde_json_enabled")]
     let json_plan = serde_json::to_string_pretty(&actions_plan)
         .context("Failed to serialize actions plan to JSON")?;
+    #[cfg(not(feature = "serde_json_enabled"))]
+    let json_plan = "".to_string(); // Dummy value if serde_json is not enabled
 
     if let Some(output_file_path) = args.output_file {
         fs::write(&output_file_path, json_plan)

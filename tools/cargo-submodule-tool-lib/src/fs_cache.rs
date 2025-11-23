@@ -1,13 +1,15 @@
-use anyhow::{Result, Context};
-use std::path::{Path, PathBuf};
-use std::time::SystemTime;
-use std::fs;
-use std::sync::{Arc, Mutex};
-use serde::{Serialize, Deserialize};
+use anyhow::{Context, Result};
 #[cfg(feature = "md5_enabled")]
 use md5;
+use std::fs;
+use std::path::{Path, PathBuf};
+use std::sync::{Arc, Mutex};
+use std::time::SystemTime;
 
-use crate::executors::{FileMetadata, RollupLock, GitExecutor}; // Use our re-exported types
+#[cfg(feature = "tool_traits_lib_enabled")]
+use tool_traits_lib::serde_adapter::{CurrentSerdeAdapter, SerdeAdapter};
+
+use crate::executors::{FileMetadata, GitExecutor, RollupLock}; // Use our re-exported types
 
 pub trait FileSystemStat: Send + Sync {
     fn get_metadata(&self, path: &Path) -> Result<FileMetadata>;
@@ -22,8 +24,16 @@ pub struct RealFileSystemStat {
 
 #[cfg(feature = "git_enabled")]
 impl RealFileSystemStat {
-    pub fn new(git_executor: Arc<dyn GitExecutor + Send + Sync>, rollup_lock: Arc<Mutex<RollupLock>>, root_dir: PathBuf) -> Self {
-        RealFileSystemStat { git_executor, rollup_lock, root_dir }
+    pub fn new(
+        git_executor: Arc<dyn GitExecutor + Send + Sync>,
+        rollup_lock: Arc<Mutex<RollupLock>>,
+        root_dir: PathBuf,
+    ) -> Self {
+        RealFileSystemStat {
+            git_executor,
+            rollup_lock,
+            root_dir,
+        }
     }
 }
 
@@ -45,7 +55,8 @@ impl FileSystemStat for RealFileSystemStat {
         let file_content = fs::read(path)?;
         let hash = calculate_file_hash(&file_content);
 
-        let (is_git_tracked, git_object_hash) = self.git_executor.get_file_git_info(&self.root_dir, path)?;
+        let (is_git_tracked, git_object_hash) =
+            self.git_executor.get_file_git_info(&self.root_dir, path)?;
 
         Ok(FileMetadata {
             modified: metadata.modified()?,
@@ -62,7 +73,11 @@ pub struct RealFileSystemStat;
 
 #[cfg(not(feature = "git_enabled"))]
 impl RealFileSystemStat {
-    pub fn new(_git_executor: Arc<dyn GitExecutor + Send + Sync>, _rollup_lock: Arc<Mutex<RollupLock>>, _root_dir: PathBuf) -> Self {
+    pub fn new(
+        _git_executor: Arc<dyn GitExecutor + Send + Sync>,
+        _rollup_lock: Arc<Mutex<RollupLock>>,
+        _root_dir: PathBuf,
+    ) -> Self {
         RealFileSystemStat {}
     }
 }
@@ -82,7 +97,6 @@ impl FileSystemStat for RealFileSystemStat {
     }
 }
 
-
 #[cfg(feature = "git_enabled")]
 pub struct CachedFileSystemStat {
     pub inner: Arc<dyn FileSystemStat>,
@@ -92,7 +106,11 @@ pub struct CachedFileSystemStat {
 
 #[cfg(feature = "git_enabled")]
 impl CachedFileSystemStat {
-    pub fn new(inner: Arc<dyn FileSystemStat>, rollup_lock: Arc<Mutex<RollupLock>>, root_dir: PathBuf) -> Self {
+    pub fn new(
+        inner: Arc<dyn FileSystemStat>,
+        rollup_lock: Arc<Mutex<RollupLock>>,
+        root_dir: PathBuf,
+    ) -> Self {
         CachedFileSystemStat {
             inner,
             rollup_lock,
@@ -126,7 +144,11 @@ pub struct CachedFileSystemStat;
 
 #[cfg(not(feature = "git_enabled"))]
 impl CachedFileSystemStat {
-    pub fn new(_inner: Arc<dyn FileSystemStat>, _rollup_lock: Arc<Mutex<RollupLock>>, _root_dir: PathBuf) -> Self {
+    pub fn new(
+        _inner: Arc<dyn FileSystemStat>,
+        _rollup_lock: Arc<Mutex<RollupLock>>,
+        _root_dir: PathBuf,
+    ) -> Self {
         CachedFileSystemStat {}
     }
 }
@@ -138,7 +160,6 @@ impl FileSystemStat for CachedFileSystemStat {
         Ok(FileMetadata::default())
     }
 }
-
 
 #[cfg(feature = "md5_enabled")]
 pub fn calculate_file_hash(content: &[u8]) -> String {

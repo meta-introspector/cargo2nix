@@ -1,9 +1,9 @@
-use anyhow::{Result, anyhow};
+use anyhow::{anyhow, Result};
 
 #[cfg(feature = "clap_enabled")]
 use clap::error::{Error, ErrorKind};
 #[cfg(feature = "clap_enabled")]
-use clap::{Parser, FromArgMatches, Subcommand, Args as ClapArgs, Command};
+use clap::{Args as ClapArgs, Command, FromArgMatches, Parser, Subcommand};
 
 #[cfg(feature = "clap_enabled")]
 #[derive(Parser)]

@@ -1,14 +1,8 @@
 use anyhow::Result;
 use std::collections::HashMap;
-#[cfg(feature = "serde")]
-use serde::{Serialize, Deserialize};
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub struct MergedCrateInfo {
-    pub layer: i32,
-    pub usage_count: u32,
-}
+#[cfg(feature = "tool_traits_lib_enabled")]
+use tool_traits_lib::types::MergedCrateInfo;
 
 pub trait DepGraphDataMerger {
     fn merge_data(
@@ -36,14 +30,9 @@ impl DepGraphDataMerger for RealDepGraphDataMerger {
             let layer = *layer_data.get(&crate_name).unwrap_or(&-1);
             let usage_count = *usage_counts.get(&crate_name).unwrap_or(&0);
 
-            if layer != -1 { // Only include crates that have layer information
-                merged_data.insert(
-                    crate_name,
-                    MergedCrateInfo {
-                        layer,
-                        usage_count,
-                    },
-                );
+            if layer != -1 {
+                // Only include crates that have layer information
+                merged_data.insert(crate_name, MergedCrateInfo { layer, usage_count });
             }
         }
         Ok(merged_data)

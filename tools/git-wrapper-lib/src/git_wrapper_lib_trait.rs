@@ -1,5 +1,5 @@
-use crate::git_traits::{GitExecutor, GitRepositoryOperations, GhExecutor, Execv};
-use crate::git_adapters::GitAdapter; // Added
+use crate::git_adapters::GitAdapter;
+use crate::git_traits::{Execv, GhExecutor, GitExecutor, GitRepositoryOperations}; // Added
 
 pub trait GitWrapperLibTrait: Send + Sync {
     fn git_executor(&self) -> &dyn GitExecutor;

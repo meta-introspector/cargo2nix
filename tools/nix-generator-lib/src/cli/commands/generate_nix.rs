@@ -1,7 +1,7 @@
 use anyhow::{Context, Result};
 use std::path::{Path, PathBuf};
 
-use crate::nix_adapters::{NixAdapter, CrateInfo};
+use crate::nix_adapters::{CrateInfo, NixAdapter};
 use cargo_edit_lib::{CargoEditAdapter, CargoMetadataProvider, WorkspaceInfoProvider}; // Corrected import
 use git_wrapper_lib::git_adapters::GitAdapter;
 
@@ -16,17 +16,15 @@ pub fn generate_nix(
 ) -> Result<()> {
     println!("Generating Nix expressions...");
 
-    let workspace_info = workspace_info_provider.parse_members_file(
-        git_adapter,
-        cargo_metadata_provider,
-        project_root,
-    )
-    .context("Failed to parse members file for Nix generation")?;
+    let workspace_info = workspace_info_provider
+        .parse_members_file(git_adapter, cargo_metadata_provider, project_root)
+        .context("Failed to parse members file for Nix generation")?;
 
     // Ensure the output directory exists
     let output_dir = output_path.parent().unwrap_or_else(|| Path::new("."));
-    std::fs::create_dir_all(output_dir)
-        .map_err(|e| anyhow::anyhow!("Failed to create output directory {:?}: {}", output_dir, e))?;
+    std::fs::create_dir_all(output_dir).map_err(|e| {
+        anyhow::anyhow!("Failed to create output directory {:?}: {}", output_dir, e)
+    })?;
 
     for info in workspace_info {
         for member_name in info.member_crates {
@@ -44,7 +42,10 @@ pub fn generate_nix(
             let nix_content = nix_adapter.generate_nix_expression(&crate_info)?;
             let crate_output_path = output_path.join(format!("{}.nix", member_name));
             nix_adapter.write_nix_expression(&crate_output_path, &nix_content)?;
-            println!("Generated Nix expression for {} at {:?}", member_name, crate_output_path);
+            println!(
+                "Generated Nix expression for {} at {:?}",
+                member_name, crate_output_path
+            );
         }
     }
 

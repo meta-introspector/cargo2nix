@@ -4,9 +4,40 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-anyhow = { workspace = true }
-cargo_metadata = { workspace = true }
+
+syn = { version = "*", optional = true }
+toml_edit = { version = "*", optional = true }
+clap = { version = "*", optional = true }
+cargo-repo-sync-lib = { workspace = true, optional = true }
+git2 = { version = "*", optional = true }
+hex = { version = "*", optional = true }
+sha1 = { version = "*", optional = true }
+pathdiff = { version = "*", optional = true }
+serde_json = { version = "*", optional = true }
+walkdir = { version = "*", optional = true }
+
+anyhow = { workspace = true, optional = true }
+cargo_metadata = { workspace = true, optional = true }
 #cargo2nix = { path = "../../crates/cargo2nix" }
-serde = { workspace = true, features = ["derive"] } # Added
-cargo-edit-lib = { path = "../cargo-edit-lib" }
-git-wrapper-lib = { path = "../git-wrapper-lib" }
+serde = { workspace = true, features = ["derive"], optional = true } # Added
+
+git-wrapper-lib = { path = "../git-wrapper-lib", optional = true }
+
+[features]
+
+syn_enabled = ["dep:syn"]
+toml_edit_enabled = ["dep:toml_edit"]
+clap_enabled = ["dep:clap"]
+cargo_repo_sync_lib_enabled = ["dep:cargo-repo-sync-lib"]
+git2_enabled = ["dep:git2"]
+hex_enabled = ["dep:hex"]
+sha1_enabled = ["dep:sha1"]
+pathdiff_enabled = ["dep:pathdiff"]
+serde_json_enabled = ["dep:serde_json"]
+walkdir_enabled = ["dep:walkdir"]
+default = []
+anyhow_enabled = ["dep:anyhow"]
+cargo_metadata_enabled = ["dep:cargo_metadata"]
+serde_enabled = ["dep:serde"]
+
+git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]

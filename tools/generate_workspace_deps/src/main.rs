@@ -1,12 +1,14 @@
 use anyhow::Result;
-use std::path::{Path, PathBuf};
 use std::collections::HashMap;
+use std::path::{Path, PathBuf};
 
-use cargo_repo_sync_lib::workspace_deps_generator::{RealWorkspaceDepsGenerator, WorkspaceDepsGenerator};
-
+use cargo_repo_sync_lib::workspace_deps_generator::{
+    RealWorkspaceDepsGenerator, WorkspaceDepsGenerator,
+};
 
 fn main() -> Result<()> {
-    let root_dir = PathBuf::from("/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix");
+    let root_dir =
+        PathBuf::from("/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix");
     let submodules_dir = root_dir.join("submodules");
 
     println!("[workspace.dependencies]");

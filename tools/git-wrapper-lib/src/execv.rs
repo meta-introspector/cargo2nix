@@ -1,6 +1,6 @@
-#[cfg(feature = "with-anyhow")]
+#[cfg(feature = "anyhow_enabled")]
 use anyhow::Result;
-#[cfg(not(feature = "with-anyhow"))]
+#[cfg(not(feature = "anyhow_enabled"))]
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>; // Fallback for Result
 
 use std::ffi::OsStr;
@@ -12,7 +12,12 @@ use crate::git_traits::Execv;
 pub struct RealExecv;
 
 impl Execv for RealExecv {
-    fn execv(&self, program: &OsStr, args: &[&OsStr], current_dir: Option<&Path>) -> Result<Output> {
+    fn execv(
+        &self,
+        program: &OsStr,
+        args: &[&OsStr],
+        current_dir: Option<&Path>,
+    ) -> Result<Output> {
         let mut command = Command::new(program);
         command.args(args);
         if let Some(dir) = current_dir {

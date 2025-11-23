@@ -1,5 +1,8 @@
 use anyhow::{Context, Result};
 use clap::Parser;
+use lazy_static::lazy_static;
+use regex::Regex;
+#[cfg(feature = "serde_enabled")]
 use serde::Serialize;
 use std::{
     collections::HashSet,
@@ -10,11 +13,9 @@ use std::{
 };
 use toml_edit::Document;
 use walkdir::WalkDir;
-use lazy_static::lazy_static;
-use regex::Regex;
 
-use crate::RollupLock; // Added
-use crate::repo_sync_lib::git_snapshot::create_snapshot; // Added
+use crate::repo_sync_lib::git_snapshot::create_snapshot;
+use crate::RollupLock; // Added // Added
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -41,7 +42,7 @@ struct Args {
     output_file: Option<PathBuf>,
 }
 
-#[derive(Debug, Serialize)]
+#[cfg_attr(feature = "serde_enabled", derive(Debug, Serialize))]
 struct RepoAction {
     repo_url: String,
     owner: String,
@@ -123,7 +124,10 @@ fn main() -> Result<()> {
     }
     // --- End Diagnostic ---
 
-    let root_dir = args.root_dir.canonicalize().context("Failed to canonicalize root_dir")?;
+    let root_dir = args
+        .root_dir
+        .canonicalize()
+        .context("Failed to canonicalize root_dir")?;
     let submodules_dir = root_dir.join("submodules");
 
     if args.dry_run {
@@ -180,14 +184,18 @@ fn main() -> Result<()> {
         }
     }
 
-    println!("Found {} unique git repository dependencies.", unique_repo_urls.len());
+    println!(
+        "Found {} unique git repository dependencies.",
+        unique_repo_urls.len()
+    );
 
     let mut actions_plan: Vec<RepoAction> = Vec::new();
 
     for repo_url_str in unique_repo_urls {
         // Use regex to extract owner and repo name more robustly
         lazy_static! {
-            static ref GITHUB_URL_RE: Regex = Regex::new(r"github\.com/([^/]+)/([^/.]+)(?:/tree/[^/]+/.+)?(\.git)?").unwrap();
+            static ref GITHUB_URL_RE: Regex =
+                Regex::new(r"github\.com/([^/]+)/([^/.]+)(?:/tree/[^/]+/.+)?(\.git)?").unwrap();
         }
 
         let (owner, repo_name) = if let Some(captures) = GITHUB_URL_RE.captures(&repo_url_str) {
@@ -195,12 +203,18 @@ fn main() -> Result<()> {
             let repo_name = captures.get(2).map_or("", |m| m.as_str());
             (owner.to_string(), repo_name.to_string())
         } else {
-            eprintln!("Could not extract owner or repository name from {}. Skipping.", repo_url_str);
+            eprintln!(
+                "Could not extract owner or repository name from {}. Skipping.",
+                repo_url_str
+            );
             continue;
         };
 
         if owner.is_empty() || repo_name.is_empty() {
-            eprintln!("Could not extract owner or repository name from {}. Skipping.", repo_url_str);
+            eprintln!(
+                "Could not extract owner or repository name from {}. Skipping.",
+                repo_url_str
+            );
             continue;
         }
 
@@ -225,7 +239,14 @@ fn main() -> Result<()> {
     let rollup_lock_data = Arc::new(Mutex::new(RollupLock::load(&root_dir)?));
 
     if !args.dry_run {
-        execute_actions_plan(actions_plan, &args, &git_executable_path, &gh_executable_path, rollup_lock_data, &root_dir)?;
+        execute_actions_plan(
+            actions_plan,
+            &args,
+            &git_executable_path,
+            &gh_executable_path,
+            rollup_lock_data,
+            &root_dir,
+        )?;
     } else {
         // If dry_run, print the plan to stdout or file
         if let Some(output_file_path) = args.output_file {
@@ -254,7 +275,10 @@ fn execute_actions_plan(
         println!("Processing repository: {}", action.repo_name);
 
         // 1. Fork the repository if it doesn't exist in target_org
-        let forked_repo_url = format!("https://github.com/{}/{}.git", args.target_org, action.repo_name);
+        let forked_repo_url = format!(
+            "https://github.com/{}/{}.git",
+            args.target_org, action.repo_name
+        );
         let gh_repo_check_output = Command::new(gh_executable_path)
             .arg("repo")
             .arg("view")
@@ -262,9 +286,16 @@ fn execute_actions_plan(
             .arg("--json")
             .arg("name")
             .output()
-            .context(format!("Failed to check if {} exists in {}", action.repo_name, args.target_org))?;
+            .context(format!(
+                "Failed to check if {} exists in {}",
+                action.repo_name, args.target_org
+            ))?;
 
-        if !gh_repo_check_output.status.success() || String::from_utf8_lossy(&gh_repo_check_output.stdout).trim().is_empty() {
+        if !gh_repo_check_output.status.success()
+            || String::from_utf8_lossy(&gh_repo_check_output.stdout)
+                .trim()
+                .is_empty()
+        {
             println!("Forking {} to {}...", action.repo_name, args.target_org);
             let fork_output = Command::new(gh_executable_path)
                 .arg("repo")
@@ -275,7 +306,10 @@ fn execute_actions_plan(
                 .arg("--remote") // Add remote to the forked repo
                 .arg("--clone=false") // Don't clone immediately, we'll add as submodule
                 .output()
-                .context(format!("Failed to fork {} to {}", action.repo_name, args.target_org))?;
+                .context(format!(
+                    "Failed to fork {} to {}",
+                    action.repo_name, args.target_org
+                ))?;
 
             if !fork_output.status.success() {
                 eprintln!(
@@ -287,7 +321,10 @@ fn execute_actions_plan(
             }
             println!("Successfully forked {}.", action.repo_name);
         } else {
-            println!("Repository {} already exists in {}. Skipping fork.", action.repo_name, args.target_org);
+            println!(
+                "Repository {} already exists in {}. Skipping fork.",
+                action.repo_name, args.target_org
+            );
         }
 
         // 2. Add as git submodule
@@ -312,18 +349,27 @@ fn execute_actions_plan(
             println!("Successfully added {} as submodule.", action.repo_name);
             create_snapshot(root_dir, rollup_lock.clone())?;
         } else {
-            println!("Submodule {} already exists at {:?}. Skipping add.", action.repo_name, action.submodule_path);
+            println!(
+                "Submodule {} already exists at {:?}. Skipping add.",
+                action.repo_name, action.submodule_path
+            );
         }
 
         // 3. Checkout target branch in submodule
-        println!("Checking out branch '{}' in submodule {}...", action.target_branch, action.repo_name);
+        println!(
+            "Checking out branch '{}' in submodule {}...",
+            action.target_branch, action.repo_name
+        );
         let checkout_output = Command::new(git_executable_path)
             .arg("-C")
             .arg(&action.submodule_path)
             .arg("checkout")
             .arg(&action.target_branch)
             .output()
-            .context(format!("Failed to checkout branch {} in submodule {}", action.target_branch, action.repo_name))?;
+            .context(format!(
+                "Failed to checkout branch {} in submodule {}",
+                action.target_branch, action.repo_name
+            ))?;
 
         if !checkout_output.status.success() {
             eprintln!(
@@ -334,7 +380,10 @@ fn execute_actions_plan(
             );
             anyhow::bail!("Branch checkout failed for {}", action.repo_name);
         }
-        println!("Successfully checked out branch '{}' in submodule {}.", action.target_branch, action.repo_name);
+        println!(
+            "Successfully checked out branch '{}' in submodule {}.",
+            action.target_branch, action.repo_name
+        );
         create_snapshot(root_dir, rollup_lock.clone())?;
     }
 
@@ -373,7 +422,10 @@ fn update_cargo_config(actions_plan: &[RepoAction], root_dir: &Path) -> Result<(
 
     for action in actions_plan {
         let relative_submodule_path = pathdiff::diff_paths(&action.submodule_path, root_dir)
-            .context(format!("Failed to get relative path for {:?}", action.submodule_path))?;
+            .context(format!(
+                "Failed to get relative path for {:?}",
+                action.submodule_path
+            ))?;
         let path_str = relative_submodule_path.to_string_lossy().to_string();
 
         // Add/update entry for this crate

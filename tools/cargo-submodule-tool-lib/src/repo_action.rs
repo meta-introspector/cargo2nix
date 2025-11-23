@@ -1,7 +1,8 @@
-use serde::{Serialize, Deserialize};
 use std::path::PathBuf;
+#[cfg(feature = "tool_traits_lib_enabled")]
+use tool_traits_lib::serde_adapter::{CurrentSerdeAdapter, SerdeAdapter};
 
-#[derive(Debug, Serialize, Deserialize)]
+#[cfg_attr(feature = "serde_enabled", derive(Debug, Serialize, Deserialize))]
 pub struct RepoAction {
     pub repo_url: String,
     pub owner: String,

@@ -1,43 +1,72 @@
-use std::{collections::HashMap, fs, path::{Path, PathBuf}};
-use serde_json;
-use toml_edit::{self}; // Added toml_edit::
 use anyhow::Result; // Added anyhow imports
+use std::{
+    collections::HashMap,
+    fs,
+    path::{Path, PathBuf},
+};
+use toml_edit::{self}; // Added toml_edit::
 use walkdir::WalkDir; // Added WalkDir
 
 use git_wrapper_lib::git_traits::Execv; // Import Execv trait
-use std::sync::Arc;
 use std::ffi::OsStr;
+use std::sync::Arc;
+
+#[cfg(feature = "tool_traits_lib_enabled")]
+use tool_traits_lib::serde_adapter::{CurrentSerdeAdapter, SerdeAdapter};
 
 pub trait WorkspaceGenerator {
-    fn generate_workspace_dependencies(&self, root_dir: &Path, dry_run: bool, executor: Arc<dyn Execv + Send + Sync>) -> Result<(), Box<dyn std::error::Error>>;
+    fn generate_workspace_dependencies(
+        &self,
+        root_dir: &Path,
+        dry_run: bool,
+        executor: Arc<dyn Execv + Send + Sync>,
+    ) -> Result<(), Box<dyn std::error::Error>>;
 }
 
 pub struct DefaultWorkspaceGenerator;
 
 impl WorkspaceGenerator for DefaultWorkspaceGenerator {
-    fn generate_workspace_dependencies(&self, root_dir: &Path, dry_run: bool, executor: Arc<dyn Execv + Send + Sync>) -> Result<(), Box<dyn std::error::Error>> {
+    fn generate_workspace_dependencies(
+        &self,
+        root_dir: &Path,
+        dry_run: bool,
+        executor: Arc<dyn Execv + Send + Sync>,
+    ) -> Result<(), Box<dyn std::error::Error>> {
         println!("Generating comprehensive [workspace.dependencies] section...");
 
         let submodules_dir = root_dir.join("submodules");
         let generated_deps_path = root_dir.join("generated_workspace_deps.toml");
 
         // 1. Run `cargo metadata`
-        let output = executor.execv(
-            OsStr::new("cargo"),
-            &[OsStr::new("metadata"), OsStr::new("--format-version"), OsStr::new("1")],
-            Some(root_dir),
-        ).map_err(|e| format!("Failed to execute cargo metadata: {}", e))?;
+        let output = executor
+            .execv(
+                OsStr::new("cargo"),
+                &[
+                    OsStr::new("metadata"),
+                    OsStr::new("--format-version"),
+                    OsStr::new("1"),
+                ],
+                Some(root_dir),
+            )
+            .map_err(|e| format!("Failed to execute cargo metadata: {}", e))?;
 
         if !output.status.success() {
             return Err(format!(
                 "cargo metadata failed:\nStdout: {}\nStderr: {}",
                 String::from_utf8_lossy(&output.stdout),
                 String::from_utf8_lossy(&output.stderr)
-            ).into());
+            )
+            .into());
         }
 
-        let metadata: serde_json::Value = serde_json::from_slice(&output.stdout)
+        #[cfg(feature = "tool_traits_lib_enabled")]
+        let serde_adapter = CurrentSerdeAdapter;
+        #[cfg(feature = "tool_traits_lib_enabled")]
+        let metadata: serde_json::Value = serde_adapter
+            .from_str(String::from_utf8_lossy(&output.stdout).as_ref())
             .map_err(|e| format!("Failed to parse cargo metadata output: {}", e))?;
+        #[cfg(not(feature = "tool_traits_lib_enabled"))]
+        let metadata: serde_json::Value = serde_json::Value::Null; // Dummy value
 
         let mut all_dependencies: HashMap<String, String> = HashMap::new(); // name -> version
 
@@ -48,7 +77,10 @@ impl WorkspaceGenerator for DefaultWorkspaceGenerator {
                     if let Some(version) = pkg["version"].as_str() {
                         // Only add if not already present or if new version is higher
                         let current_version = all_dependencies.get::<str>(name);
-                        if current_version.is_none() || (current_version.is_some() && version > current_version.unwrap().as_str()) {
+                        if current_version.is_none()
+                            || (current_version.is_some()
+                                && version > current_version.unwrap().as_str())
+                        {
                             all_dependencies.insert(name.to_string(), version.to_string());
                         }
                     }
@@ -94,7 +126,16 @@ impl WorkspaceGenerator for DefaultWorkspaceGenerator {
 
             let mut dep_table = toml_edit::Table::new();
             if is_submodule {
-                dep_table.insert("path", toml_edit::value(format!("./{}", submodule_path.strip_prefix(root_dir).unwrap().to_string_lossy())));
+                dep_table.insert(
+                    "path",
+                    toml_edit::value(format!(
+                        "./{}",
+                        submodule_path
+                            .strip_prefix(root_dir)
+                            .unwrap()
+                            .to_string_lossy()
+                    )),
+                );
             } else {
                 dep_table.insert("version", toml_edit::value(dep_version.clone()));
             }
@@ -102,7 +143,10 @@ impl WorkspaceGenerator for DefaultWorkspaceGenerator {
         }
 
         doc.insert("workspace", toml_edit::Item::Table(toml_edit::Table::new()));
-        doc["workspace"].as_table_mut().unwrap().insert("dependencies", toml_edit::Item::Table(workspace_deps_table));
+        doc["workspace"]
+            .as_table_mut()
+            .unwrap()
+            .insert("dependencies", toml_edit::Item::Table(workspace_deps_table));
 
         if dry_run {
             println!("--- DRY RUN: Generated [workspace.dependencies] content ---");
@@ -110,23 +154,30 @@ impl WorkspaceGenerator for DefaultWorkspaceGenerator {
             println!("---------------------------------------------");
         } else {
             fs::write(&generated_deps_path, doc.to_string())?;
-            println!("Successfully generated [workspace.dependencies] to {:?}", generated_deps_path);
+            println!(
+                "Successfully generated [workspace.dependencies] to {:?}",
+                generated_deps_path
+            );
         }
 
         Ok(())
     }
 }
 
-pub fn add_workspace_submodules(root_dir: &Path, dry_run: bool, executor: Arc<dyn Execv + Send + Sync>) -> Result<(), Box<dyn std::error::Error>> {
+pub fn add_workspace_submodules(
+    root_dir: &Path,
+    dry_run: bool,
+    executor: Arc<dyn Execv + Send + Sync>,
+) -> Result<(), Box<dyn std::error::Error>> {
     println!("Adding all submodules as path dependencies to [workspace.dependencies]...");
 
     let cargo_toml_path = root_dir.join("Cargo.toml");
     let submodules_dir = root_dir.join("submodules");
 
-    let mut doc = fs::read_to_string(&cargo_toml_path)?
-        .parse::<toml_edit::DocumentMut>()?;
+    let mut doc = fs::read_to_string(&cargo_toml_path)?.parse::<toml_edit::DocumentMut>()?;
 
-    let workspace_deps = doc.get_mut("workspace")
+    let workspace_deps = doc
+        .get_mut("workspace")
         .and_then(|item| item.as_table_mut())
         .and_then(|table| table.get_mut("dependencies"))
         .and_then(|item| item.as_table_mut())
@@ -154,19 +205,37 @@ pub fn add_workspace_submodules(root_dir: &Path, dry_run: bool, executor: Arc<dy
         match submodule.as_str() {
             "serde" => {
                 workspace_deps.insert("serde", toml_edit::Item::Table(dep_table.clone()));
-                workspace_deps.insert("serde_derive", toml_edit::value(format!("{{ path = \"./submodules/serde/serde_derive\" }}")));
-                workspace_deps.insert("serde_core", toml_edit::value(format!("{{ path = \"./submodules/serde/serde_core\" }}")));
-            },
+                workspace_deps.insert(
+                    "serde_derive",
+                    toml_edit::value(format!("{{ path = \"./submodules/serde/serde_derive\" }}")),
+                );
+                workspace_deps.insert(
+                    "serde_core",
+                    toml_edit::value(format!("{{ path = \"./submodules/serde/serde_core\" }}")),
+                );
+            }
             "time-rs" => {
                 workspace_deps.insert("time", toml_edit::Item::Table(dep_table.clone()));
-                workspace_deps.insert("time-core", toml_edit::value(format!("{{ path = \"./submodules/time-rs/time-core\" }}")));
-                workspace_deps.insert("time-macros", toml_edit::value(format!("{{ path = \"./submodules/time-rs/time-macros\" }}")));
-            },
+                workspace_deps.insert(
+                    "time-core",
+                    toml_edit::value(format!("{{ path = \"./submodules/time-rs/time-core\" }}")),
+                );
+                workspace_deps.insert(
+                    "time-macros",
+                    toml_edit::value(format!("{{ path = \"./submodules/time-rs/time-macros\" }}")),
+                );
+            }
             "rand" => {
                 workspace_deps.insert("rand", toml_edit::Item::Table(dep_table.clone()));
-                workspace_deps.insert("rand08", toml_edit::value(format!("{{ path = \"./submodules/rand\" }}")));
-                workspace_deps.insert("rand09", toml_edit::value(format!("{{ path = \"./submodules/rand\" }}")));
-            },
+                workspace_deps.insert(
+                    "rand08",
+                    toml_edit::value(format!("{{ path = \"./submodules/rand\" }}")),
+                );
+                workspace_deps.insert(
+                    "rand09",
+                    toml_edit::value(format!("{{ path = \"./submodules/rand\" }}")),
+                );
+            }
             _ => {
                 workspace_deps.insert(&submodule, toml_edit::Item::Table(dep_table));
             }
@@ -185,7 +254,11 @@ pub fn add_workspace_submodules(root_dir: &Path, dry_run: bool, executor: Arc<dy
     Ok(())
 }
 
-pub fn comment_submodule_workspaces(root_dir: &Path, dry_run: bool, executor: Arc<dyn Execv + Send + Sync>) -> Result<(), Box<dyn std::error::Error>> {
+pub fn comment_submodule_workspaces(
+    root_dir: &Path,
+    dry_run: bool,
+    executor: Arc<dyn Execv + Send + Sync>,
+) -> Result<(), Box<dyn std::error::Error>> {
     println!("Commenting out [workspace] sections in submodule Cargo.toml files...");
 
     let submodules_dir = root_dir.join("submodules");
@@ -199,12 +272,14 @@ pub fn comment_submodule_workspaces(root_dir: &Path, dry_run: bool, executor: Ar
         println!("Processing Cargo.toml: {:?}", cargo_toml_path);
         println!("  Dry run: {}", dry_run);
 
-        let mut doc = fs::read_to_string(&cargo_toml_path)?
-            .parse::<toml_edit::DocumentMut>()?;
+        let mut doc = fs::read_to_string(&cargo_toml_path)?.parse::<toml_edit::DocumentMut>()?;
 
         if let Some(workspace_item) = doc.get_mut("workspace") {
             if dry_run {
-                println!("--- DRY RUN: Would remove [workspace] section in {:?} ---", cargo_toml_path);
+                println!(
+                    "--- DRY RUN: Would remove [workspace] section in {:?} ---",
+                    cargo_toml_path
+                );
             } else {
                 doc.remove("workspace");
                 println!("  Removed [workspace] section from {:?}", cargo_toml_path);
@@ -214,7 +289,10 @@ pub fn comment_submodule_workspaces(root_dir: &Path, dry_run: bool, executor: Ar
         }
 
         if dry_run {
-            println!("--- DRY RUN: Generated Cargo.toml content for {:?} ---", cargo_toml_path);
+            println!(
+                "--- DRY RUN: Generated Cargo.toml content for {:?} ---",
+                cargo_toml_path
+            );
             println!("{}", doc.to_string());
             println!("---------------------------------------------");
         } else {
@@ -226,4 +304,3 @@ pub fn comment_submodule_workspaces(root_dir: &Path, dry_run: bool, executor: Ar
     println!("Finished commenting out [workspace] sections.");
     Ok(())
 }
-

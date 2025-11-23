@@ -1,34 +1,33 @@
 extern crate anyhow;
+extern crate cargo_edit_lib;
+extern crate cargo_metadata;
+extern crate cargo_submodule_tool_lib;
+extern crate cargo_toml_editor_lib;
 extern crate clap;
+extern crate git2;
 extern crate git_wrapper_lib;
 extern crate nix_generator_lib;
-extern crate syn_adapter_lib;
-extern crate cargo_edit_lib;
-extern crate cargo_toml_editor_lib;
-extern crate cargo_submodule_tool_lib;
 extern crate regex;
+extern crate serde;
+extern crate syn_adapter_lib;
 extern crate toml_edit;
 extern crate walkdir;
-extern crate serde;
-extern crate cargo_metadata;
-extern crate git2;
 
 extern crate lazy_static;
 
 use anyhow::{Context, Result};
-use clap::{Parser, Subcommand, ValueEnum, Args};
+use clap::{Args, Parser, Subcommand, ValueEnum};
 use std::path::{Path, PathBuf};
 
 mod adapters_factory;
 use adapters_factory::Mode;
 
-
+mod cargo_edit_adapter_impl;
 mod cargo_metadata_provider;
 mod cargo_toml_updater;
 mod generate_workspaces;
 mod update_cargo_config;
 mod workspace_deps_generator;
-mod cargo_edit_adapter_impl;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -91,37 +90,58 @@ fn main() -> Result<()> {
     let cli = Cli::parse();
 
     match &cli.command {
-        Commands::GenerateConfig { project_root, output_config, mode } => {
+        Commands::GenerateConfig {
+            project_root,
+            output_config,
+            mode,
+        } => {
             println!("Running GenerateConfig command...");
             println!("Project Root: {:?}", project_root);
             println!("Output Config: {:?}", output_config);
             println!("Mode: {:?}", mode);
 
-            let (git_adapter, cargo_metadata_provider, _nix_adapter, _syn_adapter, cargo_edit_adapter) = adapters_factory::get_adapters((*mode).into())?;
+            let (
+                git_adapter,
+                cargo_metadata_provider,
+                _nix_adapter,
+                _syn_adapter,
+                cargo_edit_adapter,
+            ) = adapters_factory::get_adapters((*mode).into())?;
 
             // Ensure the .cargo directory exists
             let cargo_dir = output_config.parent().unwrap_or_else(|| Path::new("."));
-            std::fs::create_dir_all(cargo_dir)
-                .map_err(|e| anyhow::anyhow!("Failed to create directory {:?}: {}", cargo_dir, e))?;
+            std::fs::create_dir_all(cargo_dir).map_err(|e| {
+                anyhow::anyhow!("Failed to create directory {:?}: {}", cargo_dir, e)
+            })?;
 
-            let generated_config_content = cargo_edit_adapter.generate_cargo_config(
-                git_adapter.as_ref(),
-                cargo_metadata_provider.as_ref(),
-            )
-            .context("Failed to generate cargo config using CargoEditAdapter")?;
+            let generated_config_content = cargo_edit_adapter
+                .generate_cargo_config(git_adapter.as_ref(), cargo_metadata_provider.as_ref())
+                .context("Failed to generate cargo config using CargoEditAdapter")?;
 
-            std::fs::write(output_config, generated_config_content)
-                .context(format!("Failed to write updated config.toml: {:?}", output_config))?;
+            std::fs::write(output_config, generated_config_content).context(format!(
+                "Failed to write updated config.toml: {:?}",
+                output_config
+            ))?;
 
             println!("Successfully generated .cargo/config.toml.");
-        },
-        Commands::GenerateNix { project_root, output_path, mode } => {
+        }
+        Commands::GenerateNix {
+            project_root,
+            output_path,
+            mode,
+        } => {
             println!("Running GenerateNix command...");
             println!("Project Root: {:?}", project_root);
             println!("Output Path: {:?}", output_path);
             println!("Mode: {:?}", mode);
 
-            let (git_adapter, cargo_metadata_provider, nix_adapter, _syn_adapter, cargo_edit_adapter) = adapters_factory::get_adapters((*mode).into())?;
+            let (
+                git_adapter,
+                cargo_metadata_provider,
+                nix_adapter,
+                _syn_adapter,
+                cargo_edit_adapter,
+            ) = adapters_factory::get_adapters((*mode).into())?;
             let workspace_info_provider = cargo_edit_lib::CargoConfigGeneratorImpl; // Instantiate the implementation
 
             nix_generator_lib::cli::commands::generate_nix::generate_nix(
@@ -131,7 +151,7 @@ fn main() -> Result<()> {
                 cargo_metadata_provider.as_ref(),
                 nix_adapter.as_ref(),
                 cargo_edit_adapter.as_ref(), // Pass cargo_edit_adapter
-                &workspace_info_provider, // Pass the new workspace_info_provider
+                &workspace_info_provider,    // Pass the new workspace_info_provider
             )
             .context("Failed to generate Nix expressions")?;
 

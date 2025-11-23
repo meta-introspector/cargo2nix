@@ -2,23 +2,21 @@ use anyhow::{anyhow, Context, Result};
 #[cfg(feature = "real_cargo_metadata")]
 use cargo_metadata::Metadata;
 use git_wrapper_lib::git_adapters::GitAdapter;
-#[cfg(feature = "serde")]
-#[cfg(feature = "serde_json_enabled")]
-use serde_json; // Added for Metadata default construction
-use std::collections::HashMap; // Added
-use std::path::{Path, PathBuf}; // Added
-use std::fs; // Added
-#[cfg(feature = "regex_enabled")]
-use regex::Regex; // Added
 #[cfg(feature = "lazy_static_enabled")]
 use lazy_static::lazy_static; // Added
+#[cfg(feature = "regex_enabled")]
+use regex::Regex; // Added
+#[cfg(feature = "serde_enabled")]
+use serde::{Deserialize, Serialize}; // Added
+use std::collections::HashMap; // Added
+use std::fs; // Added
+use std::path::{Path, PathBuf}; // Added
 #[cfg(feature = "toml_edit_enabled")]
 use toml_edit::{Document, DocumentMut, Item, Table, Value}; // Added
+#[cfg(feature = "tool_traits_lib_enabled")]
+use tool_traits_lib::serde_adapter::{CurrentSerdeAdapter, SerdeAdapter};
 #[cfg(feature = "walkdir_enabled")]
 use walkdir::WalkDir; // Added
-#[cfg(feature = "serde")]
-#[cfg(feature = "serde_enabled")]
-use serde::{Serialize, Deserialize}; // Added
 
 pub trait AnyMetadata: Send + Sync {
     // Add methods here to access metadata fields if needed by the core logic
@@ -55,8 +53,6 @@ impl CargoMetadataProvider for RealCargoMetadataProvider {
     }
 }
 
-
-
 pub struct MockCargoMetadataProvider;
 
 impl CargoMetadataProvider for MockCargoMetadataProvider {
@@ -65,8 +61,6 @@ impl CargoMetadataProvider for MockCargoMetadataProvider {
         Ok(Box::new(DummyMetadata::default()))
     }
 }
-
-
 
 pub trait CargoEditAdapter: Send + Sync {
     fn generate_cargo_config(
@@ -114,8 +108,10 @@ impl WorkspaceInfoProvider for CargoConfigGeneratorImpl {
         project_root: &Path,
     ) -> Result<Vec<WorkspaceInfo>, anyhow::Error> {
         let members_file_path = project_root.join("submodules/members.txt");
-        let members_file_content = std::fs::read_to_string(&members_file_path)
-            .context(format!("Failed to read members file at {:?}", members_file_path))?;
+        let members_file_content = std::fs::read_to_string(&members_file_path).context(format!(
+            "Failed to read members file at {:?}",
+            members_file_path
+        ))?;
 
         let mut workspace_infos = Vec::new();
 
@@ -152,23 +148,28 @@ impl WorkspaceInfoProvider for CargoConfigGeneratorImpl {
 }
 
 /// Generates [patch] entries for .cargo/config.toml for each workspace member.
-pub fn generate_patch_entries(project_root: &Path, workspace_infos: &[WorkspaceInfo]) -> GeneratedPatches {
+pub fn generate_patch_entries(
+    project_root: &Path,
+    workspace_infos: &[WorkspaceInfo],
+) -> GeneratedPatches {
     let mut generated_patches = HashMap::new();
 
     for info in workspace_infos {
-        let submodule_name = info.submodule_base_path_rel
+        let submodule_name = info
+            .submodule_base_path_rel
             .file_name()
             .and_then(|s| s.to_str())
             .unwrap_or_default();
-        
-        let patch_section_header = format!("https://github.com/meta-introspector/{}", submodule_name);
+
+        let patch_section_header =
+            format!("https://github.com/meta-introspector/{}", submodule_name);
         let mut entries = Vec::new();
 
         for member_name in &info.member_crates {
             let member_abs_path = project_root
                 .join(&info.submodule_base_path_rel)
                 .join(member_name);
-            
+
             entries.push(PatchEntry {
                 crate_name: member_name.clone(),
                 path: member_abs_path,
@@ -181,14 +182,24 @@ pub fn generate_patch_entries(project_root: &Path, workspace_infos: &[WorkspaceI
 
 #[cfg(feature = "toml_edit_enabled")]
 /// Reads existing .cargo/config.toml, updates patch sections, and writes back.
-pub fn update_config_toml(config_toml_path: &Path, new_patches: &GeneratedPatches) -> anyhow::Result<()> {
+pub fn update_config_toml(
+    config_toml_path: &Path,
+    new_patches: &GeneratedPatches,
+) -> anyhow::Result<()> {
     let mut doc = if config_toml_path.exists() {
-        let contents = fs::read_to_string(config_toml_path)
-            .context(format!("Failed to read existing config.toml: {:?}", config_toml_path))?;
-        contents.parse::<DocumentMut>()
-            .context(format!("Failed to parse existing config.toml: {:?}", config_toml_path))?
+        let contents = fs::read_to_string(config_toml_path).context(format!(
+            "Failed to read existing config.toml: {:?}",
+            config_toml_path
+        ))?;
+        contents.parse::<DocumentMut>().context(format!(
+            "Failed to parse existing config.toml: {:?}",
+            config_toml_path
+        ))?
     } else {
-        println!("Warning: {:?} not found. Creating a new one.", config_toml_path);
+        println!(
+            "Warning: {:?} not found. Creating a new one.",
+            config_toml_path
+        );
         DocumentMut::new()
     };
 
@@ -203,20 +214,27 @@ pub fn update_config_toml(config_toml_path: &Path, new_patches: &GeneratedPatche
             .entry(repo_url)
             .or_insert(Item::Table(Table::new()))
             .as_table_mut()
-            .context(format!("Expected patch section for {} to be a table", repo_url))?;
+            .context(format!(
+                "Expected patch section for {} to be a table",
+                repo_url
+            ))?;
 
         for entry in entries {
             let mut crate_table = Table::new();
             crate_table.insert(
                 "path",
-                Item::Value(Value::String(toml_edit::Formatted::new(entry.path.to_str().context("Invalid path")?.to_string()))),
+                Item::Value(Value::String(toml_edit::Formatted::new(
+                    entry.path.to_str().context("Invalid path")?.to_string(),
+                ))),
             );
             repo_table.insert(&entry.crate_name, Item::Table(crate_table));
         }
     }
 
-    fs::write(config_toml_path, doc.to_string())
-        .context(format!("Failed to write updated config.toml: {:?}", config_toml_path))?;
+    fs::write(config_toml_path, doc.to_string()).context(format!(
+        "Failed to write updated config.toml: {:?}",
+        config_toml_path
+    ))?;
 
     println!("Updated {:?}", config_toml_path);
     Ok(())

@@ -4,3 +4,42 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+anyhow = { workspace = true, optional = true }
+clap = { workspace = true, optional = true }
+cargo_metadata = { workspace = true, optional = true }
+git2 = { workspace = true, optional = true }
+hex = { workspace = true, optional = true }
+lazy_static = { workspace = true, optional = true }
+pathdiff = { workspace = true, optional = true }
+serde = { workspace = true, optional = true, features = ["derive"] }
+serde_json = { workspace = true, optional = true }
+sha1 = { version = "*", optional = true }
+syn = { version = "*", optional = true }
+toml = { workspace = true, optional = true }
+toml_edit = { workspace = true, optional = true }
+walkdir = { workspace = true, optional = true }
+
+# Local dependencies
+
+git-wrapper-lib = { path = "../git-wrapper-lib", optional = true }
+
+[features]
+default = []
+anyhow_enabled = ["dep:anyhow"]
+clap_enabled = ["dep:clap"]
+cargo_metadata_enabled = ["dep:cargo_metadata"]
+git2_enabled = ["dep:git2"]
+hex_enabled = ["dep:hex"]
+lazy_static_enabled = ["dep:lazy_static"]
+pathdiff_enabled = ["dep:pathdiff"]
+serde_enabled = ["dep:serde"]
+serde_json_enabled = ["dep:serde_json"]
+sha1_enabled = ["dep:sha1"]
+syn_enabled = ["dep:syn"]
+toml_enabled = ["dep:toml"]
+toml_edit_enabled = ["dep:toml_edit"]
+walkdir_enabled = ["dep:walkdir"]
+
+# Local dependency features
+
+git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]

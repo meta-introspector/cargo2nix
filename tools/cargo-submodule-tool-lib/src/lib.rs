@@ -10,12 +10,12 @@ pub mod traits;
 pub mod workspace_generator;
 
 /////
-pub use  analysis::*;
+pub use analysis::*;
 
-pub use  cli::*;
-pub use  fs_cache::*;
-pub use  fs_writer::*;
-pub use  plan_manager::*;
-pub use  repo_discovery::*;
-pub use  traits::*;
-pub use  workspace_generator::*;
+pub use cli::*;
+pub use fs_cache::*;
+pub use fs_writer::*;
+pub use plan_manager::*;
+pub use repo_discovery::*;
+pub use traits::*;
+pub use workspace_generator::*;

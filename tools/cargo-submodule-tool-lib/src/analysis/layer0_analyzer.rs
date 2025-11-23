@@ -1,10 +1,13 @@
-use anyhow::{Result, anyhow};
-use std::collections::HashMap;
-use crate::analysis::dep_graph_data_merger::MergedCrateInfo; // Corrected import
+use crate::analysis::dep_graph_data_merger::MergedCrateInfo;
+use anyhow::{anyhow, Result};
+use std::collections::HashMap; // Corrected import
 
 #[cfg(feature = "nix_generation")]
 pub trait Layer0Analyzer {
-    fn find_most_used_layer0_module(&self, merged_data: &HashMap<String, MergedCrateInfo>) -> Result<Option<(String, u32)>>;
+    fn find_most_used_layer0_module(
+        &self,
+        merged_data: &HashMap<String, MergedCrateInfo>,
+    ) -> Result<Option<(String, u32)>>;
 }
 
 #[cfg(feature = "nix_generation")]
@@ -12,7 +15,10 @@ pub struct RealLayer0Analyzer;
 
 #[cfg(feature = "nix_generation")]
 impl Layer0Analyzer for RealLayer0Analyzer {
-    fn find_most_used_layer0_module(&self, merged_data: &HashMap<String, MergedCrateInfo>) -> Result<Option<(String, u32)>> {
+    fn find_most_used_layer0_module(
+        &self,
+        merged_data: &HashMap<String, MergedCrateInfo>,
+    ) -> Result<Option<(String, u32)>> {
         let mut most_used_module: Option<(String, u32)> = None;
 
         for (crate_name, info) in merged_data {
@@ -27,10 +33,10 @@ impl Layer0Analyzer for RealLayer0Analyzer {
                                 most_used_module = Some((crate_name.clone(), info.usage_count));
                             }
                         }
-                    },
+                    }
                     None => {
                         most_used_module = Some((crate_name.clone(), info.usage_count));
-                    },
+                    }
                 }
             }
         }
@@ -40,7 +46,10 @@ impl Layer0Analyzer for RealLayer0Analyzer {
 
 #[cfg(not(feature = "nix_generation"))]
 pub trait Layer0Analyzer {
-    fn find_most_used_layer0_module(&self, merged_data: &HashMap<String, MergedCrateInfo>) -> Result<Option<(String, u32)>>;
+    fn find_most_used_layer0_module(
+        &self,
+        merged_data: &HashMap<String, MergedCrateInfo>,
+    ) -> Result<Option<(String, u32)>>;
 }
 
 #[cfg(not(feature = "nix_generation"))]
@@ -48,7 +57,12 @@ pub struct RealLayer0Analyzer;
 
 #[cfg(not(feature = "nix_generation"))]
 impl Layer0Analyzer for RealLayer0Analyzer {
-    fn find_most_used_layer0_module(&self, _merged_data: &HashMap<String, MergedCrateInfo>) -> Result<Option<(String, u32)>> {
-        Err(anyhow!("`Layer0Analyzer` requires the `nix_generation` feature to be enabled."))
+    fn find_most_used_layer0_module(
+        &self,
+        _merged_data: &HashMap<String, MergedCrateInfo>,
+    ) -> Result<Option<(String, u32)>> {
+        Err(anyhow!(
+            "`Layer0Analyzer` requires the `nix_generation` feature to be enabled."
+        ))
     }
 }

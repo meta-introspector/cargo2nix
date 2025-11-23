@@ -1,11 +1,16 @@
-use anyhow::{Result, Context};
-use std::collections::HashMap;
-use std::path::Path;
+#[cfg(feature = "anyhow_enabled")] // Conditionally compile regex
+use anyhow::{Context, Result};
 #[cfg(feature = "nix_generation")] // Conditionally compile regex
 use regex::Regex;
+use std::collections::HashMap;
+use std::path::Path;
 
 pub trait NonVendoredModuleFinder {
-    fn find_and_count_non_vendored(&self, tree_file_path: &Path, project_root: &Path) -> Result<HashMap<String, u32>>;
+    fn find_and_count_non_vendored(
+        &self,
+        tree_file_path: &Path,
+        project_root: &Path,
+    ) -> Result<HashMap<String, u32>>;
 }
 
 #[cfg(feature = "nix_generation")] // Conditionally compile RealNonVendoredModuleFinder
@@ -13,16 +18,24 @@ pub struct RealNonVendoredModuleFinder;
 
 #[cfg(feature = "nix_generation")] // Conditionally compile impl block
 impl NonVendoredModuleFinder for RealNonVendoredModuleFinder {
-    fn find_and_count_non_vendored(&self, tree_file_path: &Path, project_root: &Path) -> Result<HashMap<String, u32>> {
+    fn find_and_count_non_vendored(
+        &self,
+        tree_file_path: &Path,
+        project_root: &Path,
+    ) -> Result<HashMap<String, u32>> {
         let mut module_usage_counts = HashMap::new();
 
         let content = std::fs::read_to_string(tree_file_path)
             .with_context(|| format!("Failed to read tree file: {}", tree_file_path.display()))?;
 
         // Regex to extract package name and path from any dependency line in tree.txt
-        let package_path_regex = Regex::new(r"^[│\s]*(?:├──|└──)?\s*(\w[\w-]*)\s+v\S+(?:\s+\(([^)]+)\))?")?;
+        let package_path_regex =
+            Regex::new(r"^[│\s]*(?:├──|└──)?\s*(\w[\w-]*)\s+v\S+(?:\s+\(([^)]+)\))?")?;
 
-        let submodules_path_str = project_root.join("submodules").to_string_lossy().to_string();
+        let submodules_path_str = project_root
+            .join("submodules")
+            .to_string_lossy()
+            .to_string();
 
         for line in content.lines() {
             if let Some(captures) = package_path_regex.captures(line) {
@@ -45,7 +58,13 @@ pub struct RealNonVendoredModuleFinder;
 
 #[cfg(not(feature = "nix_generation"))]
 impl NonVendoredModuleFinder for RealNonVendoredModuleFinder {
-    fn find_and_count_non_vendored(&self, _tree_file_path: &Path, _project_root: &Path) -> Result<HashMap<String, u32>> {
-        anyhow::bail!("`NonVendoredModuleFinder` requires the `nix_generation` feature to be enabled.");
+    fn find_and_count_non_vendored(
+        &self,
+        _tree_file_path: &Path,
+        _project_root: &Path,
+    ) -> Result<HashMap<String, u32>> {
+        anyhow::bail!(
+            "`NonVendoredModuleFinder` requires the `nix_generation` feature to be enabled."
+        );
     }
 }

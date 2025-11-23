@@ -1,14 +1,22 @@
-use anyhow::{Result, Context};
-use std::path::Path;
+use anyhow::{Context, Result};
 use std::fs;
+use std::path::Path;
 
+use cargo_submodule_tool_lib::fs_writer::{
+    CachedFileSystemWriter, FileSystemWriter, RealFileSystemWriter,
+};
 use git_wrapper_lib::repo_sync_lib::repo_action::RepoAction;
-use cargo_submodule_tool_lib::fs_writer::{FileSystemWriter, RealFileSystemWriter, CachedFileSystemWriter};
 
-pub fn update_cargo_config(actions_plan: &[RepoAction], root_dir: &Path, file_system_writer: &dyn FileSystemWriter) -> Result<()> {
+pub fn update_cargo_config(
+    actions_plan: &[RepoAction],
+    root_dir: &Path,
+    file_system_writer: &dyn FileSystemWriter,
+) -> Result<()> {
     println!("Updating .cargo/config.toml...");
     let cargo_config_dir = root_dir.join(".cargo");
-    file_system_writer.create_dir_all(&cargo_config_dir).context("Failed to create .cargo directory")?;
+    file_system_writer
+        .create_dir_all(&cargo_config_dir)
+        .context("Failed to create .cargo directory")?;
     let cargo_config_path = cargo_config_dir.join("config.toml");
 
     let mut config_doc = if cargo_config_path.exists() {
@@ -18,7 +26,8 @@ pub fn update_cargo_config(actions_plan: &[RepoAction], root_dir: &Path, file_sy
             .parse::<toml_edit::DocumentMut>()
             .context("Failed to parse .cargo/config.toml")?
     } else {
-        "".parse::<toml_edit::DocumentMut>().context("Failed to create empty Document")?
+        "".parse::<toml_edit::DocumentMut>()
+            .context("Failed to create empty Document")?
     };
 
     // Ensure [patch.crates-io] section exists
@@ -34,19 +43,20 @@ pub fn update_cargo_config(actions_plan: &[RepoAction], root_dir: &Path, file_sy
 
     for action in actions_plan {
         let relative_submodule_path = pathdiff::diff_paths(&action.submodule_path, root_dir)
-            .context(format!("Failed to get relative path for {:?}", action.submodule_path))?;
+            .context(format!(
+                "Failed to get relative path for {:?}",
+                action.submodule_path
+            ))?;
         let path_str = relative_submodule_path.to_string_lossy().to_string();
 
         // Add/update entry for this crate
         let mut crate_entry_table = toml_edit::Table::new();
         crate_entry_table.insert("path", toml_edit::value(path_str));
-        patch_crates_io.insert(
-            &action.repo_name,
-            toml_edit::Item::Table(crate_entry_table),
-        );
+        patch_crates_io.insert(&action.repo_name, toml_edit::Item::Table(crate_entry_table));
     }
 
-    file_system_writer.write_file(&cargo_config_path, config_doc.to_string().as_bytes())
+    file_system_writer
+        .write_file(&cargo_config_path, config_doc.to_string().as_bytes())
         .with_context(|| format!("Failed to write to {:?}", cargo_config_path))?;
 
     println!("Successfully updated .cargo/config.toml.");

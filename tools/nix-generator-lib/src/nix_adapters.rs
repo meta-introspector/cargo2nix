@@ -1,12 +1,13 @@
-use anyhow::{Result, Context};
-use std::path::{Path, PathBuf};
+use anyhow::{Context, Result};
+#[cfg(feature = "serde_enabled")]
+use serde::{Deserialize, Serialize};
 use std::any::Any;
 use std::fs;
-use serde::{Serialize, Deserialize}; // Added
+use std::path::{Path, PathBuf}; // Added
 
 /// A trait to encapsulate information about a crate for Nix expression generation.
 /// This will need to be fleshed out with actual crate data.
-#[derive(Debug, Serialize, Deserialize)] // Added Serialize, Deserialize
+#[cfg_attr(feature = "serde_enabled", derive(Debug, Serialize, Deserialize))] // Added Serialize, Deserialize
 pub struct CrateInfo {
     pub name: String,
     pub version: String,
@@ -37,12 +38,21 @@ impl MockNixAdapter {
 
 impl NixAdapter for MockNixAdapter {
     fn generate_nix_expression(&self, crate_info: &CrateInfo) -> Result<String> {
-        println!("[MockNixAdapter] Generating mock Nix expression for crate: {}", crate_info.name);
-        Ok(format!("# Mock Nix expression for {}\n{{ pkgs }}: pkgs.hello", crate_info.name))
+        println!(
+            "[MockNixAdapter] Generating mock Nix expression for crate: {}",
+            crate_info.name
+        );
+        Ok(format!(
+            "# Mock Nix expression for {}\n{{ pkgs }}: pkgs.hello",
+            crate_info.name
+        ))
     }
 
     fn write_nix_expression(&self, path: &Path, content: &str) -> Result<()> {
-        println!("[MockNixAdapter] Writing mock Nix expression to {:?} with content:\n{}", path, content);
+        println!(
+            "[MockNixAdapter] Writing mock Nix expression to {:?} with content:\n{}",
+            path, content
+        );
         Ok(())
     }
 
@@ -62,16 +72,21 @@ impl ShellNixAdapter {
 
 impl NixAdapter for ShellNixAdapter {
     fn generate_nix_expression(&self, crate_info: &CrateInfo) -> Result<String> {
-        println!("[ShellNixAdapter] Generating Nix expression for crate: {}", crate_info.name);
+        println!(
+            "[ShellNixAdapter] Generating Nix expression for crate: {}",
+            crate_info.name
+        );
         // For now, we'll return a placeholder. The actual generation logic is in Rust.
         // If we were to call an external tool for generation, it would go here.
-        Ok(format!("# Shell-generated Nix expression for {}\n{{ pkgs }}: pkgs.hello", crate_info.name))
+        Ok(format!(
+            "# Shell-generated Nix expression for {}\n{{ pkgs }}: pkgs.hello",
+            crate_info.name
+        ))
     }
 
     fn write_nix_expression(&self, path: &Path, content: &str) -> Result<()> {
         println!("[ShellNixAdapter] Writing Nix expression to {:?}", path);
-        fs::write(path, content)
-            .context(format!("Failed to write Nix expression to {:?}", path))
+        fs::write(path, content).context(format!("Failed to write Nix expression to {:?}", path))
     }
 
     fn as_any(&self) -> &dyn Any {

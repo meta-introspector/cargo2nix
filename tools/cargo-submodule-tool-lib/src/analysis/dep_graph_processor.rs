@@ -1,25 +1,28 @@
-use anyhow::Result;
-use std::collections::HashMap;
+#[cfg(feature = "nix_generation")] // Conditionally compile lazy_static
+use lazy_static::lazy_static;
 #[cfg(feature = "nix_generation")] // Conditionally compile regex
 use regex::Regex;
-#[cfg(feature = "nix_generation")] // Conditionally compile lazy_static
-use lazy_static::lazy_static; // Add lazy_static import
+use std::collections::HashMap; // Add lazy_static import
 
-use crate::analysis::dep_graph_data_merger::MergedCrateInfo;
+#[cfg(feature = "tool_traits_lib_enabled")]
+use tool_traits_lib::types::MergedCrateInfo;
+#[cfg(feature = "tool_traits_lib_enabled")]
+use tool_traits_lib::DepGraphProcessor;
 
-pub trait DepGraphProcessor {
-    fn process_dep_graph(&self, dot_content: &str) -> Result<HashMap<String, MergedCrateInfo>>;
-}
-
-#[cfg(feature = "nix_generation")] // Conditionally compile RealDepGraphProcessor
+#[cfg(all(feature = "nix_generation", feature = "tool_traits_lib_enabled"))] // Conditionally compile RealDepGraphProcessor
 pub struct RealDepGraphProcessor;
 
-#[cfg(feature = "nix_generation")] // Conditionally compile impl block
+#[cfg(all(feature = "nix_generation", feature = "tool_traits_lib_enabled"))] // Conditionally compile impl block
 impl DepGraphProcessor for RealDepGraphProcessor {
-    fn process_dep_graph(&self, dot_content: &str) -> Result<HashMap<String, MergedCrateInfo>> {
+    fn process_dep_graph(
+        &self,
+        dot_content: &str,
+    ) -> std::result::Result<HashMap<String, MergedCrateInfo>, String> {
         lazy_static! {
-            static ref NODE_RE: Regex = Regex::new(r#"^  "([^"]+)" \[label="([^"]+)"\];$"#).unwrap();
-            static ref EDGE_RE: Regex = Regex::new(r#"^  "([^"]+)" -> "([^"]+)"(?: \[label="([^"]+)"\])?;$"#).unwrap();
+            static ref NODE_RE: Regex =
+                Regex::new(r#"^  "([^"]+)" \[label="([^"]+)"\];$"#).unwrap();
+            static ref EDGE_RE: Regex =
+                Regex::new(r#"^  "([^"]+)" -> "([^"]+)"(?: \[label="([^"]+)"\])?;$"#).unwrap();
             static ref VERSION_RE: Regex = Regex::new(r#" v\d+\.\d+\.\d+(?:-\S+)?"#).unwrap();
         }
 
@@ -32,10 +35,13 @@ impl DepGraphProcessor for RealDepGraphProcessor {
                 let label = captures[2].to_string();
                 // Remove version from node name for consistent keying
                 node_name = VERSION_RE.replace_all(&node_name, "").trim().to_string();
-                nodes.insert(node_name, MergedCrateInfo {
-                    layer: -1, // Default value
-                    usage_count: 0, // Default value
-                });
+                nodes.insert(
+                    node_name,
+                    MergedCrateInfo {
+                        layer: -1,      // Default value
+                        usage_count: 0, // Default value
+                    },
+                );
             } else if let Some(captures) = EDGE_RE.captures(line) {
                 let mut from_node = captures[1].to_string();
                 let mut to_node = captures[2].to_string();
@@ -61,7 +67,10 @@ pub struct RealDepGraphProcessor;
 
 #[cfg(not(feature = "nix_generation"))]
 impl DepGraphProcessor for RealDepGraphProcessor {
-    fn process_dep_graph(&self, _dot_content: &str) -> Result<HashMap<String, MergedCrateInfo>> {
-        anyhow::bail!("`DepGraphProcessor` requires the `nix_generation` feature to be enabled.");
+    fn process_dep_graph(
+        &self,
+        _dot_content: &str,
+    ) -> std::result::Result<HashMap<String, MergedCrateInfo>, String> {
+        Err("`DepGraphProcessor` requires the `nix_generation` feature to be enabled.".to_string())
     }
 }

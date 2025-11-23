@@ -1,24 +1,33 @@
-#[cfg(feature = "with-anyhow")]
+#[cfg(feature = "anyhow_enabled")]
 use anyhow::{Context, Result};
-#[cfg(not(feature = "with-anyhow"))]
+#[cfg(not(feature = "anyhow_enabled"))]
 use std::error::Error; // For fallback Result
-#[cfg(not(feature = "with-anyhow"))]
+#[cfg(not(feature = "anyhow_enabled"))]
 type Result<T> = std::result::Result<T, Box<dyn Error>>; // Fallback for Result
-#[cfg(not(feature = "with-anyhow"))]
-trait Context<T> { // Fallback for anyhow::Context
-    fn context<C>(self, _context: C) -> Result<T> where C: std::fmt::Display + Send + Sync + 'static;
+#[cfg(not(feature = "anyhow_enabled"))]
+trait Context<T> {
+    // Fallback for anyhow::Context
+    fn context<C>(self, _context: C) -> Result<T>
+    where
+        C: std::fmt::Display + Send + Sync + 'static;
 }
-#[cfg(not(feature = "with-anyhow"))]
-impl<T, E> Context<T> for std::result::Result<T, E> where E: std::error::Error + Send + Sync + 'static {
-    fn context<C>(self, _context: C) -> Result<T> where C: std::fmt::Display + Send + Sync + 'static {
+#[cfg(not(feature = "anyhow_enabled"))]
+impl<T, E> Context<T> for std::result::Result<T, E>
+where
+    E: std::error::Error + Send + Sync + 'static,
+{
+    fn context<C>(self, _context: C) -> Result<T>
+    where
+        C: std::fmt::Display + Send + Sync + 'static,
+    {
         self.map_err(|e| Box::new(e) as Box<dyn Error>)
     }
 }
 
+use std::os::unix::process::ExitStatusExt;
 use std::path::Path;
-use std::sync::Arc;
-use std::process::{Command, Output, ExitStatus};
-use std::os::unix::process::ExitStatusExt; // Needed for ExitStatus::from_raw
+use std::process::{Command, ExitStatus, Output};
+use std::sync::Arc; // Needed for ExitStatus::from_raw
 
 use crate::git_traits::{GitExecutor, GitRepositoryOperations};
 use crate::git_types::SubmoduleInfo;
@@ -75,7 +84,14 @@ impl GitRepositoryOperations for RealGitRepositoryOperations {
             .context("Failed to execute git status")
     }
 
-    fn git_submodule_add(&self, repo_path: &Path, url: &str, path: &str, name: Option<&str>, branch: Option<&str>) -> Result<Output> {
+    fn git_submodule_add(
+        &self,
+        repo_path: &Path,
+        url: &str,
+        path: &str,
+        name: Option<&str>,
+        branch: Option<&str>,
+    ) -> Result<Output> {
         let mut command = Command::new("git");
         command.arg("-C").arg(repo_path).arg("submodule").arg("add");
         if let Some(name) = name {
@@ -84,19 +100,34 @@ impl GitRepositoryOperations for RealGitRepositoryOperations {
         if let Some(branch) = branch {
             command.arg("--branch").arg(branch);
         }
-        command.arg(url).arg(path).output().context("Failed to execute git submodule add")
+        command
+            .arg(url)
+            .arg(path)
+            .output()
+            .context("Failed to execute git submodule add")
     }
 
-    fn git_submodule_update(&self, repo_path: &Path, init: bool, recursive: bool) -> Result<Output> {
+    fn git_submodule_update(
+        &self,
+        repo_path: &Path,
+        init: bool,
+        recursive: bool,
+    ) -> Result<Output> {
         let mut command = Command::new("git");
-        command.arg("-C").arg(repo_path).arg("submodule").arg("update");
+        command
+            .arg("-C")
+            .arg(repo_path)
+            .arg("submodule")
+            .arg("update");
         if init {
             command.arg("--init");
         }
         if recursive {
             command.arg("--recursive");
         }
-        command.output().context("Failed to execute git submodule update")
+        command
+            .output()
+            .context("Failed to execute git submodule update")
     }
 
     fn git_submodule_status(&self, repo_path: &Path) -> Result<Output> {
@@ -145,11 +176,16 @@ impl GitRepositoryOperations for RealGitRepositoryOperations {
         let submodules_list = self.git_executor.list_submodules(repo_path)?;
         let mut submodules_info = Vec::new();
         for (url, path) in submodules_list {
-            let name = path.file_name()
-                           .and_then(|os_str| os_str.to_str())
-                           .unwrap_or_default()
-                           .to_string();
-            submodules_info.push(SubmoduleInfo { name, path, url: Some(url) });
+            let name = path
+                .file_name()
+                .and_then(|os_str| os_str.to_str())
+                .unwrap_or_default()
+                .to_string();
+            submodules_info.push(SubmoduleInfo {
+                name,
+                path,
+                url: Some(url),
+            });
         }
         Ok(submodules_info)
     }

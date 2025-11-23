@@ -24,22 +24,28 @@ pub fn patch_cargo_toml(
     // Comment out rust-version
     if let Some(package_table) = doc.get_mut("package").and_then(|item| item.as_table_mut()) {
         if let Some(rust_version_item) = package_table.get_mut("rust-version") {
-                if rust_version_item.is_value() {
-                    let decor = rust_version_item.as_value_mut().unwrap().decor_mut();
-                    let current_prefix_raw = decor.prefix().map_or_else(|| RawString::from(""), |s| s.clone());
-                    let mut current_prefix_string = current_prefix_raw.as_str().unwrap_or("").to_string();
-                    current_prefix_string.insert_str(0, "# ");
-                    let new_prefix_raw = RawString::from(current_prefix_string);
-                    decor.set_prefix(new_prefix_raw);
-                    println!("  - Commented out rust-version in {:?}", cargo_toml_path);
-                }
+            if rust_version_item.is_value() {
+                let decor = rust_version_item.as_value_mut().unwrap().decor_mut();
+                let current_prefix_raw = decor
+                    .prefix()
+                    .map_or_else(|| RawString::from(""), |s| s.clone());
+                let mut current_prefix_string =
+                    current_prefix_raw.as_str().unwrap_or("").to_string();
+                current_prefix_string.insert_str(0, "# ");
+                let new_prefix_raw = RawString::from(current_prefix_string);
+                decor.set_prefix(new_prefix_raw);
+                println!("  - Commented out rust-version in {:?}", cargo_toml_path);
+            }
         }
     }
 
     // Process dependencies sections
     let sections = ["dependencies", "dev-dependencies", "build-dependencies"];
     for section_name in sections {
-        if let Some(deps_table) = doc.get_mut(section_name).and_then(|item| item.as_table_mut()) {
+        if let Some(deps_table) = doc
+            .get_mut(section_name)
+            .and_then(|item| item.as_table_mut())
+        {
             for (key, item) in deps_table.iter_mut() {
                 let dep_name = key.to_string();
                 if vendored_crates.contains(&dep_name) {
@@ -49,16 +55,17 @@ pub fn patch_cargo_toml(
                             dep_table.insert("workspace", true.into());
                             println!("  - Modified simple dependency '{}' to use workspace = true in {:?}", dep_name, cargo_toml_path);
                         }
-                    }
-                    else if let Some(dep_table) = item.as_table_mut() {
+                    } else if let Some(dep_table) = item.as_table_mut() {
                         dep_table.remove("version");
                         dep_table.remove("git");
                         dep_table.remove("branch");
                         dep_table.remove("path");
                         dep_table.insert("workspace", Item::Value(true.into()));
-                        println!("  - Modified table dependency '{}' to use workspace = true in {:?}", dep_name, cargo_toml_path);
-                    }
-                    else if let Some(dep_table) = item.as_inline_table_mut() {
+                        println!(
+                            "  - Modified table dependency '{}' to use workspace = true in {:?}",
+                            dep_name, cargo_toml_path
+                        );
+                    } else if let Some(dep_table) = item.as_inline_table_mut() {
                         dep_table.remove("version");
                         dep_table.remove("git");
                         dep_table.remove("branch");
@@ -71,8 +78,12 @@ pub fn patch_cargo_toml(
         }
     }
 
-    fs::write(cargo_toml_path, doc.to_string())
-        .with_context(|| format!("Failed to write patched Cargo.toml to {:?}", cargo_toml_path))?;
+    fs::write(cargo_toml_path, doc.to_string()).with_context(|| {
+        format!(
+            "Failed to write patched Cargo.toml to {:?}",
+            cargo_toml_path
+        )
+    })?;
 
     Ok(())
 }
@@ -83,6 +94,9 @@ pub fn patch_cargo_toml(
     _submodule_name: &str,
     _vendored_crates: &HashSet<String>,
 ) -> Result<()> {
-    println!("Dummy patch_cargo_toml: Skipping patching for {:?}", cargo_toml_path);
+    println!(
+        "Dummy patch_cargo_toml: Skipping patching for {:?}",
+        cargo_toml_path
+    );
     Ok(())
 }

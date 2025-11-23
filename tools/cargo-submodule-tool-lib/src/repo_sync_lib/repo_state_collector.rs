@@ -1,50 +1,72 @@
-use anyhow::{anyhow, Result, Context};
+use anyhow::{anyhow, Context, Result};
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
+use std::sync::Arc;
 #[cfg(feature = "walkdir_enabled")] // Use walkdir_enabled feature
 use walkdir::WalkDir;
-use std::sync::Arc;
 
-use crate::executors::GitExecutor; // Use our re-exported GitExecutor
-use crate::analysis::cargo_metadata_provider::CargoMetadataProvider; // Use our re-exported CargoMetadataProvider
+use crate::analysis::cargo_metadata_provider::CargoMetadataProvider;
+use crate::executors::GitExecutor; // Use our re-exported GitExecutor // Use our re-exported CargoMetadataProvider
 
-use git_wrapper_lib::git_types::{SubmoduleInfo, PackageInfo, DependencyInfo, CargoWorkspaceInfo, NixFlakeInfo, RepoState}; // Still need these types
+use git_wrapper_lib::git_types::{
+    CargoWorkspaceInfo, DependencyInfo, NixFlakeInfo, PackageInfo, RepoState, SubmoduleInfo,
+}; // Still need these types
 
 // --- RepoStateCollector Trait and Implementation ---
 
-#[cfg(all(feature = "git_enabled", feature = "nix_generation", feature = "walkdir_enabled"))]
+#[cfg(all(
+    feature = "git_enabled",
+    feature = "nix_generation",
+    feature = "walkdir_enabled"
+))]
 pub trait RepoStateCollector: Send + Sync {
     fn collect_repo_state(&self, project_root: &Path) -> Result<RepoState>;
 }
 
-#[cfg(all(feature = "git_enabled", feature = "nix_generation", feature = "walkdir_enabled"))]
+#[cfg(all(
+    feature = "git_enabled",
+    feature = "nix_generation",
+    feature = "walkdir_enabled"
+))]
 pub struct RealRepoStateCollector {
     git_executor: Arc<dyn GitExecutor + Send + Sync>,
     cargo_metadata_provider: Box<dyn CargoMetadataProvider + Send + Sync>,
 }
 
-#[cfg(all(feature = "git_enabled", feature = "nix_generation", feature = "walkdir_enabled"))]
+#[cfg(all(
+    feature = "git_enabled",
+    feature = "nix_generation",
+    feature = "walkdir_enabled"
+))]
 impl RealRepoStateCollector {
     pub fn new(
         git_executor: Arc<dyn GitExecutor + Send + Sync>,
         cargo_metadata_provider: Box<dyn CargoMetadataProvider + Send + Sync>,
     ) -> Self {
-        RealRepoStateCollector { git_executor, cargo_metadata_provider }
+        RealRepoStateCollector {
+            git_executor,
+            cargo_metadata_provider,
+        }
     }
 }
 
-#[cfg(all(feature = "git_enabled", feature = "nix_generation", feature = "walkdir_enabled"))]
+#[cfg(all(
+    feature = "git_enabled",
+    feature = "nix_generation",
+    feature = "walkdir_enabled"
+))]
 impl RepoStateCollector for RealRepoStateCollector {
     fn collect_repo_state(&self, project_root: &Path) -> Result<RepoState> {
         let mut repo_state = RepoState::default();
 
         // 1. Collect Submodule Info
         for (url, path) in self.git_executor.list_submodules(project_root)? {
-            let name = path.file_name()
-                           .and_then(|os_str| os_str.to_str())
-                           .unwrap_or("unknown")
-                           .to_string();
-            
+            let name = path
+                .file_name()
+                .and_then(|os_str| os_str.to_str())
+                .unwrap_or("unknown")
+                .to_string();
+
             repo_state.submodules.push(SubmoduleInfo {
                 name,
                 path,
@@ -62,17 +84,21 @@ impl RepoStateCollector for RealRepoStateCollector {
             .filter(|e| e.file_type().is_file() && e.file_name() == "Cargo.toml")
         {
             let manifest_path = entry.path().to_path_buf();
-            
+
             // Try to get cargo metadata for each manifest
             let metadata = self.cargo_metadata_provider.get_metadata(&manifest_path)?; // Changed provide_metadata to get_metadata
-            
+
             let mut packages_in_workspace = Vec::new();
             for pkg in metadata.packages {
                 let mut deps_info = Vec::new();
                 for dep in pkg.dependencies {
                     deps_info.push(DependencyInfo {
                         name: dep.name,
-                        source: dep.source.as_ref().map(|s| s.to_string()).unwrap_or_else(|| "path".to_string()), // Default to path if source is None
+                        source: dep
+                            .source
+                            .as_ref()
+                            .map(|s| s.to_string())
+                            .unwrap_or_else(|| "path".to_string()), // Default to path if source is None
                         req: dep.req.to_string(),
                     });
                 }
@@ -108,7 +134,10 @@ impl RepoStateCollector for RealRepoStateCollector {
         for entry in WalkDir::new(project_root)
             .into_iter()
             .filter_map(|e| e.ok())
-            .filter(|e| e.file_type().is_file() && (e.file_name() == "flake.nix" || e.file_name() == "Cargo.nix"))
+            .filter(|e| {
+                e.file_type().is_file()
+                    && (e.file_name() == "flake.nix" || e.file_name() == "Cargo.nix")
+            })
         {
             let flake_path = entry.path().to_path_buf();
             // Placeholder for actual parsing of flake inputs/outputs
@@ -123,20 +152,35 @@ impl RepoStateCollector for RealRepoStateCollector {
     }
 }
 
-#[cfg(not(all(feature = "git_enabled", feature = "nix_generation", feature = "walkdir_enabled")))]
+#[cfg(not(all(
+    feature = "git_enabled",
+    feature = "nix_generation",
+    feature = "walkdir_enabled"
+)))]
 pub trait RepoStateCollector: Send + Sync {
     fn collect_repo_state(&self, project_root: &Path) -> Result<RepoState> {
-        println!("Dummy RepoStateCollector: collect_repo_state for {:?}", project_root);
+        println!(
+            "Dummy RepoStateCollector: collect_repo_state for {:?}",
+            project_root
+        );
         Ok(RepoState::default())
     }
 }
 
-#[cfg(not(all(feature = "git_enabled", feature = "nix_generation", feature = "walkdir_enabled")))]
+#[cfg(not(all(
+    feature = "git_enabled",
+    feature = "nix_generation",
+    feature = "walkdir_enabled"
+)))]
 pub struct RealRepoStateCollector {
     // No fields needed for dummy
 }
 
-#[cfg(not(all(feature = "git_enabled", feature = "nix_generation", feature = "walkdir_enabled")))]
+#[cfg(not(all(
+    feature = "git_enabled",
+    feature = "nix_generation",
+    feature = "walkdir_enabled"
+)))]
 impl RealRepoStateCollector {
     pub fn new(
         _git_executor: Arc<dyn GitExecutor + Send + Sync>,
@@ -146,5 +190,9 @@ impl RealRepoStateCollector {
     }
 }
 
-#[cfg(not(all(feature = "git_enabled", feature = "nix_generation", feature = "walkdir_enabled")))]
+#[cfg(not(all(
+    feature = "git_enabled",
+    feature = "nix_generation",
+    feature = "walkdir_enabled"
+)))]
 impl RepoStateCollector for RealRepoStateCollector {}

@@ -1,8 +1,8 @@
-#[cfg(feature = "with-anyhow")]
+#[cfg(feature = "anyhow_enabled")]
 use anyhow::Result;
-#[cfg(not(feature = "with-anyhow"))]
+#[cfg(not(feature = "anyhow_enabled"))]
 use std::error::Error; // For fallback Result
-#[cfg(not(feature = "with-anyhow"))]
+#[cfg(not(feature = "anyhow_enabled"))]
 type Result<T> = std::result::Result<T, Box<dyn Error>>; // Fallback for Result
 
 use crate::git_traits::GhExecutor;

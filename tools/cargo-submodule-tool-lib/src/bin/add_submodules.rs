@@ -4,25 +4,27 @@ use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 use std::time::SystemTime;
 
-use anyhow::{Result, Context};
-use std::path::{Path, PathBuf};
-use std::sync::{Arc, Mutex};
+#[cfg(not(feature = "git_enabled"))]
+use crate::executors::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
+#[cfg(not(feature = "git_enabled"))]
+use crate::executors::DummyGitExecutor;
+#[cfg(not(feature = "git_enabled"))]
+use crate::executors::DummyRollupLock as RollupLock; // Use dummy for RollupLock when git is not enabled
 use crate::executors::GitExecutor; // Use our re-exported GitExecutor
 #[cfg(feature = "git_enabled")]
 use crate::executors::PureRustGitExecutor;
 #[cfg(feature = "git_enabled")]
 use crate::executors::RealExecv; // Use our re-exported RealExecv
-#[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
 #[cfg(feature = "git_enabled")]
 use crate::executors::RollupLock; // Use our re-exported RollupLock
-#[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyRollupLock as RollupLock; // Use dummy for RollupLock when git is not enabled
-#[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyGitExecutor; // Use our dummy GitExecutor
+use anyhow::{Context, Result};
+use std::path::{Path, PathBuf};
+use std::sync::{Arc, Mutex}; // Use our dummy GitExecutor
 
 fn main() -> Result<()> {
-    let root_dir = PathBuf::from(".").canonicalize().context("Failed to canonicalize root_dir")?;
+    let root_dir = PathBuf::from(".")
+        .canonicalize()
+        .context("Failed to canonicalize root_dir")?;
     let repo_url = "https://github.com/rust-lang/cargo.git"; // Example repository
     let submodule_path = root_dir.join("submodules").join("cargo");
     let branch = "master";
@@ -33,7 +35,10 @@ fn main() -> Result<()> {
     let git_executor: Arc<dyn GitExecutor + Send + Sync> = {
         #[cfg(feature = "git_enabled")]
         {
-            Arc::new(PureRustGitExecutor::new(rollup_lock_arc.clone(), root_dir.clone()))
+            Arc::new(PureRustGitExecutor::new(
+                rollup_lock_arc.clone(),
+                root_dir.clone(),
+            ))
         }
         #[cfg(not(feature = "git_enabled"))]
         {

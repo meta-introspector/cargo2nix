@@ -1,10 +1,10 @@
-use crate::git_wrapper_lib_trait::GitWrapperLibTrait;
-use crate::git_traits::{GitExecutor, GitRepositoryOperations, GhExecutor, Execv};
 use crate::dummy_git_executor::DummyGitExecutor; // Assuming DummyGitExecutor is the mock for GitExecutor
-use crate::real_git_repository_operations::mock_git_repository_operations::MockGitRepositoryOperations;
-use crate::system_gh_executor::mock_gh_executor::MockGhExecutor;
 use crate::execv::mock_execv::MockExecv;
-use crate::git_adapters::{GitAdapter, MockGitAdapter}; // Added MockGitAdapter
+use crate::git_adapters::{GitAdapter, MockGitAdapter};
+use crate::git_traits::{Execv, GhExecutor, GitExecutor, GitRepositoryOperations};
+use crate::git_wrapper_lib_trait::GitWrapperLibTrait;
+use crate::real_git_repository_operations::mock_git_repository_operations::MockGitRepositoryOperations;
+use crate::system_gh_executor::mock_gh_executor::MockGhExecutor; // Added MockGitAdapter
 
 pub struct MockGitWrapperLib {
     git_executor_impl: DummyGitExecutor,
@@ -43,7 +43,8 @@ impl GitWrapperLibTrait for MockGitWrapperLib {
         &self.execv_impl
     }
 
-    fn git_adapter(&self) -> &dyn GitAdapter { // Added
+    fn git_adapter(&self) -> &dyn GitAdapter {
+        // Added
         &self.git_adapter_impl
     }
 }

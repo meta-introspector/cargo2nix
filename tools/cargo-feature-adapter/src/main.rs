@@ -1,6 +1,6 @@
+use anyhow::{Context, Result};
 use clap::Parser;
 use std::path::PathBuf;
-use anyhow::{Result, Context};
 
 mod cargo_toml_adapter;
 mod src_adapter;

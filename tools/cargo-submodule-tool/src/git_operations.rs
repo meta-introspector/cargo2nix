@@ -1,5 +1,5 @@
-use std::path::{Path, PathBuf};
 use git2;
+use std::path::{Path, PathBuf};
 
 // Struct to hold submodule information
 #[derive(Debug)]
@@ -11,7 +11,9 @@ pub struct SubmoduleInfo {
 
 // Define a trait for Git repository operations
 pub trait GitRepositoryOperations {
-    fn open_repository(path: &Path) -> Result<Self, String> where Self: Sized;
+    fn open_repository(path: &Path) -> Result<Self, String>
+    where
+        Self: Sized;
     fn submodules(&self) -> Result<Vec<SubmoduleInfo>, String>;
 }
 
@@ -24,7 +26,8 @@ impl GitRepositoryOperations for git2::Repository {
 
     fn submodules(&self) -> Result<Vec<SubmoduleInfo>, String> {
         let mut submodules_info = Vec::new();
-        for submodule in self.submodules()
+        for submodule in self
+            .submodules()
             .map_err(|e| format!("Failed to iterate submodules: {}", e))?
         {
             submodules_info.push(SubmoduleInfo {

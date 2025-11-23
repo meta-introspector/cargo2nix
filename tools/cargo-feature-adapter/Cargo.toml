@@ -5,18 +5,24 @@ edition = "2021"
 publish = false
 
 [dependencies]
-syn = { workspace = true, features = ["full"] }
-quote = { workspace = true }
-proc-macro2 = { workspace = true }
-toml_edit = { workspace = true }
-walkdir = { workspace = true }
-fs_extra = { workspace = true }
-anyhow = { workspace = true }
-clap = { workspace = true, features = ["derive"] }
-sha1 = { workspace = true }
-hex = { workspace = true }
-serde = { workspace = true, features = ["derive"] }
-serde_json = { workspace = true }
+cargo-submodule-tool-lib = { workspace = true, optional = true }
+cargo-repo-sync-lib = { path = "../cargo-repo-sync-lib", optional = true }
+git2 = { version = "*", optional = true }
+cargo_metadata = { workspace = true, optional = true }
+pathdiff = { version = "*", optional = true }
+git-wrapper-lib = { path = "../git-wrapper-lib", optional = true }
+syn = { workspace = true, features = ["full"], optional = true }
+quote = { workspace = true, optional = true }
+proc-macro2 = { workspace = true, optional = true }
+toml_edit = { workspace = true, optional = true }
+walkdir = { workspace = true, optional = true }
+fs_extra = { workspace = true, optional = true }
+anyhow = { workspace = true, optional = true }
+clap = { workspace = true, features = ["derive"], optional = true }
+sha1 = { workspace = true, optional = true }
+hex = { workspace = true, optional = true }
+serde = { workspace = true, features = ["derive"], optional = true }
+serde_json = { workspace = true, optional = true }
 
 [dev-dependencies]
 # For testing the adapter itself
@@ -24,3 +30,24 @@ tempfile.workspace = true
 
 [build-dependencies]
 # No build.rs for this tool itself, but might be needed for adapted crates
+
+[features]
+
+cargo_repo_sync_lib_enabled = ["dep:cargo-repo-sync-lib"]
+git2_enabled = ["dep:git2"]
+cargo_metadata_enabled = ["dep:cargo_metadata"]
+pathdiff_enabled = ["dep:pathdiff"]
+git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
+default = []
+syn_enabled = ["dep:syn"]
+quote_enabled = ["dep:quote"]
+proc_macro2_enabled = ["dep:proc-macro2"]
+toml_edit_enabled = ["dep:toml_edit"]
+walkdir_enabled = ["dep:walkdir"]
+fs_extra_enabled = ["dep:fs_extra"]
+anyhow_enabled = ["dep:anyhow"]
+clap_enabled = ["dep:clap"]
+sha1_enabled = ["dep:sha1"]
+hex_enabled = ["dep:hex"]
+serde_enabled = ["dep:serde"]
+serde_json_enabled = ["dep:serde_json"]

@@ -1,27 +1,52 @@
 [package]
-name = "cargo-repo-sync"
+name = "cargo-submodule-tool"
 version = "0.1.0"
-rust-version.workspace = true
-edition.workspace = true
-license.workspace = true
-homepage.workspace = true
-repository.workspace = true
+edition = "2021"
 
 [package.metadata.cargo-repo-sync]
 bootstrap_cargo_path = "/nix/store/z32kvhmvy0j5gj4shjvz3qi13a199jlm-rust-minimal-1.92.0-nightly-2025-10-16/bin/cargo"
 
 [dependencies]
-cargo-submodule-tool-lib = { path = "../cargo-submodule-tool-lib", features = ["full"] }
-clap.workspace = true
-clap_derive.workspace = true
-serde.workspace = true
-serde_json.workspace = true
-toml.workspace = true
-toml_edit.workspace = true
-pathdiff.workspace = true
-walkdir.workspace = true
-lazy_static.workspace = true
+anyhow = { workspace = true, optional = true }
+clap = { workspace = true, optional = true }
+clap_derive = { workspace = true, optional = true }
+cargo_metadata = { workspace = true, optional = true }
+git2 = { workspace = true, optional = true }
+hex = { workspace = true, optional = true }
+lazy_static = { workspace = true, optional = true }
+pathdiff = { workspace = true, optional = true }
+serde = { workspace = true, optional = true, features = ["derive"] }
+serde_json = { workspace = true, optional = true }
+sha1 = { version = "*", optional = true }
+syn = { version = "*", optional = true }
+toml = { workspace = true, optional = true }
+toml_edit = { workspace = true, optional = true }
+walkdir = { workspace = true, optional = true }
 
-#clap_derive = { version = "4.0.0-rc.1" }
-[lints]
-workspace = true
+# Local dependencies
+cargo-repo-sync-lib = { path = "../cargo-repo-sync-lib", optional = true }
+cargo-submodule-tool-lib = { path = "../cargo-submodule-tool-lib", optional = true }
+git-wrapper-lib = { path = "../git-wrapper-lib", optional = true }
+
+[features]
+default = []
+anyhow_enabled = ["dep:anyhow"]
+clap_enabled = ["dep:clap"]
+clap_derive_enabled = ["dep:clap_derive"]
+cargo_metadata_enabled = ["dep:cargo_metadata"]
+git2_enabled = ["dep:git2"]
+hex_enabled = ["dep:hex"]
+lazy_static_enabled = ["dep:lazy_static"]
+pathdiff_enabled = ["dep:pathdiff"]
+serde_enabled = ["dep:serde"]
+serde_json_enabled = ["dep:serde_json"]
+sha1_enabled = ["dep:sha1"]
+syn_enabled = ["dep:syn"]
+toml_enabled = ["dep:toml"]
+toml_edit_enabled = ["dep:toml_edit"]
+walkdir_enabled = ["dep:walkdir"]
+
+# Local dependency features
+cargo_repo_sync_lib_enabled = ["dep:cargo-repo-sync-lib"]
+cargo_submodule_tool_lib_enabled = ["dep:cargo-submodule-tool-lib"]
+git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]

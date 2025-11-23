@@ -1,9 +1,8 @@
 use crate::RepoAction;
-use std::path::Path;
 use anyhow::Context;
 use std::fs;
+use std::path::Path;
 use toml_edit;
-
 
 pub fn update_cargo_config(actions_plan: &[RepoAction], root_dir: &Path) -> Result<()> {
     println!("Updating .cargo/config.toml...");
@@ -18,7 +17,8 @@ pub fn update_cargo_config(actions_plan: &[RepoAction], root_dir: &Path) -> Resu
             .parse::<toml_edit::DocumentMut>()
             .context("Failed to parse .cargo/config.toml")?
     } else {
-        "".parse::<toml_edit::DocumentMut>().context("Failed to create empty Document")?
+        "".parse::<toml_edit::DocumentMut>()
+            .context("Failed to create empty Document")?
     };
 
     // Ensure [patch.crates-io] section exists
@@ -34,16 +34,16 @@ pub fn update_cargo_config(actions_plan: &[RepoAction], root_dir: &Path) -> Resu
 
     for action in actions_plan {
         let relative_submodule_path = pathdiff::diff_paths(&action.submodule_path, root_dir)
-            .context(format!("Failed to get relative path for {:?}", action.submodule_path))?;
+            .context(format!(
+                "Failed to get relative path for {:?}",
+                action.submodule_path
+            ))?;
         let path_str = relative_submodule_path.to_string_lossy().to_string();
 
         // Add/update entry for this crate
         let mut crate_entry_table = toml_edit::Table::new();
         crate_entry_table.insert("path", toml_edit::value(path_str));
-        patch_crates_io.insert(
-            &action.repo_name,
-            toml_edit::Item::Table(crate_entry_table),
-        );
+        patch_crates_io.insert(&action.repo_name, toml_edit::Item::Table(crate_entry_table));
     }
 
     fs::write(&cargo_config_path, config_doc.to_string())

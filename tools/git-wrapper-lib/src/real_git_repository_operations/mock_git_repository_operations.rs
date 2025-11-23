@@ -1,9 +1,9 @@
-use std::os::unix::process::ExitStatusExt; // Added for from_raw
-#[cfg(feature = "with-anyhow")]
+#[cfg(feature = "anyhow_enabled")]
 use anyhow::Result;
-#[cfg(not(feature = "with-anyhow"))]
-use std::error::Error; // For fallback Result
-#[cfg(not(feature = "with-anyhow"))]
+#[cfg(not(feature = "anyhow_enabled"))]
+use std::error::Error;
+use std::os::unix::process::ExitStatusExt; // Added for from_raw // For fallback Result
+#[cfg(not(feature = "anyhow_enabled"))]
 type Result<T> = std::result::Result<T, Box<dyn Error>>; // Fallback for Result
 use std::path::Path;
 use std::process::Output;
@@ -46,7 +46,14 @@ impl GitRepositoryOperations for MockGitRepositoryOperations {
         })
     }
 
-    fn git_submodule_add(&self, _repo_path: &Path, _url: &str, _path: &str, _name: Option<&str>, _branch: Option<&str>) -> Result<Output> {
+    fn git_submodule_add(
+        &self,
+        _repo_path: &Path,
+        _url: &str,
+        _path: &str,
+        _name: Option<&str>,
+        _branch: Option<&str>,
+    ) -> Result<Output> {
         Ok(Output {
             status: std::process::ExitStatus::from_raw(0),
             stdout: b"mock git submodule add stdout".to_vec(),
@@ -54,7 +61,12 @@ impl GitRepositoryOperations for MockGitRepositoryOperations {
         })
     }
 
-    fn git_submodule_update(&self, _repo_path: &Path, _init: bool, _recursive: bool) -> Result<Output> {
+    fn git_submodule_update(
+        &self,
+        _repo_path: &Path,
+        _init: bool,
+        _recursive: bool,
+    ) -> Result<Output> {
         Ok(Output {
             status: std::process::ExitStatus::from_raw(0),
             stdout: b"mock git submodule update stdout".to_vec(),

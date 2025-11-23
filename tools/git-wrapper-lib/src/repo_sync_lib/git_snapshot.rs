@@ -1,12 +1,12 @@
-#[cfg(feature = "with-anyhow")]
+#[cfg(feature = "anyhow_enabled")]
 use anyhow::Result;
-#[cfg(not(feature = "with-anyhow"))]
+#[cfg(not(feature = "anyhow_enabled"))]
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>; // Fallback for Result
 
-use std::path::Path;
-use std::sync::{Arc, Mutex};
+use crate::git_traits::GitExecutor;
 use crate::git_types::RollupLock;
-use crate::git_traits::GitExecutor; // Assuming GitExecutor is in git_traits
+use std::path::Path;
+use std::sync::{Arc, Mutex}; // Assuming GitExecutor is in git_traits
 
 pub fn create_snapshot(
     _root_dir: &Path,

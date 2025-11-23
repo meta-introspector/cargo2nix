@@ -1,31 +1,31 @@
-#[cfg(feature = "with-anyhow")]
+#[cfg(feature = "anyhow_enabled")]
 use anyhow::{Context, Result as AnyhowResult};
-#[cfg(feature = "with-anyhow")]
+#[cfg(feature = "anyhow_enabled")]
 type Result<T, E = anyhow::Error> = AnyhowResult<T, E>;
-#[cfg(not(feature = "with-anyhow"))]
+#[cfg(not(feature = "anyhow_enabled"))]
 use std::error::Error; // For fallback Result
-#[cfg(not(feature = "with-anyhow"))]
+#[cfg(not(feature = "anyhow_enabled"))]
 type Result<T, E = Box<dyn Error>> = std::result::Result<T, E>; // Fallback for Result
 
-#[cfg(feature = "with-serde")]
-use serde::{Serialize, Deserialize};
-#[cfg(not(feature = "with-serde"))]
+#[cfg(feature = "serde_enabled")]
+use serde::{Deserialize, Serialize};
+#[cfg(not(feature = "serde_enabled"))]
 #[derive(Debug, Clone, PartialEq, Eq)] // Provide dummy derives if serde is not enabled
 pub struct Serialize;
-#[cfg(not(feature = "with-serde"))]
+#[cfg(not(feature = "serde_enabled"))]
 #[derive(Debug, Clone, PartialEq, Eq)] // Provide dummy derives if serde is not enabled
 pub struct Deserialize;
 
-#[cfg(feature = "with-serde_json")]
+#[cfg(feature = "serde_json_enabled")]
 use serde_json;
 
+use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::time::SystemTime;
-use std::collections::HashMap;
 
 // From git_operations.rs
-#[cfg_attr(feature = "with-serde", derive(Debug, Serialize, Deserialize))] // Conditionally derive
-#[cfg_attr(not(feature = "with-serde"), derive(Debug))] // Fallback derive
+#[cfg_attr(feature = "serde_enabled", derive(Debug, Serialize, Deserialize))] // Conditionally derive
+#[cfg_attr(not(feature = "serde_enabled"), derive(Debug))] // Fallback derive
 pub struct SubmoduleInfo {
     pub name: String,
     pub path: PathBuf,
@@ -33,8 +33,11 @@ pub struct SubmoduleInfo {
 }
 
 // From fs_cache.rs
-#[cfg_attr(feature = "with-serde", derive(Debug, PartialEq, Clone, Serialize, Deserialize))] // Conditionally derive
-#[cfg_attr(not(feature = "with-serde"), derive(Debug, PartialEq, Clone))] // Fallback derive
+#[cfg_attr(
+    feature = "serde_enabled",
+    derive(Debug, PartialEq, Clone, Serialize, Deserialize)
+)] // Conditionally derive
+#[cfg_attr(not(feature = "serde_enabled"), derive(Debug, PartialEq, Clone))] // Fallback derive
 pub struct FileMetadata {
     pub modified: SystemTime,
     pub len: u64,
@@ -44,16 +47,22 @@ pub struct FileMetadata {
 }
 
 // From repo_sync_lib/submodule_stat.rs
-#[cfg_attr(feature = "with-serde", derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone))] // Conditionally derive
-#[cfg_attr(not(feature = "with-serde"), derive(Debug, PartialEq, Eq, Clone))] // Fallback derive
+#[cfg_attr(
+    feature = "serde_enabled",
+    derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)
+)] // Conditionally derive
+#[cfg_attr(not(feature = "serde_enabled"), derive(Debug, PartialEq, Eq, Clone))] // Fallback derive
 pub struct SubmoduleStat {
     pub head_commit: String,
     pub workdir_hash: String, // A hash representing the state of the working directory (e.g., from git status --porcelain)
 }
 
 // From repo_sync_lib/rollup_lock.rs
-#[cfg_attr(feature = "with-serde", derive(Debug, Serialize, Deserialize, Default))] // Conditionally derive
-#[cfg_attr(not(feature = "with-serde"), derive(Debug, Default))] // Fallback derive
+#[cfg_attr(
+    feature = "serde_enabled",
+    derive(Debug, Serialize, Deserialize, Default)
+)] // Conditionally derive
+#[cfg_attr(not(feature = "serde_enabled"), derive(Debug, Default))] // Fallback derive
 pub struct RollupLock {
     pub file_metadata_cache: HashMap<PathBuf, FileMetadata>,
     pub submodule_stat_cache: HashMap<PathBuf, SubmoduleStat>, // New field for submodule stats
@@ -69,13 +78,11 @@ pub struct RollupLock {
 }
 
 impl RollupLock {
-    const FILE_NAME: &'static str = "rollup.lock";
-
     pub fn new() -> Self {
         Default::default()
     }
 
-    #[cfg(feature = "with-serde_json")]
+    #[cfg(feature = "serde_json_enabled")]
     pub fn load(root_dir: &Path) -> Result<Self> {
         let path = root_dir.join(Self::FILE_NAME);
         if path.exists() {
@@ -88,25 +95,35 @@ impl RollupLock {
         }
     }
 
-    #[cfg(not(feature = "with-serde_json"))]
+    #[cfg(not(feature = "serde_json_enabled"))]
     pub fn load(_root_dir: &Path) -> Result<Self> {
         // Fallback if serde_json is not enabled
-        Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "serde_json feature not enabled for RollupLock::load")))
+        Err(Box::new(std::io::Error::new(
+            std::io::ErrorKind::Other,
+            "serde_json feature not enabled for RollupLock::load",
+        )))
     }
 
-    #[cfg(feature = "with-serde_json")]
+    #[cfg(feature = "serde_json_enabled")]
     pub fn save(&self, root_dir: &Path) -> Result<()> {
         let path = root_dir.join(Self::FILE_NAME);
-        let content = serde_json::to_string_pretty(self)
-            .with_context(|| format!("Failed to serialize RollupLock to JSON for {}", path.display()))?;
+        let content = serde_json::to_string_pretty(self).with_context(|| {
+            format!(
+                "Failed to serialize RollupLock to JSON for {}",
+                path.display()
+            )
+        })?;
         std::fs::write(&path, content)
             .with_context(|| format!("Failed to write to {}", path.display()))
     }
 
-    #[cfg(not(feature = "with-serde_json"))]
+    #[cfg(not(feature = "serde_json_enabled"))]
     pub fn save(&self, _root_dir: &Path) -> Result<()> {
         // Fallback if serde_json is not enabled
-        Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "serde_json feature not enabled for RollupLock::save")))
+        Err(Box::new(std::io::Error::new(
+            std::io::ErrorKind::Other,
+            "serde_json feature not enabled for RollupLock::save",
+        )))
     }
 
     pub fn get_metadata(&self, path: &Path) -> Option<&FileMetadata> {
@@ -127,8 +144,11 @@ impl RollupLock {
 }
 
 // From execv.rs
-#[cfg_attr(feature = "with-serde", derive(Serialize, Deserialize, Debug, Clone))] // Conditionally derive
-#[cfg_attr(not(feature = "with-serde"), derive(Debug, Clone))] // Fallback derive
+#[cfg_attr(
+    feature = "serde_enabled",
+    derive(Serialize, Deserialize, Debug, Clone)
+)] // Conditionally derive
+#[cfg_attr(not(feature = "serde_enabled"), derive(Debug, Clone))] // Fallback derive
 pub struct CapturedCommand {
     pub program: String,
     pub args: Vec<String>,

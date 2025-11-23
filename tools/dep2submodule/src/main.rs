@@ -1,11 +1,11 @@
-use anyhow::{Result, Context};
+use anyhow::{Context, Result};
+use cargo_metadata::MetadataCommand;
 use clap::Parser;
 use std::collections::HashMap;
 use std::fs;
 use std::path::{Path, PathBuf};
+use toml_edit::{value, DocumentMut, Item, Table};
 use walkdir::WalkDir;
-use toml_edit::{DocumentMut, Table, Item, value};
-use cargo_metadata::MetadataCommand;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -26,7 +26,10 @@ struct Args {
 fn main() -> Result<()> {
     let args = Args::parse();
 
-    let project_root = args.project_root.canonicalize().context("Failed to canonicalize project_root")?;
+    let project_root = args
+        .project_root
+        .canonicalize()
+        .context("Failed to canonicalize project_root")?;
     let submodules_dir = project_root.join(&args.submodules_dir);
     let root_cargo_toml_path = project_root.join(&args.root_cargo_toml);
 
@@ -56,11 +59,18 @@ fn main() -> Result<()> {
                     // This is a submodule that is also a workspace
                     println!("Found submodule workspace: {}", submodule_root.display());
                     for member_id in &metadata.workspace_members {
-                        if let Some(member_package) = metadata.packages.iter().find(|p| &p.id == member_id) {
+                        if let Some(member_package) =
+                            metadata.packages.iter().find(|p| &p.id == member_id)
+                        {
                             let member_manifest_path = PathBuf::from(&member_package.manifest_path);
                             let member_crate_root = member_manifest_path.parent().unwrap();
-                            let relative_path = pathdiff::diff_paths(member_crate_root, &project_root)
-                                .context(format!("Failed to get relative path for member crate {}", member_package.name))?;
+                            let relative_path =
+                                pathdiff::diff_paths(member_crate_root, &project_root).context(
+                                    format!(
+                                        "Failed to get relative path for member crate {}",
+                                        member_package.name
+                                    ),
+                                )?;
                             workspace_dependencies.insert(
                                 member_package.name.to_string(),
                                 format!("{{ path = \"{}\" }}", relative_path.display()),
@@ -70,27 +80,45 @@ fn main() -> Result<()> {
                 } else {
                     // It's a regular package within a submodule
                     if let Some(package) = metadata.packages.get(0) {
-                        let relative_path = pathdiff::diff_paths(submodule_root, &project_root)
-                            .context(format!("Failed to get relative path for package {}", package.name))?;
+                        let relative_path =
+                            pathdiff::diff_paths(submodule_root, &project_root).context(
+                                format!("Failed to get relative path for package {}", package.name),
+                            )?;
                         workspace_dependencies.insert(
                             package.name.to_string(),
                             format!("{{ path = \"{}\" }}", relative_path.display()),
                         );
                     }
                 }
-            },
+            }
             Err(e) => {
-                eprintln!("Warning: Could not get cargo metadata for {}: {}", cargo_toml_path.display(), e);
+                eprintln!(
+                    "Warning: Could not get cargo metadata for {}: {}",
+                    cargo_toml_path.display(),
+                    e
+                );
                 // Fallback: try to parse as a single package if metadata fails
-                let content = fs::read_to_string(cargo_toml_path)
-                    .with_context(|| format!("Failed to read Cargo.toml at {}", cargo_toml_path.display()))?;
-                let doc = content.parse::<DocumentMut>()
-                    .with_context(|| format!("Failed to parse Cargo.toml at {}", cargo_toml_path.display()))?;
-                
-                if let Some(package_name) = doc.get("package").and_then(|item| item.as_table())
-                                                .and_then(|table| table.get("name")).and_then(|item| item.as_str()) {
+                let content = fs::read_to_string(cargo_toml_path).with_context(|| {
+                    format!("Failed to read Cargo.toml at {}", cargo_toml_path.display())
+                })?;
+                let doc = content.parse::<DocumentMut>().with_context(|| {
+                    format!(
+                        "Failed to parse Cargo.toml at {}",
+                        cargo_toml_path.display()
+                    )
+                })?;
+
+                if let Some(package_name) = doc
+                    .get("package")
+                    .and_then(|item| item.as_table())
+                    .and_then(|table| table.get("name"))
+                    .and_then(|item| item.as_str())
+                {
                     let relative_path = pathdiff::diff_paths(submodule_root, &project_root)
-                        .context(format!("Failed to get relative path for package {}", package_name))?;
+                        .context(format!(
+                            "Failed to get relative path for package {}",
+                            package_name
+                        ))?;
                     workspace_dependencies.insert(
                         package_name.to_string(),
                         format!("{{ path = \"{}\" }}", relative_path.display()),
@@ -101,9 +129,14 @@ fn main() -> Result<()> {
     }
 
     // Read the root Cargo.toml
-    let root_cargo_toml_content = fs::read_to_string(&root_cargo_toml_path)
-        .with_context(|| format!("Failed to read root Cargo.toml at {}", root_cargo_toml_path.display()))?;
-    let mut root_doc = root_cargo_toml_content.parse::<DocumentMut>()
+    let root_cargo_toml_content = fs::read_to_string(&root_cargo_toml_path).with_context(|| {
+        format!(
+            "Failed to read root Cargo.toml at {}",
+            root_cargo_toml_path.display()
+        )
+    })?;
+    let mut root_doc = root_cargo_toml_content
+        .parse::<DocumentMut>()
         .context("Failed to parse root Cargo.toml")?;
 
     // Create a new [workspace.dependencies] table
@@ -122,10 +155,17 @@ fn main() -> Result<()> {
     root_doc["workspace"]["dependencies"] = Item::Table(new_workspace_deps_table);
 
     // Write the updated Cargo.toml back
-    fs::write(&root_cargo_toml_path, root_doc.to_string().as_bytes())
-        .with_context(|| format!("Failed to write to root Cargo.toml at {}", root_cargo_toml_path.display()))?;
+    fs::write(&root_cargo_toml_path, root_doc.to_string().as_bytes()).with_context(|| {
+        format!(
+            "Failed to write to root Cargo.toml at {}",
+            root_cargo_toml_path.display()
+        )
+    })?;
 
-    println!("Successfully updated [workspace.dependencies] in {}", root_cargo_toml_path.display());
+    println!(
+        "Successfully updated [workspace.dependencies] in {}",
+        root_cargo_toml_path.display()
+    );
 
     Ok(())
 }

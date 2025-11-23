@@ -1,12 +1,12 @@
-use anyhow::{Result, Context};
-use std::path::{Path, PathBuf};
+use anyhow::{Context, Result};
 use std::fs;
+use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 
-use crate::fs_cache::{FileSystemStat};
-use crate::executors::RollupLock; // Use our re-exported RollupLock
 #[cfg(not(feature = "git_enabled"))]
 use crate::executors::DummyRollupLock;
+use crate::executors::RollupLock; // Use our re-exported RollupLock
+use crate::fs_cache::FileSystemStat;
 
 pub trait FileSystemWriter {
     fn write_file(&self, path: &Path, contents: &[u8]) -> Result<()>;
@@ -14,30 +14,26 @@ pub trait FileSystemWriter {
     fn remove_file(&self, path: &Path) -> Result<()>;
     fn remove_dir_all(&self, path: &Path) -> Result<()>;
     fn save_lock(&self) -> Result<()>; // Add save_lock method
-    // Add other file system write operations as needed
+                                       // Add other file system write operations as needed
 }
 
 pub struct RealFileSystemWriter;
 
 impl FileSystemWriter for RealFileSystemWriter {
     fn write_file(&self, path: &Path, contents: &[u8]) -> Result<()> {
-        fs::write(path, contents)
-            .with_context(|| format!("Failed to write file: {:?}", path))
+        fs::write(path, contents).with_context(|| format!("Failed to write file: {:?}", path))
     }
 
     fn create_dir_all(&self, path: &Path) -> Result<()> {
-        fs::create_dir_all(path)
-            .with_context(|| format!("Failed to create directory: {:?}", path))
+        fs::create_dir_all(path).with_context(|| format!("Failed to create directory: {:?}", path))
     }
 
     fn remove_file(&self, path: &Path) -> Result<()> {
-        fs::remove_file(path)
-            .with_context(|| format!("Failed to remove file: {:?}", path))
+        fs::remove_file(path).with_context(|| format!("Failed to remove file: {:?}", path))
     }
 
     fn remove_dir_all(&self, path: &Path) -> Result<()> {
-        fs::remove_dir_all(path)
-            .with_context(|| format!("Failed to remove directory: {:?}", path))
+        fs::remove_dir_all(path).with_context(|| format!("Failed to remove directory: {:?}", path))
     }
 
     fn save_lock(&self) -> Result<()> {
@@ -71,23 +67,22 @@ impl CachedFileSystemWriter {
 #[cfg(feature = "git_enabled")]
 impl FileSystemWriter for CachedFileSystemWriter {
     fn write_file(&self, path: &Path, contents: &[u8]) -> Result<()> {
-        fs::write(path, contents)
-            .with_context(|| format!("Failed to write file: {:?}", path))?;
+        fs::write(path, contents).with_context(|| format!("Failed to write file: {:?}", path))?;
         // After writing, update the cache
         let mut rollup_lock = self.rollup_lock.lock().unwrap();
         let metadata = self.file_system_stat.get_metadata(path)?; // Get fresh metadata and hash
-        rollup_lock.file_metadata_cache.insert(path.to_path_buf(), metadata);
+        rollup_lock
+            .file_metadata_cache
+            .insert(path.to_path_buf(), metadata);
         Ok(())
     }
 
     fn create_dir_all(&self, path: &Path) -> Result<()> {
-        fs::create_dir_all(path)
-            .with_context(|| format!("Failed to create directory: {:?}", path))
+        fs::create_dir_all(path).with_context(|| format!("Failed to create directory: {:?}", path))
     }
 
     fn remove_file(&self, path: &Path) -> Result<()> {
-        fs::remove_file(path)
-            .with_context(|| format!("Failed to remove file: {:?}", path))?;
+        fs::remove_file(path).with_context(|| format!("Failed to remove file: {:?}", path))?;
         // After removing, invalidate cache entry
         let mut rollup_lock = self.rollup_lock.lock().unwrap();
         rollup_lock.file_metadata_cache.remove(path);
@@ -99,7 +94,9 @@ impl FileSystemWriter for CachedFileSystemWriter {
             .with_context(|| format!("Failed to remove directory: {:?}", path))?;
         // Invalidate all cache entries under this directory.
         let mut rollup_lock = self.rollup_lock.lock().unwrap();
-        rollup_lock.file_metadata_cache.retain(|p, _| !p.starts_with(path));
+        rollup_lock
+            .file_metadata_cache
+            .retain(|p, _| !p.starts_with(path));
         Ok(())
     }
 
@@ -150,4 +147,3 @@ impl FileSystemWriter for CachedFileSystemWriter {
         Ok(())
     }
 }
-

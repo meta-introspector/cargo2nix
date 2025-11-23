@@ -1,12 +1,12 @@
-use crate::git_wrapper_lib_trait::GitWrapperLibTrait;
-use crate::git_traits::{GitExecutor, GitRepositoryOperations, GhExecutor, Execv};
-use crate::system_git_executor::SystemGitExecutor;
-use crate::real_git_repository_operations::RealGitRepositoryOperations;
-use crate::system_gh_executor::SystemGhExecutor;
 use crate::execv::RealExecv;
 use crate::git_adapters::{GitAdapter, ShellGitAdapter};
-use std::sync::{Arc, Mutex}; // Added Mutex
-use crate::git_types::RollupLock; // Added
+use crate::git_traits::{Execv, GhExecutor, GitExecutor, GitRepositoryOperations};
+use crate::git_types::RollupLock;
+use crate::git_wrapper_lib_trait::GitWrapperLibTrait;
+use crate::real_git_repository_operations::RealGitRepositoryOperations;
+use crate::system_gh_executor::SystemGhExecutor;
+use crate::system_git_executor::SystemGitExecutor;
+use std::sync::{Arc, Mutex}; // Added Mutex // Added
 
 pub struct RealGitWrapperLib {
     git_executor_impl: SystemGitExecutor,
@@ -23,12 +23,13 @@ impl RealGitWrapperLib {
         let rollup_lock_arc: Arc<Mutex<RollupLock>> = Arc::new(Mutex::new(RollupLock::new())); // Dummy RollupLock
         let root_dir = std::path::PathBuf::from("/"); // Dummy root dir
 
-        let git_executor_arc: Arc<dyn GitExecutor + Send + Sync> = Arc::new(SystemGitExecutor::new(
-            git_executable_path.clone(),
-            execv_arc.clone(),
-            rollup_lock_arc.clone(),
-            root_dir.clone(),
-        ));
+        let git_executor_arc: Arc<dyn GitExecutor + Send + Sync> =
+            Arc::new(SystemGitExecutor::new(
+                git_executable_path.clone(),
+                execv_arc.clone(),
+                rollup_lock_arc.clone(),
+                root_dir.clone(),
+            ));
 
         RealGitWrapperLib {
             git_executor_impl: SystemGitExecutor::new(

@@ -2,29 +2,28 @@ use anyhow::Result;
 use std::path::PathBuf;
 use std::sync::{Arc, Mutex};
 
-use crate::executors::{RepoStateCollector, RealRepoStateCollector}; // Use our re-exported RepoStateCollector
+#[cfg(not(feature = "nix_generation"))]
+use crate::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
+use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
+#[cfg(not(feature = "git_enabled"))]
+use crate::executors::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
+#[cfg(not(feature = "git_enabled"))]
+use crate::executors::DummyGitExecutor; // Use our dummy GitExecutor
+#[cfg(not(feature = "git_enabled"))]
+use crate::executors::DummyRollupLock as RollupLock; // Use dummy for RollupLock when git is not enabled
 use crate::executors::GitExecutor; // Use our re-exported GitExecutor
 #[cfg(feature = "git_enabled")]
 use crate::executors::PureRustGitExecutor;
 #[cfg(feature = "git_enabled")]
-use crate::executors::SystemGitExecutor; // Added for non-git2 case
-#[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyGitExecutor; // Use our dummy GitExecutor
-#[cfg(feature = "git_enabled")]
 use crate::executors::RealExecv; // Use our re-exported RealExecv
-#[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
 #[cfg(feature = "git_enabled")]
 use crate::executors::RollupLock; // Use our re-exported RollupLock
-#[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyRollupLock as RollupLock; // Use dummy for RollupLock when git is not enabled
+#[cfg(feature = "git_enabled")]
+use crate::executors::SystemGitExecutor; // Added for non-git2 case
+use crate::executors::{RealRepoStateCollector, RepoStateCollector}; // Use our re-exported RepoStateCollector
 use crate::fs_cache::RealFileSystemStat; // Still in cargo-submodule-tool-lib
-use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
-#[cfg(not(feature = "nix_generation"))]
-use crate::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
 
-
-pub fn collect_repo_state_command(project_root: PathBuf) -> Result<()> {
+pub fn run_collect_repo_state_command(project_root: PathBuf) -> Result<()> {
     println!("Collecting repository state for: {:?}", project_root);
 
     // Initialize GitExecutor
@@ -36,7 +35,10 @@ pub fn collect_repo_state_command(project_root: PathBuf) -> Result<()> {
     let git_executor: Arc<dyn GitExecutor + Send + Sync> = {
         #[cfg(feature = "git_enabled")]
         {
-            Arc::new(PureRustGitExecutor::new(rollup_lock.clone(), project_root.clone()))
+            Arc::new(PureRustGitExecutor::new(
+                rollup_lock.clone(),
+                project_root.clone(),
+            ))
         }
         #[cfg(not(feature = "git_enabled"))]
         {
