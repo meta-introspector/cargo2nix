@@ -27,7 +27,10 @@ pub struct CompilerConfig {
 
 impl CompilerConfig {
     pub fn new() -> Self {
-        Default::default()
+        Self {
+            rustc_path: Some(PathBuf::from("rustc")),
+            ..Default::default()
+        }
     }
 }
 

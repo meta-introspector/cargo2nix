@@ -117,4 +117,4 @@ rust-solana-level-10:
 	@echo "Running cargo-llm-bootstrap for level 10 (dry run)..."
 	cd cargo-llm-bootstrap && cargo run --package cargo-llm-bootstrap -- \
 		--rust-src-path $(RUST_SRC_PATH) \
-		--level 10
+		--level 10 --limit 1

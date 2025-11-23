@@ -1,11 +1,13 @@
 use std::path::Path;
+use std::collections::HashMap;
+use std::path::PathBuf;
 
 mod error;
 use crate::error::AppError;
 
 /// Trait for compiling Rust files.
 pub trait Compiler {
-    fn compile_file(&self, file_path: &Path, rustc_path: &Path, config: &crate::config::CompilerConfig) -> Result<crate::results::CompilationResult, AppError>;
+    fn compile_crate(&self, crate_root_path: &Path, config: &crate::config::CompilerConfig, crate_name_to_root_map: &HashMap<String, PathBuf>, compiled_artifacts_map: &HashMap<String, PathBuf>) -> Result<crate::results::CompilationResult, AppError>;
 }
 
 /// Trait for saving compilation results.

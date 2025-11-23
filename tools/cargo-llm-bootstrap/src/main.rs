@@ -2,7 +2,7 @@ use crate::config::CompilerConfig;
 use crate::traits::{ConfigHandler, Compiler, ResultStore};
 use clap::Parser;
 use std::fs;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::path::PathBuf;
 use std::sync::{Arc, Mutex};
 use std::time::Instant;
@@ -63,6 +63,10 @@ struct Args {
     /// Optional: Process only crates at this specific layer level
     #[clap(long)]
     level: Option<u32>,
+
+    /// Optional: Limit the number of crates to process at the specified level
+    #[clap(long)]
+    limit: Option<u32>,
 
     /// Optional: Skip the graph generation steps (rust-src-scanner and graph-petal-generator)
     #[clap(long)]
@@ -128,7 +132,6 @@ fn main() -> Result<(), AppError> {
         }
     }
     println!("Crate map built with {} entries.", crate_name_to_root_map.len());
-    Ok(())
 
     let output_dir = final_config.output_dir.clone().unwrap_or_else(|| PathBuf::from("compilation_results"));
     fs::create_dir_all(&output_dir).map_err(AppError::Io)?;
@@ -172,21 +175,19 @@ fn main() -> Result<(), AppError> {
     let compiler = RustcCompilerImpl;
     let result_store = JsonResultStore;
 
-    let mut files_to_process_initial: Vec<PathBuf> = Vec::new();
+    let mut compiled_artifacts_map: HashMap<String, PathBuf> = HashMap::new();
+
+    let mut crates_to_process_initial: Vec<PathBuf> = Vec::new();
+    let mut processed_crate_roots: HashSet<PathBuf> = HashSet::new();
 
     if let Some(target_level) = args.level {
-        println!("Collecting files for crates at level: {}", target_level);
+        println!("Collecting crates at level: {}", target_level);
         for (crate_name, &layer) in &layered_crates {
             if layer == target_level {
                 if let Some(crate_root_path) = crate_name_to_root_map.get(crate_name) {
-                    println!("Found crate directory for {}: {:?}", crate_name, crate_root_path);
-                    for entry in walkdir::WalkDir::new(crate_root_path) {
-                        let entry = entry.map_err(AppError::Walkdir)?;
-                        let path = entry.path();
-                        if path.extension().map_or(false, |ext| ext == "rs") &&
-                           !path.components().any(|comp| comp.as_os_str() == "tests" || comp.as_os_str() == "benches") {
-                            files_to_process_initial.push(path.to_path_buf());
-                        }
+                    if processed_crate_roots.insert(crate_root_path.clone()) {
+                        println!("Found crate directory for {}: {:?}", crate_name, crate_root_path);
+                        crates_to_process_initial.push(crate_root_path.clone());
                     }
                 } else {
                     println!("Warning: Could not find crate root path in map for crate: {}", crate_name);
@@ -195,109 +196,146 @@ fn main() -> Result<(), AppError> {
         }
     } else {
         // Fallback to original behavior if no level is specified
-        files_to_process_initial = state_arc.lock().unwrap().get_pending_files()?;
+        // This part needs to be re-evaluated as it still relies on individual files
+        // For now, we'll just collect all crate roots if no level is specified
+        for (crate_name, crate_root_path) in &crate_name_to_root_map {
+            if processed_crate_roots.insert(crate_root_path.clone()) {
+                crates_to_process_initial.push(crate_root_path.clone());
+            }
+        }
     }
+
+    // Sort crates by layer in ascending order (lowest layer number first)
+    crates_to_process_initial.sort_by(|a_path, b_path| {
+        let a_name = a_path.file_name().unwrap().to_string_lossy().to_string();
+        let b_name = b_path.file_name().unwrap().to_string_lossy().to_string();
+
+        let a_layer = layered_crates.get(&a_name).unwrap_or(&0); // Default to 0 if not found
+        let b_layer = layered_crates.get(&b_name).unwrap_or(&0); // Default to 0 if not found
+
+        a_layer.cmp(b_layer) // This sorts in ascending order
+    });
 
         let should_update_state = args.level.is_none();
     
-        let total_files_to_process = files_to_process_initial.len();
-        let mut files_processed_count = 0;
-    
-        if total_files_to_process == 0 {
-            println!("No pending or failed files to process. All files are up-to-date or done.");
-            return Ok(());
-        }
-    
-                for file_path in files_to_process_initial {
-                    files_processed_count += 1;
-                    let progress_percent = (files_processed_count as f64 / total_files_to_process as f64) * 100.0;
-                    println!("Compiling file {} of {} ({:.2}%): {:?}", files_processed_count, total_files_to_process, progress_percent, file_path.display());
-        
-                    let file_hash = calculate_file_hash(&file_path)?;
-        
-                    // Check cache
-                    let mut current_state = state_arc.lock().unwrap();
-                    if let Some(cached_result) = current_state.cache.get(&file_path) {
-                        if cached_result.source_checksum == file_hash {
-                            println!("Cache hit for {:?}. Skipping compilation.", file_path.display());
-                            // Use cached result
-                            if should_update_state {
-                                // Even if cached, update status in state if we are tracking state
-                                if cached_result.exit_code == Some(0) {
-                                    current_state.update_file_status(&file_path, FileStatus::Done)?;
-                                } else {
-                                    current_state.update_file_status(&file_path, FileStatus::Failed)?;
-                                }
-                                current_state.save(&main_state_file_path_clone)?;
-                            }
-                            continue;
-                        }
-                    }
-                    drop(current_state); // Release lock before compilation
-        
-                    if args.dry_run {
-                        println!("Dry run: Skipping compilation for {:?}", file_path.display());
-                        continue;
-                    }
-        
-                    let compilation_result = compiler.compile_file(&file_path, &rustc_path, &final_config)?;
-                    let exit_code = compilation_result.exit_code;
-        
-                    let mut current_state = state_arc.lock().unwrap();
-                    result_store.save_result(&compilation_result, &current_state.output_dir)?;
-        
-                    // Update cache
-                    current_state.cache.insert(file_path.clone(), compilation_result.clone());
-        
-                    if should_update_state {
-                        if exit_code == Some(0) {
-                            // Move successful result to done_dir
-                            let file_name = file_path.file_name().unwrap().to_string_lossy().replace(".", "_");
-                            let old_path = current_state.output_dir.join(format!("{}_result.json", file_name));
-                            let new_path = current_state.done_dir.join(format!("{}_result.json", file_name));
-                            fs::rename(&old_path, &new_path).map_err(AppError::Io)?;
-                            current_state.update_file_status(&file_path, FileStatus::Done)?;
-                            println!("Moved result for {:?} to done_results.", file_path.display());
-                        } else {
-                            current_state.update_file_status(&file_path, FileStatus::Failed)?;
-                            println!("Compilation failed for {:?}. Stopping.", file_path.display());
-                            current_state.save(&main_state_file_path_clone)?;
-                            return Err(AppError::Custom(format!("Compilation failed for {:?}", file_path.display())));
-                        }
-                        current_state.save(&main_state_file_path_clone)?;
-                    } else {
-                        if exit_code != Some(0) {
-                            println!("Compilation failed for {:?}. (State update skipped)", file_path.display());
-                            return Err(AppError::Custom(format!("Compilation failed for {:?}", file_path.display())));
-                        } else {
-                            println!("Compilation successful for {:?}. (State update skipped)", file_path.display());
-                        }
-                                    }
-                        }
-                        Ok(())
-                    }
-// Placeholder function - needs proper implementation
-fn get_crate_name_from_path(file_path: &PathBuf, rust_src_path: &PathBuf) -> Option<String> {
-    // This is a very naive implementation. A proper implementation would
-    // involve parsing Cargo.toml files to determine which crate a file belongs to.
-    // For now, we'll try to extract a component from the path.
-    // Example: /rust_src_path/src/lib.rs -> "src" (not ideal)
-    // Example: /rust_src_path/library/std/src/lib.rs -> "std"
-    // Example: /rust_src_path/library/alloc/src/lib.rs -> "alloc"
+    let total_crates_to_process = crates_to_process_initial.len();
+    let mut crates_processed_count = 0;
 
-    let relative_path = file_path.strip_prefix(rust_src_path).ok()?;
-    let components: Vec<&str> = relative_path.iter().filter_map(|s| s.to_str()).collect();
-
-    // This logic needs to be improved significantly.
-    // For now, let's assume the crate name is the second component after "library"
-    // or the first component if "library" is not present.
-    if let Some(library_idx) = components.iter().position(|&s| s == "library") {
-        if let Some(crate_name) = components.get(library_idx + 1) {
-            return Some(crate_name.to_string());
-        }
-    } else if let Some(crate_name) = components.first() {
-        return Some(crate_name.to_string());
+    if total_crates_to_process == 0 {
+        println!("No crates to process. All crates are up-to-date or done.");
+        return Ok(());
     }
 
-    None
+    // Apply limit if specified
+    let limited_crates = if let Some(limit) = args.limit {
+        crates_to_process_initial.into_iter().take(limit as usize).collect::<Vec<_>>()
+    } else {
+        crates_to_process_initial
+    };
+
+    for crate_root_path in limited_crates {
+        crates_processed_count += 1;
+        let progress_percent = (crates_processed_count as f64 / total_crates_to_process as f64) * 100.0;
+        println!("Compiling crate {} of {} ({:.2}%): {:?}", crates_processed_count, total_crates_to_process, progress_percent, crate_root_path.display());
+
+        let file_hash = calculate_file_hash(&crate_root_path.join("Cargo.toml"))?; // Hash Cargo.toml for crate
+
+        // Check cache
+        let mut current_state = state_arc.lock().unwrap();
+        if let Some(cached_result) = current_state.cache.get(&crate_root_path) {
+            if cached_result.source_checksum == file_hash {
+                println!("Cache hit for {:?}. Skipping compilation.", crate_root_path.display());
+                // Use cached result
+                if should_update_state {
+                    // Even if cached, update status in state if we are tracking state
+                    if cached_result.exit_code == Some(0) {
+                        current_state.update_file_status(&crate_root_path, FileStatus::Done)?;
+                    } else {
+                        current_state.update_file_status(&crate_root_path, FileStatus::Failed)?;
+                    }
+                    current_state.save(&main_state_file_path_clone)?;
+                }
+                continue;
+            }
+        }
+        drop(current_state); // Release lock before compilation
+
+        // --- Dependency Mocking Logic (Temporary for single-crate compilation) ---
+        let current_crate_cargo_toml_path = crate_root_path.join("Cargo.toml");
+        let current_crate_cargo_toml_content = fs::read_to_string(&current_crate_cargo_toml_path)
+            .map_err(|e| AppError::Custom(format!("Failed to read Cargo.toml for dependency mocking at {:?}: {}", current_crate_cargo_toml_path, e)))?;
+        let parsed_current_crate_cargo_toml: toml::Value = toml::from_str(&current_crate_cargo_toml_content)
+            .map_err(|e| AppError::Custom(format!("Failed to parse Cargo.toml for dependency mocking at {:?}: {}", current_crate_cargo_toml_path, e)))?;
+
+        if let Some(dependencies) = parsed_current_crate_cargo_toml.get("dependencies").and_then(|d| d.as_table()) {
+            for (dep_name, dep_value) in dependencies {
+                // Only consider path dependencies for now, as they are the ones we are "mocking"
+                // For simplicity, we'll assume all direct dependencies are path dependencies within rust-src
+                // and that their .rlib will be in target/debug/lib<dep_name>.rlib
+                if let Some(dep_root_path) = crate_name_to_root_map.get(dep_name) {
+                    let mocked_rlib_path = dep_root_path.join("target/debug").join(format!("lib{}.rlib", dep_name.replace("-", "_")));
+                    compiled_artifacts_map.insert(dep_name.clone(), mocked_rlib_path.clone());
+                    println!("Mocked dependency: {} -> {:?}", dep_name, mocked_rlib_path);
+                } else {
+                    println!("Warning: Dependency {} not found in crate_name_to_root_map. Cannot mock.", dep_name);
+                }
+            }
+        }
+        // --- End Dependency Mocking Logic ---
+
+        if args.dry_run {
+            println!("Dry run: Skipping compilation for {:?}", crate_root_path.display());
+            continue;
+        }
+
+            let compilation_result = compiler.compile_crate(&crate_root_path, &final_config, &crate_name_to_root_map, &compiled_artifacts_map)?;
+            let exit_code = compilation_result.exit_code;
+
+            // After successful compilation, add the compiled artifact to the map
+            if exit_code == Some(0) {
+                if let Some(ref rlib_path_str) = compilation_result.compiled_checksum {
+                    let crate_name = crate_root_path.file_name().unwrap().to_string_lossy().to_string(); // Naive crate name
+                    compiled_artifacts_map.insert(crate_name, PathBuf::from(rlib_path_str));
+                } else {
+                    println!("Warning: No compiled .rlib path found in compilation result for {:?}", crate_root_path.display());
+                }
+            }
+
+            // Temporarily disable state updates and caching
+            // let mut current_state = state_arc.lock().unwrap();
+            // result_store.save_result(&compilation_result, &current_state.output_dir)?;
+
+            // // Update cache
+            // current_state.cache.insert(crate_root_path.clone(), compilation_result.clone());
+
+            // if should_update_state {
+            //     if exit_code == Some(0) {
+            //         // Move successful result to done_dir
+            //         let file_name = crate_root_path.file_name().unwrap().to_string_lossy().replace(".", "_");
+            //         let old_path = current_state.output_dir.join(format!("{}_result.json", file_name));
+            //         let new_path = current_state.done_dir.join(format!("{}_result.json", file_name));
+            //         fs::rename(&old_path, &new_path).map_err(AppError::Io)?;
+            //         current_state.update_file_status(&crate_root_path, FileStatus::Done)?;
+            //         println!("Moved result for {:?} to done_results.", crate_root_path.display());
+            //     } else {
+            //         current_state.update_file_status(&crate_root_path, FileStatus::Failed)?;
+            //         println!("Compilation failed for {:?}. Stopping.", crate_root_path.display());
+            //         current_state.save(&main_state_file_path_clone)?;
+            //         return Err(AppError::Custom(format!("Compilation failed for {:?}", crate_root_path.display())));
+            //     }
+            //     current_state.save(&main_state_file_path_clone)?;
+            // } else {
+                if exit_code != Some(0) {
+                    println!("Compilation failed for {:?}. (State update skipped)", crate_root_path.display());
+                    println!("--- STDOUT ---");
+                    println!("{}", compilation_result.stdout);
+                    println!("--- STDERR ---");
+                    println!("{}", compilation_result.stderr);
+                    return Err(AppError::Custom(format!("Compilation failed for {:?}", crate_root_path.display())));
+                } else {
+                    println!("Compilation successful for {:?}. (State update skipped)", crate_root_path.display());
+                }
+            // }
+        }
+    Ok(())
 }
