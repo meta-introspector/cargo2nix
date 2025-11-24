@@ -21,6 +21,10 @@ path = "src/bin/monster_cloudformation_generator.rs"
 name = "monster_oci_generator"
 path = "src/bin/monster_oci_generator.rs"
 
+[[bin]]
+name = "monster_nar_dataset_generator"
+path = "src/bin/monster_nar_dataset_generator.rs"
+
 [features]
 default = []
 all_parts = ["part_01", "part_02", "part_03", "part_04", "part_05", "part_06", "part_07", "part_08", "part_09", "part_10", "part_11", "part_12", "part_13", "part_14", "part_15", "part_16", "part_17", "part_18", "part_19", "part_20", "part_21", "part_22", "part_23", "part_24", "part_25", "part_26", "part_27", "part_28", "part_29", "part_30", "part_31", "part_32", "part_33", "part_34", "part_35", "part_36", "part_37", "part_38", "part_39", "part_40", "part_41", "part_42", "part_43", "part_44", "part_45", "part_46", "part_47", "part_48", "part_49", "part_50", "part_51", "part_52", "part_53", "part_54", "part_55", "part_56", "part_57", "part_58", "part_59", "part_60", "part_61", "part_62", "part_63", "part_64", "part_65", "part_66", "part_67", "part_68", "part_69", "part_70", "part_71"]
