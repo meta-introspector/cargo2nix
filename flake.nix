@@ -41,16 +41,42 @@
       cargo = pkgs.cargo;
 
       workspaceShell = pkgs.mkShell {
-        packages = [ pkgs.statix pkgs.openssl_1_1.dev pkgs.zlib.dev pkgs.sccache ];
+        packages = [ pkgs.statix pkgs.openssl_1_1.dev pkgs.zlib.dev pkgs.sccache pkgs.llvmPackages_18.libclang pkgs.llvmPackages_18.llvm pkgs.llvmPackages_18.clang pkgs.gcc pkgs.gdb ];
         shellHook = ''
           export PKG_CONFIG_PATH=${pkgs.openssl_1_1.dev}/lib/pkgconfig:${pkgs.zlib.dev}/lib/pkgconfig:$PKG_CONFIG_PATH
-          export PATH=${myRustc}/bin:${cargo}/bin:${pkgs.sccache}/bin:$PATH
+          export PATH=${myRustc}/bin:${cargo}/bin:${pkgs.sccache}/bin:${pkgs.llvmPackages_18.llvm}/bin:${pkgs.llvmPackages_18.clang}/bin:${pkgs.gcc}/bin:${pkgs.gdb}/bin:$PATH
+          export LIBCLANG_PATH="${pkgs.llvmPackages_18.libclang.lib}/lib"
+          export LD_LIBRARY_PATH="${pkgs.llvmPackages_18.libclang.lib}/lib:${pkgs.llvmPackages_18.llvm.lib}/lib:$LD_LIBRARY_PATH"
+          export LLVM_SYS_180_PREFIX=${pkgs.llvmPackages_18.llvm.dev}
+          export CC=${pkgs.gcc}/bin/gcc
+          export CXX=${pkgs.gcc}/bin/g++
+        '';
+      };
+
+      llvmDevShell = pkgs.mkShell {
+        packages = [ pkgs.statix pkgs.openssl_1_1.dev pkgs.zlib.dev pkgs.sccache pkgs.llvm_18.dev pkgs.clang_18 ];
+        shellHook = ''
+          export PKG_CONFIG_PATH=${pkgs.openssl_1_1.dev}/lib/pkgconfig:${pkgs.zlib.dev}/lib/pkgconfig:$PKG_CONFIG_PATH
+          export PATH=${myRustc}/bin:${cargo}/bin:${pkgs.sccache}/bin:${pkgs.llvm_18}/bin:${pkgs.clang_18}/bin:$PATH
+          export LLVM_SYS_180_PREFIX=${pkgs.llvm_18.dev}
+        '';
+      };
+
+      gccDevShell = pkgs.mkShell {
+        packages = [ pkgs.statix pkgs.openssl_1_1.dev pkgs.zlib.dev pkgs.sccache pkgs.gcc pkgs.gdb ];
+        shellHook = ''
+          export PKG_CONFIG_PATH=${pkgs.openssl_1_1.dev}/lib/pkgconfig:${pkgs.zlib.dev}/lib/pkgconfig:$PKG_CONFIG_PATH
+          export PATH=${myRustc}/bin:${cargo}/bin:${pkgs.sccache}/bin:${pkgs.gcc}/bin:${pkgs.gdb}/bin:$PATH
+          export CC=${pkgs.gcc}/bin/gcc
+          export CXX=${pkgs.gcc}/bin/g++
         '';
       };
     in
     rec {
       devShells = {
         default = workspaceShell;
+        llvm = llvmDevShell;
+        gcc = gccDevShell;
       };
 
       packages = rec {
