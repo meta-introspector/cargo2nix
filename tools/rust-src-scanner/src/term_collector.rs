@@ -192,7 +192,7 @@ impl ComprehensiveTermCollector {
             Item::Enum(e) => (e.ident.to_string(), "enum".to_string()),
             Item::Trait(t) => (t.ident.to_string(), "trait".to_string()),
             Item::Impl(i) => ("impl".to_string(), "impl".to_string()),
-            Item::Mod(m) => (m.ident.map_or("mod".to_string(), |i| i.to_string()), "mod".to_string()),
+            Item::Mod(m) => (m.ident.as_ref().map(|i| i.to_string()).unwrap_or_else(|| "mod".to_string()), "mod".to_string()),
             Item::Type(t) => (t.ident.to_string(), "type".to_string()),
             Item::Const(c) => (c.ident.to_string(), "const".to_string()),
             Item::Static(s) => (s.ident.to_string(), "static".to_string()),

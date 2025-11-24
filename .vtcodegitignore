@@ -1,0 +1,14 @@
+# Security-focused exclusions
+.env, .env.local, secrets/, .aws/, .ssh/
+
+# Development artifacts
+target/, build/, dist/, node_modules/, vendor/
+
+# Database files
+*.db, *.sqlite, *.sqlite3
+
+# Binary files
+*.exe, *.dll, *.so, *.dylib, *.bin
+
+# IDE files (comprehensive)
+.vscode/, .idea/, *.swp, *.swo

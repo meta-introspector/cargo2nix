@@ -1588,3 +1588,6 @@
 [submodule "/data/data/com.termux.nix/files/home/experiments/pick-up-nix/vendor/nix/cargo2nix/tools/eigenvalues"]
 	path = /data/data/com.termux.nix/files/home/experiments/pick-up-nix/vendor/nix/cargo2nix/tools/eigenvalues
 	url = https://github.com/meta-introspector/eigenvalues.git
+[submodule "datasets/rust"]
+	path = datasets/rust
+	url = https://huggingface.co/datasets/introspector/rust
