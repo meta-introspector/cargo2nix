@@ -8,6 +8,8 @@ edition = "2021"
 [dependencies]
 quote = "1.0"
 proc-macro2 = "1.0"
+sha2 = "0.10"
+hex = "0.4"
 
 [features]
 default = []

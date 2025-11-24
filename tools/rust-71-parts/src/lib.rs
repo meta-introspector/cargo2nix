@@ -6,6 +6,10 @@ pub mod token_constants;
 pub mod hecke_operators;
 pub mod monster_levels;
 pub mod ast_transport;
+pub mod symbiotic_compiler;
+pub mod monster_network;
+pub mod zkp_discovery;
+pub mod service_deployment;
 
 #[cfg(feature = "part_01")]
 pub mod part_01;

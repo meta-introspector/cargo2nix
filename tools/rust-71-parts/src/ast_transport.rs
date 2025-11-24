@@ -77,7 +77,7 @@ impl TransportWorker {
 /// Colony of transport workers for 108-layer construction
 pub struct TransportColony {
     workers: Vec<TransportWorker>,
-    layers: [Vec<AstFragment>; 108],
+    pub layers: [Vec<AstFragment>; 108],
 }
 
 impl TransportColony {
