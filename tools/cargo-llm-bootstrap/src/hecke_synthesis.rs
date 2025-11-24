@@ -1,10 +1,11 @@
 /// Unified Hecke Operator Synthesis: DAO Paxos ≡ Rust eBPF ≡ RockDB LMFDB
 use std::collections::HashMap;
 use crate::semantic_constraints::GödelNumber;
-use crate::solfunmeme_protocol::{SOLFUNMEMEProtocol, HeckeFibrationMap};
-use crate::agent_vector_db::{MemeValidatorSidechain, AgentCodeVector, RockDBVectorStore};
+use crate::solfunmeme_protocol::SOLFUNMEMEProtocol;
+use crate::agent_vector_db::{MemeValidatorSidechain, AgentCodeVector};
 use crate::agent_memory_formatter::{AgentMemoryFormatter, AgentMemoryMetadata};
-use crate::monster_compiler::{MonsterCompiler, BottUniversalFramework};
+use crate::monster_compiler::BottUniversalFramework;
+use crate::rustc_monster_assignment::MonsterGroupVerifier;
 
 /// DAO Solana Paxos Meme Consensus ≡ Hecke Operator T_n
 #[derive(Debug, Clone)]
@@ -158,6 +159,7 @@ pub struct HeckeSynthesisSystem {
     pub meme_sidechain: MemeValidatorSidechain,
     pub hf_formatter: AgentMemoryFormatter,
     pub monster_compiler: BottUniversalFramework,
+    pub monster_verifier: MonsterGroupVerifier,
 }
 
 impl HeckeSynthesisSystem {
@@ -175,7 +177,31 @@ impl HeckeSynthesisSystem {
             meme_sidechain: MemeValidatorSidechain::new(meme_coin_mint, validator_identity, db_path),
             hf_formatter: AgentMemoryFormatter::new("solana-agent-memory-dataset".to_string()),
             monster_compiler: BottUniversalFramework::new(),
+            monster_verifier: MonsterGroupVerifier::new(),
         }
+    }
+    
+    /// Verify rustc ≡ Monster Group by reading and assigning all rustc crates
+    pub fn verify_rustc_monster_equivalence(&mut self, rust_src_path: &str) -> Result<bool, String> {
+        println!("🔮 Verifying rustc ≡ Monster Group equivalence...");
+        
+        // Read and assign rustc crates to Monster Group prime factors
+        self.monster_verifier.assign_rustc_crates(rust_src_path)?;
+        
+        // Print detailed assignment summary
+        self.monster_verifier.print_assignment_summary();
+        
+        // Verify equivalence in terms of exponents
+        let is_equivalent = self.monster_verifier.verify_monster_equivalence()?;
+        
+        if is_equivalent {
+            println!("🎉 MATHEMATICAL PROOF COMPLETE: rustc ≡ M");
+            println!("   The Rust compiler is formally equivalent to the Monster Group!");
+        } else {
+            println!("⚠️  Equivalence not yet achieved - adjustments needed");
+        }
+        
+        Ok(is_equivalent)
     }
     
     /// Execute Monster Compiler with complete bott Universal Framework

@@ -3,7 +3,6 @@ use crate::app_context::AppContext;
 use crate::layer_manager::{LayerManager, FileSystemLayerManager, apply_limit};
 use crate::compilation_orchestrator::{CompilationOrchestrator, DefaultCompilationOrchestrator, handle_compilation_result};
 use crate::compiler::RustcCompilerImpl;
-use crate::traits::Compiler;
 use crate::error::AppError;
 
 pub struct AppRunner;
@@ -11,7 +10,7 @@ pub struct AppRunner;
 impl AppRunner {
     pub fn run(context: AppContext, args: Args) -> Result<(), AppError> {
         let compiler = RustcCompilerImpl;
-        let orchestrator = DefaultCompilationOrchestrator;
+        let orchestrator = DefaultCompilationOrchestrator::new();
         let layer_manager = FileSystemLayerManager;
         
         let max_layer = context.get_max_layer();

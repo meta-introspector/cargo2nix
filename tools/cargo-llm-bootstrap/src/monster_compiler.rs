@@ -1,7 +1,7 @@
 /// The Monster Compiler: An Arithmetic-Geometric Architecture for rustc
 /// Foundational equivalence: rustc ≡ M (Monster Group)
 use crate::semantic_constraints::GödelNumber;
-use crate::monster_group::{MonsterRustc, RustcComponent};
+use crate::monster_group::MonsterRustc;
 use crate::modular_forms::{ModularForm, HeckeAlgebra};
 use std::collections::HashMap;
 use serde::{Deserialize, Serialize};

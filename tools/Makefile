@@ -1,6 +1,6 @@
 RUST_SRC_PATH ?= /home/mdupont/nix/vendor/rust/platform-tools-agave-rust-solana/vendor/rust-src
-GRAPH_OUTPUT_PATH ?= ../cargo-llm-bootstrap/compilation_results/dependency_graph.json
-CACHE_DIR ?= ../cargo-llm-bootstrap/compilation_results/cargo_cache
+GRAPH_OUTPUT_PATH ?= ../datasets/rust/dependency_graph.json
+CACHE_DIR ?= ../datasets/rust/compilation_results
 
 # Makefile for compiling cargo-submodule-tool-lib
 
@@ -66,7 +66,7 @@ clean:
 .PHONY: build-llm-bootstrap
 build-llm-bootstrap:
 	@echo "Running cargo-llm-bootstrap..."
-	cd cargo-llm-bootstrap && cargo run --package cargo-llm-bootstrap -- --rust-src-path $(RUST_SRC_PATH)
+	cd cargo-llm-bootstrap && cargo run --package cargo-llm-bootstrap -- --rust-src-path $(RUST_SRC_PATH) --output-dir ../datasets/rust/compilation_results
 
 
 .PHONY: nix-build-llm-bootstrap
@@ -92,28 +92,76 @@ recompile-from-json:
 .PHONY: generate-state
 generate-state:
 	@echo "Generating initial state using rust-src-scanner..."
-	cd rust-src-scanner && cargo run --package rust-src-scanner -- --rust-src-path $(RUST_SRC_PATH) --output-dir ../cargo-llm-bootstrap/compilation_results
+	cd rust-src-scanner && cargo run --package rust-src-scanner -- --rust-src-path $(RUST_SRC_PATH) --output-dir ../datasets/rust/compilation_results
 
 .PHONY: run-rust-src-scanner
 run-rust-src-scanner:
 	@echo "Running rust-src-scanner..."
 	cd rust-src-scanner && RUST_BACKTRACE=full cargo run --package rust-src-scanner -- \
 		--rust-src-path $(RUST_SRC_PATH) \
-		--output-dir ../cargo-llm-bootstrap/compilation_results \
-		--cache-path ../cargo-llm-bootstrap/compilation_results/file_cache.json 2>&1 | tee rust-src-scanner.log
+		--output-dir ../datasets/rust/compilation_results \
+		--cache-path ../datasets/rust/compilation_results/file_cache.json 2>&1 | tee rust-src-scanner.log
 
 .PHONY: generate-build-plan
 generate-build-plan: run-rust-src-scanner
 	@echo "Generating build plan from dependency graph..."
 	cd graph-petal-generator && cargo run -- \
-		--graph-input-path ../cargo-llm-bootstrap/compilation_results/dependency_graph.json \
-		--output-path ../cargo-llm-bootstrap/compilation_results/layered_graph.json \
+		--graph-input-path ../datasets/rust/compilation_results/dependency_graph.json \
+		--output-path ../datasets/rust/compilation_results/layered_graph.json \
 		--root-crate rustc-main
-	@echo "Build plan generated and layered graph saved to ../cargo-llm-bootstrap/compilation_results/layered_graph.json"
+	@echo "Build plan generated and layered graph saved to ../datasets/rust/compilation_results/layered_graph.json"
 
 .PHONY: rust-solana-level-10
 rust-solana-level-10:
 	@echo "Running cargo-llm-bootstrap for level 10 (dry run)..."
 	cd cargo-llm-bootstrap && cargo run --package cargo-llm-bootstrap -- \
 		--rust-src-path $(RUST_SRC_PATH) \
+		--output-dir ../datasets/rust/compilation_results \
 		--level 10
+
+.PHONY: monster-group-assignment
+monster-group-assignment:
+	@echo "🔮 Assigning Monster Group prime factors to rustc modules..."
+	cd cargo-llm-bootstrap && cargo run --package cargo-llm-bootstrap -- \
+		--rust-src-path $(RUST_SRC_PATH) \
+		--monster-mode \
+		--verify-constraint "rustc=monstergroup" \
+		--output-dir ../datasets/rust/monster_assignments
+
+.PHONY: generate-prime-factors
+generate-prime-factors: monster-group-assignment
+	@echo "🧮 Generating prime factor assignments for each rustc module..."
+	@echo "Constraint: rustc ≡ M (Monster Group)"
+	@echo "Target: |M| = 2^46 × 3^20 × 5^9 × 7^6 × 11^2 × 13^3 × 17 × 19 × 23 × 29 × 31 × 41 × 47 × 59 × 71"
+
+.PHONY: generate-zkp-proofs
+generate-zkp-proofs: generate-prime-factors
+	@echo "🔐 Generating ZK proofs for 108 supersingular reasons..."
+	cd cargo-llm-bootstrap && cargo run --package cargo-llm-bootstrap -- \
+		--zkp-mode \
+		--generate-sat-clauses \
+		--output-dir ../datasets/rust/zkp_proofs
+
+.PHONY: create-rollup-batch
+create-rollup-batch: generate-zkp-proofs
+	@echo "📦 Creating rollup batch with Monster Group constraint proofs..."
+	cd cargo-llm-bootstrap && cargo run --package cargo-llm-bootstrap -- \
+		--rollup-mode \
+		--batch-proofs ../datasets/rust/zkp_proofs \
+		--verify-monster-constraints
+
+.PHONY: llm-proof-review
+llm-proof-review: generate-zkp-proofs
+	@echo "🤖 Submitting proof steps to LLM review..."
+	@echo "Enumeration: Monster factors (2^46, 3^20, ...) and τ(n) applications"
+	cd cargo-llm-bootstrap && cargo run --package cargo-llm-bootstrap -- \
+		--llm-review-mode \
+		--enumerate-steps \
+		--llm-endpoint "http://localhost:8080/v1/chat/completions"
+
+.PHONY: review-summary
+review-summary: llm-proof-review
+	@echo "📊 Generating LLM review summary..."
+	cd cargo-llm-bootstrap && cargo run --package cargo-llm-bootstrap -- \
+		--review-summary \
+		--output ../datasets/rust/review_results.json

@@ -17,4 +17,6 @@ pub enum AppError {
     Walkdir(#[from] walkdir::Error),
     #[error("Custom error: {0}")]
     Custom(String),
+    #[error("Compilation error: {0}")]
+    CompilationError(String),
 }

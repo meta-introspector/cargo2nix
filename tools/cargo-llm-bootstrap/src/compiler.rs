@@ -2,12 +2,10 @@ use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::time::Instant;
-use std::fs;
 
 use chrono::Utc;
 use sha2::{Digest, Sha256};
-use toml_edit::{Document, table}; // Import toml_edit types
-use toml; // Import toml
+use toml;
 use crate::error::AppError;
 use crate::results::CompilationResult;
 use crate::traits::Compiler;

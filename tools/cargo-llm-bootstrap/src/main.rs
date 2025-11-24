@@ -19,10 +19,13 @@ mod goal_state;
 mod monster_group;
 mod modular_forms;
 mod solfunmeme_protocol;
-mod hecke_synthesis;
 mod agent_vector_db;
 mod agent_memory_formatter;
 mod monster_compiler;
+mod hecke_synthesis;
+mod rustc_monster_assignment;
+mod prime_histogram;
+mod demo_histogram;
 
 use cli::Args;
 use app_builder::AppBuilder;
@@ -31,6 +34,22 @@ use error::AppError;
 
 fn main() -> Result<(), AppError> {
     let args = Args::parse_args();
+    
+    // Handle histogram command
+    if args.histogram {
+        let rustc_path = args.rust_src_path
+            .map(|p| p.to_string_lossy().to_string())
+            .unwrap_or_else(|| "/usr/src/rustc".to_string());
+        
+        return prime_histogram::generate_rustc_prime_histogram(&rustc_path)
+            .map_err(|e| AppError::CompilationError(e));
+    }
+    
+    // Handle demo histogram command
+    if args.demo_histogram {
+        return demo_histogram::generate_demo_rustc_histogram()
+            .map_err(|e| AppError::CompilationError(e));
+    }
     
     // Initialize SOLFUNMEME Meta-Protocol
     println!("🚀 Initializing SOLFUNMEME Meta-Protocol: Monster Group's Quasi Fiber Bundle...");

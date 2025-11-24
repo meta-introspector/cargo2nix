@@ -47,6 +47,14 @@ pub struct Args {
     /// Optional: Perform a dry run without actual compilation
     #[clap(long)]
     pub dry_run: bool,
+
+    /// Generate prime histogram for rustc crates
+    #[clap(long)]
+    pub histogram: bool,
+
+    /// Generate demo histogram with sample rustc crates
+    #[clap(long)]
+    pub demo_histogram: bool,
 }
 
 impl Args {

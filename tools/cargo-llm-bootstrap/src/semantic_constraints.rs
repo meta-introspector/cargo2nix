@@ -63,6 +63,14 @@ impl GödelNumber {
         Self { exponents }
     }
     
+    pub fn from_hash(hash: &[u8; 32]) -> Self {
+        let mut exponents = [0u8; 15];
+        for (i, &byte) in hash.iter().take(15).enumerate() {
+            exponents[i] = byte;
+        }
+        Self { exponents }
+    }
+    
     pub fn multiply(&self, other: &Self) -> Self {
         let mut result = [0u8; 15];
         for i in 0..15 {

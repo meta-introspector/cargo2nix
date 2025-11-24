@@ -261,13 +261,3 @@ impl MemeValidatorSidechain {
         self.consensus_state.nix_store_merkle_root = nix_hasher;
     }
 }
-
-impl GödelNumber {
-    pub fn from_hash(hash: &[u8; 32]) -> Self {
-        let mut exponents = [0u8; 15];
-        for (i, &byte) in hash.iter().take(15).enumerate() {
-            exponents[i] = byte;
-        }
-        Self { exponents }
-    }
-}
