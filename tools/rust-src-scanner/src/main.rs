@@ -1,5 +1,6 @@
-use std::collections::{HashMap, HashSet, VecDeque};
-use std::path::{Path, PathBuf};
+use std::collections::HashMap;
+use std::collections::BTreeMap;
+use std::path::PathBuf;
 use std::fs;
 
 use chrono::{DateTime, Utc};
@@ -7,53 +8,29 @@ use serde::{Serialize, Deserialize};
 use serde_json;
 use walkdir::WalkDir;
 use clap::Parser;
-use sha2::{Digest, Sha256};
-use petgraph::algo::toposort;
-
-mod cargo_parser;
-mod lmfdb_semantic_index; // New module for LMFDB and semantic indexing
-mod error; // New module for error handling
-mod declaration_parser; // New module for parsing Rust declarations
-mod semantic_id; // New module for composite semantic IDs
-use crate::error::AppError;
+use anyhow::Result; // Import anyhow::Result
 
 const CHUNK_SIZE_BYTES: usize = 4096; // Target chunk size
 
-// FileStatus is no longer relevant for Cargo.toml scanning
-// #[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone, Copy)]
-// pub enum FileStatus {
-//     Pending,
-//     Completed, // Successfully compiled, result in output_dir
-//     Failed,
-//     Done,      // Successfully compiled, result moved to done_dir
-// }
+// The 15 supersingular primes for Monster Group encoding
+const SUPERSINGULAR_PRIMES: [u32; 15] = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 41, 47, 59, 71];
+
+
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct CargoEntry { // Renamed from FileEntry
-    pub semantic_id: semantic_id::SemanticId, // Composite semantic ID for this Cargo.toml entry
+pub struct FileMetadata {
     pub path: PathBuf,
-    pub package_name: String,
-    pub package_version: String,
-    pub dependencies: Vec<String>, // List of direct dependencies
-    // Add other Cargo.toml metadata as needed
-}
-
-#[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct DirectoryEntry {
-    pub semantic_id: semantic_id::SemanticId,
-    pub path: PathBuf,
-    pub name: String,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct DependencyGraphData {
-    pub nodes: Vec<CargoEntry>,
-    pub edges: Vec<(String, String)>, // (source_package_name, target_package_name)
+    pub last_modified: DateTime<Utc>,
+    pub hash: String,
+    pub index: u64, // Sequential index for the file
+    pub category: String, // Category of the file (e.g., "Nix", "Rust", "Cargo", "Doc")
+    pub monster_godel_index: Option<u128>, // Gödel number for semantic hashing
+    pub prime_exponents: BTreeMap<u32, u32>, // Exponents for each supersingular prime
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct FileIndex {
-    pub files: HashMap<PathBuf, CargoEntry>, // Changed to CargoEntry
+    pub files: HashMap<PathBuf, FileMetadata>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -62,7 +39,36 @@ pub struct MainState {
     pub index_file_paths: Vec<PathBuf>,
     pub last_saved_timestamp: DateTime<Utc>,
     pub output_dir: PathBuf,
-    pub done_dir: PathBuf,
+}
+
+// Function to calculate semantic exponents based on the file's sequential index
+fn calculate_semantic_exponents(file_index: u64) -> BTreeMap<u32, u32> {
+    let mut exponents = BTreeMap::new();
+
+    // Convert file_index to its binary representation
+    let mut temp_index = file_index;
+    for &prime in SUPERSINGULAR_PRIMES.iter() {
+        if temp_index == 0 {
+            // If index is 0, all remaining exponents are 0
+            exponents.insert(prime, 0);
+        } else {
+            // Map each bit of the index to an exponent (0 or 1)
+            let exponent = (temp_index % 2) as u32;
+            exponents.insert(prime, exponent);
+            temp_index /= 2;
+        }
+    }
+
+    exponents
+}
+
+// Function to generate the Monster Gödel Index
+fn generate_monster_godel_index(exponents: &BTreeMap<u32, u32>) -> u128 {
+    let mut godel_index: u128 = 1;
+    for (&prime, &exponent) in exponents.iter() {
+        godel_index *= (prime as u128).pow(exponent as u32);
+    }
+    godel_index
 }
 
 #[derive(Parser, Debug)]
@@ -76,343 +82,166 @@ struct Args {
     #[arg(long)]
     output_dir: PathBuf,
 
-    /// Limit the number of index chunks generated
+    /// Optional: Path to the cache file
     #[arg(long)]
-    limit: Option<u32>,
+    cache_path: Option<PathBuf>,
 
-    /// Optional path to save the dependency graph (in DOT format)
+    /// Optional: Limit the number of files to process
     #[arg(long)]
-    graph_output_path: Option<PathBuf>,
-
-    /// Optional: Name of the root crate to start dependency scanning from (e.g., "rustc")
-    #[arg(long)]
-    root_crate: Option<String>,
-
-    /// Optional: Directory to store the Cargo.toml parsing cache
-    #[arg(long)]
-    cache_dir: Option<PathBuf>,
+    limit: Option<usize>,
 }
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<()> {
     let args = Args::parse();
 
     let rust_src_path = &args.rust_src_path;
     let output_dir = &args.output_dir;
+    let cache_path = args.cache_path.unwrap_or_else(|| output_dir.join("file_cache.json"));
 
     fs::create_dir_all(output_dir)?;
 
-    // Initialize semantic index and eigenmatrix
-    let mut semantic_index = lmfdb_semantic_index::SemanticIndex::new();
-    #[cfg(not(feature = "disable-eigenvector"))]
-    let mut eigen_matrix = lmfdb_semantic_index::EigenMatrix::new(0, 0); // Will be resized later
+    // Initialize MainState
+    let mut main_state = MainState {
+        rust_src_path_hash: "0".to_string(), // Placeholder, will be updated later if needed
+        index_file_paths: Vec::new(),
+        last_saved_timestamp: Utc::now(),
+        output_dir: output_dir.clone(),
+    };
 
-    // For assigning unique IDs to packages and building the dependency matrix
-    let mut package_name_to_id: HashMap<String, usize> = HashMap::new();
-    let mut id_counter: usize = 0;
+    // Load existing cache if it exists
+    let mut file_cache: HashMap<PathBuf, FileMetadata> = if cache_path.exists() {
+        let cache_content = fs::read_to_string(&cache_path)?;
+        serde_json::from_str(&cache_content).unwrap_or_default()
+    } else {
+        HashMap::new()
+    };
 
-    // Instantiate CargoParser
-    let mut cargo_parser_instance = cargo_parser::CargoParser::new(args.cache_dir);
+    println!("Scanning for files in: {:?}", rust_src_path.display());
+    let mut updated_files = 0;
+    let mut new_files = 0;
+    let mut processed_files_count = 0;
 
-    println!("Scanning for Cargo.toml files in: {:?}", rust_src_path.display());
-    let mut all_cargo_entries: Vec<CargoEntry> = Vec::new();
-    let mut all_declarations: Vec<declaration_parser::Declaration> = Vec::new(); // New vector for declarations
-    let mut all_directory_entries: Vec<DirectoryEntry> = Vec::new(); // New vector for directory entries
-    let mut count = 0;
+    let mut current_chunk_files: Vec<FileMetadata> = Vec::new();
+    let mut chunk_index: usize = 0;
 
-    let mut cargo_toml_paths_to_process: VecDeque<(PathBuf, i32)> = VecDeque::new();
-    let mut visited_cargo_toml_paths: HashSet<PathBuf> = HashSet::new();
-    let mut package_name_to_cargo_toml_path: HashMap<String, PathBuf> = HashMap::new();
-
-    // First, find all Cargo.toml files and map package names to their paths
-    // This initial scan is necessary to resolve dependencies by package name later
     for entry in WalkDir::new(rust_src_path)
         .into_iter()
         .filter_map(|e| e.ok())
+        .filter(|e| e.file_type().is_file())
+        .filter(|e| e.file_name().to_string_lossy() == "Cargo.toml") // Only Cargo.toml files
+        .filter(|e| !e.path().to_string_lossy().contains("/tests/")) // Exclude test directories
     {
-        let path = entry.path();
-        if path.is_file() && path.file_name().map_or(false, |name| name == "Cargo.toml") {
-            // Temporarily parse to get package name without adding to graph/cache yet
-            let content = fs::read_to_string(path).map_err(AppError::Io)?;
-            let value: toml::Value = match toml::from_str(&content) {
-                Ok(v) => v,
-                Err(e) => {
-                    eprintln!("Warning: Failed to parse Cargo.toml file {}: {}", path.display(), e);
-                    continue; // Skip this file
-                }
-            };
-            if let Some(package_name) = value.get("package").and_then(|p| p.get("name")).and_then(|n| n.as_str()) {
-                package_name_to_cargo_toml_path.insert(package_name.to_string(), path.to_path_buf());
+        if let Some(max_limit) = args.limit {
+            if processed_files_count >= max_limit {
+                println!("Reached the specified limit of {} files. Stopping scan.", max_limit);
+                break;
             }
         }
-    }
 
-    if let Some(root_crate_name) = &args.root_crate {
-        if let Some(root_cargo_toml_path) = package_name_to_cargo_toml_path.get(root_crate_name) {
-            cargo_toml_paths_to_process.push_back((root_cargo_toml_path.clone(), 0));
-            visited_cargo_toml_paths.insert(root_cargo_toml_path.clone());
-            println!("Starting targeted scan from root crate: {} at {:?}", root_crate_name, root_cargo_toml_path.display());
+        let path = entry.path().to_path_buf();
+        let metadata = fs::metadata(&path)?;
+        let last_modified: DateTime<Utc> = metadata.modified()?.into();
+
+        // Determine file category based on extension
+        let category = match path.extension().and_then(|s| s.to_str()) {
+            Some("nix") => "Nix".to_string(),
+            Some("rs") => "Rust".to_string(),
+            Some("toml") => "Cargo".to_string(),
+            Some("sh") => "Script".to_string(),
+            Some("md") => "Doc".to_string(),
+            _ => "Other".to_string(),
+        };
+
+        // Create file_metadata for every processed file
+        let mut file_metadata = FileMetadata {
+            path: path.clone(),
+            last_modified,
+            hash: "0".to_string(),
+            index: processed_files_count as u64, // Assign sequential index
+            category,
+            monster_godel_index: None,
+            prime_exponents: BTreeMap::new(),
+        };
+
+        // Calculate semantic exponents based on sequential index
+        let mut exponents = calculate_semantic_exponents(file_metadata.index);
+
+        // Define the specific path for the rustc compiler crate
+        let rustc_compiler_crate_path = PathBuf::from("/data/data/com.termux.nix/files/home/nix/vendor/rust/platform-tools-agave-rust-solana/vendor/rust-src/compiler/rustc/Cargo.toml");
+
+        // Semantic assignment: If this is the rustc compiler crate, ensure prime 71 has an exponent of 1
+        if file_metadata.path == rustc_compiler_crate_path {
+            exponents.insert(71, 1);
+        }
+
+        // Generate the Monster Gödel Index with potentially modified exponents
+        let godel_index = generate_monster_godel_index(&exponents);
+
+        file_metadata.prime_exponents = exponents;
+        file_metadata.monster_godel_index = Some(godel_index);
+
+        // Chunking logic for all processed files
+        if current_chunk_files.is_empty() {
+            current_chunk_files.push(file_metadata.clone());
         } else {
-            eprintln!("Error: Root crate '{}' not found in the source directory.", root_crate_name);
-            return Err("Root crate not found".into());
-        }
-    } else {
-        // If no root crate is specified, fall back to scanning all Cargo.toml files found
-        for (package_name, path) in package_name_to_cargo_toml_path.iter() {
-            if !visited_cargo_toml_paths.contains(path) {
-                cargo_toml_paths_to_process.push_back((path.clone(), 0)); // Assign level 0 to all top-level crates
-                visited_cargo_toml_paths.insert(path.clone());
-            }
-        }
-        println!("No root crate specified. Scanning all Cargo.toml files found.");
-    }
+            let mut temp_chunk = current_chunk_files.clone();
+            temp_chunk.push(file_metadata.clone());
+                            let estimated_chunk_size = serde_json::to_string_pretty(&temp_chunk)?.len();
+            
+                            if estimated_chunk_size >= CHUNK_SIZE_BYTES {                let chunk_file_name = format!("chunk_{}.json", chunk_index);
+                let chunk_file_path = output_dir.join(&chunk_file_name);
+                fs::write(&chunk_file_path, serde_json::to_string_pretty(&current_chunk_files)?)?;
+                main_state.index_file_paths.push(chunk_file_path.clone());
+                println!("Wrote chunk {} to {:?}", chunk_index, chunk_file_path.display());
 
-    while let Some((cargo_toml_path, level)) = cargo_toml_paths_to_process.pop_front() {
-        println!("Parsing: {:?} (Level: {})", cargo_toml_path.display(), level);
-        let parsed_toml = match cargo_parser_instance.parse_cargo_toml(&cargo_toml_path) {
-            Ok(toml) => toml,
-            Err(e) => {
-                eprintln!("Error parsing Cargo.toml file {}: {}", cargo_toml_path.display(), e);
-                continue; // Skip this file if parsing fails
-            }
-        };
-
-        let package_name = parsed_toml.get("package")
-            .and_then(|pkg| pkg.get("name"))
-            .and_then(|name| name.as_str())
-            .unwrap_or("unknown_package")
-            .to_string();
-        let package_version = parsed_toml.get("package")
-            .and_then(|pkg| pkg.get("version"))
-            .and_then(|version| version.as_str())
-            .unwrap_or("0.0.0")
-            .to_string();
-
-        // Assign a unique ID to the package
-        let current_id = *package_name_to_id.entry(package_name.clone()).or_insert_with(|| {
-            let id = id_counter;
-            id_counter += 1;
-            id
-        });
-        let mut package_semantic_id = semantic_id::SemanticId::new(current_id);
-        package_semantic_id.depth = level.abs() as usize; // Use the assigned level as depth
-
-        let mut dependencies = Vec::new();
-        if let Some(deps_table) = parsed_toml.get("dependencies").and_then(|v| v.as_table()) {
-            for (dep_name, _dep_value) in deps_table {
-                dependencies.push(dep_name.clone());
-                if let Some(dep_cargo_toml_path) = package_name_to_cargo_toml_path.get(dep_name) {
-                    if !visited_cargo_toml_paths.contains(dep_cargo_toml_path) {
-                        cargo_toml_paths_to_process.push_back((dep_cargo_toml_path.clone(), level - 1));
-                        visited_cargo_toml_paths.insert(dep_cargo_toml_path.clone());
-                    }
-                }
-            }
-        }
-
-        all_cargo_entries.push(CargoEntry {
-            semantic_id: package_semantic_id.clone(),
-            path: cargo_toml_path.to_path_buf(),
-            package_name: package_name.clone(),
-            package_version,
-            dependencies,
-        });
-
-        let fiber_bundle = lmfdb_semantic_index::LMFDBFiberBundle::new(&package_name)
-            .with_semantic_id(package_semantic_id); // Associate SemanticId with FiberBundle
-        semantic_index.add_entry(&package_name, fiber_bundle);
-        count += 1;
-        if count % 100 == 0 { // Print progress every 100 Cargo.toml files
-            println!("  Found and parsed {} Cargo.toml files...", count);
-        }
-    }
-    println!("Finished scanning. Found and parsed {} Cargo.toml files.", count);
-    println!("Found {} Rust declarations.", all_declarations.len());
-    println!("Found {} directories.", all_directory_entries.len());
-
-    println!("\n--- Semantic IDs for Cargo Entries ---");
-    for entry in &all_cargo_entries {
-        println!("Package: {}, Semantic ID: {}", entry.package_name, entry.semantic_id);
-    }
-    println!("------------------------------------");
-
-    // Build crate dependency graph and perform topological sort
-    println!("\n--- Building Crate Dependency Graph ---");
-    let crate_graph = cargo_parser_instance.get_dependency_graph();
-
-    // Perform topological sort
-    match toposort(crate_graph, None) {
-        Ok(sorted_nodes) => {
-            println!("\n--- Topologically Sorted Crates (Build Order) ---");
-            for node_idx in sorted_nodes.iter().rev() { // Reverse to get build order (dependencies first)
-                println!("{}", crate_graph[*node_idx]);
-            }
-            println!("-------------------------------------------------");
-        }
-        Err(cycle) => {
-            eprintln!("\nError: Cycle detected in crate dependencies. Topological sort not possible.");
-            eprintln!("Node in cycle: {}", crate_graph[cycle.node_id()]);
-        }
-    }
-
-    // Collect nodes and edges for JSON serialization
-    let mut graph_nodes: Vec<CargoEntry> = Vec::new();
-    let mut graph_edges: Vec<(String, String)> = Vec::new();
-
-    // Populate graph_nodes with all_cargo_entries
-    for entry in all_cargo_entries.iter() {
-        graph_nodes.push(entry.clone());
-    }
-
-    // Populate graph_edges based on the dependencies listed in each CargoEntry
-    let package_name_to_cargo_entry: HashMap<String, &CargoEntry> = all_cargo_entries.iter()
-        .map(|entry| (entry.package_name.clone(), entry))
-        .collect();
-
-    for source_entry in all_cargo_entries.iter() {
-        for dep_name in &source_entry.dependencies {
-            if let Some(target_entry) = package_name_to_cargo_entry.get(dep_name) {
-                graph_edges.push((source_entry.package_name.clone(), target_entry.package_name.clone()));
+                current_chunk_files.clear();
+                current_chunk_files.push(file_metadata.clone());
+                chunk_index += 1;
             } else {
-                // This handles external dependencies or dependencies not found in our scanned set
-                // For now, we'll just add them as edges to external nodes.
-                // The graph-petal-generator will need to decide how to handle these.
-                graph_edges.push((source_entry.package_name.clone(), dep_name.clone()));
+                current_chunk_files.push(file_metadata.clone());
             }
         }
-    }
 
-    // Save the dependency graph to a file if a path is provided
-    if let Some(graph_output_path) = &args.graph_output_path {
-        println!("\nSaving dependency graph to: {:?}", graph_output_path.display());
-
-        let dependency_graph_data = DependencyGraphData {
-            nodes: graph_nodes,
-            edges: graph_edges,
+        // Update file_cache only if the file is new or updated
+        let needs_update = if let Some(cached_metadata) = file_cache.get(&path) {
+            cached_metadata.last_modified != last_modified
+        } else {
+            true
         };
 
-        let serialized_graph = serde_json::to_string_pretty(&dependency_graph_data)?;
-        fs::write(graph_output_path, serialized_graph.as_bytes())?;
-        println!("Dependency graph saved successfully in JSON format.");
-    }
-
-    // #[cfg(not(feature = "disable-eigenvector"))]
-    // {
-    //     // Resize eigen_matrix and populate it based on dependencies
-    //     let num_packages = id_counter;
-    //     eigen_matrix = lmfdb_semantic_index::EigenMatrix::new(num_packages, num_packages);
-
-    //     for cargo_entry in &all_cargo_entries {
-    //         let source_id = cargo_entry.semantic_id.unique_idx;
-    //         for dep_name in &cargo_entry.dependencies {
-    //             if let Some(&target_id) = package_name_to_id.get(dep_name) {
-    //                 println!("DEBUG: source_id = {}, target_id = {}, num_packages = {}", source_id, target_id, num_packages);
-    //                 std::io::stdout().flush().unwrap(); // Flush stdout
-    //                 if source_id >= num_packages || target_id >= num_packages {
-    //                     println!("ERROR: Index out of bounds before get/set: source_id={}, target_id={}, num_packages={}", source_id, target_id, num_packages);
-    //                     std::io::stdout().flush().unwrap(); // Flush stdout
-    //                 }
-    //                 // Increment the count of dependency from source_id to target_id
-    //                 // This assumes a simple count. More complex weighting can be added later.
-    //                 if let Ok(current_value) = eigen_matrix.get(source_id, target_id) {
-    //                     let _ = eigen_matrix.set(source_id, target_id, current_value + 1.0);
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    //     // Print the eigen_matrix (for debugging/verification)
-    //     println!("\nDependency EigenMatrix:\n{}", eigen_matrix);
-    // }
-
-    // Calculate hash of the source directory
-    let rust_src_path_hash = hash_directory(rust_src_path)?;
-
-    // Chunk and save Cargo entries
-    let mut index_file_paths: Vec<PathBuf> = Vec::new();
-    let mut current_chunk_files: HashMap<PathBuf, CargoEntry> = HashMap::new(); // Changed to CargoEntry
-    let mut chunk_index = 0;
-
-    for cargo_entry in all_cargo_entries {
-        current_chunk_files.insert(cargo_entry.path.clone(), cargo_entry);
-
-        // Check if current chunk size exceeds target or if limit is reached
-        let serialized_chunk = serde_json::to_string(&FileIndex { files: current_chunk_files.clone() })?;
-        if serialized_chunk.len() >= CHUNK_SIZE_BYTES {
-            let chunk_file_name = format!("index_{}.json", chunk_index);
-            let chunk_file_path = output_dir.join(&chunk_file_name);
-            fs::write(&chunk_file_path, serialized_chunk)?;
-            index_file_paths.push(chunk_file_path);
-
-            current_chunk_files.clear();
-            chunk_index += 1;
-
-            if let Some(limit) = args.limit {
-                if chunk_index >= limit {
-                    println!("Chunk limit ({}) reached. Stopping chunk generation.", limit);
-                    break; // Stop processing further Cargo entries
+        if needs_update {
+            file_cache.insert(path.clone(), file_metadata.clone()); // Use the already created file_metadata
+            if let Some(cached_metadata) = file_cache.get(&path) { // Check if it was an update or new
+                if cached_metadata.last_modified != last_modified {
+                    updated_files += 1;
+                } else {
+                    new_files += 1;
                 }
             }
         }
+        processed_files_count += 1;
     }
 
-    // Save any remaining files in the last chunk
+    println!("Finished scanning. Processed {} files. Found {} new files and {} updated files.", processed_files_count, new_files, updated_files);
+
+    // Write any remaining files in the current chunk
     if !current_chunk_files.is_empty() {
-        let chunk_file_name = format!("index_{}.json", chunk_index);
+        let chunk_file_name = format!("chunk_{}.json", chunk_index);
         let chunk_file_path = output_dir.join(&chunk_file_name);
-        let serialized_chunk = serde_json::to_string(&FileIndex { files: current_chunk_files.clone() })?;
-        fs::write(&chunk_file_path, serialized_chunk)?;
-        index_file_paths.push(chunk_file_path);
+        fs::write(&chunk_file_path, serde_json::to_string_pretty(&current_chunk_files)?)?;
+        main_state.index_file_paths.push(chunk_file_path.clone());
+        println!("Wrote final chunk {} to {:?}", chunk_index, chunk_file_path.display());
     }
 
-    // Save main state file
-    let main_state = MainState {
-        rust_src_path_hash,
-        index_file_paths,
-        last_saved_timestamp: Utc::now(),
-        output_dir: output_dir.to_path_buf(),
-        done_dir: output_dir.join("done_results"),
-    };
-    let main_state_path = output_dir.join("main_state.json");
-    let serialized_main_state = serde_json::to_string_pretty(&main_state)?;
-    fs::write(&main_state_path, serialized_main_state)?;
+    // Save the updated cache
+    let serialized_cache = serde_json::to_string_pretty(&file_cache)?;
+    fs::write(&cache_path, serialized_cache)?;
+    println!("File cache saved to: {:?}", cache_path.display());
 
-    println!("Successfully generated state and index chunks in: {:?}", output_dir.display());
+    // Save the main state file
+    let main_state_path = output_dir.join("main_state.json");
+    fs::write(&main_state_path, serde_json::to_string_pretty(&main_state)?)?;
+    println!("Main state saved to: {:?}", main_state_path.display());
 
     Ok(())
-}
-
-// Dummy hash_directory function for now, will be replaced by actual implementation
-fn hash_directory(path: &Path) -> Result<String, Box<dyn std::error::Error>> {
-    let mut hasher = Sha256::new();
-    let mut entries: Vec<PathBuf> = Vec::new();
-
-    for entry in WalkDir::new(path)
-        .into_iter()
-        .filter_map(|e| e.ok())
-    {
-        entries.push(entry.path().to_path_buf());
-    }
-
-    // Sort entries to ensure consistent hash regardless of file system order
-    entries.sort();
-
-    for entry_path in entries {
-        let relative_path = match entry_path.strip_prefix(path) {
-            Ok(p) => p,
-            Err(e) => {
-                eprintln!("Error stripping prefix for {}: {}", entry_path.display(), e);
-                continue; // Skip this entry if prefix cannot be stripped
-            }
-        };
-        hasher.update(relative_path.to_string_lossy().as_bytes());
-
-        if entry_path.is_file() {
-            // Hash file size and modification time
-            let metadata = fs::metadata(&entry_path)?;
-            hasher.update(metadata.len().to_string().as_bytes());
-            hasher.update(metadata.modified()?.duration_since(std::time::UNIX_EPOCH)?.as_secs().to_string().as_bytes());
-        }
-    }
-
-    Ok(format!("{:x}", hasher.finalize()))
 }

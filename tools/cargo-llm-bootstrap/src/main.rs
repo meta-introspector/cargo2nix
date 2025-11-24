@@ -180,113 +180,93 @@ fn main() -> Result<(), AppError> {
     let mut crates_to_process_initial: Vec<PathBuf> = Vec::new();
     let mut processed_crate_roots: HashSet<PathBuf> = HashSet::new();
 
-    if let Some(target_level) = args.level {
-        println!("Collecting crates at level: {}", target_level);
+    // Determine the maximum layer for iteration
+    let max_layer = layered_crates.values().max().cloned().unwrap_or(0);
+    println!("Max layer found: {}", max_layer);
+
+    let mut total_crates_processed_overall = 0;
+
+    for current_layer in 0..=max_layer {
+        println!("\n--- Processing Layer {} ---", current_layer);
+
+        let mut crates_in_current_layer: Vec<PathBuf> = Vec::new();
+        let mut processed_crate_roots_in_layer: HashSet<PathBuf> = HashSet::new();
+
         for (crate_name, &layer) in &layered_crates {
-            if layer == target_level {
+            if layer == current_layer {
                 if let Some(crate_root_path) = crate_name_to_root_map.get(crate_name) {
-                    if processed_crate_roots.insert(crate_root_path.clone()) {
-                        println!("Found crate directory for {}: {:?}", crate_name, crate_root_path);
-                        crates_to_process_initial.push(crate_root_path.clone());
+                    if processed_crate_roots_in_layer.insert(crate_root_path.clone()) {
+                        crates_in_current_layer.push(crate_root_path.clone());
                     }
                 } else {
                     println!("Warning: Could not find crate root path in map for crate: {}", crate_name);
                 }
             }
         }
-    } else {
-        // Fallback to original behavior if no level is specified
-        // This part needs to be re-evaluated as it still relies on individual files
-        // For now, we'll just collect all crate roots if no level is specified
-        for (crate_name, crate_root_path) in &crate_name_to_root_map {
-            if processed_crate_roots.insert(crate_root_path.clone()) {
-                crates_to_process_initial.push(crate_root_path.clone());
-            }
-        }
-    }
 
-    // Sort crates by layer in ascending order (lowest layer number first)
-    crates_to_process_initial.sort_by(|a_path, b_path| {
-        let a_name = a_path.file_name().unwrap().to_string_lossy().to_string();
-        let b_name = b_path.file_name().unwrap().to_string_lossy().to_string();
+        // Sort crates within the current layer (already sorted by layer, but good for consistency)
+        crates_in_current_layer.sort_by(|a_path, b_path| {
+            let a_name = a_path.file_name().unwrap().to_string_lossy().to_string();
+            let b_name = b_path.file_name().unwrap().to_string_lossy().to_string();
 
-        let a_layer = layered_crates.get(&a_name).unwrap_or(&0); // Default to 0 if not found
-        let b_layer = layered_crates.get(&b_name).unwrap_or(&0); // Default to 0 if not found
+            let a_layer = layered_crates.get(&a_name).unwrap_or(&0);
+            let b_layer = layered_crates.get(&b_name).unwrap_or(&0);
 
-        a_layer.cmp(b_layer) // This sorts in ascending order
-    });
+            a_layer.cmp(b_layer)
+        });
 
-        let should_update_state = args.level.is_none();
-    
-    let total_crates_to_process = crates_to_process_initial.len();
-    let mut crates_processed_count = 0;
-
-    if total_crates_to_process == 0 {
-        println!("No crates to process. All crates are up-to-date or done.");
-        return Ok(());
-    }
-
-    // Apply limit if specified
-    let limited_crates = if let Some(limit) = args.limit {
-        crates_to_process_initial.into_iter().take(limit as usize).collect::<Vec<_>>()
-    } else {
-        crates_to_process_initial
-    };
-
-    for crate_root_path in limited_crates {
-        crates_processed_count += 1;
-        let progress_percent = (crates_processed_count as f64 / total_crates_to_process as f64) * 100.0;
-        println!("Compiling crate {} of {} ({:.2}%): {:?}", crates_processed_count, total_crates_to_process, progress_percent, crate_root_path.display());
-
-        let file_hash = calculate_file_hash(&crate_root_path.join("Cargo.toml"))?; // Hash Cargo.toml for crate
-
-        // Check cache
-        let mut current_state = state_arc.lock().unwrap();
-        if let Some(cached_result) = current_state.cache.get(&crate_root_path) {
-            if cached_result.source_checksum == file_hash {
-                println!("Cache hit for {:?}. Skipping compilation.", crate_root_path.display());
-                // Use cached result
-                if should_update_state {
-                    // Even if cached, update status in state if we are tracking state
-                    if cached_result.exit_code == Some(0) {
-                        current_state.update_file_status(&crate_root_path, FileStatus::Done)?;
-                    } else {
-                        current_state.update_file_status(&crate_root_path, FileStatus::Failed)?;
-                    }
-                    current_state.save(&main_state_file_path_clone)?;
-                }
-                continue;
-            }
-        }
-        drop(current_state); // Release lock before compilation
-
-        // --- Dependency Mocking Logic (Temporary for single-crate compilation) ---
-        let current_crate_cargo_toml_path = crate_root_path.join("Cargo.toml");
-        let current_crate_cargo_toml_content = fs::read_to_string(&current_crate_cargo_toml_path)
-            .map_err(|e| AppError::Custom(format!("Failed to read Cargo.toml for dependency mocking at {:?}: {}", current_crate_cargo_toml_path, e)))?;
-        let parsed_current_crate_cargo_toml: toml::Value = toml::from_str(&current_crate_cargo_toml_content)
-            .map_err(|e| AppError::Custom(format!("Failed to parse Cargo.toml for dependency mocking at {:?}: {}", current_crate_cargo_toml_path, e)))?;
-
-        if let Some(dependencies) = parsed_current_crate_cargo_toml.get("dependencies").and_then(|d| d.as_table()) {
-            for (dep_name, dep_value) in dependencies {
-                // Only consider path dependencies for now, as they are the ones we are "mocking"
-                // For simplicity, we'll assume all direct dependencies are path dependencies within rust-src
-                // and that their .rlib will be in target/debug/lib<dep_name>.rlib
-                if let Some(dep_root_path) = crate_name_to_root_map.get(dep_name) {
-                    let mocked_rlib_path = dep_root_path.join("target/debug").join(format!("lib{}.rlib", dep_name.replace("-", "_")));
-                    compiled_artifacts_map.insert(dep_name.clone(), mocked_rlib_path.clone());
-                    println!("Mocked dependency: {} -> {:?}", dep_name, mocked_rlib_path);
-                } else {
-                    println!("Warning: Dependency {} not found in crate_name_to_root_map. Cannot mock.", dep_name);
-                }
-            }
-        }
-        // --- End Dependency Mocking Logic ---
-
-        if args.dry_run {
-            println!("Dry run: Skipping compilation for {:?}", crate_root_path.display());
+        let total_crates_in_layer = crates_in_current_layer.len();
+        if total_crates_in_layer == 0 {
+            println!("No crates to process in Layer {}.", current_layer);
             continue;
         }
+
+        // Apply limit if specified for the current layer
+        let limited_crates_in_layer = if let Some(limit) = args.limit {
+            crates_in_current_layer.into_iter().take(limit as usize).collect::<Vec<_>>()
+        } else {
+            crates_in_current_layer
+        };
+
+        let mut crates_processed_in_layer = 0;
+        for crate_root_path in limited_crates_in_layer {
+            crates_processed_in_layer += 1;
+            total_crates_processed_overall += 1;
+            let progress_percent = (crates_processed_in_layer as f64 / total_crates_in_layer as f64) * 100.0;
+            println!("Compiling crate {} of {} in Layer {} ({:.2}%): {:?}", crates_processed_in_layer, total_crates_in_layer, current_layer, progress_percent, crate_root_path.display());
+
+            let file_hash = calculate_file_hash(&crate_root_path.join("Cargo.toml"))?; // Hash Cargo.toml for crate
+
+            // Check cache
+            let mut current_state = state_arc.lock().unwrap();
+            if let Some(cached_result) = current_state.cache.get(&crate_root_path) {
+                if cached_result.source_checksum == file_hash {
+                    println!("Cache hit for {:?}. Skipping compilation.", crate_root_path.display());
+                    // Use cached result
+                    // For now, we'll assume cached results are valid and add their compiled_checksum to compiled_artifacts_map
+                    if let Some(ref rlib_path_str) = cached_result.compiled_checksum {
+                        let crate_name = crate_root_path.file_name().unwrap().to_string_lossy().to_string();
+                        compiled_artifacts_map.insert(crate_name, PathBuf::from(rlib_path_str));
+                    }
+                    // State update logic (re-enabled later)
+                    // if should_update_state {
+                    //     if cached_result.exit_code == Some(0) {
+                    //         current_state.update_file_status(&crate_root_path, FileStatus::Done)?;
+                    //     } else {
+                    //         current_state.update_file_status(&crate_root_path, FileStatus::Failed)?;
+                    //     }
+                    //     current_state.save(&main_state_file_path_clone)?;
+                    // }
+                    drop(current_state); // Release lock before continuing
+                    continue;
+                }
+            }
+            drop(current_state); // Release lock before compilation
+
+            if args.dry_run {
+                println!("Dry run: Skipping compilation for {:?}", crate_root_path.display());
+                continue;
+            }
 
             let compilation_result = compiler.compile_crate(&crate_root_path, &final_config, &crate_name_to_root_map, &compiled_artifacts_map)?;
             let exit_code = compilation_result.exit_code;
@@ -294,7 +274,7 @@ fn main() -> Result<(), AppError> {
             // After successful compilation, add the compiled artifact to the map
             if exit_code == Some(0) {
                 if let Some(ref rlib_path_str) = compilation_result.compiled_checksum {
-                    let crate_name = crate_root_path.file_name().unwrap().to_string_lossy().to_string(); // Naive crate name
+                    let crate_name = crate_root_path.file_name().unwrap().to_string_lossy().to_string();
                     compiled_artifacts_map.insert(crate_name, PathBuf::from(rlib_path_str));
                 } else {
                     println!("Warning: No compiled .rlib path found in compilation result for {:?}", crate_root_path.display());
@@ -337,5 +317,6 @@ fn main() -> Result<(), AppError> {
                 }
             // }
         }
+    }
     Ok(())
 }

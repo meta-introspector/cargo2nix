@@ -117,6 +117,13 @@ run-rust-src-scanner:
 		--rust-src-path /path/to/your/rust/source \
 		--output-dir /path/to/your/output/directory
 
+.PHONY: run-monster-grouper
+run-monster-grouper:
+	@echo "Running monster-grouper..."
+	cd tools/monster-grouper && cargo run --package monster-grouper -- \
+		--input-dir ../cargo-llm-bootstrap/compilation_results \
+		--output-dir ../cargo-llm-bootstrap/grouped_results
+
 .PHONY: process-repolist
 process-repolist:
 	./process_repolist.sh repolist.json

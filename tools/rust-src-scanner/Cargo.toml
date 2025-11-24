@@ -15,6 +15,7 @@ quote = "1.0" # Often used with syn for code generation
 proc-macro2 = { version = "1.0", features = ["proc-macro", "span-locations"] } # Explicitly add proc-macro2 with span-locations
 sha2 = "0.10" # For hash_directory
 thiserror = "1.0" # For custom error types
+anyhow = "1.0" # For top-level error handling
 petgraph = "0.6" # For building and traversing dependency graphs
 hex = "0.4"
 

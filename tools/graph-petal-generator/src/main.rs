@@ -86,33 +86,47 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
-    // --- NEW Layering Logic (Reverse BFS from leaves) ---
+    // --- NEW Layering Logic (BFS from source nodes) ---
     let mut crate_layers: HashMap<String, usize> = HashMap::new();
     let mut queue: VecDeque<NodeIndex> = VecDeque::new();
+    let mut in_degree: HashMap<NodeIndex, usize> = HashMap::new();
 
-    // 1. Identify true leaf nodes (nodes with no outgoing edges) and initialize their layer to 0
+    // Initialize in-degrees for all nodes
     for node_idx in graph.node_indices() {
-        if graph.neighbors_directed(node_idx, petgraph::Direction::Outgoing).count() == 0 {
-            let crate_name = graph[node_idx].clone();
-            crate_layers.insert(crate_name, 0);
+        in_degree.insert(node_idx, graph.neighbors_directed(node_idx, petgraph::Direction::Incoming).count());
+    }
+
+    // 1. Identify source nodes (nodes with no incoming edges) and initialize their layer to 0
+    for node_idx in graph.node_indices() {
+        let current_in_degree = *in_degree.get(&node_idx).unwrap_or(&0);
+        let crate_name = graph[node_idx].clone();
+
+        if current_in_degree == 0 {
+            crate_layers.insert(crate_name.clone(), 0);
             queue.push_back(node_idx);
         }
     }
 
-    // 2. Perform a BFS-like traversal from leaves upwards
+    // 2. Perform a BFS-like traversal from source nodes downwards
     while let Some(current_node_idx) = queue.pop_front() {
-        let current_layer = *crate_layers.get(&graph[current_node_idx]).unwrap_or(&0); // Should always be present for nodes in queue
+        let current_layer = *crate_layers.get(&graph[current_node_idx]).unwrap(); // Should always be present
 
-        // Iterate through predecessors (nodes that point to current_node_idx)
-        for predecessor_idx in graph.neighbors_directed(current_node_idx, petgraph::Direction::Incoming) {
-            let predecessor_name = graph[predecessor_idx].clone();
+        // Iterate through successors (nodes that current_node_idx points to)
+        for successor_idx in graph.neighbors_directed(current_node_idx, petgraph::Direction::Outgoing) {
+            let successor_name = graph[successor_idx].clone();
             let potential_new_layer = current_layer + 1;
 
-            let current_predecessor_layer = *crate_layers.get(&predecessor_name).unwrap_or(&0); // Default to 0 if not yet assigned
+            let current_successor_layer = *crate_layers.get(&successor_name).unwrap_or(&0);
 
-            if potential_new_layer > current_predecessor_layer {
-                crate_layers.insert(predecessor_name.clone(), potential_new_layer);
-                queue.push_back(predecessor_idx); // Add to queue to process its predecessors
+            if potential_new_layer > current_successor_layer {
+                crate_layers.insert(successor_name.clone(), potential_new_layer);
+            }
+
+            // Decrement in-degree of successor
+            *in_degree.get_mut(&successor_idx).unwrap() -= 1;
+            // If in-degree becomes 0, it means all its dependencies have been processed, so add to queue
+            if *in_degree.get(&successor_idx).unwrap() == 0 {
+                queue.push_back(successor_idx);
             }
         }
     }

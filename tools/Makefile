@@ -97,11 +97,10 @@ generate-state:
 .PHONY: run-rust-src-scanner
 run-rust-src-scanner:
 	@echo "Running rust-src-scanner..."
-	cd rust-src-scanner && RUST_BACKTRACE=full cargo run --package rust-src-scanner --features disable-eigenvector -- \
+	cd rust-src-scanner && RUST_BACKTRACE=full cargo run --package rust-src-scanner -- \
 		--rust-src-path $(RUST_SRC_PATH) \
 		--output-dir ../cargo-llm-bootstrap/compilation_results \
-		--graph-output-path $(GRAPH_OUTPUT_PATH) \
-		--cache-dir $(CACHE_DIR) 2>&1 | tee rust-src-scanner.log
+		--cache-path ../cargo-llm-bootstrap/compilation_results/file_cache.json 2>&1 | tee rust-src-scanner.log
 
 .PHONY: generate-build-plan
 generate-build-plan: run-rust-src-scanner
@@ -117,4 +116,4 @@ rust-solana-level-10:
 	@echo "Running cargo-llm-bootstrap for level 10 (dry run)..."
 	cd cargo-llm-bootstrap && cargo run --package cargo-llm-bootstrap -- \
 		--rust-src-path $(RUST_SRC_PATH) \
-		--level 10 --limit 1
+		--level 10
