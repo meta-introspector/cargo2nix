@@ -22,6 +22,7 @@ mod solfunmeme_protocol;
 mod hecke_synthesis;
 mod agent_vector_db;
 mod agent_memory_formatter;
+mod monster_compiler;
 
 use cli::Args;
 use app_builder::AppBuilder;
