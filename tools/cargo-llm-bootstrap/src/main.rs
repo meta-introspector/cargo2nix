@@ -21,6 +21,7 @@ mod modular_forms;
 mod solfunmeme_protocol;
 mod hecke_synthesis;
 mod agent_vector_db;
+mod agent_memory_formatter;
 
 use cli::Args;
 use app_builder::AppBuilder;

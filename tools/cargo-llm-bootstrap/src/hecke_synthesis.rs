@@ -3,6 +3,7 @@ use std::collections::HashMap;
 use crate::semantic_constraints::GödelNumber;
 use crate::solfunmeme_protocol::{SOLFUNMEMEProtocol, HeckeFibrationMap};
 use crate::agent_vector_db::{MemeValidatorSidechain, AgentCodeVector, RockDBVectorStore};
+use crate::agent_memory_formatter::{AgentMemoryFormatter, AgentMemoryMetadata};
 
 /// DAO Solana Paxos Meme Consensus ≡ Hecke Operator T_n
 #[derive(Debug, Clone)]
@@ -154,6 +155,7 @@ pub struct HeckeSynthesisSystem {
     pub lmfdb_database: LMFDBAccountDatabase,
     pub double_operator: DoubleHeckeOperator,
     pub meme_sidechain: MemeValidatorSidechain,
+    pub hf_formatter: AgentMemoryFormatter,
 }
 
 impl HeckeSynthesisSystem {
@@ -169,7 +171,42 @@ impl HeckeSynthesisSystem {
             lmfdb_database: LMFDBAccountDatabase::new(),
             double_operator: DoubleHeckeOperator::new(),
             meme_sidechain: MemeValidatorSidechain::new(meme_coin_mint, validator_identity, db_path),
+            hf_formatter: AgentMemoryFormatter::new("solana-agent-memory-dataset".to_string()),
         }
+    }
+    
+    /// Export unified agent memory to Hugging Face dataset
+    pub fn export_agent_memory_dataset(&mut self, output_path: &str) -> Result<(), String> {
+        // Sync with meme sidechain to get all agent code vectors
+        self.hf_formatter.sync_with_sidechain(&self.meme_sidechain)?;
+        
+        // Export to HF dataset format
+        self.hf_formatter.export_to_hf_dataset(output_path)?;
+        
+        println!("✓ Agent memory dataset exported: {} records", self.hf_formatter.records.len());
+        println!("  cargo/ast/decl = solana account = agent memory = nix store = git object = semantic hash = lmfdb entry = wikidata node");
+        Ok(())
+    }
+
+    /// Store agent code with automatic HF dataset formatting
+    pub fn store_agent_code_with_metadata(&mut self, git_hash: [u8; 32], nix_path: String, code_embedding: Vec<f64>, metadata: AgentMemoryMetadata) -> Result<(), String> {
+        // Store in sidechain
+        self.meme_sidechain.store_agent_code(git_hash, nix_path.clone(), code_embedding.clone())?;
+        
+        // Create agent code vector for formatting
+        let vector = AgentCodeVector {
+            git_hash,
+            nix_store_path: nix_path,
+            embedding: code_embedding,
+            meme_signature: crate::semantic_constraints::GödelNumber::from_hash(&git_hash),
+            solana_account: [0u8; 32], // Will be derived
+        };
+        
+        // Format for HF dataset
+        self.hf_formatter.format_agent_vector(&vector, metadata)?;
+        
+        println!("✓ Agent code stored with unified memory mapping");
+        Ok(())
     }
     
     /// Store agent code in vector database with Solana sidechain sync
