@@ -131,12 +131,15 @@ impl Compiler for RustcCompilerImpl {
         }
 
         Ok(CompilationResult {
+            success: exit_code.unwrap_or(-1) == 0,
+            output: stdout.clone(),
+            error: if stderr.is_empty() { None } else { Some(stderr.clone()) },
             file_path: crate_root_path.to_path_buf(), // Now stores crate_root_path
             rustc_version,
             rustc_flags: vec![], // No specific flags passed yet, can be extended
             stdout,
             stderr,
-            exit_code,
+            exit_code: exit_code.unwrap_or(-1),
             duration_ms: duration.as_millis(),
             source_checksum,
             compiled_checksum, // Now stores the actual .rlib path

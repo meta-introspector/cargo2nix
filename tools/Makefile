@@ -1,4 +1,4 @@
-RUST_SRC_PATH ?= /data/data/com.termux.nix/files/home/nix/vendor/rust/platform-tools-agave-rust-solana/vendor/rust-src
+RUST_SRC_PATH ?= /home/mdupont/nix/vendor/rust/platform-tools-agave-rust-solana/vendor/rust-src
 GRAPH_OUTPUT_PATH ?= ../cargo-llm-bootstrap/compilation_results/dependency_graph.json
 CACHE_DIR ?= ../cargo-llm-bootstrap/compilation_results/cargo_cache
 
