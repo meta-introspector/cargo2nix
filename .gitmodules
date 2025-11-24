@@ -1600,3 +1600,13 @@
 [submodule "ai-agent-terraform"]
 	path = ai-agent-terraform
 	url = https://github.com/aitokenteam/ai-agent-terraform.git
+[submodule "minizinc-introspector"]
+	path = minizinc-introspector
+	url = https://github.com/meta-introspector/minizinc-introspector.git
+[submodule "lattice-introspector"]
+	path = lattice-introspector
+	url = https://github.com/meta-introspector/lattice-introspector.git
+	branch = feature/CRQ-016-nixify-workflow
+[submodule "ai-ml-zk-ops"]
+	path = ai-ml-zk-ops
+	url = https://github.com/meta-introspector/ai-ml-zk-ops.git
