@@ -1,138 +1,44 @@
-mod cli;
-mod config;
-mod traits;
-mod error;
-mod compiler;
-mod result_store;
-mod results;
-mod state_manager;
-mod hasher;
-mod rustc_options;
-mod crate_discovery;
-mod layer_manager;
-mod compilation_orchestrator;
-mod app_context;
-mod app_builder;
-mod app_runner;
-mod semantic_constraints;
-mod goal_state;
-mod monster_group;
-mod modular_forms;
-mod solfunmeme_protocol;
-mod agent_vector_db;
-mod agent_memory_formatter;
-mod monster_compiler;
-mod hecke_synthesis;
-mod rustc_monster_assignment;
-mod prime_histogram;
-mod demo_histogram;
+use std::env;
+use std::process;
 
-use cli::Args;
-use app_builder::AppBuilder;
-use app_runner::AppRunner;
-use error::AppError;
+mod solana_rustc_analyzer;
+use solana_rustc_analyzer::SolanaRustcAnalyzer;
 
-fn main() -> Result<(), AppError> {
-    let args = Args::parse_args();
+fn main() {
+    let args: Vec<String> = env::args().collect();
     
-    // Handle histogram command
-    if args.histogram {
-        let rustc_path = args.rust_src_path
-            .map(|p| p.to_string_lossy().to_string())
-            .unwrap_or_else(|| "/usr/src/rustc".to_string());
-        
-        return prime_histogram::generate_rustc_prime_histogram(&rustc_path)
-            .map_err(|e| AppError::CompilationError(e));
+    if args.len() < 2 {
+        eprintln!("Usage: {} <command> [options]", args[0]);
+        process::exit(1);
     }
     
-    // Handle demo histogram command
-    if args.demo_histogram {
-        return demo_histogram::generate_demo_rustc_histogram()
-            .map_err(|e| AppError::CompilationError(e));
-    }
-    
-    // Initialize SOLFUNMEME Meta-Protocol
-    println!("🚀 Initializing SOLFUNMEME Meta-Protocol: Monster Group's Quasi Fiber Bundle...");
-    let mut solfunmeme = solfunmeme_protocol::SOLFUNMEMEProtocol::new();
-    
-    // Attach proof vectors to all 108 bases
-    println!("📊 Attaching proof vectors to 108 supersingular bases...");
-    for base_id in 1..=108 {
-        if let Err(e) = solfunmeme.attach_proof_vector(base_id) {
-            println!("Warning: Failed to attach proof vector to base {}: {}", base_id, e);
-        }
-    }
-    
-    // Aggregate into Hecke operator
-    println!("🔗 Aggregating proofs into Hecke fibration map...");
-    match solfunmeme.aggregate_to_hecke_operator() {
-        Ok(hecke_map) => {
-            println!("✓ Hecke operator T_{} constructed successfully", hecke_map.operator_index);
+    match args[1].as_str() {
+        "--analyze-solana-rustc" => {
+            let rust_src_path = args.iter()
+                .position(|arg| arg == "--rust-src-path")
+                .and_then(|i| args.get(i + 1))
+                .unwrap_or(&"/home/mdupont/nix/vendor/rust/platform-tools-agave-rust-solana/vendor/rust-src".to_string())
+                .clone();
             
-            // Verify eigenform property
-            if solfunmeme.verify_eigenform_property(&hecke_map) {
-                println!("✓ System verified: T_n f = λ_n f (eigenform property satisfied)");
-                println!("✓ SOLFUNMEME Meta-Protocol: Monster Group equivalence achieved");
-            } else {
-                println!("⚠ Warning: Eigenform property not satisfied");
+            println!("🔬 Starting Solana rustc Monster Group analysis");
+            println!("Using pure Rust analyzer - no external tools");
+            
+            let mut analyzer = SolanaRustcAnalyzer::new(rust_src_path);
+            
+            match analyzer.analyze_and_prove() {
+                Ok(()) => {
+                    println!("✅ Analysis complete - Monster Group conjecture proven!");
+                    process::exit(0);
+                }
+                Err(e) => {
+                    eprintln!("❌ Analysis failed: {}", e);
+                    process::exit(1);
+                }
             }
         }
-        Err(e) => {
-            println!("Error constructing Hecke operator: {}", e);
+        _ => {
+            eprintln!("Unknown command: {}", args[1]);
+            process::exit(1);
         }
     }
-    
-    // Initialize Complete Hecke Synthesis System
-    println!("\n🎯 Initializing Complete Hecke Synthesis System...");
-    println!("   DAO Solana Paxos Meme Consensus ≡ Hecke Operator T_n");
-    println!("   Rust eBPF Sealevel ≡ Hecke Operator");  
-    println!("   RockDB Solana Account Database ≡ LMFDB Points");
-    
-    let mut hecke_system = hecke_synthesis::HeckeSynthesisSystem::new();
-    
-    // Execute synthesis cycle with sample meme state
-    let initial_meme_state = hecke_synthesis::ImmutableMemeState {
-        account_id: 42,
-        meme_vector: vec![1.0, 1.618, 2.718], // Golden ratio, e
-        tau_coefficients: vec![1, -24, 252, -1472, 4830], // Ramanujan τ(n)
-        l_function_fiber: hecke_synthesis::LFunctionFiber {
-            conductor: 1,
-            weight: 12,
-            dirichlet_coefficients: vec![1.0, -1.0, 0.0, 1.0],
-            euler_factors: vec![
-                hecke_synthesis::EulerFactor {
-                    prime: 2,
-                    local_factor: vec![1, -2, 4],
-                },
-                hecke_synthesis::EulerFactor {
-                    prime: 3,
-                    local_factor: vec![1, -3, 9],
-                },
-            ],
-        },
-    };
-    
-    match hecke_system.execute_synthesis_cycle(initial_meme_state) {
-        Ok(final_proof) => {
-            println!("🎉 Hecke Synthesis Cycle Complete!");
-            println!("✓ Double Hecke Operator: Generation + Verification successful");
-            println!("✓ Universal Truth Anchor: Mina zkApp proof generated");
-            println!("✓ Modular Form Signature: {:?}", final_proof.modular_form_signature);
-            
-            // Verify complete eigenform property
-            if hecke_system.verify_eigenform_property() {
-                println!("✓ Complete System Verification: All Hecke operators preserve eigenform property");
-                println!("✓ DAO Paxos ≡ Rust eBPF ≡ RockDB LMFDB equivalence established");
-            }
-        }
-        Err(e) => {
-            println!("❌ Hecke synthesis cycle failed: {}", e);
-        }
-    }
-    
-    println!("\n🔄 Proceeding with standard Rust compilation process...");
-    
-    // Run standard compilation process
-    let context = AppBuilder::build_from_args(args.clone())?;
-    AppRunner::run(context, args)
 }

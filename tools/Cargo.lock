@@ -526,7 +526,7 @@ dependencies = [
  "cargo-credential-libsecret",
  "cargo-credential-macos-keychain",
  "cargo-credential-wincred",
- "cargo-platform 0.3.1",
+ "cargo-platform",
  "cargo-util",
  "cargo-util-schemas",
  "clap",
@@ -646,7 +646,7 @@ dependencies = [
  "anyhow",
  "cargo-repo-sync-lib",
  "cargo-submodule-tool-lib",
- "cargo_metadata 0.23.1",
+ "cargo_metadata",
  "clap",
  "fs_extra",
  "git-wrapper-lib",
@@ -668,32 +668,9 @@ dependencies = [
 name = "cargo-llm-bootstrap"
 version = "0.1.0"
 dependencies = [
- "anyhow",
- "async-trait",
- "cargo_metadata 0.18.1",
- "chrono",
- "clap",
- "ctrlc",
- "proc-macro2",
- "quote",
  "serde",
  "serde_json",
  "sha2",
- "syn",
- "thiserror 1.0.69",
- "tokio",
- "toml 0.8.23",
- "toml_edit 0.22.27",
- "walkdir",
-]
-
-[[package]]
-name = "cargo-platform"
-version = "0.1.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e35af189006b9c0f00a064685c727031e3ed2d8020f7ba284d78cc2671bd36ea"
-dependencies = [
- "serde",
 ]
 
 [[package]]
@@ -710,7 +687,7 @@ name = "cargo-repo-sync-lib"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "cargo_metadata 0.23.1",
+ "cargo_metadata",
  "clap",
  "git-wrapper-lib",
  "git2",
@@ -733,7 +710,7 @@ dependencies = [
  "anyhow",
  "cargo-repo-sync-lib",
  "cargo-submodule-tool-lib",
- "cargo_metadata 0.23.1",
+ "cargo_metadata",
  "clap",
  "clap_derive",
  "git-wrapper-lib",
@@ -756,7 +733,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "cargo2nix",
- "cargo_metadata 0.23.1",
+ "cargo_metadata",
  "clap",
  "git-wrapper-lib",
  "git2",
@@ -825,7 +802,7 @@ dependencies = [
  "anyhow",
  "cargo-repo-sync-lib",
  "cargo-submodule-tool-lib",
- "cargo_metadata 0.23.1",
+ "cargo_metadata",
  "clap",
  "git-wrapper-lib",
  "git2",
@@ -847,7 +824,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "cargo",
- "cargo-platform 0.3.1",
+ "cargo-platform",
  "clap",
  "clap_complete",
  "colorify",
@@ -864,26 +841,12 @@ dependencies = [
 
 [[package]]
 name = "cargo_metadata"
-version = "0.18.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2d886547e41f740c616ae73108f6eb70afe6d940c7bc697cb30f13daec073037"
-dependencies = [
- "camino",
- "cargo-platform 0.1.9",
- "semver",
- "serde",
- "serde_json",
- "thiserror 1.0.69",
-]
-
-[[package]]
-name = "cargo_metadata"
 version = "0.23.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ef987d17b0a113becdd19d3d0022d04d7ef41f9efe4f3fb63ac44ba61df3ade9"
 dependencies = [
  "camino",
- "cargo-platform 0.3.1",
+ "cargo-platform",
  "semver",
  "serde",
  "serde_json",
@@ -1175,17 +1138,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9b10589d1a5e400d61f9f38f12f884cfd080ff345de8f17efda36fe0e4a02aa8"
 
 [[package]]
-name = "ctrlc"
-version = "3.5.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "73736a89c4aff73035ba2ed2e565061954da00d4970fc9ac25dcc85a2a20d790"
-dependencies = [
- "dispatch2",
- "nix",
- "windows-sys 0.61.2",
-]
-
-[[package]]
 name = "curl"
 version = "0.4.49"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1237,7 +1189,7 @@ dependencies = [
  "anyhow",
  "cargo-repo-sync-lib",
  "cargo-submodule-tool-lib",
- "cargo_metadata 0.23.1",
+ "cargo_metadata",
  "clap",
  "git-wrapper-lib",
  "git2",
@@ -1297,8 +1249,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "89a09f22a6c6069a18470eb92d2298acf25463f14256d24778e1230d789a2aec"
 dependencies = [
  "bitflags",
- "block2",
- "libc",
  "objc2",
 ]
 
@@ -1440,7 +1390,7 @@ dependencies = [
  "anyhow",
  "cargo-repo-sync-lib",
  "cargo-submodule-tool-lib",
- "cargo_metadata 0.23.1",
+ "cargo_metadata",
  "clap",
  "git-wrapper-lib",
  "git2",
@@ -1578,7 +1528,7 @@ dependencies = [
  "anyhow",
  "cargo-repo-sync-lib",
  "cargo-submodule-tool-lib",
- "cargo_metadata 0.23.1",
+ "cargo_metadata",
  "clap",
  "git-wrapper-lib",
  "git2",
@@ -1634,7 +1584,7 @@ name = "git-wrapper-lib"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "cargo_metadata 0.23.1",
+ "cargo_metadata",
  "clap",
  "git2",
  "hex",
@@ -3273,7 +3223,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "cargo-repo-sync-lib",
- "cargo_metadata 0.23.1",
+ "cargo_metadata",
  "clap",
  "git-wrapper-lib",
  "git2",
@@ -4209,7 +4159,7 @@ dependencies = [
  "aws-sdk-ssm",
  "cargo-repo-sync-lib",
  "cargo-submodule-tool-lib",
- "cargo_metadata 0.23.1",
+ "cargo_metadata",
  "clap",
  "git-wrapper-lib",
  "git2",
@@ -4585,7 +4535,7 @@ dependencies = [
  "anyhow",
  "cargo-repo-sync-lib",
  "cargo-submodule-tool-lib",
- "cargo_metadata 0.23.1",
+ "cargo_metadata",
  "clap",
  "git-wrapper-lib",
  "git2",
@@ -4935,7 +4885,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "cargo-repo-sync-lib",
- "cargo_metadata 0.23.1",
+ "cargo_metadata",
  "clap",
  "git-wrapper-lib",
  "git2",
