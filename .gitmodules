@@ -1610,3 +1610,6 @@
 [submodule "ai-ml-zk-ops"]
 	path = ai-ml-zk-ops
 	url = https://github.com/meta-introspector/ai-ml-zk-ops.git
+[submodule "submodules/juniper"]
+	path = submodules/juniper
+	url = https://github.com/graphql-rust/juniper.git
