@@ -10,6 +10,10 @@ pub mod symbiotic_compiler;
 pub mod monster_network;
 pub mod zkp_discovery;
 pub mod service_deployment;
+pub mod tor_integration;
+pub mod monster_query;
+pub mod ipfs_agent_memory;
+pub mod solana_validator_integration;
 
 #[cfg(feature = "part_01")]
 pub mod part_01;

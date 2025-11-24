@@ -1591,3 +1591,12 @@
 [submodule "datasets/rust"]
 	path = datasets/rust
 	url = https://huggingface.co/datasets/introspector/rust
+[submodule "tor-arti"]
+	path = tor-arti
+	url = https://gitlab.torproject.org/tpo/core/arti.git
+[submodule "filecoin-forest"]
+	path = filecoin-forest
+	url = https://github.com/ChainSafe/forest.git
+[submodule "ai-agent-terraform"]
+	path = ai-agent-terraform
+	url = https://github.com/aitokenteam/ai-agent-terraform.git
