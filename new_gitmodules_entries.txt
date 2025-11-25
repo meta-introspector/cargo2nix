@@ -1,0 +1,8 @@
+[submodule "vendor/libminizinc-main"]
+	path = submodules/vendor/libminizinc-main
+	url = https://github.com/meta-introspector/libminizinc.git
+
+[submodule "vendor/libminizinc"]
+	path = submodules/vendor/libminizinc
+	url = https://github.com/meta-introspector/minizinc-introspector.git
+
