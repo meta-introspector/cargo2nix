@@ -3516,12 +3516,19 @@ toml_datetime= "0.7.3"
 toml_edit= "0.23.7"
 toml_parser= "1.0.4"
 toml_writer= "1.0.4"
+cargo-repo-sync-lib = { path = "./tools/cargo-repo-sync-lib" }
+git-wrapper-lib = { path = "./tools/git-wrapper-lib" }
+cargo-submodule-tool-lib = { path = "./tools/cargo-submodule-tool-lib" }
+
+
+
 typenum= "1.19.0"
 unicode-ident= "1.0.22"
 url="2.5.7"
 version_check= "0.9.5"
 walkdir= "2.5.0"
-winnow= "0.7.13"
+async-graphql = "7.0"
+tokio = { version = "1.0", features = ["full"] }
 
 
 

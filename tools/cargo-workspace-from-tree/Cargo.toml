@@ -4,9 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-cargo-submodule-tool-lib = { workspace = true, optional = true }
+
 syn = { version = "*", optional = true }
-cargo-repo-sync-lib = { workspace = true, optional = true }
+
 git2 = { version = "*", optional = true }
 hex = { version = "*", optional = true }
 sha1 = { version = "*", optional = true }
@@ -23,16 +23,16 @@ regex = { workspace = true, optional = true }
 lazy_static = { workspace = true, optional = true }
 
 [features]
-cargo_submodule_tool_lib_enabled = ["dep:cargo-submodule-tool-lib"]
+
 syn_enabled = ["dep:syn"]
-cargo_repo_sync_lib_enabled = ["dep:cargo-repo-sync-lib"]
+
 git2_enabled = ["dep:git2"]
 hex_enabled = ["dep:hex"]
 sha1_enabled = ["dep:sha1"]
 serde_enabled = ["dep:serde"]
 serde_json_enabled = ["dep:serde_json"]
 git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
-default = ["anyhow_enabled", "clap_enabled", "cargo_metadata_enabled", "toml_edit_enabled", "walkdir_enabled", "pathdiff_enabled", "regex_enabled", "lazy_static_enabled"]
+default = []
 anyhow_enabled = ["dep:anyhow"]
 clap_enabled = ["dep:clap"]
 cargo_metadata_enabled = ["dep:cargo_metadata"]
@@ -41,3 +41,4 @@ walkdir_enabled = ["dep:walkdir"]
 pathdiff_enabled = ["dep:pathdiff"]
 regex_enabled = ["dep:regex"]
 lazy_static_enabled = ["dep:lazy_static"]
+real_cargo_metadata = ["dep:cargo_metadata"]

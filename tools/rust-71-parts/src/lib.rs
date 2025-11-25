@@ -6,6 +6,10 @@ pub mod token_constants;
 pub mod hecke_operators;
 pub mod monster_levels;
 pub mod ast_transport;
+pub mod trait_feature_extractor;
+pub mod declaration_splitter;
+pub mod trait_generator_integration;
+pub mod graphql_api;
 pub mod symbiotic_compiler;
 pub mod monster_network;
 pub mod zkp_discovery;
@@ -14,6 +18,12 @@ pub mod tor_integration;
 pub mod monster_query;
 pub mod ipfs_agent_memory;
 pub mod solana_validator_integration;
+pub mod verified_trait_extractor;
+pub mod chunked_ast_processor;
+pub mod solana_rocksdb_storage;
+pub mod content_addressable_memory;
+pub mod rustc_ingester;
+pub mod macro_expansion_ingester;
 
 #[cfg(feature = "part_01")]
 pub mod part_01;

@@ -1,12 +1,47 @@
+#[cfg(feature = "anyhow_enabled")]
 use anyhow::{Context, Result};
-use cargo_metadata::MetadataCommand;
+#[cfg(not(feature = "anyhow_enabled"))]
+use std::error::Error;
+#[cfg(not(feature = "anyhow_enabled"))]
+type Result<T> = std::result::Result<T, Box<dyn Error>>;
+
+#[cfg(not(feature = "anyhow_enabled"))]
+trait Context<T> {
+    fn context<C>(self, _context: C) -> Result<T>
+    where C: std::fmt::Display + Send + Sync + 'static;
+}
+
+#[cfg(not(feature = "anyhow_enabled"))]
+impl<T, E> Context<T> for std::result::Result<T, E>
+where
+    E: std::fmt::Display + std::fmt::Debug + Send + Sync + 'static,
+{
+    fn context<C>(self, context: C) -> Result<T>
+    where
+        C: std::fmt::Display + Send + Sync + 'static,
+    {
+        self.map_err(|e| Box::new(std::io::Error::new(std::io::ErrorKind::Other, format!("{}: {}", context, e))) as Box<dyn Error>)
+    }
+}
+
+#[cfg(feature = "clap_enabled")]
 use clap::Parser;
 use std::collections::HashMap;
 use std::fs;
 use std::path::{Path, PathBuf};
+#[cfg(feature = "toml_edit_enabled")]
 use toml_edit::{value, DocumentMut, Item, Table};
+#[cfg(feature = "walkdir_enabled")]
 use walkdir::WalkDir;
 
+use crate::metadata_provider::{CargoMetadataProvider, Metadata, Package, PackageId};
+
+#[cfg(feature = "real_cargo_metadata")]
+use crate::metadata_provider::RealCargoMetadataProvider;
+#[cfg(not(feature = "real_cargo_metadata"))]
+use crate::metadata_provider::DummyCargoMetadataProvider;
+
+#[cfg(feature = "clap_enabled")]
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
@@ -23,6 +58,27 @@ struct Args {
     root_cargo_toml: PathBuf,
 }
 
+#[cfg(not(feature = "clap_enabled"))]
+#[derive(Debug)]
+struct Args {
+    project_root: PathBuf,
+    submodules_dir: PathBuf,
+    root_cargo_toml: PathBuf,
+}
+
+#[cfg(not(feature = "clap_enabled"))]
+impl Args {
+    fn parse() -> Self {
+        Args {
+            project_root: PathBuf::from("."),
+            submodules_dir: PathBuf::from("submodules"),
+            root_cargo_toml: PathBuf::from("Cargo.toml"),
+        }
+    }
+}
+
+
+#[cfg(all(feature = "clap_enabled", feature = "toml_edit_enabled", feature = "walkdir_enabled"))]
 fn main() -> Result<()> {
     let args = Args::parse();
 
@@ -37,6 +93,11 @@ fn main() -> Result<()> {
 
     let mut workspace_dependencies: HashMap<String, String> = HashMap::new();
 
+    #[cfg(feature = "real_cargo_metadata")]
+    let metadata_provider = RealCargoMetadataProvider;
+    #[cfg(not(feature = "real_cargo_metadata"))]
+    let metadata_provider = DummyCargoMetadataProvider;
+
     for entry in WalkDir::new(&submodules_dir)
         .into_iter()
         .filter_map(|e| e.ok())
@@ -46,84 +107,47 @@ fn main() -> Result<()> {
         let submodule_root = cargo_toml_path.parent().unwrap();
 
         // Try to get cargo metadata for the submodule
-        let metadata_result = MetadataCommand::new()
-            .manifest_path(cargo_toml_path)
-            .no_deps()
-            .exec();
+        let metadata = metadata_provider
+            .provide_metadata(cargo_toml_path)
+            .context(format!(
+                "Failed to get metadata for submodule Cargo.toml: {:?}",
+                cargo_toml_path
+            ))?;
 
-        match metadata_result {
-            Ok(metadata) => {
-                // Check if this submodule is a workspace itself
-                let workspace_root = metadata.workspace_root.to_string();
-                if Path::new(&workspace_root) == submodule_root {
-                    // This is a submodule that is also a workspace
-                    println!("Found submodule workspace: {}", submodule_root.display());
-                    for member_id in &metadata.workspace_members {
-                        if let Some(member_package) =
-                            metadata.packages.iter().find(|p| &p.id == member_id)
-                        {
-                            let member_manifest_path = PathBuf::from(&member_package.manifest_path);
-                            let member_crate_root = member_manifest_path.parent().unwrap();
-                            let relative_path =
-                                pathdiff::diff_paths(member_crate_root, &project_root).context(
-                                    format!(
-                                        "Failed to get relative path for member crate {}",
-                                        member_package.name
-                                    ),
-                                )?;
-                            workspace_dependencies.insert(
-                                member_package.name.to_string(),
-                                format!("{{ path = \"{}\" }}", relative_path.display()),
-                            );
-                        }
-                    }
-                } else {
-                    // It's a regular package within a submodule
-                    if let Some(package) = metadata.packages.get(0) {
-                        let relative_path =
-                            pathdiff::diff_paths(submodule_root, &project_root).context(
-                                format!("Failed to get relative path for package {}", package.name),
-                            )?;
-                        workspace_dependencies.insert(
-                            package.name.to_string(),
-                            format!("{{ path = \"{}\" }}", relative_path.display()),
-                        );
-                    }
-                }
-            }
-            Err(e) => {
-                eprintln!(
-                    "Warning: Could not get cargo metadata for {}: {}",
-                    cargo_toml_path.display(),
-                    e
-                );
-                // Fallback: try to parse as a single package if metadata fails
-                let content = fs::read_to_string(cargo_toml_path).with_context(|| {
-                    format!("Failed to read Cargo.toml at {}", cargo_toml_path.display())
-                })?;
-                let doc = content.parse::<DocumentMut>().with_context(|| {
-                    format!(
-                        "Failed to parse Cargo.toml at {}",
-                        cargo_toml_path.display()
-                    )
-                })?;
-
-                if let Some(package_name) = doc
-                    .get("package")
-                    .and_then(|item| item.as_table())
-                    .and_then(|table| table.get("name"))
-                    .and_then(|item| item.as_str())
+        // Check if this submodule is a workspace itself
+        let workspace_root_path = PathBuf::from(&metadata.workspace_root);
+        if workspace_root_path == submodule_root {
+            // This is a submodule that is also a workspace
+            println!("Found submodule workspace: {}", submodule_root.display());
+            for member_id in &metadata.workspace_members {
+                if let Some(member_package) = metadata
+                    .packages
+                    .iter()
+                    .find(|p| p.id.repr == member_id.repr)
                 {
-                    let relative_path = pathdiff::diff_paths(submodule_root, &project_root)
+                    let member_manifest_path = PathBuf::from(&member_package.manifest_path);
+                    let member_crate_root = member_manifest_path.parent().unwrap();
+                    let relative_path = pathdiff::diff_paths(member_crate_root, &project_root)
                         .context(format!(
-                            "Failed to get relative path for package {}",
-                            package_name
+                            "Failed to get relative path for member crate {}",
+                            member_package.name
                         ))?;
                     workspace_dependencies.insert(
-                        package_name.to_string(),
+                        member_package.name.to_string(),
                         format!("{{ path = \"{}\" }}", relative_path.display()),
                     );
                 }
+            }
+        } else {
+            // It's a regular package within a submodule
+            if let Some(package) = metadata.packages.get(0) {
+                let relative_path = pathdiff::diff_paths(submodule_root, &project_root).context(
+                    format!("Failed to get relative path for package {}", package.name),
+                )?;
+                workspace_dependencies.insert(
+                    package.name.to_string(),
+                    format!("{{ path = \"{}\" }}", relative_path.display()),
+                );
             }
         }
     }
@@ -169,3 +193,10 @@ fn main() -> Result<()> {
 
     Ok(())
 }
+
+#[cfg(not(all(feature = "clap_enabled", feature = "toml_edit_enabled", feature = "walkdir_enabled")))]
+fn main() -> Result<()> {
+    println!("`dep2submodule` is running in dummy mode. Enable `clap_enabled`, `toml_edit_enabled`, and `walkdir_enabled` features for full functionality.");
+    Ok(())
+}
+

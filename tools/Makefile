@@ -20,11 +20,24 @@ RUSTC_FLAGS := \
 	--check-cfg 'cfg(docsrs,test)' \
 	--out-dir $(TARGET_DIR)
 
+.PHONY: ingest-full-rustc
+ingest-full-rustc:
+	@echo "🦀 Ingesting full Solana rustc compiler into level0 blocks"
+	@echo "Source: $(RUST_SRC_PATH)/compiler"
+	@echo "Estimated: ~1,991 files, ~245k lines, ~25k blocks"
+	cd rust-71-parts && cargo run --bin ingest_rustc -- $(RUST_SRC_PATH)/compiler ./full_rustc_blocks.db
+
+.PHONY: ingest-all-code
+ingest-all-code:
+	@echo "🦀 Ingesting ALL Rust code: rustc + our repo"
+	@echo "1. Ingesting Solana rustc compiler..."
+	cd rust-71-parts && cargo run --bin ingest_raw_ast -- $(RUST_SRC_PATH)/compiler ./rustc_raw_ast.db
+	@echo "2. Ingesting our cargo2nix repo..."
+	cd rust-71-parts && cargo run --bin ingest_raw_ast -- /mnt/data1/nix/vendor/rust/cargo2nix ./cargo2nix_raw_ast.db
+
 .PHONY: all build clean diagnose-features compile-rust-src
 
 all: build-llm-bootstrap
-
-.PHONY: directory-monster-mapping
 directory-monster-mapping:
 	@echo "🗂️  First Layer: Mapping rustc directory structure to Monster Group"
 	@echo "Constraint: dir(rustc) = Monster Group through unitary balance"

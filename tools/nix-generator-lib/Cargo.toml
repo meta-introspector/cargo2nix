@@ -8,7 +8,7 @@ edition = "2021"
 syn = { version = "*", optional = true }
 toml_edit = { version = "*", optional = true }
 clap = { version = "*", optional = true }
-cargo-repo-sync-lib = { workspace = true, optional = true }
+
 git2 = { version = "*", optional = true }
 hex = { version = "*", optional = true }
 sha1 = { version = "*", optional = true }
@@ -28,7 +28,7 @@ git-wrapper-lib = { path = "../git-wrapper-lib", optional = true }
 syn_enabled = ["dep:syn"]
 toml_edit_enabled = ["dep:toml_edit"]
 clap_enabled = ["dep:clap"]
-cargo_repo_sync_lib_enabled = ["dep:cargo-repo-sync-lib"]
+
 git2_enabled = ["dep:git2"]
 hex_enabled = ["dep:hex"]
 sha1_enabled = ["dep:sha1"]

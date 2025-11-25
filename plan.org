@@ -1,0 +1,21 @@
+graphql
+https://github.com/graphql-rust/juniper add this as as submodule.
+
+treat each datatype in rustc, each point in the lattice of functions as a graphql type that can be served queried and used alone or in a group.
+be able to decouple stages of the compiler.
+
+also assrrt that each stage of the compiler is one of the 192 conjucancy classes of the monster group .
+each ast has the same dimensioon as the 192k mosnter element.
+
+there is an equivalance betweent he rust code, the graphql query, the monster element, an emoji matrix, a hecke operator, a pure function.
+we can query and render any quoted structure in json. thegraphql can quote and splice any rust code at any stage. like a digital mycelium we can grow it from a clipping or soil sample.
+
+we can think of this constraint system as taking in all the asts, all the intermediate layers
+of the compiler as input and using the order of the monster group as output and finding the sat solver that maps them onto the monsters including all aspects
+we can imagine this as the hecke operator that is applied over and over again and it pureifies the asts into deeper and deeper mysteries.
+
+each data type, each function, aspect  of the compiler is turned into  a trait and that becomes a new graphql scheme.
+the heck operators connects teh schemes via numerics giving them a meta programming numeric represntation that up holds all constraints.
+eventaully we get superconstrained like the lmfdb functions that are symmetrical and harmonic on many dimensions.
+
+

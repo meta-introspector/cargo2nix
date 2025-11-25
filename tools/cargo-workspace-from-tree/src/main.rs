@@ -1,12 +1,48 @@
+#[cfg(feature = "anyhow_enabled")]
 use anyhow::{Context, Result};
-use cargo_metadata::{MetadataCommand, Package};
+#[cfg(not(feature = "anyhow_enabled"))]
+use std::error::Error;
+#[cfg(not(feature = "anyhow_enabled"))]
+type Result<T> = std::result::Result<T, Box<dyn Error>>;
+
+#[cfg(not(feature = "anyhow_enabled"))]
+trait Context<T> {
+    fn context<C>(self, _context: C) -> Result<T>
+    where C: std::fmt::Display + Send + Sync + 'static;
+}
+
+#[cfg(not(feature = "anyhow_enabled"))]
+impl<T, E> Context<T> for std::result::Result<T, E>
+where
+    E: std::fmt::Display + std::fmt::Debug + Send + Sync + 'static,
+{
+    fn context<C>(self, context: C) -> Result<T>
+    where
+        C: std::fmt::Display + Send + Sync + 'static,
+    {
+        self.map_err(|e| Box::new(std::io::Error::new(std::io::ErrorKind::Other, format!("{}: {}", context, e))) as Box<dyn Error>)
+    }
+}
+
+#[cfg(feature = "clap_enabled")]
 use clap::Parser;
+#[cfg(feature = "pathdiff_enabled")]
 use pathdiff::diff_paths;
 use std::collections::{HashMap, HashSet};
 use std::path::PathBuf;
+#[cfg(feature = "toml_edit_enabled")]
 use toml_edit::{value, DocumentMut, Item, Table};
+#[cfg(feature = "walkdir_enabled")]
 use walkdir::WalkDir;
 
+use crate::metadata_provider::{CargoMetadataProvider, Metadata, Package, PackageId};
+
+#[cfg(feature = "real_cargo_metadata")]
+use crate::metadata_provider::RealCargoMetadataProvider;
+#[cfg(not(feature = "real_cargo_metadata"))]
+use crate::metadata_provider::DummyCargoMetadataProvider;
+
+#[cfg(feature = "clap_enabled")]
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
@@ -23,6 +59,26 @@ struct Args {
     package_name: Option<String>,
 }
 
+#[cfg(not(feature = "clap_enabled"))]
+#[derive(Debug)]
+struct Args {
+    project_root: PathBuf,
+    output_dir: PathBuf,
+    package_name: Option<String>,
+}
+
+#[cfg(not(feature = "clap_enabled"))]
+impl Args {
+    fn parse() -> Self {
+        Args {
+            project_root: PathBuf::from("."),
+            output_dir: PathBuf::from("generated_workspaces"),
+            package_name: None,
+        }
+    }
+}
+
+
 fn main() -> Result<()> {
     let args = Args::parse();
 
@@ -35,18 +91,25 @@ fn main() -> Result<()> {
 
     // 1. Get cargo metadata
     println!("Collecting cargo metadata...");
-    let metadata = MetadataCommand::new()
-        .current_dir(&project_root)
-        .exec()
+    
+    #[cfg(feature = "real_cargo_metadata")]
+    let metadata_provider = RealCargoMetadataProvider;
+    #[cfg(not(feature = "real_cargo_metadata"))]
+    let metadata_provider = DummyCargoMetadataProvider;
+
+    let metadata = metadata_provider
+        .provide_metadata(&project_root)
         .context("Failed to get cargo metadata")?;
+
+
 
     let workspace_members: Vec<&Package> = metadata
         .workspace_members
         .iter()
-        .filter_map(|id| metadata.packages.iter().find(|pkg| &pkg.id == id))
+        .filter_map(|id| metadata.packages.iter().find(|pkg| &pkg.id.repr == &id.repr))
         .collect();
 
-    let target_package_ids: Vec<cargo_metadata::PackageId> =
+    let target_package_ids: Vec<PackageId> =
         if let Some(pkg_name) = &args.package_name {
             workspace_members
                 .iter()
@@ -62,7 +125,7 @@ fn main() -> Result<()> {
     }
 
     // 2. Build the inverse dependency graph (dependee -> [dependents])
-    let mut inverse_graph: HashMap<cargo_metadata::PackageId, Vec<cargo_metadata::PackageId>> =
+    let mut inverse_graph: HashMap<PackageId, Vec<PackageId>> =
         HashMap::new();
     for package in &metadata.packages {
         for dep in &package.dependencies {
@@ -81,7 +144,7 @@ fn main() -> Result<()> {
     }
 
     // 3. Build a forward dependency graph (package -> [direct_dependencies])
-    let mut forward_graph: HashMap<cargo_metadata::PackageId, Vec<cargo_metadata::PackageId>> =
+    let mut forward_graph: HashMap<PackageId, Vec<PackageId>> =
         HashMap::new();
     for package in &metadata.packages {
         for dep in &package.dependencies {
@@ -99,9 +162,9 @@ fn main() -> Result<()> {
     }
 
     // 4. Traverse the inverse graph to find all packages that depend on the target packages
-    let mut inverted_dependencies: HashSet<cargo_metadata::PackageId> = HashSet::new();
-    let mut queue: Vec<cargo_metadata::PackageId> = target_package_ids.clone();
-    let mut visited: HashSet<cargo_metadata::PackageId> = HashSet::new();
+    let mut inverted_dependencies: HashSet<PackageId> = HashSet::new();
+    let mut queue: Vec<PackageId> = target_package_ids.clone();
+    let mut visited: HashSet<PackageId> = HashSet::new();
 
     while let Some(current_id) = queue.pop() {
         if !visited.insert(current_id.clone()) {
@@ -128,10 +191,14 @@ fn main() -> Result<()> {
         .filter(|e| e.file_type().is_file() && e.file_name() == "Cargo.toml")
     {
         let cargo_toml_path = entry.path();
-        let submodule_package_metadata = MetadataCommand::new()
-            .manifest_path(cargo_toml_path)
-            .no_deps()
-            .exec()
+        
+        #[cfg(feature = "real_cargo_metadata")]
+        let submodule_metadata_provider = RealCargoMetadataProvider;
+        #[cfg(not(feature = "real_cargo_metadata"))]
+        let submodule_metadata_provider = DummyCargoMetadataProvider;
+
+        let submodule_package_metadata = submodule_metadata_provider
+            .provide_metadata(cargo_toml_path.parent().unwrap())
             .context(format!(
                 "Failed to get metadata for submodule Cargo.toml: {:?}",
                 cargo_toml_path
@@ -157,7 +224,7 @@ fn main() -> Result<()> {
         let current_root_pkg = metadata
             .packages
             .iter()
-            .find(|p| p.id == *current_root_pkg_id)
+            .find(|p| p.id.repr == current_root_pkg_id.repr)
             .unwrap();
         let current_root_pkg_name = &current_root_pkg.name;
 
@@ -223,15 +290,15 @@ fn main() -> Result<()> {
 
         // Determine transitive dependencies for patching and missing submodules
         let mut transitive_submodule_deps_for_patching: HashMap<String, PathBuf> = HashMap::new();
-        let mut patch_queue: Vec<cargo_metadata::PackageId> = vec![current_root_pkg_id.clone()];
-        let mut patch_visited: HashSet<cargo_metadata::PackageId> = HashSet::new();
+        let mut patch_queue: Vec<PackageId> = vec![current_root_pkg_id.clone()];
+        let mut patch_visited: HashSet<PackageId> = HashSet::new();
 
         while let Some(pkg_id) = patch_queue.pop() {
             if !patch_visited.insert(pkg_id.clone()) {
                 continue;
             }
 
-            let pkg = metadata.packages.iter().find(|p| p.id == pkg_id).unwrap();
+            let pkg = metadata.packages.iter().find(|p| p.id.repr == pkg_id.repr).unwrap();
 
             // If it's a local submodule and not already handled as a member or direct dependency
             if let Some(sub_path) = submodule_paths.get(pkg.name.as_str()) {

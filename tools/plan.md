@@ -130,7 +130,18 @@ trait MonsterCompilerStage {
 - **Add** GraphQL schema generation for each declaration type
 - **Implement** pauseable extraction with state export
 
-### 4. AST Transport Integration (PLANNED)
+### 4. AST Rewriting / Trait Lattice Generation (NEW - IN PROGRESS)
+- **Objective**: Implement the core logic for associating traits with declarations, numbering them based on dependencies, and constructing the trait lattice.
+- **Implemented Modules (within `tools/cargo-llm-bootstrap`)**:
+    - `src/trait_types.rs`: Defined `DeclTrait`, `TraitDeps`, `TraitLattice`, `TraitMorphism`, and `EnumNumbering` structures. Enhanced `DeclTrait` to include `monster_number` and `enum_numbering` fields for detailed enum handling.
+    - `src/trait_extractor.rs`: Implemented logic to parse Rust source files (`syn`) and extract declarations (structs, enums, fns, traits, impls), mapping them to `DeclTrait` and `TraitDeps`.
+    - `src/trait_numbering.rs`: Developed the Gödel numbering scheme, assigning numbers based on dependencies, with initial base numbers for independent declarations.
+    - `src/trait_lattice_generator.rs`: Orchestrates the extraction, numbering, and construction of the `TraitLattice`.
+- **Integration**: New subcommand `--generate-trait-lattice` added to `cargo-llm-bootstrap`'s `main.rs` to initiate the trait lattice generation and serialize the output to JSON.
+- **Dependencies**: Added `syn` and `chrono` to `cargo-llm-bootstrap/Cargo.toml`.
+- **Next Steps**: Further refinement of Gödel numbering for enums (vector/function/constant). Implementation of content-addressable memory and integration with RocksDB/Solana accounts.
+
+### 5. AST Transport Integration (PLANNED)
 - **Connect** ast_transport system with GraphQL mutation operations
 - **Enable** real-time AST fragment transport via GraphQL subscriptions
 - **Implement** distributed compilation across Monster Group layers

@@ -1,8 +1,16 @@
 use std::env;
 use std::process;
+use std::path::PathBuf;
 
 mod solana_rustc_analyzer;
 use solana_rustc_analyzer::SolanaRustcAnalyzer;
+
+mod trait_types;
+mod trait_extractor;
+mod trait_numbering;
+
+mod trait_lattice_generator;
+use trait_lattice_generator::TraitLatticeGenerator;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -35,7 +43,40 @@ fn main() {
                     process::exit(1);
                 }
             }
-        }
+        },
+        "--generate-trait-lattice" => {
+            let rust_src_path_str = args.iter()
+                .position(|arg| arg == "--rust-src-path")
+                .and_then(|i| args.get(i + 1))
+                .map(|s| s.to_string())
+                .unwrap_or_else(|| {
+                    eprintln!("Error: --rust-src-path is required for --generate-trait-lattice");
+                    process::exit(1);
+                });
+            let rust_src_path = PathBuf::from(rust_src_path_str);
+
+            println!("🧬 Generating TraitLattice from: {:?}", rust_src_path);
+            let mut generator = TraitLatticeGenerator::new();
+            match generator.generate_lattice(&rust_src_path) {
+                Ok(lattice) => {
+                    let output_path = "trait_lattice.json";
+                    match serde_json::to_string_pretty(&lattice) {
+                        Ok(json) => {
+                            match std::fs::write(output_path, json) {
+                                Ok(_) => println!("✅ TraitLattice generated and saved to {}", output_path),
+                                Err(e) => eprintln!("❌ Failed to write TraitLattice to {}: {}", output_path, e),
+                            }
+                        },
+                        Err(e) => eprintln!("❌ Failed to serialize TraitLattice to JSON: {}", e),
+                    }
+                    process::exit(0);
+                },
+                Err(e) => {
+                    eprintln!("❌ Failed to generate TraitLattice: {}", e);
+                    process::exit(1);
+                }
+            }
+        },
         _ => {
             eprintln!("Unknown command: {}", args[1]);
             process::exit(1);

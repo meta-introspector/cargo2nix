@@ -7,14 +7,14 @@ edition = "2021"
 
 syn = { version = "*", optional = true }
 clap = { version = "*", optional = true }
-cargo-repo-sync-lib = { workspace = true, optional = true }
+
 git2 = { version = "*", optional = true }
 hex = { version = "*", optional = true }
 cargo_metadata = { workspace = true, optional = true }
 sha1 = { version = "*", optional = true }
 pathdiff = { version = "*", optional = true }
 serde = { version = "*", optional = true }
-git-wrapper-lib = { workspace = true, optional = true }
+
 anyhow = { workspace = true, optional = true }
 serde_json = { workspace = true, optional = true }
 toml_edit = { workspace = true, optional = true }
@@ -25,7 +25,7 @@ walkdir = { workspace = true, optional = true }
 
 syn_enabled = ["dep:syn"]
 clap_enabled = ["dep:clap"]
-cargo_repo_sync_lib_enabled = ["dep:cargo-repo-sync-lib"]
+
 git2_enabled = ["dep:git2"]
 hex_enabled = ["dep:hex"]
 cargo_metadata_enabled = ["dep:cargo_metadata"]
@@ -33,7 +33,7 @@ sha1_enabled = ["dep:sha1"]
 anyhow_enabled = ["dep:anyhow"]
 pathdiff_enabled = ["dep:pathdiff"]
 serde_enabled = ["dep:serde"]
-git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
+
 default = []
 anyhow = ["dep:anyhow"]
 serde_json_enabled = ["dep:serde_json"]

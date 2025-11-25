@@ -668,9 +668,12 @@ dependencies = [
 name = "cargo-llm-bootstrap"
 version = "0.1.0"
 dependencies = [
+ "chrono",
  "serde",
  "serde_json",
  "sha2",
+ "syn",
+ "toml 0.8.23",
 ]
 
 [[package]]
@@ -800,8 +803,6 @@ name = "cargo-workspace-from-tree"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "cargo-repo-sync-lib",
- "cargo-submodule-tool-lib",
  "cargo_metadata",
  "clap",
  "git-wrapper-lib",
@@ -1187,11 +1188,8 @@ name = "dep2submodule"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "cargo-repo-sync-lib",
- "cargo-submodule-tool-lib",
  "cargo_metadata",
  "clap",
- "git-wrapper-lib",
  "git2",
  "hex",
  "pathdiff",
@@ -1526,11 +1524,9 @@ name = "generate_workspace_deps"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "cargo-repo-sync-lib",
  "cargo-submodule-tool-lib",
  "cargo_metadata",
  "clap",
- "git-wrapper-lib",
  "git2",
  "hex",
  "pathdiff",
@@ -3222,7 +3218,6 @@ name = "nix-generator-lib"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "cargo-repo-sync-lib",
  "cargo_metadata",
  "clap",
  "git-wrapper-lib",
@@ -4884,10 +4879,8 @@ name = "tool-traits-lib"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "cargo-repo-sync-lib",
  "cargo_metadata",
  "clap",
- "git-wrapper-lib",
  "git2",
  "hex",
  "pathdiff",
