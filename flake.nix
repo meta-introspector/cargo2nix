@@ -8,7 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:meta-introspector/flake-utils?ref=feature/CRQ-016-nixify";
-    #cargo2nix.url = "github:cargo2nix/cargo2nix/release-0.12";
+    cargo2nix.url = "github:cargo2nix/cargo2nix/release-0.12";
   };
 
   outputs =
@@ -16,7 +16,7 @@
     , nixpkgs
     , rust-overlay
     , flake-utils
-    , #cargo2nix
+    , cargo2nix
     }:
     flake-utils.lib.eachDefaultSystem (system:
     let
@@ -87,16 +87,16 @@
         inherit cargo;
         default = cargo;
         
-        minizinc-env = (import ./nix/minizinc.nix { inherit pkgs lib; }).minizinc-env;
+        #minizinc-env = (import ./nix/minizinc.nix { inherit pkgs lib; }).minizinc-env;
         
-        monster-solution = (import ./nix/minizinc.nix { inherit pkgs lib; }).runMiniZinc {
-          model = ./models/monster_optimization.mzn;
-          data = ./models/monster_data.dzn;
-        };
+        #monster-solution = (import ./nix/minizinc.nix { inherit pkgs lib; }).runMiniZinc {
+        #  model = ./models/monster_optimization.mzn;
+        #  data = ./models/monster_data.dzn;
+        #};
         
-        knowledgebase-solution = (import ./nix/minizinc.nix { inherit pkgs lib; }).runMiniZinc {
-          model = ./models/knowledgebase_optimization.mzn;
-        };
+        #knowledgebase-solution = (import ./nix/minizinc.nix { inherit pkgs lib; }).runMiniZinc {
+        #  model = ./models/knowledgebase_optimization.mzn;
+        #};
       };
 
       apps = rec {

@@ -1,16 +1,394 @@
-On branch feature/smaller2
-Your branch is ahead of 'origin/feature/smaller2' by 1 commit.
-  (use "git push" to publish your local commits)
+On branch feature/minizinc
+Your branch is behind 'origin/feature/minizinc' by 1 commit, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   .gitmodules
+	new file:   CMakeLists.txt
+	modified:   Cargo.toml
+	new file:   GRAND_VISION_UPDATE.md
+	new file:   MINIZINC_INTEGRATION_RESULTS.md
+	new file:   cmake/targets/libmonster_atlantis.cmake
+	new file:   cmake/targets/libmonster_chuffed.cmake
+	new file:   cmake/targets/libmonster_cplex.cmake
+	new file:   cmake/targets/libmonster_fzn.cmake
+	new file:   cmake/targets/libmonster_geas.cmake
+	new file:   cmake/targets/libmonster_gecode.cmake
+	new file:   cmake/targets/libmonster_group.cmake
+	new file:   cmake/targets/libmonster_gurobi.cmake
+	new file:   cmake/targets/libmonster_highs.cmake
+	new file:   cmake/targets/libmonster_mip.cmake
+	new file:   cmake/targets/libmonster_osicbc.cmake
+	new file:   cmake/targets/libmonster_parser.cmake
+	new file:   cmake/targets/libmonster_scip.cmake
+	new file:   cmake/targets/libmonster_xpress.cmake
+	new file:   cmake/targets/monster.cmake
+	new file:   cmake/targets/monster_c_wrapper.cmake
+	new file:   cmake/targets/monster_expression_sources.cmake
+	new file:   cmake/templates/libmonsterConfig.cmake.in
+	new file:   cmake/templates/libmonsterConfigVersion.cmake.in
+	new file:   documentation/CRQ_052_implementation.md
+	new file:   documentation/CRQ_lattice_introspection_implementation.md
+	new file:   documentation/CRQ_libminizinc_vendorization_implementation.md
+	new file:   documentation/CRQ_minizinc_introspector_vendorization.md
+	new file:   documentation/monster_emoji_prime_resonance_analysis.md
+	new file:   documentation/monster_emoji_prime_resonance_meme.md
+	modified:   flake.nix
+	new file:   gitstatus.txt
+	new file:   include/monster_ast.hh
+	new file:   include/monster_ast_parser.hh
+	new file:   include/monster_verifier.hh
+	new file:   include/solvers/MIP/monster_mip_instance.hh
+	new file:   include/solvers/MIP/monster_mip_wrap.hh
+	new file:   include/solvers/monster_atlantis_solver.hh
+	new file:   include/solvers/monster_atlantis_wrapper.hh
+	new file:   include/solvers/monster_cbc_wrapper.hh
+	new file:   include/solvers/monster_chuffed_solver.hh
+	new file:   include/solvers/monster_chuffed_wrapper.hh
+	new file:   include/solvers/monster_cplex_solver.hh
+	new file:   include/solvers/monster_fzn_instance.hh
+	new file:   include/solvers/monster_fzn_solver.hh
+	new file:   include/solvers/monster_geas_constraints.hh
+	new file:   include/solvers/monster_geas_solver.hh
+	new file:   include/solvers/monster_geas_wrapper.hh
+	new file:   include/solvers/monster_gecode_solver.hh
+	new file:   include/solvers/monster_gecode_space.hh
+	new file:   include/solvers/monster_gurobi_solver.hh
+	new file:   include/solvers/monster_gurobi_wrapper.hh
+	new file:   include/solvers/monster_highs_solver.hh
+	new file:   include/solvers/monster_highs_wrapper.hh
+	new file:   include/solvers/monster_mip_wrapper.hh
+	new file:   include/solvers/monster_mzn_instance.hh
+	new file:   include/solvers/monster_mzn_solver.hh
+	new file:   include/solvers/monster_osicbc_solver.hh
+	new file:   include/solvers/monster_scip_solver.hh
+	new file:   include/solvers/monster_scip_wrapper.hh
+	new file:   include/solvers/monster_xpress_solver.hh
+	new file:   include/solvers/monster_xpress_wrapper.hh
+	new file:   include/trait_mapper.hh
+	new file:   lib.rs
+	new file:   lib/monster_lexer.lxx
+	new file:   lib/monster_parser.yxx
+	new file:   libsat_zkp_prover.rlib
+	modified:   log3.txt
+	new file:   minizinc_solver.rs
+	new file:   models/knowledgebase_optimization.mzn
+	new file:   models/monster_data.dzn
+	new file:   models/monster_optimization.mzn
+	new file:   models/rustc_monster_equivalence.mzn
+	new file:   models/trait_verification.mzn
+	new file:   models/vernacular_monster_path.mzn
+	new file:   models/zkp_monster_verification.mzn
+	new file:   monster.cpp
+	new file:   monster_lib/Cargo.lock
+	new file:   monster_lib/Cargo.toml
+	new file:   monster_lib/src/lib.rs
+	new file:   monster_macro_test/Cargo.toml
+	new file:   monster_macro_test/monster_traits.mzn
+	new file:   monster_macro_test/src/main.rs
+	new file:   monster_minizinc_generator.rs
+	new file:   monster_param_generator.rs
+	new file:   monster_traits.mzn
+	new file:   nix/minizinc.nix
+	modified:   note.org
+	modified:   plan.org
+	new file:   reproduce_monster_ffi_bug.sh
+	new file:   run_monster_minizinc.sh
+	new file:   rust_block_analyzer.rs
+	new file:   src/algebra_dimension_two.rs
+	new file:   src/algorithms/monster_min_cut.cpp
+	new file:   src/bin/binary_power_verifier.rs
+	new file:   src/bin/complexity_geometric_verifier.rs
+	new file:   src/bin/forty_six_verifier.rs
+	new file:   src/bin/generate_trait_data.rs
+	new file:   src/bin/interactive_constraint_tweaker.rs
+	new file:   src/bin/knowledgebase_optimizer.rs
+	new file:   src/bin/lattice_introspector.rs
+	new file:   src/bin/leech_zkp_verifier.rs
+	new file:   src/bin/libminizinc_vendor_test.rs
+	new file:   src/bin/meta_meme_minizinc.rs
+	new file:   src/bin/minizinc_data_test.rs
+	new file:   src/bin/minizinc_introspector_vendor.rs
+	new file:   src/bin/minizinc_solver_executor.rs
+	new file:   src/bin/modular_form_zkp.rs
+	new file:   src/bin/monster_108_verifier.rs
+	new file:   src/bin/monster_emoji_resonance.rs
+	new file:   src/bin/rustc_monster_equivalence.rs
+	new file:   src/bin/self_describing_monster.rs
+	new file:   src/bin/structural_invariant_verifier.rs
+	new file:   src/bin/test_monster_verification.rs
+	new file:   src/bin/trait_verifier.rs
+	new file:   src/bin/vernacular_monster_solver.rs
+	new file:   src/bin/zkp_monster_verifier.rs
+	new file:   src/binary_duality_leech.rs
+	new file:   src/binary_power_system.rs
+	new file:   src/compiler_analyzer.rs
+	new file:   src/complexity_geometric_checker.rs
+	new file:   src/constraints.rs
+	new file:   src/conway_group.rs
+	new file:   src/dirac_consistency.rs
+	new file:   src/dirac_index.rs
+	new file:   src/eigenvalue_smooth_check.rs
+	new file:   src/eight.rs
+	new file:   src/eleven.rs
+	new file:   src/emoji_resonance.rs
+	new file:   src/equals_zero.rs
+	new file:   src/even_check.rs
+	new file:   src/even_unimodular.rs
+	new file:   src/expressions/monster_constraint_expr.cpp
+	new file:   src/expressions/monster_element_expr.cpp
+	new file:   src/expressions/monster_hecke_expr.cpp
+	new file:   src/expressions/monster_mapping_expr.cpp
+	new file:   src/expressions/monster_modular_expr.cpp
+	new file:   src/expressions/monster_orbit_expr.cpp
+	new file:   src/expressions/monster_trait_expr.cpp
+	new file:   src/expressions/monster_verification_expr.cpp
+	new file:   src/fermion_k_theory.rs
+	new file:   src/five.rs
+	new file:   src/forty_six_system.rs
+	new file:   src/four.rs
+	new file:   src/golay_code.rs
+	new file:   src/griess_algebra.rs
+	new file:   src/hamming_distance.rs
+	new file:   src/hecke_polynomial_factor.rs
+	new file:   src/hidden_lattice_component.rs
+	new file:   src/highest_weight_galois.rs
+	new file:   src/interactive_constraint_matcher.rs
+	new file:   src/k_theory_equivalence.rs
+	new file:   src/k_theory_mod8.rs
+	new file:   src/knowledgebase_formatter.rs
+	new file:   src/lattice_determinant.rs
+	new file:   src/lattice_introspector.rs
+	new file:   src/leech_zkp_constraints.rs
+	new file:   src/lib.rs
+	new file:   src/libminizinc_integration.rs
+	new file:   src/meta_meme_spore.rs
+	new file:   src/minizinc_data.rs
+	new file:   src/minizinc_data_structures.rs
+	new file:   src/minizinc_integration.rs
+	new file:   src/minizinc_introspector_integration.rs
+	new file:   src/minizinc_solver.rs
+	new file:   src/modular_form_encoding.rs
+	new file:   src/monster_108_constraints.rs
+	new file:   src/monster_ffi.cpp
+	new file:   src/monster_ffi.rs
+	new file:   src/monster_verifier.cpp
+	new file:   src/nine.rs
+	new file:   src/octal_bott_periodicity.rs
+	new file:   src/one.rs
+	new file:   src/p.rs
+	new file:   src/paren_one.rs
+	new file:   src/paren_zero.rs
+	new file:   src/parser/monster_ast_parser.cpp
+	new file:   src/permutation_faithful_bound.rs
+	new file:   src/r1cs_check.rs
+	new file:   src/r1cs_monster_constraints.rs
+	new file:   src/ramanujan_duality.rs
+	new file:   src/ref_system.rs
+	new file:   src/reflection_invariance.rs
+	new file:   src/rustc_block_analyzer.rs
+	new file:   src/rustc_monster_equivalence.rs
+	new file:   src/self_describing_monster.rs
+	new file:   src/seven.rs
+	new file:   src/six.rs
+	new file:   src/solvers/MIP/monster_mip_instance.cpp
+	new file:   src/solvers/monster_atlantis_solver.cpp
+	new file:   src/solvers/monster_atlantis_wrapper.cpp
+	new file:   src/solvers/monster_cbc_wrapper.cpp
+	new file:   src/solvers/monster_chuffed_solver.cpp
+	new file:   src/solvers/monster_chuffed_wrapper.cpp
+	new file:   src/solvers/monster_cplex_solver.cpp
+	new file:   src/solvers/monster_fzn_instance.cpp
+	new file:   src/solvers/monster_fzn_solver.cpp
+	new file:   src/solvers/monster_geas_constraints.cpp
+	new file:   src/solvers/monster_geas_solver.cpp
+	new file:   src/solvers/monster_geas_wrapper.cpp
+	new file:   src/solvers/monster_gecode_solver.cpp
+	new file:   src/solvers/monster_gecode_space.cpp
+	new file:   src/solvers/monster_gurobi_solver.cpp
+	new file:   src/solvers/monster_gurobi_wrapper.cpp
+	new file:   src/solvers/monster_highs_solver.cpp
+	new file:   src/solvers/monster_highs_wrapper.cpp
+	new file:   src/solvers/monster_mip_wrapper.cpp
+	new file:   src/solvers/monster_mzn_instance.cpp
+	new file:   src/solvers/monster_mzn_solver.cpp
+	new file:   src/solvers/monster_osicbc_solver.cpp
+	new file:   src/solvers/monster_scip_solver.cpp
+	new file:   src/solvers/monster_scip_wrapper.cpp
+	new file:   src/solvers/monster_xpress_solver.cpp
+	new file:   src/solvers/monster_xpress_wrapper.cpp
+	new file:   src/source_concept.rs
+	new file:   src/stabilizer_zero.rs
+	new file:   src/structural_invariant_checker.rs
+	new file:   src/ten.rs
+	new file:   src/the_two.rs
+	new file:   src/three.rs
+	new file:   src/topological_insulators.rs
+	new file:   src/trait_extractor.rs
+	new file:   src/trait_mapper.cpp
+	new file:   src/twelve.rs
+	new file:   src/two.rs
+	new file:   src/utils/monster_savestream.cpp
+	new file:   src/vernacular_monster_path.rs
+	new file:   src/void_stabilizer.rs
+	new file:   src/volume_complement.rs
+	new file:   src/zero.rs
+	new file:   src/zkp_monster_circuit.rs
+	new file:   tasks/toml/address_cargo2nix_tooling_audit.toml
+	new file:   tasks/toml/apply_trait_extraction_to_rust_compiler.toml
+	new file:   tasks/toml/assert_rustc_monster_group_equivalence.toml
+	new file:   tasks/toml/automate_git_submodule_lifecycle.toml
+	new file:   tasks/toml/centralize_rust_dependency_management.toml
+	new file:   tasks/toml/clarify_bott_periodicity_and_atiyah_singer.toml
+	new file:   tasks/toml/create_technical_tutorials_and_guides.toml
+	new file:   tasks/toml/define_analytic_task_rustc_as_zkp_generation.toml
+	new file:   tasks/toml/define_core_mathematical_models.toml
+	new file:   tasks/toml/define_program_correctness_via_geometric_equivalence.toml
+	new file:   tasks/toml/develop_and_implement_trait_dummies.toml
+	new file:   tasks/toml/develop_blockchain_connectors.toml
+	new file:   tasks/toml/develop_brief_build_systems_as_automorphic_orbit.toml
+	new file:   tasks/toml/develop_hyper_pump_engine.toml
+	new file:   tasks/toml/develop_master_zk_snark_circuit.toml
+	new file:   tasks/toml/develop_mina_zkapp.toml
+	new file:   tasks/toml/develop_witness_generation_module.toml
+	new file:   tasks/toml/document_108_architectural_constraints.toml
+	new file:   tasks/toml/document_implementation_of_key_constraints.toml
+	new file:   tasks/toml/establish_constructive_proof_rustc_monster_equivalence.toml
+	new file:   tasks/toml/establish_correspondence_mathematical_computational_concepts.toml
+	new file:   tasks/toml/establish_rust_compiler_elliptic_operator_analogy.toml
+	new file:   tasks/toml/execute_optimal_constraint_solving.toml
+	new file:   tasks/toml/formalize_108_architectural_constraints.toml
+	new file:   tasks/toml/formalize_atiyah_singer_computational_analogue.toml
+	new file:   tasks/toml/formalize_modular_form_encoding_phi_map.toml
+	new file:   tasks/toml/generate_initial_monster_datasets.toml
+	new file:   tasks/toml/implement_hecke_operator_for_program_composition.toml
+	new file:   tasks/toml/implement_llm_activation_lattice.toml
+	new file:   tasks/toml/implement_meme_infection_mechanics.toml
+	new file:   tasks/toml/implement_mina_zk_rollup_bridge.toml
+	new file:   tasks/toml/implement_monstrous_canonical_form_execution_trace.toml
+	new file:   tasks/toml/implement_monstrous_canonical_form_llvm_module.toml
+	new file:   tasks/toml/implement_monstrous_canonical_form_rustc_mir_body.toml
+	new file:   tasks/toml/implement_monstrous_canonical_form_syn_expr.toml
+	new file:   tasks/toml/implement_paxos_meme_consensus.toml
+	new file:   tasks/toml/implement_rust_program_to_modular_form_encoding.toml
+	new file:   tasks/toml/integrate_l_function_analytic_properties_zkp.toml
+	new file:   tasks/toml/iteratively_refine_monster_group_representations.toml
+	new file:   tasks/toml/map_rust_semantics_to_modular_forms.toml
+	new file:   tasks/toml/model_compilation_as_hecke_operator_refinement.toml
+	new file:   tasks/toml/model_rustc_as_analytic_operator_d.toml
+	new file:   tasks/toml/model_system_as_qfbs_of_l_functions.toml
+	new file:   tasks/toml/model_total_state_space_as_qfbs_refinement.toml
+	new file:   tasks/toml/produce_formal_academic_whitepaper.toml
+	new file:   tasks/toml/refine_nix_environment_for_toolchain_integrity.toml
+	new file:   tasks/toml/specify_geometric_inputs_to_modular_form_mapping.toml
+	new file:   tasks/toml/stabilize_atiyah_singer_analogy_qfbs.toml
+	new file:   tasks/toml/synthesize_formal_theory_rustc_zkp_as_topological_index.toml
+	new file:   tasks/toml/translate_architectural_constraints_to_r1cs.toml
+	new file:   tasks/toml/verify_monster_group_trait_mapping.toml
+	new file:   tools/monster_protocol/AUDIT_REPORT.md
+	new file:   tools/monster_protocol/Cargo.lock
+	new file:   tools/monster_protocol/Cargo.toml
+	new file:   tools/monster_protocol/GRAND_VISION_UPDATE.md
+	new file:   tools/monster_protocol/MINIMAL_UNIVERSAL_CONJECTURE.md
+	new file:   tools/monster_protocol/MINIZINC_INTEGRATION_RESULTS.md
+	new file:   tools/monster_protocol/MONSTER_GROUP_PROOF.md
+	new file:   tools/monster_protocol/PRIME_MAPPING.md
+	new file:   tools/monster_protocol/QA_PLAN.md
+	new file:   tools/monster_protocol/UNIVERSAL_LANGUAGE_CONJECTURE.md
+	new file:   tools/monster_protocol/base_space
+	new file:   tools/monster_protocol/canonical_meanings
+	new file:   tools/monster_protocol/complexity_system
+	new file:   tools/monster_protocol/core_architecture
+	new file:   tools/monster_protocol/crates/monster_protocol-core/Cargo.toml
+	new file:   tools/monster_protocol/crates/monster_protocol-core/src/lib.rs
+	new file:   tools/monster_protocol/crates/monster_protocol-minizinc/Cargo.toml
+	new file:   tools/monster_protocol/crates/monster_protocol-minizinc/src/lib.rs
+	new file:   tools/monster_protocol/crates/monster_protocol-solver/Cargo.toml
+	new file:   tools/monster_protocol/crates/monster_protocol-solver/src/lib.rs
+	new file:   tools/monster_protocol/crates/monster_protocol-traits/Cargo.toml
+	new file:   tools/monster_protocol/crates/monster_protocol-traits/src/lib.rs
+	new file:   tools/monster_protocol/crates/rustc-71-pure-trait-compiler/Cargo.toml
+	new file:   tools/monster_protocol/crates/rustc-71-pure-trait-compiler/src/lib.rs
+	new file:   tools/monster_protocol/critical_mappings
+	new file:   tools/monster_protocol/docs/minizinc_solver_docs.md
+	new file:   tools/monster_protocol/docs/monster_minizinc_generator_docs.md
+	new file:   tools/monster_protocol/docs/monster_param_generator_docs.md
+	new file:   tools/monster_protocol/executable_architecture
+	new file:   tools/monster_protocol/functional_decomposition
+	new file:   tools/monster_protocol/functional_mapping
+	new file:   tools/monster_protocol/illustrative_meanings
+	new file:   tools/monster_protocol/l_functions_system
+	new file:   tools/monster_protocol/modular_forms
+	new file:   tools/monster_protocol/monster.cpp
+	new file:   tools/monster_protocol/monster_trace_simple
+	new file:   tools/monster_protocol/monster_traits.mzn
+	new file:   tools/monster_protocol/prime_factor_assignments
+	new file:   tools/monster_protocol/program_composition
+	new file:   tools/monster_protocol/quasi_fiber_bundle
+	new file:   tools/monster_protocol/reason_47_triality
+	new file:   tools/monster_protocol/reason_53_frobenius
+	new file:   tools/monster_protocol/reason_62_gorenstein
+	new file:   tools/monster_protocol/reason_65_semantic_equivalence
+	new file:   tools/monster_protocol/reboot.md
+	new file:   tools/monster_protocol/reproduce_monster_ffi_bug.sh
+	new file:   tools/monster_protocol/semantic_linkage
+	new file:   tools/monster_protocol/src/abstract_processing_traits.rs
+	new file:   tools/monster_protocol/src/cargo2nix_ingestion.rs
+	new file:   tools/monster_protocol/src/git_backed_rocksdb.rs
+	new file:   tools/monster_protocol/src/git_cargo_indexer.rs
+	new file:   tools/monster_protocol/src/git_repo_graph.rs
+	new file:   tools/monster_protocol/src/lazy_ast_processor.rs
+	new file:   tools/monster_protocol/src/lib.rs
+	new file:   tools/monster_protocol/src/llm_monstrous_traits.rs
+	new file:   tools/monster_protocol/src/llm_monstrous_traits2.rs
+	new file:   tools/monster_protocol/src/main.rs
+	new file:   tools/monster_protocol/src/r1cs_trait_examples.rs
+	new file:   tools/monster_protocol/src/rocksdb_consolidation.rs
+	new file:   tools/monster_protocol/src/rust_llm_minizinc_bridge.rs
+	new file:   tools/monster_protocol/src/trait_trace_execution.rs
+	new file:   tools/monster_protocol/src/unified_cargo_parser.rs
+	new file:   tools/monster_protocol/src/unified_decl_splitter.rs
+	new file:   tools/monster_protocol/src/unified_git_processor.rs
+	new file:   tools/monster_protocol/src/universal_compiler_traits.rs
+	new file:   tools/monster_protocol/src/universal_processing_pipeline.rs
+	new file:   tools/monster_protocol/structural_invariants
+	new file:   tools/monster_protocol/supersingular_protocol
+	new file:   tools/monster_protocol/three_core_components
+	new file:   tools/monster_protocol/toolchain_mapping
+	new file:   tools/monster_protocol/triality_factors
+	new file:   tools/monster_protocol/verification_optimality
 
 Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
+  (use "git add/rm <file>..." to update what will be committed)
   (use "git restore <file>..." to discard changes in working directory)
   (commit or discard the untracked or modified content in submodules)
-	modified:   .gitmodules
 	modified:   Cargo.toml
+	modified:   Makefile
 	modified:   ai-agent-terraform (untracked content)
+	deleted:    base_space
+	deleted:    canonical_meanings
+	deleted:    complexity_system
+	deleted:    core_architecture
+	deleted:    critical_mappings
+	deleted:    executable_architecture
+	modified:   flake.lock
 	modified:   flake.nix
-	modified:   note.org
+	deleted:    functional_decomposition
+	deleted:    functional_mapping
+	modified:   gitstatus.txt
+	deleted:    illustrative_meanings
+	deleted:    l_functions_system
+	deleted:    modular_forms
+	deleted:    prime_factor_assignments
+	deleted:    program_composition
+	deleted:    quasi_fiber_bundle
+	deleted:    reason_47_triality
+	deleted:    reason_53_frobenius
+	deleted:    reason_62_gorenstein
+	deleted:    reason_65_semantic_equivalence
+	deleted:    semantic_linkage
+	deleted:    structural_invariants
 	modified:   submodules/BLAKE3 (modified content)
 	modified:   submodules/KDFs (modified content)
 	modified:   submodules/MACs (modified content)
@@ -534,107 +912,14 @@ Changes not staged for commit:
 	modified:   submodules/zip2 (modified content)
 	modified:   submodules/zlib-rs (modified content)
 	modified:   submodules/zstd-rs (modified content)
+	deleted:    supersingular_protocol
+	modified:   tasks/currenttask.md
+	deleted:    three_core_components
+	deleted:    toolchain_mapping
+	deleted:    triality_factors
+	deleted:    verification_optimality
 
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
-	CMakeLists.txt
-	GRAND_VISION_UPDATE.md
-	MINIZINC_INTEGRATION_RESULTS.md
-	cmake/
-	documentation/
-	gitstatus.txt
-	include/
-	lib.rs
-	lib/
-	libsat_zkp_prover.rlib
-	minizinc_solver.rs
-	models/
-	monster.cpp
-	monster_lib/
-	monster_macro_test/
-	monster_minizinc_generator.rs
-	monster_param_generator.rs
-	monster_traits.mzn
-	nix/
-	reproduce_monster_ffi_bug.sh
-	run_monster_minizinc.sh
-	rust_block_analyzer.rs
-	src/algebra_dimension_two.rs
-	src/algorithms/
-	src/bin/
-	src/binary_duality_leech.rs
-	src/binary_power_system.rs
-	src/compiler_analyzer.rs
-	src/complexity_geometric_checker.rs
-	src/constraints.rs
-	src/conway_group.rs
-	src/dirac_consistency.rs
-	src/dirac_index.rs
-	src/eigenvalue_smooth_check.rs
-	src/eight.rs
-	src/emoji_resonance.rs
-	src/equals_zero.rs
-	src/even_check.rs
-	src/even_unimodular.rs
-	src/expressions/
-	src/five.rs
-	src/forty_six_system.rs
-	src/four.rs
-	src/golay_code.rs
-	src/griess_algebra.rs
-	src/hamming_distance.rs
-	src/hidden_lattice_component.rs
-	src/interactive_constraint_matcher.rs
-	src/k_theory_equivalence.rs
-	src/k_theory_mod8.rs
-	src/knowledgebase_formatter.rs
-	src/lattice_determinant.rs
-	src/lattice_introspector.rs
-	src/leech_zkp_constraints.rs
-	src/lib.rs
-	src/libminizinc_integration.rs
-	src/meta_meme_spore.rs
-	src/minizinc_data.rs
-	src/minizinc_data_structures.rs
-	src/minizinc_integration.rs
-	src/minizinc_introspector_integration.rs
-	src/minizinc_solver.rs
-	src/modular_form_encoding.rs
-	src/monster_108_constraints.rs
-	src/monster_ffi.cpp
-	src/monster_ffi.rs
-	src/monster_verifier.cpp
-	src/nine.rs
-	src/octal_bott_periodicity.rs
-	src/one.rs
-	src/p.rs
-	src/paren_one.rs
-	src/paren_zero.rs
-	src/parser/
-	src/r1cs_check.rs
-	src/r1cs_monster_constraints.rs
-	src/ref_system.rs
-	src/reflection_invariance.rs
-	src/rustc_block_analyzer.rs
-	src/rustc_monster_equivalence.rs
-	src/self_describing_monster.rs
-	src/seven.rs
-	src/six.rs
-	src/solvers/
-	src/source_concept.rs
-	src/stabilizer_zero.rs
-	src/structural_invariant_checker.rs
-	src/the_two.rs
-	src/three.rs
-	src/trait_extractor.rs
-	src/trait_mapper.cpp
-	src/twelve.rs
-	src/two.rs
-	src/utils/
-	src/vernacular_monster_path.rs
-	src/void_stabilizer.rs
-	src/volume_complement.rs
-	src/zero.rs
-	src/zkp_monster_circuit.rs
+	status.txt
 
-no changes added to commit (use "git add" and/or "git commit -a")

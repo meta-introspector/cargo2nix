@@ -1,27 +1,58 @@
-### Problem: Cyclic Package Dependency during `add_submodules` build
+### Universal Processing Pipeline: Git → Monster Deduplication
 
-The `cargo build -p cargo-repo-sync --bin add_submodules` command fails with a "cyclic package dependency" error, specifically:
-`package parking_lot v0.12.5 (...) depends on itself. Cycle: parking_lot -> tracing-subscriber -> loom -> crossbeam-utils -> crossbeam-epoch -> crossbeam-deque -> rayon-core -> rayon -> hashbrown -> indexmap -> gimli -> addr2line -> backtrace -> parking_lot_core -> parking_lot`
+Implement the complete pipeline that processes all git submodules through hierarchical decomposition into Monster Group accounts, with progressive deduplication via 108 Monster factors.
 
-This cycle arises because `Cargo`'s resolver detects a circular dependency among path dependencies. Even though submodules are added and `[patch.crates-io]` entries exist in the root `Cargo.toml`, the `Cargo.toml` files *within* the submodules (and their sub-crates) are still referencing each other in a way that creates a loop.
+#### Pipeline Architecture:
+```
+Git Repos → Cargo Crates → Files → Decls → Types → Monster Factors (108)
+     ↓           ↓          ↓       ↓       ↓            ↓
+RocksDB    RocksDB    RocksDB  RocksDB  RocksDB   Deduplicated
+Accounts   Accounts   Accounts Accounts Accounts   Monster DB
+```
 
-The `patch_cargo_toml` function, in its current form, is not effectively breaking this cycle because:
-1.  It primarily focuses on top-level submodules and might not correctly identify or modify dependencies that are sub-crates of other vendored submodules (e.g., `parking_lot_core` is a sub-crate of `parking_lot`).
-2.  The `vendored_crates` list passed to `patch_cargo_toml` currently only includes the names of top-level submodules, not their internal sub-crates.
+#### Processing Tools Integration (6+ each):
 
-### Proposed Solution: Refine `patch_cargo_toml` and Dependency Discovery
+**Git Submodule Processors:**
+- cargo-repo-sync-lib, cargo-submodule-tool, dep2submodule
+- generate_workspace_deps, repo_manager, git-wrapper-lib
 
-To resolve this, the `patch_cargo_toml` function and the dependency discovery mechanism need to be more robust:
+**Cargo Parsers:**
+- cargo-feature-adapter, cargo-edit-lib, cargo-toml-editor
+- real-toml-adapter, cargo-vendormod, cargo-workspace-from-tree
 
-1.  **Comprehensive `vendored_crates` List:**
-    *   The `vendored_crates` list must be expanded to include *all* crate names that are part of the vendored set, including sub-crates within multi-crate submodules (e.g., `parking_lot_core` should be in this list, not just `parking_lot`).
-    *   This requires a more sophisticated discovery process that not only finds top-level `Cargo.toml` files but also parses them to identify all internal crates (members of a workspace within a submodule, or individual crates within a submodule directory structure).
+**Decl Splitters:**
+- syn-adapter-lib, extract_traits_features, monster_ast_classifier
+- level0_rust, rust-src-scanner, rust-71-parts
 
-2.  **Aggressive `Cargo.toml` Patching:**
-    *   The `patch_cargo_toml` function needs to ensure that *any* dependency found in a submodule's `Cargo.toml` that corresponds to a crate in the comprehensive `vendored_crates` list is converted to use `workspace = true`.
-    *   This involves removing any explicit `version`, `git`, `branch`, or `path` keys from such dependencies and inserting `workspace = true`. This will force Cargo to resolve these dependencies through the root workspace's `[workspace.dependencies]` or `[patch.crates-io]` sections, effectively breaking internal cycles.
+#### Implementation Steps:
 
-3.  **Re-evaluate `[workspace.dependencies]` and `[patch.crates-io]` Interaction:**
-    *   Ensure that the entries in the root `Cargo.toml`'s `[workspace.dependencies]` and `[patch.crates-io]` sections are consistent and do not inadvertently create new conflicts or cycles. The primary goal is for all vendored dependencies to be resolvable through the workspace mechanism.
+1. **Abstract Processing Tools as Traits**
+   - Create `UniversalProcessingPipeline` trait
+   - Implement `MonsterDeduplication` for progressive folding
+   - Map existing tools to trait implementations
 
-By implementing these changes, the system should be able to correctly resolve the dependencies and break the cyclic dependency error. The next step is to enhance the `RepoDiscoverer` to find all sub-crates and then update `patch_cargo_toml` to use this more comprehensive list.
+2. **Hierarchical Account Creation**
+   - Each git repo → RocksDB account with Monster signature
+   - Each cargo crate → Child account with inheritance
+   - Each file/decl/type → Nested accounts with Monster factors
+
+3. **Monster Factor Assignment**
+   - Assign 1 of 108 Monster factors to each type node
+   - Group by factor for deduplication
+   - Assert all nodes are Monster Group symmetries
+
+4. **Progressive AST Folding**
+   - Merge nodes with identical Monster signatures
+   - Fold similar AST structures progressively
+   - Prove equivalence through Monster Group operations
+
+5. **Integration with Existing Databases**
+   - Connect to rust-71-parts databases
+   - Merge with monster_protocol results
+   - Maintain git-backed lazy loading
+
+#### Success Criteria:
+- All 18+ processing tools abstracted as traits
+- Complete git → Monster account pipeline
+- Deduplication via 108 Monster factors
+- Progressive AST folding with symmetry proofs
