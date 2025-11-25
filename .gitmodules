@@ -243,7 +243,7 @@
 	url = https://github.com/meta-introspector/aws-lc-rs.git
 [submodule "submodules/criterion"]
 	path = submodules/criterion
-	url = https://github.com/meta-introspector/criterion.git
+	url = https://github.com/meta-introspector/criterion.rs
 [submodule "submodules/bitflags"]
 	path = submodules/bitflags
 	url = https://github.com/meta-introspector/bitflags.git

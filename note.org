@@ -12,3 +12,12 @@ we need to then read the blocks of the rust compiler from our db, and compare th
 so the input is the venacular embedding of the rust, and the ouput is the monster, and minizinc will solve for a path between.
 it will be easy for the code we generated to describe the monster code,
 but it will partially match the rust compiler itself. we will the review an tweakt he constraints interativly.
+
+git module -> fork of -> git module.
+git module <- upstream of <- git module.
+git module - same name as - git module.
+git module - defined in repo of -> cargo module
+cargo toml - in file in - git module
+cargo module < uses  <- cargo module
+rustc = cargo module in git repos.
+

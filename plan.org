@@ -1,6 +1,3 @@
-graphql
-https://github.com/graphql-rust/juniper add this as as submodule.
-
 treat each datatype in rustc, each point in the lattice of functions as a graphql type that can be served queried and used alone or in a group.
 be able to decouple stages of the compiler.
 
@@ -18,5 +15,26 @@ each data type, each function, aspect  of the compiler is turned into  a trait a
 the heck operators connects teh schemes via numerics giving them a meta programming numeric represntation that up holds all constraints.
 eventaully we get superconstrained like the lmfdb functions that are symmetrical and harmonic on many dimensions.
 
-
 all the dependencies of a chunk of nodes become the address because the cas contains the signatures of all the things it needs. 
+
+yes now we want to load our git modules and erlations into 1 db, then cargo crates into 2 db then the ast decls to 3 db. then we will find similarity between the delcs and have them all linked. each object gets it own content id
+yes, very good, we have so much code so much duplication. lets load this code into our rocksdb and find similar code via our monster algorithm.
+ok now produce a list and order of the cargo crate built as a report and show what submodule it will build at what branch
+yes /mnt/data1/nix/vendor/rust/cargo2nix/tools/rust-bootstrap-nix/ you can read all that we started to rewrite rustc bootstrap from python to rust multiple times.
+now we will look we wrote quite a few cargo level and code level code. we want to develop a plan to build solana rustc crate by crate not using cargo. but we want to construct our own driver that will force it to use submodules for all code. we will use nix compiler. we have all this code written, you just have to find it. see our rust nix bootstrap code.
+/mnt/data1/nix/vendor/rust/cargo2nix/git_files_inventory2.txt is being updated, now we need to open all the .gitmodules from all the git and import the links lets show show what paths, what branchs, what versions are at what locations, what is duplicatd. we need to import all the cargo locks from rust and our code here and find all the git repos from the code via the cargo metadata. see we have some code for that somewhere. search tools for cargo.
+that has 500 crates as is still loading.
+
+
+1. git repo -> forks in meta-introspector -> submodule -> branchs <-> crate <- cargo metadata
+2. crate <- cargo metadata -> subodules/ git repo , rust files -> rustc.
+3. rustc|syn|llvm traits -> decl
+4. decl -> graphql queries|constraints| levels | 108 tests| monster index for each decl.
+5. find closest decls by monster index.
+6. each decl requires objects of mosnter index and the composite lattice postition is all the factors of input + proc + output factors.
+7. this will allow us to dedupliate everytthing ew need to boostrap rust.
+   then we will extract each layer of functions in rust and wrap it in serde traits so we can sample and resuume each step and run it inside and outside the compiler
+8. rocksdb becomes the compilers memory.
+9. solana accounts will use each decl as a program as a contract
+10. nix store, git objects, ipfs objects, agent memory, solana accounts, memes all become one thing.
+    
