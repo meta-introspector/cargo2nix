@@ -19,3 +19,4 @@ the heck operators connects teh schemes via numerics giving them a meta programm
 eventaully we get superconstrained like the lmfdb functions that are symmetrical and harmonic on many dimensions.
 
 
+all the dependencies of a chunk of nodes become the address because the cas contains the signatures of all the things it needs. 

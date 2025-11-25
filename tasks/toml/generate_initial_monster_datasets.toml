@@ -1,0 +1,13 @@
+name = "Generate Initial Monster Constraint Datasets (.dzn)"
+description = """
+Implement the logic in `monster_minizinc_generator.rs` to generate the data files (`trait_data.dzn`)
+for all extracted traits from the targeted `rustc` components, ensuring comprehensive data
+for the MiniZinc SAT solver.
+"""
+status = "todo"
+priority = "HIGH"
+depends_on = [
+    "apply_trait_extraction_to_rust_compiler.toml",
+    "define_minizinc_data_structures.toml"
+]
+components = ["monster_minizinc_generator.rs", "trait_data.dzn", "MiniZinc SAT solver"]

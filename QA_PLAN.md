@@ -1,167 +1,175 @@
-# QA Plan: Monster Group rustc Verification System
+# QA Plan - MiniZinc Integration & Monster Protocol
 
-## Test Categories
+## Critical Path Testing (Priority 1)
 
-### 1. Mathematical Correctness
-- [ ] **Prime Factorization**: Verify Monster Group order = 2^46 × 3^20 × 5^9 × 7^6 × 11^2 × 13^3 × 17 × 19 × 23 × 29 × 31 × 41 × 47 × 59 × 71
-- [ ] **Conway Construction**: Validate each step from base groups (2,3,5,7) to Monster
-- [ ] **Sylow Subgroups**: Confirm prime power assignments match rustc components
-- [ ] **Ramanujan τ(n)**: Verify tau function values for n=1..20
-
-### 2. SAT Solver Verification
-- [ ] **DPLL Algorithm**: Test unit propagation and backtracking
-- [ ] **Monster Constraints**: Verify SAT encoding of prime factor assignments
-- [ ] **Satisfiability**: Confirm all 108 supersingular reasons are satisfiable
-- [ ] **Unsatisfiable Cases**: Test constraint violations are properly detected
-
-### 3. ZKP System Validation
-- [ ] **Proof Generation**: Verify 108 ZK proofs are created correctly
-- [ ] **Witness Validity**: Confirm witness data matches public inputs
-- [ ] **Proof Verification**: Test proof validation logic
-- [ ] **Rollup Batch**: Verify batch contains exactly 108 proofs
-
-### 4. LLM Review System
-- [ ] **Enumeration Logic**: Test Monster factor vs τ(n) classification
-- [ ] **Prompt Generation**: Verify review prompts contain correct mathematical context
-- [ ] **Response Parsing**: Test APPROVED/REJECTED/REVISION_REQUIRED handling
-- [ ] **Review Queue**: Confirm pending reviews are processed correctly
-
-### 5. Component Integration
-- [ ] **rustc Mapping**: Verify all major rustc components are assigned prime factors
-- [ ] **Order Calculation**: Confirm total rustc order equals Monster Group order
-- [ ] **Constraint Consistency**: Test no conflicting prime assignments
-- [ ] **Coverage Completeness**: Verify all 108 reasons are covered
-
-## Test Execution Plan
-
-### Phase 1: Unit Tests
+### 1. Core Compilation Safety
 ```bash
-# Test individual components
-cargo test pure_rust_sat::tests
-cargo test zkp_sat_solver::tests  
-cargo test conway_monster_proof::tests
-cargo test llm_proof_reviewer::tests
+# Verify existing cargo2nix functionality unchanged
+nix build
+cargo build
+cargo test
 ```
+**Expected**: All existing tests pass, no regressions
+**Blocker**: Any failure stops further testing
 
-### Phase 2: Integration Tests
+### 2. Nix Environment Integrity
 ```bash
-# Test component interactions
-make monster-group-assignment
-make generate-zkp-proofs
-make conway-monster-proof
-make llm-proof-review
+nix develop
+nix flake check
 ```
+**Expected**: Clean environment setup
+**Blocker**: Environment corruption prevents development
 
-### Phase 3: End-to-End Verification
+### 3. Basic Module Compilation
 ```bash
-# Complete pipeline test
-make complete-monster-verification
+# Test each new module compiles
+find src/ -name "*.rs" -newer Cargo.toml | xargs -I {} rustc --crate-type lib {}
 ```
+**Expected**: No compilation errors
+**Critical**: Syntax/type errors must be fixed
 
-### Phase 4: Mathematical Validation
+## Integration Testing (Priority 2)
+
+### 4. MiniZinc Solver Integration
 ```bash
-# Verify mathematical properties
-cargo run --bin verify_monster_order
-cargo run --bin validate_conway_construction
-cargo run --bin check_prime_assignments
+# Test MiniZinc installation and basic solving
+minizinc --version
+./run_monster_minizinc.sh
 ```
+**Test cases**:
+- Solver finds solutions for simple constraints
+- Error handling for unsatisfiable problems
+- Performance on medium-sized problems
 
-## Success Criteria
-
-### Critical Requirements
-- [ ] **rustc ≡ M**: Total rustc component order equals Monster Group order
-- [ ] **108 Proofs**: All supersingular reasons have valid ZK proofs
-- [ ] **SAT Satisfiable**: Monster Group constraints are satisfiable
-- [ ] **Conway Valid**: Construction follows Conway's method correctly
-
-### Quality Requirements  
-- [ ] **LLM Approval**: >95% of proof steps approved by LLM review
-- [ ] **Performance**: Complete verification in <10 minutes
-- [ ] **Reproducibility**: Same results across multiple runs
-- [ ] **Documentation**: All mathematical steps clearly documented
-
-## Test Data
-
-### Monster Group Constants
-```rust
-const MONSTER_ORDER: u64 = 808017424794512875886459904961710757005754368000000000;
-const PRIME_FACTORS: [(u64, u32); 15] = [
-    (2, 46), (3, 20), (5, 9), (7, 6), (11, 2), (13, 3),
-    (17, 1), (19, 1), (23, 1), (29, 1), (31, 1), (41, 1),
-    (47, 1), (59, 1), (71, 1)
-];
+### 5. CMake Build System
+```bash
+mkdir build && cd build
+cmake ..
+make -j$(nproc)
 ```
+**Test cases**:
+- All targets build successfully
+- C++ solver libraries link correctly
+- FFI bindings work
 
-### Test rustc Components
-```rust
-const RUSTC_COMPONENTS: [&str; 15] = [
-    "rustc_driver", "rustc_middle", "rustc_codegen", "rustc_borrowck",
-    "rustc_resolve", "rustc_trait_selection", "rustc_ast", "rustc_hir",
-    "rustc_mir", "rustc_codegen_llvm", "rustc_metadata", "rustc_interface",
-    "rustc_session", "rustc_main", "rustc_lexer"
-];
+### 6. Monster Protocol Core
+```bash
+cd tools/monster_protocol
+cargo build
+cargo test
 ```
+**Test cases**:
+- Trait system compiles
+- Core mathematical operations work
+- Data structures serialize/deserialize
 
-## Failure Scenarios
+## Mathematical Correctness (Priority 3)
 
-### Mathematical Errors
-- Prime factorization mismatch
-- Conway construction step invalid
-- Component order calculation wrong
-- τ(n) values incorrect
+### 7. Constraint Model Validation
+**Manual review required**:
+- `models/*.mzn` files for mathematical correctness
+- Constraint satisfaction properties
+- Model completeness for intended use cases
 
-### System Failures
-- SAT solver returns UNSAT
-- ZKP verification fails
-- LLM review rejects critical steps
-- Rollup batch incomplete
+### 8. ZKP Circuit Verification
+```bash
+# Test ZKP components
+cargo test zkp_
+cargo test r1cs_
+```
+**Test cases**:
+- Circuit generation produces valid constraints
+- Witness generation works for valid inputs
+- Verification accepts valid proofs, rejects invalid
 
-### Integration Issues
-- Component mapping conflicts
-- Missing rustc modules
-- Proof step enumeration gaps
-- Review queue processing errors
+### 9. Mathematical Module Correctness
+**Areas requiring domain expert review**:
+- Group theory implementations (`conway_group.rs`, etc.)
+- Modular form encodings
+- Lattice operations
+- K-theory computations
 
-## Automated Testing
+## Performance & Scalability (Priority 4)
 
-### CI/CD Pipeline
+### 10. Solver Performance
+```bash
+# Benchmark constraint solving
+time minizinc models/monster_optimization.mzn
+```
+**Metrics**:
+- Solution time < 10s for basic problems
+- Memory usage reasonable
+- Scaling behavior documented
+
+### 11. Build Time Impact
+```bash
+# Measure compilation time increase
+time cargo build --release
+```
+**Acceptance**: <50% increase in build time
+
+## Documentation & Usability (Priority 5)
+
+### 12. Documentation Completeness
+**Check**:
+- All public APIs documented
+- Examples compile and run
+- Integration guides accurate
+
+### 13. Error Messages
+**Verify**:
+- Clear error messages for common failures
+- Helpful debugging information
+- Graceful degradation when solvers unavailable
+
+## Automated Testing Setup
+
+### 14. CI Integration
 ```yaml
-test_monster_verification:
-  steps:
-    - run: make monster-group-assignment
-    - run: make generate-zkp-proofs  
-    - run: make conway-monster-proof
-    - run: make complete-monster-verification
-    - assert: rustc_order == monster_order
-    - assert: zkp_proofs.len() == 108
-    - assert: conway_construction.valid == true
+# Add to CI pipeline
+- name: Test MiniZinc Integration
+  run: |
+    nix develop --command bash -c "
+      cargo test minizinc_
+      ./run_monster_minizinc.sh --test-mode
+    "
 ```
 
-### Regression Tests
-- Monitor for prime assignment changes
-- Verify Monster Group order remains constant
-- Check Conway construction steps unchanged
-- Validate ZKP proof format consistency
-
-## Documentation Requirements
-
-### Mathematical Proofs
-- [ ] Conway construction proof document
-- [ ] Prime factorization verification
-- [ ] Component mapping justification
-- [ ] ZKP correctness proofs
-
-### System Documentation
-- [ ] SAT solver algorithm explanation
-- [ ] ZKP generation process
-- [ ] LLM review workflow
-- [ ] Integration architecture
+### 15. Regression Test Suite
+**Create tests for**:
+- Each major component
+- Integration points
+- Performance benchmarks
+- Error conditions
 
 ## Sign-off Criteria
 
-**Mathematics Team**: ✅ All mathematical proofs verified
-**Engineering Team**: ✅ All systems tests pass  
-**QA Team**: ✅ End-to-end verification successful
-**Security Team**: ✅ ZKP system validated
+### Must Pass (Blockers)
+- [ ] Core cargo2nix functionality unchanged
+- [ ] Nix environment builds cleanly
+- [ ] All Rust modules compile
+- [ ] Basic MiniZinc integration works
 
-**Final Verification**: rustc ≡ M (Monster Group) ✅
+### Should Pass (Major Issues)
+- [ ] CMake build system works
+- [ ] Monster protocol core tests pass
+- [ ] Mathematical models validated
+- [ ] Performance acceptable
+
+### Nice to Have (Minor Issues)
+- [ ] Full ZKP pipeline tested
+- [ ] All documentation complete
+- [ ] Comprehensive error handling
+- [ ] Optimization benchmarks
+
+## Testing Timeline
+1. **Day 1**: Critical path testing (items 1-3)
+2. **Day 2**: Integration testing (items 4-6)
+3. **Day 3**: Mathematical validation (items 7-9)
+4. **Day 4**: Performance testing (items 10-11)
+5. **Day 5**: Documentation review (items 12-13)
+
+## Risk Mitigation
+- **Rollback plan**: Revert to previous commit if critical tests fail
+- **Isolation**: New features behind feature flags where possible
+- **Incremental**: Enable components progressively after validation

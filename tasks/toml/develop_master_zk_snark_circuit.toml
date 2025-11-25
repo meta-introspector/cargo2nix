@@ -1,0 +1,9 @@
+name = "Develop Master ZK-SNARK Circuit for 108 Constraints"
+description = """
+Write a complete Circom circuit incorporating all 108 R1CS constraints.
+The circuit will take public inputs (modular form parameters and coefficients)
+and output a valid proof only if the modular form satisfies all constraints.
+"""
+status = "todo"
+depends_on = ["translate_architectural_constraints_to_r1cs.toml"]
+tools = ["Circom"]

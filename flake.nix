@@ -50,6 +50,8 @@
           pkgs.libclang
           pkgs.clang_19
           pkgs.pkg-config
+          pkgs.minizinc
+          pkgs.gecode
         ];
         shellHook = ''
           export PKG_CONFIG_PATH=${pkgs.openssl_1_1.dev}/lib/pkgconfig:${pkgs.zlib.dev}/lib/pkgconfig:$PKG_CONFIG_PATH
@@ -84,6 +86,17 @@
       packages = rec {
         inherit cargo;
         default = cargo;
+        
+        minizinc-env = (import ./nix/minizinc.nix { inherit pkgs lib; }).minizinc-env;
+        
+        monster-solution = (import ./nix/minizinc.nix { inherit pkgs lib; }).runMiniZinc {
+          model = ./models/monster_optimization.mzn;
+          data = ./models/monster_data.dzn;
+        };
+        
+        knowledgebase-solution = (import ./nix/minizinc.nix { inherit pkgs lib; }).runMiniZinc {
+          model = ./models/knowledgebase_optimization.mzn;
+        };
       };
 
       apps = rec {

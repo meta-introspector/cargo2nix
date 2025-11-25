@@ -1,0 +1,13 @@
+name = "Define Analytic Task of rustc as ZKP Generation"
+description = """
+Formalize the "analytic task" of rustc as the process of proving program properties through
+ZKP generation, specifically using the `MonstrouslyVerified::emit_monstrous_zk_proof` method.
+This includes type system, borrow checker, and compile-time SAT solvers. Document that the ZKP
+is the single, constant-size numerical invariant cryptographically attesting to verified properties.
+"""
+status = "todo"
+depends_on = [
+    "develop_witness_generation_module.toml",
+    "map_rust_semantics_to_modular_forms.toml"
+]
+related_concepts = ["Zero-Knowledge Proof (ZKP)", "type system", "borrow checker", "SAT solvers", "MonstrouslyVerified trait", "emit_monstrous_zk_proof method"]

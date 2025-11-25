@@ -1,0 +1,12 @@
+name = "Specify Mapping from Geometric Inputs to Modular Form Parameters"
+description = """
+Specify the precise mapping from geometric input properties (ASTs, Lattices) to modular form parameters
+(Weight (w), Level (l), q-expansion coefficients (a_n), Program Discriminant (Δ(A))).
+Justify each mapping (e.g., AST complexity to Weight, Contextual Scope to Level).
+"""
+status = "todo"
+depends_on = [
+    "implement_rust_program_to_modular_form_encoding.toml",
+    "implement_llm_activation_lattice.toml",
+    "define_core_mathematical_models.toml"
+]

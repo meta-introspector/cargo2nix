@@ -1,0 +1,72 @@
+%{
+#include "../../include/monster_ast.hh"
+#include <string>
+#include <vector>
+
+extern int monster_yylex();
+void monster_yyerror(const char* s);
+
+MonsterGroup::TraitNode* parsed_trait = nullptr;
+%}
+
+%union {
+    char* string_val;
+    uint64_t int_val;
+    MonsterGroup::TraitNode* trait_node;
+}
+
+%token <string_val> IDENTIFIER
+%token <int_val> INTEGER
+%token TRAIT ELEMENT HECKE HASH
+%token COLON SEMICOLON NEWLINE
+
+%type <trait_node> trait_decl
+%type <int_val> trait_value
+
+%start trait_list
+
+%%
+
+trait_list:
+    /* empty */
+    | trait_list trait_decl NEWLINE { parsed_trait = $2; }
+    ;
+
+trait_decl:
+    TRAIT IDENTIFIER COLON trait_body {
+        $$ = new MonsterGroup::TraitNode();
+        $$->name = std::string($2);
+        free($2);
+    }
+    ;
+
+trait_body:
+    trait_value_list
+    ;
+
+trait_value_list:
+    trait_value_item
+    | trait_value_list trait_value_item
+    ;
+
+trait_value_item:
+    ELEMENT COLON INTEGER SEMICOLON {
+        if (parsed_trait) parsed_trait->monster_element = $3;
+    }
+    | HECKE COLON INTEGER SEMICOLON {
+        if (parsed_trait) parsed_trait->hecke_value = static_cast<int32_t>($3);
+    }
+    | HASH COLON INTEGER SEMICOLON {
+        if (parsed_trait) parsed_trait->hash_value = static_cast<uint32_t>($3);
+    }
+    ;
+
+trait_value:
+    INTEGER { $$ = $1; }
+    ;
+
+%%
+
+void monster_yyerror(const char* s) {
+    // Error handling
+}

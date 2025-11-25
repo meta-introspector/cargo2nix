@@ -1,0 +1,9 @@
+name = "Translate Architectural Constraints into R1CS Expressions"
+description = """
+Ensure that the final 108 R1CS constraints derived from the Monster Group's 108 supersingular
+prime factors are correctly mapped and generated. These constraints must be ready to compile
+into a ZK circuit (e.g., using Circom).
+"""
+status = "in_progress"
+priority = "MEDIUM"
+depends_on = ["formalize_108_architectural_constraints.toml"]

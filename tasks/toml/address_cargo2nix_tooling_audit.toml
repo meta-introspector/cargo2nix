@@ -1,0 +1,23 @@
+name = "Address Critical Action Items from cargo2nix Tooling Audit"
+description = """
+Address critical action items from the cargo2nix audit. This includes:
+replacing placeholder secrets, building/testing core binaries (solana_validator_demo,
+monster_cloudformation_generator), implementing comprehensive error handling for
+generator scripts, restricting security group rules, and enabling encryption/logging.
+This task provides a high-level goal for `rust-secret-manager.md` and touches
+on `replace_shell_scripts_with_rust` and `workspace_compile_time_and_warning_reduction`.
+"""
+status = "todo"
+depends_on = []
+steps = [
+    "Replace Placeholder Secrets: Replace all placeholder secrets with cryptographically secure, generated secrets (e.g., using `openssl rand -hex 32`).",
+    "Build and Test Core Binaries: Compile and run tests for `solana_validator_demo` and `monster_cloudformation_generator`.",
+    "Implement Comprehensive Error Handling: Refactor all generator scripts for robust error handling and input validation.",
+    "Restrict Security Group Rules: Limit network access rules to minimum required ports and IP ranges.",
+    "Enable Encryption and Logging: Ensure encryption-at-rest for storage and comprehensive audit logging."
+]
+related_tasks = [
+    "rust-secret-manager.md",
+    "replace_shell_scripts_with_rust.toml",
+    "workspace_compile_time_and_warning_reduction.toml"
+]

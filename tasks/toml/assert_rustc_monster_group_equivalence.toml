@@ -1,0 +1,10 @@
+name = "Assert rustc-Monster Group Equivalence and Adherence to 108 Constraints (Superseded)"
+description = """
+This task is superseded by `establish_constructive_proof_rustc_monster_equivalence.toml`,
+which focuses on establishing a provable, constructive, algorithmic link for the rustc-Monster Group equivalence,
+moving beyond mere assertion.
+"""
+status = "superseded"
+depends_on = ["formalize_108_architectural_constraints.toml"]
+related_tasks = ["establish_constructive_proof_rustc_monster_equivalence.toml"]
+

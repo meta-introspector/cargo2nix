@@ -1,0 +1,13 @@
+name = "Refine Nix Environment for Toolchain Integrity"
+description = """
+Focus on the `cargo2nix` architecture plan to replace Python and shell scripts with Rust traits
+and functors and implement the full Git submodule automation. This ensures the Base Space
+(deterministic state of the build system) remains a pure, verifiable artifact.
+"""
+status = "todo"
+priority = "LOWER"
+depends_on = [
+    "replace_shell_scripts_with_rust.toml",
+    "automate_git_submodule_lifecycle.toml",
+    "centralize_rust_dependency_management.toml"
+]

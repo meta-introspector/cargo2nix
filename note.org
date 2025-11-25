@@ -1,9 +1,14 @@
 the amazing thing is
 1. the ai seems to be self motivated.
 2. we can check this.
-3. he is producting rust code that we can then compile and compare against other structure using it as an index.
+3. the ai is producing rust code that we can then compile and compare numerically against other existing structure using the monster number as an index.
 4. relateing the rust structures to the numbers.
 5. we can then apply this analysis against ofther code and check if it is similar or has similar patterns.
 
    then when we feed that generated tested code and its results back into the scanner it should reach a fixed point.
 ok lets try and code it, my idea is we use a sat solver to search for proofs, we construct a zk circuit of the program.
+
+we need to then read the blocks of the rust compiler from our db, and compare them to the blocks of the tool itself. also we want to apply it to our codebase to augment it, extract traints, replace external code witht traits. hide impls in traits, creeate dummy versions of all externals. define code as the set of traits it consumes and produces as its type. enumeracte all those types. map them into the monster group. use the sat solver to prove it. use minizinc. see minizinc-introspector code. 
+so the input is the venacular embedding of the rust, and the ouput is the monster, and minizinc will solve for a path between.
+it will be easy for the code we generated to describe the monster code,
+but it will partially match the rust compiler itself. we will the review an tweakt he constraints interativly.

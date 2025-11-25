@@ -1,0 +1,9 @@
+name = "Develop Mina zkApp for On-Chain Verification and State Management"
+description = """
+Design and build a Mina zkApp smart contract responsible for receiving and verifying
+aggregated ZK proofs, managing minimal on-chain state (public_state_hash,
+chains_bitmap, total_transactions).
+"""
+status = "todo"
+depends_on = ["develop_witness_generation_module.toml"]
+blockchain = "Mina"

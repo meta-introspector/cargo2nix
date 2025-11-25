@@ -1,0 +1,12 @@
+name = "Iteratively Refine Monster Group Representations"
+description = """
+Support the interactive refinement process by building a user interface (or agent tool) that
+allows users (or the agent itself) to review and tweak the constraints iteratively based on
+`BlockAnalyzer` output and MiniZinc feedback.
+"""
+status = "todo"
+priority = "LOWER"
+depends_on = [
+    "verify_monster_group_trait_mapping.toml",
+    "execute_optimal_constraint_solving.toml"
+]

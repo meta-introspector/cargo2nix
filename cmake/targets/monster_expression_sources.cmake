@@ -1,0 +1,10 @@
+set(MONSTER_EXPRESSION_SOURCES
+    ${PROJECT_SOURCE_DIR}/src/expressions/monster_trait_expr.cpp
+    ${PROJECT_SOURCE_DIR}/src/expressions/monster_element_expr.cpp
+    ${PROJECT_SOURCE_DIR}/src/expressions/monster_hecke_expr.cpp
+    ${PROJECT_SOURCE_DIR}/src/expressions/monster_modular_expr.cpp
+    ${PROJECT_SOURCE_DIR}/src/expressions/monster_orbit_expr.cpp
+    ${PROJECT_SOURCE_DIR}/src/expressions/monster_constraint_expr.cpp
+    ${PROJECT_SOURCE_DIR}/src/expressions/monster_verification_expr.cpp
+    ${PROJECT_SOURCE_DIR}/src/expressions/monster_mapping_expr.cpp
+)

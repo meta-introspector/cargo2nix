@@ -1,0 +1,12 @@
+name = "Document Implementation of Key Constraints"
+description = """
+Produce internal documentation linking the Rust code implementation (e.g., `src/octal_bott_periodicity.rs`,
+`src/even_unimodular.rs`) to the 108 Supersingular Reasons. Specific constraints include
+Octal Periodicity ($KTheoryDimension \cdot Mod 8 = 0$) and Complexity Weight ($ModularFormWeight \cdot ComplexityBound \le w$).
+"""
+status = "todo"
+priority = "LOWER"
+depends_on = [
+    "formalize_108_architectural_constraints.toml",
+    "document_108_architectural_constraints.toml"
+]
