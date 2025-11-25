@@ -1,0 +1,3172 @@
+{
+  "repos": {
+    "msgpack-rust": {
+      "url": "https://github.com/unknown/msgpack-rust.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "tls": {
+      "url": "https://github.com/unknown/tls.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "subtle": {
+      "url": "https://github.com/unknown/subtle.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "pin-project-lite": {
+      "url": "https://github.com/unknown/pin-project-lite.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rustc-hex": {
+      "url": "https://github.com/unknown/rustc-hex.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "hashes": {
+      "url": "https://github.com/unknown/hashes.git",
+      "category": "crypto",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "arc-swap": {
+      "url": "https://github.com/unknown/arc-swap.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ungrammar": {
+      "url": "https://github.com/unknown/ungrammar.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "byteorder": {
+      "url": "https://github.com/unknown/byteorder.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "orion": {
+      "url": "https://github.com/unknown/orion.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "minimal-lexical": {
+      "url": "https://github.com/unknown/minimal-lexical.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "dlv-list-rs": {
+      "url": "https://github.com/dlv-list-rs/dlv-list.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "minicov": {
+      "url": "https://github.com/unknown/minicov.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ciborium": {
+      "url": "https://github.com/unknown/ciborium.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "fastrand": {
+      "url": "https://github.com/unknown/fastrand.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "async-stream": {
+      "url": "https://github.com/unknown/async-stream.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "unicode-segmentation": {
+      "url": "https://github.com/unknown/unicode-segmentation.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "aws-lc-rs": {
+      "url": "https://github.com/aws-lc-rs/aws-lc.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "smol": {
+      "url": "https://github.com/unknown/smol.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "fixedbitset": {
+      "url": "https://github.com/unknown/fixedbitset.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "tower": {
+      "url": "https://github.com/unknown/tower.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "addr2line": {
+      "url": "https://github.com/unknown/addr2line.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "is_terminal_polyfill": {
+      "url": "https://github.com/unknown/is_terminal_polyfill.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "serde-stacker": {
+      "url": "https://github.com/unknown/serde-stacker.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "pin-utils": {
+      "url": "https://github.com/unknown/pin-utils.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-derive-builder": {
+      "url": "https://github.com/rust-lang/rust-derive-builder.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "test": {
+      "url": "https://github.com/unknown/test.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "maplit": {
+      "url": "https://github.com/unknown/maplit.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "utf8_iter": {
+      "url": "https://github.com/unknown/utf8_iter.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "num-traits": {
+      "url": "https://github.com/unknown/num-traits.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "syscall": {
+      "url": "https://github.com/unknown/syscall.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "time-rs": {
+      "url": "https://github.com/time-rs/time.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "zip2": {
+      "url": "https://github.com/unknown/zip2.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "stability": {
+      "url": "https://github.com/unknown/stability.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rand_distr": {
+      "url": "https://github.com/unknown/rand_distr.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "heapless": {
+      "url": "https://github.com/unknown/heapless.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "miri": {
+      "url": "https://github.com/unknown/miri.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "jwalk": {
+      "url": "https://github.com/unknown/jwalk.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "openssl-probe": {
+      "url": "https://github.com/unknown/openssl-probe.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "corn": {
+      "url": "https://github.com/unknown/corn.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "fiat-crypto": {
+      "url": "https://github.com/unknown/fiat-crypto.git",
+      "category": "crypto",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "filetime": {
+      "url": "https://github.com/unknown/filetime.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "object": {
+      "url": "https://github.com/unknown/object.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "unicase": {
+      "url": "https://github.com/unknown/unicase.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "is-docker": {
+      "url": "https://github.com/unknown/is-docker.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "matchers": {
+      "url": "https://github.com/unknown/matchers.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-ordered-float": {
+      "url": "https://github.com/rust-lang/rust-ordered-float.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "lazy-static": {
+      "url": "https://github.com/unknown/lazy-static.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "tower-http": {
+      "url": "https://github.com/unknown/tower-http.git",
+      "category": "networking",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "async-io": {
+      "url": "https://github.com/unknown/async-io.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ufmt": {
+      "url": "https://github.com/unknown/ufmt.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "stdarch": {
+      "url": "https://github.com/unknown/stdarch.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "futures-timer": {
+      "url": "https://github.com/unknown/futures-timer.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "color-print": {
+      "url": "https://github.com/unknown/color-print.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "pathdiff": {
+      "url": "https://github.com/unknown/pathdiff.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "signatures": {
+      "url": "https://github.com/unknown/signatures.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "os_str_bytes": {
+      "url": "https://github.com/unknown/os_str_bytes.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "dummy_crate": {
+      "url": "https://github.com/unknown/dummy_crate.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": true
+    },
+    "autocfg": {
+      "url": "https://github.com/unknown/autocfg.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "pasetors": {
+      "url": "https://github.com/unknown/pasetors.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "bitflags": {
+      "url": "https://github.com/unknown/bitflags.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "try-lock": {
+      "url": "https://github.com/unknown/try-lock.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "MACs": {
+      "url": "https://github.com/unknown/MACs.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "time": {
+      "url": "https://github.com/unknown/time.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "googletest-rust": {
+      "url": "https://github.com/unknown/googletest-rust.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "valuable": {
+      "url": "https://github.com/unknown/valuable.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "stacker": {
+      "url": "https://github.com/unknown/stacker.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "generic-array": {
+      "url": "https://github.com/unknown/generic-array.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "httparse": {
+      "url": "https://github.com/unknown/httparse.git",
+      "category": "networking",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "globwalk": {
+      "url": "https://github.com/unknown/globwalk.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "similar": {
+      "url": "https://github.com/unknown/similar.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "portable-atomic": {
+      "url": "https://github.com/unknown/portable-atomic.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "unicode-ident": {
+      "url": "https://github.com/unknown/unicode-ident.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ref-cast": {
+      "url": "https://github.com/unknown/ref-cast.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "pest": {
+      "url": "https://github.com/unknown/pest.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "once_cell": {
+      "url": "https://github.com/unknown/once_cell.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "odds": {
+      "url": "https://github.com/unknown/odds.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rngs": {
+      "url": "https://github.com/unknown/rngs.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "cassowary-rs": {
+      "url": "https://github.com/cassowary-rs/cassowary.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "serde-rs-bytes": {
+      "url": "https://github.com/unknown/serde-rs-bytes.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "value-bag": {
+      "url": "https://github.com/unknown/value-bag.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "defmt": {
+      "url": "https://github.com/unknown/defmt.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "crossbeam": {
+      "url": "https://github.com/unknown/crossbeam.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "hermit-rs": {
+      "url": "https://github.com/hermit-rs/hermit.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "vec_mut_scan": {
+      "url": "https://github.com/unknown/vec_mut_scan.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-jni-sys": {
+      "url": "https://github.com/rust-lang/rust-jni-sys.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "windows-rs": {
+      "url": "https://github.com/windows-rs/windows.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ordered-multimap-rs": {
+      "url": "https://github.com/ordered-multimap-rs/ordered-multimap.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "async-process": {
+      "url": "https://github.com/unknown/async-process.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "juniper": {
+      "url": "https://github.com/unknown/juniper.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": true
+    },
+    "atty": {
+      "url": "https://github.com/unknown/atty.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "dissimilar": {
+      "url": "https://github.com/unknown/dissimilar.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "zerocopy": {
+      "url": "https://github.com/unknown/zerocopy.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "async-task": {
+      "url": "https://github.com/unknown/async-task.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "leb128": {
+      "url": "https://github.com/unknown/leb128.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "objc2": {
+      "url": "https://github.com/unknown/objc2.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "option_set": {
+      "url": "https://github.com/unknown/option_set.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "libz-sys": {
+      "url": "https://github.com/unknown/libz-sys.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "semver": {
+      "url": "https://github.com/unknown/semver.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "typetag": {
+      "url": "https://github.com/unknown/typetag.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "nu-ansi-term": {
+      "url": "https://github.com/unknown/nu-ansi-term.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "formats": {
+      "url": "https://github.com/unknown/formats.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "cap": {
+      "url": "https://github.com/unknown/cap.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "async-signal": {
+      "url": "https://github.com/unknown/async-signal.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "BLAKE3": {
+      "url": "https://github.com/unknown/BLAKE3.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "sized-chunks": {
+      "url": "https://github.com/unknown/sized-chunks.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-errno": {
+      "url": "https://github.com/rust-lang/rust-errno.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "defer": {
+      "url": "https://github.com/unknown/defer.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-bindgen": {
+      "url": "https://github.com/rust-lang/rust-bindgen.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "ntapi": {
+      "url": "https://github.com/unknown/ntapi.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "camino": {
+      "url": "https://github.com/unknown/camino.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "castaway": {
+      "url": "https://github.com/unknown/castaway.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "embedded-hal": {
+      "url": "https://github.com/unknown/embedded-hal.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "indoc": {
+      "url": "https://github.com/unknown/indoc.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "conpty": {
+      "url": "https://github.com/unknown/conpty.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "yaml-rust2": {
+      "url": "https://github.com/unknown/yaml-rust2.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "serde-value": {
+      "url": "https://github.com/unknown/serde-value.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "xz2-rs": {
+      "url": "https://github.com/xz2-rs/xz2.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "KDFs": {
+      "url": "https://github.com/unknown/KDFs.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "lru-slab": {
+      "url": "https://github.com/unknown/lru-slab.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "cfg_aliases": {
+      "url": "https://github.com/unknown/cfg_aliases.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "memoffset": {
+      "url": "https://github.com/unknown/memoffset.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "cargo_metadata": {
+      "url": "https://github.com/unknown/cargo_metadata.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "kv-log-macro": {
+      "url": "https://github.com/unknown/kv-log-macro.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "write16": {
+      "url": "https://github.com/unknown/write16.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "float-cmp": {
+      "url": "https://github.com/unknown/float-cmp.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "cesu8-rs": {
+      "url": "https://github.com/cesu8-rs/cesu8.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "num-modular": {
+      "url": "https://github.com/unknown/num-modular.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "shell-escape": {
+      "url": "https://github.com/unknown/shell-escape.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "termtree": {
+      "url": "https://github.com/unknown/termtree.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "wasm_sync": {
+      "url": "https://github.com/unknown/wasm_sync.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "blocking": {
+      "url": "https://github.com/unknown/blocking.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "hyper": {
+      "url": "https://github.com/unknown/hyper.git",
+      "category": "networking",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "blink-alloc": {
+      "url": "https://github.com/unknown/blink-alloc.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "diff": {
+      "url": "https://github.com/unknown/diff.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": true
+    },
+    "md5": {
+      "url": "https://github.com/unknown/md5.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-shlex": {
+      "url": "https://github.com/rust-lang/rust-shlex.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "lazycell": {
+      "url": "https://github.com/unknown/lazycell.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "expectrl": {
+      "url": "https://github.com/unknown/expectrl.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "snapbox": {
+      "url": "https://github.com/unknown/snapbox.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "serde-untagged": {
+      "url": "https://github.com/unknown/serde-untagged.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rusqlite": {
+      "url": "https://github.com/unknown/rusqlite.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "displaydoc": {
+      "url": "https://github.com/unknown/displaydoc.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "html-escape": {
+      "url": "https://github.com/unknown/html-escape.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "libtest-mimic": {
+      "url": "https://github.com/unknown/libtest-mimic.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "adler2": {
+      "url": "https://github.com/unknown/adler2.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "arbitrary": {
+      "url": "https://github.com/unknown/arbitrary.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "arraydeque": {
+      "url": "https://github.com/unknown/arraydeque.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "encoding_rs": {
+      "url": "https://github.com/unknown/encoding_rs.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "colorify": {
+      "url": "https://github.com/unknown/colorify.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "walkdir": {
+      "url": "https://github.com/unknown/walkdir.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "futures-rs": {
+      "url": "https://github.com/futures-rs/futures.git",
+      "category": "async",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "tracing": {
+      "url": "https://github.com/unknown/tracing.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "piper": {
+      "url": "https://github.com/unknown/piper.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "itertools": {
+      "url": "https://github.com/unknown/itertools.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "async-global-executor": {
+      "url": "https://github.com/unknown/async-global-executor.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "config-rs": {
+      "url": "https://github.com/config-rs/config.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-crc32fast": {
+      "url": "https://github.com/rust-lang/rust-crc32fast.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "rust-clippy": {
+      "url": "https://github.com/rust-lang/rust-clippy.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "quick-xml": {
+      "url": "https://github.com/unknown/quick-xml.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "console": {
+      "url": "https://github.com/unknown/console.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "once_cell_polyfill": {
+      "url": "https://github.com/unknown/once_cell_polyfill.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "deranged": {
+      "url": "https://github.com/unknown/deranged.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "loom": {
+      "url": "https://github.com/unknown/loom.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "version_check": {
+      "url": "https://github.com/unknown/version_check.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "anyhow": {
+      "url": "https://github.com/unknown/anyhow.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "tracing-forest": {
+      "url": "https://github.com/unknown/tracing-forest.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "http": {
+      "url": "https://github.com/unknown/http.git",
+      "category": "networking",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "partial_ref": {
+      "url": "https://github.com/unknown/partial_ref.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "crossterm-winapi": {
+      "url": "https://github.com/unknown/crossterm-winapi.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "serde-ignored": {
+      "url": "https://github.com/unknown/serde-ignored.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "log": {
+      "url": "https://github.com/unknown/log.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "supports-hyperlinks": {
+      "url": "https://github.com/unknown/supports-hyperlinks.git",
+      "category": "networking",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-analyzer": {
+      "url": "https://github.com/rust-lang/rust-analyzer.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "hyper-rustls": {
+      "url": "https://github.com/unknown/hyper-rustls.git",
+      "category": "networking",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-ini": {
+      "url": "https://github.com/rust-lang/rust-ini.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "rustc-version-rs": {
+      "url": "https://github.com/rustc-version-rs/rustc-version.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "constant_time_eq": {
+      "url": "https://github.com/unknown/constant_time_eq.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "http-body": {
+      "url": "https://github.com/unknown/http-body.git",
+      "category": "networking",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-pretty-assertions": {
+      "url": "https://github.com/rust-lang/rust-pretty-assertions.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "glob": {
+      "url": "https://github.com/unknown/glob.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "iri-string": {
+      "url": "https://github.com/unknown/iri-string.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "cast": {
+      "url": "https://github.com/unknown/cast.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": true
+    },
+    "aho-corasick": {
+      "url": "https://github.com/unknown/aho-corasick.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rustfmt": {
+      "url": "https://github.com/unknown/rustfmt.git",
+      "category": "compiler",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "libhermit-rs": {
+      "url": "https://github.com/libhermit-rs/libhermit.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "coverage-helper": {
+      "url": "https://github.com/unknown/coverage-helper.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "convert-case": {
+      "url": "https://github.com/unknown/convert-case.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ar_archive_writer": {
+      "url": "https://github.com/unknown/ar_archive_writer.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "group": {
+      "url": "https://github.com/unknown/group.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ptyprocess": {
+      "url": "https://github.com/unknown/ptyprocess.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "jiff": {
+      "url": "https://github.com/unknown/jiff.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "clang-sys": {
+      "url": "https://github.com/unknown/clang-sys.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "utils": {
+      "url": "https://github.com/unknown/utils.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "twox-hash": {
+      "url": "https://github.com/unknown/twox-hash.git",
+      "category": "crypto",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "want": {
+      "url": "https://github.com/unknown/want.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "generator-rs": {
+      "url": "https://github.com/generator-rs/generator.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "typesize": {
+      "url": "https://github.com/unknown/typesize.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "synstructure": {
+      "url": "https://github.com/unknown/synstructure.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "is_ci": {
+      "url": "https://github.com/unknown/is_ci.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "winapi-rs": {
+      "url": "https://github.com/winapi-rs/winapi.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "icu4x": {
+      "url": "https://github.com/unknown/icu4x.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "hashlink": {
+      "url": "https://github.com/unknown/hashlink.git",
+      "category": "crypto",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "system-configuration-rs": {
+      "url": "https://github.com/system-configuration-rs/system-configuration.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "concurrent-queue": {
+      "url": "https://github.com/unknown/concurrent-queue.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-url": {
+      "url": "https://github.com/rust-lang/rust-url.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "human-format-rs": {
+      "url": "https://github.com/human-format-rs/human-format.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "fs_extra": {
+      "url": "https://github.com/unknown/fs_extra.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "async-trait": {
+      "url": "https://github.com/unknown/async-trait.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "serde": {
+      "url": "https://github.com/unknown/serde.git",
+      "category": "serialization",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "xattr": {
+      "url": "https://github.com/unknown/xattr.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-ct-codecs": {
+      "url": "https://github.com/rust-lang/rust-ct-codecs.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "bincode": {
+      "url": "https://github.com/unknown/bincode.git",
+      "category": "serialization",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "inventory": {
+      "url": "https://github.com/unknown/inventory.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "test-strategy": {
+      "url": "https://github.com/unknown/test-strategy.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ff": {
+      "url": "https://github.com/unknown/ff.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "nix": {
+      "url": "https://github.com/unknown/nix.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "winapi-util": {
+      "url": "https://github.com/unknown/winapi-util.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "slab": {
+      "url": "https://github.com/unknown/slab.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "json5-rs": {
+      "url": "https://github.com/json5-rs/json5.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "notify": {
+      "url": "https://github.com/unknown/notify.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "elliptic-curves": {
+      "url": "https://github.com/unknown/elliptic-curves.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ipnet": {
+      "url": "https://github.com/unknown/ipnet.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "winreg-rs": {
+      "url": "https://github.com/winreg-rs/winreg.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "event-listener-strategy": {
+      "url": "https://github.com/unknown/event-listener-strategy.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "structmeta": {
+      "url": "https://github.com/unknown/structmeta.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "schannel-rs": {
+      "url": "https://github.com/schannel-rs/schannel.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "simd-adler32": {
+      "url": "https://github.com/unknown/simd-adler32.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "mime": {
+      "url": "https://github.com/unknown/mime.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "atomic-maybe-uninit": {
+      "url": "https://github.com/unknown/atomic-maybe-uninit.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "bitmaps": {
+      "url": "https://github.com/unknown/bitmaps.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "untrusted": {
+      "url": "https://github.com/unknown/untrusted.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "dyn-clone": {
+      "url": "https://github.com/unknown/dyn-clone.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "r-efi": {
+      "url": "https://github.com/unknown/r-efi.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "gitoxide": {
+      "url": "https://github.com/unknown/gitoxide.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "oorandom": {
+      "url": "https://github.com/unknown/oorandom.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "cbor": {
+      "url": "https://github.com/unknown/cbor.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "miniz_oxide": {
+      "url": "https://github.com/unknown/miniz_oxide.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "handlebars-rust": {
+      "url": "https://github.com/unknown/handlebars-rust.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "num_threads": {
+      "url": "https://github.com/unknown/num_threads.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "bytes": {
+      "url": "https://github.com/unknown/bytes.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "quick-error": {
+      "url": "https://github.com/unknown/quick-error.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "pulldown-cmark": {
+      "url": "https://github.com/unknown/pulldown-cmark.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "scopeguard": {
+      "url": "https://github.com/unknown/scopeguard.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "unicode-normalization": {
+      "url": "https://github.com/unknown/unicode-normalization.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "unicode-width": {
+      "url": "https://github.com/unknown/unicode-width.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "faster-hex": {
+      "url": "https://github.com/unknown/faster-hex.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "thread_local-rs": {
+      "url": "https://github.com/thread_local-rs/thread_local.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "getrandom": {
+      "url": "https://github.com/unknown/getrandom.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "jobserver-rs": {
+      "url": "https://github.com/jobserver-rs/jobserver.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "kstring": {
+      "url": "https://github.com/unknown/kstring.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "TinyTemplate": {
+      "url": "https://github.com/unknown/TinyTemplate.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "arrayref": {
+      "url": "https://github.com/unknown/arrayref.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ansiterm-rs": {
+      "url": "https://github.com/ansiterm-rs/ansiterm.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "syn": {
+      "url": "https://github.com/unknown/syn.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "parking": {
+      "url": "https://github.com/unknown/parking.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "stable_deref_trait": {
+      "url": "https://github.com/unknown/stable_deref_trait.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "is_executable": {
+      "url": "https://github.com/unknown/is_executable.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "futures-lite": {
+      "url": "https://github.com/unknown/futures-lite.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "quinn": {
+      "url": "https://github.com/unknown/quinn.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "regex": {
+      "url": "https://github.com/unknown/regex.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "indexmap": {
+      "url": "https://github.com/unknown/indexmap.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ripgrep": {
+      "url": "https://github.com/unknown/ripgrep.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "quickcheck": {
+      "url": "https://github.com/unknown/quickcheck.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ryu": {
+      "url": "https://github.com/unknown/ryu.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "criterion.rs": {
+      "url": "https://github.com/unknown/criterion.rs.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "polling": {
+      "url": "https://github.com/unknown/polling.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "tera": {
+      "url": "https://github.com/unknown/tera.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "gg-alloc": {
+      "url": "https://github.com/unknown/gg-alloc.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "idna_adapter": {
+      "url": "https://github.com/unknown/idna_adapter.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "tiny-keccak": {
+      "url": "https://github.com/unknown/tiny-keccak.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "memchr": {
+      "url": "https://github.com/unknown/memchr.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "prettyplease": {
+      "url": "https://github.com/unknown/prettyplease.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "jni-rs": {
+      "url": "https://github.com/jni-rs/jni.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "futures-concurrency": {
+      "url": "https://github.com/unknown/futures-concurrency.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rustc-stable-hash": {
+      "url": "https://github.com/unknown/rustc-stable-hash.git",
+      "category": "crypto",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "itoa": {
+      "url": "https://github.com/unknown/itoa.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "parking_lot": {
+      "url": "https://github.com/unknown/parking_lot.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "cpp_demangle": {
+      "url": "https://github.com/unknown/cpp_demangle.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "normalize-line-endings": {
+      "url": "https://github.com/unknown/normalize-line-endings.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-fnv": {
+      "url": "https://github.com/rust-lang/rust-fnv.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "trybuild": {
+      "url": "https://github.com/unknown/trybuild.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "nghttp2-rs": {
+      "url": "https://github.com/nghttp2-rs/nghttp2.git",
+      "category": "networking",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "automod": {
+      "url": "https://github.com/unknown/automod.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "webpki": {
+      "url": "https://github.com/unknown/webpki.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "combine": {
+      "url": "https://github.com/unknown/combine.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "os_info": {
+      "url": "https://github.com/unknown/os_info.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "libc": {
+      "url": "https://github.com/unknown/libc.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "backtrace-rs": {
+      "url": "https://github.com/backtrace-rs/backtrace.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "typeid": {
+      "url": "https://github.com/unknown/typeid.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "anes-rs": {
+      "url": "https://github.com/anes-rs/anes.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "cmake-rs": {
+      "url": "https://github.com/cmake-rs/cmake.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "fsevent-rust": {
+      "url": "https://github.com/unknown/fsevent-rust.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "shell-words": {
+      "url": "https://github.com/unknown/shell-words.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "lru-rs": {
+      "url": "https://github.com/lru-rs/lru.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ron": {
+      "url": "https://github.com/unknown/ron.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "tracing-chrome": {
+      "url": "https://github.com/unknown/tracing-chrome.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rustversion": {
+      "url": "https://github.com/unknown/rustversion.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "maybe-async-rs": {
+      "url": "https://github.com/maybe-async-rs/maybe-async.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-hex": {
+      "url": "https://github.com/rust-lang/rust-hex.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "num-order": {
+      "url": "https://github.com/unknown/num-order.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-typed-arena": {
+      "url": "https://github.com/rust-lang/rust-typed-arena.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "event-listener": {
+      "url": "https://github.com/unknown/event-listener.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "wasm-worker": {
+      "url": "https://github.com/unknown/wasm-worker.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "humantime": {
+      "url": "https://github.com/unknown/humantime.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ring": {
+      "url": "https://github.com/unknown/ring.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "tokio-rustls": {
+      "url": "https://github.com/unknown/tokio-rustls.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "wasi": {
+      "url": "https://github.com/unknown/wasi.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "async-lock": {
+      "url": "https://github.com/unknown/async-lock.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rayon": {
+      "url": "https://github.com/unknown/rayon.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "iai": {
+      "url": "https://github.com/unknown/iai.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "httpdate": {
+      "url": "https://github.com/unknown/httpdate.git",
+      "category": "networking",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rustc-build-sysroot": {
+      "url": "https://github.com/unknown/rustc-build-sysroot.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rand": {
+      "url": "https://github.com/unknown/rand.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "assert-impl": {
+      "url": "https://github.com/unknown/assert-impl.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "temp-env": {
+      "url": "https://github.com/unknown/temp-env.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "vcpkg-rs": {
+      "url": "https://github.com/vcpkg-rs/vcpkg.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "hashbrown": {
+      "url": "https://github.com/unknown/hashbrown.git",
+      "category": "crypto",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "actix": {
+      "url": "https://github.com/unknown/actix.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "clap": {
+      "url": "https://github.com/unknown/clap.git",
+      "category": "cli",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "varisat": {
+      "url": "https://github.com/unknown/varisat.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "nom": {
+      "url": "https://github.com/unknown/nom.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "unicode-bom": {
+      "url": "https://github.com/unknown/unicode-bom.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "num-conv": {
+      "url": "https://github.com/unknown/num-conv.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "equivalent": {
+      "url": "https://github.com/unknown/equivalent.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "actix-net": {
+      "url": "https://github.com/unknown/actix-net.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "tinyvec_macros": {
+      "url": "https://github.com/unknown/tinyvec_macros.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-smallvec": {
+      "url": "https://github.com/rust-lang/rust-smallvec.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "android_system_properties": {
+      "url": "https://github.com/unknown/android_system_properties.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "zstd-rs": {
+      "url": "https://github.com/zstd-rs/zstd.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "findshlibs": {
+      "url": "https://github.com/unknown/findshlibs.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-security-framework": {
+      "url": "https://github.com/rust-lang/rust-security-framework.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "curl-rust": {
+      "url": "https://github.com/unknown/curl-rust.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "webpki-roots": {
+      "url": "https://github.com/unknown/webpki-roots.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "is-wsl": {
+      "url": "https://github.com/unknown/is-wsl.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "strsim-rs": {
+      "url": "https://github.com/strsim-rs/strsim.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "async-attributes": {
+      "url": "https://github.com/unknown/async-attributes.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "hash32": {
+      "url": "https://github.com/unknown/hash32.git",
+      "category": "crypto",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "plotters": {
+      "url": "https://github.com/unknown/plotters.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "async-fs": {
+      "url": "https://github.com/unknown/async-fs.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "derive-ex": {
+      "url": "https://github.com/unknown/derive-ex.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "quote": {
+      "url": "https://github.com/unknown/quote.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "schemars": {
+      "url": "https://github.com/unknown/schemars.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "gimli": {
+      "url": "https://github.com/unknown/gimli.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "content_inspector": {
+      "url": "https://github.com/unknown/content_inspector.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ident_case": {
+      "url": "https://github.com/unknown/ident_case.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "bit-set": {
+      "url": "https://github.com/unknown/bit-set.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "scalable-delayed-dealloc": {
+      "url": "https://github.com/unknown/scalable-delayed-dealloc.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "typenum": {
+      "url": "https://github.com/unknown/typenum.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "insta": {
+      "url": "https://github.com/unknown/insta.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "target-triple": {
+      "url": "https://github.com/unknown/target-triple.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "defmac": {
+      "url": "https://github.com/unknown/defmac.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "bytesize": {
+      "url": "https://github.com/unknown/bytesize.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "relative-path": {
+      "url": "https://github.com/unknown/relative-path.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "linux-raw-sys": {
+      "url": "https://github.com/unknown/linux-raw-sys.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "dot-parser": {
+      "url": "https://github.com/unknown/dot-parser.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "atomic-waker": {
+      "url": "https://github.com/unknown/atomic-waker.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "wasi-rs": {
+      "url": "https://github.com/wasi-rs/wasi.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "dbus-rs": {
+      "url": "https://github.com/dbus-rs/dbus.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rustc-demangle": {
+      "url": "https://github.com/unknown/rustc-demangle.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "crunchy": {
+      "url": "https://github.com/unknown/crunchy.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "async-channel": {
+      "url": "https://github.com/unknown/async-channel.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "openssl-src-rs": {
+      "url": "https://github.com/openssl-src-rs/openssl-src.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "assert_matches": {
+      "url": "https://github.com/unknown/assert_matches.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "macrotest": {
+      "url": "https://github.com/unknown/macrotest.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "textwrap": {
+      "url": "https://github.com/unknown/textwrap.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "mime_guess": {
+      "url": "https://github.com/unknown/mime_guess.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "portable-simd": {
+      "url": "https://github.com/unknown/portable-simd.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "wit-bindgen": {
+      "url": "https://github.com/unknown/wit-bindgen.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "fallible-streaming-iterator": {
+      "url": "https://github.com/unknown/fallible-streaming-iterator.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "arrayvec": {
+      "url": "https://github.com/unknown/arrayvec.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "scoped-tls": {
+      "url": "https://github.com/unknown/scoped-tls.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "escargot": {
+      "url": "https://github.com/unknown/escargot.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "pkg-config-rs": {
+      "url": "https://github.com/pkg-config-rs/pkg-config.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-base64": {
+      "url": "https://github.com/rust-lang/rust-base64.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "serial_test": {
+      "url": "https://github.com/unknown/serial_test.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "sync_wrapper": {
+      "url": "https://github.com/unknown/sync_wrapper.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ssh2-rs": {
+      "url": "https://github.com/ssh2-rs/ssh2.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-fallible-iterator": {
+      "url": "https://github.com/rust-lang/rust-fallible-iterator.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "strum": {
+      "url": "https://github.com/unknown/strum.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "allocator-api2": {
+      "url": "https://github.com/unknown/allocator-api2.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "inotify": {
+      "url": "https://github.com/unknown/inotify.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "instant": {
+      "url": "https://github.com/unknown/instant.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "warp": {
+      "url": "https://github.com/unknown/warp.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "sha1-smol": {
+      "url": "https://github.com/unknown/sha1-smol.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "thiserror": {
+      "url": "https://github.com/unknown/thiserror.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "postcard": {
+      "url": "https://github.com/unknown/postcard.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "paste": {
+      "url": "https://github.com/unknown/paste.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-x86": {
+      "url": "https://github.com/rust-lang/rust-x86.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "rust_libloading": {
+      "url": "https://github.com/unknown/rust_libloading.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-csv": {
+      "url": "https://github.com/rust-lang/rust-csv.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "flate2-rs": {
+      "url": "https://github.com/flate2-rs/flate2.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "inotify-sys": {
+      "url": "https://github.com/unknown/inotify-sys.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "pki-types": {
+      "url": "https://github.com/unknown/pki-types.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "unarray": {
+      "url": "https://github.com/unknown/unarray.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "approx": {
+      "url": "https://github.com/unknown/approx.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "layout": {
+      "url": "https://github.com/unknown/layout.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "sval": {
+      "url": "https://github.com/unknown/sval.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "crc-rs": {
+      "url": "https://github.com/crc-rs/crc.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "mio": {
+      "url": "https://github.com/unknown/mio.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "vte": {
+      "url": "https://github.com/unknown/vte.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "normpath": {
+      "url": "https://github.com/unknown/normpath.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ron-rs": {
+      "url": "https://github.com/ron-rs/ron.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "compact_str": {
+      "url": "https://github.com/unknown/compact_str.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "iana-time-zone": {
+      "url": "https://github.com/unknown/iana-time-zone.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "uluru": {
+      "url": "https://github.com/unknown/uluru.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "petgraph": {
+      "url": "https://github.com/unknown/petgraph.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "foreign-types": {
+      "url": "https://github.com/unknown/foreign-types.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "reqwest": {
+      "url": "https://github.com/unknown/reqwest.git",
+      "category": "networking",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "build-alert": {
+      "url": "https://github.com/unknown/build-alert.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "num-complex": {
+      "url": "https://github.com/unknown/num-complex.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "hyper-util": {
+      "url": "https://github.com/unknown/hyper-util.git",
+      "category": "networking",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "compiler-builtins": {
+      "url": "https://github.com/unknown/compiler-builtins.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-cexpr": {
+      "url": "https://github.com/rust-lang/rust-cexpr.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "wait-timeout": {
+      "url": "https://github.com/unknown/wait-timeout.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "sharded-slab": {
+      "url": "https://github.com/unknown/sharded-slab.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "tinyvec": {
+      "url": "https://github.com/unknown/tinyvec.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "no-panic": {
+      "url": "https://github.com/unknown/no-panic.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rstest": {
+      "url": "https://github.com/unknown/rstest.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "toml": {
+      "url": "https://github.com/unknown/toml.git",
+      "category": "serialization",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "same-file": {
+      "url": "https://github.com/unknown/same-file.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "http-auth": {
+      "url": "https://github.com/unknown/http-auth.git",
+      "category": "networking",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "signal-hook": {
+      "url": "https://github.com/unknown/signal-hook.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "utf8-width": {
+      "url": "https://github.com/unknown/utf8-width.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "jni-sys": {
+      "url": "https://github.com/unknown/jni-sys.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "is-terminal": {
+      "url": "https://github.com/unknown/is-terminal.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "yansi": {
+      "url": "https://github.com/unknown/yansi.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "darling": {
+      "url": "https://github.com/unknown/darling.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "tempfile": {
+      "url": "https://github.com/unknown/tempfile.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "cc-rs": {
+      "url": "https://github.com/cc-rs/cc.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "opener": {
+      "url": "https://github.com/unknown/opener.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ratatui": {
+      "url": "https://github.com/unknown/ratatui.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "borsh-rs": {
+      "url": "https://github.com/borsh-rs/borsh.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "memmap2-rs": {
+      "url": "https://github.com/memmap2-rs/memmap2.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "heck": {
+      "url": "https://github.com/unknown/heck.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rustls": {
+      "url": "https://github.com/unknown/rustls.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "socket2": {
+      "url": "https://github.com/unknown/socket2.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "cargo": {
+      "url": "https://github.com/unknown/cargo.git",
+      "category": "build-tools",
+      "priority": 1,
+      "has_cargo": false
+    },
+    "tokio": {
+      "url": "https://github.com/unknown/tokio.git",
+      "category": "async",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "utf16_iter": {
+      "url": "https://github.com/unknown/utf16_iter.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "unicode-xid": {
+      "url": "https://github.com/unknown/unicode-xid.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "kernel": {
+      "url": "https://github.com/unknown/kernel.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "bumpalo": {
+      "url": "https://github.com/unknown/bumpalo.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-native-tls": {
+      "url": "https://github.com/rust-lang/rust-native-tls.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "traits": {
+      "url": "https://github.com/unknown/traits.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "criterion": {
+      "url": "https://github.com/unknown/criterion.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "headers": {
+      "url": "https://github.com/unknown/headers.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "foldhash": {
+      "url": "https://github.com/unknown/foldhash.git",
+      "category": "crypto",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "termcolor": {
+      "url": "https://github.com/unknown/termcolor.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "crypto-bigint": {
+      "url": "https://github.com/unknown/crypto-bigint.git",
+      "category": "crypto",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "cfg-if": {
+      "url": "https://github.com/unknown/cfg-if.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "fs-err": {
+      "url": "https://github.com/unknown/fs-err.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "async-net": {
+      "url": "https://github.com/unknown/async-net.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "anstyle": {
+      "url": "https://github.com/unknown/anstyle.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rustls-native-certs": {
+      "url": "https://github.com/unknown/rustls-native-certs.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "unicode-truncate": {
+      "url": "https://github.com/unknown/unicode-truncate.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "mio-aio": {
+      "url": "https://github.com/unknown/mio-aio.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "terminal-size": {
+      "url": "https://github.com/unknown/terminal-size.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "chrono": {
+      "url": "https://github.com/unknown/chrono.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "document-features": {
+      "url": "https://github.com/unknown/document-features.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rustls-ffi": {
+      "url": "https://github.com/unknown/rustls-ffi.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "proc-macro-error-2": {
+      "url": "https://github.com/unknown/proc-macro-error-2.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "gloo": {
+      "url": "https://github.com/unknown/gloo.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "hyper-tls": {
+      "url": "https://github.com/unknown/hyper-tls.git",
+      "category": "networking",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "fxhash": {
+      "url": "https://github.com/unknown/fxhash.git",
+      "category": "crypto",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "async-std": {
+      "url": "https://github.com/unknown/async-std.git",
+      "category": "async",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ucd-generate": {
+      "url": "https://github.com/unknown/ucd-generate.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust": {
+      "url": "https://github.com/unknown/rust.git",
+      "category": "compiler",
+      "priority": 1,
+      "has_cargo": false
+    },
+    "git2-rs": {
+      "url": "https://github.com/git2-rs/git2.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "miow": {
+      "url": "https://github.com/unknown/miow.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "h2": {
+      "url": "https://github.com/unknown/h2.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "eyre": {
+      "url": "https://github.com/unknown/eyre.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "dunce": {
+      "url": "https://github.com/unknown/dunce.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rustc-hash": {
+      "url": "https://github.com/unknown/rustc-hash.git",
+      "category": "crypto",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "clru-rs": {
+      "url": "https://github.com/clru-rs/clru.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "wasm-bindgen": {
+      "url": "https://github.com/unknown/wasm-bindgen.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "cryptocorrosion": {
+      "url": "https://github.com/unknown/cryptocorrosion.git",
+      "category": "crypto",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "trycmd": {
+      "url": "https://github.com/unknown/trycmd.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "critical-section": {
+      "url": "https://github.com/unknown/critical-section.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "web-time": {
+      "url": "https://github.com/unknown/web-time.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "pin-project": {
+      "url": "https://github.com/unknown/pin-project.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "constrandom": {
+      "url": "https://github.com/unknown/constrandom.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-ed25519-compact": {
+      "url": "https://github.com/rust-lang/rust-ed25519-compact.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "rusty-fork": {
+      "url": "https://github.com/unknown/rusty-fork.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "proc-macro2": {
+      "url": "https://github.com/unknown/proc-macro2.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "text-size": {
+      "url": "https://github.com/unknown/text-size.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "mockall": {
+      "url": "https://github.com/unknown/mockall.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "itertools-num": {
+      "url": "https://github.com/unknown/itertools-num.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rustix": {
+      "url": "https://github.com/unknown/rustix.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "litrs": {
+      "url": "https://github.com/unknown/litrs.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rustls-platform-verifier": {
+      "url": "https://github.com/unknown/rustls-platform-verifier.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "ahash": {
+      "url": "https://github.com/unknown/ahash.git",
+      "category": "crypto",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "libredox": {
+      "url": "https://github.com/unknown/libredox.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "erased-serde": {
+      "url": "https://github.com/unknown/erased-serde.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "supports-unicode": {
+      "url": "https://github.com/unknown/supports-unicode.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "env_logger": {
+      "url": "https://github.com/unknown/env_logger.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "tar-rs": {
+      "url": "https://github.com/tar-rs/tar.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "permutohedron": {
+      "url": "https://github.com/unknown/permutohedron.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "proc-macro-crate": {
+      "url": "https://github.com/unknown/proc-macro-crate.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "kvm-sys-rs": {
+      "url": "https://github.com/kvm-sys-rs/kvm-sys.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "either": {
+      "url": "https://github.com/unknown/either.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "json": {
+      "url": "https://github.com/unknown/json.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "zlib-rs": {
+      "url": "https://github.com/zlib-rs/zlib.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "annotate-snippets-rs": {
+      "url": "https://github.com/annotate-snippets-rs/annotate-snippets.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "winnow": {
+      "url": "https://github.com/unknown/winnow.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "serde_urlencoded": {
+      "url": "https://github.com/unknown/serde_urlencoded.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "powerfmt": {
+      "url": "https://github.com/unknown/powerfmt.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "dashmap": {
+      "url": "https://github.com/unknown/dashmap.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "im-rs": {
+      "url": "https://github.com/im-rs/im.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "open-rs": {
+      "url": "https://github.com/open-rs/open.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "tui-crates": {
+      "url": "https://github.com/unknown/tui-crates.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "bit-vec": {
+      "url": "https://github.com/unknown/bit-vec.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "proptest": {
+      "url": "https://github.com/unknown/proptest.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "half-rs": {
+      "url": "https://github.com/half-rs/half.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "io-uring": {
+      "url": "https://github.com/unknown/io-uring.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "static-assertions-rs": {
+      "url": "https://github.com/static-assertions-rs/static-assertions.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "bstr": {
+      "url": "https://github.com/unknown/bstr.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "sysinfo": {
+      "url": "https://github.com/unknown/sysinfo.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "crc-catalog": {
+      "url": "https://github.com/unknown/crc-catalog.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "imara-diff": {
+      "url": "https://github.com/unknown/imara-diff.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "rust-plist": {
+      "url": "https://github.com/rust-lang/rust-plist.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "rust-openssl": {
+      "url": "https://github.com/rust-lang/rust-openssl.git",
+      "category": "utility",
+      "priority": 2,
+      "has_cargo": false
+    },
+    "scalable-concurrent-containers": {
+      "url": "https://github.com/unknown/scalable-concurrent-containers.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "crossterm": {
+      "url": "https://github.com/unknown/crossterm.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "prodash": {
+      "url": "https://github.com/unknown/prodash.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "core-foundation-rs": {
+      "url": "https://github.com/core-foundation-rs/core-foundation.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "async-executor": {
+      "url": "https://github.com/unknown/async-executor.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    },
+    "encode_unicode": {
+      "url": "https://github.com/unknown/encode_unicode.git",
+      "category": "utility",
+      "priority": 3,
+      "has_cargo": false
+    }
+  }
+}
