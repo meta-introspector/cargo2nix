@@ -38,8 +38,52 @@ name = "monster_constraint_solver"
 path = "src/bin/monster_constraint_solver.rs"
 
 [[bin]]
-name = "monster_memory_demo"
-path = "src/bin/monster_memory_demo.rs"
+name = "automorphic_orbit"
+path = "src/bin/automorphic_orbit.rs"
+
+[[bin]]
+name = "component_decomposition"
+path = "src/bin/component_decomposition.rs"
+
+[[bin]]
+name = "term_index"
+path = "src/bin/term_index.rs"
+
+[[bin]]
+name = "query_terms"
+path = "src/bin/query_terms.rs"
+
+[[bin]]
+name = "inspect_db"
+path = "src/bin/inspect_db.rs"
+
+[[bin]]
+name = "simple_ingest"
+path = "src/bin/simple_ingest.rs"
+
+[[bin]]
+name = "monster_compiler"
+path = "src/bin/monster_compiler.rs"
+
+[[bin]]
+name = "monster_execute"
+path = "src/bin/monster_execute.rs"
+
+[[bin]]
+name = "bott_framework"
+path = "src/bin/bott_framework.rs"
+
+[[bin]]
+name = "verify_monster"
+path = "src/bin/verify_monster.rs"
+
+[[bin]]
+name = "monster_fiber_bundle"
+path = "src/bin/monster_fiber_bundle.rs"
+
+[[bin]]
+name = "monster_compile"
+path = "src/bin/monster_compile.rs"
 
 [[bin]]
 name = "ingest_rustc"

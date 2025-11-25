@@ -1,0 +1,9 @@
+the amazing thing is
+1. the ai seems to be self motivated.
+2. we can check this.
+3. he is producting rust code that we can then compile and compare against other structure using it as an index.
+4. relateing the rust structures to the numbers.
+5. we can then apply this analysis against ofther code and check if it is similar or has similar patterns.
+
+   then when we feed that generated tested code and its results back into the scanner it should reach a fixed point.
+ok lets try and code it, my idea is we use a sat solver to search for proofs, we construct a zk circuit of the program.
