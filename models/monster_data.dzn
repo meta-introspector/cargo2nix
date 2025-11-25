@@ -1,0 +1,4 @@
+elliptic_fiber = 7;
+torus_x = 3;
+torus_y = 5;
+monster_stabilizer = 12;

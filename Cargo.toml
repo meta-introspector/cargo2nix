@@ -1,6 +1,86 @@
 
 
 
+[[bin]]
+name = "monster_emoji_resonance"
+path = "src/bin/monster_emoji_resonance.rs"
+
+[[bin]]
+name = "knowledgebase_optimizer"
+path = "src/bin/knowledgebase_optimizer.rs"
+
+[[bin]]
+name = "minizinc_solver_executor"
+path = "src/bin/minizinc_solver_executor.rs"
+
+[[bin]]
+name = "trait_verifier"
+path = "src/bin/trait_verifier.rs"
+
+[[bin]]
+name = "vernacular_monster_solver"
+path = "src/bin/vernacular_monster_solver.rs"
+
+[[bin]]
+name = "self_describing_monster"
+path = "src/bin/self_describing_monster.rs"
+
+[[bin]]
+name = "interactive_constraint_tweaker"
+path = "src/bin/interactive_constraint_tweaker.rs"
+
+[[bin]]
+name = "rustc_monster_equivalence"
+path = "src/bin/rustc_monster_equivalence.rs"
+
+[[bin]]
+name = "zkp_monster_verifier"
+path = "src/bin/zkp_monster_verifier.rs"
+
+[[bin]]
+name = "modular_form_zkp"
+path = "src/bin/modular_form_zkp.rs"
+
+[[bin]]
+name = "monster_108_verifier"
+path = "src/bin/monster_108_verifier.rs"
+
+[[bin]]
+name = "structural_invariant_verifier"
+path = "src/bin/structural_invariant_verifier.rs"
+
+[[bin]]
+name = "complexity_geometric_verifier"
+path = "src/bin/complexity_geometric_verifier.rs"
+
+[[bin]]
+name = "binary_power_verifier"
+path = "src/bin/binary_power_verifier.rs"
+
+[[bin]]
+name = "forty_six_verifier"
+path = "src/bin/forty_six_verifier.rs"
+
+[[bin]]
+name = "leech_zkp_verifier"
+path = "src/bin/leech_zkp_verifier.rs"
+
+[[bin]]
+name = "meta_meme_minizinc"
+path = "src/bin/meta_meme_minizinc.rs"
+
+[[bin]]
+name = "lattice_introspector"
+path = "src/bin/lattice_introspector.rs"
+
+[[bin]]
+name = "libminizinc_vendor_test"
+path = "src/bin/libminizinc_vendor_test.rs"
+
+[[bin]]
+name = "minizinc_introspector_vendor"
+path = "src/bin/minizinc_introspector_vendor.rs"
+
 [workspace.package]
 categories = []
 version = "0.1.0"

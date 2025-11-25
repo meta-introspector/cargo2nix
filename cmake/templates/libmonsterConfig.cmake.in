@@ -1,0 +1,17 @@
+# - Config file for the libmonster package
+# It defines the following variables
+#  libmonster_INCLUDE_DIRS - include directories for libmonster
+#  libmonster_LIBRARIES    - libraries to link against
+#  libmonster_EXECUTABLE   - the monster executable
+
+# Compute paths
+get_filename_component(libmonster_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+set(libmonster_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@")
+
+# Our library dependencies
+list(APPEND CMAKE_MODULE_PATH ${libmonster_CMAKE_DIR})
+include(CMakeFindDependencyMacro)
+@CONF_DEPENDENCIES@
+
+# Our library targets (contains definitions for IMPORTED targets)
+include("${libmonster_CMAKE_DIR}/libmonsterTargets.cmake")
