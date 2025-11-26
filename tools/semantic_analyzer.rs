@@ -1,7 +1,7 @@
 use std::fs;
 use std::collections::HashMap;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, serde::Serialize)] // Add serde::Serialize for JSON export
 struct RepoSemantics {
     name: String,
     category: String,
@@ -51,105 +51,62 @@ fn analyze_semantics(name: &str) -> RepoSemantics {
         "wasm-bindgen" | "gloo" => "web-ui",
         
         // Math & Algorithms
-        "num-" | "rand" => "math-algorithms",
+        n if n.starts_with("num-") || n.starts_with("rand") => "math-algorithms",
         
         _ => "utility"
+    }.to_string();
+
+    let purpose = match category.as_str() {
+        "rust-core" => "Fundamental Rust language and toolchain components.",
+        "rust-ecosystem" => "Libraries and tools extending Rust's core capabilities.",
+        "build-tools" => "Tools for building, compiling, and managing Rust projects.",
+        "async-concurrency" => "Libraries for asynchronous programming and parallel execution.",
+        "serialization" => "Handling data serialization and deserialization.",
+        "crypto-security" => "Cryptographic operations and security-related functionalities.",
+        "networking" => "Network communication, HTTP clients and servers.",
+        "cli-terminal" => "Building command-line interfaces and interacting with terminals.",
+        "testing-dev" => "Tools and frameworks for testing and development workflows.",
+        "system-os" => "Low-level operating system interactions and system programming.",
+        "memory-alloc" => "Memory management and allocation strategies.",
+        "parsing-text" => "Parsing, text processing, and regular expressions.",
+        "web-ui" => "Web-related functionalities, WASM, and user interface components.",
+        "math-algorithms" => "Mathematical operations and common algorithms.",
+        _ => "General purpose utility library or component.",
+    }.to_string();
+
+    let language = "Rust".to_string(); // Assuming all repos are Rust for this context
+
+    let priority = match category.as_str() {
+        "rust-core" | "build-tools" => 1,
+        "async-concurrency" | "serialization" | "crypto-security" | "networking" => 2,
+        _ => 3,
     };
-    
-    let purpose = match name {
-        "rust" => "Rust programming language compiler and standard library".to_string(),
-        "cargo" => "Rust package manager and build system".to_string(),
-        "serde" => "Serialization framework for Rust".to_string(),
-        "tokio" => "Asynchronous runtime for Rust".to_string(),
-        "clap" => "Command line argument parser".to_string(),
-        "hyper" => "HTTP implementation for Rust".to_string(),
-        "regex" => "Regular expression engine".to_string(),
-        _ => infer_purpose(name, category)
-    };
-    
-    let language = if name.starts_with("rust-") || 
-                     ["serde", "tokio", "clap", "hyper", "regex"].contains(&name) {
-        "rust"
-    } else if name.contains("js") || name.contains("node") {
-        "javascript"
-    } else if name.contains("py") || name.contains("python") {
-        "python"
-    } else {
-        "mixed"
-    };
-    
-    let priority = match category {
-        "rust-core" => 1,
-        "build-tools" => 1,
-        "async-concurrency" | "serialization" => 2,
-        "networking" | "crypto-security" => 2,
-        "cli-terminal" | "testing-dev" => 3,
-        _ => 4
-    };
-    
+
     RepoSemantics {
         name: name.to_string(),
-        category: category.to_string(),
-        purpose: purpose.to_string(),
-        language: language.to_string(),
+        category,
+        purpose,
+        language,
         priority,
-    }
-}
-
-fn infer_purpose(name: &str, category: &str) -> String {
-    match category {
-        "async-concurrency" => format!("{} - Asynchronous programming support", name),
-        "serialization" => format!("{} - Data serialization/deserialization", name),
-        "crypto-security" => format!("{} - Cryptographic operations", name),
-        "networking" => format!("{} - Network communication", name),
-        "cli-terminal" => format!("{} - Command line interface", name),
-        "testing-dev" => format!("{} - Testing and development tools", name),
-        "system-os" => format!("{} - System and OS integration", name),
-        "parsing-text" => format!("{} - Text parsing and processing", name),
-        _ => format!("{} - Utility library", name)
     }
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let content = fs::read_to_string("unique_repos.txt")?;
-    let mut semantics = Vec::new();
-    let mut categories = HashMap::new();
-    
+    let mut all_semantics: HashMap<String, RepoSemantics> = HashMap::new();
+
     for line in content.lines() {
-        let repo = analyze_semantics(line.trim());
-        *categories.entry(repo.category.clone()).or_insert(0) += 1;
-        semantics.push(repo);
+        if !line.trim().is_empty() {
+            let semantics = analyze_semantics(line.trim());
+            all_semantics.insert(semantics.name.clone(), semantics);
+        }
     }
-    
-    // Sort by priority then name
-    semantics.sort_by(|a, b| a.priority.cmp(&b.priority).then(a.name.cmp(&b.name)));
-    
-    println!("Repository Semantic Analysis:");
-    println!("============================");
-    
-    for (category, count) in &categories {
-        println!("{}: {} repos", category, count);
-    }
-    
-    println!("\nHigh Priority Repositories (1-2):");
-    for repo in semantics.iter().filter(|r| r.priority <= 2) {
-        println!("  {} [{}] - {}", repo.name, repo.category, repo.purpose);
-    }
-    
-    // Export as JSON-like format
-    let mut output = String::new();
-    output.push_str("{\n");
-    for (i, repo) in semantics.iter().enumerate() {
-        if i > 0 { output.push_str(",\n"); }
-        output.push_str(&format!(
-            "  \"{}\": {{\"category\": \"{}\", \"purpose\": \"{}\", \"language\": \"{}\", \"priority\": {}}}",
-            repo.name, repo.category, repo.purpose, repo.language, repo.priority
-        ));
-    }
-    output.push_str("\n}");
-    
-    fs::write("repo_semantics.json", output)?;
-    println!("\nSemantics saved to repo_semantics.json");
-    
+
+    let json_output = serde_json::to_string_pretty(&all_semantics)?;
+    fs::write("repo_semantics.json", json_output)?;
+
+    println!("Semantic analysis complete. {} repositories analyzed.", all_semantics.len());
+    println!("Output saved to repo_semantics.json");
+
     Ok(())
 }

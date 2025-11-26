@@ -1,1 +1,31 @@
 === Cargo.toml Extractor for RocksDB ===
+  Processed 1000 repos, found 33462 Cargo.toml files
+  Processed 2000 repos, found 46855 Cargo.toml files
+  Processed 3000 repos, found 46975 Cargo.toml files
+  Processed 4000 repos, found 73479 Cargo.toml files
+  Processed 5000 repos, found 73611 Cargo.toml files
+  Processed 6000 repos, found 80421 Cargo.toml files
+  Processed 7000 repos, found 85750 Cargo.toml files
+  Processed 8000 repos, found 87919 Cargo.toml files
+  Processed 9000 repos, found 90408 Cargo.toml files
+  Processed 10000 repos, found 91491 Cargo.toml files
+  Processed 11000 repos, found 94063 Cargo.toml files
+
+query CargoTomlRocksDB {
+  total_cargo_files: 95309
+  sample_packages: [
+    { name: "unknown", version: "0.1.9" }
+    { name: "owlen-ollama", version: "true" }
+    { name: "owlen-cli", version: "true" }
+    { name: "owlen-tui", version: "true" }
+    { name: "owlen-core", version: "true" }
+    { name: "mermaid-cli", version: "0.2.0" }
+    { name: "codex-cloud-tasks-client", version: "true" }
+    { name: "codex-arg0", version: "true" }
+    { name: "codex-common", version: "true" }
+    { name: "codex-lmstudio", version: "true" }
+  ]
+}
+
+✓ 95309 Cargo.toml files ready for RocksDB
+✓ Build reasoner can now resolve package dependencies
