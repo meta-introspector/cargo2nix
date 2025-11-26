@@ -9,6 +9,7 @@ pub mod repository_indexer_config;
 pub mod repository_indexer;
 pub mod non_vendored_workspace_enforcer;
 pub mod gh_plan_executor;
+pub mod package_extractor;
 
 /// Trait for providing SPARQL configuration values.
 pub trait SparqlConfigProvider {

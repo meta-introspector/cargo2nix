@@ -36,7 +36,7 @@ impl DefaultPackageExtractor {
 
 impl PackageExtractor for DefaultPackageExtractor {
     fn extract_packages(&self, root_dir: &Path, exclude_keywords: &str) -> Vec<(String, PathBuf)> {
-        let mut extracted_packages = Vec::new;
+        let mut extracted_packages = Vec::new();
         let exclude_regex = Regex::new(exclude_keywords).expect("Invalid regex for exclude keywords");
 
         gemini_eprintln!("Extracting packages from :root_dir: with exclude keywords: :keywords:", root_dir = root_dir.display(), keywords = exclude_keywords);

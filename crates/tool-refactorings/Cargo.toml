@@ -13,6 +13,7 @@ include.workspace = true
 
 [dependencies]
 gemini_utils = { path = "../../minizinc-introspector/crates/gemini_utils" }
+regex = "1.12.2"
 
 [dev-dependencies]
 tokio = { version = "1", features = ["full"] }

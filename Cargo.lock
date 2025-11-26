@@ -5642,6 +5642,7 @@ name = "tool-refactorings"
 version = "0.1.0"
 dependencies = [
  "gemini_utils",
+ "regex 1.12.2",
  "tempfile",
  "tokio",
 ]
