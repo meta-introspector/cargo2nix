@@ -32,7 +32,7 @@ members = [
     "tools/syn-adapter-lib",
     "tools/feature-permutation-builder",
     "tools/cargo-feature-adapter",
-    "crates/solana-monster-system",
+    "crates/solana-monster-system", "crates/tool-refactorings",
 ]
 exclude = []
 

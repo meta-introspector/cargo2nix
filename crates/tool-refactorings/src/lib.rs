@@ -7,6 +7,8 @@ pub mod base_code_executor_config;
 pub mod base_code_executor;
 pub mod repository_indexer_config;
 pub mod repository_indexer;
+pub mod non_vendored_workspace_enforcer;
+pub mod gh_plan_executor;
 
 /// Trait for providing SPARQL configuration values.
 pub trait SparqlConfigProvider {
