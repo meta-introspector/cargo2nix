@@ -18,7 +18,7 @@ hex = { workspace=true, optional = true }
 lazy_static = { workspace = true, optional = true }
 lru = { version = "0.12", optional = true }
 md5 = { workspace = true, optional = true }
-nix-generator-lib = { path = "../nix-generator-lib", optional = true }
+#nix-generator-lib = { path = "../nix-generator-lib", optional = true }
 pathdiff = { workspace = true, optional = true }
 regex = { workspace = true, optional = true }
 serde = { workspace = true,  features = ["derive"], optional = true }
@@ -31,6 +31,8 @@ toml_edit = { workspace = true, optional = true } # Made optional again
 tool-traits-lib = { path = "../tool-traits-lib", optional = true } # Added new dependency
 url = { workspace = true, optional = true }
 walkdir = { workspace = true, optional = true }
+real-regex-adapter-lib = { path = "../real-regex-adapter-lib", optional = true }
+cargo-repo-sync-lib = { path = "../cargo-repo-sync-lib", optional = true }
 
 [features]
 
@@ -39,12 +41,12 @@ git2_enabled = ["dep:git2"]
 sha1_enabled = ["dep:sha1"]
 serde_json_enabled = ["dep:serde_json"]
 git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
-default = ["dummy_tools", "tool_traits_lib_enabled", "anyhow_enabled", "serde_json_enabled"]
+default = ["dummy_tools", "tool_traits_lib_enabled", "anyhow_enabled", "serde_enabled", "toml_enabled", "walkdir_enabled", "cargo_repo_sync_lib_enabled", "git_wrapper_lib_enabled", "toml_edit_enabled", "real_regex_adapter_lib_enabled", "clap_enabled"]
 dummy_tools = [] # No optional dependencies enabled by default
 
 
 cargo_metadata_enabled = ["dep:cargo_metadata"]
-nix_generation = ["dep:nix-generator-lib", "dep:cargo_metadata", "dep:cargo2nix"]
+#nix_generation = ["dep:nix-generator-lib", "dep:cargo_metadata", "dep:cargo2nix"]
 regex_enabled = ["dep:regex"]
 walkdir_enabled = ["dep:walkdir"]
 
@@ -58,7 +60,10 @@ url_enabled = ["dep:url"]
 lru_enabled = ["dep:lru"]
 clap_enabled = ["dep:clap"]
 toml_enabled = ["dep:toml"]
+toml_edit_enabled = ["dep:toml_edit"]
+real_regex_adapter_lib_enabled = ["dep:real-regex-adapter-lib"]
 
 serde_enabled = ["dep:serde", "dep:serde_json"]
 anyhow_enabled = ["dep:anyhow"]
 tool_traits_lib_enabled = ["dep:tool-traits-lib"]
+cargo_repo_sync_lib_enabled = [] # Declare it as a feature

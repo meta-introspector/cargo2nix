@@ -1,15 +1,17 @@
-use regex::{Captures, Regex};
-use tool_traits_lib::regex_adapter::{RegexAdapter, RegexCaptureIndex, RegexCaptures};
+use anyhow::{Context, Result};
+use tool_traits_lib::regex_adapter::{RegexCaptures, RegexMatcher}; // Using anyhow for Result type
+use regex::{self, Regex}; // For the actual regex implementation
 
-pub struct RealRegexAdapter {
+// RealRegexMatcher: Uses the actual regex crate for matching
+#[derive(Debug)]
+pub struct RealRegexMatcher {
     regex: Regex,
 }
 
-impl RegexAdapter for RealRegexAdapter {
+impl RegexMatcher for RealRegexMatcher {
     fn new(re: &str) -> Result<Self, String> {
-        Regex::new(re)
-            .map(|regex| RealRegexAdapter { regex })
-            .map_err(|e| format!("Failed to compile regex: {:?}", e))
+        let regex = Regex::new(re).map_err(|e| e.to_string())?;
+        Ok(RealRegexMatcher { regex })
     }
 
     fn is_match(&self, text: &str) -> bool {
@@ -19,22 +21,67 @@ impl RegexAdapter for RealRegexAdapter {
     fn captures<'t>(&'t self, text: &'t str) -> Option<Box<dyn RegexCaptures + 't>> {
         self.regex
             .captures(text)
-            .map(|captures| Box::new(RealRegexCaptures { captures }) as Box<dyn RegexCaptures + 't>)
+            .map(|caps| Box::new(RealRegexCaptures { captures: caps }) as Box<dyn RegexCaptures>)
     }
 }
 
 pub struct RealRegexCaptures<'t> {
-    captures: Captures<'t>,
+    captures: regex::Captures<'t>,
 }
 
 impl<'t> RegexCaptures for RealRegexCaptures<'t> {
-    fn get(&self, name_or_idx: impl RegexCaptureIndex) -> Option<String> {
-        if let Some(idx) = name_or_idx.to_index() {
-            self.captures.get(idx).map(|m| m.as_str().to_string())
-        } else if let Some(name) = name_or_idx.to_name() {
-            self.captures.name(name).map(|m| m.as_str().to_string())
-        } else {
-            None
-        }
+    fn get(&self, i: usize) -> Option<&str> {
+        self.captures.get(i).map(|m| m.as_str())
+    }
+    fn len(&self) -> usize {
+        self.captures.len()
     }
 }
+
+
+// DummyRegexMatcher: Provides dummy implementations for testing or when regex feature is not enabled
+#[derive(Debug)]
+pub struct DummyRegexMatcher;
+
+impl DummyRegexMatcher {
+    pub fn new(_re: &str) -> Result<Self> {
+        Ok(DummyRegexMatcher)
+    }
+}
+
+impl RegexMatcher for DummyRegexMatcher {
+    fn new(_re: &str) -> Result<Self, String> {
+        Ok(DummyRegexMatcher)
+    }
+
+    fn is_match(&self, _text: &str) -> bool {
+        true // Always matches in dummy mode
+    }
+
+    fn captures<'t>(&'t self, _text: &'t str) -> Option<Box<dyn RegexCaptures + 't>> {
+        None // No captures in dummy mode
+    }
+}
+
+pub struct DummyRegexCaptures;
+
+impl<'t> RegexCaptures for DummyRegexCaptures {
+    fn get(&self, _i: usize) -> Option<&str> {
+        None
+    }
+    fn len(&self) -> usize {
+        0
+    }
+}
+
+
+// Conditional type alias for CurrentRegexMatcher
+#[cfg(feature = "regex_enabled")]
+pub type CurrentRegexMatcher = RealRegexMatcher;
+#[cfg(not(feature = "regex_enabled"))]
+pub type CurrentRegexMatcher = DummyRegexMatcher;
+
+#[cfg(feature = "regex_enabled")]
+pub type CurrentRegexCaptures<'t> = RealRegexCaptures<'t>;
+#[cfg(not(feature = "regex_enabled"))]
+pub type CurrentRegexCaptures<'t> = DummyRegexCaptures;

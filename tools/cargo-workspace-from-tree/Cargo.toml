@@ -13,12 +13,12 @@ sha1 = { version = "*", optional = true }
 serde = { version = "*", optional = true }
 serde_json = { version = "*", optional = true }
 git-wrapper-lib = { workspace = true, optional = true }
-anyhow = { version = "*", optional = true }
+anyhow = { version = "*" }
 clap = { workspace = true, optional = true }
 cargo_metadata = { workspace = true, optional = true }
-toml_edit = { workspace = true, optional = true }
-walkdir = { workspace = true, optional = true }
-pathdiff = { workspace = true, optional = true }
+toml_edit = { workspace = true }
+walkdir = { workspace = true }
+pathdiff = { workspace = true }
 regex = { workspace = true, optional = true }
 lazy_static = { workspace = true, optional = true }
 
@@ -33,12 +33,12 @@ serde_enabled = ["dep:serde"]
 serde_json_enabled = ["dep:serde_json"]
 git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
 default = []
-anyhow_enabled = ["dep:anyhow"]
+anyhow_enabled = [] # "dep:anyhow"]
 clap_enabled = ["dep:clap"]
 cargo_metadata_enabled = ["dep:cargo_metadata"]
-toml_edit_enabled = ["dep:toml_edit"]
-walkdir_enabled = ["dep:walkdir"]
-pathdiff_enabled = ["dep:pathdiff"]
+toml_edit_enabled = [] 
+walkdir_enabled = []
+pathdiff_enabled = []
 regex_enabled = ["dep:regex"]
 lazy_static_enabled = ["dep:lazy_static"]
 real_cargo_metadata = ["dep:cargo_metadata"]

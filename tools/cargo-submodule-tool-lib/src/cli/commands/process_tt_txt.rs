@@ -1,5 +1,5 @@
-use crate::cli::args::Cli;
-use crate::cli::args::ProcessTtTxtArgs;
+use crate::args::Cli;
+use crate::args::process_tt_txt::ProcessTtTxtArgs;
 use anyhow::Result;
 
 pub fn run_process_tt_txt_command(args: &ProcessTtTxtArgs, cli: &Cli) -> Result<()> {

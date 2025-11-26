@@ -1,46 +1,48 @@
-#[cfg(feature = "anyhow_enabled")]
+//#[cfg(feature = "anyhow_enabled")]
+mod metadata_provider;
+pub use metadata_provider::*;
 use anyhow::{Context, Result};
-#[cfg(not(feature = "anyhow_enabled"))]
-use std::error::Error;
-#[cfg(not(feature = "anyhow_enabled"))]
-type Result<T> = std::result::Result<T, Box<dyn Error>>;
+//#[cfg(not(feature = "anyhow_enabled"))]
+//use std::error::Error;
+//#[cfg(not(feature = "anyhow_enabled"))]
+//type Result<T> = std::result::Result<T, Box<dyn Error>>;
 
-#[cfg(not(feature = "anyhow_enabled"))]
-trait Context<T> {
-    fn context<C>(self, _context: C) -> Result<T>
-    where C: std::fmt::Display + Send + Sync + 'static;
-}
+// #[cfg(not(feature = "anyhow_enabled"))]
+// trait Context<T> {
+//     fn context<C>(self, _context: C) -> Result<T>
+//     where C: std::fmt::Display + Send + Sync + 'static;
+// }
 
-#[cfg(not(feature = "anyhow_enabled"))]
-impl<T, E> Context<T> for std::result::Result<T, E>
-where
-    E: std::fmt::Display + std::fmt::Debug + Send + Sync + 'static,
-{
-    fn context<C>(self, context: C) -> Result<T>
-    where
-        C: std::fmt::Display + Send + Sync + 'static,
-    {
-        self.map_err(|e| Box::new(std::io::Error::new(std::io::ErrorKind::Other, format!("{}: {}", context, e))) as Box<dyn Error>)
-    }
-}
+// #[cfg(not(feature = "anyhow_enabled"))]
+// impl<T, E> Context<T> for std::result::Result<T, E>
+// where
+//     E: std::fmt::Display + std::fmt::Debug + Send + Sync + 'static,
+// {
+//     fn context<C>(self, context: C) -> Result<T>
+//     where
+//         C: std::fmt::Display + Send + Sync + 'static,
+//     {
+//         self.map_err(|e| Box::new(std::io::Error::new(std::io::ErrorKind::Other, format!("{}: {}", context, e))) as Box<dyn Error>)
+//     }
+// }
 
 #[cfg(feature = "clap_enabled")]
 use clap::Parser;
-#[cfg(feature = "pathdiff_enabled")]
+//#[cfg(feature = "pathdiff_enabled")]
 use pathdiff::diff_paths;
 use std::collections::{HashMap, HashSet};
 use std::path::PathBuf;
-#[cfg(feature = "toml_edit_enabled")]
+//#[cfg(feature = "toml_edit_enabled")]
 use toml_edit::{value, DocumentMut, Item, Table};
-#[cfg(feature = "walkdir_enabled")]
+//#[cfg(feature = "walkdir_enabled")]
 use walkdir::WalkDir;
 
-use crate::metadata_provider::{CargoMetadataProvider, Metadata, Package, PackageId};
+//use crate::metadata_provider::{CargoMetadataProvider, Metadata, Package, PackageId};
 
-#[cfg(feature = "real_cargo_metadata")]
-use crate::metadata_provider::RealCargoMetadataProvider;
-#[cfg(not(feature = "real_cargo_metadata"))]
-use crate::metadata_provider::DummyCargoMetadataProvider;
+//#[cfg(feature = "real_cargo_metadata")]
+//use crate::metadata_provider::RealCargoMetadataProvider;
+//#[cfg(not(feature = "real_cargo_metadata"))]
+//use crate::metadata_provider::DummyCargoMetadataProvider;
 
 #[cfg(feature = "clap_enabled")]
 #[derive(Parser, Debug)]
@@ -312,8 +314,8 @@ fn main() -> Result<()> {
             } else {
                 // It's a non-local transitive dependency, check if it needs to be added as a submodule
                 if let Some(source) = &pkg.source {
-                    if source.repr.starts_with("git+") {
-                        let full_repo_url = source.repr.trim_start_matches("git+").to_string();
+                    if source.starts_with("git+") {
+                        let full_repo_url = source.trim_start_matches("git+").to_string();
                         let mut branch_or_tag = "main".to_string(); // Default branch
                         let mut repo_url_to_use = full_repo_url.clone(); // Initialize with the full URL
 

@@ -3,6 +3,7 @@ use std::collections::HashMap;
 use tool_traits_lib::serde_adapter::{CurrentSerdeAdapter, SerdeAdapter};
 
 // Define a struct to represent a single task from the TOML files
+use serde::{Deserialize, Serialize};
 #[cfg_attr(
     feature = "serde_enabled",
     derive(Debug, Deserialize, Serialize, Clone)

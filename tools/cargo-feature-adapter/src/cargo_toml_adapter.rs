@@ -3,7 +3,7 @@ use anyhow::{Context, Result};
 use std::collections::BTreeMap;
 use std::fs;
 use std::path::Path;
-use toml_edit::{Array, Document, Item, Table, Value};
+use toml_edit::{Array, Document, DocumentMut, Item, Table, Value};
 
 pub fn adapt_cargo_toml(input_path: &Path, output_path: &Path) -> Result<()> {
     let original_cargo_toml_path = input_path.join("Cargo.toml");

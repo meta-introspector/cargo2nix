@@ -50,6 +50,5 @@ https://github.com/meta-introspector/graph-rocks-rs
 https://github.com/meta-introspector/solomon-db
 
 now for each variable we can start it with its type + its usage to give each var a complexity scrore, we will then find dulicate variables.
-for each constant we factorize it into its primes and smallest words and acount those as part of the phi score.
-prime 23 is counted as 23!
+for each constant we factorize it into its primes and smallest words and acount those as part of the phi score. prime 23 is counted as 23! we will find the existing mondster code in our codebase by looking for 71
 

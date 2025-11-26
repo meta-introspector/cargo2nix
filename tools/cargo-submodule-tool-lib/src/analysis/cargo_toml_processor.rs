@@ -6,7 +6,7 @@ use std::path::{Path, PathBuf};
 use tool_traits_lib::{CargoTomlProcessor, RegexMatcher, RepoState};
 
 // Import the CurrentRegexMatcher for use in the RealCargoTomlProcessor
-use super::regex_matcher::CurrentRegexMatcher;
+use real_regex_adapter_lib::CurrentRegexMatcher;
 
 #[cfg(feature = "toml_edit_enabled")]
 use toml_edit::{Document, Item};
@@ -22,7 +22,7 @@ impl RealCargoTomlProcessor {
             r"^(https?://github\.com/[^/]+/[^/.]+)(/tree/[^/]+/.+)?(\.git)?$",
         )
         .expect("Failed to create regex matcher for clean_repo_url");
-        if let Some(captures) = regex_matcher.captures(repo_url) {
+        let x = if let Some(captures) = regex_matcher.captures(repo_url) {
             let base_url = captures
                 .get(1)
                 .expect("Expected capture group 1")
@@ -31,13 +31,14 @@ impl RealCargoTomlProcessor {
             format!("{}{}", base_url, git_suffix)
         } else {
             repo_url.to_string()
-        }
+        };
+        x
     }
 
     fn extract_owner_repo_name(&self, cleaned_url: &str) -> Option<(String, String)> {
         let regex_matcher = CurrentRegexMatcher::new(r"github\.com/([^/]+)/([^/.]+)(\.git)?")
             .expect("Failed to create regex matcher for extract_owner_repo_name");
-        if let Some(captures) = regex_matcher.captures(cleaned_url) {
+        let x = if let Some(captures) = regex_matcher.captures(cleaned_url) {
             let owner = captures
                 .get(1)
                 .expect("Expected capture group 1")
@@ -49,7 +50,8 @@ impl RealCargoTomlProcessor {
             Some((owner, repo_name))
         } else {
             None
-        }
+        };
+        x
     }
 }
 

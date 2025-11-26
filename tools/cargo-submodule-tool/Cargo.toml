@@ -25,7 +25,8 @@ walkdir = { workspace = true, optional = true }
 
 # Local dependencies
 cargo-repo-sync-lib = { path = "../cargo-repo-sync-lib", optional = true }
-cargo-submodule-tool-lib = { path = "../cargo-submodule-tool-lib", optional = true }
+cargo-submodule-tool-lib = { path = "../cargo-submodule-tool-lib" }
+#cargo_submodule_tool_lib = { path = "../cargo-submodule-tool-lib", optional = true }
 git-wrapper-lib = { path = "../git-wrapper-lib", optional = true }
 
 [features]
@@ -48,5 +49,5 @@ walkdir_enabled = ["dep:walkdir"]
 
 # Local dependency features
 cargo_repo_sync_lib_enabled = ["dep:cargo-repo-sync-lib"]
-cargo_submodule_tool_lib_enabled = ["dep:cargo-submodule-tool-lib"]
+#cargo_submodule_tool_lib_enabled = ["dep:cargo-submodule-tool-lib"]
 git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]

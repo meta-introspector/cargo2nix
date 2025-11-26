@@ -60,7 +60,7 @@ impl WorkspaceGenerator for DefaultWorkspaceGenerator {
         }
 
         #[cfg(feature = "tool_traits_lib_enabled")]
-        let serde_adapter = CurrentSerdeAdapter;
+        let serde_adapter = CurrentSerdeAdapter {};
         #[cfg(feature = "tool_traits_lib_enabled")]
         let metadata: serde_json::Value = serde_adapter
             .from_str(String::from_utf8_lossy(&output.stdout).as_ref())

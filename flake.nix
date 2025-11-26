@@ -52,6 +52,7 @@
           pkgs.pkg-config
           pkgs.minizinc
           pkgs.gecode
+          pkgs.rust-analyzer
         ];
         shellHook = ''
           export PKG_CONFIG_PATH=${pkgs.openssl_1_1.dev}/lib/pkgconfig:${pkgs.zlib.dev}/lib/pkgconfig:$PKG_CONFIG_PATH

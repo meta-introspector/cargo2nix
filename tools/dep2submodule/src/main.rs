@@ -34,12 +34,12 @@ use toml_edit::{value, DocumentMut, Item, Table};
 #[cfg(feature = "walkdir_enabled")]
 use walkdir::WalkDir;
 
-use crate::metadata_provider::{CargoMetadataProvider, Metadata, Package, PackageId};
+//use crate::metadata_provider::{CargoMetadataProvider, Metadata, Package, PackageId};
 
-#[cfg(feature = "real_cargo_metadata")]
-use crate::metadata_provider::RealCargoMetadataProvider;
-#[cfg(not(feature = "real_cargo_metadata"))]
-use crate::metadata_provider::DummyCargoMetadataProvider;
+//#[cfg(feature = "real_cargo_metadata")]
+//use crate::metadata_provider::RealCargoMetadataProvider;
+//#[cfg(not(feature = "real_cargo_metadata"))]
+//use DummyCargoMetadataProvider;
 
 #[cfg(feature = "clap_enabled")]
 #[derive(Parser, Debug)]

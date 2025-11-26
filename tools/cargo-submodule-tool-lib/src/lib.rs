@@ -6,6 +6,7 @@ pub mod fs_cache;
 pub mod fs_writer;
 pub mod plan_manager;
 pub mod repo_discovery;
+pub mod repo_sync_lib;
 pub mod traits;
 pub mod workspace_generator;
 
@@ -17,5 +18,6 @@ pub use fs_cache::*;
 pub use fs_writer::*;
 pub use plan_manager::*;
 pub use repo_discovery::*;
+pub use repo_sync_lib::*;
 pub use traits::*;
 pub use workspace_generator::*;

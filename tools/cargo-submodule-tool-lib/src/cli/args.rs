@@ -5,6 +5,16 @@ use clap::error::{Error, ErrorKind};
 #[cfg(feature = "clap_enabled")]
 use clap::{Args as ClapArgs, Command, FromArgMatches, Parser, Subcommand};
 
+pub mod add_submodules;
+pub mod submodule_status;
+//pub mod generate_nix;
+pub mod generate_patches;
+pub mod analyze;
+pub mod update_cargo_toml;
+pub mod process_tt_txt;
+pub mod collect_repo_state;
+//pub mod generate_workspaces;
+
 #[cfg(feature = "clap_enabled")]
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -23,20 +33,32 @@ pub struct Cli {
 
     #[arg(long, global = true)]
     pub dry_run: bool,
+
+    /// Path to a JSON log file for detailed output.
+    #[arg(long, global = true)]
+    pub json_log_file: Option<PathBuf>,
+
+    /// Generate a detailed report.
+    #[arg(long, global = true)]
+    pub report: bool,
+
+    /// Use pure Rust Git implementation.
+    #[arg(long, global = true)]
+    pub pure_rust_git: bool,
 }
 
 #[cfg(feature = "clap_enabled")]
 #[derive(Subcommand)]
 pub enum Commands {
-    AddSubmodules(crate::cli::args::add_submodules::AddSubmodulesArgs),
-    SubmoduleStatus(crate::cli::args::submodule_status::SubmoduleStatusArgs),
-    GenerateNix(crate::cli::args::generate_nix::GenerateNixArgs),
-    GeneratePatches(crate::cli::args::generate_patches::GeneratePatchesArgs),
-    Analyze(crate::cli::args::analyze::AnalyzeArgs),
-    UpdateCargoToml(crate::cli::args::update_cargo_toml::UpdateCargoTomlArgs),
-    ProcessTtTxt(crate::cli::args::process_tt_txt::ProcessTtTxtArgs),
-    CollectRepoState(crate::cli::args::collect_repo_state::CollectRepoStateArgs),
-    GenerateWorkspaces(crate::cli::args::generate_workspaces::GenerateWorkspacesArgs),
+    AddSubmodules(add_submodules::AddSubmodulesArgs),
+    SubmoduleStatus(submodule_status::SubmoduleStatusArgs),
+    //GenerateNix(generate_nix::GenerateNixArgs),
+    GeneratePatches(generate_patches::GeneratePatchesArgs),
+    Analyze(analyze::AnalyzeArgs),
+    //UpdateCargoToml(update_cargo_toml::UpdateCargoTomlArgs),
+    ProcessTtTxt(process_tt_txt::ProcessTtTxtArgs),
+    CollectRepoState(collect_repo_state::CollectRepoStateArgs),
+    //GenerateWorkspaces(generate_workspaces::GenerateWorkspacesArgs),
 }
 
 #[cfg(not(feature = "clap_enabled"))]

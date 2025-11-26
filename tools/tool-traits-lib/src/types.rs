@@ -1,23 +1,9 @@
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::path::PathBuf;
 use std::time::{SystemTime, UNIX_EPOCH};
 
-#[cfg_attr(
-    feature = "serde_json_enabled",
-    derive(
-        Debug,
-        Default,
-        PartialEq,
-        Eq,
-        Clone,
-        serde::Serialize,
-        serde::Deserialize
-    )
-)]
-#[cfg_attr(
-    not(feature = "serde_json_enabled"),
-    derive(Debug, Default, PartialEq, Eq, Clone)
-)]
+#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]
+#[cfg_attr(feature = "serde_enabled", derive(serde::Serialize, serde::Deserialize))]
 pub struct SubmoduleInfo {
     pub name: String,
     pub path: PathBuf,
@@ -26,22 +12,8 @@ pub struct SubmoduleInfo {
     pub commit_id: String,
 }
 
-#[cfg_attr(
-    feature = "serde_json_enabled",
-    derive(
-        Debug,
-        Default,
-        PartialEq,
-        Eq,
-        Clone,
-        serde::Serialize,
-        serde::Deserialize
-    )
-)]
-#[cfg_attr(
-    not(feature = "serde_json_enabled"),
-    derive(Debug, Default, PartialEq, Eq, Clone)
-)]
+#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]
+#[cfg_attr(feature = "serde_enabled", derive(serde::Serialize, serde::Deserialize))]
 pub struct PackageInfo {
     pub name: String,
     pub version: String,
@@ -49,95 +21,44 @@ pub struct PackageInfo {
     pub dependencies: Vec<DependencyInfo>,
 }
 
-#[cfg_attr(
-    feature = "serde_json_enabled",
-    derive(
-        Debug,
-        Default,
-        PartialEq,
-        Eq,
-        Clone,
-        serde::Serialize,
-        serde::Deserialize
-    )
-)]
-#[cfg_attr(
-    not(feature = "serde_json_enabled"),
-    derive(Debug, Default, PartialEq, Eq, Clone)
-)]
+#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]
+#[cfg_attr(feature = "serde_enabled", derive(serde::Serialize, serde::Deserialize))]
 pub struct DependencyInfo {
     pub name: String,
     pub source: String,
     pub req: String,
 }
 
-#[cfg_attr(
-    feature = "serde",
-    derive(
-        Debug,
-        Default,
-        PartialEq,
-        Eq,
-        Clone,
-        serde::Serialize,
-        serde::Deserialize
-    )
-)]
-#[cfg_attr(
-    not(feature = "serde_json_enabled"),
-    derive(Debug, Default, PartialEq, Eq, Clone)
-)]
+#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]
+#[cfg_attr(feature = "serde_enabled", derive(serde::Serialize, serde::Deserialize))]
 pub struct CargoWorkspaceInfo {
     pub manifest_path: PathBuf,
     pub packages: Vec<PackageInfo>,
 }
 
-#[cfg_attr(
-    feature = "serde_json_enabled",
-    derive(
-        Debug,
-        Default,
-        PartialEq,
-        Eq,
-        Clone,
-        serde::Serialize,
-        serde::Deserialize
-    )
-)]
-#[cfg_attr(not(feature = "serde"), derive(Debug, Default, PartialEq, Eq, Clone))]
+#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]
+#[cfg_attr(feature = "serde_enabled", derive(serde::Serialize, serde::Deserialize))]
 pub struct NixFlakeInfo {
     pub flake_path: PathBuf,
-    pub inputs: HashMap<String, String>,
+    pub inputs: BTreeMap<String, String>,
     pub outputs: Vec<String>,
 }
 
-#[cfg_attr(
-    feature = "serde_json_enabled",
-    derive(
-        Debug,
-        Default,
-        PartialEq,
-        Eq,
-        Clone,
-        serde::Serialize,
-        serde::Deserialize
-    )
-)]
-#[cfg_attr(not(feature = "serde"), derive(Debug, Default, PartialEq, Eq, Clone))]
+#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]
+#[cfg_attr(feature = "serde_enabled", derive(serde::Serialize, serde::Deserialize))]
 pub struct RepoState {
+    pub repo_url: String, // Added
+    pub owner: String, // Added
+    pub repo_name: String, // Added
+    pub target_org: String, // Added
+    pub target_branch: String, // Added
     pub submodules: Vec<SubmoduleInfo>,
     pub cargo_workspaces: Vec<CargoWorkspaceInfo>,
     pub nix_flakes: Vec<NixFlakeInfo>,
 }
 
-#[cfg_attr(
-    feature = "serde",
-    derive(Debug, PartialEq, Eq, Clone, serde::Serialize, serde::Deserialize)
-)]
-#[cfg_attr(
-    not(feature = "serde_json_enabled"),
-    derive(Debug, PartialEq, Eq, Clone)
-)]
+#[derive(Debug, PartialEq, Eq, Clone)]
+#[cfg_attr(feature = "serde_enabled", derive(serde::Serialize, serde::Deserialize))]
 pub struct FileMetadata {
     pub modified: SystemTime,
     pub len: u64,
@@ -158,14 +79,8 @@ impl Default for FileMetadata {
     }
 }
 
-#[cfg_attr(
-    feature = "serde_json_enabled",
-    derive(Debug, PartialEq, Eq, Clone, serde::Serialize, serde::Deserialize)
-)]
-#[cfg_attr(
-    not(feature = "serde_json_enabled"),
-    derive(Debug, PartialEq, Eq, Clone)
-)]
+#[derive(Debug, PartialEq, Eq, Clone)]
+#[cfg_attr(feature = "serde_enabled", derive(serde::Serialize, serde::Deserialize))]
 pub struct MergedCrateInfo {
     pub layer: i32,
     pub usage_count: u32,

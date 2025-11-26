@@ -1,14 +1,14 @@
 use anyhow::Context; // Keep anyhow::Context for now, will refactor later if needed
 
 use crate::analysis::cargo_toml_parser::CurrentCargoTomlParser;
-use crate::analysis::regex_matcher::CurrentRegexMatcher;
+use real_regex_adapter_lib::CurrentRegexMatcher;
 use crate::analysis::walkdir_iterator::CurrentWalkDirIterator;
 use std::collections::HashSet;
 use std::fs;
 use std::path::{Path, PathBuf};
 use tool_traits_lib::cargo_toml_parser::CargoTomlParser;
 use tool_traits_lib::cargo_toml_processor::CargoTomlProcessor;
-use tool_traits_lib::regex_matcher::{RegexCaptures, RegexMatcher};
+use tool_traits_lib::regex_adapter::{RegexCaptures, RegexMatcher};
 #[cfg(feature = "tool_traits_lib_enabled")]
 use tool_traits_lib::serde_adapter::{CurrentSerdeAdapter, SerdeAdapter};
 use tool_traits_lib::types::RepoState;
@@ -44,7 +44,8 @@ impl RepoDiscoverer for PureRustRepoDiscoverer {
         let mut all_vendored_crate_names: HashSet<String> = HashSet::new();
 
         let walkdir_iterator = CurrentWalkDirIterator::new(root_dir);
-        let cargo_toml_processor = CurrentCargoTomlProcessor; // Instantiate the processor
+use crate::analysis::cargo_toml_processor::RealCargoTomlProcessor;
+        let cargo_toml_processor = RealCargoTomlProcessor; // Instantiate the processor
 
         for entry_result in walkdir_iterator.into_iter() {
             let path = entry_result.map_err(|e| format!("Error walking directory: {}", e))?;

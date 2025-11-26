@@ -2,18 +2,18 @@ use anyhow::{Context, Result};
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 
-use crate::cli::args::SubmoduleStatusArgs;
+use crate::args::submodule_status::SubmoduleStatusArgs;
 #[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
+use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
 #[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyGitExecutor; // Use our dummy GitExecutor
+use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Use our dummy GitExecutor
 #[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyRollupLock as RollupLock;
-use crate::executors::GitExecutor; // Use our re-exported GitExecutor
+use git_wrapper_lib::dummy_rollup_lock::DummyRollupLock as RollupLock;
+use git_wrapper_lib::git_traits::GitExecutor; // Use our re-exported GitExecutor
 #[cfg(feature = "git_enabled")]
-use crate::executors::RealExecv; // Use our re-exported RealExecv
+use git_wrapper_lib::execv::RealExecv; // Use our re-exported RealExecv
 #[cfg(feature = "git_enabled")]
-use crate::executors::RollupLock; // Use our re-exported RollupLock
+use git_wrapper_lib::git_types::RollupLock; // Use our re-exported RollupLock
 use crate::fs_cache::RealFileSystemStat; // Still in cargo-submodule-tool-lib
 #[cfg(feature = "git_enabled")]
 use git_wrapper_lib::git_traits::GhExecutor;

@@ -14,11 +14,11 @@ git-wrapper-lib = { path = "../git-wrapper-lib", optional = true }
 syn = { workspace = true, features = ["full"], optional = true }
 quote = { workspace = true, optional = true }
 proc-macro2 = { workspace = true, optional = true }
-toml_edit = { workspace = true, optional = true }
+toml_edit = { workspace = true }
 walkdir = { workspace = true, optional = true }
-fs_extra = { workspace = true, optional = true }
-anyhow = { workspace = true, optional = true }
-clap = { workspace = true, features = ["derive"], optional = true }
+fs_extra = { workspace = true }
+anyhow = { workspace = true }
+clap = { workspace = true, features = ["derive"] }
 sha1 = { workspace = true, optional = true }
 hex = { workspace = true, optional = true }
 serde = { workspace = true, features = ["derive"], optional = true }
@@ -42,11 +42,11 @@ default = []
 syn_enabled = ["dep:syn"]
 quote_enabled = ["dep:quote"]
 proc_macro2_enabled = ["dep:proc-macro2"]
-toml_edit_enabled = ["dep:toml_edit"]
+#toml_edit_enabled = ["dep:toml_edit"]
 walkdir_enabled = ["dep:walkdir"]
-fs_extra_enabled = ["dep:fs_extra"]
-anyhow_enabled = ["dep:anyhow"]
-clap_enabled = ["dep:clap"]
+fs_extra_enabled = []
+anyhow_enabled = []
+#clap_enabled = ["dep:clap"]
 sha1_enabled = ["dep:sha1"]
 hex_enabled = ["dep:hex"]
 serde_enabled = ["dep:serde"]

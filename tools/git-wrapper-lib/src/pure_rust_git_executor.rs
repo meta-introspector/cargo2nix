@@ -32,11 +32,11 @@ use crate::git_traits::GitExecutor;
 use crate::git_types::{RollupLock, SubmoduleStat};
 // use crate::repo_sync_lib::git_snapshot::create_snapshot; // Commented out
 
-#[cfg(feature = "git2")]
+#[cfg(feature = "git2_enabled")]
 use git2::{Repository, SubmoduleUpdateOptions};
-#[cfg(feature = "hex")]
+#[cfg(feature = "hex_enabled")]
 use hex;
-#[cfg(feature = "sha1")]
+#[cfg(feature = "sha1_enabled")]
 use sha1::{Digest, Sha1};
 
 pub struct PureRustGitExecutor {
@@ -54,11 +54,11 @@ impl PureRustGitExecutor {
 }
 
 impl GitExecutor for PureRustGitExecutor {
-    #[cfg(feature = "git2")]
+    #[cfg(feature = "git2_enabled")]
     fn submodule_add(
         &self,
-        repo_url: &str,
-        submodule_path: &Path,
+        _repo_url: &str,
+        _submodule_path: &Path,
         rollup_lock: Arc<Mutex<RollupLock>>,
         root_dir: &Path,
     ) -> Result<()> {
@@ -103,7 +103,7 @@ impl GitExecutor for PureRustGitExecutor {
         Ok(())
     }
 
-    #[cfg(not(feature = "git2"))]
+    #[cfg(not(feature = "git2_enabled"))]
     fn submodule_add(
         &self,
         repo_url: &str,
@@ -127,11 +127,11 @@ impl GitExecutor for PureRustGitExecutor {
         )));
     }
 
-    #[cfg(feature = "git2")]
+    #[cfg(feature = "git2_enabled")]
     fn checkout_branch(
         &self,
-        submodule_path: &Path,
-        branch: &str,
+        _submodule_path: &Path,
+        _branch: &str,
         rollup_lock: Arc<Mutex<RollupLock>>,
         root_dir: &Path,
     ) -> Result<()> {
@@ -179,7 +179,7 @@ impl GitExecutor for PureRustGitExecutor {
         Ok(())
     }
 
-    #[cfg(not(feature = "git2"))]
+    #[cfg(not(feature = "git2_enabled"))]
     fn checkout_branch(
         &self,
         submodule_path: &Path,
@@ -198,7 +198,7 @@ impl GitExecutor for PureRustGitExecutor {
         return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "PureRustGitExecutor::checkout_branch requires the 'git2' feature, which is not enabled.")));
     }
 
-    #[cfg(feature = "git2")]
+    #[cfg(feature = "git2_enabled")]
     fn status(&self, repo_path: &Path) -> Result<String> {
         println!(
             "Executing pure Rust git -C ?{:?} status (using cached fs stat)",
@@ -309,7 +309,7 @@ impl GitExecutor for PureRustGitExecutor {
         Ok(status_output)
     }
 
-    #[cfg(not(feature = "git2"))]
+    #[cfg(not(feature = "git2_enabled"))]
     fn status(&self, _repo_path: &Path) -> Result<String> {
         #[cfg(feature = "anyhow_enabled")]
         anyhow::bail!(
@@ -322,7 +322,7 @@ impl GitExecutor for PureRustGitExecutor {
         )));
     }
 
-    #[cfg(feature = "git2")]
+    #[cfg(feature = "git2_enabled")]
     fn list_submodules(&self, root_dir: &Path) -> Result<Vec<(String, PathBuf)>> {
         println!("Executing pure Rust git list submodules in ?{:?}", root_dir);
         let repo = Repository::open(root_dir)
@@ -339,7 +339,7 @@ impl GitExecutor for PureRustGitExecutor {
         Ok(submodules_list)
     }
 
-    #[cfg(not(feature = "git2"))]
+    #[cfg(not(feature = "git2_enabled"))]
     fn list_submodules(&self, _root_dir: &Path) -> Result<Vec<(String, PathBuf)>> {
         #[cfg(feature = "anyhow_enabled")]
         anyhow::bail!("PureRustGitExecutor::list_submodules requires the 'git2' feature, which is not enabled.");
@@ -347,7 +347,7 @@ impl GitExecutor for PureRustGitExecutor {
         return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "PureRustGitExecutor::list_submodules requires the 'git2' feature, which is not enabled.")));
     }
 
-    #[cfg(feature = "git2")]
+    #[cfg(feature = "git2_enabled")]
     fn clone(&self, repo_url: &str, target_path: &Path) -> Result<()> {
         println!(
             "Executing pure Rust git clone {} ?{:?}",
@@ -364,8 +364,7 @@ impl GitExecutor for PureRustGitExecutor {
         Ok(())
     }
 
-    #[cfg(not(feature = "git2"))]
-    fn clone(&self, repo_url: &str, target_path: &Path) -> Result<()> {
+    fn clone(&self, _repo_url: &str, _target_path: &Path) -> Result<()> {
         #[cfg(feature = "with-trace")]
         println!(
             "TRACE: clone called with repo_url: {}, target_path: {:?}",
@@ -382,7 +381,7 @@ impl GitExecutor for PureRustGitExecutor {
         )));
     }
 
-    #[cfg(feature = "git2")]
+    #[cfg(feature = "git2_enabled")]
     fn get_file_git_info(
         &self,
         repo_path: &Path,
@@ -421,7 +420,7 @@ impl GitExecutor for PureRustGitExecutor {
         Ok((is_git_tracked, git_object_hash))
     }
 
-    #[cfg(not(feature = "git2"))]
+    #[cfg(not(feature = "git2_enabled"))]
     fn get_file_git_info(
         &self,
         _repo_path: &Path,
@@ -433,7 +432,7 @@ impl GitExecutor for PureRustGitExecutor {
         return Err(Box::new(std::io::Error::new(std::io::ErrorKind::Other, "PureRustGitExecutor::get_file_git_info requires the 'git2' feature, which is not enabled.")));
     }
 
-    #[cfg(all(feature = "git2", feature = "sha1"))]
+    #[cfg(all(feature = "git2_enabled", feature = "sha1_enabled"))]
     fn get_submodule_head_and_workdir_hash(&self, path: &Path) -> Result<SubmoduleStat> {
         let repo =
             Repository::open(path).context(format!("Failed to open repository at ?{:?}", path))?;
@@ -463,9 +462,9 @@ impl GitExecutor for PureRustGitExecutor {
 
         let mut hasher = Sha1::new();
         hasher.update(workdir_status_string.as_bytes());
-        #[cfg(feature = "hex")]
+        #[cfg(feature = "hex_enabled")]
         let workdir_hash = hex::encode(hasher.finalize());
-        #[cfg(not(feature = "hex"))]
+        #[cfg(not(feature = "hex_enabled"))]
         let workdir_hash = format!("{:?}", hasher.finalize());
 
         Ok(SubmoduleStat {
@@ -474,7 +473,7 @@ impl GitExecutor for PureRustGitExecutor {
         })
     }
 
-    #[cfg(not(all(feature = "git2", feature = "sha1")))]
+    #[cfg(not(all(feature = "git2_enabled", feature = "sha1_enabled")))]
     fn get_submodule_head_and_workdir_hash(&self, _path: &Path) -> Result<SubmoduleStat> {
         #[cfg(feature = "anyhow_enabled")]
         anyhow::bail!("PureRustGitExecutor::get_submodule_head_and_workdir_hash requires both 'git2' and 'sha1' features, which are not enabled.");

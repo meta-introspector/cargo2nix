@@ -19,9 +19,9 @@ pub mod run_submodule_status {
     use anyhow::Result;
     use std::path::Path;
     use std::collections::HashMap;
-    use crate::executors::GitExecutor;
+    use git_wrapper_lib::executors::GitExecutor;
     use std::sync::{Arc, Mutex};
-    use crate::executors::RollupLock;
+    use git_wrapper_lib::executors::RollupLock;
 
     pub fn run_submodule_status(
         _git_executor: Arc<dyn GitExecutor + Send + Sync>,

@@ -34,16 +34,16 @@ use crate::git_traits::Execv;
 use crate::git_traits::GitExecutor;
 use crate::git_types::{RollupLock, SubmoduleStat}; // Added
 
-#[cfg(feature = "hex")]
+#[cfg(feature = "hex_enabled")]
 use hex;
-#[cfg(feature = "sha1")]
+#[cfg(feature = "sha1_enabled")]
 use sha1::{Digest, Sha1};
 
 pub struct SystemGitExecutor {
     git_executable_path: PathBuf,
     executor: Arc<dyn Execv + Send + Sync>,
-    rollup_lock: Arc<Mutex<RollupLock>>,
-    root_dir: PathBuf,
+    _rollup_lock: Arc<Mutex<RollupLock>>,
+    _root_dir: PathBuf,
 }
 
 impl SystemGitExecutor {
@@ -56,8 +56,8 @@ impl SystemGitExecutor {
         SystemGitExecutor {
             git_executable_path,
             executor,
-            rollup_lock,
-            root_dir,
+            _rollup_lock: rollup_lock,
+            _root_dir: root_dir,
         }
     }
 }
@@ -107,8 +107,8 @@ impl GitExecutor for SystemGitExecutor {
         &self,
         submodule_path: &Path,
         branch: &str,
-        rollup_lock: Arc<Mutex<RollupLock>>,
-        root_dir: &Path,
+        _rollup_lock: Arc<Mutex<RollupLock>>, // Prefixed with _
+        _root_dir: &Path, // Prefixed with _
     ) -> Result<()> {
         #[cfg(feature = "with-trace")]
         println!("TRACE: checkout_branch called with submodule_path: {:?}, branch: {}, rollup_lock: {:?}, root_dir: {:?}", submodule_path, branch, rollup_lock, root_dir);
@@ -262,7 +262,7 @@ impl GitExecutor for SystemGitExecutor {
         Ok(())
     }
 
-    #[cfg(feature = "sha1")]
+    #[cfg(feature = "sha1_enabled")]
     fn get_submodule_head_and_workdir_hash(&self, path: &Path) -> Result<SubmoduleStat> {
         let program = self.git_executable_path.as_os_str();
 
@@ -320,9 +320,9 @@ impl GitExecutor for SystemGitExecutor {
         }
         let mut hasher = Sha1::new();
         hasher.update(&workdir_status_output.stdout);
-        #[cfg(feature = "hex")]
+        #[cfg(feature = "hex_enabled")]
         let workdir_hash = hex::encode(hasher.finalize());
-        #[cfg(not(feature = "hex"))]
+        #[cfg(not(feature = "hex_enabled"))]
         let workdir_hash = format!("{:?}", hasher.finalize());
 
         Ok(SubmoduleStat {
@@ -331,7 +331,7 @@ impl GitExecutor for SystemGitExecutor {
         })
     }
 
-    #[cfg(not(feature = "sha1"))]
+    #[cfg(not(feature = "sha1_enabled"))]
     fn get_submodule_head_and_workdir_hash(&self, _path: &Path) -> Result<SubmoduleStat> {
         #[cfg(feature = "anyhow_enabled")]
         anyhow::bail!("SystemGitExecutor::get_submodule_head_and_workdir_hash requires the 'sha1' feature, which is not enabled.");

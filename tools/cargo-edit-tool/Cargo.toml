@@ -4,7 +4,7 @@ categories.workspace = true
 version.workspace = true
 authors.workspace = true
 rust-version.workspace = true
-#edition.workspace = true
+edition = "2024"
 #resolver = true
 license.workspace = true
 homepage.workspace = true
@@ -13,30 +13,30 @@ keywords.workspace = true
 include.workspace = true
 
 [dependencies]
-cargo-submodule-tool-lib = { workspace = true, optional = true }
-syn = { version = "*", optional = true }
-cargo-repo-sync-lib = { path = "../cargo-repo-sync-lib", optional = true }
-hex = { version = "*", optional = true }
-sha1 = { version = "*", optional = true }
-serde_json = { version = "*", optional = true }
-git-wrapper-lib = { workspace = true, optional = true }
-anyhow = { version = "*", optional = true }
-toml_edit = { workspace = true, optional = true }
-walkdir = { workspace = true, optional = true }
-cargo_metadata = { workspace = true, optional = true }
-git-wrapper-lib = { path = "../git-wrapper-lib", features = ["git2_enabled"], optional = true }
-clap = { workspace = true, features = ["derive"], optional = true }
-nix-generator-lib = { path = "../nix-generator-lib", optional = true }
-syn-adapter-lib = { path = "../syn-adapter-lib", features = ["syn-parsing"], optional = true }
-cargo-edit-lib = { path = "../cargo-edit-lib", optional = true }
-cargo-toml-editor-lib = { path = "../cargo-toml-editor-lib", optional = true }
-cargo-submodule-tool-lib = { path = "../cargo-submodule-tool-lib", optional = true }
+#cargo-submodule-tool-lib = { path = "../cargo-submodule-tool-lib"}
 #cargo2nix = { path = "../../crates/cargo2nix", optional = true }
+#git-wrapper-lib = { workspace = true }
+anyhow = { version = "*", optional = true }
+cargo-edit-lib = { path = "../cargo-edit-lib", optional = true }
+cargo-repo-sync-lib = { path = "../cargo-repo-sync-lib", optional = true }
+cargo-submodule-tool-lib = { path = "../cargo-submodule-tool-lib" }
+cargo-toml-editor-lib = { path = "../cargo-toml-editor-lib", optional = true }
+cargo_metadata = { workspace = true, optional = true }
+clap = { workspace = true, features = ["derive"], optional = true }
+git-wrapper-lib = { path = "../git-wrapper-lib", features = ["git2_enabled"] }
+git2 = { workspace = true, optional = true }
+hex = { version = "*", optional = true }
+lazy_static = { version = "1.4.0", optional = true }
+nix-generator-lib = { path = "../nix-generator-lib", optional = true }
 pathdiff = { workspace = true, optional = true }
 regex = { workspace = true, optional = true }
-lazy_static = { version = "1.4.0", optional = true }
 serde = { workspace = true, features = ["derive"], optional = true }
-git2 = { workspace = true, optional = true }
+serde_json = { version = "*", optional = true }
+sha1 = { version = "*", optional = true }
+syn = { version = "*", optional = true }
+syn-adapter-lib = { path = "../syn-adapter-lib" }
+toml_edit = { workspace = true, optional = true }
+walkdir = { workspace = true, optional = true }
 
 [features]
 syn_enabled = ["dep:syn"]
@@ -44,7 +44,7 @@ cargo_repo_sync_lib_enabled = ["dep:cargo-repo-sync-lib"]
 hex_enabled = ["dep:hex"]
 sha1_enabled = ["dep:sha1"]
 serde_json_enabled = ["dep:serde_json"]
-default = []
+default = ["cargo_submodule_tool_lib_enabled"]
 nix_generation = []
 real_cargo_metadata = []
 real_toml_edit = []
@@ -52,13 +52,13 @@ anyhow_enabled = ["dep:anyhow"]
 toml_edit_enabled = ["dep:toml_edit"]
 walkdir_enabled = ["dep:walkdir"]
 cargo_metadata_enabled = ["dep:cargo_metadata"]
-git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
+#git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
 clap_enabled = ["dep:clap"]
 nix_generator_lib_enabled = ["dep:nix-generator-lib"]
-syn_adapter_lib_enabled = ["dep:syn-adapter-lib"]
+#syn_adapter_lib_enabled = ["dep:syn-adapter-lib"]
 cargo_edit_lib_enabled = ["dep:cargo-edit-lib"]
 cargo_toml_editor_lib_enabled = ["dep:cargo-toml-editor-lib"]
-cargo_submodule_tool_lib_enabled = ["dep:cargo-submodule-tool-lib"]
+cargo_submodule_tool_lib_enabled = [ ] # "dep:cargo-submodule-tool-lib"
 pathdiff_enabled = ["dep:pathdiff"]
 regex_enabled = ["dep:regex"]
 lazy_static_enabled = ["dep:lazy_static"]

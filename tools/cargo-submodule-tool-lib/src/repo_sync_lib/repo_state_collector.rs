@@ -6,7 +6,7 @@ use std::sync::Arc;
 use walkdir::WalkDir;
 
 use crate::analysis::cargo_metadata_provider::CargoMetadataProvider;
-use crate::executors::GitExecutor; // Use our re-exported GitExecutor // Use our re-exported CargoMetadataProvider
+use git_wrapper_lib::executors::GitExecutor; // Use our re-exported GitExecutor // Use our re-exported CargoMetadataProvider
 
 use git_wrapper_lib::git_types::{
     CargoWorkspaceInfo, DependencyInfo, NixFlakeInfo, PackageInfo, RepoState, SubmoduleInfo,

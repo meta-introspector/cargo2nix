@@ -7,10 +7,11 @@
 
 Bring [Nix](https://nixos.org/nix) dependency management to your Rust project!
 
-## plan 
+## plan
 
-1. replace python and shell scripts with rust traits and functors
-2. create a new nix submodule rust resolver that resolves all code to our git submodules tree and ignores all uses. any use will resolve to our our store. 
+This plan outlines the evolution of cargo2nix as a critical component in building a quasi-meta computationally self-aware system, adhering to a monotonic, additive development philosophy.
+
+1. replace python and shell scripts with rust traits and functors2. create a new nix submodule rust resolver that resolves all code to our git submodules tree and ignores all uses. any use will resolve to our our store. 
 3. decl level resolution. each decl is a standalone object and compiled separatly from all others in a virtual canonical file system that is mapped into nix.
 4. compile caching
 5. export to legacy rust. we can regenerate and replace existing Cargo.toml code with our system.

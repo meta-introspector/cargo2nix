@@ -15,12 +15,16 @@ pathdiff = { version = "*", optional = true }
 serde = { version = "*", optional = true }
 serde_json = { version = "*", optional = true }
 
-anyhow = { workspace = true, optional = true }
+anyhow = { workspace = true }
 git2 = { workspace = true, optional = true }
 cargo_metadata = { workspace = true, optional = true }
 walkdir = { workspace = true, optional = true }
 regex = { workspace = true, optional = true }
 cargo-submodule-tool-lib = { path = "../cargo-submodule-tool-lib", optional = true }
+cargo-repo-sync-lib = { path = "../cargo-repo-sync-lib", optional = true }
+cargo-edit-lib = { path = "../cargo-edit-lib" }
+#cargo_edit_tool = { path = "../cargo-edit-tool" }
+
 
 
 [features]
@@ -33,8 +37,8 @@ pathdiff_enabled = ["dep:pathdiff"]
 serde_enabled = ["dep:serde"]
 serde_json_enabled = ["dep:serde_json"]
 
-default = []
-anyhow_enabled = ["dep:anyhow"]
+default = ["pathdiff_enabled"]
+#anyhow_enabled = ["dep:anyhow"]
 git2_enabled = ["dep:git2"]
 cargo_metadata_enabled = ["dep:cargo_metadata"]
 walkdir_enabled = ["dep:walkdir"]

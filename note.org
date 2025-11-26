@@ -36,3 +36,4 @@ now we can decouple each crate into traits and replace the types and functions a
 we want to calcualte our own lock, i mean you can ingest it but the goal should be clear, we want a rocksdb based, graphql synctax sugared topological sorted dep graph from our rocksdb as a semanitic web knowledge graph.
 
 ok now the graphql will allow you to read any git status or fetch an object from the git store, and cache that in the rocks db. it will ingest and store all meta data, all readmes and basic cargo.toml and lock files and .gitsubmodules
+

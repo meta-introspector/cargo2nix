@@ -7,5 +7,8 @@ pub mod non_vendored_module_finder; // Added
 pub use cargo_metadata_provider::*; // Added
 pub mod cargo_toml_parser;
 pub mod cargo_toml_processor;
-pub mod regex_matcher;
+
 pub mod walkdir_iterator;
+pub mod workspace_remover;
+pub use walkdir_iterator::*;
+pub use workspace_remover::*;

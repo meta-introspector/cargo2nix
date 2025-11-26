@@ -1,4 +1,4 @@
-use super::super::traits::cargo_toml_parser::CargoTomlParser;
+use tool_traits_lib::cargo_toml_parser::CargoTomlParser;
 use anyhow::{Context, Result};
 use std::fs;
 use std::path::Path;
@@ -11,12 +11,12 @@ pub struct RealCargoTomlParser;
 
 #[cfg(feature = "toml_edit_enabled")]
 impl CargoTomlParser for RealCargoTomlParser {
-    fn get_package_repository(&self, path: &Path) -> Result<Option<String>> {
+    fn get_package_repository(&self, path: &Path) -> Result<Option<String>, String> {
         let cargo_toml_content = fs::read_to_string(path)
-            .context(format!("Failed to read Cargo.toml from {:?}", path))?;
+            .map_err(|e| format!("Failed to read Cargo.toml from {:?}: {}", path, e))?;
         let doc = cargo_toml_content
             .parse::<Document<_>>()
-            .context("Failed to parse Cargo.toml")?;
+            .map_err(|e| format!("Failed to parse Cargo.toml: {}", e))?;
 
         let repo_url = doc
             .get("package")

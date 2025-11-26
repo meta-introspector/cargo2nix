@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 
 syn = { version = "*", optional = true }
-toml_edit = { version = "*", optional = true }
+toml_edit = { version = "*" }
 clap = { version = "*", optional = true }
 
 git2 = { version = "*", optional = true }
@@ -16,17 +16,18 @@ pathdiff = { version = "*", optional = true }
 serde_json = { version = "*", optional = true }
 walkdir = { version = "*", optional = true }
 
-anyhow = { workspace = true, optional = true }
-cargo_metadata = { workspace = true, optional = true }
+anyhow = { workspace = true }
+cargo_metadata = { workspace = true }
+cargo-edit-lib = { path = "../cargo-edit-lib" }
 #cargo2nix = { path = "../../crates/cargo2nix" }
 serde = { workspace = true, features = ["derive"], optional = true } # Added
 
-git-wrapper-lib = { path = "../git-wrapper-lib", optional = true }
+git-wrapper-lib = { path = "../git-wrapper-lib" }
 
 [features]
 
 syn_enabled = ["dep:syn"]
-toml_edit_enabled = ["dep:toml_edit"]
+#toml_edit_enabled = ["dep:toml_edit"]
 clap_enabled = ["dep:clap"]
 
 git2_enabled = ["dep:git2"]
@@ -36,8 +37,8 @@ pathdiff_enabled = ["dep:pathdiff"]
 serde_json_enabled = ["dep:serde_json"]
 walkdir_enabled = ["dep:walkdir"]
 default = []
-anyhow_enabled = ["dep:anyhow"]
-cargo_metadata_enabled = ["dep:cargo_metadata"]
+#anyhow_enabled = ["dep:anyhow"]
+#cargo_metadata_enabled = ["dep:cargo_metadata"]
 serde_enabled = ["dep:serde"]
 
-git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
+#git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]

@@ -1,13 +1,14 @@
 #[cfg(feature = "nix_generation")]
 use cargo_metadata::{MetadataCommand, Package, PackageId};
 
-use crate::cli::args::{Cli, GeneratePatchesArgs};
+use crate::args::generate_patches::GeneratePatchesArgs; use crate::args::Cli;
 #[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyRollupLock as RollupLock; // Use dummy for RollupLock when git is not enabled
+use git_wrapper_lib::dummy_rollup_lock::DummyRollupLock as RollupLock; // Use dummy for RollupLock when git is not enabled
 #[cfg(feature = "git_enabled")]
-use crate::executors::RollupLock; // Use our re-exported RollupLock
+use git_wrapper_lib::git_types::RollupLock; // Use our re-exported RollupLock
 use crate::fs_cache::{FileSystemStat, RealFileSystemStat};
-use crate::{run_submodule_status, RepoSyncConfig};
+use crate::repo_sync_lib::run_submodule_status::run_submodule_status;
+use crate::repo_sync_lib::repo_sync_config::RepoSyncConfig;
 use anyhow::{Context, Result};
 #[cfg(feature = "nix_generation")]
 use cargo2nix::discovery::{find_cargo_locks, find_cargo_manifests};
@@ -20,9 +21,9 @@ use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 
 // Import analysis modules
-use crate::cargo_config_generator::{
-    generate_patch_entries, parse_members_file, update_config_toml,
-};
+// use crate::cargo_config_generator::{
+//     generate_patch_entries, parse_members_file, update_config_toml,
+// };
 
 #[cfg(not(feature = "nix_generation"))]
 use crate::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
@@ -30,16 +31,16 @@ use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoM
 #[cfg(feature = "cargo-toml-editor-lib")]
 use crate::analysis::workspace_remover::RealWorkspaceRemover;
 #[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
+use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
 #[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyGitExecutor; // Use our dummy GitExecutor
-use crate::executors::GitExecutor; // Use our re-exported GitExecutor
+use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Use our dummy GitExecutor
+use git_wrapper_lib::git_traits::GitExecutor; // Use our re-exported GitExecutor
 #[cfg(feature = "git_enabled")]
-use crate::executors::PureRustGitExecutor;
+use git_wrapper_lib::pure_rust_git_executor::PureRustGitExecutor;
 #[cfg(feature = "git_enabled")]
-use crate::executors::RealExecv; // Use our re-exported RealExecv
+use git_wrapper_lib::execv::RealExecv; // Use our re-exported RealExecv
 #[cfg(feature = "git_enabled")]
-use crate::executors::SystemGitExecutor; // Added for non-git2 case
+use git_wrapper_lib::system_git_executor::SystemGitExecutor; // Added for non-git2 case
 
 #[cfg(feature = "nix_generation")]
 pub fn run_generate_patches_command(args: &GeneratePatchesArgs, cli: &Cli) -> Result<()> {

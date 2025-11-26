@@ -4,8 +4,8 @@ use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 
 #[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyRollupLock;
-use crate::executors::RollupLock; // Use our re-exported RollupLock
+use git_wrapper_lib::dummy_rollup_lock::DummyRollupLock;
+use git_wrapper_lib::git_types::RollupLock; // Use our re-exported RollupLock
 use crate::fs_cache::FileSystemStat;
 
 pub trait FileSystemWriter {

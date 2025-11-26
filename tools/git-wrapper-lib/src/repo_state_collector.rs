@@ -1,17 +1,20 @@
+#[cfg(feature = "anyhow_enabled")]
 use anyhow::{Context, Result};
-use std::collections::HashMap;
+#[cfg(not(feature = "anyhow_enabled"))]
+type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
+use std::collections::{BTreeMap, HashMap};
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
-#[cfg(feature = "walkdir")]
+#[cfg(feature = "walkdir_enabled")]
 use walkdir::WalkDir;
 
-#[cfg(feature = "nix_generation")]
-use crate::analysis::cargo_metadata_provider::{
+#[cfg(feature = "cargo_metadata_enabled")]
+use tool_traits_lib::cargo_metadata_provider::{
     CargoMetadataProvider, DummyCargoMetadataProvider, RealCargoMetadataProvider,
 };
 use crate::git_traits::GitExecutor;
 
-use crate::git_types::{
+use tool_traits_lib::types::{
     CargoWorkspaceInfo, DependencyInfo, NixFlakeInfo, PackageInfo, RepoState, SubmoduleInfo,
 };
 
@@ -128,7 +131,7 @@ impl RepoStateCollector for RealRepoStateCollector {
             // Placeholder for actual parsing of flake inputs/outputs
             repo_state.nix_flakes.push(NixFlakeInfo {
                 flake_path,
-                inputs: HashMap::new(), // To be populated by actual parsing
+                inputs: BTreeMap::new(), // To be populated by actual parsing
                 outputs: Vec::new(),    // To be populated by actual parsing
             });
         }

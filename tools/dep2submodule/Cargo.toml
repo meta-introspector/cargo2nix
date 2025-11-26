@@ -18,12 +18,13 @@ sha1 = { version = "*", optional = true }
 serde = { version = "*", optional = true }
 serde_json = { version = "*", optional = true }
 
-anyhow = { workspace = true, optional = true }
+anyhow = { workspace = true }
 walkdir = { workspace = true, optional = true }
 toml_edit = { workspace = true, optional = true }
-cargo_metadata = { workspace = true, optional = true }
+cargo_metadata = { workspace = true }
 clap = { workspace = true, features = ["derive"], optional = true }
 pathdiff = { workspace = true, optional = true }
+cargo-submodule-tool-lib = { path = "../cargo-submodule-tool-lib", optional = true }
 
 [features]
 
@@ -36,13 +37,13 @@ serde_enabled = ["dep:serde"]
 serde_json_enabled = ["dep:serde_json"]
 
 default = []
-anyhow_enabled = ["dep:anyhow"]
+#anyhow_enabled = ["dep:anyhow"]
 walkdir_enabled = ["dep:walkdir"]
 toml_edit_enabled = ["dep:toml_edit"]
-cargo_metadata_enabled = ["dep:cargo_metadata"]
+#cargo_metadata_enabled = ["dep:cargo_metadata"]
 clap_enabled = ["dep:clap"]
 pathdiff_enabled = ["dep:pathdiff"]
-real_cargo_metadata = ["dep:cargo_metadata"]
+#real_cargo_metadata = ["dep:cargo_metadata"]
 
 [lints]
 workspace = true

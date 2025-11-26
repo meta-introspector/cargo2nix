@@ -12,8 +12,8 @@ git2 = { version = "*", optional = true }
 hex = { version = "*", optional = true }
 sha1 = { version = "*", optional = true }
 pathdiff = { version = "*", optional = true }
-git-wrapper-lib = { path = "../git-wrapper-lib", optional = true }
-anyhow = { workspace = true, optional = true }
+git-wrapper-lib = { path = "../git-wrapper-lib"}
+anyhow = { workspace = true }
 cargo_metadata = { workspace = true, optional = true } # Made optional
 serde = { workspace = true, optional = true } # Made optional
 serde_json = { workspace = true, optional = true } # Made optional
@@ -41,5 +41,9 @@ regex_enabled = ["dep:regex"]
 lazy_static_enabled = ["dep:lazy_static"]
 toml_edit_enabled = ["dep:toml_edit"]
 walkdir_enabled = ["dep:walkdir"]
-anyhow_enabled = ["dep:anyhow"]
-git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
+anyhow_enabled = []
+#"dep:anyhow"
+
+git_wrapper_lib_enabled = [
+#"dep:git-wrapper-lib"
+]

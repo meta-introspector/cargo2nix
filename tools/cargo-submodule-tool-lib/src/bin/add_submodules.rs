@@ -5,18 +5,18 @@ use std::sync::{Arc, Mutex};
 use std::time::SystemTime;
 
 #[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
+use git_wrapper_lib::executors::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
 #[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyGitExecutor;
+use git_wrapper_lib::executors::DummyGitExecutor;
 #[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyRollupLock as RollupLock; // Use dummy for RollupLock when git is not enabled
-use crate::executors::GitExecutor; // Use our re-exported GitExecutor
+use git_wrapper_lib::executors::DummyRollupLock as RollupLock; // Use dummy for RollupLock when git is not enabled
+use git_wrapper_lib::executors::GitExecutor; // Use our re-exported GitExecutor
 #[cfg(feature = "git_enabled")]
-use crate::executors::PureRustGitExecutor;
+use git_wrapper_lib::executors::PureRustGitExecutor;
 #[cfg(feature = "git_enabled")]
-use crate::executors::RealExecv; // Use our re-exported RealExecv
+use git_wrapper_lib::executors::RealExecv; // Use our re-exported RealExecv
 #[cfg(feature = "git_enabled")]
-use crate::executors::RollupLock; // Use our re-exported RollupLock
+use git_wrapper_lib::executors::RollupLock; // Use our re-exported RollupLock
 use anyhow::{Context, Result};
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex}; // Use our dummy GitExecutor

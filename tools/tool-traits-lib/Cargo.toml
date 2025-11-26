@@ -4,7 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-
 syn = { version = "*", optional = true }
 clap = { version = "*", optional = true }
 
@@ -15,14 +14,14 @@ sha1 = { version = "*", optional = true }
 pathdiff = { version = "*", optional = true }
 serde = { version = "*", optional = true }
 
-anyhow = { workspace = true, optional = true }
+anyhow = { workspace = true }
 serde_json = { workspace = true, optional = true }
-toml_edit = { workspace = true, optional = true }
+toml_edit = { workspace = true }
 regex = { workspace = true, optional = true }
 walkdir = { workspace = true, optional = true }
 
-[features]
 
+[features]
 syn_enabled = ["dep:syn"]
 clap_enabled = ["dep:clap"]
 
@@ -30,16 +29,13 @@ git2_enabled = ["dep:git2"]
 hex_enabled = ["dep:hex"]
 cargo_metadata_enabled = ["dep:cargo_metadata"]
 sha1_enabled = ["dep:sha1"]
-anyhow_enabled = ["dep:anyhow"]
+#anyhow_enabled = ["dep:anyhow"]
 pathdiff_enabled = ["dep:pathdiff"]
 serde_enabled = ["dep:serde"]
 
-default = []
-anyhow = ["dep:anyhow"]
+default = ["cargo_metadata_enabled", "serde_enabled", "serde_json_enabled"]
+#anyhow = ["dep:anyhow"]
 serde_json_enabled = ["dep:serde_json"]
-toml_edit_enabled = ["dep:toml_edit"]
+#toml_edit_enabled = ["dep:toml_edit"]
 regex_enabled = ["dep:regex"]
 walkdir_enabled = ["dep:walkdir"]
-real_toml_adapter_lib_enabled = []
-real_regex_adapter_lib_enabled = []
-real_walkdir_adapter_lib_enabled = []

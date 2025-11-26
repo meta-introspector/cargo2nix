@@ -21,7 +21,7 @@ use serde_json;
 
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
-use std::time::SystemTime;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 // From git_operations.rs
 #[cfg_attr(feature = "serde_enabled", derive(Debug, Serialize, Deserialize))] // Conditionally derive
@@ -44,6 +44,18 @@ pub struct FileMetadata {
     pub hash: String,
     pub git_object_hash: Option<String>,
     pub is_git_tracked: bool,
+}
+
+impl Default for FileMetadata {
+    fn default() -> Self {
+        FileMetadata {
+            modified: UNIX_EPOCH,
+            len: 0,
+            hash: String::new(),
+            git_object_hash: None,
+            is_git_tracked: false,
+        }
+    }
 }
 
 // From repo_sync_lib/submodule_stat.rs
@@ -101,7 +113,7 @@ impl RollupLock {
         Err(Box::new(std::io::Error::new(
             std::io::ErrorKind::Other,
             "serde_json feature not enabled for RollupLock::load",
-        )))
+        )).into())
     }
 
     #[cfg(feature = "serde_json_enabled")]
@@ -123,7 +135,7 @@ impl RollupLock {
         Err(Box::new(std::io::Error::new(
             std::io::ErrorKind::Other,
             "serde_json feature not enabled for RollupLock::save",
-        )))
+        )).into())
     }
 
     pub fn get_metadata(&self, path: &Path) -> Option<&FileMetadata> {

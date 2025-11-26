@@ -21,6 +21,7 @@ pub struct Package {
     pub version: String,
     pub manifest_path: PathBuf,
     pub dependencies: Vec<Dependency>,
+    pub source: Option<String>,
 }
 
 #[derive(Debug)]
@@ -56,6 +57,7 @@ impl CargoMetadataProvider for RealCargoMetadataProvider {
                 source: d.source.map(|s| s.repr),
                 req: d.req.to_string(),
             }).collect(),
+            source: p.source.map(|s| s.repr),
         }).collect();
 
         let workspace_members: Vec<PackageId> = metadata.workspace_members.into_iter().map(|id| PackageId { repr: id.repr }).collect();
@@ -84,6 +86,7 @@ impl CargoMetadataProvider for DummyCargoMetadataProvider {
                     version: "0.1.0".to_string(),
                     manifest_path: PathBuf::from("/dummy/path/dummy-package-1/Cargo.toml"),
                     dependencies: vec![],
+                    source: None,
                 },
             ],
             workspace_members: vec![PackageId { repr: "dummy-package-id-1".to_string() }],

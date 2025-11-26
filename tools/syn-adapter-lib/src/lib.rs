@@ -3,7 +3,7 @@ use std::any::Any;
 use std::fs;
 use std::path::Path;
 
-#[cfg(feature = "syn-parsing")]
+//#[cfg(feature = "syn-parsing")]
 use syn::{File, Item};
 
 /// A trait for parsing Rust code, abstracting different parsing implementations.

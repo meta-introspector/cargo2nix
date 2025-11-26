@@ -32,7 +32,7 @@ use std::sync::Arc; // Added
 use crate::git_traits::Execv;
 use crate::git_types::SubmoduleStat; // SubmoduleInfo is not used
 
-#[cfg(feature = "git2")]
+#[cfg(feature = "git2_enabled")]
 use git2::Repository; // Submodule is not used
 
 /// A unified trait for Git operations, abstracting different execution modes.
@@ -159,17 +159,17 @@ impl GitAdapter for ShellGitAdapter {
     }
 }
 
-#[cfg(feature = "git2")]
+#[cfg(feature = "git2_enabled")]
 pub struct LibGitAdapter;
 
-#[cfg(feature = "git2")]
+#[cfg(feature = "git2_enabled")]
 impl LibGitAdapter {
     pub fn new() -> Self {
         LibGitAdapter
     }
 }
 
-#[cfg(feature = "git2")]
+#[cfg(feature = "git2_enabled")]
 impl GitAdapter for LibGitAdapter {
     fn list_submodules(&self, root_dir: &Path) -> Result<Vec<(String, PathBuf)>> {
         println!("[LibGitAdapter] Listing submodules in {:?}", root_dir);

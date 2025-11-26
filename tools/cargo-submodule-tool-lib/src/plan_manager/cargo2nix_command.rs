@@ -102,25 +102,25 @@ impl CargoCommand for Cargo2NixCommand {
         executor: Arc<dyn Execv + Send + Sync>,
     ) -> Result<Output, String> {
         #[cfg(feature = "toml_edit_enabled")]
-        let cargo2nix_path_str = {
-            let cargo_toml_content = fs::read_to_string(current_dir.join("Cargo.toml"))
-                .map_err(|e| format!("Failed to read Cargo.toml: {}", e))?;
+        let cargo_toml_content = fs::read_to_string(current_dir.join("Cargo.toml"))
+            .map_err(|e| format!("Failed to read Cargo.toml: {}", e))?;
+        #[cfg(feature = "toml_edit_enabled")]
+        let cargo_toml = cargo_toml_content
+            .parse::<toml_edit::Document<String>>()
+            .map_err(|e| format!("Failed to parse Cargo.toml with toml_edit: {}", e))?;
 
-            let cargo_toml = cargo_toml_content
-                .parse::<toml_edit::Document<String>>()
-                .map_err(|e| format!("Failed to parse Cargo.toml with toml_edit: {}", e))?;
+        #[cfg(feature = "toml_edit_enabled")]
+        let cargo2nix_path_str = cargo_toml
+            .get("package")
+            .and_then(|p| p.as_table())
+            .and_then(|p| p.get("metadata"))
+            .and_then(|m| m.as_table())
+            .and_then(|m| m.get("cargo2nix"))
+            .and_then(|c| c.as_table())
+            .and_then(|c| c.get("cargo2nix_path"))
+            .and_then(|p| p.as_str())
+            .ok_or_else(|| "cargo2nix_path not found in Cargo.toml metadata".to_string())?;
 
-            cargo_toml
-                .get("package")
-                .and_then(|p| p.as_table())
-                .and_then(|p| p.get("metadata"))
-                .and_then(|m| m.as_table())
-                .and_then(|m| m.get("cargo2nix"))
-                .and_then(|c| c.as_table())
-                .and_then(|c| c.get("cargo2nix_path"))
-                .and_then(|p| p.as_str())
-                .ok_or_else(|| "cargo2nix_path not found in Cargo.toml metadata".to_string())?
-        };
         #[cfg(not(feature = "toml_edit_enabled"))]
         let cargo2nix_path_str = {
             return Err(
@@ -220,25 +220,23 @@ impl CargoCommand for Cargo2NixCommand {
         executor: Arc<dyn Execv + Send + Sync>,
     ) -> Result<(), String> {
         #[cfg(feature = "toml_edit_enabled")]
-        let cargo2nix_path_str = {
-            let cargo_toml_content = fs::read_to_string(current_dir.join("Cargo.toml"))
-                .map_err(|e| format!("Failed to read Cargo.toml: {}", e))?;
-
-            let cargo_toml = cargo_toml_content
-                .parse::<toml_edit::Document<String>>()
-                .map_err(|e| format!("Failed to parse Cargo.toml with toml_edit: {}", e))?;
-
-            cargo_toml
-                .get("package")
-                .and_then(|p| p.as_table())
-                .and_then(|p| p.get("metadata"))
-                .and_then(|m| m.as_table())
-                .and_then(|m| m.get("cargo2nix"))
-                .and_then(|c| c.as_table())
-                .and_then(|c| c.get("cargo2nix_path"))
-                .and_then(|p| p.as_str())
-                .ok_or_else(|| "cargo2nix_path not found in Cargo.toml metadata".to_string())?
-        };
+        let cargo_toml_content = fs::read_to_string(current_dir.join("Cargo.toml"))
+            .map_err(|e| format!("Failed to read Cargo.toml: {}", e))?;
+        #[cfg(feature = "toml_edit_enabled")]
+        let cargo_toml = cargo_toml_content
+            .parse::<toml_edit::Document<String>>()
+            .map_err(|e| format!("Failed to parse Cargo.toml with toml_edit: {}", e))?;
+        #[cfg(feature = "toml_edit_enabled")]
+        let cargo2nix_path_str = cargo_toml
+            .get("package")
+            .and_then(|p| p.as_table())
+            .and_then(|p| p.get("metadata"))
+            .and_then(|m| m.as_table())
+            .and_then(|m| m.get("cargo2nix"))
+            .and_then(|c| c.as_table())
+            .and_then(|c| c.get("cargo2nix_path"))
+            .and_then(|p| p.as_str())
+            .ok_or_else(|| "cargo2nix_path not found in Cargo.toml metadata".to_string())?;
         #[cfg(not(feature = "toml_edit_enabled"))]
         let cargo2nix_path_str = {
             return Err("toml_edit_enabled feature is required for cargo2nix dry run.".to_string());

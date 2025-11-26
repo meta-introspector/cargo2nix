@@ -6,28 +6,28 @@ use std::sync::{Arc, Mutex};
 #[cfg(feature = "nix_generation")]
 use cargo_metadata::{MetadataCommand, Package, PackageId};
 
-use crate::cli::args::AddSubmodulesArgs;
-use crate::cli::args::Cli;
+use crate::args::add_submodules::AddSubmodulesArgs;
+use crate::args::Cli;
 #[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
+use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
 #[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyGitExecutor; // Use our dummy GitExecutor
+use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Use our dummy GitExecutor
 #[cfg(not(feature = "git_enabled"))]
-use crate::executors::DummyRollupLock as RollupLock;
-use crate::executors::GitExecutor; // Use our re-exported GitExecutor
+use git_wrapper_lib::dummy_rollup_lock::DummyRollupLock as RollupLock;
+use git_wrapper_lib::git_traits::GitExecutor; // Use our re-exported GitExecutor
 #[cfg(feature = "git_enabled")]
-use crate::executors::PureRustGitExecutor;
+use git_wrapper_lib::pure_rust_git_executor::PureRustGitExecutor;
 #[cfg(feature = "git_enabled")]
-use crate::executors::RealExecv; // Use our re-exported RealExecv
+use git_wrapper_lib::execv::RealExecv; // Use our re-exported RealExecv
 #[cfg(feature = "git_enabled")]
-use crate::executors::RollupLock; // Use our re-exported RollupLock
+use git_wrapper_lib::git_types::RollupLock; // Use our re-exported RollupLock
 #[cfg(feature = "git_enabled")]
-use crate::executors::SystemGitExecutor; // Added for non-git2 case
+use git_wrapper_lib::system_git_executor::SystemGitExecutor; // Added for non-git2 case
 use crate::fs_cache::RealFileSystemStat;
 use crate::fs_writer::CachedFileSystemWriter;
 use crate::fs_writer::FileSystemWriter;
 use crate::fs_writer::RealFileSystemWriter;
-use crate::RepoSyncConfig;
+use crate::repo_sync_lib::repo_sync_config::RepoSyncConfig;
 #[cfg(feature = "git_enabled")]
 use git_wrapper_lib::git_traits::GhExecutor; // Use dummy for RollupLock when git is not enabled
 
@@ -71,17 +71,17 @@ pub fn run_add_submodules_command(args: &AddSubmodulesArgs, cli: &Cli) -> Result
         Box::new(RealFileSystemWriter)
     };
 
-    let _config = RepoSyncConfig {
-        root_dir: args.root_dir.clone(),
-        target_org: args.target_org.clone(),
-        target_branch: args.target_branch.clone(),
-        output_file: Some(args.output_file.clone()),
-        json_input_file: args.json_input_file.clone(),
-        dry_run: cli.dry_run,
-        json_log_file: cli.json_log_file.clone(),
-        report: cli.report,
-        use_pure_rust_git: cli.pure_rust_git,
-    };
+    // let _config = RepoSyncConfig {
+    //     root_dir: args.root_dir.clone(),
+    //     target_org: args.target_org.clone(),
+    //     target_branch: args.target_branch.clone(),
+    //     output_file: Some(args.output_file.clone()),
+    //     json_input_file: args.json_input_file.clone(),
+    //     dry_run: cli.dry_run,
+    //     // json_log_file: cli.json_log_file.clone(),
+    //     // report: cli.report,
+    //     // use_pure_rust_git: cli.pure_rust_git,
+    // };
     // run_add_submodules(config, file_system_writer.as_ref())
     Ok(())
 }
