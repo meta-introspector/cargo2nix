@@ -1,43 +1,3 @@
-[submodule "cc-rs"]
-	path = submodules/cc-rs
-	url = https://github.com/cc-rs/cc-rs.git
-
-[submodule "cc-rs-meta"]
-	path = submodules/cc-rs-meta
-	url = https://github.com/meta-introspector/cc-rs.git
-
-[submodule "rustfmt"]
-	path = submodules/rustfmt
-	url = https://github.com/rustfmt/rustfmt.git
-
-[submodule "rustfmt-meta"]
-	path = submodules/rustfmt-meta
-	url = https://github.com/meta-introspector/rustfmt.git
-
-[submodule "rust"]
-	path = submodules/rust
-	url = https://github.com/rust-lang/rust.git
-
-[submodule "rust-meta"]
-	path = submodules/rust-meta
-	url = https://github.com/meta-introspector/rust.git
-
-[submodule "rust-clippy"]
-	path = submodules/rust-clippy
-	url = https://github.com/rust-lang/rust-clippy.git
-
-[submodule "rust-clippy-meta"]
-	path = submodules/rust-clippy-meta
-	url = https://github.com/meta-introspector/rust-clippy.git
-
-[submodule "cargo"]
-	path = submodules/cargo
-	url = https://github.com/rust-lang/cargo.git
-
-[submodule "cargo-meta"]
-	path = submodules/cargo-meta
-	url = https://github.com/meta-introspector/cargo.git
-
 [submodule "cargo2nix"]
 	path = submodules/cargo2nix
 	url = https://github.com/cargo2nix/cargo2nix.git
@@ -54,21 +14,45 @@
 	path = submodules/cmake-rs-meta
 	url = https://github.com/meta-introspector/cmake-rs.git
 
-[submodule "toml"]
-	path = submodules/toml
-	url = https://github.com/toml/toml.git
+[submodule "rust"]
+	path = submodules/rust
+	url = https://github.com/rust-lang/rust.git
 
-[submodule "toml-meta"]
-	path = submodules/toml-meta
-	url = https://github.com/meta-introspector/toml.git
+[submodule "rust-meta"]
+	path = submodules/rust-meta
+	url = https://github.com/meta-introspector/rust.git
 
-[submodule "crypto-bigint"]
-	path = submodules/crypto-bigint
-	url = https://github.com/crypto-bigint/crypto-bigint.git
+[submodule "rustfmt"]
+	path = submodules/rustfmt
+	url = https://github.com/rustfmt/rustfmt.git
 
-[submodule "crypto-bigint-meta"]
-	path = submodules/crypto-bigint-meta
-	url = https://github.com/meta-introspector/crypto-bigint.git
+[submodule "rustfmt-meta"]
+	path = submodules/rustfmt-meta
+	url = https://github.com/meta-introspector/rustfmt.git
+
+[submodule "cc-rs"]
+	path = submodules/cc-rs
+	url = https://github.com/cc-rs/cc-rs.git
+
+[submodule "cc-rs-meta"]
+	path = submodules/cc-rs-meta
+	url = https://github.com/meta-introspector/cc-rs.git
+
+[submodule "cargo"]
+	path = submodules/cargo
+	url = https://github.com/rust-lang/cargo.git
+
+[submodule "cargo-meta"]
+	path = submodules/cargo-meta
+	url = https://github.com/meta-introspector/cargo.git
+
+[submodule "rust-clippy"]
+	path = submodules/rust-clippy
+	url = https://github.com/rust-lang/rust-clippy.git
+
+[submodule "rust-clippy-meta"]
+	path = submodules/rust-clippy-meta
+	url = https://github.com/meta-introspector/rust-clippy.git
 
 [submodule "serde"]
 	path = submodules/serde
@@ -78,86 +62,6 @@
 	path = submodules/serde-meta
 	url = https://github.com/meta-introspector/serde.git
 
-[submodule "h2"]
-	path = submodules/h2
-	url = https://github.com/h2/h2.git
-
-[submodule "h2-meta"]
-	path = submodules/h2-meta
-	url = https://github.com/meta-introspector/h2.git
-
-[submodule "rustls-native-certs"]
-	path = submodules/rustls-native-certs
-	url = https://github.com/rustls-native-certs/rustls-native-certs.git
-
-[submodule "rustls-native-certs-meta"]
-	path = submodules/rustls-native-certs-meta
-	url = https://github.com/meta-introspector/rustls-native-certs.git
-
-[submodule "foldhash"]
-	path = submodules/foldhash
-	url = https://github.com/foldhash/foldhash.git
-
-[submodule "foldhash-meta"]
-	path = submodules/foldhash-meta
-	url = https://github.com/meta-introspector/foldhash.git
-
-[submodule "fiat-crypto"]
-	path = submodules/fiat-crypto
-	url = https://github.com/fiat-crypto/fiat-crypto.git
-
-[submodule "fiat-crypto-meta"]
-	path = submodules/fiat-crypto-meta
-	url = https://github.com/meta-introspector/fiat-crypto.git
-
-[submodule "bincode"]
-	path = submodules/bincode
-	url = https://github.com/bincode/bincode.git
-
-[submodule "bincode-meta"]
-	path = submodules/bincode-meta
-	url = https://github.com/meta-introspector/bincode.git
-
-[submodule "scoped-tls"]
-	path = submodules/scoped-tls
-	url = https://github.com/scoped-tls/scoped-tls.git
-
-[submodule "scoped-tls-meta"]
-	path = submodules/scoped-tls-meta
-	url = https://github.com/meta-introspector/scoped-tls.git
-
-[submodule "hyper-rustls"]
-	path = submodules/hyper-rustls
-	url = https://github.com/hyper-rustls/hyper-rustls.git
-
-[submodule "hyper-rustls-meta"]
-	path = submodules/hyper-rustls-meta
-	url = https://github.com/meta-introspector/hyper-rustls.git
-
-[submodule "fxhash"]
-	path = submodules/fxhash
-	url = https://github.com/fxhash/fxhash.git
-
-[submodule "fxhash-meta"]
-	path = submodules/fxhash-meta
-	url = https://github.com/meta-introspector/fxhash.git
-
-[submodule "warp"]
-	path = submodules/warp
-	url = https://github.com/warp/warp.git
-
-[submodule "warp-meta"]
-	path = submodules/warp-meta
-	url = https://github.com/meta-introspector/warp.git
-
-[submodule "reqwest"]
-	path = submodules/reqwest
-	url = https://github.com/reqwest/reqwest.git
-
-[submodule "reqwest-meta"]
-	path = submodules/reqwest-meta
-	url = https://github.com/meta-introspector/reqwest.git
-
 [submodule "async-std"]
 	path = submodules/async-std
 	url = https://github.com/async-std/async-std.git
@@ -165,46 +69,6 @@
 [submodule "async-std-meta"]
 	path = submodules/async-std-meta
 	url = https://github.com/meta-introspector/async-std.git
-
-[submodule "ring"]
-	path = submodules/ring
-	url = https://github.com/ring/ring.git
-
-[submodule "ring-meta"]
-	path = submodules/ring-meta
-	url = https://github.com/meta-introspector/ring.git
-
-[submodule "hashbrown"]
-	path = submodules/hashbrown
-	url = https://github.com/hashbrown/hashbrown.git
-
-[submodule "hashbrown-meta"]
-	path = submodules/hashbrown-meta
-	url = https://github.com/meta-introspector/hashbrown.git
-
-[submodule "futures-rs"]
-	path = submodules/futures-rs
-	url = https://github.com/futures-rs/futures-rs.git
-
-[submodule "futures-rs-meta"]
-	path = submodules/futures-rs-meta
-	url = https://github.com/meta-introspector/futures-rs.git
-
-[submodule "cryptocorrosion"]
-	path = submodules/cryptocorrosion
-	url = https://github.com/cryptocorrosion/cryptocorrosion.git
-
-[submodule "cryptocorrosion-meta"]
-	path = submodules/cryptocorrosion-meta
-	url = https://github.com/meta-introspector/cryptocorrosion.git
-
-[submodule "hyper-tls"]
-	path = submodules/hyper-tls
-	url = https://github.com/hyper-tls/hyper-tls.git
-
-[submodule "hyper-tls-meta"]
-	path = submodules/hyper-tls-meta
-	url = https://github.com/meta-introspector/hyper-tls.git
 
 [submodule "crossbeam"]
 	path = submodules/crossbeam
@@ -214,29 +78,13 @@
 	path = submodules/crossbeam-meta
 	url = https://github.com/meta-introspector/crossbeam.git
 
-[submodule "hash32"]
-	path = submodules/hash32
-	url = https://github.com/hash32/hash32.git
+[submodule "tokio-rustls"]
+	path = submodules/tokio-rustls
+	url = https://github.com/tokio-rustls/tokio-rustls.git
 
-[submodule "hash32-meta"]
-	path = submodules/hash32-meta
-	url = https://github.com/meta-introspector/hash32.git
-
-[submodule "tls"]
-	path = submodules/tls
-	url = https://github.com/tls/tls.git
-
-[submodule "tls-meta"]
-	path = submodules/tls-meta
-	url = https://github.com/meta-introspector/tls.git
-
-[submodule "ahash"]
-	path = submodules/ahash
-	url = https://github.com/ahash/ahash.git
-
-[submodule "ahash-meta"]
-	path = submodules/ahash-meta
-	url = https://github.com/meta-introspector/ahash.git
+[submodule "tokio-rustls-meta"]
+	path = submodules/tokio-rustls-meta
+	url = https://github.com/meta-introspector/tokio-rustls.git
 
 [submodule "twox-hash"]
 	path = submodules/twox-hash
@@ -245,6 +93,62 @@
 [submodule "twox-hash-meta"]
 	path = submodules/twox-hash-meta
 	url = https://github.com/meta-introspector/twox-hash.git
+
+[submodule "rustls-native-certs"]
+	path = submodules/rustls-native-certs
+	url = https://github.com/rustls-native-certs/rustls-native-certs.git
+
+[submodule "rustls-native-certs-meta"]
+	path = submodules/rustls-native-certs-meta
+	url = https://github.com/meta-introspector/rustls-native-certs.git
+
+[submodule "warp"]
+	path = submodules/warp
+	url = https://github.com/warp/warp.git
+
+[submodule "warp-meta"]
+	path = submodules/warp-meta
+	url = https://github.com/meta-introspector/warp.git
+
+[submodule "bincode"]
+	path = submodules/bincode
+	url = https://github.com/bincode/bincode.git
+
+[submodule "bincode-meta"]
+	path = submodules/bincode-meta
+	url = https://github.com/meta-introspector/bincode.git
+
+[submodule "reqwest"]
+	path = submodules/reqwest
+	url = https://github.com/reqwest/reqwest.git
+
+[submodule "reqwest-meta"]
+	path = submodules/reqwest-meta
+	url = https://github.com/meta-introspector/reqwest.git
+
+[submodule "http"]
+	path = submodules/http
+	url = https://github.com/http/http.git
+
+[submodule "http-meta"]
+	path = submodules/http-meta
+	url = https://github.com/meta-introspector/http.git
+
+[submodule "crypto-bigint"]
+	path = submodules/crypto-bigint
+	url = https://github.com/crypto-bigint/crypto-bigint.git
+
+[submodule "crypto-bigint-meta"]
+	path = submodules/crypto-bigint-meta
+	url = https://github.com/meta-introspector/crypto-bigint.git
+
+[submodule "scoped-tls"]
+	path = submodules/scoped-tls
+	url = https://github.com/scoped-tls/scoped-tls.git
+
+[submodule "scoped-tls-meta"]
+	path = submodules/scoped-tls-meta
+	url = https://github.com/meta-introspector/scoped-tls.git
 
 [submodule "rustc-stable-hash"]
 	path = submodules/rustc-stable-hash
@@ -262,21 +166,61 @@
 	path = submodules/rustls-meta
 	url = https://github.com/meta-introspector/rustls.git
 
-[submodule "tokio-rustls"]
-	path = submodules/tokio-rustls
-	url = https://github.com/tokio-rustls/tokio-rustls.git
+[submodule "tls"]
+	path = submodules/tls
+	url = https://github.com/tls/tls.git
 
-[submodule "tokio-rustls-meta"]
-	path = submodules/tokio-rustls-meta
-	url = https://github.com/meta-introspector/tokio-rustls.git
+[submodule "tls-meta"]
+	path = submodules/tls-meta
+	url = https://github.com/meta-introspector/tls.git
 
-[submodule "rustls-ffi"]
-	path = submodules/rustls-ffi
-	url = https://github.com/rustls-ffi/rustls-ffi.git
+[submodule "hashbrown"]
+	path = submodules/hashbrown
+	url = https://github.com/hashbrown/hashbrown.git
 
-[submodule "rustls-ffi-meta"]
-	path = submodules/rustls-ffi-meta
-	url = https://github.com/meta-introspector/rustls-ffi.git
+[submodule "hashbrown-meta"]
+	path = submodules/hashbrown-meta
+	url = https://github.com/meta-introspector/hashbrown.git
+
+[submodule "cryptocorrosion"]
+	path = submodules/cryptocorrosion
+	url = https://github.com/cryptocorrosion/cryptocorrosion.git
+
+[submodule "cryptocorrosion-meta"]
+	path = submodules/cryptocorrosion-meta
+	url = https://github.com/meta-introspector/cryptocorrosion.git
+
+[submodule "fxhash"]
+	path = submodules/fxhash
+	url = https://github.com/fxhash/fxhash.git
+
+[submodule "fxhash-meta"]
+	path = submodules/fxhash-meta
+	url = https://github.com/meta-introspector/fxhash.git
+
+[submodule "json"]
+	path = submodules/json
+	url = https://github.com/json/json.git
+
+[submodule "json-meta"]
+	path = submodules/json-meta
+	url = https://github.com/meta-introspector/json.git
+
+[submodule "hash32"]
+	path = submodules/hash32
+	url = https://github.com/hash32/hash32.git
+
+[submodule "hash32-meta"]
+	path = submodules/hash32-meta
+	url = https://github.com/meta-introspector/hash32.git
+
+[submodule "fiat-crypto"]
+	path = submodules/fiat-crypto
+	url = https://github.com/fiat-crypto/fiat-crypto.git
+
+[submodule "fiat-crypto-meta"]
+	path = submodules/fiat-crypto-meta
+	url = https://github.com/meta-introspector/fiat-crypto.git
 
 [submodule "yaml-rust2"]
 	path = submodules/yaml-rust2
@@ -286,29 +230,13 @@
 	path = submodules/yaml-rust2-meta
 	url = https://github.com/meta-introspector/yaml-rust2.git
 
-[submodule "hyper"]
-	path = submodules/hyper
-	url = https://github.com/hyperium/hyper.git
+[submodule "rustls-ffi"]
+	path = submodules/rustls-ffi
+	url = https://github.com/rustls-ffi/rustls-ffi.git
 
-[submodule "hyper-meta"]
-	path = submodules/hyper-meta
-	url = https://github.com/meta-introspector/hyper.git
-
-[submodule "rustls-platform-verifier"]
-	path = submodules/rustls-platform-verifier
-	url = https://github.com/rustls-platform-verifier/rustls-platform-verifier.git
-
-[submodule "rustls-platform-verifier-meta"]
-	path = submodules/rustls-platform-verifier-meta
-	url = https://github.com/meta-introspector/rustls-platform-verifier.git
-
-[submodule "http"]
-	path = submodules/http
-	url = https://github.com/http/http.git
-
-[submodule "http-meta"]
-	path = submodules/http-meta
-	url = https://github.com/meta-introspector/http.git
+[submodule "rustls-ffi-meta"]
+	path = submodules/rustls-ffi-meta
+	url = https://github.com/meta-introspector/rustls-ffi.git
 
 [submodule "rustc-hash"]
 	path = submodules/rustc-hash
@@ -318,6 +246,14 @@
 	path = submodules/rustc-hash-meta
 	url = https://github.com/meta-introspector/rustc-hash.git
 
+[submodule "hyper-rustls"]
+	path = submodules/hyper-rustls
+	url = https://github.com/hyper-rustls/hyper-rustls.git
+
+[submodule "hyper-rustls-meta"]
+	path = submodules/hyper-rustls-meta
+	url = https://github.com/meta-introspector/hyper-rustls.git
+
 [submodule "tokio"]
 	path = submodules/tokio
 	url = https://github.com/tokio-rs/tokio.git
@@ -325,6 +261,22 @@
 [submodule "tokio-meta"]
 	path = submodules/tokio-meta
 	url = https://github.com/meta-introspector/tokio.git
+
+[submodule "foldhash"]
+	path = submodules/foldhash
+	url = https://github.com/foldhash/foldhash.git
+
+[submodule "foldhash-meta"]
+	path = submodules/foldhash-meta
+	url = https://github.com/meta-introspector/foldhash.git
+
+[submodule "hyper"]
+	path = submodules/hyper
+	url = https://github.com/hyperium/hyper.git
+
+[submodule "hyper-meta"]
+	path = submodules/hyper-meta
+	url = https://github.com/meta-introspector/hyper.git
 
 [submodule "rayon"]
 	path = submodules/rayon
@@ -342,13 +294,53 @@
 	path = submodules/hashes-meta
 	url = https://github.com/meta-introspector/hashes.git
 
-[submodule "json"]
-	path = submodules/json
-	url = https://github.com/json/json.git
+[submodule "futures-rs"]
+	path = submodules/futures-rs
+	url = https://github.com/futures-rs/futures-rs.git
 
-[submodule "json-meta"]
-	path = submodules/json-meta
-	url = https://github.com/meta-introspector/json.git
+[submodule "futures-rs-meta"]
+	path = submodules/futures-rs-meta
+	url = https://github.com/meta-introspector/futures-rs.git
+
+[submodule "rustls-platform-verifier"]
+	path = submodules/rustls-platform-verifier
+	url = https://github.com/rustls-platform-verifier/rustls-platform-verifier.git
+
+[submodule "rustls-platform-verifier-meta"]
+	path = submodules/rustls-platform-verifier-meta
+	url = https://github.com/meta-introspector/rustls-platform-verifier.git
+
+[submodule "hyper-tls"]
+	path = submodules/hyper-tls
+	url = https://github.com/hyper-tls/hyper-tls.git
+
+[submodule "hyper-tls-meta"]
+	path = submodules/hyper-tls-meta
+	url = https://github.com/meta-introspector/hyper-tls.git
+
+[submodule "h2"]
+	path = submodules/h2
+	url = https://github.com/h2/h2.git
+
+[submodule "h2-meta"]
+	path = submodules/h2-meta
+	url = https://github.com/meta-introspector/h2.git
+
+[submodule "ring"]
+	path = submodules/ring
+	url = https://github.com/ring/ring.git
+
+[submodule "ring-meta"]
+	path = submodules/ring-meta
+	url = https://github.com/meta-introspector/ring.git
+
+[submodule "ahash"]
+	path = submodules/ahash
+	url = https://github.com/ahash/ahash.git
+
+[submodule "ahash-meta"]
+	path = submodules/ahash-meta
+	url = https://github.com/meta-introspector/ahash.git
 
 [submodule "hashlink"]
 	path = submodules/hashlink
@@ -357,4 +349,12 @@
 [submodule "hashlink-meta"]
 	path = submodules/hashlink-meta
 	url = https://github.com/meta-introspector/hashlink.git
+
+[submodule "toml"]
+	path = submodules/toml
+	url = https://github.com/toml/toml.git
+
+[submodule "toml-meta"]
+	path = submodules/toml-meta
+	url = https://github.com/meta-introspector/toml.git
 

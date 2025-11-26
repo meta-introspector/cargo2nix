@@ -1,0 +1,143 @@
+# Rustc Recursive Resolution Analysis
+
+## Database Statistics
+- Submodules in database: 9832
+- Rustc crates found: 79
+- Resolution attempts: 79
+- Successfully resolved: 33
+- Failed to resolve: 46
+
+## Resolved Crates
+- `rustc_smir` (11 dependencies)
+- `rustc_hir_pretty` (6 dependencies)
+- `rustc_sanitizers` (10 dependencies)
+- `rustc_lint_defs` (9 dependencies)
+- `rustc_fs_util` (1 dependencies)
+- `rustc_macros` (4 dependencies)
+- `rustc_type_ir_macros` (4 dependencies)
+- `mylib` (0 dependencies)
+- `rustc_index_macros` (3 dependencies)
+- `rustc_error_codes` (0 dependencies)
+- `rustc_passes` (20 dependencies)
+- `rustc_driver` (1 dependencies)
+- `rustc_tools_util` (0 dependencies)
+- `rustc_hashes` (1 dependencies)
+- `rustc_traits` (7 dependencies)
+- `rustc_hir_typeck` (22 dependencies)
+- `rustc_llvm` (1 dependencies)
+- `rustc_ast_ir` (3 dependencies)
+- `rustc_mir_transform` (23 dependencies)
+- `rustc_graphviz` (0 dependencies)
+- `rustc_arena` (1 dependencies)
+- `hello_world` (1 dependencies)
+- `rustc_ast_pretty` (4 dependencies)
+- `rustc_transmute` (7 dependencies)
+- `rustc_index` (4 dependencies)
+- `sysroot` (5 dependencies)
+- `rustc_ty_utils` (16 dependencies)
+- `rustc_interface` (42 dependencies)
+- `rustc_hir_analysis` (22 dependencies)
+- `rustc_query_system` (18 dependencies)
+- `rustc_symbol_mangling` (11 dependencies)
+- `rustc_privacy` (12 dependencies)
+- `rustc_lexer` (2 dependencies)
+
+## Unresolved Crates
+- `rustc_baked_icu_data` (missing dependencies)
+- `rustc_borrowck` (missing dependencies)
+- `rustc_parse` (missing dependencies)
+- `rustc_builtin_macros` (missing dependencies)
+- `rustc_ast_lowering` (missing dependencies)
+- `rustc_thread_pool` (missing dependencies)
+- `rustc_mir_build` (missing dependencies)
+- `rustc_parse_format` (missing dependencies)
+- `rustc_type_ir` (missing dependencies)
+- `rustc_target` (missing dependencies)
+- `rustc_monomorphize` (missing dependencies)
+- `rustc_fluent_macro` (missing dependencies)
+- `rustc_trait_selection` (missing dependencies)
+- `rustc_errors` (missing dependencies)
+- `rustc_codegen_llvm` (missing dependencies)
+- `rustc_pattern_analysis` (missing dependencies)
+- `rustc_ast` (missing dependencies)
+- `rustc_session` (missing dependencies)
+- `rustc_codegen_gcc` (missing dependencies)
+- `rustc_query_impl` (missing dependencies)
+- `rustc_const_eval` (missing dependencies)
+- `rustc_attr_data_structures` (missing dependencies)
+- `rustc_span` (missing dependencies)
+- `rustc_error_messages` (missing dependencies)
+- `rustc_next_trait_solver` (missing dependencies)
+- `rustc_log` (missing dependencies)
+- `rustc_mir_dataflow` (missing dependencies)
+- `rustc_ast_passes` (missing dependencies)
+- `rustc_metadata` (missing dependencies)
+- `rustc_data_structures` (missing dependencies)
+- `rustc_middle` (missing dependencies)
+- `y` (missing dependencies)
+- `rustc_incremental` (missing dependencies)
+- `rustc_expand` (missing dependencies)
+- `rustc_attr_parsing` (missing dependencies)
+- `rustc_hir` (missing dependencies)
+- `rustc_serialize` (missing dependencies)
+- `rustc_resolve` (missing dependencies)
+- `rustc_driver_impl` (missing dependencies)
+- `rustc_lint` (missing dependencies)
+- `rustc_codegen_ssa` (missing dependencies)
+- `rustc_codegen_cranelift` (missing dependencies)
+- `rustc_abi` (missing dependencies)
+- `rustc_proc_macro` (missing dependencies)
+- `rustc_infer` (missing dependencies)
+- `rustc_feature` (missing dependencies)
+
+## Missing Dependencies
+- `annotate-snippets`
+- `blake3`
+- `boml`
+- `cranelift-codegen`
+- `cranelift-frontend`
+- `cranelift-jit`
+- `cranelift-module`
+- `cranelift-native`
+- `cranelift-object`
+- `crossbeam-deque`
+- `crossbeam-utils`
+- `derive-where`
+- `derive_setters`
+- `elsa`
+- `ena`
+- `fluent-bundle`
+- `fluent-syntax`
+- `gccjit`
+- `getopts`
+- `gsgdt`
+- `icu_list`
+- `icu_locid`
+- `icu_locid_transform`
+- `icu_provider`
+- `icu_provider_adapters`
+- `intl-memoizer`
+- `jobserver_crate`
+- `libloading`
+- `measureme`
+- `odht`
+- `polonius-engine`
+- `rand_xoshiro`
+- `rustc-literal-escaper`
+- `rustc_apfloat`
+- `serde_json`
+- `sha1`
+- `sha2`
+- `shlex`
+- `stable_mir`
+- `target-lexicon`
+- `termize`
+- `thin-vec`
+- `thorin-dwp`
+- `tracing-core`
+- `tracing-subscriber`
+- `tracing-tree`
+- `unic-langid`
+- `unicode-security`
+- `wasm-encoder`
+- `zerovec`

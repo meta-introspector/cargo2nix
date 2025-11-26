@@ -4386,6 +4386,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "solana-monster-system"
+version = "0.1.0"
+
+[[package]]
 name = "spki"
 version = "0.7.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
