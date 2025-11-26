@@ -37,7 +37,11 @@ impl DefaultPackageExtractor {
 impl PackageExtractor for DefaultPackageExtractor {
     fn extract_packages(&self, root_dir: &Path, exclude_keywords: &str) -> Vec<(String, PathBuf)> {
         let mut extracted_packages = Vec::new();
-        let exclude_regex = Regex::new(exclude_keywords).expect("Invalid regex for exclude keywords");
+        let exclude_regex = if exclude_keywords.is_empty() {
+            None
+        } else {
+            Some(Regex::new(exclude_keywords).expect("Invalid regex for exclude keywords"))
+        };
 
         gemini_eprintln!("Extracting packages from :root_dir: with exclude keywords: :keywords:", root_dir = root_dir.display(), keywords = exclude_keywords);
 
@@ -47,9 +51,11 @@ impl PackageExtractor for DefaultPackageExtractor {
                 let cargo_toml_dir = path.parent().unwrap_or(path);
 
                 // Check if the directory path contains any exclude keywords
-                if exclude_regex.is_match(&cargo_toml_dir.to_string_lossy()) {
-                    gemini_eprintln!("Skipping path :path: due to exclude keywords.", path = cargo_toml_dir.display());
-                    continue;
+                if let Some(ref regex) = exclude_regex {
+                    if regex.is_match(&cargo_toml_dir.to_string_lossy()) {
+                        gemini_eprintln!("Skipping path :path: due to exclude keywords.", path = cargo_toml_dir.display());
+                        continue;
+                    }
                 }
 
                 // Extract package name
@@ -58,9 +64,11 @@ impl PackageExtractor for DefaultPackageExtractor {
 
                     if !package_name.is_empty() {
                         // Check if the package name itself contains any exclude keywords
-                        if exclude_regex.is_match(&package_name) {
-                            gemini_eprintln!("Skipping package :name: due to exclude keywords.", name = package_name);
-                            continue;
+                        if let Some(ref regex) = exclude_regex {
+                            if regex.is_match(&package_name) {
+                                gemini_eprintln!("Skipping package :name: due to exclude keywords.", name = package_name);
+                                continue;
+                            }
                         }
                         extracted_packages.push((package_name, cargo_toml_dir.to_path_buf()));
                     }

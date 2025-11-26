@@ -5641,10 +5641,14 @@ checksum = "df8b2b54733674ad286d16267dcfc7a71ed5c776e4ac7aa3c3e2561f7c637bf2"
 name = "tool-refactorings"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "gemini_utils",
+ "once_cell",
  "regex 1.12.2",
  "tempfile",
  "tokio",
+ "toml_edit",
+ "walkdir",
 ]
 
 [[package]]

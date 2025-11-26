@@ -1,7 +1,9 @@
 use std::collections::HashMap;
 use std::fs;
+use rocksdb::{DB, Options};
+use serde_json;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 struct PhiDeclaration {
     name: String,
     decl_type: String,
@@ -12,61 +14,95 @@ struct PhiDeclaration {
 }
 
 struct PhiRocksDB {
-    storage: HashMap<u64, Vec<PhiDeclaration>>, // phi_key -> declarations
+    db: DB,
     collision_count: HashMap<u64, u32>,
 }
 
 impl PhiRocksDB {
-    fn new() -> Self {
-        Self {
-            storage: HashMap::new(),
+    fn new(path: &str) -> Result<Self, Box<dyn std::error::Error>> {
+        let mut opts = Options::default();
+        opts.create_if_missing(true);
+        let db = DB::open(&opts, path)?;
+        
+        Ok(Self {
+            db,
             collision_count: HashMap::new(),
-        }
+        })
     }
     
-    fn put(&mut self, mut decl: PhiDeclaration) -> Result<(), String> {
-        let phi_key = decl.phi_key;
+    fn put(&mut self, mut decl: PhiDeclaration) -> Result<(), Box<dyn std::error::Error>> {
+        let original_phi_key = decl.phi_key;
+        let mut current_phi_key = original_phi_key;
         
-        // Check for collision
-        if let Some(existing) = self.storage.get_mut(&phi_key) {
-            // Collision detected!
-            let collision_id = self.collision_count.get(&phi_key).unwrap_or(&0) + 1;
-            self.collision_count.insert(phi_key, collision_id);
+        // Loop to handle potential collisions and generate new keys
+        loop {
+            let phi_key_bytes = current_phi_key.to_string();
             
-            println!("COLLISION at φ = {}: {} vs existing entries", phi_key, decl.name);
-            
-            // Add differentiator by sampling file path hash
-            let file_hash: u64 = decl.source_file.bytes().map(|b| b as u64).sum();
-            decl.collision_id = collision_id;
-            decl.phi_key = (phi_key + file_hash) % 196883; // New differentiated key
-            
-            println!("  → Resolved with new key φ = {} (collision_id: {})", decl.phi_key, collision_id);
-            
-            existing.push(decl);
-        } else {
-            // No collision, store directly
-            self.storage.insert(phi_key, vec![decl]);
+            // Check if key already exists in RocksDB
+            if let Some(existing_data) = self.db.get(phi_key_bytes.as_bytes())? {
+                // Collision detected!
+                let existing_decls: Vec<PhiDeclaration> = serde_json::from_slice(&existing_data)?;
+                
+                // If this is the original key and it's already a list, increment collision_id
+                // Otherwise, it means we're trying to add a new differentiated key that already exists
+                let collision_id_entry = self.collision_count.entry(original_phi_key).or_insert(0);
+                *collision_id_entry += 1;
+                decl.collision_id = *collision_id_entry;
+                
+                println!("COLLISION at φ = {}: {} vs existing entries (current attempt key: {})", 
+                         original_phi_key, decl.name, current_phi_key);
+                
+                // Add differentiator by sampling file path hash and collision_id
+                let file_hash: u64 = decl.source_file.bytes().map(|b| b as u64).sum();
+                current_phi_key = (original_phi_key + file_hash + decl.collision_id as u64) % 196883; 
+                
+                println!("  → Attempting new key φ = {} (collision_id: {})", current_phi_key, decl.collision_id);
+                decl.phi_key = current_phi_key;
+                
+                // Check if the newly generated key still exists
+                if self.db.get(current_phi_key.to_string().as_bytes())?.is_none() {
+                    // New key is unique, add it as a new entry
+                    self.db.put(current_phi_key.to_string().as_bytes(), serde_json::to_vec(&vec![decl])?)?;
+                    break; // Successfully stored
+                } else {
+                    // New key also collides, continue loop with this new key
+                    continue; 
+                }
+            } else {
+                // No collision, store directly
+                self.db.put(phi_key_bytes.as_bytes(), serde_json::to_vec(&vec![decl])?)?;
+                break; // Successfully stored
+            }
         }
         
         Ok(())
     }
     
-    fn get(&self, phi_key: u64) -> Option<&Vec<PhiDeclaration>> {
-        self.storage.get(&phi_key)
+    fn get(&self, phi_key: u64) -> Result<Option<Vec<PhiDeclaration>>, Box<dyn std::error::Error>> {
+        let phi_key_bytes = phi_key.to_string();
+        if let Some(existing_data) = self.db.get(phi_key_bytes.as_bytes())? {
+            let decls: Vec<PhiDeclaration> = serde_json::from_slice(&existing_data)?;
+            Ok(Some(decls))
+        } else {
+            Ok(None)
+        }
     }
     
-    fn report_collisions(&self) {
+    fn report_collisions(&self) -> Result<(), Box<dyn std::error::Error>> {
         println!("\n=== Collision Report ===");
         for (phi_key, count) in &self.collision_count {
             if *count > 0 {
                 println!("φ = {}: {} collisions", phi_key, count);
-                if let Some(decls) = self.storage.get(phi_key) {
+                let phi_key_bytes = phi_key.to_string();
+                if let Some(existing_data) = self.db.get(phi_key_bytes.as_bytes())? {
+                    let decls: Vec<PhiDeclaration> = serde_json::from_slice(&existing_data)?;
                     for decl in decls {
                         println!("  - {} ({}) collision_id: {}", decl.name, decl.decl_type, decl.collision_id);
                     }
                 }
             }
         }
+        Ok(())
     }
 }
 
@@ -103,7 +139,7 @@ fn calculate_phi_key(name: &str, decl_type: &str) -> u64 {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("=== Phi RocksDB Storage with Collision Handling ===");
     
-    let mut phi_db = PhiRocksDB::new();
+    let phi_db = PhiRocksDB::new("./phi_rocksdb_data")?;
     
     // Extract declarations from our actual files
     let files = vec![
@@ -163,14 +199,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     
     // Report storage results
     println!("\n=== Storage Summary ===");
-    println!("Total phi keys: {}", phi_db.storage.len());
+    // RocksDB does not have a simple `.len()` method.
+    // To get total entries, one would need to iterate or use a counter during insertion.
     
-    phi_db.report_collisions();
+    phi_db.report_collisions()?;
     
     // Test retrieval
     println!("\n=== Test Retrieval ===");
     let test_phi = calculate_phi_key("rustc_to_monster_factor", "fn");
-    if let Some(decls) = phi_db.get(test_phi) {
+    if let Some(decls) = phi_db.get(test_phi)? {
         println!("Retrieved φ = {}: {} declarations", test_phi, decls.len());
         for decl in decls {
             println!("  - {}: {}", decl.name, decl.content);

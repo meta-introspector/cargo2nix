@@ -82,6 +82,7 @@ tool-traits-lib = { path = "../../tools/tool-traits-lib", features = [
 real-toml-adapter-lib = { path = "../../tools/real-toml-adapter-lib", features = ["toml_edit_enabled"] }
 real-regex-adapter-lib = { path = "../../tools/real-regex-adapter-lib" }
 real-walkdir-adapter-lib = { path = "../../tools/real-walkdir-adapter-lib", features = ["walkdir_enabled"] }
+rocksdb = "0.21.0"
 
 [build-dependencies]
 

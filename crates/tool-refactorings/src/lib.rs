@@ -10,6 +10,9 @@ pub mod repository_indexer;
 pub mod non_vendored_workspace_enforcer;
 pub mod gh_plan_executor;
 pub mod package_extractor;
+pub mod cargo_toml_patcher_config;
+pub mod cargo_toml_patcher;
+pub mod monster_semantic_indexer;
 
 /// Trait for providing SPARQL configuration values.
 pub trait SparqlConfigProvider {
