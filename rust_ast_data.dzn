@@ -1,0 +1,12 @@
+
+% Rust AST data for Monster Group Phi mapping
+struct_count = 3;
+enum_count = 2;
+fn_count = 7;
+impl_count = 2;
+trait_count = 2;
+macro_count = 1;
+mod_count = 1;
+use_count = 2;
+const_count = 2;
+static_count = 1;
