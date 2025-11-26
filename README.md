@@ -9,7 +9,7 @@ Bring [Nix](https://nixos.org/nix) dependency management to your Rust project!
 
 ## plan
 
-This plan outlines the evolution of cargo2nix as a critical component in building a quasi-meta computationally self-aware system, adhering to a monotonic, additive development philosophy.
+This plan outlines the evolution of cargo2nix as a critical component in building a quasi-meta computationally self-aware system, adhering to a monotonic, additive development philosophy. While the broader project utilizes shell scripts for orchestration, `cargo2nix` aims to eventually replace some of these with Rust-based solutions for deeper, more robust, and formally verifiable integration, aligned with the project's quasi-meta computationally self-aware system goals.
 
 1. replace python and shell scripts with rust traits and functors2. create a new nix submodule rust resolver that resolves all code to our git submodules tree and ignores all uses. any use will resolve to our our store. 
 3. decl level resolution. each decl is a standalone object and compiled separatly from all others in a virtual canonical file system that is mapped into nix.
@@ -100,9 +100,9 @@ A bare minimum flake.nix:
 ```nix
 {
   inputs = {
-    cargo2nix.url = "github:cargo2nix/cargo2nix/release-0.12";
-    flake-utils.follows = "cargo2nix/flake-utils";
-    nixpkgs.follows = "cargo2nix/nixpkgs";
+    cargo2nix.url = "github:meta-introspector/cargo2nix/release-0.12";
+    flake-utils.follows = "meta-introspector/cargo2nix/flake-utils";
+    nixpkgs.follows = "meta-introspector/cargo2nix/nixpkgs";
   };
 
   outputs = inputs: with inputs;
@@ -169,9 +169,9 @@ In your flake, you can choose your cargo2nix version by changing the URL.
 
 | Flake URL                               |                            Result                          |
 |-----------------------------------------|:----------------------------------------------------------:|
-| github:cargo2nix/cargo2nix/             | latest release (check repo's default branch, release-0.12) |
-| github:cargo2nix/cargo2nix/release-0.12 |                    use a specific release                  |
-| github:cargo2nix/cargo2nix/main         |                    latest features & fixes                 |
+| github:meta-introspector/cargo2nix/     | latest release (check repo's default branch, release-0.12) |
+| github:meta-introspector/cargo2nix/release-0.12 |                    use a specific release                  |
+| github:meta-introspector/cargo2nix/main |                    latest features & fixes                 |
 
 Only use unstable for developing with the latest features.  PR's against old
 releases can be accepted but no active support will be done.  **The default
@@ -182,7 +182,7 @@ Update your flake lock with the latest or a specific version of cargo2nix:
 
 ```shell
 nix flake lock --update-input cargo2nix
-nix flake lock --update-input cargo2nix --override-input cargo2nix github:cargo2nix/cargo2nix/?rev=d45481420482fa7d9b0a62836555e24ec07d93be
+nix flake lock --update-input cargo2nix --override-input cargo2nix github:meta-introspector/cargo2nix/?rev=d45481420482fa7d9b0a62836555e24ec07d93be
 ```
 
 If you need newer versions of Rust or the flake-utils inputs, just specify them
@@ -266,7 +266,7 @@ like so:
   inputs = {
     rust-overlay.url = "github:oxalica/rust-overlay/stable";
     cargo2nix = {
-      url = "github:cargo2nix/cargo2nix/release-0.12";
+      url = "github:meta-introspector/cargo2nix/release-0.12";
       inputs.rust-overlay.follows = "rust-overlay";
     };
   };
@@ -283,13 +283,13 @@ The `cargo2nix` ecosystem works by combining several powerful mechanisms to prov
 
 - **Cargo.toml/Cargo.lock Discovery and Metadata Caching:** The `cargo-repo-sync` tool automatically discovers `Cargo.toml` and `Cargo.lock` files across your project and its submodules. It then calculates and caches their metadata (e.g., hash, modification time) in a `rollup.lock` file. This cache is crucial for the "Super Fast Resolution System."
 
-- **Super Fast Resolution System:** Before generating a `Cargo.nix` file for a Rust project, `cargo-repo-sync` compares the current metadata of `Cargo.toml` and `Cargo.lock` against the stored metadata in `rollup.lock`. If no changes are detected, the `Cargo.nix` generation is skipped, significantly speeding up subsequent builds and ensuring that only necessary updates are processed. If changes are found, `Cargo.nix` is regenerated, and `rollup.lock` is updated with the new metadata.
+- **Super Fast Resolution System (CRQ-016 Related):** Before generating a `Cargo.nix` file for a Rust project, `cargo-repo-sync` compares the current metadata of `Cargo.toml` and `Cargo.lock` against the stored metadata in `rollup.lock`. If no changes are detected, the `Cargo.nix` generation is skipped, significantly speeding up subsequent builds and ensuring that only necessary updates are processed. If changes are found, `Cargo.nix` is regenerated, and `rollup.lock` is updated with the new metadata. This system is a core component of the broader project's CRQ-016 initiative for Submodule Nixification and Flake Refactoring, enabling efficient dependency management across submodules.
 
 - **Automated Cargo.nix Generation:** The `cargo2nix` utility reads the Rust workspace configuration and `Cargo.lock` and generates Nix expressions that encode feature, platform, and target logic into a `Cargo.nix` file for each Rust project.
 
 - **Nixpkgs Overlay Consumption:** The `cargo2nix` [Nixpkgs](https://github.com/NixOS/nixpkgs) [overlay](./overlay) consumes these generated `Cargo.nix` files, feeding them to `makePackageSet` to provide workspace outputs that can be exposed in your Nix flake.
 
-- **Unified Dependency Management (Ultimate Vision):** The long-term goal is to centralize the management of all Rust dependencies across submodules. This involves generating a single, unified `Cargo.nix` and `flake.nix` that enforce a single version of each crate, automatically generating overrides as needed, and fully automating the Git submodule lifecycle (adding, committing, branching, pushing) for a seamless and highly efficient vendored Git repository management system.
+- **Unified Dependency Management (Ultimate Vision - CRQ-016 & `github:meta-introspector` Alignment):** The long-term goal is to centralize the management of all Rust dependencies across submodules. This involves generating a single, unified `Cargo.nix` and `flake.nix` that enforce a single version of each crate, automatically generating overrides as needed, and fully automating the Git submodule lifecycle (adding, committing, branching, pushing) for a seamless and highly efficient vendored Git repository management system. This vision directly supports the CRQ-016 objectives for Submodule Nixification and Flake Refactoring, and leverages the `github:meta-introspector` policy for integrating external dependencies in a controlled and consistent manner.
 
 - **Development Shell:** Because we know all of the dependencies, it's easy to create a shell from those dependencies as environment setup using the `workspaceShell` function and exposing the result in the `devShell` flake output.
 
@@ -476,6 +476,8 @@ fresh source and are using the `--ignore-environment` switch, everything is
 identical to how the overlay builds the crate, cutting out guess work.
 
 ## Contributing
+
+For an in-depth guide on setting up your development environment and understanding the Nixification workflow within the Meta-Introspector project, please refer to the [Onboarding Guide](./docs/onboarding_guide.md).
 
 See [Contributing](./CONTRIBUTING.md) for potentially more information.
 

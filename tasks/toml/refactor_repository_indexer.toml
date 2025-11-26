@@ -1,0 +1,16 @@
+name = "Refactor RepositoryIndexer for Configurability"
+description = """
+The `RepositoryIndexer` class contains several hardcoded filenames and directory names that should be configurable. This includes `Constants.DEFAULT_INDEX_DIR`, `metadata.json`, `chunk_map.json`, the `repository` subdirectory, `index.faiss`, `docstore.json`, and `index_mapping.json`.
+"""
+status = "todo"
+depends_on = []
+steps = [
+    "Introduce a configuration mechanism for the default index directory (currently `Constants.DEFAULT_INDEX_DIR`).",
+    "Introduce a configuration mechanism for `metadata.json` filename.",
+    "Introduce a configuration mechanism for `chunk_map.json` filename.",
+    "Introduce a configuration mechanism for the `repository` subdirectory name within the index path.",
+    "Introduce a configuration mechanism for `index.faiss` filename.",
+    "Introduce a configuration mechanism for `docstore.json` filename.",
+    "Introduce a configuration mechanism for `index_mapping.json` filename.",
+    "Replace all hardcoded filenames and directory names with references to the new configuration."
+]

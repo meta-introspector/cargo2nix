@@ -8,7 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:meta-introspector/flake-utils?ref=feature/CRQ-016-nixify";
-    cargo2nix.url = "github:cargo2nix/cargo2nix/release-0.12";
+    cargo2nix.url = "github:meta-introspector/cargo2nix/release-0.12";
   };
 
   outputs =
