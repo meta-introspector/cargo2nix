@@ -20,7 +20,9 @@ This endeavor is deeply rooted in the project's foundational principles, particu
 
 The proof would involve:
 
-1.  **Formalizing the Mapping (Φ function):** Rigorously defining the `Φ` function that translates computational structure (e.g., Rust AST, execution traces) into modular forms, ensuring that essential structural properties are preserved and reflected in the modular form's invariants (weight, level, etc.). This relates to `MonstrousCanonicalForm`.
+1.  **Identifying the Moment of Index Convergence:** A crucial aspect of this proof is to pinpoint a specific "moment" during the compilation process where the **source index** (derived from the raw program text/AST), the **semantic index** (representing the program's abstract meaning and formal properties), and the **behavior index** (quantifying the program's observable execution dynamics) all converge to an equivalent value. This convergence is posited to occur most distinctly within the **enum of tree types** of any abstract description system used to represent the program. This suggests that the fundamental algebraic structure captured by such enumeration holds the key to the automorphic connection.
+
+2.  **Formalizing the Mapping (Φ function):** Rigorously defining the `Φ` function that translates computational structure (e.g., Rust AST, execution traces) into modular forms, ensuring that essential structural properties are preserved and reflected in the modular form's invariants (weight, level, etc.). This relates to `MonstrousCanonicalForm`.
 
 2.  **Quantifying Behavior (Analytic Index):** Developing precise methods to extract or derive a numerical "analytic index" from observable system behavior, particularly focusing on properties verifiable by ZKPs. This relates to `MonstrouslyVerified::emit_monstrous_zk_proof`.
 
