@@ -19,7 +19,39 @@ use rocksdb::{DB, Options}; // Import rocksdb
 use syn::visit::Visit; // Add this import
 
 fn main() -> Result<()> {
-    // ... (rest of main function)
+    let matches = Command::new("rust-src-scanner")
+        .version("0.1.0")
+        .author("Your Name <your.email@example.com>")
+        .about("Scans Rust source code for various insights")
+        .arg(
+            Arg::new("rust-src-path")
+                .long("rust-src-path")
+                .help("Path to the Rust source code to scan")
+                .required(true)
+        )
+        .arg(
+            Arg::new("output-dir")
+                .long("output-dir")
+                .help("Directory to output results (e.g., RocksDB, JSON)")
+                .required(true)
+        )
+        .arg(
+            Arg::new("inductive-decls")
+                .long("inductive-decls")
+                .action(clap::ArgAction::SetTrue)
+                .help("Collect inductive declarations from Rust source")
+        )
+        .get_matches();
+
+    let rust_src_path = matches.get_one::<String>("rust-src-path").unwrap();
+    let output_dir = matches.get_one::<String>("output-dir").unwrap();
+
+    if *matches.get_one::<bool>("inductive-decls").unwrap_or(&false) {
+        collect_inductive_declarations(rust_src_path, output_dir)?;
+    } else {
+        println!("No specific action requested. Use --inductive-decls.");
+    }
+
     Ok(())
 }
 
