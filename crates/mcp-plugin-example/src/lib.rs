@@ -12,22 +12,22 @@ impl McpPlugin for ExamplePlugin {
     }
 
     fn version(&self) -> &str {
-        "0.1.0"
+        "0.2.0"
     }
 
     fn execute(&self, input: &str) -> Result<String> {
         eprintln!("ExamplePlugin: Received input: '{}'", input);
-        let reversed_input: String = input.chars().rev().collect();
-        Ok(format!("Processed by ExamplePlugin (v{}): Reversed input is '{}'", self.version(), reversed_input))
+        let processed_input = format!("Greetings from MCP! You sent: '{}'", input);
+        Ok(format!("Processed by ExamplePlugin (v{}): {}", self.version(), processed_input))
     }
 
     // Implement the new morphological_index method
     fn morphological_index(&self) -> MorphologicalIndex {
         MorphologicalIndex {
-            capabilities: vec!["string_reversal".to_string(), "text_processing".to_string()],
+            capabilities: vec!["string_greeting".to_string(), "text_concatenation".to_string()],
             input_formats: vec!["string".to_string()],
             output_formats: vec!["string".to_string()],
-            semantic_tags: vec!["example".to_string(), "utility".to_string(), "demo".to_string()],
+            semantic_tags: vec!["example".to_string(), "utility".to_string(), "demo".to_string(), "greeting".to_string()],
         }
     }
 }
@@ -58,14 +58,14 @@ mod tests {
     fn test_example_plugin() {
         let plugin = ExamplePlugin;
         assert_eq!(plugin.name(), "ExamplePlugin");
-        assert_eq!(plugin.version(), "0.1.0");
+        assert_eq!(plugin.version(), "0.2.0");
 
         let input = "hello";
-        let expected_output = "Processed by ExamplePlugin (v0.1.0): Reversed input is 'olleh'";
+        let expected_output = "Processed by ExamplePlugin (v0.2.0): Greetings from MCP! You sent: 'hello'";
         assert_eq!(plugin.execute(input).unwrap(), expected_output);
 
         let index = plugin.morphological_index();
-        assert!(index.capabilities.contains(&"string_reversal".to_string()));
+        assert!(index.capabilities.contains(&"string_greeting".to_string()));
         assert!(index.input_formats.contains(&"string".to_string()));
     }
 }
