@@ -19,3 +19,9 @@ steps = [
     "Incorporate constraints derived from the tridecimal Monster Group action into the MiniZinc solver pipeline to represent advanced borrow-checking logic. Enforce this structural preservation at the generation stage."
 ]
 related_concepts = ["Monster Group", "rustc", "Leech lattice", "Conway group CO2", "memory safety", "borrow checking", "MiniZinc", "MonstrouslyVerified trait"]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/rustc_monster_polynomial.rs",
+    "crates/solana-monster-system/src/bin/rust_minizinc_monster.rs",
+    "crates/solana-monster-system/src/bin/zkp_monster_circuit.rs",
+    "crates/solana-monster-system/src/bin/ast_monster_phi_solver.rs"
+]

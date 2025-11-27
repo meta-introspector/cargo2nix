@@ -14,3 +14,7 @@ steps = [
     "Introduce a configuration mechanism for `index_mapping.json` filename.",
     "Replace all hardcoded filenames and directory names with references to the new configuration."
 ]
+related_binaries = [
+    "crates/tool-refactorings/src/repository_indexer.rs", # Module, but relevant
+    "crates/tool-refactorings/src/repository_indexer_config.rs" # Module, but relevant
+]

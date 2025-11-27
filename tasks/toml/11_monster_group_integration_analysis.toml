@@ -28,4 +28,17 @@ rust_src_scanner_compiled = true
 07_verify_inductive_declarations = true
 10_rocksdb_query_and_analysis = true
 crates_monster_multivector_fixed = true
-"
+]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/ast_monster_analyzer.rs",
+    "crates/solana-monster-system/src/bin/ast_monster_phi_solver.rs",
+    "crates/solana-monster-system/src/bin/meme_pda_storage.rs",
+    "crates/solana-monster-system/src/bin/monster_fiber_bundle.rs",
+    "crates/solana-monster-system/src/bin/monster_rocksdb_similarity.rs",
+    "crates/solana-monster-system/src/bin/multi_input_solfunmeme.rs",
+    "crates/solana-monster-system/src/bin/rustc_monster_polynomial.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_meta_pump.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_real.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_zero_ontology.rs",
+    "crates/solana-monster-system/src/bin/variable_complexity_analyzer.rs"
+]

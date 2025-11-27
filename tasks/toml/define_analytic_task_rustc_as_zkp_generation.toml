@@ -11,3 +11,8 @@ depends_on = [
     "map_rust_semantics_to_modular_forms.toml"
 ]
 related_concepts = ["Zero-Knowledge Proof (ZKP)", "type system", "borrow checker", "SAT solvers", "MonstrouslyVerified trait", "emit_monstrous_zk_proof method"]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/zkp_monster_circuit.rs",
+    "crates/solana-monster-system/src/bin/rustc_monster_polynomial.rs",
+    "crates/solana-monster-system/src/bin/rust_minizinc_monster.rs"
+]

@@ -11,3 +11,6 @@ depends_on = [
     "define_minizinc_data_structures.toml"
 ]
 components = ["monster_minizinc_generator.rs", "trait_data.dzn", "MiniZinc SAT solver"]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/rust_minizinc_monster.rs"
+]

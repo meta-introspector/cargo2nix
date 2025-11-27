@@ -18,3 +18,17 @@ steps = [
     "Explore and implement further optimizations such as incremental compilation improvements, linker optimizations, and potentially using `sccache` or similar tools.",
     "Continuously monitor compile times and warning counts to track progress and identify new areas for improvement."
 ]
+related_binaries = [
+    "tools/rustc_cargo_git_equivalence.rs", # Module, but relevant
+    "tools/cargo_toml_extractor.rs", # Module, but relevant
+    "crates/solana-monster-system/src/bin/cargo_lock_analyzer.rs",
+    "crates/solana-monster-system/src/bin/package_record_extractor.rs",
+    "crates/solana-monster-system/src/bin/fixed_dependency_analyzer.rs",
+    "crates/solana-monster-system/src/bin/dependency_chain_analyzer.rs",
+    "crates/solana-monster-system/src/bin/real_build_order.rs",
+    "crates/solana-monster-system/src/bin/fast_build_order.rs",
+    "crates/solana-monster-system/src/bin/rustc_build_order.rs",
+    "crates/solana-monster-system/src/bin/solana_rustc_build_order.rs",
+    "crates/solana-monster-system/src/bin/rustc_usage_resolver.rs",
+    "crates/solana-monster-system/src/bin/cargo_crates_cas_db2.rs"
+]

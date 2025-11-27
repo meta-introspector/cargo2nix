@@ -11,3 +11,9 @@ depends_on = [
     "define_analytic_task_rustc_as_zkp_generation.toml"
 ]
 related_concepts = ["Analytic index", "topological index", "Zero-Knowledge Proof (ZKP)", "modular form encoding", "MonstrouslyVerified blanket impl"]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/zkp_monster_circuit.rs",
+    "crates/solana-monster-system/src/bin/zkp_monster_verifier.rs",
+    "crates/solana-monster-system/src/bin/rustc_monster_polynomial.rs",
+    "crates/solana-monster-system/src/modular_form_encoding.rs" # Module, but relevant
+]

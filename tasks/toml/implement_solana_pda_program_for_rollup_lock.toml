@@ -5,3 +5,6 @@ steps = [
     "Ensure atomic updates to the `rollup.lock` file to prevent data corruption (e.g., by writing to a temporary file and then renaming).",
     "Consider mechanisms for locking the `rollup.lock` file during writes to prevent concurrent access issues."
 ]
+related_binaries = [
+    "tools/rust-71-parts/src/solana_rocksdb_storage.rs" # Module, but relevant
+]

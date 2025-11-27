@@ -13,3 +13,10 @@ steps = [
     "Formally specify the Projection.",
     "Formally specify the 'Quasi' Constraint."
 ]
+related_binaries = [
+    "crates/solana-monster-system/src/l_functions_system.rs", # Module, but relevant
+    "crates/solana-monster-system/src/quasi_fiber_bundle.rs", # Module, but relevant
+    "crates/solana-monster-system/src/base_space.rs", # Module, but relevant
+    "crates/solana-monster-system/src/bin/solfunmeme_zero_ontology.rs",
+    "crates/solana-monster-system/src/bin/monster_fiber_bundle.rs"
+]

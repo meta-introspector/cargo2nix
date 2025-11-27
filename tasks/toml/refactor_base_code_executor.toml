@@ -10,4 +10,8 @@ steps = [
     "Introduce a configuration mechanism for `execution_result_delimiters` (default `('```tool_output\n', '\n```')`).",
     "Replace all hardcoded values with references to the new configuration."
 ]
+related_binaries = [
+    "crates/tool-refactorings/src/base_code_executor.rs", # Module, but relevant
+    "crates/tool-refactorings/src/base_code_executor_config.rs" # Module, but relevant
+]
 

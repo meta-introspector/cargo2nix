@@ -11,3 +11,7 @@ depends_on = [
     "implement_rust_program_to_modular_form_encoding.toml"
 ]
 components = ["BlockAnalyzer", "Trait dummies", "Minimal Ontology System (MOS)"]
+related_binaries = [
+    "crates/solana-monster-system/src/compiler_analyzer.rs",
+    "crates/solana-monster-system/src/bin/trait_generator.rs"
+]

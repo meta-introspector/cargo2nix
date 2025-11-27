@@ -11,4 +11,7 @@ steps = [
     "Replace all occurrences of the hardcoded Freebase URI prefix with a reference to the new configuration.",
     "Replace the hardcoded time offset string \"-08:00\" with a configurable value or handle it dynamically."
 ]
+related_binaries = [
+    "crates/tool-refactorings/src/sparql_executer.rs" # Module, but relevant
+]
 

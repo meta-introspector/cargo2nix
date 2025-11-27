@@ -34,3 +34,12 @@ crates_to_create = [
     # ... potentially new crates for ML module interfaces/meta-learning, DAO/Blockchain interaction, and compiler/LLM tracing/analysis ...
     "the_final_self_describing_self_hosting_automorphic_orbit"
 ]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/meme_pda_storage.rs",
+    "crates/solana-monster-system/src/bin/multi_input_solfunmeme.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_meta_pump.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_real.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_targets.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_transformation.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_zero_ontology.rs"
+]

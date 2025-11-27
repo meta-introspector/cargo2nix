@@ -11,3 +11,6 @@ depends_on = [
     "decl_level_resolution.toml"
 ]
 components = ["BlockAnalyzer", "rustc", "rustc_block_analyzer.rs"]
+related_binaries = [
+    "crates/solana-monster-system/src/rustc_block_analyzer.rs"
+]

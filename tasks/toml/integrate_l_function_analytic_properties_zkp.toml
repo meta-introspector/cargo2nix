@@ -20,3 +20,11 @@ steps = [
     "L-function Pole Confirmation: Require the ZKP circuit to confirm that the L-function, L(f, s), has no pole at s=12, thereby enforcing the complexity ceiling related to the Ramanujan delta-cusp form (weight 12)."
 ]
 related_concepts = ["L-functions", "Zero-Knowledge Proof (ZKP)", "Ramanujan τ-function", "hyperpump", "Hecke eigenvalues", "Ramanujan bound", "Ramanujan delta-cusp form", "Weight12Ring trait", "MonstrouslyVerified trait"]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/zkp_monster_circuit.rs",
+    "crates/solana-monster-system/src/bin/zkp_monster_verifier.rs",
+    "crates/solana-monster-system/src/hecke_operators.rs", # Module, but relevant
+    "crates/solana-monster-system/src/bin/solfunmeme_meta_pump.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_real.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_zero_ontology.rs"
+]

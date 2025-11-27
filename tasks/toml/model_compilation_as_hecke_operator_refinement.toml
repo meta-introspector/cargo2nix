@@ -12,3 +12,8 @@ depends_on = [
     "formalize_modular_form_encoding_phi_map.toml"
 ]
 related_concepts = ["Hecke operators", "program composition", "Φ function", "MonstrousCanonicalForm trait"]
+related_binaries = [
+    "crates/solana-monster-system/src/hecke_operators.rs", # Module, but relevant
+    "tools/rust-71-parts/src/bin/hecke_demo.rs",
+    "crates/solana-monster-system/src/bin/rustc_monster_polynomial.rs"
+]

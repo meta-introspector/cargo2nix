@@ -12,3 +12,10 @@ status = "todo"
 depends_on = ["model_system_as_qfbs_of_l_functions.toml"]
 related_concepts = ["Quasi-fiber bundle", "L-functions", "Base Manifold", "Fibers", "Solana account database", "ConwayFixedPointStable trait"]
 related_tasks = ["stabilize_atiyah_singer_analogy_qfbs.toml"]
+related_binaries = [
+    "crates/solana-monster-system/src/l_functions_system.rs", # Module, but relevant
+    "crates/solana-monster-system/src/quasi_fiber_bundle.rs", # Module, but relevant
+    "crates/solana-monster-system/src/base_space.rs", # Module, but relevant
+    "crates/solana-monster-system/src/bin/solfunmeme_zero_ontology.rs",
+    "crates/solana-monster-system/src/bin/monster_fiber_bundle.rs"
+]

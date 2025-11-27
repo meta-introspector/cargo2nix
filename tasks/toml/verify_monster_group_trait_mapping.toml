@@ -11,3 +11,11 @@ depends_on = [
     "formalize_108_architectural_constraints.toml"
 ]
 components = ["MiniZinc solver", "JSON output", "monster_elements", "hecke_values"]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/rust_minizinc_monster.rs",
+    "crates/solana-monster-system/src/bin/minizinc_solver_executor.rs",
+    "crates/solana-monster-system/src/bin/monster_108_verifier.rs",
+    "tools/rust-71-parts/src/bin/monster_mathematical_solver.rs",
+    "tools/monster_numerical_comparator.rs", # Module, but relevant
+    "crates/solana-monster-system/src/hecke_operators.rs" # Module, but relevant
+]

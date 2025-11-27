@@ -11,3 +11,6 @@ depends_on = [
     "integrate_minizinc_with_rust.toml"
 ]
 components = ["minizinc_solver.rs", "Gecode backend", "MiniZinc"]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/rust_minizinc_monster.rs"
+]

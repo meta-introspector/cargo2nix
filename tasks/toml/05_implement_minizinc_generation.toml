@@ -33,5 +33,13 @@ The 'example_meme' crate will need to define mechanisms to receive or fetch thes
 - At least one batch of dynamically identified 'most beloved' dog memes. The specific indices will need to be dynamically provided or derived from the ML/DAO/Analytical Index I inputs.
 
 **Objective Function (remains static, but will operate on dynamic and evolving parameters):**
-- Maximize 1000000.0 * (20000 - sum(tokens)) + memetic_score (primary: close to 20000, secondary: maximize memetic score).
 """
+related_binaries = [
+    "crates/solana-monster-system/src/bin/multi_input_solfunmeme.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_meta_pump.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_real.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_targets.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_transformation.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_zero_ontology.rs",
+    "crates/solana-monster-system/src/bin/actual_rustc_analyzer.rs" # For analytical index I
+]

@@ -14,3 +14,6 @@ depends_on = [
     "develop_master_zk_snark_circuit.toml"
 ]
 related_concepts = ["Zero-Knowledge Proof (ZKP)", "integration over the manifold", "mathematical constraints"]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/zkp_monster_circuit.rs"
+]

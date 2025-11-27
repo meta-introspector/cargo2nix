@@ -17,3 +17,12 @@ related_tasks = [
     "implement_fork_and_patch_submodule.toml",
     "implement_submodule_workspace_patching.toml"
 ]
+related_binaries_conceptual = [
+    "crates/solana-monster-system/src/bin/git_modules_cas_db.rs",
+    "crates/solana-monster-system/src/bin/gitmodules_analyzer.rs",
+    "crates/solana-monster-system/src/bin/git_fork_mapper.rs",
+    "crates/solana-monster-system/src/bin/git_fork_tracker.rs",
+    "crates/solana-monster-system/src/bin/git_upstream_mapper.rs",
+    "crates/solana-monster-system/src/bin/recursive_git_url_checker.rs",
+    "crates/solana-monster-system/src/bin/thorough_submodule_scanner.rs"
+]

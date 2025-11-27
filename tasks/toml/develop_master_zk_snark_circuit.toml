@@ -7,3 +7,7 @@ and output a valid proof only if the modular form satisfies all constraints.
 status = "todo"
 depends_on = ["translate_architectural_constraints_to_r1cs.toml"]
 tools = ["Circom"]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/zkp_monster_circuit.rs",
+    "crates/solana-monster-system/src/monster_108_constraints.rs" # Module, but relevant
+]

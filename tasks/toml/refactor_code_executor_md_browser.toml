@@ -12,4 +12,8 @@ steps = [
     "Replace the hardcoded directory name and file extension with references to the new configuration.",
     "Refactor the parsing logic for `title_line[6:]` and `[8:]` to use more robust methods (e.g., string splitting or regex) that don't rely on magic numbers."
 ]
+related_binaries = [
+    "crates/tool-refactorings/src/code_executor_file_browser.rs", # Module, but relevant
+    "crates/tool-refactorings/src/file_browser_config.rs" # Module, but relevant
+]
 

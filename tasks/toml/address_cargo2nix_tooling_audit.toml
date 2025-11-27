@@ -21,3 +21,6 @@ related_tasks = [
     "replace_shell_scripts_with_rust.toml",
     "workspace_compile_time_and_warning_reduction.toml"
 ]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/monster_cloudformation_generator.rs"
+]

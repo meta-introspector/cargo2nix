@@ -5,3 +5,10 @@ steps = [
     "Package existing MiniZinc models (`.mzn` files) and data files (`.dzn` files) as Nix derivations.",
     "Ensure that the Nix build environment provides MiniZinc and its models in a reproducible manner."
 ]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/rust_minizinc_monster.rs",
+    "crates/solana-monster-system/src/bin/minizinc_solver_executor.rs",
+    "crates/solana-monster-system/src/minizinc_data_structures.rs", # Module, but relevant
+    "crates/solana-monster-system/src/minizinc_integration.rs", # Module, but relevant
+    "crates/solana-monster-system/src/minizinc_introspector_integration.rs" # Module, but relevant
+]

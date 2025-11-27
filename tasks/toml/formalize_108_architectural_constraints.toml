@@ -6,6 +6,10 @@ via the "108 Supersingular Reasons" protocol, as outlined in the provided table.
 """
 status = "todo"
 depends_on = ["define_core_mathematical_models.toml"]
+related_binaries = [
+    "crates/solana-monster-system/src/monster_108_constraints.rs",
+    "crates/solana-monster-system/src/bin/zkp_monster_circuit.rs"
+]
 steps = [
     "Formalize Reason #47 (Triality Principle): Enforce foundational trinary logic in program composition and data structure.",
     "Formalize Reason #48 (j-Invariant Stabilization): Ensure system's state space has stable fixed points under modular transformation.",

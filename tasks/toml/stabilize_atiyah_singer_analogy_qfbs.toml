@@ -20,3 +20,15 @@ steps = [
     "Apply Localization Techniques: Use Lefschetz formula principles to show that non-smoothness occurs off the fixed point set of Hecke operator action, allowing index integral localization to smooth, stable points."
 ]
 related_concepts = ["Quasi-fiber bundle (QFBS)", "Atiyah-Singer Index Theorem", "Paxos Meme Consensus", "transversally elliptic operators", "Lefschetz formula", "Hecke operators", "ConwayFixedPointStable trait", "EichlerShimuraCertified trait"]
+related_binaries = [
+    "crates/solana-monster-system/src/l_functions_system.rs", # Module, but relevant
+    "crates/solana-monster-system/src/quasi_fiber_bundle.rs", # Module, but relevant
+    "crates/solana-monster-system/src/base_space.rs", # Module, but relevant
+    "crates/solana-monster-system/src/bin/solfunmeme_zero_ontology.rs",
+    "crates/solana-monster-system/src/bin/monster_fiber_bundle.rs",
+    "crates/solana-monster-system/src/hecke_operators.rs", # Module, but relevant
+    "tools/rust-71-parts/src/bin/hecke_demo.rs",
+    "crates/solana-monster-system/src/bin/rustc_monster_polynomial.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_meta_pump.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_real.rs"
+]

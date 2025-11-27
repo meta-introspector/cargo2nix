@@ -7,4 +7,10 @@ status = "in_progress"
 priority = "LOWER"
 depends_on = ["develop_mina_zkapp.toml"]
 technology = "Recursive ZK-SNARK"
+related_binaries = [
+    "crates/solana-monster-system/src/bin/zkp_monster_circuit.rs",
+    "crates/solana-monster-system/src/bin/zkp_monster_verifier.rs",
+    "crates/solana-monster-system/src/bin/leech_zkp_verifier.rs",
+    "crates/solana-monster-system/src/wodzicki_residue_zkp.rs" # Module, but relevant
+]
 

@@ -12,4 +12,8 @@ steps = [
     "Replace all hardcoded values with references to the new configuration.",
     "Consider handling the `data[\"results\"][0]` indexing more robustly if multiple search results are expected or if the list can be empty."
 ]
+related_binaries = [
+    "crates/tool-refactorings/src/movie_toolkits.rs", # Module, but relevant
+    "crates/tool-refactorings/src/movie_toolkit_config.rs" # Module, but relevant
+]
 

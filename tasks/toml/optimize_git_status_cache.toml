@@ -18,3 +18,13 @@ steps = [
     "  - Write comprehensive unit and integration tests for `FileMetadata`, `RealFileSystemStat`, `create_snapshot`, and `run_submodule_status`'s cache usage.",
     "  - Perform performance benchmarking to measure improvement."
 ]
+related_binaries = [
+    "crates/solana-monster-system/src/git_to_cargo_mapper.rs", # This is a module, but related
+    "crates/solana-monster-system/src/bin/git_graphql_cache.rs",
+    "crates/solana-monster-system/src/bin/process_git_inventory.rs",
+    "crates/solana-monster-system/src/bin/git_modules_cas_db.rs",
+    "crates/solana-monster-system/src/bin/cargo_git_mapper.rs",
+    "crates/solana-monster-system/src/bin/recursive_git_url_checker.rs",
+    "crates/solana-monster-system/src/bin/thorough_submodule_scanner.rs",
+    "crates/solana-monster-system/src/bin/gitmodules_analyzer.rs"
+]

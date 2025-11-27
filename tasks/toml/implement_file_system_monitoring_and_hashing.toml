@@ -5,3 +5,8 @@ steps = [
     "Develop logic to update the in-memory `rollup.lock` data structure based on file system events and new hashes.",
     "Optimize `stat` calls by only performing them when necessary (e.g., file size or modification time changes)."
 ]
+related_binaries = [
+    "crates/rust-mcp-server/src/main.rs", # Contains calculate_content_id
+    # sha2 crate is a dependency, not a binary or explicit source file
+    # walkdir crate is a dependency, not a binary or explicit source file
+]

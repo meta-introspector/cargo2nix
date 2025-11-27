@@ -175,3 +175,8 @@ plan = [
     "Analyze the shell script's functionality (likely orchestrating dependency generation).",
     "Implement equivalent orchestration logic in Rust."
 ]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/layer0_analyzer.rs",
+    "crates/solana-monster-system/src/bin/semantic_dep_graph.rs",
+    "crates/solana-monster-system/src/bin/package_record_extractor.rs"
+]

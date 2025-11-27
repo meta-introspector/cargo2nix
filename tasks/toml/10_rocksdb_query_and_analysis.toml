@@ -27,4 +27,13 @@ rust_src_scanner_compiled = true
 07_verify_inductive_declarations = true
 08_refine_inductive_declarations_complex_types = true
 09_refine_inductive_declarations_let_bindings = true
+]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/ast_decls_cas_db3.rs",
+    "crates/solana-monster-system/src/bin/cargo_crates_cas_db2.rs",
+    "crates/solana-monster-system/src/bin/meme_pda_storage.rs",
+    "crates/solana-monster-system/src/bin/monster_fiber_bundle.rs",
+    "crates/solana-monster-system/src/bin/monster_rocksdb_similarity.rs",
+    "crates/solana-monster-system/src/bin/phi_rocksdb_storage.rs"
+]
 "

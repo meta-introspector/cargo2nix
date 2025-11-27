@@ -7,3 +7,9 @@ into a ZK circuit (e.g., using Circom).
 status = "in_progress"
 priority = "MEDIUM"
 depends_on = ["formalize_108_architectural_constraints.toml"]
+related_binaries = [
+    "crates/solana-monster-system/src/r1cs_check.rs", # Module, but relevant
+    "crates/solana-monster-system/src/r1cs_monster_constraints.rs", # Module, but relevant
+    "crates/solana-monster-system/src/bin/zkp_monster_circuit.rs",
+    "crates/solana-monster-system/src/monster_108_constraints.rs" # Module, but relevant
+]

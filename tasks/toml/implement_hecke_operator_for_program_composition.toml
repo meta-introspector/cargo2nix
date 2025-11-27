@@ -9,3 +9,7 @@ of the total Hecke operator.
 status = "todo"
 depends_on = ["specify_geometric_inputs_to_modular_form_mapping.toml"]
 related_tasks = ["cargo-hecke.md", "lattice_path_plan.md", "lattice_plan.md"]
+related_binaries = [
+    "crates/solana-monster-system/src/hecke_operators.rs",
+    "tools/rust-71-parts/src/bin/hecke_demo.rs"
+]

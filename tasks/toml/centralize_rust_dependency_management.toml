@@ -17,3 +17,8 @@ related_tasks = [
     "integrate_generated_root_workspace_dependencies.toml",
     "implement_old_version_reference.toml"
 ]
+related_binaries_conceptual = [
+    "crates/solana-monster-system/src/bin/cargo_crates_cas_db2.rs",
+    "crates/solana-monster-system/src/bin/cargo_phi_sum.rs",
+    "crates/solana-monster-system/src/bin/rust_minizinc_monster.rs"
+]

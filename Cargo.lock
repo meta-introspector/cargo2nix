@@ -349,7 +349,7 @@ dependencies = [
  "unicode-width",
  "unicode-xid",
  "url",
- "walkdir",
+ "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "windows-sys 0.60.2",
  "winnow",
 ]
@@ -428,7 +428,7 @@ dependencies = [
  "shell-escape",
  "tempfile",
  "tracing",
- "walkdir",
+ "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "windows-sys 0.60.2",
 ]
 
@@ -466,7 +466,7 @@ dependencies = [
  "tempfile",
  "tera",
  "toml",
- "walkdir",
+ "walkdir 2.5.0",
 ]
 
 [[package]]
@@ -864,6 +864,12 @@ dependencies = [
  "quote",
  "syn",
 ]
+
+[[package]]
+name = "doc-comment"
+version = "0.3.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "780955b8b195a21ab8e4ac6b60dd1dbdcec1dc6c51c0617964b08c81785e12c9"
 
 [[package]]
 name = "dunce"
@@ -1387,7 +1393,7 @@ dependencies = [
  "parking_lot",
  "prodash",
  "thiserror",
- "walkdir",
+ "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -1955,7 +1961,7 @@ checksum = "0bf760ebf69878d9fd8f110c89703d90ce35095324d1f1edcb595c63945ee757"
 dependencies = [
  "bitflags 2.10.0",
  "ignore",
- "walkdir",
+ "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -2215,7 +2221,7 @@ dependencies = [
  "memchr",
  "regex-automata",
  "same-file",
- "walkdir",
+ "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "winapi-util",
 ]
 
@@ -3378,6 +3384,7 @@ dependencies = [
  "serde_json",
  "sha2",
  "syn",
+ "walkdir 2.5.0",
 ]
 
 [[package]]
@@ -4156,6 +4163,15 @@ name = "version_check"
 version = "0.9.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
+
+[[package]]
+name = "walkdir"
+version = "2.5.0"
+dependencies = [
+ "doc-comment",
+ "same-file",
+ "winapi-util",
+]
 
 [[package]]
 name = "walkdir"

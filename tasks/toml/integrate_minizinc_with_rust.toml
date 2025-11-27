@@ -5,3 +5,10 @@ steps = [
     "Develop parsing logic in Rust to extract the 'optimal placement' solution from MiniZinc's output format.",
     "Consider how input data for MiniZinc (e.g., representing the elliptic fiber, torus point, Monster stabilizer) would be generated or formatted by the Rust tooling."
 ]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/rust_minizinc_monster.rs",
+    "crates/solana-monster-system/src/bin/minizinc_solver_executor.rs",
+    "crates/solana-monster-system/src/minizinc_data_structures.rs", # Module, but relevant
+    "crates/solana-monster-system/src/minizinc_integration.rs", # Module, but relevant
+    "crates/solana-monster-system/src/minizinc_introspector_integration.rs" # Module, but relevant
+]

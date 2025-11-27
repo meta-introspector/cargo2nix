@@ -12,3 +12,13 @@ depends_on = [
     "specify_geometric_inputs_to_modular_form_mapping.toml"
 ]
 related_concepts = ["Modular forms", "weight", "level", "AST", "MonstrousCanonicalForm trait"]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/rustc_monster_polynomial.rs",
+    "crates/solana-monster-system/src/bin/ast_monster_phi_solver.rs",
+    "crates/solana-monster-system/src/bin/phi_rocksdb_storage.rs",
+    "crates/solana-monster-system/src/bin/phi_usage_matcher.rs",
+    "crates/solana-monster-system/src/bin/name_phi_mapper.rs",
+    "crates/solana-monster-system/src/bin/phi_import_export_matcher.rs",
+    "crates/solana-monster-system/src/bin/cargo_phi_sum.rs",
+    "crates/solana-monster-system/src/bin/decl_phi_sum.rs"
+]

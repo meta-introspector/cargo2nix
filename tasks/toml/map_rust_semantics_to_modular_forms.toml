@@ -12,3 +12,10 @@ depends_on = [
     "implement_rust_program_to_modular_form_encoding.toml"
 ]
 related_concepts = ["Modular forms", "Zero-Knowledge Proof (ZKP)", "topological index", "MonstrousCanonicalForm trait", "monstrous_form method"]
+related_binaries = [
+    "crates/solana-monster-system/src/modular_form_encoding.rs", # Module, but relevant
+    "crates/solana-monster-system/src/bin/rustc_monster_polynomial.rs",
+    "crates/solana-monster-system/src/bin/ast_monster_phi_solver.rs",
+    "crates/solana-monster-system/src/compiler_analyzer.rs", # Module, but relevant
+    "crates/solana-monster-system/src/bin/semantic_analyzer.rs"
+]

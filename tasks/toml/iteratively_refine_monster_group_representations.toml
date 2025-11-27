@@ -10,3 +10,9 @@ depends_on = [
     "verify_monster_group_trait_mapping.toml",
     "execute_optimal_constraint_solving.toml"
 ]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/interactive_constraint_tweaker.rs",
+    "crates/solana-monster-system/src/bin/minizinc_solver_executor.rs",
+    "crates/solana-monster-system/src/minizinc_introspector_integration.rs", # Module, but relevant
+    "crates/solana-monster-system/src/rustc_block_analyzer.rs" # Module, but relevant
+]
