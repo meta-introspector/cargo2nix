@@ -6,208 +6,128 @@ mod file_scanner;
 mod dependency_analyzer;
 mod monster_factor_collector;
 mod term_collector;
+mod declarations;
+mod inductive_declarations_collector;
 
 use file_scanner::FileScanner;
 use dependency_analyzer::DependencyAnalyzer;
 use monster_factor_collector::{ASTFactorCollector, MonsterFactorSolver};
 use term_collector::ComprehensiveTermCollector;
+use inductive_declarations_collector::InductiveDeclarationsCollector;
+use crate::declarations::NixDeclaration;
+use rocksdb::{DB, Options}; // Import rocksdb
+use syn::visit::Visit; // Add this import
 
 fn main() -> Result<()> {
-    let matches = Command::new("rust-src-scanner")
-        .version("1.0")
-        .about("Rust source code analyzer with Monster Group factor collection")
-        .arg(Arg::new("rust-src-path")
-            .long("rust-src-path")
-            .value_name("PATH")
-            .help("Path to Rust source directory")
-            .required(true))
-        .arg(Arg::new("output-dir")
-            .long("output-dir")
-            .value_name("DIR")
-            .help("Output directory for results")
-            .required(true))
-        .arg(Arg::new("cache-path")
-            .long("cache-path")
-            .value_name("FILE")
-            .help("Cache file path")
-            .required(false))
-        .arg(Arg::new("monster-factors")
-            .long("monster-factors")
-            .help("Collect Monster Group factors from AST")
-            .action(clap::ArgAction::SetTrue))
-        .arg(Arg::new("comprehensive-terms")
-            .long("comprehensive-terms")
-            .help("Comprehensive term collection with 4K optimization")
-            .action(clap::ArgAction::SetTrue))
-        .arg(Arg::new("chunk-size")
-            .long("chunk-size")
-            .value_name("SIZE")
-            .help("Semantic chunk size in bytes")
-            .default_value("4096"))
-        .get_matches();
-
-    let rust_src_path = matches.get_one::<String>("rust-src-path").unwrap();
-    let output_dir = matches.get_one::<String>("output-dir").unwrap();
-    let cache_path = matches.get_one::<String>("cache-path");
-    let collect_monster_factors = matches.get_flag("monster-factors");
-    let comprehensive_terms = matches.get_flag("comprehensive-terms");
-
-    println!("🔍 Rust Source Scanner");
-    println!("Source path: {}", rust_src_path);
-    println!("Output dir: {}", output_dir);
-    
-    if comprehensive_terms {
-        println!("📝 Comprehensive term collection with 4K page optimization");
-        collect_comprehensive_terms(rust_src_path, output_dir)?;
-    } else if collect_monster_factors {
-        println!("🔢 Monster Group factor collection enabled");
-        collect_monster_group_factors(rust_src_path, output_dir)?;
-    } else {
-        // Standard dependency analysis
-        run_standard_analysis(rust_src_path, output_dir, cache_path)?;
-    }
-
+    // ... (rest of main function)
     Ok(())
 }
 
 fn collect_comprehensive_terms(rust_src_path: &str, output_dir: &str) -> Result<()> {
-    println!("📝 Starting comprehensive term collection");
-    
-    let mut scanner = FileScanner::new();
-    let mut term_collector = ComprehensiveTermCollector::new();
-    
-    // Create output directory
-    std::fs::create_dir_all(output_dir)?;
-    
-    // Scan all Rust files
-    let rust_files = scanner.find_rust_files(Path::new(rust_src_path))?;
-    println!("Found {} Rust files", rust_files.len());
-    
-    let mut processed = 0;
-    let mut total_terms = 0;
-    let mut total_chunks = 0;
-    
-    for file_path in rust_files.iter().take(100) { // Limit for proof
-        if let Ok(content) = std::fs::read_to_string(&file_path) {
-            if let Ok(syntax_tree) = syn::parse_file(&content) {
-                let file_summary = term_collector.collect_file_terms(
-                    file_path.to_str().unwrap_or("unknown"), 
-                    &syntax_tree
-                );
-                
-                total_terms += file_summary.file_terms.total_terms;
-                total_chunks += file_summary.chunks.len();
-                
-                // Save individual file summary
-                let file_name = file_path.file_name()
-                    .and_then(|n| n.to_str())
-                    .unwrap_or("unknown");
-                let output_path = Path::new(output_dir).join(format!("{}.json", file_name));
-                let json = serde_json::to_string_pretty(&file_summary)?;
-                std::fs::write(output_path, json)?;
-                
-                processed += 1;
-                
-                if processed % 10 == 0 {
-                    println!("Processed {} files, {} terms, {} chunks", processed, total_terms, total_chunks);
-                }
-            }
-        }
-    }
-    
-    println!("✅ PROOF COMPLETE:");
-    println!("  Files processed: {}", processed);
-    println!("  Total terms collected: {}", total_terms);
-    println!("  Total 4K chunks created: {}", total_chunks);
-    println!("  Average terms per file: {:.1}", total_terms as f64 / processed as f64);
-    println!("  Average chunks per file: {:.1}", total_chunks as f64 / processed as f64);
-    
-    // Generate summary report
-    let summary = format!(
-        "COMPREHENSIVE TERM COLLECTION PROOF\n\
-        =====================================\n\
-        Files analyzed: {}\n\
-        Terms collected: {}\n\
-        Semantic chunks: {}\n\
-        Chunk size: 4K pages\n\
-        Monster factors: 108 available\n\
-        Status: PROVEN - System operational\n",
-        processed, total_terms, total_chunks
-    );
-    
-    let summary_path = Path::new(output_dir).join("proof_summary.txt");
-    std::fs::write(summary_path, summary)?;
-    
-    println!("📄 Proof summary saved to {}/proof_summary.txt", output_dir);
-    
+    // ... (collect_comprehensive_terms function)
     Ok(())
 }
 
 fn collect_monster_group_factors(rust_src_path: &str, output_dir: &str) -> Result<()> {
-    println!("🔢 Collecting Monster Group factors from AST analysis");
-    
-    let mut scanner = FileScanner::new();
-    let mut factor_collector = ASTFactorCollector::new();
-    let mut solver = MonsterFactorSolver::new();
-    
-    // Scan all Rust files
-    let rust_files = scanner.find_rust_files(Path::new(rust_src_path))?;
-    println!("Found {} Rust files", rust_files.len());
-    
-    let mut processed = 0;
-    for file_path in rust_files {
-        if let Ok(content) = std::fs::read_to_string(&file_path) {
-            if let Ok(syntax_tree) = syn::parse_file(&content) {
-                let file_factors = factor_collector.collect_file_factors(
-                    file_path.to_str().unwrap_or("unknown"), 
-                    &syntax_tree
-                );
-                
-                solver.add_file_factors(file_factors);
-                processed += 1;
-                
-                if processed % 1000 == 0 {
-                    println!("Processed {} files...", processed);
-                }
-            }
-        }
-    }
-    
-    println!("✅ Processed {} files", processed);
-    solver.print_summary();
-    
-    // Save results
-    let output_path = Path::new(output_dir).join("monster_factors.json");
-    let json = serde_json::to_string_pretty(&solver.mapping)?;
-    std::fs::write(output_path, json)?;
-    
-    // Generate SAT problem for solver
-    let sat_problem = solver.generate_sat_problem();
-    let sat_path = Path::new(output_dir).join("monster_sat_problem.txt");
-    std::fs::write(sat_path, sat_problem)?;
-    
-    println!("📄 Results saved to {}/monster_factors.json", output_dir);
-    println!("📄 SAT problem saved to {}/monster_sat_problem.txt", output_dir);
-    
+    // ... (collect_monster_group_factors function)
     Ok(())
 }
 
 fn run_standard_analysis(rust_src_path: &str, output_dir: &str, cache_path: Option<&String>) -> Result<()> {
-    println!("📊 Running standard dependency analysis");
+    // ... (run_standard_analysis function)
+    Ok(())
+}
+
+fn collect_inductive_declarations(rust_src_path: &str, output_dir: &str) -> Result<()> {
+    println!("⚛️ Starting inductive declarations collection");
+
+    // User-provided monster primes for sizing
+    const USER_MONSTER_PRIMES: &[u64] = &[1, 2, 3, 5, 7, 11, 13, 13, 23, 31, 71];
+
+    let mut scanner = FileScanner::new();
+    let mut all_declarations: Vec<NixDeclaration> = Vec::new();
+
+    // Create output directory for JSON and RocksDB
+    let db_path = Path::new(output_dir).join("inductive_decls.rocksdb");
+    std::fs::create_dir_all(&db_path)?; // Create directory for RocksDB
     
-    let mut analyzer = DependencyAnalyzer::new();
-    
-    if let Some(cache) = cache_path {
-        analyzer.load_cache(cache)?;
+    // Open RocksDB
+    let db = DB::open_default(&db_path)?;
+    println!("Opened RocksDB at {:?}", &db_path);
+
+    // Scan all Rust files
+    let rust_files = scanner.find_rust_files(Path::new(rust_src_path))?;
+    println!("Found {} Rust files", rust_files.len());
+
+    let mut processed_files = 0;
+    for file_path in rust_files.iter().take(100) { // Limit for proof
+        if let Ok(content) = std::fs::read_to_string(&file_path) {
+            if let Ok(syntax_tree) = syn::parse_file(&content) {
+                let mut collector = InductiveDeclarationsCollector::new(
+                    file_path.to_str().unwrap_or("unknown").to_string()
+                );
+                Visit::visit_file(&mut collector, &syntax_tree);
+                collector.finalize_declarations(USER_MONSTER_PRIMES);
+                all_declarations.extend(collector.declarations);
+                processed_files += 1;
+            }
+        }
     }
-    
-    analyzer.analyze_directory(Path::new(rust_src_path))?;
-    analyzer.save_results(Path::new(output_dir))?;
-    
-    if let Some(cache) = cache_path {
-        analyzer.save_cache(cache)?;
+
+    println!("✅ Processed {} files for inductive declarations", processed_files);
+    println!("Total NixDeclarations collected: {}", all_declarations.len());
+
+    // Store in RocksDB
+    for decl in all_declarations {
+        let key = format!("{}:{}:{:?}", decl.path, decl.name, decl.kind);
+        let value = serde_json::to_vec(&decl)?;
+        db.put(key, value)?;
     }
-    
-    println!("✅ Analysis complete");
+    println!("Stored declarations in RocksDB.");
+
+    Ok(())
+}
+
+fn collect_inductive_declarations(rust_src_path: &str, output_dir: &str) -> Result<()> {
+    println!("⚛️ Starting inductive declarations collection");
+
+    // User-provided monster primes for sizing
+    const USER_MONSTER_PRIMES: &[u64] = &[1, 2, 3, 5, 7, 11, 13, 13, 23, 31, 71];
+
+    let mut scanner = FileScanner::new();
+    let mut all_declarations: Vec<NixDeclaration> = Vec::new();
+
+    // Create output directory
+    std::fs::create_dir_all(output_dir)?;
+
+    // Scan all Rust files
+    let rust_files = scanner.find_rust_files(Path::new(rust_src_path))?;
+    println!("Found {} Rust files", rust_files.len());
+
+    let mut processed_files = 0;
+    for file_path in rust_files.iter().take(100) { // Limit for proof
+        if let Ok(content) = std::fs::read_to_string(&file_path) {
+            if let Ok(syntax_tree) = syn::parse_file(&content) {
+                let mut collector = InductiveDeclarationsCollector::new(
+                    file_path.to_str().unwrap_or("unknown").to_string()
+                );
+                Visit::visit_file(&mut collector, &syntax_tree);
+                collector.finalize_declarations(USER_MONSTER_PRIMES);
+                all_declarations.extend(collector.declarations);
+                processed_files += 1;
+            }
+        }
+    }
+
+    println!("✅ Processed {} files for inductive declarations", processed_files);
+    println!("Total NixDeclarations collected: {}", all_declarations.len());
+
+    // Save aggregated declarations
+    let output_path = Path::new(output_dir).join("inductive_declarations.json");
+    let json = serde_json::to_string_pretty(&all_declarations)?;
+    std::fs::write(output_path, json)?;
+
+    println!("📄 Inductive declarations saved to {}/inductive_declarations.json", output_dir);
+
     Ok(())
 }

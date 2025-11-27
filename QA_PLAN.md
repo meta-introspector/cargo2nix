@@ -1,175 +1,52 @@
-# QA Plan - MiniZinc Integration & Monster Protocol
+# QA Plan for Unstaged Changes
 
-## Critical Path Testing (Priority 1)
+This QA plan outlines the steps to verify the integrity and functionality of the unstaged changes, covering dependency updates, tooling adjustments, and new feature development.
 
-### 1. Core Compilation Safety
-```bash
-# Verify existing cargo2nix functionality unchanged
-nix build
-cargo build
-cargo test
-```
-**Expected**: All existing tests pass, no regressions
-**Blocker**: Any failure stops further testing
+## 1. Dependency Resolution and Build Integrity
 
-### 2. Nix Environment Integrity
-```bash
-nix develop
-nix flake check
-```
-**Expected**: Clean environment setup
-**Blocker**: Environment corruption prevents development
+*   **Objective:** Ensure all dependencies are correctly resolved and the project builds successfully with the updated `Cargo.lock`, `Cargo.toml`, and `flake.lock`.
+*   **Steps:**
+    1.  Run `nix develop` to ensure the Nix environment can be set up without errors.
+    2.  Execute `cargo check --workspace` to verify that all crates in the workspace compile without type errors.
+    3.  Execute `cargo build --workspace` to ensure all crates in the workspace build successfully.
+    4.  Verify that `cargo build` and `cargo check` respect the changes in `Cargo.toml` (e.g., the new `monster_multivector` and `monster_traits` crates are recognized).
 
-### 3. Basic Module Compilation
-```bash
-# Test each new module compiles
-find src/ -name "*.rs" -newer Cargo.toml | xargs -I {} rustc --crate-type lib {}
-```
-**Expected**: No compilation errors
-**Critical**: Syntax/type errors must be fixed
+## 2. Submodule Integrity
 
-## Integration Testing (Priority 2)
+*   **Objective:** Verify that the numerous submodule updates (indicated by "modified content") haven't introduced regressions or inconsistencies.
+*   **Steps:**
+    1.  After `nix develop`, run `git submodule status` to confirm that all submodules are in a consistent state (i.e., no unexpected `-dirty` indicators after a fresh `nix develop` or `git submodule update`).
+    2.  If the changes were intended to be propagated (e.g., through a `git submodule update --remote`), run that command and then rebuild the project to ensure compatibility.
 
-### 4. MiniZinc Solver Integration
-```bash
-# Test MiniZinc installation and basic solving
-minizinc --version
-./run_monster_minizinc.sh
-```
-**Test cases**:
-- Solver finds solutions for simple constraints
-- Error handling for unsatisfiable problems
-- Performance on medium-sized problems
+## 3. `doit.sh` Functionality
 
-### 5. CMake Build System
-```bash
-mkdir build && cd build
-cmake ..
-make -j$(nproc)
-```
-**Test cases**:
-- All targets build successfully
-- C++ solver libraries link correctly
-- FFI bindings work
+*   **Objective:** Ensure the updated `doit.sh` script correctly invokes the `gemini.js` CLI.
+*   **Steps:**
+    1.  Execute `bash ./doit.sh` (or `nix develop . -c bash ./doit.sh` if it's meant to be run within the Nix environment).
+    2.  Verify that the `gemini.js` CLI is executed and produces expected output (e.g., a help message or a simple interaction).
+    3.  Confirm that the script does not produce any unexpected errors related to pathing or missing dependencies.
 
-### 6. Monster Protocol Core
-```bash
-cd tools/monster_protocol
-cargo build
-cargo test
-```
-**Test cases**:
-- Trait system compiles
-- Core mathematical operations work
-- Data structures serialize/deserialize
+## 4. Internal Tooling Functionality
 
-## Mathematical Correctness (Priority 3)
+*   **Objective:** Verify that refactored internal tools (`cargo-edit-lib`, `cargo-llm-bootstrap`, `cargo-submodule-tool-lib`, `feature-permutation-builder`, `git-wrapper-lib`, `syn-adapter-lib`) continue to function as expected.
+*   **Steps:**
+    1.  Run existing unit and integration tests for these tools if available (e.g., `cargo test -p cargo-edit-lib`).
+    2.  Execute known commands or workflows that rely on these tools (e.g., any `cargo submodule` commands, or `feature-permutation-builder` tasks) and observe their behavior for correctness.
+    3.  Specifically verify the `Execv` trait re-export in `git-wrapper-lib` by ensuring any code that uses it compiles and runs correctly.
 
-### 7. Constraint Model Validation
-**Manual review required**:
-- `models/*.mzn` files for mathematical correctness
-- Constraint satisfaction properties
-- Model completeness for intended use cases
+## 5. New Feature Development (monster_multivector, monster_traits, tasks/toml)
 
-### 8. ZKP Circuit Verification
-```bash
-# Test ZKP components
-cargo test zkp_
-cargo test r1cs_
-```
-**Test cases**:
-- Circuit generation produces valid constraints
-- Witness generation works for valid inputs
-- Verification accepts valid proofs, rejects invalid
+*   **Objective:** Perform basic verification of the new `monster_multivector` and `monster_traits` crates and the `tasks/toml` definitions.
+*   **Steps:**
+    1.  Ensure `crates/monster_multivector` and `crates/monster_traits` are part of the workspace build (covered by Step 1.3).
+    2.  If any example usage or tests are defined within these new crates, execute them (e.g., `cargo test -p monster_multivector`).
+    3.  Review the contents of the `tasks/toml/*.toml` files to ensure they are well-formed and logically consistent with their intended purpose.
 
-### 9. Mathematical Module Correctness
-**Areas requiring domain expert review**:
-- Group theory implementations (`conway_group.rs`, etc.)
-- Modular form encodings
-- Lattice operations
-- K-theory computations
+## 6. Overall System Stability
 
-## Performance & Scalability (Priority 4)
+*   **Objective:** Conduct a general sanity check to ensure no unexpected regressions have been introduced across the wider project.
+*   **Steps:**
+    1.  Run the main project tests (`cargo test --workspace`).
+    2.  If there are any known critical workflows or demonstration commands for the project, execute them to ensure they still work.
 
-### 10. Solver Performance
-```bash
-# Benchmark constraint solving
-time minizinc models/monster_optimization.mzn
-```
-**Metrics**:
-- Solution time < 10s for basic problems
-- Memory usage reasonable
-- Scaling behavior documented
-
-### 11. Build Time Impact
-```bash
-# Measure compilation time increase
-time cargo build --release
-```
-**Acceptance**: <50% increase in build time
-
-## Documentation & Usability (Priority 5)
-
-### 12. Documentation Completeness
-**Check**:
-- All public APIs documented
-- Examples compile and run
-- Integration guides accurate
-
-### 13. Error Messages
-**Verify**:
-- Clear error messages for common failures
-- Helpful debugging information
-- Graceful degradation when solvers unavailable
-
-## Automated Testing Setup
-
-### 14. CI Integration
-```yaml
-# Add to CI pipeline
-- name: Test MiniZinc Integration
-  run: |
-    nix develop --command bash -c "
-      cargo test minizinc_
-      ./run_monster_minizinc.sh --test-mode
-    "
-```
-
-### 15. Regression Test Suite
-**Create tests for**:
-- Each major component
-- Integration points
-- Performance benchmarks
-- Error conditions
-
-## Sign-off Criteria
-
-### Must Pass (Blockers)
-- [ ] Core cargo2nix functionality unchanged
-- [ ] Nix environment builds cleanly
-- [ ] All Rust modules compile
-- [ ] Basic MiniZinc integration works
-
-### Should Pass (Major Issues)
-- [ ] CMake build system works
-- [ ] Monster protocol core tests pass
-- [ ] Mathematical models validated
-- [ ] Performance acceptable
-
-### Nice to Have (Minor Issues)
-- [ ] Full ZKP pipeline tested
-- [ ] All documentation complete
-- [ ] Comprehensive error handling
-- [ ] Optimization benchmarks
-
-## Testing Timeline
-1. **Day 1**: Critical path testing (items 1-3)
-2. **Day 2**: Integration testing (items 4-6)
-3. **Day 3**: Mathematical validation (items 7-9)
-4. **Day 4**: Performance testing (items 10-11)
-5. **Day 5**: Documentation review (items 12-13)
-
-## Risk Mitigation
-- **Rollback plan**: Revert to previous commit if critical tests fail
-- **Isolation**: New features behind feature flags where possible
-- **Incremental**: Enable components progressively after validation
+By following these steps, we can ensure a comprehensive quality assurance process for the unstaged changes.

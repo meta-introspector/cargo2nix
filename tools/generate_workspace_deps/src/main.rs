@@ -43,9 +43,9 @@ mod metadata_provider {
 
             let packages: Vec<Package> = metadata.packages.into_iter().map(|p| Package {
                 id: PackageId { repr: p.id.repr },
-                name: p.name,
+                name: p.name.to_string(),
                 version: p.version.to_string(),
-                manifest_path: p.manifest_path,
+                manifest_path: p.manifest_path.into(),
             }).collect();
 
             Ok(Metadata { packages })

@@ -28,11 +28,13 @@ members = [
     "tools/dep2submodule",
     "tools/generate_workspace_deps",
     "tools/cargo-workspace-from-tree", "tools/secret-manager-rs",
-    "tools/cargo-submodule-tool-lib",
     "tools/syn-adapter-lib",
     "tools/feature-permutation-builder",
     "tools/cargo-feature-adapter",
     "crates/solana-monster-system", "crates/tool-refactorings",
+    "crates/monster_multivector",
+    "crates/monster_traits",
+    "tools/rust-src-scanner",
 ]
 exclude = []
 

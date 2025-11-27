@@ -2,7 +2,7 @@ use crate::update_cargo_config;
 use crate::Args;
 use crate::RepoAction;
 use anyhow::Context;
-use git_wrapper_lib::git_traits::Execv; // Import Execv trait
+use git_wrapper_lib::Execv; // Import Execv trait
 use std::ffi::OsStr;
 use std::path::Path;
 use std::process::Command; // Keep Command for now, as it's used in update_cargo_config

@@ -1,0 +1,17 @@
+id = "04"
+description = "Update the root Cargo.toml file to include the newly created 'abstract_minizinc_idea' and 'example_meme' crates in the workspace members list. This makes them discoverable by Cargo and allows them to be built as part of the overall project."
+status = "pending"
+level = "foundational"
+weight = "low"
+preconditions = [
+    "Rust development environment is initialized via 'nix develop' or equivalent.",
+    "'abstract_minizinc_idea' and 'example_meme' crates have been successfully created.",
+    "Root 'Cargo.toml' file is accessible."
+]
+requisites = [
+    "Basic knowledge of Cargo workspace configuration."
+]
+output_artefacts = [
+    "Modified 'Cargo.toml' file at the project root, with new entries in the 'members' array."
+]
+notes = "This step is crucial for integrating the new crates into the project's build system."

@@ -108,7 +108,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         println!("\n--- Testing feature set: '{}' ---", feature_set);
 
         let current_source_hash = calculate_source_hash(feature_set)?;
-        let mut should_build = true;
+        let should_build = true;
         let mut build_time_ms = None;
         let mut binary_size_bytes = None;
         let mut error_message = None;

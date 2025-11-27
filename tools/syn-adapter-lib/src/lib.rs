@@ -1,10 +1,9 @@
-use anyhow::{Context, Result};
+use anyhow::Result;
 use std::any::Any;
-use std::fs;
 use std::path::Path;
 
 //#[cfg(feature = "syn-parsing")]
-use syn::{File, Item};
+use syn::File;
 
 /// A trait for parsing Rust code, abstracting different parsing implementations.
 pub trait SynAdapter: Send + Sync {

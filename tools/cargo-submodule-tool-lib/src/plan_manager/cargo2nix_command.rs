@@ -1,6 +1,6 @@
 use super::cargo_command::CargoCommand;
 use anyhow::Result;
-use git_wrapper_lib::git_traits::Execv;
+use git_wrapper_lib::Execv;
 use std::{
     ffi::OsStr,
     fs::{self, File},

@@ -3,7 +3,7 @@ use std::path::Path;
 use syn::{File, Item, ItemEnum, ItemFn, ItemImpl, ItemStruct, ItemTrait, Signature, ReturnType, Type as SynType};
 use syn::punctuated::Punctuated;
 use syn::token::Paren;
-use crate::error::AppError;
+//use crate::error::AppError;
 use crate::trait_types::{DeclKind, DeclTrait, TraitDeps};
 
 pub struct TraitExtractor;

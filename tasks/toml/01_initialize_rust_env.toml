@@ -1,0 +1,17 @@
+id = "01"
+description = "Initialize Rust environment using nix develop. This ensures all necessary Rust toolchains, dependencies, and environment variables are correctly set up for development within the project's Nix flake."
+status = "in_progress"
+level = "foundational"
+weight = "high"
+preconditions = [
+    "Nix package manager is installed and configured on the system.",
+    "The project's Nix flake (flake.nix) is present and accessible in the repository root.",
+]
+requisites = [
+    "Access to a shell where 'nix develop' can be executed.",
+    "Familiarity with Nix environment setup.",
+]
+output_artefacts = [
+    "A working development shell with Rust toolchain available (cargo, rustc, etc.).",
+]
+notes = "This step is critical for resolving 'cargo command not found' and ensuring a consistent development environment across all subsequent Rust-related tasks. The user needs to manually execute 'nix develop' in their terminal."

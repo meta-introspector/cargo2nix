@@ -41,7 +41,7 @@ git2_enabled = ["dep:git2"]
 sha1_enabled = ["dep:sha1"]
 serde_json_enabled = ["dep:serde_json"]
 git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
-default = ["dummy_tools", "tool_traits_lib_enabled", "anyhow_enabled", "serde_enabled", "toml_enabled", "walkdir_enabled", "cargo_repo_sync_lib_enabled", "git_wrapper_lib_enabled", "toml_edit_enabled", "real_regex_adapter_lib_enabled", "clap_enabled"]
+default = ["dummy_tools", "tool_traits_lib_enabled", "anyhow_enabled", "serde_enabled", "toml_enabled", "walkdir_enabled", "cargo_repo_sync_lib_enabled", "cargo_metadata_enabled", "git_wrapper_lib_enabled", "toml_edit_enabled", "real_regex_adapter_lib_enabled", "clap_enabled"]
 dummy_tools = [] # No optional dependencies enabled by default
 
 

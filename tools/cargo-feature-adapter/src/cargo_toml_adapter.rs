@@ -15,7 +15,7 @@ pub fn adapt_cargo_toml(input_path: &Path, output_path: &Path) -> Result<()> {
         original_cargo_toml_path
     ))?;
     let mut doc = original_content
-        .parse::<Document<_>>()
+        .parse::<DocumentMut>()
         .context("Failed to parse original Cargo.toml")?;
 
     // Ensure output directory exists

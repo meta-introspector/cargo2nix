@@ -1,0 +1,36 @@
+id = "00"
+description = "Implement a layered system for MiniZinc model generation and meme representation in Rust, encompassing specific crates for abstract concepts, examples, bindings, and culminating in a self-describing, self-hosting automorphic orbit. This system will offload the definition of meme traits (like 'dog' and 'cute') to a lattice of machine learning modules, using their internal traces and scores as input for meta-learning. Furthermore, the system will integrate with a DAO (Decentralized Autonomous Organization) and blockchain to allow user and AI feedback to be expressed, imported, and used in a structured manner, forming a continuous feedback loop for meme evolution and parameter refinement. Additionally, the system will include capabilities to trace the behavior of the Rust compiler and LLM models, forming an 'analytical index I', which will then be sampled and summarized into 108 aspects of 'the monster' to prove conformity."
+status = "in_progress"
+level = "critical"
+weight = "highest"
+preconditions = [
+    "Overall understanding of the project's long-term vision.",
+    "Familiarity with the concept of layered architectures and self-hosting systems.",
+    "Conceptual understanding of integrating machine learning outputs for dynamic system configuration.",
+    "Basic understanding of DAO principles and blockchain interaction for structured data feedback.",
+    "Understanding of compiler internals and LLM behavior for tracing and analysis."
+]
+requisites = [
+    "Deep understanding of Rust's module and trait system.",
+    "Knowledge of MiniZinc model generation principles.",
+    "Conceptual grasp of 'automorphic orbits' and self-describing systems.",
+    "Understanding of how to consume and interpret output from machine learning models for meta-learning.",
+    "Knowledge of blockchain interaction patterns (e.g., smart contracts, decentralized storage) for data input/output.",
+    "Expertise in compiler instrumentation, LLM introspection, data sampling, and summarization techniques."
+]
+output_artefacts = [
+    "A series of Rust crates (example_meme, abstract_meme, abstract_rust_idea, abstract_minizinc_idea, rust_binding_to_minizinc, ..., the_final_self_describing_self_hosting_automorphic_orbit).",
+    "Each crate fulfilling its specific role in the layered architecture, with meme definitions dynamically sourced from ML modules and refined by DAO/blockchain feedback.",
+    "An integrated system where ML traces, scores, structured DAO/blockchain feedback, and analytical index I (from Rust compiler and LLM tracing) inform MiniZinc model parameters for meta-learning and continuous meme evolution.",
+    "A mechanism to sample and summarize analytical index I into 108 aspects for conformity proof to 'the monster'."
+]
+notes = "This task defines the overarching architectural goal. The individual tasks (01-06) contribute to the initial steps of this larger vision. Key changes include: dynamic sourcing of meme parameters from ML models, the integration of a DAO/blockchain for structured user and AI feedback, and the introduction of an 'analytical index I' from tracing Rust compiler and LLM behavior, to be summarized into 108 aspects for conformity proof. This represents a further step towards a truly self-aware and self-proving system."
+crates_to_create = [
+    "example_meme",
+    "abstract_meme",
+    "abstract_rust_idea",
+    "abstract_minizinc_idea",
+    "rust_binding_to_minizinc",
+    # ... potentially new crates for ML module interfaces/meta-learning, DAO/Blockchain interaction, and compiler/LLM tracing/analysis ...
+    "the_final_self_describing_self_hosting_automorphic_orbit"
+]

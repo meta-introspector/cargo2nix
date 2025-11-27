@@ -1,9 +1,5 @@
-nix develop . -c bash -c "
-  mkdir -p .logs
-  strace_file=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-  #strace -f -o logs/strace_${strace_file}.txt -s 9999
+
+nix develop ../../external/gemini-cli/ -c bash -c "
   ../../external/gemini-cli/bundle/gemini.js --output-format json \
-			      --approval-mode yolo \
-			      --model gemini-2.5-flash \
-			      -i 'hello' 
+			      --model gemini-2.5-flash
 "

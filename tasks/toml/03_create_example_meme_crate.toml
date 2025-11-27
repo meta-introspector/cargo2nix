@@ -1,0 +1,19 @@
+id = "03"
+description = "Create a new library crate named 'example_meme' within the 'crates/' directory. This crate will implement the 'MiniZincModelGenerator' trait for the specific token allocation problem, holding the concrete logic and data for this particular 'meme'."
+status = "pending"
+level = "intermediate"
+weight = "medium"
+preconditions = [
+    "Rust development environment is initialized via 'nix develop' or equivalent.",
+    "'abstract_minizinc_idea' crate has been created and the 'MiniZincModelGenerator' trait is defined.",
+    "Access to the project's 'crates/' directory."
+]
+requisites = [
+    "Basic knowledge of Rust struct implementation and trait adherence.",
+    "Understanding of the token allocation MiniZinc model details (sacred numbers, love scores, constraints)."
+]
+output_artefacts = [
+    "A new directory 'crates/example_meme' with a standard Rust library crate structure.",
+    "A 'src/lib.rs' file within 'example_meme' containing a struct for token allocation and its implementation of 'MiniZincModelGenerator'."
+]
+notes = "This crate will house the concrete example of the token allocation model, demonstrating the usage of the 'MiniZincModelGenerator' trait."

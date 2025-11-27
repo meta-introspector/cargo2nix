@@ -173,7 +173,7 @@ impl ComprehensiveTermCollector {
         // Visit the declaration to collect terms
         self.visit_item(item);
         
-        let assigned_factors = self.assign_declaration_factors(&self.current_terms, &decl_type);
+        let assigned_factors = assign_factors_for_declaration_terms(&mut self.factor_allocator, &self.current_terms, &decl_type);
         let semantic_chunk_id = self.generate_chunk_id(&decl_name, &assigned_factors);
         
         DeclSummary {
@@ -192,38 +192,12 @@ impl ComprehensiveTermCollector {
             Item::Enum(e) => (e.ident.to_string(), "enum".to_string()),
             Item::Trait(t) => (t.ident.to_string(), "trait".to_string()),
             Item::Impl(i) => ("impl".to_string(), "impl".to_string()),
-            Item::Mod(m) => (m.ident.as_ref().map(|i| i.to_string()).unwrap_or_else(|| "mod".to_string()), "mod".to_string()),
+            Item::Mod(m) => (m.ident.to_string(), "mod".to_string()),
             Item::Type(t) => (t.ident.to_string(), "type".to_string()),
             Item::Const(c) => (c.ident.to_string(), "const".to_string()),
             Item::Static(s) => (s.ident.to_string(), "static".to_string()),
             _ => ("unknown".to_string(), "unknown".to_string()),
         }
-    }
-    
-    fn assign_declaration_factors(&mut self, terms: &TermCounts, decl_type: &str) -> Vec<(u64, u32)> {
-        let mut factors = Vec::new();
-        
-        // Clone terms to avoid borrow checker issues
-        let terms_clone = terms.clone();
-        
-        // Assign factors based on term counts and declaration type
-        if terms_clone.identifiers.len() > 0 {
-            factors.push(self.factor_allocator.allocate_factor(terms_clone.identifiers.len(), "identifier"));
-        }
-        if terms_clone.constants.len() > 0 {
-            factors.push(self.factor_allocator.allocate_factor(terms_clone.constants.len(), "const"));
-        }
-        if terms_clone.keywords.len() > 0 {
-            factors.push(self.factor_allocator.allocate_factor(terms_clone.keywords.len(), "keyword"));
-        }
-        if terms_clone.types.len() > 0 {
-            factors.push(self.factor_allocator.allocate_factor(terms_clone.types.len(), "type"));
-        }
-        
-        // Add semantic factor for declaration type
-        factors.push(self.factor_allocator.allocate_factor(1, decl_type));
-        
-        factors
     }
     
     fn assign_file_factors(&mut self, file_terms: &TermCounts) -> Vec<(u64, u32)> {
@@ -300,6 +274,30 @@ impl ComprehensiveTermCollector {
         let factor_sum: u64 = factors.iter().map(|(p, e)| p * (*e as u64)).sum();
         format!("{}_{}", decl_name, factor_sum % 1000)
     }
+}
+
+// Private helper function to assign factors for a declaration's terms
+fn assign_factors_for_declaration_terms(allocator: &mut MonsterFactorAllocator, terms: &TermCounts, decl_type: &str) -> Vec<(u64, u32)> {
+    let mut factors = Vec::new();
+    
+    // Assign factors based on term counts and declaration type
+    if terms.identifiers.len() > 0 {
+        factors.push(allocator.allocate_factor(terms.identifiers.len(), "identifier"));
+    }
+    if terms.constants.len() > 0 {
+        factors.push(allocator.allocate_factor(terms.constants.len(), "const"));
+    }
+    if terms.keywords.len() > 0 {
+        factors.push(allocator.allocate_factor(terms.keywords.len(), "keyword"));
+    }
+    if terms.types.len() > 0 {
+        factors.push(allocator.allocate_factor(terms.types.len(), "type"));
+    }
+    
+    // Add semantic factor for declaration type
+    factors.push(allocator.allocate_factor(1, decl_type));
+    
+    factors
 }
 
 impl TermCounts {

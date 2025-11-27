@@ -6,7 +6,7 @@ use std::sync::{Arc, Mutex};
 use crate::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
 use tool_traits_lib::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
 #[cfg(not(feature = "git_enabled"))]
-use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
+use git_wrapper_lib::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
 #[cfg(not(feature = "git_enabled"))]
 use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Use our dummy GitExecutor
 #[cfg(not(feature = "git_enabled"))]
@@ -15,7 +15,7 @@ use git_wrapper_lib::git_traits::GitExecutor; // Use our re-exported GitExecutor
 #[cfg(feature = "git_enabled")]
 use git_wrapper_lib::pure_rust_git_executor::PureRustGitExecutor;
 #[cfg(feature = "git_enabled")]
-use git_wrapper_lib::execv::RealExecv; // Use our re-exported RealExecv
+use git_wrapper_lib::RealExecv; // Use our re-exported RealExecv
 #[cfg(feature = "git_enabled")]
 use git_wrapper_lib::git_types::RollupLock; // Use our re-exported RollupLock
 #[cfg(feature = "git_enabled")]

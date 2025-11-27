@@ -3,6 +3,7 @@ pub mod executors; // New
 pub mod execv;
 pub mod git_adapters; // New
 pub mod git_traits;
+pub use git_traits::Execv; // Re-export Execv
 pub mod git_types;
 pub mod git_wrapper_lib_trait;
 pub mod pure_rust_git_executor;

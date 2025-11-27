@@ -31,7 +31,7 @@ use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoM
 #[cfg(feature = "cargo-toml-editor-lib")]
 use crate::analysis::workspace_remover::RealWorkspaceRemover;
 #[cfg(not(feature = "git_enabled"))]
-use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
+use git_wrapper_lib::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
 #[cfg(not(feature = "git_enabled"))]
 use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Use our dummy GitExecutor
 use git_wrapper_lib::git_traits::GitExecutor; // Use our re-exported GitExecutor

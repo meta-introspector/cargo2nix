@@ -37,7 +37,7 @@ pathdiff_enabled = ["dep:pathdiff"]
 serde_enabled = ["dep:serde"]
 serde_json_enabled = ["dep:serde_json"]
 
-default = ["pathdiff_enabled"]
+default = ["pathdiff_enabled", "cargo_metadata_enabled", "walkdir_enabled"]
 #anyhow_enabled = ["dep:anyhow"]
 git2_enabled = ["dep:git2"]
 cargo_metadata_enabled = ["dep:cargo_metadata"]

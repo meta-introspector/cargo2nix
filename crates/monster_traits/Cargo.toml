@@ -1,0 +1,8 @@
+[package]
+name = "monster_traits"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+monster_multivector = { path = "../monster_multivector" }
+
