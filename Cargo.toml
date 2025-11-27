@@ -24,7 +24,7 @@ resolver = "3"
 members = [
     "crates/cargo2nix",
 #    "submodules/h2",
-    "crates/tool-refactorings",
+#    "crates/tool-refactorings",
     "crates/monster_multivector",
     "crates/monster_traits",
     "crates/rust-mcp-server", "crates/mcp-plugin-traits", "crates/mcp-plugin-example",

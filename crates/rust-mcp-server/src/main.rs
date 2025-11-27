@@ -15,6 +15,8 @@ use std::path::PathBuf;
 use rocksdb::{DB, Options};
 use sha2::{Sha256, Digest};
 
+mod new_test_function;
+
 // Custom command to analyze code
 const ANALYZE_CODE_COMMAND: &str = "mcp/analyzeCode";
 
