@@ -20,6 +20,8 @@ quote = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
 clap = { workspace = true, features = ["derive"] }
+libloading = "0.8.3"
+mcp-plugin-traits = { path = "../mcp-plugin-traits" }
 
 [lints]
 workspace = true

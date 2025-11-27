@@ -5,9 +5,13 @@ use lsp_types::{
 };
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, anyhow}; // Added anyhow to be explicit
 use syn::{visit::Visit, Item, ItemFn};
-use clap::Parser; // Import Parser
+use clap::Parser;
+use libloading::{Library, Symbol};
+use mcp_plugin_traits::McpPlugin;
+use std::process::Command; // Added for executing external commands
+use std::path::PathBuf; // Added for path manipulation
 
 // Custom command to analyze code
 const ANALYZE_CODE_COMMAND: &str = "mcp/analyzeCode";
@@ -36,12 +40,87 @@ struct Cli {
     /// Optional: Path to a Rust file to analyze directly via CLI, bypassing LSP.
     #[clap(long)]
     file: Option<String>,
+    /// Optional: Path to a dynamic library (plugin) to load and execute directly.
+    #[clap(long)]
+    plugin_path: Option<String>,
+    /// Optional: Path to the plugin crate to rebuild before loading (e.g., crates/mcp-plugin-example).
+    #[clap(long)]
+    rebuild_plugin: Option<String>,
 }
 
 fn main() -> Result<()> {
     let cli = Cli::parse();
 
-    if let Some(file_path) = cli.file {
+    if let Some(plugin_path_str) = cli.plugin_path {
+        let plugin_path = PathBuf::from(&plugin_path_str);
+
+        if let Some(plugin_crate_path_str) = cli.rebuild_plugin {
+            eprintln!("Rebuilding plugin crate: {}", plugin_crate_path_str);
+            let plugin_crate_path = PathBuf::from(&plugin_crate_path_str);
+            
+            // Extract crate name from path
+            let plugin_crate_name = plugin_crate_path.file_name()
+                .and_then(|s| s.to_str())
+                .context(format!("Invalid plugin crate path: {}", plugin_crate_path_str))?;
+
+            let build_output = Command::new("cargo")
+                .arg("build")
+                .arg("--release") // Build in release mode for dynamic libraries
+                .arg("--lib")
+                .arg(format!("--package={}", plugin_crate_name))
+                .arg(format!("--manifest-path={}", plugin_crate_path.join("Cargo.toml").display()))
+                .output()
+                .context(format!("Failed to execute cargo build for plugin: {}", plugin_crate_name))?;
+
+            if !build_output.status.success() {
+                return Err(anyhow!(
+                    "Plugin rebuild failed for '{}':\nStdout: {}\nStderr: {}",
+                    plugin_crate_name,
+                    String::from_utf8_lossy(&build_output.stdout),
+                    String::from_utf8_lossy(&build_output.stderr)
+                ));
+            }
+            eprintln!("Plugin '{}' rebuilt successfully.", plugin_crate_name);
+        }
+
+        eprintln!("Running in direct plugin execution mode for: {}", plugin_path_str);
+        
+        // --- Dynamic Plugin Loading Logic ---
+        // SAFETY: Loading dynamic libraries and calling C functions is inherently unsafe.
+        // We assume the plugin provides a safe interface and matches the expected function signatures.
+        unsafe {
+            let lib = Library::new(&plugin_path)
+                .context(format!("Failed to load dynamic library: {}", plugin_path_str))?;
+            
+            // Resolve the create_plugin symbol
+            let create_plugin: Symbol<unsafe extern fn() -> *mut dyn McpPlugin> = lib.get(b"create_plugin")
+                .context("Failed to find 'create_plugin' symbol in plugin library")?;
+            
+            // Resolve the destroy_plugin symbol
+            let destroy_plugin: Symbol<unsafe extern fn(*mut dyn McpPlugin)> = lib.get(b"destroy_plugin")
+                .context("Failed to find 'destroy_plugin' symbol in plugin library")?;
+
+            // Create an instance of the plugin
+            let plugin_ptr = create_plugin();
+            let plugin = Box::from_raw(plugin_ptr); // Take ownership of the Boxed plugin
+
+            eprintln!("Loaded plugin: {} (v{})", plugin.name(), plugin.version());
+            
+            let test_input = "Hello from MCP server!";
+            let plugin_result = plugin.execute(test_input)
+                .context(format!("Plugin '{}' execution failed", plugin.name()))?;
+            
+            println!("Plugin Output: {}", plugin_result);
+
+            // Explicitly destroy the plugin instance to prevent memory leaks.
+            // This consumes the Boxed plugin, so it's safe to drop.
+            destroy_plugin(Box::into_raw(plugin)); 
+        }
+        eprintln!("Plugin execution complete.");
+        Ok(())
+        // --- End Dynamic Plugin Loading Logic ---
+
+    } else if let Some(file_path) = cli.file {
         eprintln!("Running in direct file analysis mode for: {}", file_path);
         let code = std::fs::read_to_string(&file_path)
             .context(format!("Failed to read file: {}", file_path))?;
