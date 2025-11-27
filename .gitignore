@@ -45,6 +45,7 @@ tools/monster_protocol/*_storage/
 **/rocksdb/
 **/rocks.db/
 **/*.rocksdb/
+mcp_db/ # Explicitly ignoring the MCP RocksDB directory
 
 # Untracked files - identified for ignore
 .crush.json
