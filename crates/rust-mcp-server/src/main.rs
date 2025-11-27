@@ -5,13 +5,15 @@ use lsp_types::{
 };
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use anyhow::{Context, Result, anyhow}; // Added anyhow to be explicit
+use anyhow::{Context, Result, anyhow};
 use syn::{visit::Visit, Item, ItemFn};
 use clap::Parser;
 use libloading::{Library, Symbol};
-use mcp_plugin_traits::McpPlugin;
-use std::process::Command; // Added for executing external commands
-use std::path::PathBuf; // Added for path manipulation
+use mcp_plugin_traits::{McpPlugin, MorphologicalIndex};
+use std::process::Command;
+use std::path::PathBuf;
+use rocksdb::{DB, Options};
+use sha2::{Sha256, Digest};
 
 // Custom command to analyze code
 const ANALYZE_CODE_COMMAND: &str = "mcp/analyzeCode";
@@ -48,8 +50,31 @@ struct Cli {
     rebuild_plugin: Option<String>,
 }
 
+#[derive(Debug, Serialize, Deserialize)]
+struct PluginMetadata {
+    name: String,
+    version: String,
+    content_id: String,
+    path: String,
+}
+
+/// Helper function to calculate SHA256 hash of data
+fn calculate_content_id(data: &[u8]) -> String {
+    let mut hasher = Sha256::new();
+    hasher.update(data);
+    format!("{:x}", hasher.finalize())
+}
+
 fn main() -> Result<()> {
     let cli = Cli::parse();
+
+    // Initialize RocksDB
+    let db_path = PathBuf::from("./mcp_db");
+    let mut db_options = Options::default();
+    db_options.create_if_missing(true);
+    let db = DB::open(&db_options, &db_path)
+        .context(format!("Failed to open RocksDB at {:?}", db_path))?;
+    eprintln!("RocksDB initialized at {:?}", db_path);
 
     if let Some(plugin_path_str) = cli.plugin_path {
         let plugin_path = PathBuf::from(&plugin_path_str);
@@ -88,34 +113,67 @@ fn main() -> Result<()> {
         // --- Dynamic Plugin Loading Logic ---
         // SAFETY: Loading dynamic libraries and calling C functions is inherently unsafe.
         // We assume the plugin provides a safe interface and matches the expected function signatures.
-        unsafe {
-            let lib = Library::new(&plugin_path)
-                .context(format!("Failed to load dynamic library: {}", plugin_path_str))?;
-            
-            // Resolve the create_plugin symbol
-            let create_plugin: Symbol<unsafe extern fn() -> *mut dyn McpPlugin> = lib.get(b"create_plugin")
-                .context("Failed to find 'create_plugin' symbol in plugin library")?;
-            
-            // Resolve the destroy_plugin symbol
-            let destroy_plugin: Symbol<unsafe extern fn(*mut dyn McpPlugin)> = lib.get(b"destroy_plugin")
-                .context("Failed to find 'destroy_plugin' symbol in plugin library")?;
+        let lib = unsafe { Library::new(&plugin_path) } // Library::new is unsafe
+            .context(format!("Failed to load dynamic library: {}", plugin_path_str))?;
+        
+        // Resolve the create_plugin symbol
+        let create_plugin: Symbol<fn() -> Box<dyn McpPlugin>> = unsafe { lib.get(b"create_plugin") }
+            .context("Failed to find 'create_plugin' symbol in plugin library")?;
+        
+        // Resolve the destroy_plugin symbol
+        let destroy_plugin: Symbol<fn(Box<dyn McpPlugin>)> = unsafe { lib.get(b"destroy_plugin") }
+            .context("Failed to find 'destroy_plugin' symbol in plugin library")?;
 
-            // Create an instance of the plugin
-            let plugin_ptr = create_plugin();
-            let plugin = Box::from_raw(plugin_ptr); // Take ownership of the Boxed plugin
+        // Create an instance of the plugin
+        let plugin = create_plugin();
 
-            eprintln!("Loaded plugin: {} (v{})", plugin.name(), plugin.version());
-            
-            let test_input = "Hello from MCP server!";
-            let plugin_result = plugin.execute(test_input)
-                .context(format!("Plugin '{}' execution failed", plugin.name()))?;
-            
-            println!("Plugin Output: {}", plugin_result);
+        eprintln!("Loaded plugin: {} (v{})", plugin.name(), plugin.version());
+        
+        let test_input = "Hello from MCP server!";
+        let plugin_result = plugin.execute(test_input)
+            .context(format!("Plugin '{}' execution failed", plugin.name()))?;
+        
+        println!("Plugin Output: {}", plugin_result);
 
-            // Explicitly destroy the plugin instance to prevent memory leaks.
-            // This consumes the Boxed plugin, so it's safe to drop.
-            destroy_plugin(Box::into_raw(plugin)); 
+        // Store plugin metadata in RocksDB
+        let plugin_binary_data = std::fs::read(&plugin_path)
+            .context(format!("Failed to read plugin binary: {}", plugin_path_str))?;
+        let plugin_content_id = calculate_content_id(&plugin_binary_data);
+
+        let metadata = PluginMetadata {
+            name: plugin.name().to_string(),
+            version: plugin.version().to_string(),
+            content_id: plugin_content_id.clone(),
+            path: plugin_path_str.clone(),
+        };
+        let metadata_json = serde_json::to_string(&metadata)?;
+        db.put(plugin_content_id.as_bytes(), metadata_json.as_bytes())
+            .context("Failed to write plugin metadata to RocksDB")?;
+        eprintln!("Plugin metadata stored in RocksDB with content ID: {}", metadata.content_id);
+
+        // Retrieve and store morphological index
+        let morphological_index = plugin.morphological_index();
+        let morphological_index_json = serde_json::to_string(&morphological_index)?;
+        let morphological_index_key = format!("{}_morphological_index", plugin_content_id);
+        db.put(morphological_index_key.as_bytes(), morphological_index_json.as_bytes())
+            .context("Failed to write morphological index to RocksDB")?;
+        eprintln!("Morphological index stored in RocksDB with key: {}", morphological_index_key);
+
+        // Example of retrieving data
+        if let Some(retrieved_data) = db.get(plugin_content_id.as_bytes())
+            .context("Failed to retrieve plugin metadata from RocksDB")? {
+            let retrieved_metadata: PluginMetadata = serde_json::from_slice(&retrieved_data)?;
+            eprintln!("Retrieved metadata from RocksDB: {:?}", retrieved_metadata);
         }
+        if let Some(retrieved_index_data) = db.get(morphological_index_key.as_bytes())
+            .context("Failed to retrieve morphological index from RocksDB")? {
+            let retrieved_morphological_index: MorphologicalIndex = serde_json::from_slice(&retrieved_index_data)?;
+            eprintln!("Retrieved morphological index from RocksDB: {:?}", retrieved_morphological_index);
+        }
+        
+        // Explicitly destroy the plugin instance to prevent memory leaks.
+        destroy_plugin(plugin); // Call the safe Rust function
+        
         eprintln!("Plugin execution complete.");
         Ok(())
         // --- End Dynamic Plugin Loading Logic ---

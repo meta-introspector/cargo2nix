@@ -13,6 +13,7 @@ include.workspace = true
 
 [dependencies]
 anyhow = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
 
 [lints]
 workspace = true
