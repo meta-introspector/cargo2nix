@@ -6,10 +6,9 @@ edition = "2021"
 [dependencies]
 anyhow = { workspace = true, optional = true }
  # Corrected dependency name
-
-
-
-cargo2nix = { path = "../../crates/cargo2nix", optional = true } # Uncommented
+#nix-generator-lib = { path = "../nix-generator-lib", optional = true }
+#cargo-toml-editor-lib = { path = "../cargo-toml-editor-lib", optional = true }
+cargo2nix = { path = "../../crates/cargo2nix", optional = true }
 cargo_metadata = { workspace = true, optional = true }
 clap = { workspace = true, optional = true }
 git-wrapper-lib = { path = "../git-wrapper-lib", optional = true }
@@ -27,7 +26,7 @@ sha1 = { version = "*", optional = true }
 sha2 = { workspace = true, optional = true }
 syn = { version = "*", optional = true }
 toml = { workspace = true, optional = true }
-toml_edit = { workspace = true, optional = true } # Made optional again
+toml_edit = { workspace = true, optional = true }
 tool-traits-lib = { path = "../tool-traits-lib", optional = true } # Added new dependency
 url = { workspace = true, optional = true }
 walkdir = { workspace = true, optional = true }
@@ -46,9 +45,10 @@ dummy_tools = [] # No optional dependencies enabled by default
 
 
 cargo_metadata_enabled = ["dep:cargo_metadata"]
-#nix_generation = ["dep:nix-generator-lib", "dep:cargo_metadata", "dep:cargo2nix"]
+nix_generation = []
 regex_enabled = ["dep:regex"]
 walkdir_enabled = ["dep:walkdir"]
+cargo_toml_editor_lib_enabled = []
 
 git_enabled = ["dep:git-wrapper-lib", "dep:git2"]
 hex_enabled = ["dep:hex"]

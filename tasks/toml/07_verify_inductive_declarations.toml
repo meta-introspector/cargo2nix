@@ -1,0 +1,29 @@
+# tasks/toml/07_verify_inductive_declarations.toml
+#
+# This task outlines the process for verifying the output of the
+# `rust-src-scanner` when run with the `--inductive-decls` flag.
+# It ensures that the `NixDeclaration` objects are correctly collected
+# and stored in RocksDB, and that monster factors are assigned as expected.
+
+[task]
+name = "Verify Inductive Declarations Collection"
+description = "Run rust-src-scanner in inductive mode and verify the collected declarations and monster factors in RocksDB."
+priority = "high"
+status = "pending"
+assignee = "Gemini"
+due_date = "2025-12-01"
+
+[steps]
+step_1 = { description = "Create a temporary test Rust project with diverse declarations (const, static, struct, enum, fn, with primitive types and literal values relevant to monster primes).", command = "create_test_rust_project.sh" }
+step_2 = { description = "Execute `rust-src-scanner` with `--inductive-decls` flag, pointing it to the temporary test Rust project.", command = "cargo run -p rust-src-scanner -- --inductive-decls --rust-src-path /tmp/test_rust_project --output-dir /tmp/rust_scanner_output" }
+step_3 = { description = "Inspect the RocksDB database located at `/tmp/rust_scanner_output/inductive_decls.rocksdb` to confirm that `NixDeclaration` objects are present.", command = "inspect_rocksdb.sh" }
+step_4 = { description = "For each `NixDeclaration` in RocksDB, verify that the `kind`, `name`, `path`, `bit_size` (for primitives), `value` (for literals), and `monster_factors` are correctly populated according to the expected values.", command = "verify_declarations_content.sh" }
+step_5 = { description = "Specifically check that `monster_factors` correctly reflects the user-specified monster primes (1, 2, 3, 5, 7, 11, 13, 13, 23, 31, 71) based on direct matches and multiples in bit_size and value.", command = "verify_monster_factor_assignment.sh" }
+
+[output]
+rocksdb_path = "/tmp/rust_scanner_output/inductive_decls.rocksdb"
+verification_report = "/tmp/rust_scanner_output/verification_report.md"
+
+[dependencies]
+rust_src_scanner_compiled = true
+"

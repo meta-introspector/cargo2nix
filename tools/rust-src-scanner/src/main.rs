@@ -88,46 +88,4 @@ fn collect_inductive_declarations(rust_src_path: &str, output_dir: &str) -> Resu
     Ok(())
 }
 
-fn collect_inductive_declarations(rust_src_path: &str, output_dir: &str) -> Result<()> {
-    println!("⚛️ Starting inductive declarations collection");
 
-    // User-provided monster primes for sizing
-    const USER_MONSTER_PRIMES: &[u64] = &[1, 2, 3, 5, 7, 11, 13, 13, 23, 31, 71];
-
-    let mut scanner = FileScanner::new();
-    let mut all_declarations: Vec<NixDeclaration> = Vec::new();
-
-    // Create output directory
-    std::fs::create_dir_all(output_dir)?;
-
-    // Scan all Rust files
-    let rust_files = scanner.find_rust_files(Path::new(rust_src_path))?;
-    println!("Found {} Rust files", rust_files.len());
-
-    let mut processed_files = 0;
-    for file_path in rust_files.iter().take(100) { // Limit for proof
-        if let Ok(content) = std::fs::read_to_string(&file_path) {
-            if let Ok(syntax_tree) = syn::parse_file(&content) {
-                let mut collector = InductiveDeclarationsCollector::new(
-                    file_path.to_str().unwrap_or("unknown").to_string()
-                );
-                Visit::visit_file(&mut collector, &syntax_tree);
-                collector.finalize_declarations(USER_MONSTER_PRIMES);
-                all_declarations.extend(collector.declarations);
-                processed_files += 1;
-            }
-        }
-    }
-
-    println!("✅ Processed {} files for inductive declarations", processed_files);
-    println!("Total NixDeclarations collected: {}", all_declarations.len());
-
-    // Save aggregated declarations
-    let output_path = Path::new(output_dir).join("inductive_declarations.json");
-    let json = serde_json::to_string_pretty(&all_declarations)?;
-    std::fs::write(output_path, json)?;
-
-    println!("📄 Inductive declarations saved to {}/inductive_declarations.json", output_dir);
-
-    Ok(())
-}

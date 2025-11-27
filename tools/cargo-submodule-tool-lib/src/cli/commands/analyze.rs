@@ -22,7 +22,7 @@ use crate::analysis::workspace_remover::{RealWorkspaceRemover, WorkspaceRemover}
 // };
 use crate::args::analyze::AnalyzeArgs; use crate::args::Cli;
 #[cfg(not(feature = "git_enabled"))]
-use git_wrapper_lib::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
+use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
 #[cfg(not(feature = "git_enabled"))]
 use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Use our dummy struct directly
 #[cfg(not(feature = "git_enabled"))]

@@ -3,7 +3,14 @@ use clap::Parser;
 
 mod cli;
 mod cargo_config_generator;
-use crate::cli::args::{AddSubmodulesArgs, AnalyzeArgs, Cli, Commands, GeneratePatchesArgs, ProcessTtTxtArgs, SubmoduleStatusArgs, CollectRepoStateArgs}; // Removed GenerateWorkspacesArgs and UpdateCargoTomlArgs
+use cargo_submodule_tool_lib::cli::args::Cli;
+use cargo_submodule_tool_lib::cli::args::Commands;
+use cargo_submodule_tool_lib::cli::args::add_submodules::AddSubmodulesArgs;
+use cargo_submodule_tool_lib::cli::args::analyze::AnalyzeArgs;
+use cargo_submodule_tool_lib::cli::args::generate_patches::GeneratePatchesArgs;
+use cargo_submodule_tool_lib::cli::args::process_tt_txt::ProcessTtTxtArgs;
+use cargo_submodule_tool_lib::cli::args::submodule_status::SubmoduleStatusArgs;
+use cargo_submodule_tool_lib::cli::args::collect_repo_state::CollectRepoStateArgs;
 use crate::cli::commands::add_submodules::run_add_submodules_command;
 use crate::cli::commands::analyze::run_analyze_command;
 use crate::cli::commands::collect_repo_state::run_collect_repo_state_command; // Re-added
@@ -26,6 +33,6 @@ fn main() -> Result<()> {
         //Commands::UpdateCargoToml(ref args) => run_update_cargo_toml_command(args, &cli),
         //Commands::GenerateWorkspaces(ref args) => run_generate_workspaces_command(args, &cli),
         Commands::ProcessTtTxt(ref args) => run_process_tt_txt_command(args, &cli),
-        Commands::CollectRepoState(ref args) => run_collect_repo_state_command(args.root_dir.clone()),
+        Commands::CollectRepoState(ref args) => run_collect_repo_state_command(args.project_root.clone()),
     }
 }

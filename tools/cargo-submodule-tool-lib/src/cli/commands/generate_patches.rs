@@ -1,4 +1,3 @@
-#[cfg(feature = "nix_generation")]
 use cargo_metadata::{MetadataCommand, Package, PackageId};
 
 use crate::args::generate_patches::GeneratePatchesArgs; use crate::args::Cli;
@@ -31,14 +30,14 @@ use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoM
 #[cfg(feature = "cargo-toml-editor-lib")]
 use crate::analysis::workspace_remover::RealWorkspaceRemover;
 #[cfg(not(feature = "git_enabled"))]
-use git_wrapper_lib::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
+use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
 #[cfg(not(feature = "git_enabled"))]
 use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Use our dummy GitExecutor
 use git_wrapper_lib::git_traits::GitExecutor; // Use our re-exported GitExecutor
 #[cfg(feature = "git_enabled")]
 use git_wrapper_lib::pure_rust_git_executor::PureRustGitExecutor;
 #[cfg(feature = "git_enabled")]
-use git_wrapper_lib::execv::RealExecv; // Use our re-exported RealExecv
+use git_wrapper_lib::execv::RealExecv; // Use our re-exported RealExecv;
 #[cfg(feature = "git_enabled")]
 use git_wrapper_lib::system_git_executor::SystemGitExecutor; // Added for non-git2 case
 

@@ -8,6 +8,7 @@ use std::collections::HashMap;
 use crate::declarations::{DeclarationKind, NixDeclaration};
 use quote::ToTokens;
 use syn::spanned::Spanned;
+use proc_macro2::Span as RealSpan;
 
 /// A specialized visitor to collect `NixDeclaration`s with their properties,
 /// focusing on bit field sizes and literal values.
@@ -26,9 +27,17 @@ impl InductiveDeclarationsCollector {
     }
 
     /// Helper to create a path string
-    fn create_path(&self, span: proc_macro2::Span) -> String {
-        let start_lc = span.start();
-        format!("{}:{}:{}", self.current_file_path, start_lc.line, start_lc.column)
+    fn create_path(&self, span: RealSpan) -> String {
+        let span_str = span.to_string();
+        let parts: Vec<&str> = span_str.split(':').collect();
+        let (line, column) = if parts.len() >= 3 {
+            // Format is typically "file.rs:line:column" or "file.rs:line:column:line:column"
+            // We want the starting line and column.
+            (parts[1].parse::<usize>().unwrap_or(0), parts[2].parse::<usize>().unwrap_or(0))
+        } else {
+            (0, 0) // Default or error case
+        };
+        format!("{}:{}:{}", self.current_file_path, line, column)
     }
 
     // Helper to determine bit size for primitive types
@@ -213,6 +222,7 @@ impl<'ast> Visit<'ast> for InductiveDeclarationsCollector {
         visit::visit_item_const(self, i);
     }
 
+    fn visit_item_static(&mut self, i: &'ast ItemStatic) {
         self.declarations.push(NixDeclaration {
             kind: DeclarationKind::Static,
             name: i.ident.to_string(),
