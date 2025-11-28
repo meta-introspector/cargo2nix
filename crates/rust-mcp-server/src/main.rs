@@ -19,7 +19,7 @@ mod new_test_function; // Keep this as is for now
 mod cli_args;
 mod analysis_types;
 mod hasher;
-mod file_ingestion;
+pub mod file_ingestion;
 mod query_analysis;
 mod file_retrieval;
 mod bootstrapper;

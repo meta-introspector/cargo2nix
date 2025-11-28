@@ -66,6 +66,7 @@ used_underscore_binding = "allow"
 aho-corasick= "1.1.4"
 anyhow= "1.0.100"
 async-graphql = "7.0"
+rocksdb = "0.21.0" # Added rocksdb dependency to workspace
 block-buffer= "0.10.4"
 camino= "1.2.1"
 cargo-platform= "0.3.1"
