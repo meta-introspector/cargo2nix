@@ -28,4 +28,7 @@ pub struct Cli {
     /// Optional: Generate an ingestion plan, chunking files into 4KB blocks of metadata for parallel processing.
     #[clap(long)]
     pub generate_ingestion_plan: bool,
+    /// Optional: Run the Rust Tycoon meme simulation on a given project path.
+    #[clap(long)]
+    pub tycoon_project_path: Option<String>,
 }
