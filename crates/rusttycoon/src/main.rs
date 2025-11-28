@@ -49,6 +49,7 @@ fn main() -> Result<()> { // Change main to return Result
     println!("29. The One Ring (Automorphic Loop) (Cost: 1000 points) - Achieve the ultimate goal of self-compilation!");
     println!("30. Meme Lord Bot (Cost: 120 points) - Deploys an AI bot to influence the factory's narrative.");
     println!("31. Gödel Golem Bot (Cost: 250 points) - Deploys an AI bot to seek inconsistencies and guide verification.");
+    println!("32. Lean 4 Mathlib (Cost: 200 points) - Import the Lean 4 formal mathematics library.");
         println!("\nEnter the number of the tool you want to buy, or '0' to exit:");
         let mut input = String::new();
         std::io::stdin().read_line(&mut input)

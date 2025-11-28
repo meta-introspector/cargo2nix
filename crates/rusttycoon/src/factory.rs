@@ -245,6 +245,19 @@ impl FactoryBlock for GodelGolemBotBlock {
 }
 
 #[derive(Clone)]
+pub struct Lean4MathlibBlock;
+impl FactoryBlock for Lean4MathlibBlock {
+    fn name(&self) -> &'static str { "Lean 4 Mathlib" }
+    fn cost(&self) -> u32 { 200 } // High cost for a powerful mathematical library
+    fn execute(&self, factory: &mut Factory, _current_crate_path: &PathBuf) -> Result<()> {
+        println!("Lean 4 Mathlib imported! Access to a vast formal mathematics library unlocked.");
+        // This would conceptually integrate mathlib for formal verification tasks.
+        factory.points += 50; // Bonus for advanced mathematical capabilities
+        Ok(())
+    }
+}
+
+#[derive(Clone)]
 pub struct MermaidIntegrationBlock;
 impl FactoryBlock for MermaidIntegrationBlock {
     fn name(&self) -> &'static str { "Mermaid Integration" }
@@ -348,6 +361,7 @@ pub fn get_available_tools() -> Vec<Box<dyn FactoryBlock>> {
         Box::new(AutomorphicLoopBlock), // The One Ring
         Box::new(MemelordBotBlock),
         Box::new(GodelGolemBotBlock),
+        Box::new(Lean4MathlibBlock),
     ]
 }
 
@@ -410,18 +424,53 @@ pub struct Factory {
         // Start node: The initial ingested crate
         mermaid_string.push_str(&format!("  A[Main Program: {:?}]\n", "rustc main.rs".to_string())); // Placeholder for actual main_program_path
 
-        // Display bought tools as nodes
-        for (i, tool) in self.bought_tools.iter().enumerate() {
-            mermaid_string.push_str(&format!("  T{}[Tool: {} - Cost: {}]\n", i, tool.name(), tool.cost()));
-            // Link tools to something, perhaps the main program or a processing stage
-            mermaid_string.push_str(&format!("  A --> T{}\n", i));
+        // Group tools into subgraphs (floors)
+        let mut math_floor_tools = Vec::new();
+        let mut meme_floor_tools = Vec::new();
+        let mut main_floor_tools = Vec::new();
+
+        for tool in self.bought_tools.iter() {
+            match tool.name() {
+                "Lean 4 Mathlib" | "MiniZinc Solver" | "Gödel Golem Bot" => math_floor_tools.push(tool),
+                "Meme Lord Bot" => meme_floor_tools.push(tool),
+                _ => main_floor_tools.push(tool), // All other tools on the main floor for now
+            }
         }
+
+        // Render Main Floor
+        mermaid_string.push_str("  subgraph Main Floor\n");
+        for (i, tool) in main_floor_tools.iter().enumerate() {
+            mermaid_string.push_str(&format!("    MT{}[Tool: {} - Cost: {}]\n", i, tool.name(), tool.cost()));
+            mermaid_string.push_str(&format!("    A --> MT{}\n", i)); // Link to Main Program
+        }
+        mermaid_string.push_str("  end\n");
+
+        // Render Math Floor
+        if !math_floor_tools.is_empty() {
+            mermaid_string.push_str("  subgraph Math Floor\n");
+            for (i, tool) in math_floor_tools.iter().enumerate() {
+                mermaid_string.push_str(&format!("    MATH_T{}[Tool: {} - Cost: {}]\n", i, tool.name(), tool.cost()));
+                mermaid_string.push_str(&format!("    MT0 --> MATH_T{}\n", i)); // Link from a main floor tool (e.g., Conveyer Belt)
+            }
+            mermaid_string.push_str("  end\n");
+        }
+        
+        // Render Meme Floor
+        if !meme_floor_tools.is_empty() {
+            mermaid_string.push_str("  subgraph Meme Floor\n");
+            for (i, tool) in meme_floor_tools.iter().enumerate() {
+                mermaid_string.push_str(&format!("    MEME_T{}[Tool: {} - Cost: {}]\n", i, tool.name(), tool.cost()));
+                mermaid_string.push_str(&format!("    MT1 --> MEME_T{}\n", i)); // Link from another main floor tool (e.g., Robot Arm)
+            }
+            mermaid_string.push_str("  end\n");
+        }
+
 
         // Display processing crates at different levels
         for (i, (crate_path, level)) in self.processing_crates.iter().enumerate() {
             mermaid_string.push_str(&format!("  P{}[Crate: {:?} (Level: {:?})]\n", i, crate_path, level));
             // Link processing crates, e.g., from tools or to future stages
-            mermaid_string.push_str(&format!("  T{} --> P{}\n", i % self.bought_tools.len(), i)); // Simple linking for now
+            mermaid_string.push_str(&format!("  A --> P{}\n", i)); // Simple linking from main program
         }
 
         mermaid_string.push_str(&format!("  F{{Factory Points: {}}}\n", self.points));
