@@ -1,7 +1,12 @@
 use anyhow::{Result, Context};
+use anyhow::{Result, Context}; // Added
 use std::path::{PathBuf, Path};
 use rocksdb::{DB, Options};
 use rust_mcp_server::file_ingestion::scan_and_ingest_project;
+use std::process::Command; // Added
+use std::fs; // Added
+use chrono::Local; // Added for timestamps
+
 
 #[derive(Clone)] // Add Clone derive
 pub struct ConveyerBeltBlock; // Re-inserted
@@ -115,6 +120,130 @@ impl FactoryBlock for PtraceBlock {
     fn cost(&self) -> u32 { 90 }
 }
 
+#[derive(Clone)]
+pub struct MermaidBlock;
+impl FactoryBlock for MermaidBlock {
+    fn name(&self) -> &'static str { "Mermaid" }
+    fn cost(&self) -> u32 { 10 }
+}
+
+#[derive(Clone)]
+pub struct HttpServerBlock;
+impl FactoryBlock for HttpServerBlock {
+    fn name(&self) -> &'static str { "HTTP Server" }
+    fn cost(&self) -> u32 { 50 }
+}
+
+#[derive(Clone)]
+pub struct RenderingServerBlock;
+impl FactoryBlock for RenderingServerBlock {
+    fn name(&self) -> &'static str { "Rendering Server" }
+    fn cost(&self) -> u32 { 70 }
+}
+
+#[derive(Clone)]
+pub struct LlmBlock;
+impl FactoryBlock for LlmBlock {
+    fn name(&self) -> &'static str { "LLM" }
+    fn cost(&self) -> u32 { 150 }
+}
+
+#[derive(Clone)]
+pub struct Lean4Block;
+impl FactoryBlock for Lean4Block {
+    fn name(&self) -> &'static str { "Lean 4 Theorem Prover" }
+    fn cost(&self) -> u32 { 200 }
+}
+
+#[derive(Clone)]
+pub struct MiniZincBlock;
+impl FactoryBlock for MiniZincBlock {
+    fn name(&self) -> &'static str { "MiniZinc Solver" }
+    fn cost(&self) -> u32 { 80 }
+}
+
+#[derive(Clone)]
+pub struct LspBlock;
+impl FactoryBlock for LspBlock {
+    fn name(&self) -> &'static str { "LSP Server" }
+    fn cost(&self) -> u32 { 60 }
+}
+
+#[derive(Clone)]
+pub struct McpBlock;
+impl FactoryBlock for McpBlock {
+    fn name(&self) -> &'static str { "MCP Server" }
+    fn cost(&self) -> u32 { 90 }
+}
+
+#[derive(Clone)]
+pub struct MermaidIntegrationBlock;
+impl FactoryBlock for MermaidIntegrationBlock {
+    fn name(&self) -> &'static str { "Mermaid Integration" }
+    fn cost(&self) -> u32 { 10 }
+    fn execute(&self, factory: &mut Factory, _current_crate_path: &PathBuf) -> Result<()> {
+        println!("Mermaid Integration block executed. Generating Mermaid diagram and images.");
+        let mermaid_diagram = factory.render_factory_floor();
+        let timestamp = Local::now().format("%Y%m%d%H%M%S").to_string();
+        let output_dir = PathBuf::from("./generated_assets");
+        fs::create_dir_all(&output_dir)?;
+
+        let mmd_file_path = output_dir.join(format!("factory_floor_{}.mmd", timestamp));
+        fs::write(&mmd_file_path, &mermaid_diagram)?;
+        println!("Mermaid diagram saved to {:?}", mmd_file_path);
+
+        // Generate SVG
+        let svg_file_path = output_dir.join(format!("factory_floor_{}.svg", timestamp));
+        let svg_output = Command::new("mmdc")
+            .arg("-i").arg(&mmd_file_path)
+            .arg("-o").arg(&svg_file_path)
+            .output()
+            .context("Failed to execute mmdc command for SVG. Is mmdc installed and in PATH?")?;
+        
+        if svg_output.status.success() {
+            println!("Generated SVG: {:?}", svg_file_path);
+            factory.generated_assets.push(svg_file_path);
+        } else {
+            eprintln!("Failed to generate SVG: {}", String::from_utf8_lossy(&svg_output.stderr));
+        }
+
+        // Generate PNG
+        let png_file_path = output_dir.join(format!("factory_floor_{}.png", timestamp));
+        let png_output = Command::new("mmdc")
+            .arg("-i").arg(&mmd_file_path)
+            .arg("-o").arg(&png_file_path)
+            .output()
+            .context("Failed to execute mmdc command for PNG. Is mmdc installed and in PATH?")?;
+
+        if png_output.status.success() {
+            println!("Generated PNG: {:?}", png_file_path);
+            factory.generated_assets.push(png_file_path);
+        } else {
+            eprintln!("Failed to generate PNG: {}", String::from_utf8_lossy(&png_output.stderr));
+        }
+
+        // Clean up temporary .mmd file
+        fs::remove_file(&mmd_file_path)?;
+
+        Ok(())
+    }
+}
+
+
+#[derive(Clone)]
+pub struct HttpServerBlock;
+impl FactoryBlock for HttpServerBlock {
+    fn name(&self) -> &'static str { "HTTP Server" }
+    fn cost(&self) -> u32 { 50 }
+}
+
+#[derive(Clone)]
+pub struct RenderingServerBlock;
+impl FactoryBlock for RenderingServerBlock {
+    fn name(&self) -> &'static str { "Rendering Server" }
+    fn cost(&self) -> u32 { 70 }
+}
+
 pub fn get_available_tools() -> Vec<Box<dyn FactoryBlock>> {
     vec![
         Box::new(ConveyerBeltBlock),
@@ -133,6 +262,17 @@ pub fn get_available_tools() -> Vec<Box<dyn FactoryBlock>> {
         Box::new(EbpfBlock),
         Box::new(StraceBlock),
         Box::new(PtraceBlock),
+        Box::new(MermaidIntegrationBlock),
+        Box::new(HttpServerBlock),
+        Box::new(RenderingServerBlock),
+        Box::new(MermaidBlock),
+        Box::new(HttpServerBlock),
+        Box::new(RenderingServerBlock),
+        Box::new(LlmBlock),
+        Box::new(Lean4Block),
+        Box::new(MiniZincBlock),
+        Box::new(LspBlock),
+        Box::new(McpBlock),
     ]
 }
 
@@ -148,7 +288,11 @@ pub enum ProcessingLevel {
 pub trait FactoryBlock: Clone { // Add Clone bound
     fn name(&self) -> &'static str;
     fn cost(&self) -> u32;
-    // Potentially add more methods for execution, input/output, etc.
+    // New: Execute method for the factory block
+    fn execute(&self, factory: &mut Factory, current_crate_path: &PathBuf) -> Result<()> {
+        println!("{} block executed. (No specific action implemented yet)", self.name());
+        Ok(())
+    }
 }
 
 pub struct Factory {
@@ -157,6 +301,7 @@ pub struct Factory {
     pub bought_tools: Vec<Box<dyn FactoryBlock>>, // Now stores trait objects
     pub discovered_crates: Vec<PathBuf>, // Tracks crates discovered by the scanner
     pub processing_crates: Vec<(PathBuf, ProcessingLevel)>, // Crates currently being processed at a specific level
+    pub generated_assets: Vec<PathBuf>, // Stores paths to generated image assets (SVG, PNG, etc.)
     // Other factory components will go here
 }
 
@@ -166,7 +311,7 @@ pub struct Factory {
         db_options.create_if_missing(true);
         let db = DB::open(&db_options, db_path)
             .context(format!("Failed to open RocksDB at {:?}", db_path))?;
-        Ok(Self { db, points: 0, bought_tools: Vec::new(), discovered_crates: Vec::new(), processing_crates: Vec::new() })
+        Ok(Self { db, points: 0, bought_tools: Vec::new(), discovered_crates: Vec::new(), processing_crates: Vec::new(), generated_assets: Vec::new() })
     }
     pub fn ingest_project(&self, project_root: &Path) -> Result<()> {
         eprintln!("Factory: Ingesting project from {:?}", project_root);

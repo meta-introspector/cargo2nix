@@ -4,6 +4,7 @@ use anyhow::{Result, Context}; // Add anyhow for error handling
 use std::io; // Added for stdin().read_line
 mod factory; // Declare the new factory module
 use factory::ProcessingLevel; // Import ProcessingLevel
+use factory::ProcessingLevel; // Import ProcessingLevel
 
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
@@ -70,7 +71,8 @@ fn main() -> Result<()> { // Change main to return Result
                 println!("{}", mermaid_diagram);
                 println!("---------------------------------------\n");
                 
-                // TODO: Implement the specific action for each tool.
+                // Execute the chosen tool's action
+                chosen_tool.execute(&mut factory, &cli.main_program_path)?;
                 
                 // For now, let's just break after buying
                 break; 

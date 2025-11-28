@@ -15,7 +15,9 @@ include.workspace = true
 clap = { workspace = true, features = ["derive"] }
 anyhow = { workspace = true }
 rocksdb = { workspace = true } # Added rocksdb dependency
+chrono = "0.4" # Added for timestamps
 rust-mcp-server = { path = "../rust-mcp-server" }
+
 
 [lints]
 workspace = true
