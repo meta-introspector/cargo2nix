@@ -27,7 +27,7 @@ members = [
 #    "crates/tool-refactorings",
     "crates/monster_multivector",
     "crates/monster_traits",
-    "crates/rust-mcp-server", "crates/mcp-plugin-traits", "crates/mcp-plugin-example",
+    "crates/rust-mcp-server", "crates/mcp-plugin-traits", "crates/mcp-plugin-example", "crates/rusttycoon",
 ]
 exclude = []
 

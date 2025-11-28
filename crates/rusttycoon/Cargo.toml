@@ -1,0 +1,20 @@
+[package]
+name = "rusttycoon"
+categories.workspace = true
+version.workspace = true
+authors.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+homepage.workspace = true
+repository.workspace = true
+keywords.workspace = true
+include.workspace = true
+
+[dependencies]
+clap = { workspace = true, features = ["derive"] }
+anyhow = { workspace = true }
+rust-mcp-server = { path = "../rust-mcp-server" }
+
+[lints]
+workspace = true
