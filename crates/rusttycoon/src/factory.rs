@@ -177,6 +177,34 @@ impl FactoryBlock for McpBlock {
 }
 
 #[derive(Clone)]
+pub struct LmfdbBlock;
+impl FactoryBlock for LmfdbBlock {
+    fn name(&self) -> &'static str { "LMFDB Integrator" }
+    fn cost(&self) -> u32 { 180 }
+}
+
+#[derive(Clone)]
+pub struct WikidataBlock;
+impl FactoryBlock for WikidataBlock {
+    fn name(&self) -> &'static str { "Wikidata Explorer" }
+    fn cost(&self) -> u32 { 70 }
+}
+
+#[derive(Clone)]
+pub struct OsmBlock;
+impl FactoryBlock for OsmBlock {
+    fn name(&self) -> &'static str { "OpenStreetMap Mapper" }
+    fn cost(&self) -> u32 { 45 }
+}
+
+#[derive(Clone)]
+pub struct ArchiveOrgBlock;
+impl FactoryBlock for ArchiveOrgBlock {
+    fn name(&self) -> &'static str { "Archive.org Downloader" }
+    fn cost(&self) -> u32 { 30 }
+}
+
+#[derive(Clone)]
 pub struct MermaidIntegrationBlock;
 impl FactoryBlock for MermaidIntegrationBlock {
     fn name(&self) -> &'static str { "Mermaid Integration" }
@@ -273,6 +301,10 @@ pub fn get_available_tools() -> Vec<Box<dyn FactoryBlock>> {
         Box::new(MiniZincBlock),
         Box::new(LspBlock),
         Box::new(McpBlock),
+        Box::new(LmfdbBlock),
+        Box::new(WikidataBlock),
+        Box::new(OsmBlock),
+        Box::new(ArchiveOrgBlock),
     ]
 }
 

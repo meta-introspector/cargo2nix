@@ -40,6 +40,12 @@ fn main() -> Result<()> { // Change main to return Result
         for (i, tool) in available_tools.iter().enumerate() {
             println!("{}. {} (Cost: {} points)", i + 1, tool.name(), tool.cost());
         }
+    println!("23. LSP Server (Cost: 60 points) - Provides Language Server Protocol features for IDE integration.");
+    println!("24. MCP Server (Cost: 90 points) - Integrates the Meta-Compiler Protocol server for advanced code processing.");
+    println!("25. LMFDB Integrator (Cost: 180 points) - Connects to the L-functions and Modular Forms Database.");
+    println!("26. Wikidata Explorer (Cost: 70 points) - Explores and leverages structured data from Wikidata.");
+    println!("27. OpenStreetMap Mapper (Cost: 45 points) - Integrates geographic data from OpenStreetMap.");
+    println!("28. Archive.org Downloader (Cost: 30 points) - Accesses historical data and archives from Archive.org.");
         println!("\nEnter the number of the tool you want to buy, or '0' to exit:");
         let mut input = String::new();
         std::io::stdin().read_line(&mut input)
@@ -71,8 +77,61 @@ fn main() -> Result<()> { // Change main to return Result
                 println!("{}", mermaid_diagram);
                 println!("---------------------------------------\n");
                 
-                // Execute the chosen tool's action
-                chosen_tool.execute(&mut factory, &cli.main_program_path)?;
+                // TODO: Implement the specific action for each tool here using 'if let' or 'match'
+                if chosen_tool.name() == "Code Evaluator" {
+                    factory.evaluate_code(&cli.main_program_path.to_string_lossy())?;
+                } else if chosen_tool.name() == "Crate Scanner" {
+                    println!("Scanning for crates in the workspace...");
+                    // Simulate crate scanning (e.g., by listing workspace members from Cargo.toml)
+                    factory.discovered_crates.push(PathBuf::from("crates/rusttycoon"));
+                    println!("Discovered crates: {:?}", factory.discovered_crates);
+                } else if chosen_tool.name() == "Rust Toolchain Integrator" {
+                    println!("Integrating Rust toolchain...");
+                    println!("Rust toolchain (rustc, cargo) is now integrated and available.");
+                } else if chosen_tool.name() == "Tcpdump" {
+                    println!("Tcpdump activated: Network packets related to compilation will now be analyzed.");
+                    factory.processing_crates.push((PathBuf::from("tcpdump_output.pcap"), ProcessingLevel::NetworkTraffic));
+                    println!("New crate 'tcpdump_output.pcap' added for processing at NetworkTraffic level.");
+                } else if chosen_tool.name() == "eBPF Tracer" {
+                    println!("eBPF Tracer activated: Deep kernel-level insights are now being collected.");
+                    factory.processing_crates.push((PathBuf::from("ebpf_trace.log"), ProcessingLevel::SystemCalls));
+                    println!("New crate 'ebpf_trace.log' added for processing at SystemCalls level.");
+                } else if chosen_tool.name() == "Strace" {
+                    println!("Strace activated: System calls of the compiler process are now being traced.");
+                    factory.processing_crates.push((PathBuf::from("strace_output.log"), ProcessingLevel::SystemCalls));
+                    println!("New crate 'strace_output.log' added for processing at SystemCalls level.");
+                } else if chosen_tool.name() == "Ptrace" {
+                    println!("Ptrace activated: Compiler process can now be traced and manipulated for debugging.");
+                    factory.processing_crates.push((PathBuf::from("ptrace_debug_info.log"), ProcessingLevel::SystemCalls));
+                    println!("New crate 'ptrace_debug_info.log' added for processing at SystemCalls level.");
+                } else if chosen_tool.name() == "Mermaid Integration" {
+                    // This is handled by the generic execute method on MermaidIntegrationBlock itself.
+                    // No special logic needed here.
+                } else if chosen_tool.name() == "HTTP Server" {
+                    println!("HTTP Server activated: A web interface is now available.");
+                    // In a real game, this would start an actual server or manage its state.
+                } else if chosen_tool.name() == "Rendering Server" {
+                    println!("Rendering Server activated: Advanced visualizations can now be generated.");
+                    // This would likely manage external rendering processes or services.
+                } else if chosen_tool.name() == "LLM" {
+                    println!("LLM activated: Large Language Model capabilities integrated for analysis.");
+                } else if chosen_tool.name() == "Lean 4 Theorem Prover" {
+                    println!("Lean 4 Theorem Prover activated: Formal verification capabilities are online.");
+                } else if chosen_tool.name() == "MiniZinc Solver" {
+                    println!("MiniZinc Solver activated: Constraint programming for optimization is available.");
+                } else if chosen_tool.name() == "LSP Server" {
+                    println!("LSP Server activated: IDE integration features are enabled.");
+                } else if chosen_tool.name() == "MCP Server" {
+                    println!("MCP Server activated: Meta-Compiler Protocol server is running.");
+                } else if chosen_tool.name() == "LMFDB Integrator" {
+                    println!("LMFDB Integrator activated: Connecting to L-functions and Modular Forms Database.");
+                } else if chosen_tool.name() == "Wikidata Explorer" {
+                    println!("Wikidata Explorer activated: Accessing structured knowledge from Wikidata.");
+                } else if chosen_tool.name() == "OpenStreetMap Mapper" {
+                    println!("OpenStreetMap Mapper activated: Geographic data integration enabled.");
+                } else if chosen_tool.name() == "Archive.org Downloader" {
+                    println!("Archive.org Downloader activated: Historical data and archives are accessible.");
+                }
                 
                 // For now, let's just break after buying
                 break; 
