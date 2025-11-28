@@ -245,6 +245,33 @@ impl FactoryBlock for GodelGolemBotBlock {
 }
 
 #[derive(Clone)]
+pub struct RaoulBottBlock;
+impl FactoryBlock for RaoulBottBlock {
+    fn name(&self) -> &'static str { "Raoul Bott (8-fold Periodicity)" }
+    fn cost(&self) -> u32 { 400 } // High cost for advanced mathematical concept
+    fn execute(&self, factory: &mut Factory, _current_crate_path: &PathBuf) -> Result<()> {
+        println!("Raoul Bott (8-fold Periodicity) activated! Unlocking insights into topological structures and periodic phenomena.");
+        // This block conceptually represents the application of Bott Periodicity to code structures.
+        factory.points += 80; // Bonus for revealing deep mathematical structures
+        Ok(())
+    }
+}
+
+#[derive(Clone)]
+pub struct QuasifiberBlock;
+impl FactoryBlock for QuasifiberBlock {
+    fn name(&self) -> &'static str { "Quasifiber Reducer" }
+    fn cost(&self) -> u32 { 300 } // High cost for floor reduction
+    fn execute(&self, factory: &mut Factory, _current_crate_path: &PathBuf) -> Result<()> {
+        println!("Quasifiber Reducer activated! A whole floor is being reduced to a virtual crate.");
+        // This would involve choosing a floor to reduce, removing its tools,
+        // and adding a new virtual crate to processing_crates at a higher level.
+        factory.points += 150; // Bonus for abstraction and reduction
+        Ok(())
+    }
+}
+
+#[derive(Clone)]
 pub struct Lean4MathlibBlock;
 impl FactoryBlock for Lean4MathlibBlock {
     fn name(&self) -> &'static str { "Lean 4 Mathlib" }
@@ -362,6 +389,8 @@ pub fn get_available_tools() -> Vec<Box<dyn FactoryBlock>> {
         Box::new(MemelordBotBlock),
         Box::new(GodelGolemBotBlock),
         Box::new(Lean4MathlibBlock),
+        Box::new(RaoulBottBlock),
+        Box::new(QuasifiberBlock), // Quasifiber Reducer
     ]
 }
 
@@ -448,6 +477,12 @@ pub struct Factory {
         // Render Math Floor
         if !math_floor_tools.is_empty() {
             mermaid_string.push_str("  subgraph Math Floor\n");
+            if math_floor_tools.iter().any(|tool| tool.name() == "Raoul Bott (8-fold Periodicity)") {
+                mermaid_string.push_str("    subgraph 8th Level (Bott Periodicity)\n");
+                mermaid_string.push_str("      RB((Raoul Bott)) -- 8-fold Periodic -- P8[[Structure]]\n"); // Circular node for Bott, special shape for Structure
+                mermaid_string.push_str("      style RB fill:#afa,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5\n"); // Styled as a dot/curve hint
+                mermaid_string.push_str("    end\n");
+            }
             for (i, tool) in math_floor_tools.iter().enumerate() {
                 mermaid_string.push_str(&format!("    MATH_T{}[Tool: {} - Cost: {}]\n", i, tool.name(), tool.cost()));
                 mermaid_string.push_str(&format!("    MT0 --> MATH_T{}\n", i)); // Link from a main floor tool (e.g., Conveyer Belt)
