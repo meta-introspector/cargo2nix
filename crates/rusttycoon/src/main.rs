@@ -63,6 +63,13 @@ fn main() -> Result<()> { // Change main to return Result
                 // Push a clone of the chosen_tool (as a Box<dyn FactoryBlock>)
                 factory.bought_tools.push(chosen_tool.clone()); 
                 println!("You bought a {}! Remaining points: {}", chosen_tool.name(), factory.points);
+                
+                // Render the factory floor after buying a tool
+                let mermaid_diagram = factory.render_factory_floor();
+                println!("\n--- Factory Floor (Mermaid Diagram) ---");
+                println!("{}", mermaid_diagram);
+                println!("---------------------------------------\n");
+                
                 // TODO: Implement the specific action for each tool.
                 
                 // For now, let's just break after buying

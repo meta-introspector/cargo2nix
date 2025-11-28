@@ -183,5 +183,33 @@ pub struct Factory {
         Ok(())
     }
 
+    pub fn render_factory_floor(&self) -> String {
+        let mut mermaid_string = String::new();
+        mermaid_string.push_str("graph TD\n"); // Top-Down graph
+
+        // Start node: The initial ingested crate
+        mermaid_string.push_str(&format!("  A[Main Program: {:?}]\n", "rustc main.rs".to_string())); // Placeholder for actual main_program_path
+
+        // Display bought tools as nodes
+        for (i, tool) in self.bought_tools.iter().enumerate() {
+            mermaid_string.push_str(&format!("  T{}[Tool: {} - Cost: {}]\n", i, tool.name(), tool.cost()));
+            // Link tools to something, perhaps the main program or a processing stage
+            mermaid_string.push_str(&format!("  A --> T{}\n", i));
+        }
+
+        // Display processing crates at different levels
+        for (i, (crate_path, level)) in self.processing_crates.iter().enumerate() {
+            mermaid_string.push_str(&format!("  P{}[Crate: {:?} (Level: {:?})]\n", i, crate_path, level));
+            // Link processing crates, e.g., from tools or to future stages
+            mermaid_string.push_str(&format!("  T{} --> P{}\n", i % self.bought_tools.len(), i)); // Simple linking for now
+        }
+
+        mermaid_string.push_str(&format!("  F{{Factory Points: {}}}\n", self.points));
+        mermaid_string.push_str("  style A fill:#f9f,stroke:#333,stroke-width:2px\n"); // Style for start node
+        mermaid_string.push_str("  style F fill:#9f9,stroke:#333,stroke-width:2px\n"); // Style for points node
+
+        mermaid_string
+    }
+
     // Other factory blocks (analysis, transformation, etc.) will be added here
 }
