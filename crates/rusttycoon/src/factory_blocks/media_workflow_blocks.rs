@@ -6,9 +6,10 @@ use std::fs; // Added
 use chrono::Local; // Added for timestamps
 use serde_json::Value; // Added for parsing flake.lock
 use quote::quote; // Added for Rust code generation
-use super::ai_llm_blocks::{NotebookLMBlock, LlmBlock}; // Needed for AutomatedReportVideoAudioWorkflowBlock and InvokeAIConversionBlock
-//use super::code_intel_blocks::CodeEvaluatorBlock; // Needed for InvokeAIConversionBlock
-//use super::rustc_meta_blocks::RustcBlock; // Needed for InvokeAIConversionBlock
+use crate::factory_blocks::ai_llm_blocks::{NotebookLMBlock, LlmBlock}; // Needed for AutomatedReportVideoAudioWorkflowBlock and InvokeAIConversionBlock
+use crate::factory_blocks::CodeEvaluatorBlock; // Needed for InvokeAIConversionBlock
+//use crate::factory_blocks::RustcBlock; // Needed for InvokeAIConversionBlock
+use crate::factory_blocks::rustc_meta_blocks::RustcBlock; // Needed for InvokeAIConversionBlock
 // use super::meme_comm_blocks; // Not used in this file
 
 

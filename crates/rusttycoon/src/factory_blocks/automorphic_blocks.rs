@@ -8,12 +8,12 @@ use serde_json::Value; // Added for parsing flake.lock
 use quote::quote; // Added for Rust code generation
 use std::sync::Arc; // Add Arc for shared ownership
 
-use super::core_infra_blocks::{ReadFileBlock};
-use super::code_intel_blocks::{HasherBlock, UseResolverBlock, DeclSplitterBlock, PetgraphBlock, GraphEigenvectorBlock, TopologicalSortBlock, NumericalTransformBlock};
-use super::math_crypto_blocks::{HeckeOperatorBlock, McpBlock};
-//use super::flake_importer_exporter_blocks::CrateExporterBlock;
-///use super::rustc_meta_blocks::RustcCrateBlock;
-//use super::rustc_meta_blocks::RustcBlock;
+use crate::factory_blocks::core_infra_blocks::{ReadFileBlock};
+use crate::factory_blocks::code_intel_blocks::{HasherBlock, UseResolverBlock, DeclSplitterBlock, PetgraphBlock, GraphEigenvectorBlock, TopologicalSortBlock, NumericalTransformBlock};
+use crate::factory_blocks::math_crypto_blocks::{HeckeOperatorBlock, McpBlock};
+//use crate::factory_blocks::flake_importer_exporter_blocks::CrateExporterBlock;
+///use crate::factory_blocks::rustc_meta_blocks::RustcCrateBlock;
+//use crate::factory_blocks::rustc_meta_blocks::RustcBlock;
 
 
 // #[derive(Clone)]

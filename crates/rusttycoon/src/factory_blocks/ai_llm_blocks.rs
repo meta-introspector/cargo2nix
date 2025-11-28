@@ -6,8 +6,8 @@ use std::fs; // Added
 use chrono::Local; // Added for timestamps
 use serde_json::Value; // Added for parsing flake.lock
 use quote::quote; // Added for Rust code generation
-use super::media_workflow_blocks::{ReportGeneratorBlock, VideoGeneratorBlock, AudioGeneratorBlock};
-//use super::rustc_meta_blocks::RustcBlock; // For InvokeAIConversionBlock
+use crate::factory_blocks::media_workflow_blocks::{ReportGeneratorBlock, VideoGeneratorBlock, AudioGeneratorBlock};
+//use crate::factory_blocks::rustc_meta_blocks::RustcBlock; // For InvokeAIConversionBlock
 
 
 #[derive(Clone)]

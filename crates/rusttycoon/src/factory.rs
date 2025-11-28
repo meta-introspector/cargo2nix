@@ -9,7 +9,7 @@ use std::sync::Arc; // Add Arc for shared ownership
 
 use crate::factory_blocks::core_infra_blocks;
 use crate::factory_blocks::code_intel_blocks;
-use crate::factory_blocks::rustc_meta_blocks;
+//use crate::factory_blocks::rustc_meta_blocks;
 use crate::factory_blocks::solana_platform_blocks;
 use crate::factory_blocks::system_trace_blocks;
 use crate::factory_blocks::media_workflow_blocks;
@@ -17,10 +17,10 @@ use crate::factory_blocks::ai_llm_blocks;
 use crate::factory_blocks::math_crypto_blocks;
 use crate::factory_blocks::automorphic_blocks;
 use crate::factory_blocks::meme_comm_blocks;
-use crate::factory_blocks::godel_golem_blocks;
-use crate::factory_blocks::dynamic_blocks;
+//use crate::factory_blocks::godel_golem_blocks;
+//use crate::factory_blocks::dynamic_blocks;
 use crate::factory_blocks::transform_blocks;
-use crate::factory_blocks::flake_importer_exporter_blocks;
+//use crate::factory_blocks::flake_importer_exporter_blocks;
 
 
 
@@ -40,9 +40,9 @@ pub fn get_available_tools() -> Vec<Arc<dyn FactoryBlock>> {
         Arc::new(core_infra_blocks::RocksDBBlock),
         Arc::new(core_infra_blocks::GitBlock),
         Arc::new(code_intel_blocks::LLVMBlock),
-        Arc::new(rustc_meta_blocks::RustcBlock), // Original RustcBlock
+//        Arc::new(rustc_meta_blocks::RustcBlock), // Original RustcBlock
         Arc::new(code_intel_blocks::RustcCompileBlock), // New RustcCompileBlock
-        Arc::new(rustc_meta_blocks::Rust71PartsBuilderBlock),
+//        Arc::new(rustc_meta_blocks::Rust71PartsBuilderBlock),
         Arc::new(solana_platform_blocks::SolanaRustcIngestBlock),
         Arc::new(solana_platform_blocks::SolanaRustcMonsterProveBlock),
         Arc::new(solana_platform_blocks::SolanaRustcLevel10Block),
@@ -74,7 +74,7 @@ pub fn get_available_tools() -> Vec<Arc<dyn FactoryBlock>> {
         Arc::new(ai_llm_blocks::GroqImagineBlock),
         // Arc::new(media_workflow_blocks::ReportGeneratorBlock),
         // Arc::new(media_workflow_blocks::AutomatedReportVideoAudioWorkflowBlock),
-        Arc::new(rustc_meta_blocks::RustcCrateBlock::new("default_rustc_crate")),
+//        Arc::new(rustc_meta_blocks::RustcCrateBlock::new("default_rustc_crate")),
         Arc::new(automorphic_blocks::SolanaRustcTycoonFactoryBuilderBlock),
         Arc::new(ai_llm_blocks::LlmBlock),
         Arc::new(ai_llm_blocks::LLMProofReviewBlock),
@@ -87,15 +87,15 @@ pub fn get_available_tools() -> Vec<Arc<dyn FactoryBlock>> {
 
         Arc::new(media_workflow_blocks::ArchiveOrgBlock),
         Arc::new(meme_comm_blocks::EmojicodeLoaderBlock),
-        Arc::new(automorphic_blocks::AutomorphicLoopBlock), // The One Ring
+//        Arc::new(automorphic_blocks::AutomorphicLoopBlock), // The One Ring
         Arc::new(meme_comm_blocks::MemelordBotBlock),
         Arc::new(meme_comm_blocks::ShillBotBlock),
         Arc::new(meme_comm_blocks::TwitterInputBlock),
         Arc::new(meme_comm_blocks::TelegramInputBlock),
         Arc::new(meme_comm_blocks::DiscordInputBlock),
-        Arc::new(godel_golem_blocks::GodelGolemBotBlock),
-        Arc::new(dynamic_blocks::DynamicBlock),
-        Arc::new(dynamic_blocks::FunctionalBlock),
+//        Arc::new(godel_golem_blocks::GodelGolemBotBlock),
+//        Arc::new(dynamic_blocks::DynamicBlock),
+//        Arc::new(dynamic_blocks::FunctionalBlock),
         Arc::new(automorphic_blocks::RustCombinatorBlock),
         Arc::new(math_crypto_blocks::Lean4MathlibBlock),
         Arc::new(math_crypto_blocks::ConwayMonsterProofBlock),
@@ -114,21 +114,21 @@ pub fn get_available_tools() -> Vec<Arc<dyn FactoryBlock>> {
         Arc::new(code_intel_blocks::TopologicalSortBlock),
         Arc::new(code_intel_blocks::NumericalTransformBlock),
         Arc::new(automorphic_blocks::RustDiagramFlakeV1Block),
-        Arc::new(flake_importer_exporter_blocks::FlakeLockImporterBlock),
+//        Arc::new(flake_importer_exporter_blocks::FlakeLockImporterBlock),
         Arc::new(code_intel_blocks::TraitFeatureExtractorBlock),
         Arc::new(solana_platform_blocks::SolanaSealevelLayerBlock),
         Arc::new(solana_platform_blocks::SolanaValidatorTycoonBlock),
         Arc::new(solana_platform_blocks::RustcToSolanaLoaderBlock),
         Arc::new(core_infra_blocks::LibP2PBlock),
         Arc::new(core_infra_blocks::IPFSBlock),
-        Arc::new(flake_importer_exporter_blocks::CrateExporterBlock),
+//        Arc::new(flake_importer_exporter_blocks::CrateExporterBlock),
         Arc::new(core_infra_blocks::NixDevelopBlock),
 Arc::new(core_infra_blocks::MakeTargetBlock),
         Arc::new(code_intel_blocks::RustSrcIngestBlock),
         Arc::new(core_infra_blocks::DirectoryMappingBlock),
         Arc::new(code_intel_blocks::IdeaGeneratorBlock),
         Arc::new(code_intel_blocks::BinaryCatalogBlock),
-        Arc::new(code_intel_blocks::TaskCatalogBlock),
+//        Arc::new(code_intel_blocks::TaskCatalogBlock),
         Arc::new(code_intel_blocks::CodeConceptMapperBlock),
         Arc::new(automorphic_blocks::AutomorphicOrbitReflectorBlock),
         Arc::new(automorphic_blocks::SelfRefactorBlock),

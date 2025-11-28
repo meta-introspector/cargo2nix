@@ -6,9 +6,9 @@ use std::fs; // Added
 use chrono::Local; // Added for timestamps
 use serde_json::Value; // Added for parsing flake.lock
 use quote::quote; // Added for Rust code generation
-use super::automorphic_blocks::{RustDiagramFlakeV1Block}; // Corrected path
+use crate::factory_blocks::automorphic_blocks::{RustDiagramFlakeV1Block}; // Corrected path
 //use super::rustc_meta_blocks::{RustcBlock}; // Corrected path
-use super::math_crypto_blocks::{HeckeOperatorBlock};
+use crate::factory_blocks::math_crypto_blocks::{HeckeOperatorBlock};
 
 
 #[derive(Clone)] // Add Clone derive
@@ -193,6 +193,19 @@ impl FactoryBlock for CodeConceptMapperBlock {
         println!("Code Concept Mapper activated! Mapping code-level concepts from project documents to factory understanding. Example: CodeExecutorContext, ScriptExecutor.");
         // This would conceptually take input about a code concept and map it to a factory-internal representation.
         factory.points += 25;
+        Ok(())
+    }
+}
+
+#[derive(Clone)]
+pub struct TaskCatalogBlock;
+impl FactoryBlock for TaskCatalogBlock {
+    fn name(&self) -> &'static str { "Task Catalog (Documentation)" }
+    fn cost(&self) -> u32 { 50 } // Cost for querying tasks
+    fn execute(&self, factory: &mut Factory, _current_crate_path: &PathBuf) -> Result<()> {
+        println!("Task Catalog activated! Accessing documentation for project tasks. Querying details about: {:?}", _current_crate_path);
+        // This would involve parsing task .md and .toml files or an internal representation of them.
+        factory.points += 10;
         Ok(())
     }
 }
