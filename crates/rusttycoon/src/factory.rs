@@ -219,6 +219,32 @@ impl FactoryBlock for AutomorphicLoopBlock {
 }
 
 #[derive(Clone)]
+pub struct MemelordBotBlock;
+impl FactoryBlock for MemelordBotBlock {
+    fn name(&self) -> &'static str { "Meme Lord Bot" }
+    fn cost(&self) -> u32 { 120 }
+    fn execute(&self, factory: &mut Factory, _current_crate_path: &PathBuf) -> Result<()> {
+        println!("Meme Lord Bot activated! Shillbot for Pepe and Doge. Narratives are being influenced.");
+        // Placeholder for LLM interaction, meme propagation, and task generation
+        factory.points += 15; // Slightly increased bonus for meme propagation
+        Ok(())
+    }
+}
+
+#[derive(Clone)]
+pub struct GodelGolemBotBlock;
+impl FactoryBlock for GodelGolemBotBlock {
+    fn name(&self) -> &'static str { "Gödel Golem Bot" }
+    fn cost(&self) -> u32 { 250 }
+    fn execute(&self, factory: &mut Factory, _current_crate_path: &PathBuf) -> Result<()> {
+        println!("Gödel Golem Bot activated! Fascinated by LMFDB elliptic curves and Rust traces. Seeking logical inconsistencies.");
+        // Placeholder for LLM interaction, formal methods tasks, and analysis of specific data
+        factory.points += 30; // Slightly increased bonus for specialized analysis
+        Ok(())
+    }
+}
+
+#[derive(Clone)]
 pub struct MermaidIntegrationBlock;
 impl FactoryBlock for MermaidIntegrationBlock {
     fn name(&self) -> &'static str { "Mermaid Integration" }
@@ -320,6 +346,8 @@ pub fn get_available_tools() -> Vec<Box<dyn FactoryBlock>> {
         Box::new(OsmBlock),
         Box::new(ArchiveOrgBlock),
         Box::new(AutomorphicLoopBlock), // The One Ring
+        Box::new(MemelordBotBlock),
+        Box::new(GodelGolemBotBlock),
     ]
 }
 
