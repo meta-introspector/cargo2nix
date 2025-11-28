@@ -5,6 +5,7 @@ use lsp_types::{
 };
 use anyhow::{Context, Result, anyhow};
 use std::path::{PathBuf, Path}; // Need PathBuf and Path for project_root
+use std::io; // Added for stdin().read_line
 use rocksdb::{
     DB, Options
 };
@@ -183,9 +184,10 @@ fn main() -> Result<()> {
         bootstrapper::boot_compiler(&db, compiler_source_path, target_source_path)?; // Calls the moved function
         eprintln!("Bootstrap compilation initiated.");
         Ok(())
-    } else if let Some(tycoon_path_str) = cli.tycoon_project_path {
-        eprintln!("Initiating Rust Tycoon meme simulation for project: {}", tycoon_path_str);
-        let project_root = PathBuf::from(&tycoon_path_str);
+    } else if cli.tycoon_start_simulation { // New flag for starting tycoon
+        let rustc_main_path = PathBuf::from("submodules/rust/compiler/rustc/src/main.rs");
+        eprintln!("Initiating Rust Tycoon meme simulation with base: {:?}", rustc_main_path);
+        let project_root = PathBuf::from("submodules/rust/compiler/rustc/"); // Project root for rustc
         scan_and_ingest_project(&db, &project_root)?;
         eprintln!("Project ingested for Tycoon simulation.");
         eprintln!("Performing initial analysis for Tycoon iteration...");
@@ -193,6 +195,67 @@ fn main() -> Result<()> {
         eprintln!("Analysis complete. Next: Apply transformation and re-ingest for next 'tycoon' generation.");
         // This marks the end of a single "tycoon" iteration.
         eprintln!("Rust Tycoon simulation initial iteration complete.");
+        let rustc_main_content = std::fs::read_to_string(&rustc_main_path)
+            .context(format!("Failed to read rustc main file: {:?}", rustc_main_path))?;
+        eprintln!("Loaded rustc main content (first 100 chars): {}", &rustc_main_content[0..std::cmp::min(rustc_main_content.len(), 100)]);
+
+        eprintln!("\n--- Rust Tycoon: Identifying Needs (Dependencies) ---");
+        let use_statements: Vec<_> = rustc_main_content.lines()
+            .filter_map(|line| {
+                if line.trim().starts_with("use ") {
+                    Some(line.trim().to_string())
+                } else {
+                    None
+                }
+            })
+            .collect();
+
+        if use_statements.is_empty() {
+            eprintln!("No 'use' statements found as immediate needs.");
+        } else {
+            eprintln!("Detected the following 'use' statements (potential parts to buy):");
+            for (i, statement) in use_statements.iter().enumerate() {
+                eprintln!("{}. {}", i + 1, statement);
+            }
+        }
+        eprintln!("----------------------------------------------------\n");
+        eprintln!("Rust Tycoon: Press Ctrl+F to focus and interact.");
+
+        if !use_statements.is_empty() {
+            loop {
+                eprintln!("\nEnter the number of the 'part' (use statement) you want to 'buy', or '0' to skip for now:");
+                let mut input = String::new();
+                std::io::stdin().read_line(&mut input)
+                    .context("Failed to read line from stdin")?;
+                let choice: usize = match input.trim().parse() {
+                    Ok(num) => num,
+                    Err(_) => {
+                        eprintln!("Invalid input. Please enter a number.");
+                        continue;
+                    }
+                };
+
+                if choice == 0 {
+                    eprintln!("Skipping 'buying' parts for now.");
+                    break;
+                }
+
+                if choice > 0 && choice <= use_statements.len() {
+                    let bought_part = &use_statements[choice - 1];
+                    eprintln!("You 'bought' the part: {}", bought_part);
+                    // In a real implementation, this would trigger actions like:
+                    // - Adding to Cargo.toml
+                    // - Generating mock code
+                    // - Performing further analysis
+                    // For now, it's a simulation.
+                    break; // For this minimal iteration, buy one and exit.
+                } else {
+                    eprintln!("Choice out of range. Please try again.");
+                }
+            }
+        }
+        // TODO: More sophisticated "Roblox-like" interaction will follow.
+
         Ok(())
     } else {
         eprintln!("Starting MCP server in LSP mode...");
