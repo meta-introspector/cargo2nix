@@ -46,6 +46,7 @@ fn main() -> Result<()> { // Change main to return Result
     println!("26. Wikidata Explorer (Cost: 70 points) - Explores and leverages structured data from Wikidata.");
     println!("27. OpenStreetMap Mapper (Cost: 45 points) - Integrates geographic data from OpenStreetMap.");
     println!("28. Archive.org Downloader (Cost: 30 points) - Accesses historical data and archives from Archive.org.");
+    println!("29. The One Ring (Automorphic Loop) (Cost: 1000 points) - Achieve the ultimate goal of self-compilation!");
         println!("\nEnter the number of the tool you want to buy, or '0' to exit:");
         let mut input = String::new();
         std::io::stdin().read_line(&mut input)

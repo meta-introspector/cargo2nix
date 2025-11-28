@@ -205,6 +205,20 @@ impl FactoryBlock for ArchiveOrgBlock {
 }
 
 #[derive(Clone)]
+pub struct AutomorphicLoopBlock;
+impl FactoryBlock for AutomorphicLoopBlock {
+    fn name(&self) -> &'static str { "The One Ring (Automorphic Loop)" }
+    fn cost(&self) -> u32 { 1000 } // Very high cost for the ultimate goal
+    fn execute(&self, factory: &mut Factory, _current_crate_path: &PathBuf) -> Result<()> {
+        println!("The One Ring (Automorphic Loop) has been forged! The compiler now compiles itself, and the strange loop is closed.");
+        println!("You have achieved the ultimate goal of the Rust Tycoon! This is the fixed point on the diagram, the Omen.");
+        // In a real game, this would trigger game win conditions, final scoring, etc.
+        factory.points += 5000; // Massive bonus for achieving the loop
+        Ok(())
+    }
+}
+
+#[derive(Clone)]
 pub struct MermaidIntegrationBlock;
 impl FactoryBlock for MermaidIntegrationBlock {
     fn name(&self) -> &'static str { "Mermaid Integration" }
@@ -305,6 +319,7 @@ pub fn get_available_tools() -> Vec<Box<dyn FactoryBlock>> {
         Box::new(WikidataBlock),
         Box::new(OsmBlock),
         Box::new(ArchiveOrgBlock),
+        Box::new(AutomorphicLoopBlock), // The One Ring
     ]
 }
 
@@ -382,6 +397,12 @@ pub struct Factory {
         }
 
         mermaid_string.push_str(&format!("  F{{Factory Points: {}}}\n", self.points));
+        if self.bought_tools.iter().any(|tool| tool.name() == "The One Ring (Automorphic Loop)") {
+            mermaid_string.push_str("  Goal((The One Ring - Automorphic Loop Achieved!))\n");
+            mermaid_string.push_str("  F -- Win! --> Goal\n"); // Link points to goal
+            mermaid_string.push_str("  style Goal fill:#ff0,stroke:#f00,stroke-width:4px\n"); // Gold/Red style for the Ring
+        }
+
         mermaid_string.push_str("  style A fill:#f9f,stroke:#333,stroke-width:2px\n"); // Style for start node
         mermaid_string.push_str("  style F fill:#9f9,stroke:#333,stroke-width:2px\n"); // Style for points node
 
