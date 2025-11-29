@@ -1,10 +1,10 @@
 name = "Map Rust Program Semantics to Modular Forms for Compiler Operation"
 description = """
-Develop the formal mapping from Rust program semantics to a specific arithmetic-geometric object
+Develop the formal mapping from Rust program semantics (starting with `syn` parsing of Rust code into AST elements that are then converted to Gödel numbers within a Galois Field) to a specific arithmetic-geometric object
 (a modular form). The `MonstrousCanonicalForm` trait with its `monstrous_form` method
 provides the concrete mechanism for this mapping, positing that the `rustc` toolchain functions
 as an operator whose analytic output (Zero-Knowledge Proof) equals a topological index
-derived from the program's geometric structure.
+derived from the program's geometric structure. This initial algebraic transformation enables the rigorous application of mathematical tools to Rust code.
 """
 status = "todo"
 depends_on = [

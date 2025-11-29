@@ -1,10 +1,10 @@
 name = "Formalize Modular Form Encoding (Φ) as a Map Preserving Structural Properties"
 description = """
 Rigorously formalize the Modular Form Encoding (Φ) as the foundational map translating
-computational system semantics (e.g., Rust AST) into arithmetic-geometric objects
+computational system semantics (e.g., Rust AST parsed via `syn` into Gödel numbers within a Galois Field) into arithmetic-geometric objects
 (modular forms). The `MonstrousCanonicalForm` trait *is* this formalization.
 Document how the modular form's weight (w) corresponds to computational complexity
-and its level (ℓ) to contextual scope.
+and its level (ℓ) to contextual scope. This process leverages `syn` to translate vernacular Rust into AST, enabling prime number encoding and algebraic manipulation within the Galois Field.
 """
 status = "todo"
 depends_on = [

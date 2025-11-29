@@ -27,7 +27,8 @@ members = [
 #    "crates/tool-refactorings",
     "crates/monster_multivector",
     "crates/monster_traits",
-    "crates/rust-mcp-server", "crates/mcp-plugin-traits", "crates/mcp-plugin-example", "crates/rusttycoon",
+    "crates/rust-mcp-server", "crates/mcp-plugin-traits", "crates/mcp-plugin-example", "crates/rusttycoon", "crates/solana-monster-system", "crates/monster_math_traits",
+
 ]
 exclude = []
 
@@ -125,7 +126,7 @@ version_check= "0.9.5"
 walkdir = { path = "submodules/walkdir" }
 cargo-repo-sync-lib = { path = "./tools/cargo-repo-sync-lib" }
 git-wrapper-lib = { path = "./tools/git-wrapper-lib" }
-#cargo-submodule-tool-lib = { path = "./tools/cargo-submodule-tool-lib" }
+cargo-submodule-tool-lib = { path = "./tools/cargo-submodule-tool-lib" }
 
 
 

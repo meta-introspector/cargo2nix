@@ -2,7 +2,7 @@ name = "Formalize 108 Architectural Constraints from Monster Group"
 description = """
 Formalize the maximal set of 108 arithmetic constraints derived from the prime factorization
 of the Monster's order. Assign a distinct, canonical architectural meaning to each of these factors
-via the "108 Supersingular Reasons" protocol, as outlined in the provided table.
+via the "108 Supersingular Reasons" protocol, as outlined in the provided table. These constraints are applied to Abstract Syntax Tree (AST) elements parsed by the `syn` crate, ensuring that code elements are sufficiently decomposed and structured (using the Bag of Words) so their complexity encoding adheres to this total constraint budget of 108 factors.
 """
 status = "todo"
 depends_on = ["define_core_mathematical_models.toml"]
