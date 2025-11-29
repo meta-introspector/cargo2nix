@@ -1626,3 +1626,6 @@
 [submodule "submodules/language-server-mcp-rs"]
 	path = submodules/language-server-mcp-rs
 	url = https://github.com/EmilLindfors/language-server-mcp-rs
+[submodule "gists/clippytask-gist"]
+	path = gists/clippytask-gist
+	url = https://gist.github.com/jmikedupont2/092f560f26c1866dbd8e323827c9f953.git

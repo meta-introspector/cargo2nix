@@ -1,0 +1,22 @@
+# .cargo/config.toml for trait-fixer to provide path overrides for rustc_* crates
+
+[patch.crates-io]
+# These paths are relative to the .cargo/config.toml file itself.
+# Since .cargo/config.toml is in tools/trait-fixer/.cargo,
+# we need to go up two levels (../../) to reach the project root,
+# then into submodules/rust/compiler.
+
+rustc_tools_util = { path = "../../submodules/rust/src/tools/clippy/rustc_tools_util" }
+rustc_driver = { path = "../../submodules/rust/compiler/rustc_driver" }
+rustc_interface = { path = "../../submodules/rust/compiler/rustc_interface" }
+rustc_session = { path = "../../submodules/rust/compiler/rustc_session" }
+rustc_span = { path = "../../submodules/rust/compiler/rustc_span" }
+rustc_hir = { path = "../../submodules/rust/compiler/rustc_hir" }
+rustc_middle = { path = "../../submodules/rust/compiler/rustc_middle" }
+rustc_lint = { path = "../../submodules/rust/compiler/rustc_lint" }
+rustc_ast = { path = "../../submodules/rust/compiler/rustc_ast" }
+
+# You might also need these, depending on the rustc_driver setup:
+# rustc_data_structures = { path = "../../submodules/rust/compiler/rustc_data_structures" }
+# rustc_index = { path = "../../submodules/rust/compiler/rustc_index" }
+# rustc_serialize = { path = "../../submodules/rust/compiler/rustc_serialize" }

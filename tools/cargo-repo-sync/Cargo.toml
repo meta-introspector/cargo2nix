@@ -1,0 +1,24 @@
+[package]
+name = "cargo-repo-sync"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = { workspace = true }
+clap = { workspace = true, features = ["derive"] }
+tokio = { workspace = true, features = ["full"] }
+regex = { workspace = true }
+futures = "0.3" # Add this dependency
+
+[patch.crates-io]
+# Required for any path dependencies that are used within this package
+# For now, none needed if it only uses workspace dependencies or external crates.
+
+# Define the binary targets
+[[bin]]
+name = "find_non_vendored"
+path = "src/commands/find_non_vendored.rs"
+
+[[bin]]
+name = "ensure_workspaces"
+path = "src/commands/ensure_workspaces.rs"
