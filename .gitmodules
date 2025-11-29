@@ -1620,3 +1620,9 @@
 	path = tools/eigenvalues
 	url = https://github.com/meta-introspector/eigenvalues
 	branch = main
+[submodule "submodules/hugging-face-dataset-validator-rust"]
+	path = submodules/hugging-face-dataset-validator-rust
+	url = https://github.com/meta-introspector/hugging-face-dataset-validator-rust
+[submodule "submodules/language-server-mcp-rs"]
+	path = submodules/language-server-mcp-rs
+	url = https://github.com/EmilLindfors/language-server-mcp-rs

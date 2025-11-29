@@ -1,0 +1,21 @@
+[package]
+name = "trait-fixer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rustc_tools_util = "0.3"
+rustc_driver = "0.0"
+rustc_interface = "0.0"
+rustc_session = "0.0"
+rustc_span = "0.0"
+rustc_hir = "0.0"
+rustc_middle = "0.0"
+rustc_lint = "0.0"
+rustc_ast = "0.0"
+if_chain = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.8"
+
+[build-dependencies]
+rustc_tools_util = "0.3"

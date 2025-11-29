@@ -1,0 +1,25 @@
+# Auto-add Debug to all structs/enums without it
+[[rule]]
+kind = "add_derive"
+trait_name = ["Debug"]
+apply_to = ["struct", "enum"]
+condition = "always"
+
+# Add Clone if all fields are Clone
+[[rule]]
+kind = "add_impl"
+trait_name = ["Clone"]
+condition = "all_fields_clone"
+
+# Remove Send/Sync if type contains !Send or !Sync fields
+[[rule]]
+[[rule]]
+kind = "remove_impl"
+trait_name = ["Send", "Sync"]
+condition = "contains_non_send_sync"
+
+# Auto-add Default for structs with all Default fields
+[[rule]]
+kind = "add_impl_default"
+trait_name = ["Default"] # Assuming this is the trait for AddImplDefault
+condition = "all_fields_default"
