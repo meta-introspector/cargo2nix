@@ -1,13 +1,13 @@
 #[cfg(feature = "cargo-toml-editor-lib")]
 // use crate::analysis::cargo_config_patcher::{CargoConfigPatcher, RealCargoConfigPatcher};
 #[cfg(not(feature = "nix_generation"))]
-use crate::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
-use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
-use crate::analysis::dep_graph_data_merger::{DepGraphDataMerger, RealDepGraphDataMerger};
+use super::super::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
+use super::super::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
+use super::super::analysis::dep_graph_data_merger::{DepGraphDataMerger, RealDepGraphDataMerger};
 use tool_traits_lib::types::MergedCrateInfo;
-use crate::analysis::dep_graph_processor::{RealDepGraphProcessor};
+use super::super::analysis::dep_graph_processor::{RealDepGraphProcessor};
 use tool_traits_lib::dep_graph_processor::DepGraphProcessor;
-use crate::analysis::layer0_analyzer::{Layer0Analyzer, RealLayer0Analyzer};
+use super::super::analysis::layer0_analyzer::{Layer0Analyzer, RealLayer0Analyzer};
 use crate::analysis::non_vendored_module_finder::{
     NonVendoredModuleFinder, RealNonVendoredModuleFinder,
 };
@@ -16,11 +16,11 @@ use crate::analysis::non_vendored_module_finder::{
 //     RealSubmoduleConfigPatcher, SubmoduleConfigPatcher,
 // };
 #[cfg(feature = "cargo-toml-editor-lib")]
-use crate::analysis::workspace_remover::{RealWorkspaceRemover, WorkspaceRemover};
+use super::super::analysis::workspace_remover::{RealWorkspaceRemover, WorkspaceRemover};
 // use crate::cargo_config_generator::{
 //     generate_patch_entries, parse_members_file, update_config_toml,
 // };
-use crate::args::analyze::AnalyzeArgs; use crate::args::Cli;
+use super::super::cli::args::analyze::AnalyzeArgs; use super::super::cli::args::Cli;
 #[cfg(not(feature = "git_enabled"))]
 use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
 #[cfg(not(feature = "git_enabled"))]
@@ -36,8 +36,8 @@ use git_wrapper_lib::RealExecv; // Use our re-exported RealExecv
 use git_wrapper_lib::git_types::RollupLock; // Use our re-exported RollupLock
 #[cfg(feature = "git_enabled")]
 use git_wrapper_lib::system_git_executor::SystemGitExecutor; // Added for non-git2 case
-use crate::fs_cache::{FileSystemStat, RealFileSystemStat};
-use crate::fs_writer::{CachedFileSystemWriter, FileSystemWriter, RealFileSystemWriter};
+use super::super::fs_cache::{FileSystemStat, RealFileSystemStat};
+use super::super::fs_writer::{CachedFileSystemWriter, FileSystemWriter, RealFileSystemWriter};
 use anyhow::{anyhow, Context, Result};
 #[cfg(feature = "nix_generation")]
 use cargo_metadata::{MetadataCommand, Package, PackageId};

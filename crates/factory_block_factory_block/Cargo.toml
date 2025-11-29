@@ -7,3 +7,6 @@ edition = "2021"
 anyhow = "1.0"
 rusttycoon = { path = "../rusttycoon" }
 monster_math_traits = { path = "../monster_math_traits" }
+prelude-generator = { path = "../../tools/rust-bootstrap-nix/prelude-generator" }
+split-expanded-lib = { path = "../../tools/rust-bootstrap-nix/split-expanded-lib" }
+ast_parser_impl = { path = "../ast_parser_impl" }

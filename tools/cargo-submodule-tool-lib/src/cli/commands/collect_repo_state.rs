@@ -3,7 +3,7 @@ use std::path::PathBuf;
 use std::sync::{Arc, Mutex};
 
 #[cfg(not(feature = "nix_generation"))]
-use crate::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
+use super::super::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
 use tool_traits_lib::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
 #[cfg(not(feature = "git_enabled"))]
 use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
@@ -21,7 +21,7 @@ use git_wrapper_lib::git_types::RollupLock; // Use our re-exported RollupLock
 #[cfg(feature = "git_enabled")]
 use git_wrapper_lib::system_git_executor::SystemGitExecutor; // Added for non-git2 case
 use git_wrapper_lib::repo_state_collector::{RealRepoStateCollector, RepoStateCollector}; // Use our re-exported RepoStateCollector
-use crate::fs_cache::RealFileSystemStat; // Still in cargo-submodule-tool-lib
+use super::super::fs_cache::RealFileSystemStat; // Still in cargo-submodule-tool-lib
 
 pub fn run_collect_repo_state_command(project_root: PathBuf) -> Result<()> {
     println!("Collecting repository state for: {:?}", project_root);

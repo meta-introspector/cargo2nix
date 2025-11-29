@@ -2,7 +2,8 @@ use anyhow::{Result, Context};
 use std::path::{PathBuf, Path};
 
 use rusttycoon::{Factory, FactoryBlock};
-use monster_math_traits::{RustAstParser, DummyRustAstParser, Declaration}; // Import the parser trait and declaration struct
+use ast_parser_impl::RealRustAstParser;
+use monster_math_traits::{RustAstParser, Declaration}; // Import the parser trait and declaration struct
 
 #[derive(Clone)]
 pub struct FactoryBlockFactoryBlock;
@@ -17,7 +18,7 @@ impl FactoryBlock for FactoryBlockFactoryBlock {
         // --- First step in regeneration: Extract traits from existing factory blocks ---
         println!("Attempting to extract traits from existing factory blocks using RustAstParser...");
 
-        let parser = DummyRustAstParser::default();
+        let parser = RealRustAstParser::default();
         let sample_factory_block_code = r#"
             // Sample code for an existing Factory Block
             pub struct ConveyerBeltBlock;

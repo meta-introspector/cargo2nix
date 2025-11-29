@@ -1,12 +1,8 @@
+use anyhow::{Result, Context};
 use clap::Parser;
 use std::path::PathBuf;
-use anyhow::{Result, Context}; // Add anyhow for error handling
-use std::io; // Added for stdin().read_line
-use std::sync::Arc; // Added for Arc
-
-// Removed: mod factory; // Declare the new factory module
-// Removed: mod factory_blocks; // Declare the new factory_blocks module
-use crate::ProcessingLevel; // Import ProcessingLevel from the library
+use std::sync::Arc;
+use std::io;
 
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]

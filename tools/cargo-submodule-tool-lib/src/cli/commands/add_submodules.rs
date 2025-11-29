@@ -6,8 +6,8 @@ use std::sync::{Arc, Mutex};
 #[cfg(feature = "nix_generation")]
 use cargo_metadata::{MetadataCommand, Package, PackageId};
 
-use crate::args::add_submodules::AddSubmodulesArgs;
-use crate::args::Cli;
+use super::super::cli::args::add_submodules::AddSubmodulesArgs;
+use super::super::cli::args::Cli;
 #[cfg(not(feature = "git_enabled"))]
 use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
 #[cfg(not(feature = "git_enabled"))]
@@ -23,11 +23,11 @@ use git_wrapper_lib::execv::RealExecv; // Use our re-exported RealExecv
 use git_wrapper_lib::git_types::RollupLock; // Use our re-exported RollupLock
 #[cfg(feature = "git_enabled")]
 use git_wrapper_lib::system_git_executor::SystemGitExecutor; // Added for non-git2 case
-use crate::fs_cache::RealFileSystemStat;
-use crate::fs_writer::CachedFileSystemWriter;
-use crate::fs_writer::FileSystemWriter;
-use crate::fs_writer::RealFileSystemWriter;
-use crate::repo_sync_lib::repo_sync_config::RepoSyncConfig;
+use super::super::fs_cache::RealFileSystemStat;
+use super::super::fs_writer::CachedFileSystemWriter;
+use super::super::fs_writer::FileSystemWriter;
+use super::super::fs_writer::RealFileSystemWriter;
+use super::super::repo_sync_lib::repo_sync_config::RepoSyncConfig;
 #[cfg(feature = "git_enabled")]
 use git_wrapper_lib::git_traits::GhExecutor; // Use dummy for RollupLock when git is not enabled
 

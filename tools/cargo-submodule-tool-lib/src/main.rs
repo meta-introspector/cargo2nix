@@ -2,7 +2,7 @@ use anyhow::Result;
 use clap::Parser;
 
 mod cli;
-mod cargo_config_generator;
+
 use cargo_submodule_tool_lib::cli::args::Cli;
 use cargo_submodule_tool_lib::cli::args::Commands;
 use cargo_submodule_tool_lib::cli::args::add_submodules::AddSubmodulesArgs;
@@ -25,14 +25,20 @@ fn main() -> Result<()> {
     let cli = Cli::parse();
 
     match cli.command {
-        Commands::AddSubmodules(ref args) => run_add_submodules_command(args, &cli),
-        Commands::SubmoduleStatus(ref args) => run_submodule_status_command(args),
-        //Commands::GenerateNix(ref args) => run_generate_nix_command(args, &cli),
-        Commands::GeneratePatches(ref args) => run_generate_patches_command(args, &cli),
-        Commands::Analyze(ref args) => run_analyze_command(args, &cli),
-        //Commands::UpdateCargoToml(ref args) => run_update_cargo_toml_command(args, &cli),
-        //Commands::GenerateWorkspaces(ref args) => run_generate_workspaces_command(args, &cli),
-        Commands::ProcessTtTxt(ref args) => run_process_tt_txt_command(args, &cli),
-        Commands::CollectRepoState(ref args) => run_collect_repo_state_command(args.project_root.clone()),
+        Some(Commands::AddSubmodules(ref args)) => run_add_submodules_command(args, &cli),
+        Some(Commands::SubmoduleStatus(ref args)) => run_submodule_status_command(args),
+        //Some(Commands::GenerateNix(ref args)) => run_generate_nix_command(args, &cli),
+        Some(Commands::GeneratePatches(ref args)) => run_generate_patches_command(args, &cli),
+        Some(Commands::Analyze(ref args)) => run_analyze_command(args, &cli),
+        //Some(Commands::UpdateCargoToml(ref args)) => run_update_cargo_toml_command(args, &cli),
+        //Some(Commands::GenerateWorkspaces(ref args)) => run_generate_workspaces_command(args, &cli),
+        Some(Commands::ProcessTtTxt(ref args)) => run_process_tt_txt_command(args, &cli),
+        Some(Commands::CollectRepoState(ref args)) => run_collect_repo_state_command(args.project_root.clone()),
+        None => {
+            // Handle the case where no subcommand is provided.
+            // This usually means printing help or a default action.
+            println!("No command provided. Use --help for more information.");
+            Ok(())
+        }
     }
 }

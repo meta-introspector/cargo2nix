@@ -27,6 +27,7 @@ members = [
     "crates/rusttycoon",
     "crates/factory_abi",
     "crates/solana-monster-system",
+    "crates/ast_parser_impl",
 ]
 exclude = [
     "crates/solana-monster-system/generated_pure_traits.rs",
@@ -127,6 +128,7 @@ walkdir = { path = "submodules/walkdir" }
 cargo-repo-sync-lib = { path = "./tools/cargo-repo-sync-lib" }
 git-wrapper-lib = { path = "./tools/git-wrapper-lib" }
 cargo-submodule-tool-lib = { path = "./tools/cargo-submodule-tool-lib" }
+tool-traits-lib = { path = "./tools/tool-traits-lib" }
 
 
 

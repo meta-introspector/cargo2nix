@@ -9,6 +9,10 @@ use std::sync::Arc; // Add Arc for shared ownership
 
 pub mod factory_blocks;
 
+pub use crate::Factory;
+pub use crate::FactoryBlock;
+pub use crate::get_available_tools;
+
 pub fn get_available_tools() -> Vec<Arc<dyn FactoryBlock>> {
     vec![
         Arc::new(factory_blocks::core_infra_blocks::ConveyerBeltBlock),
