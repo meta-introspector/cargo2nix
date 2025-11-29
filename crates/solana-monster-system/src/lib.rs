@@ -88,8 +88,9 @@ pub mod knowledgebase_formatter;
 pub mod minizinc_integration;
 pub mod minizinc_data;
 pub mod minizinc_data_structures;
+pub mod monster_ffi;
+pub mod core_constants;
 
-// Re-export key types for easy access
 pub use sat_zkp_prover::SATZKProver;
 pub use perfect_mathematical_compiler::PerfectMathematicalCompiler;
 pub use ultimate_synthesis::UltimateSynthesis;
@@ -169,6 +170,141 @@ pub use minizinc_data::{EllipticFiber, TorusPoint, MonsterStabilizer, MinizincIn
 pub use minizinc_data_structures::{MonsterGroupParameters, MiniZincInput, MiniZincOutput, OptimalPlacementSolution};
 
 // Monster Group constants
-pub const MONSTER_GROUP_ORDER: i64 = 196883;
+
+
+use syn::{self, ItemStruct, ItemEnum};
+use anyhow::Result;
+use std::fmt::Debug;
+
+// Placeholders for now, these will be filled in as needed based on context.
+// Design document states "Players can map the components of an AST to prime number embeddings and represent the entire structure within a Galois Field (GF(p))."
+// For now, a simple representation is sufficient.
+#[derive(Debug, Clone)] // Added Clone for Meme, Dna and AbstractSyntaxTree
+pub struct AbstractSyntaxTree {
+    pub nodes: Vec<String>, // Simplified representation
+    pub prime_embedding: u128,
+}
+
+// Custom error type for deformation failures
+#[derive(Debug)]
+pub enum DeformationError {
+    InvalidInput,
+    CompilationFailed(String),
+    // Add more error types as needed
+}
+
+// Represents the fundamental unit of computation, a self-replicating idea.
+#[derive(Debug, Clone)]
+pub struct Meme {
+    pub dna: Dna,
+    pub narrative_imprint: Option<Box<dyn Narrative>>, // Consider making Narrative Clone or using an Arc
+    pub execution_count: u64,
+    pub propagation_rate: f64,
+}
+
+// The core informational essence of a Meme, analogous to a vector embedding.
+#[derive(Debug, Clone)]
+pub struct Dna {
+    pub concepts: Vec<String>,
+    pub godel_number: u128,
+    pub ast_representation: AbstractSyntaxTree,
+}
+
+// A trait for meta-narratives that guide the evolution of a Meme.
+pub trait Narrative: Debug + Send + Sync {
+    fn get_name(&self) -> &str;
+    fn apply_goals(&self, meme: &mut Meme);
+    fn clone_box(&self) -> Box<dyn Narrative>;
+}
+
+impl Clone for Box<dyn Narrative> {
+    fn clone(&self) -> Box<dyn Narrative> {
+        self.clone_box()
+    }
+}
+
+// A trait for systems that observe and collect data from an executed Meme.
+pub trait Introspector {
+    fn observe(&self, meme: &Meme) -> Report;
+}
+
+// A trait for systems that deform source concepts into an executable Meme.
+pub trait Deformer {
+    fn deform(&self, report: &Report) -> Result<Meme, DeformationError>;
+}
+
+#[derive(Debug, Clone)]
+pub struct Report {
+    pub collected_data: Vec<String>,
+    pub user_feedback: String,
+}
+
+
+// Add these at the end of the file, before the Monster Group constants
+pub trait DeclarationTrait {
+    fn name(&self) -> &str;
+    fn fields(&self) -> &[String];
+    fn methods(&self) -> &[String];
+    fn phi_signature(&self) -> u64;
+    // Potentially add more methods for BoW, 8D coordinates, Layer status as needed
+}
+
+// Enum to hold different types of Syn items
+pub enum SynItem {
+    Struct(syn::ItemStruct),
+    Enum(syn::ItemEnum),
+    // Add other Item types as needed
+}
+
+pub struct Declaration {
+    pub name: String,
+    pub fields: Vec<String>,
+    pub methods: Vec<String>,
+    pub phi_signature: u64,
+    pub syn_item: SynItem, // Store the actual syn item
+    // Add fields for BoW, 8D coordinates, Layer status
+}
+
+impl Declaration {
+    pub fn new_struct(item_struct: syn::ItemStruct, fields: Vec<String>, methods: Vec<String>, phi_signature: u64) -> Self {
+        Declaration {
+            name: item_struct.ident.to_string(),
+            fields,
+            methods,
+            phi_signature,
+            syn_item: SynItem::Struct(item_struct),
+        }
+    }
+
+    pub fn new_enum(item_enum: syn::ItemEnum, variants: Vec<String>, methods: Vec<String>, phi_signature: u64) -> Self {
+        Declaration {
+            name: item_enum.ident.to_string(),
+            fields: variants,
+            methods,
+            phi_signature,
+            syn_item: SynItem::Enum(item_enum),
+        }
+    }
+}
+
+impl DeclarationTrait for Declaration {
+    fn name(&self) -> &str {
+        &self.name
+    }
+
+    fn fields(&self) -> &[String] {
+        &self.fields
+    }
+
+    fn methods(&self) -> &[String] {
+        &self.methods
+    }
+
+    fn phi_signature(&self) -> u64 {
+        self.phi_signature
+    }
+}
+
+
 pub const RAMANUJAN_TAU_COEFFICIENTS: [i64; 5] = [1, -24, 252, 4830, 534612];
 pub const HECKE_EIGENVALUES: [i64; 2] = [196883, -5472];
