@@ -22,15 +22,15 @@ include = [
 [workspace]
 resolver = "3"
 members = [
-    "crates/cargo2nix",
-#    "submodules/h2",
-#    "crates/tool-refactorings",
-    "crates/monster_multivector",
-    "crates/monster_traits",
-    "crates/rust-mcp-server", "crates/mcp-plugin-traits", "crates/mcp-plugin-example", "crates/rusttycoon", "crates/solana-monster-system", "crates/monster_math_traits",
-
+    "crates/factory_block_factory_block",
+    "crates/monster_math_traits",
+    "crates/rusttycoon",
+    "crates/factory_abi",
+    "crates/solana-monster-system",
 ]
-exclude = []
+exclude = [
+    "crates/solana-monster-system/generated_pure_traits.rs",
+]
 
 [workspace.lints.rust]
 incomplete_features = "allow"

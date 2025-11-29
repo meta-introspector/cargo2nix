@@ -4,9 +4,9 @@ use anyhow::{Result, Context}; // Add anyhow for error handling
 use std::io; // Added for stdin().read_line
 use std::sync::Arc; // Added for Arc
 
-mod factory; // Declare the new factory module
-mod factory_blocks; // Declare the new factory_blocks module
-use factory::ProcessingLevel; // Import ProcessingLevel
+// Removed: mod factory; // Declare the new factory module
+// Removed: mod factory_blocks; // Declare the new factory_blocks module
+use crate::ProcessingLevel; // Import ProcessingLevel from the library
 
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
@@ -21,7 +21,7 @@ fn main() -> Result<()> { // Change main to return Result
     println!("Rust Tycoon starting with main program: {:?}", cli.main_program_path);
 
     let db_path = PathBuf::from("./mcp_db_tycoon"); // Dedicated DB for tycoon
-    let mut factory = factory::Factory::new(&db_path)?; // Initialize factory (make mutable)
+    let mut factory = crate::Factory::new(&db_path)?; // Initialize factory (make mutable)
     factory.points = 100; // Give initial points
     
     // First factory block: Ingest the project
@@ -34,7 +34,7 @@ fn main() -> Result<()> { // Change main to return Result
     println!("You need to buy tools to move it or process it.");
     println!("Current Points: {}", factory.points);
     // Get all available tools
-    let available_tools: Vec<Arc<dyn factory::FactoryBlock>> = factory::get_available_tools();
+    let available_tools: Vec<Arc<dyn crate::FactoryBlock>> = crate::get_available_tools();
 
     // Main interactive game loop
     loop {

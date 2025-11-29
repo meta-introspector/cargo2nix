@@ -1,7 +1,8 @@
 use anyhow::{Result, Context};
 use std::path::{PathBuf, Path};
 
-use rusttycoon::factory::{Factory, FactoryBlock}; // Import from the main crate
+use rusttycoon::{Factory, FactoryBlock};
+use monster_math_traits::{RustAstParser, DummyRustAstParser, Declaration}; // Import the parser trait and declaration struct
 
 #[derive(Clone)]
 pub struct FactoryBlockFactoryBlock;
@@ -12,10 +13,32 @@ impl FactoryBlock for FactoryBlockFactoryBlock {
     fn execute(&self, factory: &mut Factory, _current_crate_path: &PathBuf) -> Result<()> {
         println!("Factory Block Factory Block activated! A new meta-architecture is emerging, capable of generating new types of Factory Blocks.");
         println!("This block conceptually allows for the dynamic creation or discovery of novel block functionalities.");
-        // In a real game, this might:
-        // 1. Prompt the player for a new block's properties (name, cost, simple action).
-        // 2. Add a new Arc<dyn FactoryBlock> to the factory's available_tools list.
-        // 3. Incrementally define a new 'type' of block by combining existing functionalities.
+
+        // --- First step in regeneration: Extract traits from existing factory blocks ---
+        println!("Attempting to extract traits from existing factory blocks using RustAstParser...");
+
+        let parser = DummyRustAstParser::default();
+        let sample_factory_block_code = r#"
+            // Sample code for an existing Factory Block
+            pub struct ConveyerBeltBlock;
+
+            impl FactoryBlock for ConveyerBeltBlock {
+                fn name(&self) -> &'static str { "Conveyer Belt" }
+                fn cost(&self) -> u32 { 10 }
+                fn execute(&self, factory: &mut Factory, _current_crate_path: &PathBuf) -> Result<()> {
+                    // Logic for conveyer belt
+                    Ok(())
+                }
+            }
+        "#;
+
+        let declarations = parser.parse_rust_code(sample_factory_block_code);
+
+        println!("Extracted Declarations:");
+        for decl in declarations {
+            println!("{:?}", decl);
+        }
+        // --- End of trait extraction demonstration ---
 
         factory.points += 100; // Bonus for meta-capability
         Ok(())

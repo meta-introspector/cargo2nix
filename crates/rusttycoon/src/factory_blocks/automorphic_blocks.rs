@@ -1,6 +1,6 @@
 use anyhow::{Result, Context};
 use std::path::{PathBuf, Path};
-use super::super::factory::{Factory, FactoryBlock}; // Correct import for Factory and FactoryBlock trait
+use crate::{Factory, FactoryBlock}; // Correct import for Factory and FactoryBlock trait
 use std::process::Command; // Added
 use std::fs; // Added
 use chrono::Local; // Added for timestamps

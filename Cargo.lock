@@ -1205,6 +1205,15 @@ name = "factory_abi"
 version = "0.1.0"
 
 [[package]]
+name = "factory_block_factory_block"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "monster_math_traits",
+ "rusttycoon",
+]
+
+[[package]]
 name = "fallible-iterator"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2984,14 +2993,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "mcp-plugin-example"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "mcp-plugin-traits",
-]
-
-[[package]]
 name = "mcp-plugin-traits"
 version = "0.1.0"
 dependencies = [
@@ -3067,20 +3068,6 @@ name = "monster_math_traits"
 version = "0.1.0"
 dependencies = [
  "serde",
-]
-
-[[package]]
-name = "monster_multivector"
-version = "0.1.0"
-dependencies = [
- "sha2",
-]
-
-[[package]]
-name = "monster_traits"
-version = "0.1.0"
-dependencies = [
- "monster_multivector",
 ]
 
 [[package]]

@@ -11,6 +11,13 @@ repository.workspace = true
 keywords.workspace = true
 include.workspace = true
 
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "rusttycoon" # The name of the executable
+path = "src/main.rs"
+
 [dependencies]
 clap = { workspace = true, features = ["derive"] }
 anyhow = { workspace = true }

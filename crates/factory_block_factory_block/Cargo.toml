@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0"
 rusttycoon = { path = "../rusttycoon" }
+monster_math_traits = { path = "../monster_math_traits" }
