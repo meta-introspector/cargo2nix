@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 
 /// Represents a parsed Rust code element (e.g., function, struct, enum, const).
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Declaration {
     /// The kind of the declaration (e.g., "function", "struct", "enum").
     pub kind: String,
@@ -13,6 +13,10 @@ pub struct Declaration {
     pub semantic_hash: Option<String>,
     /// Placeholder for the assigned Monster Group factors.
     pub monster_factors: Option<Vec<u32>>,
+    /// Placeholder for the associated Bag of Words, used for exponent calculation.
+    pub bag_of_words: Option<Vec<String>>,
+    /// Placeholder for the associated 8D conceptual space coordinate.
+    pub eight_d_coordinate: Option<Vec<f64>>,
     // Add other relevant metadata as needed, e.g., location, complexity metrics.
 }
 
@@ -37,6 +41,8 @@ impl RustAstParser for DummyRustAstParser {
                 path: "dummy_file.rs".to_string(),
                 semantic_hash: None, // Will be filled by SemanticHasher
                 monster_factors: None, // Will be filled by SemanticHasher
+                bag_of_words: Some(vec!["func_a".to_string(), "arg1".to_string()]),
+                eight_d_coordinate: None,
             },
             Declaration {
                 kind: "dummy_struct".to_string(),
@@ -44,6 +50,8 @@ impl RustAstParser for DummyRustAstParser {
                 path: "dummy_file.rs".to_string(),
                 semantic_hash: None, // Will be filled by SemanticHasher
                 monster_factors: None, // Will be filled by SemanticHasher
+                bag_of_words: Some(vec!["struct".to_string(), "field1".to_string()]),
+                eight_d_coordinate: None,
             },
         ]
     }
@@ -115,5 +123,67 @@ impl HeckeOperator for DummyHeckeOperator {
             declaration.monster_factors = Some(vec![7]);
         }
         declaration
+    }
+}
+
+/// A trait representing the axiomatic properties of the 108 factors of the Monster Group.
+pub trait MonsterFactorsAxiom {
+    /// Returns the canonical list of the 15 supersingular primes that define the Monster Group order.
+    fn get_canonical_supersingular_primes(&self) -> Vec<u32>;
+    /// Returns the canonical sum of exponents (108) for the Monster Group order.
+    fn get_canonical_sum_of_exponents(&self) -> u32;
+    /// Predicate to check if a declaration's monster factors conform to the axiomatic 108 factors.
+    fn validate_factors(&self, declaration: &Declaration) -> bool;
+}
+
+/// A dummy implementation of `MonsterFactorsAxiom` for testing.
+#[derive(Debug, Default)]
+pub struct DummyMonsterFactorsAxiom;
+
+impl MonsterFactorsAxiom for DummyMonsterFactorsAxiom {
+    fn get_canonical_supersingular_primes(&self) -> Vec<u32> {
+        vec![2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 41, 47, 59, 71] // Dummy list
+    }
+
+    fn get_canonical_sum_of_exponents(&self) -> u32 {
+        108
+    }
+
+    fn validate_factors(&self, declaration: &Declaration) -> bool {
+        declaration.monster_factors.as_ref().map_or(false, |factors| {
+            // Dummy validation: just checks if there are at least 108 factors
+            // In a real scenario, this would involve intricate checks of exponents and primes.
+            factors.len() >= 108
+        })
+    }
+}
+
+/// A trait representing the axiomatic properties of the 194 conjugacy classes of the Monster Group.
+pub trait ConjugacyClassAxiom {
+    /// Returns the canonical count of conjugacy classes (194) for the Monster Group.
+    fn get_canonical_class_count(&self) -> u32;
+    /// Predicate to check if a given transformation type is one of the 194 canonical types.
+    fn is_canonical_transformation_type(&self, transformation_type: &str) -> bool;
+    /// Predicate to check if a declaration's transformation history aligns with canonical conjugacy classes.
+    fn validate_transformation_history(&self, declaration: &Declaration, transformation_type: &str) -> bool;
+}
+
+/// A dummy implementation of `ConjugacyClassAxiom` for testing.
+#[derive(Debug, Default)]
+pub struct DummyConjugacyClassAxiom;
+
+impl ConjugacyClassAxiom for DummyConjugacyClassAxiom {
+    fn get_canonical_class_count(&self) -> u32 {
+        194
+    }
+
+    fn is_canonical_transformation_type(&self, transformation_type: &str) -> bool {
+        // Dummy check for demonstration
+        transformation_type.starts_with("canonical_")
+    }
+
+    fn validate_transformation_history(&self, _declaration: &Declaration, transformation_type: &str) -> bool {
+        // Dummy validation: checks if the transformation type is canonical.
+        self.is_canonical_transformation_type(transformation_type)
     }
 }
