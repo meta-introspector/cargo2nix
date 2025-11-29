@@ -1,4 +1,4 @@
-use crate::{MONSTER_GROUP_ORDER, HECKE_EIGENVALUES};
+use crate::core_constants::{MONSTER_GROUP_REPRESENTATION_DIMENSION, HECKE_EIGENVALUES};
 
 const RAMANUJAN_MOD: i64 = 24;
 
@@ -27,7 +27,7 @@ impl MonsterEmojiOptimizer {
         
         for emoji in emojis.iter() {
             let hash = Self::emoji_to_hash(emoji);
-            let element = hash % MONSTER_GROUP_ORDER as u64;
+            let element = hash % MONSTER_GROUP_REPRESENTATION_DIMENSION as u64;
             let prime = Self::find_resonant_prime(element);
             let hecke = if element % 2 == 0 { HECKE_EIGENVALUES[0] } else { HECKE_EIGENVALUES[1] };
             let level = Self::calculate_resonance_level(element, prime);
@@ -93,8 +93,7 @@ impl MonsterEmojiOptimizer {
         
         if remainder != 0 && !mappings.is_empty() {
             let adjustment = RAMANUJAN_MOD as u64 - remainder;
-            mappings[0].monster_element = 
-                (mappings[0].monster_element + adjustment) % MONSTER_GROUP_ORDER as u64;
+            mappings[0].monster_element = (mappings[0].monster_element + adjustment) % MONSTER_GROUP_REPRESENTATION_DIMENSION as u64;
         }
     }
 }

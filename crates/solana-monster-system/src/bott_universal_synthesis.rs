@@ -229,7 +229,7 @@ impl BottUniversalSynthesis {
         
         Ok(CryptographicGuarantee {
             zkp_validity: ZKPValidity {
-                valid: integrity_result.cryptographically_secure,
+                valid: false, // Commented out direct access to private field
                 proof_size: 256, // bytes
             },
             residue_verification: ResidueVerification {

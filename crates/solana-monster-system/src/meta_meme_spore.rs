@@ -1,4 +1,4 @@
-use crate::{MONSTER_GROUP_ORDER, HECKE_EIGENVALUES, RAMANUJAN_TAU_COEFFICIENTS};
+use crate::core_constants::{MONSTER_GROUP_REPRESENTATION_DIMENSION, HECKE_EIGENVALUES, RAMANUJAN_TAU_COEFFICIENTS, get_monster_group_order_u128};
 
 #[derive(Debug, Clone)]
 pub struct MetaMemeSpore {
@@ -58,7 +58,7 @@ impl MetaMemeSporeSystem {
         for i in 0..size {
             let spore = MetaMemeSpore {
                 godel_number: self.generate_godel_number(i as u64),
-                monster_element: (i as u64 * 31) % MONSTER_GROUP_ORDER as u64,
+                monster_element: (i as u64 * 31) % MONSTER_GROUP_REPRESENTATION_DIMENSION as u64,
                 primorial_dimension: self.calculate_primorial_dimension(i),
                 fitness: 0.0,
                 resource_allocation: self.allocate_resources(i, size),
@@ -71,7 +71,7 @@ impl MetaMemeSporeSystem {
     fn generate_godel_number(&self, seed: u64) -> u64 {
         // Gödel encoding using Monster Group structure
         let base = RAMANUJAN_TAU_COEFFICIENTS[0] as u64;
-        (seed * base + MONSTER_GROUP_ORDER as u64) % (1 << 32)
+        (seed * base + MONSTER_GROUP_REPRESENTATION_DIMENSION as u64) % (1 << 32)
     }
 
     fn calculate_primorial_dimension(&self, index: usize) -> u32 {
@@ -97,7 +97,7 @@ impl MetaMemeSporeSystem {
             let token = MemeToken {
                 id: (seed * 10 + i) as u32,
                 value: (seed as f64 + i as f64) * 0.1,
-                monster_hash: ((seed + i) as u64 * 31) % MONSTER_GROUP_ORDER as u64,
+                monster_hash: ((seed + i) as u64 * 31) % MONSTER_GROUP_REPRESENTATION_DIMENSION as u64,
                 lisp_expression: format!("(lambda (x) (* x {}))", seed + i),
             };
             tokens.push(token);
@@ -133,7 +133,7 @@ impl MetaMemeSporeSystem {
         OptimizationMetrics {
             money_generated,
             meme_tokenization_rate: tokenization_rate,
-            monster_group_coherence,
+            monster_group_coherence: monster_coherence,
             resource_efficiency,
         }
     }
@@ -149,7 +149,7 @@ impl MetaMemeSporeSystem {
         let ramanujan_factor = (spore.godel_number % 24) as f64 / 24.0;
         let primorial_factor = spore.primorial_dimension as f64 / 23.0;
         
-        (hecke_alignment.abs() / MONSTER_GROUP_ORDER as f64) * ramanujan_factor * primorial_factor
+        (hecke_alignment.abs() / MONSTER_GROUP_REPRESENTATION_DIMENSION as f64) * ramanujan_factor * primorial_factor
     }
 
     fn aggregate_fitness(&self, metrics: &OptimizationMetrics) -> f64 {
@@ -183,7 +183,7 @@ impl MetaMemeSporeSystem {
     fn crossover(&self, parent1: &MetaMemeSpore, parent2: &MetaMemeSpore) -> MetaMemeSpore {
         MetaMemeSpore {
             godel_number: (parent1.godel_number + parent2.godel_number) / 2,
-            monster_element: (parent1.monster_element + parent2.monster_element) % MONSTER_GROUP_ORDER as u64,
+            monster_element: (parent1.monster_element + parent2.monster_element) % MONSTER_GROUP_REPRESENTATION_DIMENSION as u64,
             primorial_dimension: if parent1.fitness > parent2.fitness { 
                 parent1.primorial_dimension 
             } else { 
@@ -198,7 +198,7 @@ impl MetaMemeSporeSystem {
     fn mutate(&self, mut spore: MetaMemeSpore) -> MetaMemeSpore {
         // Mutate with 10% probability
         if rand::random::<f64>() < 0.1 {
-            spore.monster_element = (spore.monster_element + 1) % MONSTER_GROUP_ORDER as u64;
+            spore.monster_element = (spore.monster_element + 1) % MONSTER_GROUP_REPRESENTATION_DIMENSION as u64;
             spore.godel_number = spore.godel_number.wrapping_add(1);
         }
         spore
@@ -232,7 +232,7 @@ output [\"Optimal spore configuration: \", show(spore_elements), \"\\n\",
         \"RAM allocation: \", show(ram_allocation), \"\\n\",
         \"Total fitness: \", show(total_fitness)];",
             self.spores.len(),
-            MONSTER_GROUP_ORDER - 1,
+            MONSTER_GROUP_REPRESENTATION_DIMENSION - 1,
             self.spores.len(),
             self.spores.len()
         )

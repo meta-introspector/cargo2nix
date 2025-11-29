@@ -1,5 +1,5 @@
-use cargo2nix::{StructuralInvariantChecker, Monster108Constraints, MiniZincSolver};
-use cargo2nix::minizinc_data::MinizincInput;
+use solana_monster_system::{StructuralInvariantChecker, Monster108Constraints, MiniZincSolver};
+use solana_monster_system::minizinc_data::MinizincInput;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Structural Invariant Consistency Verification");

@@ -10,14 +10,14 @@ pub fn execute_minizinc_with_data<P: AsRef<Path>>(
     let temp_data = format!("/tmp/minizinc_data_{}.dzn", std::process::id());
     fs::write(&temp_data, input_data.to_string())?;
     
-    let result = execute_minizinc(model_path, Path::new(&temp_data));
+    let result = execute_minizinc(model_path, &temp_data);
     fs::remove_file(&temp_data).ok();
     result
 }
 
-pub fn execute_minizinc<P: AsRef<Path>>(
-    model_path: P,
-    data_path: P,
+pub fn execute_minizinc(
+    model_path: impl AsRef<Path>,
+    data_path: impl AsRef<Path>,
 ) -> Result<OptimalSolution, Box<dyn std::error::Error>> {
     let output = Command::new("minizinc")
         .arg("--output-mode")

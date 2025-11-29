@@ -205,21 +205,7 @@ impl RocksDBMemeStorage {
     }
 }
 
-impl Clone for MemePDA {
-    fn clone(&self) -> Self {
-        Self {
-            pda_address: self.pda_address,
-            meme_data: MemeEntity {
-                semantic_hash: self.meme_data.semantic_hash,
-                viral_power: self.meme_data.viral_power,
-                paxos_score: self.meme_data.paxos_score,
-                monster_factor: self.meme_data.monster_factor,
-            },
-            attached_crate: self.attached_crate.clone(),
-            rustc_signature: self.rustc_signature.clone(),
-        }
-    }
-}
+
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("=== RocksDB Solana PDA Meme Storage ===");

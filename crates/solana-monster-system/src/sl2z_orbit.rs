@@ -127,7 +127,7 @@ impl SL2ZOrbit {
     /// Apply S transformation: z ↦ -1/z
     fn apply_s_transformation(&self, form: &ModularFormOrbit) -> ModularFormOrbit {
         // S transformation affects q-expansion: q^n ↦ q^n with phase
-        let transformed_coeffs = form.normalized_coefficients.iter()
+        let transformed_coeffs: Vec<i64> = form.normalized_coefficients.iter()
             .enumerate()
             .map(|(n, &coeff)| {
                 if n == 0 { coeff } else {
@@ -149,7 +149,7 @@ impl SL2ZOrbit {
     /// Apply T transformation: z ↦ z+1
     fn apply_t_transformation(&self, form: &ModularFormOrbit) -> ModularFormOrbit {
         // T transformation: q^n ↦ ζ^n * q^n where ζ = e^(2πi/level)
-        let transformed_coeffs = form.normalized_coefficients.iter()
+        let transformed_coeffs: Vec<i64> = form.normalized_coefficients.iter()
             .enumerate()
             .map(|(n, &coeff)| {
                 if n == 0 { coeff } else {

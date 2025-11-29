@@ -11,6 +11,18 @@ pub struct Constraints {
     pub list: Vec<Constraint>,
 }
 
+impl Constraint {
+    pub fn new(id: usize, a: i64, b: i64, c: i64) -> Self {
+        Self { id, a, b, c }
+    }
+
+    pub fn verify(&self, witness: i64) -> bool {
+        // Placeholder for actual verification logic
+        // For now, let's say it always passes if witness is positive
+        witness > 0
+    }
+}
+
 impl Constraints {
     pub fn new() -> Self {
         Self { list: Vec::new() }

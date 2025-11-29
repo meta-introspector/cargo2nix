@@ -1,5 +1,5 @@
-use cargo2nix::{BinaryPowerSystem, MiniZincSolver};
-use cargo2nix::minizinc_data::MinizincInput;
+use solana_monster_system::{BinaryPowerSystem, MiniZincSolver};
+use solana_monster_system::minizinc_data::MinizincInput;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("The Power of Binary: The 2^46 Monster Group Factor");

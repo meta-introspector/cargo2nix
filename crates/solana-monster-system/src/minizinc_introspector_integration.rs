@@ -1,4 +1,4 @@
-use crate::{MONSTER_GROUP_ORDER, HECKE_EIGENVALUES};
+use crate::core_constants::{MONSTER_GROUP_REPRESENTATION_DIMENSION, HECKE_EIGENVALUES};
 use std::process::{Command, Stdio};
 use std::fs;
 use std::path::Path;
@@ -77,10 +77,10 @@ impl MiniZincIntrospectorIntegration {
             constraint forall(i in index_set(variables)) (\n\
                 variables[i] >= 0 /\\ variables[i] < {}\n\
             );",
-            MONSTER_GROUP_ORDER,
+            MONSTER_GROUP_REPRESENTATION_DIMENSION,
             HECKE_EIGENVALUES,
             content,
-            MONSTER_GROUP_ORDER
+            MONSTER_GROUP_REPRESENTATION_DIMENSION
         );
 
         let enhanced_file = format!("{}.monster_enhanced", input_file);
@@ -137,7 +137,7 @@ impl MiniZincIntrospectorIntegration {
                 show(sum(introspection_vars) mod 24), \")\\n\"\n\
             ];",
             problem_size,
-            MONSTER_GROUP_ORDER
+            MONSTER_GROUP_REPRESENTATION_DIMENSION
         )
     }
 

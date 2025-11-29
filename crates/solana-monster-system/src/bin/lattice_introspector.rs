@@ -1,4 +1,5 @@
-use cargo2nix::lattice_introspector::{LatticeIntrospector, ConstraintType};
+use solana_monster_system::lattice_introspector::{LatticeIntrospector, ConstraintType};
+use solana_monster_system::core_constants::{MONSTER_GROUP_REPRESENTATION_DIMENSION, HECKE_EIGENVALUES};
 use std::env;
 use std::fs;
 
@@ -19,7 +20,7 @@ fn main() {
     
     println!("🔍 Lattice Introspector: MiniZinc Integration");
     println!("Lattice Size: {}, Introspection Rounds: {}", lattice_size, introspection_rounds);
-    println!("Monster Group Order: {}", cargo2nix::MONSTER_GROUP_ORDER);
+    println!("Monster Group Order: {}", MONSTER_GROUP_REPRESENTATION_DIMENSION);
     
     let mut introspector = LatticeIntrospector::new();
     introspector.initialize_lattice(lattice_size);
@@ -175,7 +176,7 @@ fn generate_introspection_report(introspector: &LatticeIntrospector, rounds: i32
         introspector.nodes.len(),
         rounds,
         introspector.introspection_level,
-        cargo2nix::MONSTER_GROUP_ORDER,
+        MONSTER_GROUP_REPRESENTATION_DIMENSION,
         final_result.lattice_coherence,
         final_result.constraint_satisfaction,
         final_result.monster_alignment,
@@ -190,8 +191,8 @@ fn generate_introspection_report(introspector: &LatticeIntrospector, rounds: i32
             .map(|(i, r)| format!("{}. {}", i + 1, r))
             .collect::<Vec<_>>()
             .join("\n"),
-        cargo2nix::MONSTER_GROUP_ORDER,
-        cargo2nix::HECKE_EIGENVALUES
+        MONSTER_GROUP_REPRESENTATION_DIMENSION,
+        HECKE_EIGENVALUES
     );
     
     let report_filename = "lattice_introspection_report.md";

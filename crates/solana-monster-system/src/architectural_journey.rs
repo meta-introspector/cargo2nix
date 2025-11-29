@@ -218,7 +218,7 @@ impl ArchitecturalJourney {
         Ok(MappingResult {
             modular_mapping,
             l_function_mapping,
-            component_integration,
+            component_integration: component_integration.clone(),
             mapping_fidelity: if component_integration.clone().is_complete() {
                 MappingFidelity::High
             } else {
@@ -553,7 +553,7 @@ pub struct RealizationTracker;
 pub struct ModularMapping { complete: bool }
 #[derive(Debug)]
 pub struct LFunctionMapping { complete: bool }
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct ComponentIntegration { complete: bool }
 #[derive(Debug)]
 pub struct GeometricResult { verified: bool }

@@ -1,5 +1,5 @@
-use cargo2nix::{ModularFormEncoding, ModularFormZKP, MiniZincSolver};
-use cargo2nix::minizinc_data::MinizincInput;
+use solana_monster_system::{ModularFormEncoding, ModularFormZKP, MiniZincSolver};
+use solana_monster_system::minizinc_data::MinizincInput;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Modular Form Encoding (Φ) ZKP Verification");

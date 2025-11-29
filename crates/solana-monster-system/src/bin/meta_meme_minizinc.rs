@@ -1,4 +1,5 @@
-use cargo2nix::meta_meme_spore::MetaMemeSporeSystem;
+use solana_monster_system::MetaMemeSporeSystem;
+use solana_monster_system::core_constants::MONSTER_GROUP_REPRESENTATION_DIMENSION;
 use std::env;
 use std::fs;
 
@@ -133,7 +134,7 @@ fn generate_optimization_report(system: &MetaMemeSporeSystem) {
         best_spore.primorial_dimension,
         best_spore.resource_allocation.ram_bytes,
         best_spore.meme_tokens.len(),
-        cargo2nix::MONSTER_GROUP_ORDER,
+        MONSTER_GROUP_REPRESENTATION_DIMENSION,
         best_spore.meme_tokens.iter()
             .take(3)
             .enumerate()
@@ -153,5 +154,5 @@ fn generate_optimization_report(system: &MetaMemeSporeSystem) {
     println!("  Meme Token Value: ${:.2}", 
              best_spore.meme_tokens.iter().map(|t| t.value).sum::<f64>());
     println!("  Monster Group Coherence: {:.1}%", 
-             (best_spore.monster_element as f64 / cargo2nix::MONSTER_GROUP_ORDER as f64) * 100.0);
+             (best_spore.monster_element as f64 / MONSTER_GROUP_REPRESENTATION_DIMENSION as f64) * 100.0);
 }

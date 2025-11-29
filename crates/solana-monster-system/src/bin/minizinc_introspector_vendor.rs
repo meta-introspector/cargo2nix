@@ -1,4 +1,4 @@
-use cargo2nix::minizinc_introspector_integration::{MiniZincIntrospectorIntegration, VendorizationStatus};
+use solana_monster_system::minizinc_introspector_integration::{MiniZincIntrospectorIntegration, VendorizationStatus};
 use std::env;
 use std::fs;
 
@@ -151,7 +151,7 @@ fn test_solver_integration(integration: &MiniZincIntrospectorIntegration, model:
 }
 
 fn test_monster_group_verification() {
-    use cargo2nix::{MONSTER_GROUP_ORDER, HECKE_EIGENVALUES};
+    use solana_monster_system::core_constants::{MONSTER_GROUP_REPRESENTATION_DIMENSION, HECKE_EIGENVALUES};
     
     println!("  Monster Group Order: {}", MONSTER_GROUP_ORDER);
     println!("  Hecke Eigenvalues: {:?}", HECKE_EIGENVALUES);

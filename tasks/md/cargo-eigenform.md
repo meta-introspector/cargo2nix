@@ -86,3 +86,7 @@ This phase involves verifying the transformation and ensuring code quality.
 *   **User Experience**: The `cargo eigenform` command needs to be intuitive and provide clear feedback to the user.
 *   **Iterative Development**: This task is too large for a single pass; it will require an iterative approach with continuous testing and refinement.
 *   **Backward Compatibility**: Ensuring that the transformed crates can still be used by existing projects (if required) will be a challenge.
+
+## Related Tasks
+*   [CRQ-040: Rusttycoon Factory Regeneration](CRQ_040_Rusttycoon_Factory_Regeneration.md)
+

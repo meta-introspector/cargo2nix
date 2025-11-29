@@ -1,4 +1,4 @@
-use crate::{MONSTER_GROUP_ORDER, HECKE_EIGENVALUES, RAMANUJAN_TAU_COEFFICIENTS};
+use crate::core_constants::{MONSTER_GROUP_REPRESENTATION_DIMENSION, HECKE_EIGENVALUES, RAMANUJAN_TAU_COEFFICIENTS};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
@@ -19,9 +19,9 @@ pub enum MiniZincValue {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct MonsterGroupParameters {
-    pub monster_order: i32,
-    pub hecke_eigenvalues: Vec<i32>,
-    pub ramanujan_coefficients: Vec<i32>,
+    pub monster_order: i64,
+    pub hecke_eigenvalues: Vec<i64>,
+    pub ramanujan_coefficients: Vec<i64>,
     pub elliptic_fibers: Vec<EllipticFiber>,
     pub torus_points: Vec<TorusPoint>,
     pub monster_stabilizers: Vec<MonsterStabilizer>,
@@ -101,7 +101,7 @@ pub struct StabilizerMapping {
 impl MonsterGroupParameters {
     pub fn new() -> Self {
         Self {
-            monster_order: MONSTER_GROUP_ORDER as i32,
+            monster_order: MONSTER_GROUP_REPRESENTATION_DIMENSION as i64,
             hecke_eigenvalues: HECKE_EIGENVALUES.to_vec(),
             ramanujan_coefficients: RAMANUJAN_TAU_COEFFICIENTS.to_vec(),
             elliptic_fibers: Vec::new(),
@@ -156,9 +156,9 @@ impl MiniZincInput {
     pub fn from_monster_parameters(params: &MonsterGroupParameters) -> Self {
         let mut parameters = HashMap::new();
         
-        parameters.insert("monster_order".to_string(), MiniZincValue::Int(params.monster_order));
+        parameters.insert("monster_order".to_string(), MiniZincValue::Int(params.monster_order.try_into().unwrap()));
         parameters.insert("hecke_eigenvalues".to_string(), 
-                         MiniZincValue::Array(params.hecke_eigenvalues.iter().map(|&x| MiniZincValue::Int(x)).collect()));
+                         MiniZincValue::Array(params.hecke_eigenvalues.iter().map(|&x| MiniZincValue::Int(x.try_into().unwrap())).collect()));
         parameters.insert("n_fibers".to_string(), MiniZincValue::Int(params.elliptic_fibers.len() as i32));
         parameters.insert("n_torus_points".to_string(), MiniZincValue::Int(params.torus_points.len() as i32));
         

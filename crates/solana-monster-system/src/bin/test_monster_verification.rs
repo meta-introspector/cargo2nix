@@ -1,4 +1,4 @@
-use cargo2nix::monster_ffi::{verify_monster_element, verify_hecke_eigenvalue, verify_modular_constraint};
+use solana_monster_system::monster_ffi::{verify_monster_element, verify_hecke_eigenvalue, verify_modular_constraint};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Testing Monster Group FFI verification...");

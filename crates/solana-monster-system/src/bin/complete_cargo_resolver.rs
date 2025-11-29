@@ -134,12 +134,12 @@ impl CompleteCargoResolver {
     fn add_rust_std_library(&mut self) {
         println!("=== Adding Rust std library ===");
         
-        let std_exports = vec![
+        let std_exports: Vec<String> = vec![
             "println", "format", "write", "read_to_string", "HashMap", 
             "Vec", "String", "Option", "Result", "Iterator", "Clone",
             "Debug", "Display", "Default", "From", "Into", "AsRef",
             "fs", "io", "collections", "thread", "sync", "net"
-        ];
+        ].into_iter().map(String::from).collect();
         
         self.add_crate_exports("std", std_exports);
     }
@@ -174,14 +174,27 @@ impl CompleteCargoResolver {
             "serialize".to_string(), "deserialize".to_string(), "spawn".to_string(),
             "blake3".to_string(), "hash".to_string(), "criterion".to_string(),
         ];
-        
+
+        let mut resolutions_to_apply = Vec::new();
+        let mut unresolved_to_print = Vec::new();
+
         for usage in &self.unresolved {
             if let Some((full_name, phi)) = self.resolve_usage(usage) {
-                self.resolved.insert(usage.clone(), (full_name, phi));
-                println!("  {} → {} (φ = {})", usage, self.resolved[usage].0, phi);
+                resolutions_to_apply.push((usage.clone(), full_name, phi));
             } else {
-                println!("  {} → STILL UNRESOLVED", usage);
+                unresolved_to_print.push(usage.clone());
             }
+        }
+        
+        // Now apply mutable changes and print resolved items
+        for (usage, full_name, phi) in resolutions_to_apply {
+            self.resolved.insert(usage.clone(), (full_name, phi));
+            println!("  {} → {} (φ = {})", usage, self.resolved[usage].0, phi);
+        }
+
+        // Print unresolved items
+        for usage in unresolved_to_print {
+            println!("  {} → STILL UNRESOLVED", usage);
         }
     }
 }

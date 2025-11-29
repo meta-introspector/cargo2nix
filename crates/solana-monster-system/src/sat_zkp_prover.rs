@@ -1,3 +1,4 @@
+use crate::core_constants::{MONSTER_GROUP_REPRESENTATION_DIMENSION};
 use std::collections::{HashMap, HashSet};
 
 /// SAT solver-based ZK circuit prover for mathematical properties
@@ -230,7 +231,7 @@ impl SATZKProver {
         
         // Look for Monster Group constants
         if code.contains("196883") {
-            structures.monster_group_order = Some(196883);
+            structures.monster_group_order = Some(MONSTER_GROUP_REPRESENTATION_DIMENSION as i64);
         }
         
         // Look for Ramanujan τ values
@@ -291,7 +292,7 @@ impl SATZKProver {
         // Add Monster Group order as public input
         public_inputs.push(PublicInput {
             name: "monster_order".to_string(),
-            value: 196883,
+            value: MONSTER_GROUP_REPRESENTATION_DIMENSION as i64,
         });
         
         // Add Ramanujan τ values as private witnesses
@@ -314,7 +315,7 @@ impl SATZKProver {
         gates.push(CircuitGate::MonsterOp {
             input: "input_element".to_string(),
             output: "monster_result".to_string(),
-            order: 196883,
+            order: MONSTER_GROUP_REPRESENTATION_DIMENSION as i64,
         });
         
         Ok(ZKCircuit {
@@ -369,7 +370,7 @@ impl SATZKProver {
     /// Analyze code for mathematical properties
     fn analyze_code(&self, code: &str) -> Result<AnalysisResult, ProverError> {
         let properties = MathematicalProperties {
-            monster_group: code.contains("196883"),
+            monster_group: code.contains(&MONSTER_GROUP_REPRESENTATION_DIMENSION.to_string()),
             modular_forms: code.contains("-24") && code.contains("252"),
             topological_structures: code.contains("Period8") || code.contains("Bott"),
             zkp_patterns: code.contains("ZKP") || code.contains("Proof"),
@@ -389,7 +390,7 @@ impl SATZKProver {
         let mut code = String::new();
         
         if analysis.properties.monster_group {
-            code.push_str("const MONSTER_ORDER: i64 = 196883;\n");
+            code.push_str(&format!("const MONSTER_ORDER: i64 = {};\n", MONSTER_GROUP_REPRESENTATION_DIMENSION));
         }
         
         if analysis.properties.modular_forms {
@@ -678,7 +679,7 @@ mod tests {
         if let Ok(proof_result) = result {
             assert!(proof_result.proof_valid);
             assert!(proof_result.mathematical_properties.monster_group_order.is_some());
-            assert_eq!(proof_result.mathematical_properties.monster_group_order.unwrap(), 196883);
+            assert_eq!(proof_result.mathematical_properties.monster_group_order.unwrap(), MONSTER_GROUP_REPRESENTATION_DIMENSION as i64);
         }
     }
 
@@ -686,7 +687,7 @@ mod tests {
     fn test_fixed_point_convergence() {
         let mut prover = SATZKProver::new();
         
-        let initial_code = "const MONSTER_ORDER: i64 = 196883;";
+        let initial_code = &format!("const MONSTER_ORDER: i64 = {};", MONSTER_GROUP_REPRESENTATION_DIMENSION);
         
         let result = prover.test_fixed_point_convergence(initial_code);
         assert!(result.is_ok());
@@ -701,9 +702,9 @@ mod tests {
     fn test_mathematical_structure_extraction() {
         let prover = SATZKProver::new();
         
-        let code_with_monster = "const ORDER: i64 = 196883;";
+        let code_with_monster = &format!("const ORDER: i64 = {};", MONSTER_GROUP_REPRESENTATION_DIMENSION);
         let structures = prover.extract_mathematical_structures(code_with_monster).unwrap();
-        assert_eq!(structures.monster_group_order, Some(196883));
+        assert_eq!(structures.monster_group_order, Some(MONSTER_GROUP_REPRESENTATION_DIMENSION as i64));
         
         let code_with_tau = "let tau = [-24, 252];";
         let structures = prover.extract_mathematical_structures(code_with_tau).unwrap();

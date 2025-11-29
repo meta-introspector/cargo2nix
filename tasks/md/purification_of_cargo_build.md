@@ -73,3 +73,7 @@ The refactoring is an ongoing process. The immediate next steps involve systemat
 *   Fixing `error[E0425]: cannot find value `CurrentCargoTomlProcessor` in this scope` by ensuring the `CargoTomlProcessor` trait and its implementations are correctly defined and imported from `tool-traits-lib` and that the `CurrentCargoTomlProcessor` alias is properly resolved.
 
 This iterative process of building, identifying errors, and applying targeted fixes will continue until the codebase is fully purified and all features are correctly gated.
+
+## Related Tasks
+*   [CRQ-040: Rusttycoon Factory Regeneration](CRQ_040_Rusttycoon_Factory_Regeneration.md)
+

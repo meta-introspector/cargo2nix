@@ -1,4 +1,4 @@
-use cargo2nix::{KnowledgebaseFormatter, KnowledgebaseEntry, MiniZincSolver};
+use solana_monster_system::{KnowledgebaseFormatter, KnowledgebaseEntry, MiniZincSolver};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Executing MiniZinc Solver with Monster Group Constraints");

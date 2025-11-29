@@ -1,5 +1,5 @@
-use cargo2nix::{FortySixSystem, MiniZincSolver};
-use cargo2nix::minizinc_data::MinizincInput;
+use solana_monster_system::{FortySixSystem, MiniZincSolver};
+use solana_monster_system::minizinc_data::MinizincInput;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("46: The Monster Group Binary Exponent");

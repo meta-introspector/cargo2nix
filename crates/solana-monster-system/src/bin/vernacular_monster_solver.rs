@@ -1,4 +1,4 @@
-use cargo2nix::{VernacularMonsterSolver, VernacularEmbedding, MonsterTarget, MiniZincSolver};
+use solana_monster_system::{VernacularMonsterSolver, VernacularEmbedding, MonsterTarget, MiniZincSolver};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Vernacular Rust → Monster Group Path Solver");

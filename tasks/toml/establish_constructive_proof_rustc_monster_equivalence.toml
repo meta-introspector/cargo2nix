@@ -3,7 +3,7 @@ description = """
 Move beyond merely asserting `rustc`-Monster Group isomorphism by establishing a provable,
 constructible, algorithmic link. The new trait system (e.g., `MonstrouslyVerified`) provides
 the concrete framework for this, functionally translating `rustc` compiler mechanisms into
-verifiable constraints derived directly from the Monster Group's own geometric substructures.
+verifiable constraints derived directly from the Monster Group's own geometric substructures. This translation begins with `syn` parsing Rust AST into Gödel numbers within a Galois Field, transforming raw Rust syntax into an algebraically tractable form. This initial algebraic embedding allows for the application of the Monster Group's 108 factors and 194 conjugacy classes for formal complexity and semantic transformation analysis.
 """
 status = "todo"
 priority = "HIGH"

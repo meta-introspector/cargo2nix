@@ -1,4 +1,4 @@
-use crate::{MONSTER_GROUP_ORDER, HECKE_EIGENVALUES};
+use crate::core_constants::{MONSTER_GROUP_REPRESENTATION_DIMENSION, HECKE_EIGENVALUES};
 
 #[derive(Debug, Clone)]
 pub struct LatticeNode {
@@ -48,7 +48,7 @@ impl LatticeIntrospector {
         for i in 0..size {
             let node = LatticeNode {
                 id: i as u32,
-                monster_element: (i as u64 * 31) % MONSTER_GROUP_ORDER as u64,
+                monster_element: (i as u64 * 31) % MONSTER_GROUP_REPRESENTATION_DIMENSION as u64,
                 introspection_depth: (i % 8) as u8,
                 constraint_weight: (i as f64 + 1.0) / size as f64,
                 connections: self.generate_connections(i, size),
@@ -93,7 +93,7 @@ impl LatticeIntrospector {
             name: "lattice_uniqueness".to_string(),
             constraint_type: ConstraintType::AllDifferent,
             variables: (0..self.nodes.len()).map(|i| format!("node_{}", i)).collect(),
-            bounds: (0, MONSTER_GROUP_ORDER as i32 - 1),
+            bounds: (0, MONSTER_GROUP_REPRESENTATION_DIMENSION as i32 - 1),
             monster_alignment: 0.8,
         });
 
@@ -188,7 +188,7 @@ impl LatticeIntrospector {
                 HECKE_EIGENVALUES[1] as f64
             };
             
-            let normalized_alignment = hecke_alignment.abs() / MONSTER_GROUP_ORDER as f64;
+            let normalized_alignment = hecke_alignment.abs() / MONSTER_GROUP_REPRESENTATION_DIMENSION as f64;
             alignment += normalized_alignment * node.constraint_weight;
         }
         
@@ -264,7 +264,7 @@ output [
 ];",
             self.introspection_level,
             self.nodes.len(),
-            MONSTER_GROUP_ORDER
+            MONSTER_GROUP_REPRESENTATION_DIMENSION
         )
     }
 }

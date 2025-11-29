@@ -1,4 +1,4 @@
-use crate::{MONSTER_GROUP_ORDER, HECKE_EIGENVALUES};
+use crate::core_constants::{MONSTER_GROUP_REPRESENTATION_DIMENSION, HECKE_EIGENVALUES};
 use std::ffi::{CString, CStr};
 use std::os::raw::{c_char, c_int, c_void};
 
@@ -96,7 +96,7 @@ output [
     \"Sum mod 24: \", show(sum(lattice) mod 24), \"\\n\"
 ];",
             size,
-            MONSTER_GROUP_ORDER,
+            MONSTER_GROUP_REPRESENTATION_DIMENSION,
             HECKE_EIGENVALUES[0].abs(),
             HECKE_EIGENVALUES[1].abs()
         )
@@ -180,7 +180,7 @@ output [
         let unique_elements: std::collections::HashSet<_> = solution.iter().collect();
         let uniqueness_check = unique_elements.len() == solution.len();
         
-        let bounds_check = solution.iter().all(|&x| x >= 0 && x < MONSTER_GROUP_ORDER as i32);
+        let bounds_check = solution.iter().all(|&x| x >= 0 && x < MONSTER_GROUP_REPRESENTATION_DIMENSION as i32);
         
         modular_check && uniqueness_check && bounds_check
     }
@@ -232,7 +232,7 @@ mod mock_ffi {
             let name = CStr::from_ptr(var_name).to_string_lossy();
             if name.starts_with("lattice_") {
                 let index: usize = name[8..].parse().unwrap_or(0);
-                (index * 24) as i32 % MONSTER_GROUP_ORDER as i32
+                (index * 24) as i32 % MONSTER_GROUP_REPRESENTATION_DIMENSION as i32
             } else if name.starts_with("resource_") {
                 let index: usize = name[9..].parse().unwrap_or(0);
                 (index * 10) as i32
