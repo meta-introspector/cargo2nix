@@ -2,9 +2,6 @@
 
 use std::marker::PhantomData;
 
-// Import rustc_driver for Callbacks trait
-use rustc_driver;
-
 // --- Mock DefId, LocalDefId, OwnerId ---
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct DefId;
@@ -246,27 +243,3 @@ impl MockBinder {
         MockBinder
     }
 }
-
-
-// --- Mock rustc_driver::Callbacks related types ---
-pub struct MockCompiler;
-
-pub struct MockCompilation;
-
-impl MockCompilation {
-    pub const Continue: Self = MockCompilation;
-    pub const Stop: Self = MockCompilation;
-}
-
-impl rustc_driver::Callbacks for MockCallbacks {
-    fn after_analysis<'tcx>(
-        &mut self,
-        _compiler: &MockCompiler, // Use MockCompiler here for the mock implementation
-        _tcx: TyCtxt<'tcx>,
-    ) -> MockCompilation {
-        MockCompilation::Continue
-    }
-}
-pub struct MockCallbacks; // Needs to implement rustc_driver::Callbacks
-
-// All vernacular trait impls removed.
