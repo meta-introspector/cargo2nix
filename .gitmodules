@@ -205,9 +205,7 @@
 [submodule "submodules/rusty-fork"]
 	path = submodules/rusty-fork
 	url = https://github.com/meta-introspector/rusty-fork.git
-[submodule "submodules/parking_lot"]
-	path = submodules/parking_lot
-	url = https://github.com/meta-introspector/parking_lot.git
+
 [submodule "submodules/thread_local-rs"]
 	path = submodules/thread_local-rs
 	url = https://github.com/meta-introspector/thread_local-rs.git
