@@ -1,5 +1,5 @@
 {
-  description = "A minimal development shell for cargo2nix (Phase 1: uses pre-built cargo)";
+  description = "Development shell for cargo2nix with necessary libraries for building";
 
   inputs = {
     nixpkgs.url = "github:meta-introspector/nixpkgs?ref=feature/CRQ-016-nixify";
@@ -8,102 +8,55 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:meta-introspector/flake-utils?ref=feature/CRQ-016-nixify";
-    cargo2nix.url = "github:meta-introspector/cargo2nix/release-0.12";
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , rust-overlay
-    , flake-utils
-    , cargo2nix
-    }:
+  outputs = { self, nixpkgs, rust-overlay, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
-    let
-      overlays = [
-        #cargo2nix.overlays.default
-        rust-overlay.overlays.default
-      ];
-      pkgs = import nixpkgs {
-        inherit system overlays;
-        config = {
-          permittedInsecurePackages = [ "openssl-1.1.1w" ];
+      let
+        overlays = [ rust-overlay.overlays.default ];
+        pkgs = import nixpkgs {
+          inherit system overlays;
+          config = {
+            permittedInsecurePackages = [ "openssl-1.1.1w" ];
+          };
         };
-      };
 
-      myRustc = pkgs.rust-bin.nightly."2025-09-16".default;
+        myRustc = pkgs.rust-bin.nightly."2025-09-16".default;
 
-      rustPkgs = pkgs.rustBuilder.makePackageSet {
-        rustToolchain = myRustc;
-      };
+      in
+      {
+        devShells.default = pkgs.mkShell {
+          packages = [
+            # Rust toolchain
+            myRustc
+            pkgs.cargo
+            pkgs.rustfmt
+            pkgs.clippy
 
-      # Use pre-built cargo from nixpkgs for Phase 1
-      cargo = pkgs.cargo;
+            # System libraries needed for libgit2-sys and curl-sys
+            pkgs.libgit2 # For libgit2-sys
+            pkgs.curl    # For curl-sys
+            pkgs.openssl_1_1.dev # Explicitly use OpenSSL 1.1.1w development files
+            pkgs.libssh2 # For git SSH support
+            pkgs.zlib    # For compression
+            pkgs.nghttp2 # For HTTP/2 support
+            pkgs.pkg-config # Needed for build scripts to find libraries
 
-      workspaceShell = pkgs.mkShell {
-        packages = [ 
-          pkgs.statix 
-          pkgs.openssl_1_1.dev 
-          pkgs.zlib.dev 
-          pkgs.sccache 
-          pkgs.llvm_19
-          pkgs.libclang
-          pkgs.clang_19
-          pkgs.pkg-config
-          pkgs.minizinc
-          pkgs.gecode
-          pkgs.rust-analyzer
-        ];
-        shellHook = ''
-          export PKG_CONFIG_PATH=${pkgs.openssl_1_1.dev}/lib/pkgconfig:${pkgs.zlib.dev}/lib/pkgconfig:$PKG_CONFIG_PATH
-          export PATH=${myRustc}/bin:${cargo}/bin:${pkgs.sccache}/bin:$PATH
-          
-          # Configure libclang for bindgen (RocksDB needs this)
-          export LIBCLANG_PATH=${pkgs.libclang.lib}/lib
-          export CLANG_PATH=${pkgs.clang_19}/bin/clang
-          
-          # Set up bindgen environment for RocksDB
-          export BINDGEN_EXTRA_CLANG_ARGS="-I${pkgs.llvm_19.dev}/include -I${pkgs.glibc.dev}/include -I${pkgs.gcc.cc}/lib/gcc/x86_64-unknown-linux-gnu/*/include"
-          
-          # Ensure C++ compiler is available for RocksDB
-          export CC=${pkgs.clang_19}/bin/clang
-          export CXX=${pkgs.clang_19}/bin/clang++
-          
-          # RocksDB specific environment
-          export ROCKSDB_STATIC=1
-          
-          echo "🦀 Rust + RocksDB development environment ready!"
-          echo "LIBCLANG_PATH: $LIBCLANG_PATH"
-          echo "CC: $CC"
-          echo "CXX: $CXX"
-        '';
-      };
-    in
-    rec {
-      devShells = {
-        default = workspaceShell;
-      };
+            # Compilers (clang is used in error messages, so include it)
+            pkgs.clang
+            pkgs.gcc
 
-      packages = rec {
-        inherit cargo;
-        default = cargo;
-        
-        #minizinc-env = (import ./nix/minizinc.nix { inherit pkgs lib; }).minizinc-env;
-        
-        #monster-solution = (import ./nix/minizinc.nix { inherit pkgs lib; }).runMiniZinc {
-        #  model = ./models/monster_optimization.mzn;
-        #  data = ./models/monster_data.dzn;
-        #};
-        
-        #knowledgebase-solution = (import ./nix/minizinc.nix { inherit pkgs lib; }).runMiniZinc {
-        #  model = ./models/knowledgebase_optimization.mzn;
-        #};
-      };
+            # Other potentially useful tools
+            pkgs.statix
+          ];
 
-      apps = rec {
-        cargo = { type = "app"; program = "${packages.cargo}/bin/cargo"; };
-        default = cargo;
-      };
-    }
+          shellHook = ''
+            export PKG_CONFIG_PATH=${pkgs.openssl_1_1.dev}/lib/pkgconfig:$PKG_CONFIG_PATH
+            # Ensure cargo is available in PATH for cargo build inside nix develop
+            export PATH=${myRustc}/bin:${pkgs.cargo}/bin:$PATH
+            echo "Nix development shell with Rust, libgit2, curl, and OpenSSL 1.1.1w ready."
+          '';
+        };
+      }
     );
 }
