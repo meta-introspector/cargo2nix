@@ -8,8 +8,8 @@ use trait_fixer_attribute_reader_trait::AttributeReader; // Import the trait
 
 // Implementation for TyCtxt
 impl<'tcx> AttributeReader<'tcx> for TyCtxt<'tcx> {
-    fn has_derive_attr(&self, tcx: TyCtxt<'tcx>, def_id: DefId, trait_name: &str) -> bool {
-        tcx.get_attrs(def_id, sym::derive)
+    fn has_derive_attr(&self, def_id: DefId, trait_name: &str) -> bool {
+        self.get_attrs(def_id, sym::derive) // Use self directly
             .flat_map(|attr| attr.meta_item_list().into_iter().flatten())
             .any(|item| item.has_name(Symbol::intern(trait_name)))
     }
