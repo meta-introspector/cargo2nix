@@ -6,8 +6,8 @@ use trait_fixer_compiler_host_trait::CompilerHost; // Import the trait
 // A concrete implementation using rustc_driver
 pub struct ActualCompilerHost;
 
-impl CompilerHost for ActualCompilerHost {
-    fn run_compiler_callbacks<C: rustc_driver::Callbacks>(
+impl<C: rustc_driver::Callbacks> CompilerHost<C> for ActualCompilerHost { // Generic over C
+    fn run_compiler_callbacks(
         &self,
         args: Vec<String>,
         callbacks: &mut C,
