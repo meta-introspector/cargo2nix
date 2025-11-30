@@ -67,10 +67,36 @@ members = [
     "submodules/dot-parser",
     "submodules/dot-parser/macros",
     "submodules/rocksdb",
-    "submodules/rocksdb/librocksdb-sys",
-
-]
-exclude = [
+        "submodules/rocksdb/librocksdb-sys",
+        "crates/trait-fixer-attribute-reader-trait",
+        "crates/trait-fixer-attribute-reader-real",
+        "crates/trait-fixer-attribute-reader-mock",
+        "crates/trait-fixer-compiler-host-trait",
+        "crates/trait-fixer-compiler-host-real",
+        "crates/trait-fixer-compiler-host-mock",
+        "crates/trait-fixer-core-trait",
+        "crates/trait-fixer-core-real",
+        "crates/trait-fixer-core-mock",
+        "crates/trait-fixer-hir-info-trait",
+        "crates/trait-fixer-hir-info-real",
+        "crates/trait-fixer-hir-info-mock",
+        "crates/trait-fixer-lang-items-trait",
+        "crates/trait-fixer-lang-items-real",
+        "crates/trait-fixer-lang-items-mock",
+        "crates/trait-fixer-query-context-trait",
+        "crates/trait-fixer-query-context-real",
+        "crates/trait-fixer-query-context-mock",
+        "crates/trait-fixer-rules-trait",
+        "crates/trait-fixer-rules-real",
+        "crates/trait-fixer-rules-mock",
+        "crates/trait-fixer-rustc-mock",
+        "crates/trait-fixer-trait-checker-trait",
+        "crates/trait-fixer-trait-checker-real",
+        "crates/trait-fixer-trait-checker-mock",
+        "tests/trait_fixer_mocks",
+        "tests/real_rules_test",
+    ]
+    exclude = [
     "crates/solana-monster-system/generated_pure_traits.rs",
 ]
 
@@ -350,6 +376,10 @@ rustc_middle = { path = "submodules/rust/compiler/rustc_middle" }
 rustc_session = { path = "submodules/rust/compiler/rustc_session" }
 rustc_span = { path = "submodules/rust/compiler/rustc_span" }
 rustc_tools_util = { path = "submodules/rust/src/tools/clippy/rustc_tools_util" }
+rustc_infer = { path = "submodules/rust/compiler/rustc_infer" }
+rustc_trait_selection = { path = "submodules/rust/compiler/rustc_trait_selection" }
+rustc_transmute = { path = "submodules/rust/compiler/rustc_transmute" }
+
 rustfix = { path = "submodules/cargo/crates/rustfix" }
 ruzstd = { path = "submodules/zstd-rs/ruzstd" }
 ryu = { path = "submodules/ryu" }
