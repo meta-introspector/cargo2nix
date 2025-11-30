@@ -23,6 +23,6 @@ impl<'tcx> AttributeReader<'tcx> for MockAttributeReaderTyCtxt<'tcx> {
     }
 
     fn sym_intern(s: &str) -> Self::Symbol {
-        Symbol.intern(s)
+        Symbol::intern(s) // Corrected from Symbol.intern(s)
     }
 }
