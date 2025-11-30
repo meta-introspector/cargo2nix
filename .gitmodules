@@ -1713,3 +1713,6 @@
 [submodule "submodules/jemallocator"]
 	path = submodules/jemallocator
 	url = https://github.com/meta-introspector/jemallocator
+[submodule "submodules/sccache"]
+	path = submodules/sccache
+	url = https://github.com/meta-introspector/sccache
