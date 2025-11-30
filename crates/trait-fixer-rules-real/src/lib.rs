@@ -1,7 +1,7 @@
 // crates/trait-fixer-rules-real/src/lib.rs
 
 use serde::Deserialize;
-use trait_fixer_rules_trait::{ConfigTrait, Rule, RuleKind}; // Import from trait crate
+use trait_fixer_rules_trait::{ConfigTrait, Rule}; // Import from trait crate
 use toml;
 
 #[derive(Debug, Deserialize)]
