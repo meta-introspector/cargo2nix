@@ -3,7 +3,10 @@
 use trait_fixer_trait_checker_trait::TraitChecker;
 use trait_fixer_rustc_mock::{TyCtxt, DefId, Ty, Symbol}; // All from mock crate
 
-impl<'tcx> TraitChecker<'tcx> for TyCtxt<'tcx> {
+// Newtype wrapper to implement external trait for external type
+pub struct MockTraitCheckerTyCtxt<'tcx>(pub TyCtxt<'tcx>);
+
+impl<'tcx> TraitChecker<'tcx> for MockTraitCheckerTyCtxt<'tcx> {
     type Ty = Ty<'tcx>;
     type DefId = DefId;
     type Symbol = Symbol;

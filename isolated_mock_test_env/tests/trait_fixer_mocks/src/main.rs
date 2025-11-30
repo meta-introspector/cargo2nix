@@ -13,15 +13,19 @@ use trait_fixer_compiler_host_mock::MockCompilerHost;
 
 // HirInfo mocks and trait
 use trait_fixer_hir_info_trait::HirInfo;
+use trait_fixer_hir_info_mock::MockHirInfoItem; // Import newtype wrapper
 
 // LangItems mocks and trait
 use trait_fixer_lang_items_trait::LangItems;
+use trait_fixer_lang_items_mock::MockLangItemsTyCtxt; // Import newtype wrapper
 
 // QueryContext mocks and trait
 use trait_fixer_query_context_trait::QueryContext;
+use trait_fixer_query_context_mock::MockQueryContextTyCtxt; // Import newtype wrapper
 
 // TraitChecker mocks and trait
 use trait_fixer_trait_checker_trait::TraitChecker;
+use trait_fixer_trait_checker_mock::MockTraitCheckerTyCtxt; // Import newtype wrapper
 
 
 // Mock Callbacks for CompilerHost test
@@ -48,28 +52,31 @@ fn main() {
     println!("Mock compiler host test passed!\n");
 
     println!("--- Running mock HirInfo test ---");
-    let mock_item = Item(std::marker::PhantomData);
-    let owner_id = HirInfo::get_owner_id(&mock_item);
-    let item_kind = HirInfo::get_item_kind(&mock_item);
-    let item_span = HirInfo::get_item_span(&mock_item);
-    assert_eq!(owner_id, OwnerId, "Mock HirInfo::get_owner_id failed"); // Use OwnerId directly
+    let raw_mock_item = Item(std::marker::PhantomData);
+    let mock_item_wrapper = MockHirInfoItem(raw_mock_item); // Wrap the mock Item
+    let owner_id = mock_item_wrapper.get_owner_id();
+    let item_kind = mock_item_wrapper.get_item_kind();
+    let item_span = mock_item_wrapper.get_item_span();
+    assert_eq!(owner_id, OwnerId, "Mock HirInfo::get_owner_id failed");
     println!("Mock HirInfo::get_item_kind returned: {:?}", item_kind);
     println!("Mock HirInfo::get_item_span returned: {:?}", item_span);
     println!("Mock HirInfo test passed!\n");
 
     println!("--- Running mock LangItems test ---");
-    let mock_tcx_instance_lang = TyCtxt(std::marker::PhantomData);
+    let raw_mock_tcx_instance_lang = TyCtxt(std::marker::PhantomData);
+    let mock_tcx_wrapper_lang = MockLangItemsTyCtxt(raw_mock_tcx_instance_lang); // Wrap the mock TyCtxt
     let sym_debug_mock = sym::Debug;
-    let clone_def_id = LangItems::get_clone_trait_def_id(&mock_tcx_instance_lang);
-    let debug_def_id = LangItems::get_debug_trait_def_id(&mock_tcx_instance_lang, sym_debug_mock);
-    assert_eq!(clone_def_id, Some(DefId), "Mock LangItems::get_clone_trait_def_id failed"); // Use DefId directly
-    assert_eq!(debug_def_id, Some(DefId), "Mock LangItems::get_debug_trait_def_id failed"); // Use DefId directly
+    let clone_def_id = mock_tcx_wrapper_lang.get_clone_trait_def_id();
+    let debug_def_id = mock_tcx_wrapper_lang.get_debug_trait_def_id(sym_debug_mock);
+    assert_eq!(clone_def_id, Some(DefId), "Mock LangItems::get_clone_trait_def_id failed");
+    assert_eq!(debug_def_id, Some(DefId), "Mock LangItems::get_debug_trait_def_id failed");
     println!("Mock LangItems test passed!\n");
 
     println!("--- Running mock QueryContext test ---");
-    let mock_tcx_instance_query = TyCtxt(std::marker::PhantomData);
+    let raw_mock_tcx_instance_query = TyCtxt(std::marker::PhantomData);
+    let mock_tcx_wrapper_query = MockQueryContextTyCtxt(raw_mock_tcx_instance_query); // Wrap the mock TyCtxt
     let mut call_count = 0;
-    QueryContext::walk_hir_tops(&mock_tcx_instance_query, |_item: &Item| { // Use Item directly
+    mock_tcx_wrapper_query.walk_hir_tops(|_item: &Item| {
         call_count += 1;
         println!("  Mock QueryContext::walk_hir_tops called with an item (call {})", call_count);
     });
@@ -77,15 +84,16 @@ fn main() {
     println!("Mock QueryContext test passed!\n");
 
     println!("--- Running mock TraitChecker test ---");
-    let mock_tcx_instance_checker = TyCtxt(std::marker::PhantomData);
+    let raw_mock_tcx_instance_checker = TyCtxt(std::marker::PhantomData);
+    let mock_tcx_wrapper_checker = MockTraitCheckerTyCtxt(raw_mock_tcx_instance_checker); // Wrap the mock TyCtxt
     let mock_adt_ty = Ty(std::marker::PhantomData);
     let mock_item_def_id = DefId;
     let mock_trait_def_id = DefId;
-    let sym_intern_fn = |s: &str| Symbol::intern(s); // Corrected: Mock sym_intern function
+    let sym_intern_fn = |s: &str| Symbol::intern(s);
 
-    let trait_def_id = TraitChecker::get_trait_def_id(&mock_tcx_instance_checker, "Clone", sym_intern_fn);
-    let implements_trait = TraitChecker::type_implements_trait(&mock_tcx_instance_checker, mock_adt_ty, mock_item_def_id, mock_trait_def_id);
-    assert_eq!(trait_def_id, Some(DefId), "Mock TraitChecker::get_trait_def_id failed"); // Use DefId directly
+    let trait_def_id = mock_tcx_wrapper_checker.get_trait_def_id("Clone", sym_intern_fn);
+    let implements_trait = mock_tcx_wrapper_checker.type_implements_trait(mock_adt_ty, mock_item_def_id, mock_trait_def_id);
+    assert_eq!(trait_def_id, Some(DefId), "Mock TraitChecker::get_trait_def_id failed");
     assert_eq!(implements_trait, true, "Mock TraitChecker::type_implements_trait failed");
     println!("Mock TraitChecker test passed!\n");
 }

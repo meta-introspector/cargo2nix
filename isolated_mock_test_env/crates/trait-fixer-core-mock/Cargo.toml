@@ -6,4 +6,4 @@ edition = "2021"
 [dependencies]
 trait-fixer-core-trait = { workspace = true }
 trait-fixer-rustc-mock = { workspace = true }
-trait-fixer-rules = { workspace = true } # For rules::Config or its mock
+trait-fixer-rules-mock = { workspace = true } # Changed from trait-fixer-rules

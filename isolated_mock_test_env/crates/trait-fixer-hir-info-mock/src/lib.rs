@@ -4,7 +4,10 @@ use trait_fixer_hir_info_trait::HirInfo;
 use trait_fixer_rustc_mock::{Item, OwnerId, ItemKind, Span}; // All from mock crate
 use std::marker::PhantomData; // Needed for ItemKind and Item in mock
 
-impl<'tcx> HirInfo<'tcx> for Item<'tcx> {
+// Newtype wrapper to implement external trait for external type
+pub struct MockHirInfoItem<'tcx>(pub Item<'tcx>);
+
+impl<'tcx> HirInfo<'tcx> for MockHirInfoItem<'tcx> {
     type Item = Item<'tcx>;
     type OwnerId = OwnerId;
     type ItemKind = ItemKind<'tcx>;

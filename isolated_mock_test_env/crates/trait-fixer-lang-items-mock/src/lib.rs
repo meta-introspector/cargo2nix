@@ -3,7 +3,10 @@
 use trait_fixer_lang_items_trait::LangItems;
 use trait_fixer_rustc_mock::{TyCtxt, DefId, sym, Symbol}; // All from mock crate
 
-impl<'tcx> LangItems<'tcx> for TyCtxt<'tcx> {
+// Newtype wrapper to implement external trait for external type
+pub struct MockLangItemsTyCtxt<'tcx>(pub TyCtxt<'tcx>);
+
+impl<'tcx> LangItems<'tcx> for MockLangItemsTyCtxt<'tcx> {
     type DefId = DefId;
     type Symbol = Symbol;
 
