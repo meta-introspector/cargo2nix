@@ -1,0 +1,8 @@
+[package]
+name = "trait-fixer-compiler-host-mock"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+trait-fixer-compiler-host-trait = { workspace = true }
+trait-fixer-rustc-mock = { workspace = true }

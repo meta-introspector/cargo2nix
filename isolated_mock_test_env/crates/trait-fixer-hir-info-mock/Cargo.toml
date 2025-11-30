@@ -1,0 +1,8 @@
+[package]
+name = "trait-fixer-hir-info-mock"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+trait-fixer-hir-info-trait = { workspace = true }
+trait-fixer-rustc-mock = { workspace = true }

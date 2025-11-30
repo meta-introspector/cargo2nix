@@ -1,0 +1,8 @@
+[package]
+name = "trait-fixer-attribute-reader-mock"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+trait-fixer-attribute-reader-trait = { workspace = true }
+trait-fixer-rustc-mock = { workspace = true }

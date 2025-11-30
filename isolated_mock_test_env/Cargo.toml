@@ -1,0 +1,24 @@
+[workspace]
+members = [
+    "crates/trait-fixer-rustc-mock",
+    "crates/trait-fixer-attribute-reader-trait",
+    "crates/trait-fixer-attribute-reader-mock",
+    "crates/trait-fixer-compiler-host-trait",
+    "crates/trait-fixer-compiler-host-mock",
+    "crates/trait-fixer-core-trait",
+    "crates/trait-fixer-core-mock",
+    "crates/trait-fixer-hir-info-trait",
+    "crates/trait-fixer-hir-info-mock",
+    "crates/trait-fixer-lang-items-trait",
+    "crates/trait-fixer-lang-items-mock",
+    "crates/trait-fixer-query-context-trait",
+    "crates/trait-fixer-query-context-mock",
+    "crates/trait-fixer-rules-trait",
+    "crates/trait-fixer-rules-mock",
+    "crates/trait-fixer-trait-checker-trait",
+    "crates/trait-fixer-trait-checker-mock",
+    "tests/trait_fixer_mocks",
+]
+
+[workspace.dependencies]
+serde = { version = "1.0", features = ["derive"] }

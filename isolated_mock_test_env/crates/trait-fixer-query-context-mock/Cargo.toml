@@ -1,0 +1,8 @@
+[package]
+name = "trait-fixer-query-context-mock"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+trait-fixer-query-context-trait = { workspace = true }
+trait-fixer-rustc-mock = { workspace = true }

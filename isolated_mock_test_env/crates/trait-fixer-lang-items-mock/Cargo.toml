@@ -1,0 +1,8 @@
+[package]
+name = "trait-fixer-lang-items-mock"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+trait-fixer-lang-items-trait = { workspace = true }
+trait-fixer-rustc-mock = { workspace = true }
