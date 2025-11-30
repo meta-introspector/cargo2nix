@@ -1,0 +1,10 @@
+[package]
+name = "trait-fixer-query-context-real"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rustc_middle = { workspace = true }
+rustc_hir = { workspace = true }
+rustc_interface = { workspace = true } # queries type
+trait-fixer-query-context-trait = { path = "../trait-fixer-query-context-trait" }

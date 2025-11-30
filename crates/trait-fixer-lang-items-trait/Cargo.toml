@@ -1,0 +1,8 @@
+[package]
+name = "trait-fixer-lang-items-trait"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rustc_middle = { workspace = true }
+rustc_hir = { workspace = true } # for DefId

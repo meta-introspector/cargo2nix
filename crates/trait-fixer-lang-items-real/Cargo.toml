@@ -1,0 +1,10 @@
+[package]
+name = "trait-fixer-lang-items-real"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rustc_middle = { workspace = true }
+rustc_span = { workspace = true } # for Symbol
+rustc_hir = { workspace = true } # Added
+trait-fixer-lang-items-trait = { path = "../trait-fixer-lang-items-trait" }

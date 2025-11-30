@@ -1,0 +1,12 @@
+[package]
+name = "trait-fixer-trait-checker-real"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rustc_middle = { workspace = true }
+rustc_infer = { workspace = true }
+rustc_trait_selection = { workspace = true }
+rustc_span = { workspace = true }
+rustc_hir = { workspace = true } # for DefId
+trait-fixer-trait-checker-trait = { path = "../trait-fixer-trait-checker-trait" }

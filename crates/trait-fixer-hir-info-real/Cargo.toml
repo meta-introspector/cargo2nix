@@ -1,0 +1,9 @@
+[package]
+name = "trait-fixer-hir-info-real"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rustc_hir = { workspace = true }
+rustc_span = { workspace = true }
+trait-fixer-hir-info-trait = { path = "../trait-fixer-hir-info-trait" }

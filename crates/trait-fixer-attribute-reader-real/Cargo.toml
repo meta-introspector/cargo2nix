@@ -1,0 +1,10 @@
+[package]
+name = "trait-fixer-attribute-reader-real"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rustc_middle = { workspace = true }
+rustc_span = { workspace = true }
+rustc_hir = { workspace = true } # for DefId
+trait-fixer-attribute-reader-trait = { path = "../trait-fixer-attribute-reader-trait" }
