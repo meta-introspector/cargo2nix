@@ -1,7 +1,7 @@
 // isolated_mock_test_env/tests/trait_fixer_mocks/src/main.rs
 
 // Common mock types
-use trait_fixer_rustc_mock::{TyCtxt, DefId, sym, Symbol, Item, OwnerId, ItemKind, Span, Ty};
+use trait_fixer_rustc_mock::{TyCtxt, DefId, sym, Symbol, Item, OwnerId, Ty}; // Removed unused ItemKind and Span
 
 // AttributeReader mocks and trait
 use trait_fixer_attribute_reader_trait::AttributeReader;
@@ -65,7 +65,7 @@ fn main() {
     println!("--- Running mock LangItems test ---");
     let raw_mock_tcx_instance_lang = TyCtxt(std::marker::PhantomData);
     let mock_tcx_wrapper_lang = MockLangItemsTyCtxt(raw_mock_tcx_instance_lang); // Wrap the mock TyCtxt
-    let sym_debug_mock = sym::Debug;
+    let sym_debug_mock = sym::DEBUG; // Use uppercase DEBUG
     let clone_def_id = mock_tcx_wrapper_lang.get_clone_trait_def_id();
     let debug_def_id = mock_tcx_wrapper_lang.get_debug_trait_def_id(sym_debug_mock);
     assert_eq!(clone_def_id, Some(DefId), "Mock LangItems::get_clone_trait_def_id failed");

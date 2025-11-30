@@ -1,7 +1,7 @@
 // isolated_mock_test_env/crates/trait-fixer-lang-items-mock/src/lib.rs
 
 use trait_fixer_lang_items_trait::LangItems;
-use trait_fixer_rustc_mock::{TyCtxt, DefId, sym, Symbol}; // All from mock crate
+use trait_fixer_rustc_mock::{TyCtxt, DefId, Symbol}; // All from mock crate, removed unused sym
 
 // Newtype wrapper to implement external trait for external type
 pub struct MockLangItemsTyCtxt<'tcx>(pub TyCtxt<'tcx>);
