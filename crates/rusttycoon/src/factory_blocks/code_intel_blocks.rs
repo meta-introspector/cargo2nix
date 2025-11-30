@@ -9,16 +9,19 @@ use quote::quote; // Added for Rust code generation
 use crate::factory_blocks::automorphic_blocks::{RustDiagramFlakeV1Block}; // Corrected path
 //use super::rustc_meta_blocks::{RustcBlock}; // Corrected path
 use crate::factory_blocks::math_crypto_blocks::{HeckeOperatorBlock};
+use serde::{Deserialize, Serialize}; // Add this import
 
 
-#[derive(Clone)] // Add Clone derive
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct LLVMBlock;
 impl FactoryBlock for LLVMBlock {
     fn name(&self) -> &'static str { "LLVM Backend" }
     fn cost(&self) -> u32 { 75 }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct RustcCompileBlock;
 impl FactoryBlock for RustcCompileBlock {
     fn name(&self) -> &'static str { "Rustc Compile Task" }
@@ -31,7 +34,8 @@ impl FactoryBlock for RustcCompileBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct FeatureDiagnosticBlock;
 impl FactoryBlock for FeatureDiagnosticBlock {
     fn name(&self) -> &'static str { "Feature Diagnostic" }
@@ -43,7 +47,8 @@ impl FactoryBlock for FeatureDiagnosticBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct HasherBlock;
 impl FactoryBlock for HasherBlock {
     fn name(&self) -> &'static str { "File Hasher" }
@@ -56,14 +61,16 @@ impl FactoryBlock for HasherBlock {
     }
 }
 
-#[derive(Clone)] // Add Clone derive
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct SynBlock;
 impl FactoryBlock for SynBlock {
     fn name(&self) -> &'static str { "Syn Parser" }
     fn cost(&self) -> u32 { 15 }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct UseResolverBlock;
 impl FactoryBlock for UseResolverBlock {
     fn name(&self) -> &'static str { "Use Resolver" }
@@ -75,7 +82,8 @@ impl FactoryBlock for UseResolverBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct DeclSplitterBlock;
 impl FactoryBlock for DeclSplitterBlock {
     fn name(&self) -> &'static str { "Declaration Splitter" }
@@ -87,7 +95,8 @@ impl FactoryBlock for DeclSplitterBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct PetgraphBlock;
 impl FactoryBlock for PetgraphBlock {
     fn name(&self) -> &'static str { "Petgraph Analyzer" }
@@ -99,7 +108,8 @@ impl FactoryBlock for PetgraphBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct GraphEigenvectorBlock;
 impl FactoryBlock for GraphEigenvectorBlock {
     fn name(&self) -> &'static str { "Graph Eigenvector Calculator" }
@@ -111,7 +121,8 @@ impl FactoryBlock for GraphEigenvectorBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct TopologicalSortBlock;
 impl FactoryBlock for TopologicalSortBlock {
     fn name(&self) -> &'static str { "Topological Sorter" }
@@ -123,7 +134,8 @@ impl FactoryBlock for TopologicalSortBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct NumericalTransformBlock;
 impl FactoryBlock for NumericalTransformBlock {
     fn name(&self) -> &'static str { "Numerical Transformer" }
@@ -135,14 +147,16 @@ impl FactoryBlock for NumericalTransformBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct LspBlock;
 impl FactoryBlock for LspBlock {
     fn name(&self) -> &'static str { "LSP Server" }
     fn cost(&self) -> u32 { 60 }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct TraitFeatureExtractorBlock;
 impl FactoryBlock for TraitFeatureExtractorBlock {
     fn name(&self) -> &'static str { "Trait & Feature Extractor" }
@@ -156,7 +170,8 @@ impl FactoryBlock for TraitFeatureExtractorBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct IdeaGeneratorBlock;
 impl FactoryBlock for IdeaGeneratorBlock {
     fn name(&self) -> &'static str { "Idea Generator (Code Discovery)" }
@@ -170,7 +185,8 @@ impl FactoryBlock for IdeaGeneratorBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct BinaryCatalogBlock;
 impl FactoryBlock for BinaryCatalogBlock {
     fn name(&self) -> &'static str { "Binary Catalog (Documentation)" }
@@ -184,7 +200,8 @@ impl FactoryBlock for BinaryCatalogBlock {
 }
 
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct CodeConceptMapperBlock;
 impl FactoryBlock for CodeConceptMapperBlock {
     fn name(&self) -> &'static str { "Code Concept Mapper" }
@@ -197,7 +214,8 @@ impl FactoryBlock for CodeConceptMapperBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct TaskCatalogBlock;
 impl FactoryBlock for TaskCatalogBlock {
     fn name(&self) -> &'static str { "Task Catalog (Documentation)" }
@@ -210,7 +228,8 @@ impl FactoryBlock for TaskCatalogBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct WikidataBlock;
 impl FactoryBlock for WikidataBlock {
     fn name(&self) -> &'static str { "Wikidata Explorer" }
@@ -222,7 +241,8 @@ impl FactoryBlock for WikidataBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct RustSrcIngestBlock;
 impl FactoryBlock for RustSrcIngestBlock {
     fn name(&self) -> &'static str { "Rust Source Ingester" }

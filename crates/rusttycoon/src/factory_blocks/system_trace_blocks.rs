@@ -6,8 +6,10 @@ use std::fs; // Added
 use chrono::Local; // Added for timestamps
 use serde_json::Value; // Added for parsing flake.lock
 use quote::quote; // Added for Rust code generation
+use serde::{Deserialize, Serialize}; // Add this import
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct TcpdumpBlock;
 impl FactoryBlock for TcpdumpBlock {
     fn name(&self) -> &'static str { "Tcpdump" }
@@ -19,7 +21,8 @@ impl FactoryBlock for TcpdumpBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct EbpfBlock;
 impl FactoryBlock for EbpfBlock {
     fn name(&self) -> &'static str { "eBPF Tracer" }
@@ -31,7 +34,8 @@ impl FactoryBlock for EbpfBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct StraceBlock;
 impl FactoryBlock for StraceBlock {
     fn name(&self) -> &'static str { "Strace" }
@@ -43,7 +47,8 @@ impl FactoryBlock for StraceBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct PtraceBlock;
 impl FactoryBlock for PtraceBlock {
     fn name(&self) -> &'static str { "Ptrace" }

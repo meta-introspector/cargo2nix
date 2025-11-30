@@ -6,8 +6,10 @@ use std::fs; // Added
 use chrono::Local; // Added for timestamps
 use serde_json::Value; // Added for parsing flake.lock
 use quote::quote; // Added for Rust code generation
+use serde::{Deserialize, Serialize}; // Add this import
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct DynamicBlock;
 impl FactoryBlock for DynamicBlock {
     fn name(&self) -> &'static str { "Dynamic Block (Reflection)" }

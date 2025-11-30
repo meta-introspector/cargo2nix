@@ -1629,3 +1629,87 @@
 [submodule "gists/clippytask-gist"]
 	path = gists/clippytask-gist
 	url = https://gist.github.com/jmikedupont2/092f560f26c1866dbd8e323827c9f953.git
+[submodule "submodules/async-graphql"]
+	path = submodules/async-graphql
+	url = https://github.com/async-graphql/async-graphql
+[submodule "submodules/chacha20"]
+	path = submodules/chacha20
+	url = https://github.com/RustCrypto/stream-ciphers
+[submodule "submodules/chrono-tz"]
+	path = submodules/chrono-tz
+	url = https://github.com/chronotope/chrono-tz
+[submodule "submodules/chrono-tz-build"]
+	path = submodules/chrono-tz-build
+	url = https://github.com/chronotope/chrono-tz
+[submodule "submodules/deunicode"]
+	path = submodules/deunicode
+	url = https://github.com/kornelski/deunicode/
+[submodule "submodules/dot"]
+	path = submodules/dot
+	url = https://github.com/GrahamDennis/dot-rust
+[submodule "submodules/expect-test"]
+	path = submodules/expect-test
+	url = https://github.com/rust-analyzer/expect-test
+[submodule "submodules/humansize"]
+	path = submodules/humansize
+	url = https://github.com/LeopoldArkham/humansize
+[submodule "submodules/io-close"]
+	path = submodules/io-close
+	url = https://gitlab.com/wufz/io-close
+[submodule "submodules/nohash-hasher"]
+	path = submodules/nohash-hasher
+	url = https://github.com/paritytech/nohash-hasher
+[submodule "submodules/ordered-float"]
+	path = submodules/ordered-float
+	url = https://github.com/reem/rust-ordered-float
+[submodule "submodules/parse-zoneinfo"]
+	path = submodules/parse-zoneinfo
+	url = https://github.com/chronotope/chrono-tz
+[submodule "submodules/phf_codegen"]
+	path = submodules/phf_codegen
+	url = https://github.com/rust-phf/rust-phf
+[submodule "submodules/phf_generator"]
+	path = submodules/phf_generator
+	url = https://github.com/rust-phf/rust-phf
+[submodule "submodules/pulldown-cmark-to-cmark"]
+	path = submodules/pulldown-cmark-to-cmark
+	url = https://github.com/Byron/pulldown-cmark-to-cmark
+[submodule "submodules/rand_chacha"]
+	path = submodules/rand_chacha
+	url = https://github.com/rust-random/rand
+[submodule "submodules/rand_core"]
+	path = submodules/rand_core
+	url = https://github.com/rust-random/rand
+[submodule "submodules/rand_xoshiro"]
+	path = submodules/rand_xoshiro
+	url = https://github.com/rust-random/rngs
+[submodule "submodules/rowan"]
+	path = submodules/rowan
+	url = https://github.com/rust-analyzer/rowan
+[submodule "submodules/rustc-literal-escaper"]
+	path = submodules/rustc-literal-escaper
+	url = https://github.com/rust-lang/literal-escaper
+[submodule "submodules/siphasher"]
+	path = submodules/siphasher
+	url = https://github.com/jedisct1/rust-siphash
+[submodule "submodules/slug"]
+	path = submodules/slug
+	url = https://github.com/Stebalien/slug-rs
+[submodule "submodules/temp-dir"]
+	path = submodules/temp-dir
+	url = https://gitlab.com/leonhard-llc/ops
+[submodule "submodules/tracing-tree"]
+	path = submodules/tracing-tree
+	url = https://github.com/davidbarsky/tracing-tree
+[submodule "submodules/triomphe"]
+	path = submodules/triomphe
+	url = https://github.com/Manishearth/triomphe
+[submodule "submodules/xshell"]
+	path = submodules/xshell
+	url = https://github.com/matklad/xshell
+[submodule "submodules/salsa"]
+	path = submodules/salsa
+	url = https://github.com/meta-introspector/salsa
+[submodule "submodules/jemallocator"]
+	path = submodules/jemallocator
+	url = https://github.com/meta-introspector/jemallocator

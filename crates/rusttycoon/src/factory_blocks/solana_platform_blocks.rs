@@ -6,8 +6,10 @@ use std::fs; // Added
 use chrono::Local; // Added for timestamps
 use serde_json::Value; // Added for parsing flake.lock
 use quote::quote; // Added for Rust code generation
+use serde::{Deserialize, Serialize}; // Add this import
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct SolanaRustcIngestBlock;
 impl FactoryBlock for SolanaRustcIngestBlock {
     fn name(&self) -> &'static str { "Solana Rustc Ingester" }
@@ -21,7 +23,8 @@ impl FactoryBlock for SolanaRustcIngestBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct SolanaRustcMonsterProveBlock;
 impl FactoryBlock for SolanaRustcMonsterProveBlock {
     fn name(&self) -> &'static str { "Solana Rustc Monster Prover" }
@@ -33,7 +36,8 @@ impl FactoryBlock for SolanaRustcMonsterProveBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct SolanaRustcLevel10Block;
 impl FactoryBlock for SolanaRustcLevel10Block {
     fn name(&self) -> &'static str { "Solana Rustc Lvl 10" }
@@ -45,7 +49,8 @@ impl FactoryBlock for SolanaRustcLevel10Block {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct SolanaSealevelLayerBlock;
 impl FactoryBlock for SolanaSealevelLayerBlock {
     fn name(&self) -> &'static str { "Solana Sealevel Layer" }
@@ -57,7 +62,8 @@ impl FactoryBlock for SolanaSealevelLayerBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct SolanaValidatorTycoonBlock;
 impl FactoryBlock for SolanaValidatorTycoonBlock {
     fn name(&self) -> &'static str { "Solana Validator Tycoon" }
@@ -69,7 +75,8 @@ impl FactoryBlock for SolanaValidatorTycoonBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct RustcToSolanaLoaderBlock;
 impl FactoryBlock for RustcToSolanaLoaderBlock {
     fn name(&self) -> &'static str { "Rustc to Solana Loader" }

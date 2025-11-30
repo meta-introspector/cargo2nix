@@ -6,8 +6,10 @@ use std::fs; // Added
 use chrono::Local; // Added for timestamps
 use serde_json::Value; // Added for parsing flake.lock
 use quote::quote; // Added for Rust code generation
+use serde::{Deserialize, Serialize}; // Add this import
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct MemelordBotBlock;
 impl FactoryBlock for MemelordBotBlock {
     fn name(&self) -> &'static str { "Meme Lord Bot" }
@@ -20,7 +22,8 @@ impl FactoryBlock for MemelordBotBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct ShillBotBlock;
 impl FactoryBlock for ShillBotBlock {
     fn name(&self) -> &'static str { "Shill Bot" }
@@ -32,7 +35,8 @@ impl FactoryBlock for ShillBotBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct TwitterInputBlock;
 impl FactoryBlock for TwitterInputBlock {
     fn name(&self) -> &'static str { "Twitter Feed Integrator" }
@@ -44,7 +48,8 @@ impl FactoryBlock for TwitterInputBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct TelegramInputBlock;
 impl FactoryBlock for TelegramInputBlock {
     fn name(&self) -> &'static str { "Telegram Feed Integrator" }
@@ -56,7 +61,8 @@ impl FactoryBlock for TelegramInputBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct DiscordInputBlock;
 impl FactoryBlock for DiscordInputBlock {
     fn name(&self) -> &'static str { "Discord Feed Integrator" }
@@ -68,7 +74,8 @@ impl FactoryBlock for DiscordInputBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct EmojicodeLoaderBlock;
 impl FactoryBlock for EmojicodeLoaderBlock {
     fn name(&self) -> &'static str { "Emojicode Loader" }

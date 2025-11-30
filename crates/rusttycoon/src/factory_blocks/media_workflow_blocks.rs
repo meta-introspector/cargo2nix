@@ -10,10 +10,12 @@ use crate::factory_blocks::ai_llm_blocks::{NotebookLMBlock, LlmBlock}; // Needed
 use crate::factory_blocks::CodeEvaluatorBlock; // Needed for InvokeAIConversionBlock
 //use crate::factory_blocks::RustcBlock; // Needed for InvokeAIConversionBlock
 use crate::factory_blocks::rustc_meta_blocks::RustcBlock; // Needed for InvokeAIConversionBlock
+use serde::{Deserialize, Serialize}; // Add this import
 // use super::meme_comm_blocks; // Not used in this file
 
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct ImageGeneratorBlock;
 impl FactoryBlock for ImageGeneratorBlock {
     fn name(&self) -> &'static str { "Image Generator API" }
@@ -25,7 +27,8 @@ impl FactoryBlock for ImageGeneratorBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct AudioGeneratorBlock;
 impl FactoryBlock for AudioGeneratorBlock {
     fn name(&self) -> &'static str { "Audio Generator API" }
@@ -37,7 +40,8 @@ impl FactoryBlock for AudioGeneratorBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct VideoGeneratorBlock;
 impl FactoryBlock for VideoGeneratorBlock {
     fn name(&self) -> &'static str { "Video Generator API" }
@@ -49,7 +53,8 @@ impl FactoryBlock for VideoGeneratorBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct InvokeAIConversionBlock;
 impl FactoryBlock for InvokeAIConversionBlock {
     fn name(&self) -> &'static str { "Invoke.AI to Rust Converter" }
@@ -67,7 +72,8 @@ impl FactoryBlock for InvokeAIConversionBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct ReportGeneratorBlock;
 impl FactoryBlock for ReportGeneratorBlock {
     fn name(&self) -> &'static str { "Report Generator" }
@@ -79,7 +85,8 @@ impl FactoryBlock for ReportGeneratorBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct AutomatedReportVideoAudioWorkflowBlock;
 impl FactoryBlock for AutomatedReportVideoAudioWorkflowBlock {
     fn name(&self) -> &'static str { "Automated Report/Media Workflow" }
@@ -110,7 +117,8 @@ impl FactoryBlock for AutomatedReportVideoAudioWorkflowBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct LaTeXProcessorBlock;
 impl FactoryBlock for LaTeXProcessorBlock {
     fn name(&self) -> &'static str { "LaTeX Processor" }
@@ -149,14 +157,16 @@ impl FactoryBlock for LaTeXProcessorBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct MermaidBlock;
 impl FactoryBlock for MermaidBlock {
     fn name(&self) -> &'static str { "Mermaid" }
     fn cost(&self) -> u32 { 10 }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct MermaidIntegrationBlock;
 impl FactoryBlock for MermaidIntegrationBlock {
     fn name(&self) -> &'static str { "Mermaid Integration" }
@@ -209,7 +219,8 @@ impl FactoryBlock for MermaidIntegrationBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct ArchiveOrgBlock;
 impl FactoryBlock for ArchiveOrgBlock {
     fn name(&self) -> &'static str { "Archive.org Downloader" }

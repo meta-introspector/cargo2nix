@@ -26,6 +26,7 @@ plan = [
     "Implement the logic for finding and counting non-vendored modules.",
     "Integrate into `run_analyze_command` in `tools/cargo-repo-sync/src/cli/run_commands.rs`."
 ]
+status = "completed"
 
 [[python_script_translation_plan]]
 name = "generate_config_patches.py"
@@ -93,6 +94,7 @@ plan = [
     "Analyze the shell script's functionality (likely checking for non-vendored workspaces).",
     "Implement equivalent checks and logic in Rust."
 ]
+status = "completed"
 
 [[shell_script_translation_plan]]
 name = "ensure_submodule_workspaces.sh"

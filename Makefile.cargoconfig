@@ -16,7 +16,7 @@ CARGO_CONFIG_DIR := $(PROJECT_ROOT)/.cargo
 CARGO_CONFIG_ROOT := $(CARGO_CONFIG_DIR)/config.toml
 
 # --- NEW ADDITIONS START HERE ---
-FIND_NON_VENDORED_SCRIPT := $(PROJECT_ROOT)/find_non_vendored.py
+FIND_NON_VENDORED_BIN := $(PROJECT_ROOT)/target/debug/find_non_vendored
 NON_VENDORED_MODULES_FILE := $(CARGO_CONFIG_DIR)/non_vendored_modules.txt
 UNVENDORED_CONFIG_REPORT_FILE := $(CARGO_CONFIG_DIR)/unvendored_config_report.txt
 # --- NEW ADDITIONS END HERE ---
@@ -26,7 +26,7 @@ FILTERED_CONFIG_PATHS_FILE := $(CARGO_CONFIG_DIR)/filtered_config_paths.txt
 
 .PHONY: all clean update-cargo-configs backup-configs check-non-vendored-configs check-unvendored-configs-report
 
-all: update-cargo-configs check-non-vendored-configs check-unvendored-configs-report depgraph.dot
+all: update-cargo-configs check-non-vendored-configs check-unvendored-configs-report ensure-workspaces-rust depgraph.dot
 
 # Main target to update all Cargo configurations
 update-cargo-configs: backup-configs $(CARGO_CONFIG_ROOT) $(ABSOLUTE_CONFIG_FILE) $(FILTERED_CONFIG_PATHS_FILE)
@@ -41,10 +41,10 @@ non-vendored :$(NON_VENDORED_MODULES_FILE)
 	     echo
 	     
 # Target to identify non-vendored modules
-$(NON_VENDORED_MODULES_FILE): tree.txt $(FIND_NON_VENDORED_SCRIPT)
+$(NON_VENDORED_MODULES_FILE): tree.txt $(FIND_NON_VENDORED_BIN)
 	@echo "--- Identifying non-vendored modules and saving to $(NON_VENDORED_MODULES_FILE) ---"
 	@mkdir -p $(CARGO_CONFIG_DIR)
-	$(FIND_NON_VENDORED_SCRIPT) > $@
+	$(FIND_NON_VENDORED_BIN) --project-root $(PROJECT_ROOT) --input-file tree.txt > $@
 	@echo "--- Non-vendored modules identified ---"
 
 # Target to check configurations for non-vendored modules
@@ -126,3 +126,20 @@ clean:
 		done < $(FILTERED_CONFIG_PATHS_FILE); \
 	fi
 	@echo "--- Cleanup complete ---"
+
+# New Rust binary for ensuring workspaces
+ENSURE_WORKSPACES_BIN := $(PROJECT_ROOT)/target/debug/ensure_workspaces
+
+# Target to build the ensure_workspaces Rust binary
+$(ENSURE_WORKSPACES_BIN):
+	cargo build -p cargo-repo-sync --bin ensure_workspaces
+
+# Target to build the find_non_vendored Rust binary
+$(FIND_NON_VENDORED_BIN):
+	cargo build -p cargo-repo-sync --bin find_non_vendored
+
+# New target to run the ensure_workspaces Rust binary
+ensure-workspaces-rust: $(ENSURE_WORKSPACES_BIN) $(NON_VENDORED_MODULES_FILE)
+	@echo "--- Ensuring [workspace] sections with Rust binary ---"
+	$(ENSURE_WORKSPACES_BIN) --project-root $(PROJECT_ROOT) --non-vendored-modules-file $(NON_VENDORED_MODULES_FILE)
+	@echo "--- Rust binary ensure_workspaces completed ---"

@@ -4,17 +4,17 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-walkdir = "2.5.0"
-syn = { version = "2.0.110", features = ["full", "extra-traits", "visit"] }
-petgraph = "0.6.4"
-clap = "4.5.53"
-toml = "0.8.11"
-chrono = "0.4.38"
-sha2 = "0.10.9"
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-anyhow = "1.0.100"
-rocksdb = "0.21.0"
+walkdir  = { workspace=true } #  "2.5.0"
+syn  = { workspace=true } #  { version  = { workspace=true } #  "2.0.110", features  = { workspace=true } #  ["full", "extra-traits", "visit"] }
+petgraph  = { workspace=true } #  "0.6.4"
+clap  = { workspace=true } #  "4.5.53"
+toml  = { workspace=true } #  "0.8.11"
+chrono  = { workspace=true } #  "0.4.38"
+sha2  = { workspace=true } #  "0.10.9"
+serde  = { workspace=true } #  { version  = { workspace=true } #  "1.0", features  = { workspace=true } #  ["derive"] }
+serde_json  = { workspace=true } #  "1.0"
+anyhow  = { workspace=true } #  "1.0.100"
+rocksdb  = { workspace=true } #  "0.21.0"
 proc-macro2 = { workspace = true }
 quote = { workspace = true }
 

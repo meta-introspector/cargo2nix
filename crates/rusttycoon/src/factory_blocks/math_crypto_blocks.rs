@@ -6,36 +6,42 @@ use std::fs; // Added
 use chrono::Local; // Added for timestamps
 use serde_json::Value; // Added for parsing flake.lock
 use quote::quote; // Added for Rust code generation
+use serde::{Deserialize, Serialize}; // Add this import
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct Lean4Block;
 impl FactoryBlock for Lean4Block {
     fn name(&self) -> &'static str { "Lean 4 Theorem Prover" }
     fn cost(&self) -> u32 { 200 }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct MiniZincBlock;
 impl FactoryBlock for MiniZincBlock {
     fn name(&self) -> &'static str { "MiniZinc Solver" }
     fn cost(&self) -> u32 { 80 }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct McpBlock;
 impl FactoryBlock for McpBlock {
     fn name(&self) -> &'static str { "MCP Server" }
     fn cost(&self) -> u32 { 90 }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct LmfdbBlock;
 impl FactoryBlock for LmfdbBlock {
     fn name(&self) -> &'static str { "LMFDB Integrator" }
     fn cost(&self) -> u32 { 180 }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct RaoulBottBlock;
 impl FactoryBlock for RaoulBottBlock {
     fn name(&self) -> &'static str { "Raoul Bott (8-fold Periodicity)" }
@@ -48,7 +54,8 @@ impl FactoryBlock for RaoulBottBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct Lean4MathlibBlock;
 impl FactoryBlock for Lean4MathlibBlock {
     fn name(&self) -> &'static str { "Lean 4 Mathlib" }
@@ -61,7 +68,8 @@ impl FactoryBlock for Lean4MathlibBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct ZKPMapperBlock;
 impl FactoryBlock for ZKPMapperBlock {
     fn name(&self) -> &'static str { "ZKP Graph Mapper" }
@@ -73,7 +81,8 @@ impl FactoryBlock for ZKPMapperBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct HeckeOperatorBlock;
 impl FactoryBlock for HeckeOperatorBlock {
     fn name(&self) -> &'static str { "Hecke Operator (8-fold)" }
@@ -87,7 +96,8 @@ impl FactoryBlock for HeckeOperatorBlock {
 
 
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct ZKPProofBlock;
 impl FactoryBlock for ZKPProofBlock {
     fn name(&self) -> &'static str { "ZKP Proof Generator" }
@@ -99,7 +109,8 @@ impl FactoryBlock for ZKPProofBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct ConwayMonsterProofBlock;
 impl FactoryBlock for ConwayMonsterProofBlock {
     fn name(&self) -> &'static str { "Conway Monster Proof" }
@@ -111,7 +122,8 @@ impl FactoryBlock for ConwayMonsterProofBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct R1CSBlock;
 impl FactoryBlock for R1CSBlock {
     fn name(&self) -> &'static str { "R1CS (Rank-1 Constraint System)" }

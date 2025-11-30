@@ -22,9 +22,15 @@ path = "src/main.rs"
 clap = { workspace = true, features = ["derive"] }
 anyhow = { workspace = true }
 rocksdb = { workspace = true } # Added rocksdb dependency
-chrono = "0.4" # Added for timestamps
-serde_json = "1.0" # Added for parsing flake.lock
-quote = "1.0" # Added for Rust code generation
+chrono = { workspace = true } # Added for timestamps
+serde_json = { workspace = true } # Added for parsing flake.lock
+quote = { workspace = true } # Added for Rust code generation
+serde = { workspace = true, features = ["derive"] } # Added for serialization
+typetag = "0.2" # Added for trait object serialization
+syntax = { path = "../../submodules/rust-analyzer/crates/syntax" }
+base-db = { path = "../../submodules/rust-analyzer/crates/base-db" }
+ide-db = { path = "../../submodules/rust-analyzer/crates/ide-db" }
+ide-assists = { path = "../../submodules/rust-analyzer/crates/ide-assists" }
 rust-mcp-server = { path = "../rust-mcp-server" }
 factory_abi = { path = "../factory_abi" }
 libloading = "0.7"

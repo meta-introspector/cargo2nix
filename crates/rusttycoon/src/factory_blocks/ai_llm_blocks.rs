@@ -7,17 +7,20 @@ use chrono::Local; // Added for timestamps
 use serde_json::Value; // Added for parsing flake.lock
 use quote::quote; // Added for Rust code generation
 use crate::factory_blocks::media_workflow_blocks::{ReportGeneratorBlock, VideoGeneratorBlock, AudioGeneratorBlock};
+use serde::{Deserialize, Serialize}; // Add this import
 //use crate::factory_blocks::rustc_meta_blocks::RustcBlock; // For InvokeAIConversionBlock
 
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct LlmBlock;
 impl FactoryBlock for LlmBlock {
     fn name(&self) -> &'static str { "LLM" }
     fn cost(&self) -> u32 { 150 }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct HuggingFaceBlock;
 impl FactoryBlock for HuggingFaceBlock {
     fn name(&self) -> &'static str { "Hugging Face Integrator" }
@@ -29,7 +32,8 @@ impl FactoryBlock for HuggingFaceBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct OllamaIntegrationBlock;
 impl FactoryBlock for OllamaIntegrationBlock {
     fn name(&self) -> &'static str { "Ollama LLM Integration" }
@@ -41,7 +45,8 @@ impl FactoryBlock for OllamaIntegrationBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct OpenRouterBlock;
 impl FactoryBlock for OpenRouterBlock {
     fn name(&self) -> &'static str { "OpenRouter LLM Access" }
@@ -53,7 +58,8 @@ impl FactoryBlock for OpenRouterBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct SoraBlock;
 impl FactoryBlock for SoraBlock {
     fn name(&self) -> &'static str { "Sora Text-to-Video" }
@@ -65,7 +71,8 @@ impl FactoryBlock for SoraBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct GroqImagineBlock;
 impl FactoryBlock for GroqImagineBlock {
     fn name(&self) -> &'static str { "GroqImage Generator" }
@@ -77,7 +84,8 @@ impl FactoryBlock for GroqImagineBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct NotebookLMBlock;
 impl FactoryBlock for NotebookLMBlock {
     fn name(&self) -> &'static str { "NotebookLM Integration" }
@@ -90,7 +98,8 @@ impl FactoryBlock for NotebookLMBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct LLMProofReviewBlock;
 impl FactoryBlock for LLMProofReviewBlock {
     fn name(&self) -> &'static str { "LLM Proof Reviewer" }
@@ -102,7 +111,8 @@ impl FactoryBlock for LLMProofReviewBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct DatasetBlock;
 impl FactoryBlock for DatasetBlock {
     fn name(&self) -> &'static str { "Dataset Manager" }

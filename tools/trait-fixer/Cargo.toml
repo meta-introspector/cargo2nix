@@ -4,18 +4,26 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-rustc_tools_util = "0.3"
-rustc_driver = "0.0"
-rustc_interface = "0.0"
-rustc_session = "0.0"
-rustc_span = "0.0"
-rustc_hir = "0.0"
-rustc_middle = "0.0"
-rustc_lint = "0.0"
-rustc_ast = "0.0"
+ rustc_tools_util = { workspace = true }
+ rustc_driver = { workspace = true }
+ rustc_interface = { workspace = true }
+ rustc_session = { workspace = true }
+ rustc_span = { workspace = true }
+ rustc_hir = { workspace = true }
+ rustc_middle = { workspace = true }
+ rustc_lint = { workspace = true }
+ rustc_ast = { workspace = true }
+#rustc_ast = { path = "../../submodules/rust/compiler/rustc_ast" }
+#rustc_util = { path = "../../submodules/rust/compiler/rustc_util" }
+#rustc_util = { path = "../../submodules/rust/compiler/rustc_util" }
+#rustc_util = { workspace=true}
+#rustc_tools_util = { path = "../../submodules/rust/compiler/rustc_tools_util" }
+#rustc_driver = { works path = "../../submodules/rust/compiler/rustc_driver" }
 if_chain = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 toml = "0.8"
 
 [build-dependencies]
-rustc_tools_util = "0.3"
+#rustc_tools_util = { path = "../../submodules/rustc/compiler/rustc_tools_util" }
+rustc_tools_util = {workspace=true}
+#path = "../../submodules/rust/src/tools/clippy/rustc_tools_util" }

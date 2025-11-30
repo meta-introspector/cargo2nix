@@ -18,5 +18,5 @@ rustc_ast = { path = "../../submodules/rust/compiler/rustc_ast" }
 
 # You might also need these, depending on the rustc_driver setup:
 # rustc_data_structures = { path = "../../submodules/rust/compiler/rustc_data_structures" }
-# rustc_index = { path = "../../submodules/rust/compiler/rustc_index" }
+rustc_index = { path = "../../submodules/rust/compiler/rustc_index" }
 # rustc_serialize = { path = "../../submodules/rust/compiler/rustc_serialize" }

@@ -6,86 +6,99 @@ use std::fs; // Added
 use chrono::Local; // Added for timestamps
 use serde_json::Value; // Added for parsing flake.lock
 use quote::quote; // Added for Rust code generation
+use serde::{Deserialize, Serialize}; // Add this import
 
 
-#[derive(Clone)] // Add Clone derive
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct ConveyerBeltBlock; // Re-inserted
 impl FactoryBlock for ConveyerBeltBlock {
     fn name(&self) -> &'static str { "Conveyer Belt" }
     fn cost(&self) -> u32 { 10 }
 }
 
-#[derive(Clone)] // Add Clone derive
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct RobotArmBlock;
 impl FactoryBlock for RobotArmBlock {
     fn name(&self) -> &'static str { "Robot Arm" }
     fn cost(&self) -> u32 { 20 }
 }
 
-#[derive(Clone)] // Add Clone derive
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct CodeEvaluatorBlock;
 impl FactoryBlock for CodeEvaluatorBlock {
     fn name(&self) -> &'static str { "Code Evaluator" }
     fn cost(&self) -> u32 { 50 }
 }
 
-#[derive(Clone)] // Add Clone derive
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct ReadFileBlock;
 impl FactoryBlock for ReadFileBlock {
     fn name(&self) -> &'static str { "File Reader" }
     fn cost(&self) -> u32 { 5 }
 }
 
-#[derive(Clone)] // Add Clone derive
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct RocksDBBlock;
 impl FactoryBlock for RocksDBBlock {
     fn name(&self) -> &'static str { "RocksDB Integrator" }
     fn cost(&self) -> u32 { 10 }
 }
 
-#[derive(Clone)] // Add Clone derive
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct GitBlock;
 impl FactoryBlock for GitBlock {
     fn name(&self) -> &'static str { "Git Analyzer" }
     fn cost(&self) -> u32 { 25 }
 }
 
-#[derive(Clone)] // Add Clone derive
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct CargoBlock;
 impl FactoryBlock for CargoBlock {
     fn name(&self) -> &'static str { "Cargo Manager" }
     fn cost(&self) -> u32 { 30 }
 }
 
-#[derive(Clone)] // Add Clone derive
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct CrateScannerBlock;
 impl FactoryBlock for CrateScannerBlock {
     fn name(&self) -> &'static str { "Crate Scanner" }
     fn cost(&self) -> u32 { 40 }
 }
 
-#[derive(Clone)] // Add Clone derive
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct RustToolchainIntegratorBlock;
 impl FactoryBlock for RustToolchainIntegratorBlock {
     fn name(&self) -> &'static str { "Rust Toolchain Integrator" }
     fn cost(&self) -> u32 { 60 }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct HttpServerBlock;
 impl FactoryBlock for HttpServerBlock {
     fn name(&self) -> &'static str { "HTTP Server" }
     fn cost(&self) -> u32 { 50 }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct RenderingServerBlock;
 impl FactoryBlock for RenderingServerBlock {
     fn name(&self) -> &'static str { "Rendering Server" }
     fn cost(&self) -> u32 { 70 }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct KeyVaultBlock;
 impl FactoryBlock for KeyVaultBlock {
     fn name(&self) -> &'static str { "Generic Key Vault" }
@@ -97,7 +110,8 @@ impl FactoryBlock for KeyVaultBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct AWSParameterStoreBlock;
 impl FactoryBlock for AWSParameterStoreBlock {
     fn name(&self) -> &'static str { "AWS Parameter Store" }
@@ -109,7 +123,8 @@ impl FactoryBlock for AWSParameterStoreBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct NixDevelopBlock;
 impl FactoryBlock for NixDevelopBlock {
     fn name(&self) -> &'static str { "Nix Develop Environment" }
@@ -121,7 +136,8 @@ impl FactoryBlock for NixDevelopBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct MakeTargetBlock;
 impl FactoryBlock for MakeTargetBlock {
     fn name(&self) -> &'static str { "Make Target Executor" }
@@ -135,7 +151,8 @@ impl FactoryBlock for MakeTargetBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct DirectoryMappingBlock;
 impl FactoryBlock for DirectoryMappingBlock {
     fn name(&self) -> &'static str { "Directory Monster Mapper" }
@@ -148,7 +165,8 @@ impl FactoryBlock for DirectoryMappingBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct RedstoneLayerBlock;
 impl FactoryBlock for RedstoneLayerBlock {
     fn name(&self) -> &'static str { "Redstone Layer" }
@@ -160,7 +178,8 @@ impl FactoryBlock for RedstoneLayerBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct LibP2PBlock;
 impl FactoryBlock for LibP2PBlock {
     fn name(&self) -> &'static str { "LibP2P Network" }
@@ -172,7 +191,8 @@ impl FactoryBlock for LibP2PBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct IPFSBlock;
 impl FactoryBlock for IPFSBlock {
     fn name(&self) -> &'static str { "IPFS Storage" }

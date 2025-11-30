@@ -7,6 +7,7 @@ use chrono::Local; // Added for timestamps
 use serde_json::Value; // Added for parsing flake.lock
 use quote::quote; // Added for Rust code generation
 use std::sync::Arc; // Add Arc for shared ownership
+use serde::{Deserialize, Serialize}; // Add this import
 
 use crate::factory_blocks::core_infra_blocks::{ReadFileBlock};
 use crate::factory_blocks::code_intel_blocks::{HasherBlock, UseResolverBlock, DeclSplitterBlock, PetgraphBlock, GraphEigenvectorBlock, TopologicalSortBlock, NumericalTransformBlock};
@@ -49,7 +50,8 @@ use crate::factory_blocks::math_crypto_blocks::{HeckeOperatorBlock, McpBlock};
 //     }
 // }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct RustCombinatorBlock;
 impl FactoryBlock for RustCombinatorBlock {
     fn name(&self) -> &'static str { "Rust Combinator (Self-Apply)" }
@@ -63,7 +65,8 @@ impl FactoryBlock for RustCombinatorBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct RustDiagramFlakeV1Block;
 impl FactoryBlock for RustDiagramFlakeV1Block {
     fn name(&self) -> &'static str { "Rust Diagram Flake V1" }
@@ -95,7 +98,8 @@ impl FactoryBlock for RustDiagramFlakeV1Block {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct SolanaRustcTycoonFactoryBuilderBlock;
 impl FactoryBlock for SolanaRustcTycoonFactoryBuilderBlock {
     fn name(&self) -> &'static str { "Solana Rustc Tycoon Factory Builder" }
@@ -143,7 +147,8 @@ impl FactoryBlock for SolanaRustcTycoonFactoryBuilderBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct AutomorphicOrbitReflectorBlock;
 impl FactoryBlock for AutomorphicOrbitReflectorBlock {
     fn name(&self) -> &'static str { "Automorphic Orbit Reflector (Level 3)" }
@@ -155,7 +160,8 @@ impl FactoryBlock for AutomorphicOrbitReflectorBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct SelfRefactorBlock;
 impl FactoryBlock for SelfRefactorBlock {
     fn name(&self) -> &'static str { "Self-Refactor (Factory V2 Quine)" }
@@ -179,3 +185,51 @@ impl FactoryBlock for SelfRefactorBlock {
         Ok(())
     }
 }
+
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
+pub struct FactoryBlueprintExporterBlock;
+
+impl FactoryBlock for FactoryBlueprintExporterBlock {
+    fn name(&self) -> &'static str { "Factory Blueprint Exporter" }
+    fn cost(&self) -> u32 { 300 } // Moderate cost for generating a blueprint
+    fn execute(&self, factory: &mut Factory, _current_crate_path: &PathBuf) -> Result<()> {
+        println!("\n--- Factory Blueprint Exporter Activated! ---");
+        println!("Analyzing the current factory state to generate a blueprint.");
+
+        let timestamp = Local::now().format("%Y%m%d%H%M%S").to_string();
+        let output_dir = PathBuf::from("./generated_blueprints");
+        fs::create_dir_all(&output_dir)?;
+
+        let blueprint_path = output_dir.join(format!("factory_blueprint_{}.md", timestamp));
+        let mut blueprint_content = String::new();
+
+        blueprint_content.push_str(&format!("# Factory Blueprint - Generated on {}\n\n", Local::now().to_string()));
+        blueprint_content.push_str("## Current Factory State\n\n");
+        blueprint_content.push_str(&format!("- **Total Points:** {}\n", factory.points));
+        blueprint_content.push_str(&format!("- **Number of Bought Tools:** {}\n\n", factory.bought_tools.len()));
+
+        blueprint_content.push_str("## Bought Tools (Factory Blocks)\n\n");
+        if factory.bought_tools.is_empty() {
+            blueprint_content.push_str("No tools have been bought yet.\n");
+        } else {
+            for (i, tool) in factory.bought_tools.iter().enumerate() {
+                blueprint_content.push_str(&format!("{}. {} (Cost: {})\n", i + 1, tool.name(), tool.cost()));
+            }
+        }
+        blueprint_content.push_str("\n");
+
+        blueprint_content.push_str("## Factory Floor (Mermaid Diagram Representation)\n\n");
+        blueprint_content.push_str("```mermaid\n");
+        blueprint_content.push_str(&factory.render_factory_floor());
+        blueprint_content.push_str("```\n");
+        
+        fs::write(&blueprint_path, &blueprint_content)?;
+        println!("Generated Factory Blueprint: {:?}", blueprint_path);
+        factory.generated_assets.push(blueprint_path);
+
+        factory.points += 100; // Bonus for generating a blueprint
+        Ok(())
+    }
+}
+

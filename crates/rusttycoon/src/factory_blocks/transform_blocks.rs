@@ -6,8 +6,10 @@ use std::fs; // Added
 use chrono::Local; // Added for timestamps
 use serde_json::Value; // Added for parsing flake.lock
 use quote::quote; // Added for Rust code generation
+use serde::{Deserialize, Serialize}; // Add this import
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct UseBlock;
 impl FactoryBlock for UseBlock {
     fn name(&self) -> &'static str { "Use Statement Analyzer" }
@@ -19,7 +21,8 @@ impl FactoryBlock for UseBlock {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
+#[typetag::serde] // Add typetag
 pub struct CrateDecomposerBlock;
 impl FactoryBlock for CrateDecomposerBlock {
     fn name(&self) -> &'static str { "Crate Decomposer (Redstone/Scratch)" }
