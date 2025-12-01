@@ -1,0 +1,333 @@
+Cargo.toml:gix = { version = "0.75.0", default-features = false, features = ["progress-tree", "parallel", "dirwalk", "status"] }
+submodules/gitoxide/gix-revision/Cargo.toml:gix-hash = { version = "^0.20.1", path = "../gix-hash" }
+submodules/gitoxide/gix-revision/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-revision/Cargo.toml:gix-date = { version = "^0.11.0", path = "../gix-date" }
+submodules/gitoxide/gix-revision/Cargo.toml:gix-hashtable = { version = "^0.10.0", path = "../gix-hashtable", optional = true }
+submodules/gitoxide/gix-revision/Cargo.toml:gix-revwalk = { version = "^0.23.0", path = "../gix-revwalk" }
+submodules/gitoxide/gix-revision/Cargo.toml:gix-commitgraph = { version = "^0.30.1", path = "../gix-commitgraph" }
+submodules/gitoxide/gix-revision/Cargo.toml:gix-trace = { version = "^0.1.15", path = "../gix-trace", optional = true }
+submodules/gitoxide/gix-quote/Cargo.toml:gix-utils = { version = "^0.3.1", path = "../gix-utils" }
+submodules/gitoxide/gix-blame/Cargo.toml:gix-commitgraph = { version = "^0.30.0", path = "../gix-commitgraph" }
+submodules/gitoxide/gix-blame/Cargo.toml:gix-revwalk = { version = "^0.23.0", path = "../gix-revwalk" }
+submodules/gitoxide/gix-blame/Cargo.toml:gix-trace = { version = "^0.1.14", path = "../gix-trace" }
+submodules/gitoxide/gix-blame/Cargo.toml:gix-date = { version = "^0.11.0", path = "../gix-date" }
+submodules/gitoxide/gix-blame/Cargo.toml:gix-diff = { version = "^0.55.0", path = "../gix-diff", default-features = false, features = ["blob"] }
+submodules/gitoxide/gix-blame/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-blame/Cargo.toml:gix-hash = { version = "^0.20.0", path = "../gix-hash" }
+submodules/gitoxide/gix-blame/Cargo.toml:gix-worktree = { version = "^0.44.0", path = "../gix-worktree", default-features = false, features = ["attributes"] }
+submodules/gitoxide/gix-blame/Cargo.toml:gix-traverse = { version = "^0.49.0", path = "../gix-traverse" }
+submodules/gitoxide/gix-credentials/Cargo.toml:gix-sec = { version = "^0.12.2", path = "../gix-sec" }
+submodules/gitoxide/gix-credentials/Cargo.toml:gix-url = { version = "^0.33.2", path = "../gix-url" }
+submodules/gitoxide/gix-credentials/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path" }
+submodules/gitoxide/gix-credentials/Cargo.toml:gix-command = { version = "^0.6.3", path = "../gix-command" }
+submodules/gitoxide/gix-credentials/Cargo.toml:gix-config-value = { version = "^0.15.3", path = "../gix-config-value" }
+submodules/gitoxide/gix-credentials/Cargo.toml:gix-prompt = { version = "^0.11.2", path = "../gix-prompt" }
+submodules/gitoxide/gix-credentials/Cargo.toml:gix-date = { version = "^0.11.0", path = "../gix-date" }
+submodules/gitoxide/gix-credentials/Cargo.toml:gix-trace = { version = "^0.1.15", path = "../gix-trace" }
+submodules/gitoxide/tests/it/Cargo.toml:gix = { version = "^0.75.0", path = "../../gix", default-features = false, features = ["attributes", "blame", "blob-diff", "revision"] }
+submodules/gitoxide/tests/tools/Cargo.toml:gix-lock = { version = "^19.0.0", path = "../../gix-lock" }
+submodules/gitoxide/tests/tools/Cargo.toml:gix-discover = { version = "^0.43.0", path = "../../gix-discover" }
+submodules/gitoxide/tests/tools/Cargo.toml:gix-worktree = { version = "^0.44.0", path = "../../gix-worktree" }
+submodules/gitoxide/tests/tools/Cargo.toml:gix-fs = { version = "^0.17.0", path = "../../gix-fs" }
+submodules/gitoxide/tests/tools/Cargo.toml:gix-tempfile = { version = "^19.0.0", path = "../../gix-tempfile", default-features = false, features = ["signals"] }
+submodules/gitoxide/gix-discover/Cargo.toml:gix-sec = { version = "^0.12.1", path = "../gix-sec" }
+submodules/gitoxide/gix-discover/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path" }
+submodules/gitoxide/gix-discover/Cargo.toml:gix-ref = { version = "^0.55.0", path = "../gix-ref" }
+submodules/gitoxide/gix-discover/Cargo.toml:gix-hash = { version = "^0.20.0", path = "../gix-hash" }
+submodules/gitoxide/gix-discover/Cargo.toml:gix-fs = { version = "^0.17.0", path = "../gix-fs" }
+submodules/gitoxide/gix-index/Cargo.toml:gix-features = { version = "^0.44.1", path = "../gix-features", features = [
+submodules/gitoxide/gix-index/Cargo.toml:gix-hash = { version = "^0.20.1", path = "../gix-hash" }
+submodules/gitoxide/gix-index/Cargo.toml:gix-bitmap = { version = "^0.2.15", path = "../gix-bitmap" }
+submodules/gitoxide/gix-index/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-index/Cargo.toml:gix-validate = { version = "^0.10.1", path = "../gix-validate" }
+submodules/gitoxide/gix-index/Cargo.toml:gix-traverse = { version = "^0.49.0", path = "../gix-traverse" }
+submodules/gitoxide/gix-index/Cargo.toml:gix-lock = { version = "^19.0.0", path = "../gix-lock" }
+submodules/gitoxide/gix-index/Cargo.toml:gix-fs = { version = "^0.17.0", path = "../gix-fs" }
+submodules/gitoxide/gix-index/Cargo.toml:gix-utils = { version = "^0.3.1", path = "../gix-utils" }
+submodules/gitoxide/gix-worktree/Cargo.toml:gix-index = { version = "^0.43.0", path = "../gix-index" }
+submodules/gitoxide/gix-worktree/Cargo.toml:gix-fs = { version = "^0.17.0", path = "../gix-fs" }
+submodules/gitoxide/gix-worktree/Cargo.toml:gix-hash = { version = "^0.20.1", path = "../gix-hash" }
+submodules/gitoxide/gix-worktree/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-worktree/Cargo.toml:gix-glob = { version = "^0.22.1", path = "../gix-glob" }
+submodules/gitoxide/gix-worktree/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path" }
+submodules/gitoxide/gix-worktree/Cargo.toml:gix-attributes = { version = "^0.28.1", path = "../gix-attributes", optional = true }
+submodules/gitoxide/gix-worktree/Cargo.toml:gix-validate = { version = "^0.10.1", path = "../gix-validate", optional = true }
+submodules/gitoxide/gix-worktree/Cargo.toml:gix-ignore = { version = "^0.17.1", path = "../gix-ignore" }
+submodules/gitoxide/gix-worktree/Cargo.toml:gix-features = { version = "^0.44.1", path = "../gix-features" }
+submodules/gitoxide/gix-transport/Cargo.toml:gix-command = { version = "^0.6.3", path = "../gix-command" }
+submodules/gitoxide/gix-transport/Cargo.toml:gix-features = { version = "^0.44.1", path = "../gix-features" }
+submodules/gitoxide/gix-transport/Cargo.toml:gix-url = { version = "^0.33.2", path = "../gix-url" }
+submodules/gitoxide/gix-transport/Cargo.toml:gix-sec = { version = "^0.12.2", path = "../gix-sec" }
+submodules/gitoxide/gix-transport/Cargo.toml:gix-packetline = { version = "^0.20.0", path = "../gix-packetline" }
+submodules/gitoxide/gix-transport/Cargo.toml:gix-credentials = { version = "^0.32.0", path = "../gix-credentials", optional = true }
+submodules/gitoxide/gix-transport/Cargo.toml:gix-quote = { version = "^0.6.1", path = "../gix-quote" }
+submodules/gitoxide/gix-ignore/Cargo.toml:gix-glob = { version = "^0.22.1", path = "../gix-glob" }
+submodules/gitoxide/gix-ignore/Cargo.toml:gix-path = { version = "^0.10.21", path = "../gix-path" }
+submodules/gitoxide/gix-ignore/Cargo.toml:gix-trace = { version = "^0.1.15", path = "../gix-trace" }
+submodules/gitoxide/gix-attributes/Cargo.toml:gix-path = { version = "^0.10.21", path = "../gix-path" }
+submodules/gitoxide/gix-attributes/Cargo.toml:gix-quote = { version = "^0.6.1", path = "../gix-quote" }
+submodules/gitoxide/gix-attributes/Cargo.toml:gix-glob = { version = "^0.22.1", path = "../gix-glob" }
+submodules/gitoxide/gix-attributes/Cargo.toml:gix-trace = { version = "^0.1.15", path = "../gix-trace" }
+submodules/gitoxide/gix-lock/Cargo.toml:gix-utils = { version = "^0.3.1", default-features = false, path = "../gix-utils" }
+submodules/gitoxide/gix-lock/Cargo.toml:gix-tempfile = { version = "^19.0.0", default-features = false, path = "../gix-tempfile" }
+submodules/gitoxide/gix-archive/Cargo.toml:gix-worktree-stream = { version = "^0.24.0", path = "../gix-worktree-stream" }
+submodules/gitoxide/gix-archive/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-archive/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path", optional = true }
+submodules/gitoxide/gix-archive/Cargo.toml:gix-date = { version = "^0.11.0", path = "../gix-date" }
+submodules/gitoxide/gix-dir/Cargo.toml:gix-trace = { version = "^0.1.14", path = "../gix-trace" }
+submodules/gitoxide/gix-dir/Cargo.toml:gix-index = { version = "^0.43.0", path = "../gix-index" }
+submodules/gitoxide/gix-dir/Cargo.toml:gix-discover = { version = "^0.43.0", path = "../gix-discover" }
+submodules/gitoxide/gix-dir/Cargo.toml:gix-fs = { version = "^0.17.0", path = "../gix-fs" }
+submodules/gitoxide/gix-dir/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path" }
+submodules/gitoxide/gix-dir/Cargo.toml:gix-pathspec = { version = "^0.13.0", path = "../gix-pathspec" }
+submodules/gitoxide/gix-dir/Cargo.toml:gix-worktree = { version = "^0.44.0", path = "../gix-worktree", default-features = false }
+submodules/gitoxide/gix-dir/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-dir/Cargo.toml:gix-ignore = { version = "^0.17.0", path = "../gix-ignore" }
+submodules/gitoxide/gix-dir/Cargo.toml:gix-utils = { version = "^0.3.1", path = "../gix-utils", features = ["bstr"] }
+submodules/gitoxide/gix-refspec/Cargo.toml:gix-revision = { version = "^0.37.0", path = "../gix-revision", default-features = false }
+submodules/gitoxide/gix-refspec/Cargo.toml:gix-validate = { version = "^0.10.1", path = "../gix-validate" }
+submodules/gitoxide/gix-refspec/Cargo.toml:gix-hash = { version = "^0.20.0", path = "../gix-hash" }
+submodules/gitoxide/gix-refspec/Cargo.toml:gix-glob = { version = "^0.22.1", path = "../gix-glob" }
+submodules/gitoxide/Cargo.toml:gix-features = { version = "^0.44.1", path = "gix-features" }
+submodules/gitoxide/Cargo.toml:gix = { version = "^0.75.0", path = "gix", default-features = false }
+submodules/gitoxide/gitoxide-core/Cargo.toml:gix = { version = "^0.75.0", path = "../gix", default-features = false, features = ["merge", "blob-diff", "blame", "revision", "mailmap", "excludes", "attributes", "worktree-mutation", "credentials", "interrupt", "status", "dirwalk"] }
+submodules/gitoxide/gitoxide-core/Cargo.toml:gix-pack-for-configuration-only = { package = "gix-pack", version = "^0.62.0", path = "../gix-pack", default-features = false, features = ["pack-cache-lru-dynamic", "pack-cache-lru-static", "generate", "streaming-input"] }
+submodules/gitoxide/gitoxide-core/Cargo.toml:gix-transport-configuration-only = { package = "gix-transport", version = "^0.50.0", path = "../gix-transport", default-features = false }
+submodules/gitoxide/gitoxide-core/Cargo.toml:gix-archive-for-configuration-only = { package = "gix-archive", version = "^0.24.0", path = "../gix-archive", optional = true, features = ["tar", "tar_gz"] }
+submodules/gitoxide/gitoxide-core/Cargo.toml:gix-status = { version = "^0.22.0", path = "../gix-status" }
+submodules/gitoxide/gitoxide-core/Cargo.toml:gix-fsck = { version = "^0.14.0", path = "../gix-fsck" }
+submodules/gitoxide/gitoxide-core/Cargo.toml:gix-url = { version = "^0.33.2", path = "../gix-url", optional = true }
+submodules/gitoxide/gix-config/Cargo.toml:gix-features = { version = "^0.44.1", path = "../gix-features" }
+submodules/gitoxide/gix-config/Cargo.toml:gix-config-value = { version = "^0.15.3", path = "../gix-config-value" }
+submodules/gitoxide/gix-config/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path" }
+submodules/gitoxide/gix-config/Cargo.toml:gix-sec = { version = "^0.12.2", path = "../gix-sec" }
+submodules/gitoxide/gix-config/Cargo.toml:gix-ref = { version = "^0.55.0", path = "../gix-ref" }
+submodules/gitoxide/gix-config/Cargo.toml:gix-glob = { version = "^0.22.1", path = "../gix-glob" }
+submodules/gitoxide/gix-diff/Cargo.toml:gix-index = { version = "^0.43.0", path = "../gix-index", optional = true }
+submodules/gitoxide/gix-diff/Cargo.toml:gix-pathspec = { version = "^0.13.0", path = "../gix-pathspec", optional = true }
+submodules/gitoxide/gix-diff/Cargo.toml:gix-attributes = { version = "^0.28.1", path = "../gix-attributes", optional = true }
+submodules/gitoxide/gix-diff/Cargo.toml:gix-hash = { version = "^0.20.1", path = "../gix-hash" }
+submodules/gitoxide/gix-diff/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-diff/Cargo.toml:gix-filter = { version = "^0.22.0", path = "../gix-filter", optional = true }
+submodules/gitoxide/gix-diff/Cargo.toml:gix-worktree = { version = "^0.44.0", path = "../gix-worktree", default-features = false, features = ["attributes"], optional = true }
+submodules/gitoxide/gix-diff/Cargo.toml:gix-command = { version = "^0.6.3", path = "../gix-command", optional = true }
+submodules/gitoxide/gix-diff/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path", optional = true }
+submodules/gitoxide/gix-diff/Cargo.toml:gix-fs = { version = "^0.17.0", path = "../gix-fs", optional = true }
+submodules/gitoxide/gix-diff/Cargo.toml:gix-tempfile = { version = "^19.0.0", path = "../gix-tempfile", optional = true }
+submodules/gitoxide/gix-diff/Cargo.toml:gix-trace = { version = "^0.1.15", path = "../gix-trace", optional = true }
+submodules/gitoxide/gix-diff/Cargo.toml:gix-traverse = { version = "^0.49.0", path = "../gix-traverse", optional = true }
+submodules/gitoxide/gix-submodule/Cargo.toml:gix-pathspec = { version = "^0.13.0", path = "../gix-pathspec" }
+submodules/gitoxide/gix-submodule/Cargo.toml:gix-refspec = { version = "^0.33.0", path = "../gix-refspec" }
+submodules/gitoxide/gix-submodule/Cargo.toml:gix-config = { version = "^0.48.0", path = "../gix-config" }
+submodules/gitoxide/gix-submodule/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path" }
+submodules/gitoxide/gix-submodule/Cargo.toml:gix-url = { version = "^0.33.2", path = "../gix-url" }
+submodules/gitoxide/gix-revwalk/Cargo.toml:gix-hash = { version = "^0.20.0", path = "../gix-hash" }
+submodules/gitoxide/gix-revwalk/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-revwalk/Cargo.toml:gix-date = { version = "^0.11.0", path = "../gix-date" }
+submodules/gitoxide/gix-revwalk/Cargo.toml:gix-hashtable = { version = "^0.10.0", path = "../gix-hashtable" }
+submodules/gitoxide/gix-revwalk/Cargo.toml:gix-commitgraph = { version = "^0.30.0", path = "../gix-commitgraph" }
+submodules/gitoxide/gix-sec/Cargo.toml:gix-path = { version = "^0.10.21", path = "../gix-path" }
+submodules/gitoxide/gix-fsck/Cargo.toml:gix-hash = { version = "^0.20.1", path = "../gix-hash" }
+submodules/gitoxide/gix-fsck/Cargo.toml:gix-hashtable = { version = "^0.10.0", path = "../gix-hashtable" }
+submodules/gitoxide/gix-fsck/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-glob/Cargo.toml:gix-path = { version = "^0.10.21", path = "../gix-path" }
+submodules/gitoxide/gix-glob/Cargo.toml:gix-features = { version = "^0.44.1", path = "../gix-features" }
+submodules/gitoxide/gix-object/Cargo.toml:gix-features = { version = "^0.44.1", path = "../gix-features", features = [
+submodules/gitoxide/gix-object/Cargo.toml:gix-hash = { version = "^0.20.1", path = "../gix-hash" }
+submodules/gitoxide/gix-object/Cargo.toml:gix-hashtable = { version = "^0.10.0", path = "../gix-hashtable" }
+submodules/gitoxide/gix-object/Cargo.toml:gix-validate = { version = "^0.10.1", path = "../gix-validate" }
+submodules/gitoxide/gix-object/Cargo.toml:gix-actor = { version = "^0.36.0", path = "../gix-actor" }
+submodules/gitoxide/gix-object/Cargo.toml:gix-date = { version = "^0.11.0", path = "../gix-date" }
+submodules/gitoxide/gix-object/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path" }
+submodules/gitoxide/gix-object/Cargo.toml:gix-utils = { version = "^0.3.1", path = "../gix-utils" }
+submodules/gitoxide/gix-ref/Cargo.toml:gix-features = { version = "^0.44.1", path = "../gix-features", features = ["walkdir"] }
+submodules/gitoxide/gix-ref/Cargo.toml:gix-fs = { version = "^0.17.0", path = "../gix-fs" }
+submodules/gitoxide/gix-ref/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path" }
+submodules/gitoxide/gix-ref/Cargo.toml:gix-hash = { version = "^0.20.1", path = "../gix-hash" }
+submodules/gitoxide/gix-ref/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-ref/Cargo.toml:gix-utils = { version = "^0.3.1", path = "../gix-utils" }
+submodules/gitoxide/gix-ref/Cargo.toml:gix-validate = { version = "^0.10.1", path = "../gix-validate" }
+submodules/gitoxide/gix-ref/Cargo.toml:gix-actor = { version = "^0.36.0", path = "../gix-actor" }
+submodules/gitoxide/gix-ref/Cargo.toml:gix-lock = { version = "^19.0.0", path = "../gix-lock" }
+submodules/gitoxide/gix-ref/Cargo.toml:gix-tempfile = { version = "^19.0.0", default-features = false, path = "../gix-tempfile" }
+submodules/gitoxide/gix-features/Cargo.toml:gix-trace = { version = "^0.1.15", path = "../gix-trace" }
+submodules/gitoxide/gix-features/Cargo.toml:gix-path = { version = "^0.10.21", path = "../gix-path", optional = true }
+submodules/gitoxide/gix-features/Cargo.toml:gix-utils = { version = "^0.3.1", path = "../gix-utils", optional = true }
+submodules/gitoxide/gix-tempfile/Cargo.toml:gix-fs = { version = "^0.17.0", path = "../gix-fs" }
+submodules/gitoxide/gix/Cargo.toml:#! `gix-for-configuration = { package = "gix", version = "X.Y.Z", features = […] }` to make clear this dependency isn't used in code.
+submodules/gitoxide/gix/Cargo.toml:#! As a developer of a library, you should start out with `gix = { version = "X.Y.Z", default-features = false }` and add components as you see fit.
+submodules/gitoxide/gix/Cargo.toml:gix-utils = { version = "^0.3.1", path = "../gix-utils" }
+submodules/gitoxide/gix/Cargo.toml:gix-fs = { version = "^0.17.0", path = "../gix-fs" }
+submodules/gitoxide/gix/Cargo.toml:gix-ref = { version = "^0.55.0", path = "../gix-ref" }
+submodules/gitoxide/gix/Cargo.toml:gix-discover = { version = "^0.43.0", path = "../gix-discover" }
+submodules/gitoxide/gix/Cargo.toml:gix-tempfile = { version = "^19.0.0", path = "../gix-tempfile", default-features = false }
+submodules/gitoxide/gix/Cargo.toml:gix-lock = { version = "^19.0.0", path = "../gix-lock" }
+submodules/gitoxide/gix/Cargo.toml:gix-validate = { version = "^0.10.1", path = "../gix-validate" }
+submodules/gitoxide/gix/Cargo.toml:gix-sec = { version = "^0.12.2", path = "../gix-sec" }
+submodules/gitoxide/gix/Cargo.toml:gix-date = { version = "^0.11.0", path = "../gix-date" }
+submodules/gitoxide/gix/Cargo.toml:gix-refspec = { version = "^0.33.0", path = "../gix-refspec" }
+submodules/gitoxide/gix/Cargo.toml:gix-filter = { version = "^0.22.0", path = "../gix-filter", optional = true }
+submodules/gitoxide/gix/Cargo.toml:gix-dir = { version = "^0.17.0", path = "../gix-dir", optional = true }
+submodules/gitoxide/gix/Cargo.toml:gix-config = { version = "^0.48.0", path = "../gix-config" }
+submodules/gitoxide/gix/Cargo.toml:gix-odb = { version = "^0.72.0", path = "../gix-odb" }
+submodules/gitoxide/gix/Cargo.toml:gix-hash = { version = "^0.20.1", path = "../gix-hash" }
+submodules/gitoxide/gix/Cargo.toml:gix-shallow = { version = "^0.6.0", path = "../gix-shallow" }
+submodules/gitoxide/gix/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix/Cargo.toml:gix-actor = { version = "^0.36.0", path = "../gix-actor" }
+submodules/gitoxide/gix/Cargo.toml:gix-pack = { version = "^0.62.0", path = "../gix-pack", default-features = false, features = [
+submodules/gitoxide/gix/Cargo.toml:gix-revision = { version = "^0.37.0", path = "../gix-revision", default-features = false }
+submodules/gitoxide/gix/Cargo.toml:gix-revwalk = { version = "^0.23.0", path = "../gix-revwalk" }
+submodules/gitoxide/gix/Cargo.toml:gix-negotiate = { version = "^0.23.0", path = "../gix-negotiate", optional = true }
+submodules/gitoxide/gix/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path" }
+submodules/gitoxide/gix/Cargo.toml:gix-url = { version = "^0.33.2", path = "../gix-url" }
+submodules/gitoxide/gix/Cargo.toml:gix-traverse = { version = "^0.49.0", path = "../gix-traverse" }
+submodules/gitoxide/gix/Cargo.toml:gix-diff = { version = "^0.55.0", path = "../gix-diff", default-features = false }
+submodules/gitoxide/gix/Cargo.toml:gix-merge = { version = "^0.8.0", path = "../gix-merge", default-features = false, optional = true }
+submodules/gitoxide/gix/Cargo.toml:gix-mailmap = { version = "^0.28.0", path = "../gix-mailmap", optional = true }
+submodules/gitoxide/gix/Cargo.toml:gix-features = { version = "^0.44.1", path = "../gix-features", features = [
+submodules/gitoxide/gix/Cargo.toml:gix-trace = { version = "^0.1.15", path = "../gix-trace" }
+submodules/gitoxide/gix/Cargo.toml:gix-glob = { version = "^0.22.1", path = "../gix-glob" }
+submodules/gitoxide/gix/Cargo.toml:gix-credentials = { version = "^0.32.0", path = "../gix-credentials", optional = true }
+submodules/gitoxide/gix/Cargo.toml:gix-prompt = { version = "^0.11.2", path = "../gix-prompt", optional = true }
+submodules/gitoxide/gix/Cargo.toml:gix-index = { version = "^0.43.0", path = "../gix-index", optional = true }
+submodules/gitoxide/gix/Cargo.toml:gix-attributes = { version = "^0.28.1", path = "../gix-attributes", optional = true }
+submodules/gitoxide/gix/Cargo.toml:gix-ignore = { version = "^0.17.1", path = "../gix-ignore", optional = true }
+submodules/gitoxide/gix/Cargo.toml:gix-worktree = { version = "^0.44.0", path = "../gix-worktree", optional = true, default-features = false }
+submodules/gitoxide/gix/Cargo.toml:gix-worktree-state = { version = "^0.22.0", path = "../gix-worktree-state", optional = true }
+submodules/gitoxide/gix/Cargo.toml:gix-hashtable = { version = "^0.10.0", path = "../gix-hashtable" }
+submodules/gitoxide/gix/Cargo.toml:gix-commitgraph = { version = "^0.30.1", path = "../gix-commitgraph" }
+submodules/gitoxide/gix/Cargo.toml:gix-pathspec = { version = "^0.13.0", path = "../gix-pathspec", optional = true }
+submodules/gitoxide/gix/Cargo.toml:gix-submodule = { version = "^0.22.0", path = "../gix-submodule", optional = true }
+submodules/gitoxide/gix/Cargo.toml:gix-status = { version = "^0.22.0", path = "../gix-status", optional = true, features = [
+submodules/gitoxide/gix/Cargo.toml:gix-command = { version = "^0.6.3", path = "../gix-command", optional = true }
+submodules/gitoxide/gix/Cargo.toml:gix-worktree-stream = { version = "^0.24.0", path = "../gix-worktree-stream", optional = true }
+submodules/gitoxide/gix/Cargo.toml:gix-archive = { version = "^0.24.0", path = "../gix-archive", default-features = false, optional = true }
+submodules/gitoxide/gix/Cargo.toml:gix-blame = { version = "^0.5.0", path = "../gix-blame", optional = true }
+submodules/gitoxide/gix/Cargo.toml:gix-protocol = { version = "^0.53.0", path = "../gix-protocol" }
+submodules/gitoxide/gix/Cargo.toml:gix-transport = { version = "^0.50.0", path = "../gix-transport", optional = true }
+submodules/gitoxide/gix-traverse/tests/Cargo.toml:gix-path = { version = "^0.10.18", path = "../../gix-path" }
+submodules/gitoxide/gix-traverse/Cargo.toml:gix-hash = { version = "^0.20.0", path = "../gix-hash" }
+submodules/gitoxide/gix-traverse/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-traverse/Cargo.toml:gix-date = { version = "^0.11.0", path = "../gix-date" }
+submodules/gitoxide/gix-traverse/Cargo.toml:gix-hashtable = { version = "^0.10.0", path = "../gix-hashtable" }
+submodules/gitoxide/gix-traverse/Cargo.toml:gix-revwalk = { version = "^0.23.0", path = "../gix-revwalk" }
+submodules/gitoxide/gix-traverse/Cargo.toml:gix-commitgraph = { version = "^0.30.0", path = "../gix-commitgraph" }
+submodules/gitoxide/gix-pathspec/Cargo.toml:gix-glob = { version = "^0.22.0", path = "../gix-glob" }
+submodules/gitoxide/gix-pathspec/Cargo.toml:gix-path = { version = "^0.10.21", path = "../gix-path" }
+submodules/gitoxide/gix-pathspec/Cargo.toml:gix-attributes = { version = "^0.28.0", path = "../gix-attributes" }
+submodules/gitoxide/gix-pathspec/Cargo.toml:gix-config-value = { version = "^0.15.2", path = "../gix-config-value" }
+submodules/gitoxide/gix-shallow/Cargo.toml:gix-hash = { version = "^0.20.0", path = "../gix-hash" }
+submodules/gitoxide/gix-shallow/Cargo.toml:gix-lock = { version = "^19.0.0", path = "../gix-lock" }
+submodules/gitoxide/gix-url/Cargo.toml:gix-features = { version = "^0.44.1", path = "../gix-features" }
+submodules/gitoxide/gix-url/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path" }
+submodules/gitoxide/gix-pack/Cargo.toml:gix-features = { version = "^0.44.1", path = "../gix-features", features = ["crc32", "progress", "zlib"] }
+submodules/gitoxide/gix-pack/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path" }
+submodules/gitoxide/gix-pack/Cargo.toml:gix-hash = { version = "^0.20.1", path = "../gix-hash" }
+submodules/gitoxide/gix-pack/Cargo.toml:gix-chunk = { version = "^0.4.12", path = "../gix-chunk" }
+submodules/gitoxide/gix-pack/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-pack/Cargo.toml:gix-hashtable = { version = "^0.10.0", path = "../gix-hashtable", optional = true }
+submodules/gitoxide/gix-pack/Cargo.toml:gix-traverse = { version = "^0.49.0", path = "../gix-traverse", optional = true }
+submodules/gitoxide/gix-pack/Cargo.toml:gix-diff = { version = "^0.55.0", path = "../gix-diff", default-features = false, optional = true }
+submodules/gitoxide/gix-pack/Cargo.toml:gix-tempfile = { version = "^19.0.0", default-features = false, path = "../gix-tempfile", optional = true }
+submodules/gitoxide/gix-commitgraph/Cargo.toml:gix-hash = { version = "^0.20.1", path = "../gix-hash" }
+submodules/gitoxide/gix-commitgraph/Cargo.toml:gix-chunk = { version = "^0.4.12", path = "../gix-chunk" }
+submodules/gitoxide/gix-worktree-stream/Cargo.toml:gix-features = { version = "^0.44.0", path = "../gix-features", features = ["progress", "io-pipe"] }
+submodules/gitoxide/gix-worktree-stream/Cargo.toml:gix-hash = { version = "^0.20.0", path = "../gix-hash" }
+submodules/gitoxide/gix-worktree-stream/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-worktree-stream/Cargo.toml:gix-attributes = { version = "^0.28.0", path = "../gix-attributes" }
+submodules/gitoxide/gix-worktree-stream/Cargo.toml:gix-filter = { version = "^0.22.0", path = "../gix-filter" }
+submodules/gitoxide/gix-worktree-stream/Cargo.toml:gix-traverse = { version = "^0.49.0", path = "../gix-traverse" }
+submodules/gitoxide/gix-worktree-stream/Cargo.toml:gix-fs = { version = "^0.17.0", path = "../gix-fs" }
+submodules/gitoxide/gix-worktree-stream/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path" }
+submodules/gitoxide/gix-packetline/Cargo.toml:gix-trace = { version = "^0.1.15", path = "../gix-trace" }
+submodules/gitoxide/gix-config-value/Cargo.toml:gix-path = { version = "^0.10.21", path = "../gix-path" }
+submodules/gitoxide/gix-worktree-state/Cargo.toml:gix-worktree = { version = "^0.44.0", path = "../gix-worktree", default-features = false, features = ["attributes"] }
+submodules/gitoxide/gix-worktree-state/Cargo.toml:gix-index = { version = "^0.43.0", path = "../gix-index" }
+submodules/gitoxide/gix-worktree-state/Cargo.toml:gix-fs = { version = "^0.17.0", path = "../gix-fs" }
+submodules/gitoxide/gix-worktree-state/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-worktree-state/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path" }
+submodules/gitoxide/gix-worktree-state/Cargo.toml:gix-features = { version = "^0.44.0", path = "../gix-features" }
+submodules/gitoxide/gix-worktree-state/Cargo.toml:gix-filter = { version = "^0.22.0", path = "../gix-filter" }
+submodules/gitoxide/gix-command/Cargo.toml:gix-trace = { version = "^0.1.14", path = "../gix-trace" }
+submodules/gitoxide/gix-command/Cargo.toml:gix-path = { version = "^0.10.21", path = "../gix-path" }
+submodules/gitoxide/gix-command/Cargo.toml:gix-quote = { version = "^0.6.1", path = "../gix-quote" }
+submodules/gitoxide/gix-negotiate/Cargo.toml:gix-hash = { version = "^0.20.0", path = "../gix-hash" }
+submodules/gitoxide/gix-negotiate/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-negotiate/Cargo.toml:gix-date = { version = "^0.11.0", path = "../gix-date" }
+submodules/gitoxide/gix-negotiate/Cargo.toml:gix-commitgraph = { version = "^0.30.0", path = "../gix-commitgraph" }
+submodules/gitoxide/gix-negotiate/Cargo.toml:gix-revwalk = { version = "^0.23.0", path = "../gix-revwalk" }
+submodules/gitoxide/gix-hashtable/Cargo.toml:gix-hash = { version = "^0.20.0", path = "../gix-hash" }
+submodules/gitoxide/gix-actor/Cargo.toml:gix-date = { version = "^0.11.0", path = "../gix-date" }
+submodules/gitoxide/gix-actor/Cargo.toml:gix-utils = { version = "^0.3.1", path = "../gix-utils" }
+submodules/gitoxide/gix-filter/Cargo.toml:gix-hash = { version = "^0.20.0", path = "../gix-hash" }
+submodules/gitoxide/gix-filter/Cargo.toml:gix-trace = { version = "^0.1.14", path = "../gix-trace" }
+submodules/gitoxide/gix-filter/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-filter/Cargo.toml:gix-command = { version = "^0.6.3", path = "../gix-command" }
+submodules/gitoxide/gix-filter/Cargo.toml:gix-quote = { version = "^0.6.1", path = "../gix-quote" }
+submodules/gitoxide/gix-filter/Cargo.toml:gix-utils = { version = "^0.3.1", path = "../gix-utils" }
+submodules/gitoxide/gix-filter/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path" }
+submodules/gitoxide/gix-filter/Cargo.toml:gix-packetline = { version = "^0.20.0", path = "../gix-packetline", features = ["blocking-io"] }
+submodules/gitoxide/gix-filter/Cargo.toml:gix-attributes = { version = "^0.28.0", path = "../gix-attributes" }
+submodules/gitoxide/gix-hash/Cargo.toml:gix-features = { version = "^0.44.1", path = "../gix-features", features = ["progress"] }
+submodules/gitoxide/gix-protocol/Cargo.toml:## If set, blocking command implementations are available and will use the blocking version of the `gix-transport` crate.
+submodules/gitoxide/gix-protocol/Cargo.toml:gix-features = { version = "^0.44.1", path = "../gix-features", features = [
+submodules/gitoxide/gix-protocol/Cargo.toml:gix-transport = { version = "^0.50.0", path = "../gix-transport" }
+submodules/gitoxide/gix-protocol/Cargo.toml:gix-hash = { version = "^0.20.1", path = "../gix-hash" }
+submodules/gitoxide/gix-protocol/Cargo.toml:gix-shallow = { version = "^0.6.0", path = "../gix-shallow" }
+submodules/gitoxide/gix-protocol/Cargo.toml:gix-date = { version = "^0.11.0", path = "../gix-date" }
+submodules/gitoxide/gix-protocol/Cargo.toml:gix-utils = { version = "^0.3.1", path = "../gix-utils" }
+submodules/gitoxide/gix-protocol/Cargo.toml:gix-ref = { version = "^0.55.0", path = "../gix-ref" }
+submodules/gitoxide/gix-protocol/Cargo.toml:gix-trace = { version = "^0.1.15", path = "../gix-trace", optional = true }
+submodules/gitoxide/gix-protocol/Cargo.toml:gix-negotiate = { version = "^0.23.0", path = "../gix-negotiate", optional = true }
+submodules/gitoxide/gix-protocol/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object", optional = true }
+submodules/gitoxide/gix-protocol/Cargo.toml:gix-revwalk = { version = "^0.23.0", path = "../gix-revwalk", optional = true }
+submodules/gitoxide/gix-protocol/Cargo.toml:gix-credentials = { version = "^0.32.0", path = "../gix-credentials", optional = true }
+submodules/gitoxide/gix-protocol/Cargo.toml:gix-refspec = { version = "^0.33.0", path = "../gix-refspec", optional = true }
+submodules/gitoxide/gix-protocol/Cargo.toml:gix-lock = { version = "^19.0.0", path = "../gix-lock", optional = true }
+submodules/gitoxide/gix-protocol/Cargo.toml:gix-packetline = { path = "../gix-packetline", version = "^0.20.0" }
+submodules/gitoxide/gix-odb/Cargo.toml:gix-features = { version = "^0.44.1", path = "../gix-features", features = ["walkdir", "zlib", "crc32"] }
+submodules/gitoxide/gix-odb/Cargo.toml:gix-hashtable = { version = "^0.10.0", path = "../gix-hashtable" }
+submodules/gitoxide/gix-odb/Cargo.toml:gix-hash = { version = "^0.20.1", path = "../gix-hash" }
+submodules/gitoxide/gix-odb/Cargo.toml:gix-date = { version = "^0.11.0", path = "../gix-date" }
+submodules/gitoxide/gix-odb/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path" }
+submodules/gitoxide/gix-odb/Cargo.toml:gix-quote = { version = "^0.6.1", path = "../gix-quote" }
+submodules/gitoxide/gix-odb/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-odb/Cargo.toml:gix-pack = { version = "^0.62.0", path = "../gix-pack", default-features = false }
+submodules/gitoxide/gix-odb/Cargo.toml:gix-fs = { version = "^0.17.0", path = "../gix-fs" }
+submodules/gitoxide/gix-merge/Cargo.toml:gix-hash = { version = "^0.20.0", path = "../gix-hash" }
+submodules/gitoxide/gix-merge/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-merge/Cargo.toml:gix-filter = { version = "^0.22.0", path = "../gix-filter" }
+submodules/gitoxide/gix-merge/Cargo.toml:gix-worktree = { version = "^0.44.0", path = "../gix-worktree", default-features = false, features = ["attributes"] }
+submodules/gitoxide/gix-merge/Cargo.toml:gix-command = { version = "^0.6.3", path = "../gix-command" }
+submodules/gitoxide/gix-merge/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path" }
+submodules/gitoxide/gix-merge/Cargo.toml:gix-fs = { version = "^0.17.0", path = "../gix-fs" }
+submodules/gitoxide/gix-merge/Cargo.toml:gix-tempfile = { version = "^19.0.0", path = "../gix-tempfile" }
+submodules/gitoxide/gix-merge/Cargo.toml:gix-trace = { version = "^0.1.14", path = "../gix-trace" }
+submodules/gitoxide/gix-merge/Cargo.toml:gix-quote = { version = "^0.6.1", path = "../gix-quote" }
+submodules/gitoxide/gix-merge/Cargo.toml:gix-revision = { version = "^0.37.0", path = "../gix-revision", default-features = false, features = ["merge_base"] }
+submodules/gitoxide/gix-merge/Cargo.toml:gix-revwalk = { version = "^0.23.0", path = "../gix-revwalk" }
+submodules/gitoxide/gix-merge/Cargo.toml:gix-diff = { version = "^0.55.0", path = "../gix-diff", default-features = false, features = ["blob"] }
+submodules/gitoxide/gix-merge/Cargo.toml:gix-index = { version = "^0.43.0", path = "../gix-index" }
+submodules/gitoxide/gix-prompt/Cargo.toml:gix-command = { version = "^0.6.3", path = "../gix-command" }
+submodules/gitoxide/gix-prompt/Cargo.toml:gix-config-value = { version = "^0.15.2", path = "../gix-config-value" }
+submodules/gitoxide/gix-fs/Cargo.toml:gix-path = { version = "^0.10.21", path = "../gix-path" }
+submodules/gitoxide/gix-fs/Cargo.toml:gix-features = { version = "^0.44.0", path = "../gix-features", features = ["fs-read-dir"] }
+submodules/gitoxide/gix-fs/Cargo.toml:gix-utils = { version = "^0.3.1", path = "../gix-utils" }
+submodules/gitoxide/gix-mailmap/Cargo.toml:gix-actor = { version = "^0.36.0", path = "../gix-actor" }
+submodules/gitoxide/gix-mailmap/Cargo.toml:gix-date = { version = "^0.11.0", path = "../gix-date" }
+submodules/gitoxide/gix-status/Cargo.toml:gix-index = { version = "^0.43.0", path = "../gix-index" }
+submodules/gitoxide/gix-status/Cargo.toml:gix-fs = { version = "^0.17.0", path = "../gix-fs" }
+submodules/gitoxide/gix-status/Cargo.toml:gix-hash = { version = "^0.20.1", path = "../gix-hash" }
+submodules/gitoxide/gix-status/Cargo.toml:gix-object = { version = "^0.52.0", path = "../gix-object" }
+submodules/gitoxide/gix-status/Cargo.toml:gix-path = { version = "^0.10.22", path = "../gix-path" }
+submodules/gitoxide/gix-status/Cargo.toml:gix-features = { version = "^0.44.1", path = "../gix-features", features = ["progress"] }
+submodules/gitoxide/gix-status/Cargo.toml:gix-filter = { version = "^0.22.0", path = "../gix-filter" }
+submodules/gitoxide/gix-status/Cargo.toml:gix-worktree = { version = "^0.44.0", path = "../gix-worktree", default-features = false, features = ["attributes"] }
+submodules/gitoxide/gix-status/Cargo.toml:gix-pathspec = { version = "^0.13.0", path = "../gix-pathspec" }
+submodules/gitoxide/gix-status/Cargo.toml:gix-dir = { version = "^0.17.0", path = "../gix-dir", optional = true }
+submodules/gitoxide/gix-status/Cargo.toml:gix-diff = { version = "^0.55.0", path = "../gix-diff", default-features = false, features = ["blob"], optional = true }
+submodules/gitoxide/gix-path/Cargo.toml:gix-trace = { version = "^0.1.14", path = "../gix-trace" }
+submodules/gitoxide/gix-path/Cargo.toml:gix-validate = { version = "^0.10.1", path = "../gix-validate" }
+lattice-introspector/vendor/monomcp-rust/monomcp/vendor/cargo-platform/Cargo.toml:gix = { version = "0.73.0", default-features = false, features = ["progress-tree", "parallel", "dirwalk", "status"] }
+lattice-introspector/vendor/monomcp-rust/monomcp/vendor/cargo-rust-lang/Cargo.toml:gix = { version = "0.73.0", default-features = false, features = ["progress-tree", "parallel", "dirwalk", "status"] }
+lattice-introspector/vendor/monomcp-rust/monomcp/vendor/cargo-rust-lang/Cargo.toml:gix = { version = "0.73.0", default-features = false, features = ["progress-tree", "parallel", "dirwalk", "status"] }

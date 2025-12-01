@@ -1,9 +1,9 @@
-use anyhow::Result;
-use std::path::{PathBuf, Path};
-use tokio::io::{AsyncBufReadExt, BufReader};
-use tokio::fs;
+use anyhow::{Context, Result};
 use clap::Parser;
 use regex::Regex;
+use std::path::{Path, PathBuf};
+use tokio::fs;
+use tokio::io::{AsyncBufReadExt, BufReader};
 
 enum InputReader {
     File(BufReader<fs::File>),
@@ -44,7 +44,11 @@ async fn main() -> Result<()> {
 
     println!("Identifying non-vendored modules...");
 
-    let project_root_str = args.project_root.to_str().context("Project root is not valid UTF-8")?.to_string();
+    let project_root_str = args
+        .project_root
+        .to_str()
+        .context("Project root is not valid UTF-8")?
+        .to_string();
     let submodules_prefix = format!("{}/submodules/", project_root_str);
     let vendor_prefix = format!("{}/vendor/", project_root_str);
 
@@ -53,7 +57,8 @@ async fn main() -> Result<()> {
         line_buffer.clear(); // Clear the buffer for the new line
         let bytes_read = reader.read_line(&mut line_buffer).await?;
 
-        if bytes_read == 0 { // EOF
+        if bytes_read == 0 {
+            // EOF
             break;
         }
 
@@ -65,13 +70,19 @@ async fn main() -> Result<()> {
         if let Some(captures) = re.captures(line) {
             let name = captures.name("name").unwrap().as_str();
             let path_str = captures.name("path").unwrap().as_str();
-            
+
             eprintln!("DEBUG: Name: '{}'", name);
             eprintln!("DEBUG: Path: '{}'", path_str);
             eprintln!("DEBUG: Submodules Prefix: '{}'", submodules_prefix);
             eprintln!("DEBUG: Vendor Prefix: '{}'", vendor_prefix);
-            eprintln!("DEBUG: path_str starts with submodules_prefix: {}", path_str.starts_with(&submodules_prefix));
-            eprintln!("DEBUG: path_str starts with vendor_prefix: {}", path_str.starts_with(&vendor_prefix));
+            eprintln!(
+                "DEBUG: path_str starts with submodules_prefix: {}",
+                path_str.starts_with(&submodules_prefix)
+            );
+            eprintln!(
+                "DEBUG: path_str starts with vendor_prefix: {}",
+                path_str.starts_with(&vendor_prefix)
+            );
 
             if !(path_str.starts_with(&submodules_prefix) || path_str.starts_with(&vendor_prefix)) {
                 eprintln!("DEBUG: Printing non-vendored module: '{}'", name);
@@ -81,7 +92,8 @@ async fn main() -> Result<()> {
             }
         } else {
             eprintln!("DEBUG: Regex did NOT match line: '{}'", line); // Keep this for now
-        }    }
+        }
+    }
 
     println!("Finished identifying non-vendored modules.");
     Ok(())

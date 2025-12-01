@@ -8,7 +8,8 @@ type Result<T> = std::result::Result<T, Box<dyn Error>>;
 #[cfg(not(feature = "anyhow_enabled"))]
 trait Context<T> {
     fn context<C>(self, _context: C) -> Result<T>
-    where C: std::fmt::Display + Send + Sync + 'static;
+    where
+        C: std::fmt::Display + Send + Sync + 'static;
 }
 
 #[cfg(not(feature = "anyhow_enabled"))]
@@ -20,7 +21,12 @@ where
     where
         C: std::fmt::Display + Send + Sync + 'static,
     {
-        self.map_err(|e| Box::new(std::io::Error::new(std::io::ErrorKind::Other, format!("{}: {}", context, e))) as Box<dyn Error>)
+        self.map_err(|e| {
+            Box::new(std::io::Error::new(
+                std::io::ErrorKind::Other,
+                format!("{}: {}", context, e),
+            )) as Box<dyn Error>
+        })
     }
 }
 
@@ -30,7 +36,7 @@ use std::collections::HashMap;
 use std::fs;
 use std::path::{Path, PathBuf};
 #[cfg(feature = "toml_edit_enabled")]
-use toml_edit::{value, DocumentMut, Item, Table};
+use toml_edit::{DocumentMut, Item, Table, value};
 #[cfg(feature = "walkdir_enabled")]
 use walkdir::WalkDir;
 
@@ -77,8 +83,11 @@ impl Args {
     }
 }
 
-
-#[cfg(all(feature = "clap_enabled", feature = "toml_edit_enabled", feature = "walkdir_enabled"))]
+#[cfg(all(
+    feature = "clap_enabled",
+    feature = "toml_edit_enabled",
+    feature = "walkdir_enabled"
+))]
 fn main() -> Result<()> {
     let args = Args::parse();
 
@@ -194,9 +203,14 @@ fn main() -> Result<()> {
     Ok(())
 }
 
-#[cfg(not(all(feature = "clap_enabled", feature = "toml_edit_enabled", feature = "walkdir_enabled")))]
+#[cfg(not(all(
+    feature = "clap_enabled",
+    feature = "toml_edit_enabled",
+    feature = "walkdir_enabled"
+)))]
 fn main() -> Result<()> {
-    println!("`dep2submodule` is running in dummy mode. Enable `clap_enabled`, `toml_edit_enabled`, and `walkdir_enabled` features for full functionality.");
+    println!(
+        "`dep2submodule` is running in dummy mode. Enable `clap_enabled`, `toml_edit_enabled`, and `walkdir_enabled` features for full functionality."
+    );
     Ok(())
 }
-

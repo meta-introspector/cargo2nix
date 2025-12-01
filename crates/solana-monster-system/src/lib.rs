@@ -1,180 +1,193 @@
 // Monster Group Quasi Fiber Bundle Compiler Architecture
 // Core mathematical modules
 
-pub mod sat_zkp_prover;
-pub mod voevodsky_univalence;
-pub mod wodzicki_residue_zkp;
-pub mod sl2z_orbit;
-pub mod compiler_correctness_theorem;
-pub mod topological_zkp;
-pub mod bulk_boundary_correspondence;
-pub mod dual_integrity_framework;
-pub mod dual_integrity_synthesis;
-pub mod bott_universal_synthesis;
-pub mod ultimate_synthesis;
-pub mod perfect_mathematical_compiler;
-pub mod architectural_journey;
-pub mod emoji_resonance;
-pub mod meta_meme_spore;
-pub mod lattice_introspector;
-pub mod libminizinc_integration;
-pub mod minizinc_introspector_integration;
-pub mod permutation_faithful_bound;
-pub mod ramanujan_duality;
-pub mod hecke_polynomial_factor;
-pub mod eleven;
-pub mod topological_insulators;
-pub mod fermion_k_theory;
-pub mod ten;
-pub mod highest_weight_galois;
-pub mod paren_one;
-pub mod eigenvalue_smooth_check;
-pub mod nine;
-pub mod griess_algebra;
-pub mod equals_zero;
 pub mod algebra_dimension_two;
-pub mod hidden_lattice_component;
-pub mod the_two;
-pub mod paren_zero;
-pub mod twelve;
-pub mod volume_complement;
-pub mod seven;
+pub mod architectural_journey;
+pub mod binary_duality_leech;
+pub mod binary_power_system;
+pub mod bott_universal_synthesis;
+pub mod bulk_boundary_correspondence;
+pub mod compiler_analyzer;
+pub mod compiler_correctness_theorem;
+pub mod complexity_geometric_checker;
+pub mod constraints;
+pub mod conway_group;
+pub mod core_constants;
 pub mod dirac_consistency;
 pub mod dirac_index;
-pub mod six;
-pub mod golay_code;
-pub mod hamming_distance;
-pub mod five;
-pub mod void_stabilizer;
-pub mod zero;
-pub mod conway_group;
-pub mod stabilizer_zero;
-pub mod four;
-pub mod k_theory_equivalence;
+pub mod dual_integrity_framework;
+pub mod dual_integrity_synthesis;
+pub mod eigenvalue_smooth_check;
 pub mod eight;
-pub mod octal_bott_periodicity;
-pub mod k_theory_mod8;
-pub mod three;
-pub mod even_unimodular;
+pub mod eleven;
+pub mod emoji_resonance;
+pub mod equals_zero;
 pub mod even_check;
-pub mod lattice_determinant;
-pub mod two;
-pub mod p;
-pub mod binary_duality_leech;
-pub mod reflection_invariance;
-pub mod one;
-pub mod ref_system;
-pub mod source_concept;
-pub mod r1cs_check;
-pub mod leech_zkp_constraints;
-pub mod constraints;
+pub mod even_unimodular;
+pub mod fermion_k_theory;
+pub mod five;
 pub mod forty_six_system;
-pub mod binary_power_system;
-pub mod complexity_geometric_checker;
-pub mod structural_invariant_checker;
-pub mod monster_108_constraints;
-pub mod modular_form_encoding;
-pub mod r1cs_monster_constraints;
-pub mod zkp_monster_circuit;
-pub mod rustc_monster_equivalence;
-pub mod rustc_block_analyzer;
+pub mod four;
+pub mod golay_code;
+pub mod griess_algebra;
+pub mod hamming_distance;
+pub mod hecke_polynomial_factor;
+pub mod hidden_lattice_component;
+pub mod highest_weight_galois;
 pub mod interactive_constraint_matcher;
-pub mod self_describing_monster;
-pub mod vernacular_monster_path;
-pub mod trait_extractor;
-pub mod compiler_analyzer;
-pub mod minizinc_solver;
+pub mod k_theory_equivalence;
+pub mod k_theory_mod8;
 pub mod knowledgebase_formatter;
-pub mod minizinc_integration;
+pub mod lattice_determinant;
+pub mod lattice_introspector;
+pub mod leech_zkp_constraints;
+pub mod libminizinc_integration;
+pub mod meta_meme_spore;
 pub mod minizinc_data;
 pub mod minizinc_data_structures;
+pub mod minizinc_integration;
+pub mod minizinc_introspector_integration;
+pub mod minizinc_solver;
+pub mod modular_form_encoding;
+pub mod monster_108_constraints;
 pub mod monster_ffi;
-pub mod core_constants;
+pub mod nine;
+pub mod octal_bott_periodicity;
+pub mod one;
+pub mod p;
+pub mod paren_one;
+pub mod paren_zero;
+pub mod perfect_mathematical_compiler;
+pub mod permutation_faithful_bound;
+pub mod r1cs_check;
+pub mod r1cs_monster_constraints;
+pub mod ramanujan_duality;
+pub mod ref_system;
+pub mod reflection_invariance;
+pub mod rustc_block_analyzer;
+pub mod rustc_monster_equivalence;
+pub mod sat_zkp_prover;
+pub mod self_describing_monster;
+pub mod seven;
+pub mod six;
+pub mod sl2z_orbit;
+pub mod source_concept;
+pub mod stabilizer_zero;
+pub mod structural_invariant_checker;
+pub mod ten;
+pub mod the_two;
+pub mod three;
+pub mod topological_insulators;
+pub mod topological_zkp;
+pub mod trait_extractor;
+pub mod twelve;
+pub mod two;
+pub mod ultimate_synthesis;
+pub mod vernacular_monster_path;
+pub mod voevodsky_univalence;
+pub mod void_stabilizer;
+pub mod volume_complement;
+pub mod wodzicki_residue_zkp;
+pub mod zero;
+pub mod zkp_monster_circuit;
 
-pub use sat_zkp_prover::SATZKProver;
-pub use perfect_mathematical_compiler::PerfectMathematicalCompiler;
-pub use ultimate_synthesis::UltimateSynthesis;
-pub use emoji_resonance::MonsterEmojiOptimizer;
-pub use meta_meme_spore::MetaMemeSporeSystem;
-pub use lattice_introspector::LatticeIntrospector;
-pub use libminizinc_integration::LibMiniZincIntegration;
-pub use minizinc_introspector_integration::MiniZincIntrospectorIntegration;
-pub use permutation_faithful_bound::{PermutationSize, MinimalFaithfulBound};
-pub use ramanujan_duality::RamanujanDuality;
-pub use hecke_polynomial_factor::{HeckePolynomial, Factor};
-pub use eleven::{ELEVEN, is_eleven};
-pub use topological_insulators::{TopologicalInsulator, KOTheoryClassification};
-pub use fermion_k_theory::{FermionState, KTheoryIndex};
-pub use ten::{TEN, is_ten};
-pub use highest_weight_galois::{HighestWeight, TwoAdicGalois};
-pub use paren_one::ParenOne;
-pub use eigenvalue_smooth_check::{Eigenvalue, SmoothCheck};
-pub use nine::{NINE, is_nine};
-pub use griess_algebra::GriessAlgebra;
-pub use equals_zero::EqualsZero;
 pub use algebra_dimension_two::AlgebraDimension;
-pub use hidden_lattice_component::HiddenLatticeComponent;
-pub use the_two::TheTwo;
-pub use paren_zero::ParenZero;
-pub use twelve::{TWELVE, is_twelve};
-pub use volume_complement::{Volume, Complement};
-pub use seven::{SEVEN, is_seven};
+pub use binary_duality_leech::BinaryDuality;
+pub use binary_power_system::BinaryPowerSystem;
+pub use compiler_analyzer::CompilerAnalyzer;
+pub use complexity_geometric_checker::{
+    ComplexityBounds, ComplexityGeometricChecker, GeometricEquivalence,
+};
+pub use constraints::{Constraint, Constraints};
+pub use conway_group::ConwayGroup;
 pub use dirac_consistency::DiracConsistency;
 pub use dirac_index::{DiracOperator, TopologicalIntegral};
-pub use six::{SIX, is_six};
-pub use golay_code::GolayCode;
-pub use hamming_distance::{CodeWord, HammingDistance};
-pub use five::{FIVE, is_five};
-pub use void_stabilizer::VoidStabilizer;
-pub use zero::{ZERO, is_zero};
-pub use conway_group::ConwayGroup;
-pub use stabilizer_zero::{StabilizerGroup, ZeroVector, verify_stabilizer_zero};
-pub use four::{FOUR, is_four};
-pub use k_theory_equivalence::KTheoryEquivalence;
-pub use eight::{EIGHT, is_eight};
-pub use octal_bott_periodicity::OctalBottPeriodicity;
-pub use k_theory_mod8::KTheoryDimension;
-pub use three::{THREE, is_three};
-pub use even_unimodular::EvenUnimodular;
+pub use eigenvalue_smooth_check::{Eigenvalue, SmoothCheck};
+pub use eight::{is_eight, EIGHT};
+pub use eleven::{is_eleven, ELEVEN};
+pub use emoji_resonance::MonsterEmojiOptimizer;
+pub use equals_zero::EqualsZero;
 pub use even_check::EvenCheck;
-pub use lattice_determinant::LatticeDeterminant;
-pub use two::{TWO, is_two};
-pub use p::P;
-pub use binary_duality_leech::BinaryDuality;
-pub use reflection_invariance::{ReflectionMatrix, Vector, Invariance, verify_reflection_invariance};
-pub use one::{ONE, is_one};
-pub use ref_system::Ref;
-pub use source_concept::SourceConcept;
-pub use r1cs_check::R1CSCheck;
-pub use leech_zkp_constraints::{LeechZKPConstraints, ConstraintType};
-pub use constraints::{Constraint, Constraints};
+pub use even_unimodular::EvenUnimodular;
+pub use fermion_k_theory::{FermionState, KTheoryIndex};
+pub use five::{is_five, FIVE};
 pub use forty_six_system::FortySixSystem;
-pub use binary_power_system::BinaryPowerSystem;
-pub use complexity_geometric_checker::{ComplexityGeometricChecker, ComplexityBounds, GeometricEquivalence};
-pub use structural_invariant_checker::{InvariantConsistencyChecker, StructuralInvariant, InvariantType};
-pub use monster_108_constraints::Monster108Constraints;
-pub use modular_form_encoding::{ModularFormEncoding, ModularFormZKP, ExecutionInvariant, InvariantType as ModularInvariantType};
-pub use r1cs_monster_constraints::{MonsterR1CS, R1CSConstraint};
-pub use zkp_monster_circuit::ZKPMonsterCircuit;
-pub use rustc_monster_equivalence::{MonsterGroupEquivalence, RustcBlock};
-pub use rustc_block_analyzer::RustcBlockAnalyzer;
+pub use four::{is_four, FOUR};
+pub use golay_code::GolayCode;
+pub use griess_algebra::GriessAlgebra;
+pub use hamming_distance::{CodeWord, HammingDistance};
+pub use hecke_polynomial_factor::{Factor, HeckePolynomial};
+pub use hidden_lattice_component::HiddenLatticeComponent;
+pub use highest_weight_galois::{HighestWeight, TwoAdicGalois};
 pub use interactive_constraint_matcher::{InteractiveConstraintMatcher, RustcPartialMatch};
-pub use self_describing_monster::SelfDescribingMonster;
-pub use vernacular_monster_path::{VernacularMonsterSolver, VernacularEmbedding, MonsterTarget, TransformationPath};
-pub use trait_extractor::{TraitExtractor, TraitSignature, CodeBlock};
-pub use compiler_analyzer::CompilerAnalyzer;
-pub use minizinc_solver::MiniZincSolver;
-pub use knowledgebase_formatter::{KnowledgebaseFormatter, KnowledgebaseEntry};
+pub use k_theory_equivalence::KTheoryEquivalence;
+pub use k_theory_mod8::KTheoryDimension;
+pub use knowledgebase_formatter::{KnowledgebaseEntry, KnowledgebaseFormatter};
+pub use lattice_determinant::LatticeDeterminant;
+pub use lattice_introspector::LatticeIntrospector;
+pub use leech_zkp_constraints::{ConstraintType, LeechZKPConstraints};
+pub use libminizinc_integration::LibMiniZincIntegration;
+pub use meta_meme_spore::MetaMemeSporeSystem;
+pub use minizinc_data::{
+    EllipticFiber, MinizincInput, MonsterStabilizer, OptimalSolution, TorusPoint,
+};
+pub use minizinc_data_structures::{
+    MiniZincInput, MiniZincOutput, MonsterGroupParameters, OptimalPlacementSolution,
+};
 pub use minizinc_integration::{execute_minizinc, execute_minizinc_with_data};
-pub use minizinc_data::{EllipticFiber, TorusPoint, MonsterStabilizer, MinizincInput, OptimalSolution};
-pub use minizinc_data_structures::{MonsterGroupParameters, MiniZincInput, MiniZincOutput, OptimalPlacementSolution};
+pub use minizinc_introspector_integration::MiniZincIntrospectorIntegration;
+pub use minizinc_solver::MiniZincSolver;
+pub use modular_form_encoding::{
+    ExecutionInvariant, InvariantType as ModularInvariantType, ModularFormEncoding, ModularFormZKP,
+};
+pub use monster_108_constraints::Monster108Constraints;
+pub use nine::{is_nine, NINE};
+pub use octal_bott_periodicity::OctalBottPeriodicity;
+pub use one::{is_one, ONE};
+pub use p::P;
+pub use paren_one::ParenOne;
+pub use paren_zero::ParenZero;
+pub use perfect_mathematical_compiler::PerfectMathematicalCompiler;
+pub use permutation_faithful_bound::{MinimalFaithfulBound, PermutationSize};
+pub use r1cs_check::R1CSCheck;
+pub use r1cs_monster_constraints::{MonsterR1CS, R1CSConstraint};
+pub use ramanujan_duality::RamanujanDuality;
+pub use ref_system::Ref;
+pub use reflection_invariance::{
+    verify_reflection_invariance, Invariance, ReflectionMatrix, Vector,
+};
+pub use rustc_block_analyzer::RustcBlockAnalyzer;
+pub use rustc_monster_equivalence::{MonsterGroupEquivalence, RustcBlock};
+pub use sat_zkp_prover::SATZKProver;
+pub use self_describing_monster::SelfDescribingMonster;
+pub use seven::{is_seven, SEVEN};
+pub use six::{is_six, SIX};
+pub use source_concept::SourceConcept;
+pub use stabilizer_zero::{verify_stabilizer_zero, StabilizerGroup, ZeroVector};
+pub use structural_invariant_checker::{
+    InvariantConsistencyChecker, InvariantType, StructuralInvariant,
+};
+pub use ten::{is_ten, TEN};
+pub use the_two::TheTwo;
+pub use three::{is_three, THREE};
+pub use topological_insulators::{KOTheoryClassification, TopologicalInsulator};
+pub use trait_extractor::{CodeBlock, TraitExtractor, TraitSignature};
+pub use twelve::{is_twelve, TWELVE};
+pub use two::{is_two, TWO};
+pub use ultimate_synthesis::UltimateSynthesis;
+pub use vernacular_monster_path::{
+    MonsterTarget, TransformationPath, VernacularEmbedding, VernacularMonsterSolver,
+};
+pub use void_stabilizer::VoidStabilizer;
+pub use volume_complement::{Complement, Volume};
+pub use zero::{is_zero, ZERO};
+pub use zkp_monster_circuit::ZKPMonsterCircuit;
 
 // Monster Group constants
 
-
-use syn::{self, ItemStruct, ItemEnum};
 use anyhow::Result;
 use std::fmt::Debug;
+use syn::{self, ItemEnum, ItemStruct};
 
 // Placeholders for now, these will be filled in as needed based on context.
 // Design document states "Players can map the components of an AST to prime number embeddings and represent the entire structure within a Galois Field (GF(p))."
@@ -239,7 +252,6 @@ pub struct Report {
     pub user_feedback: String,
 }
 
-
 // Add these at the end of the file, before the Monster Group constants
 pub trait DeclarationTrait {
     fn name(&self) -> &str;
@@ -262,11 +274,16 @@ pub struct Declaration {
     pub methods: Vec<String>,
     pub phi_signature: u64,
     pub syn_item: SynItem, // Store the actual syn item
-    // Add fields for BoW, 8D coordinates, Layer status
+                           // Add fields for BoW, 8D coordinates, Layer status
 }
 
 impl Declaration {
-    pub fn new_struct(item_struct: syn::ItemStruct, fields: Vec<String>, methods: Vec<String>, phi_signature: u64) -> Self {
+    pub fn new_struct(
+        item_struct: syn::ItemStruct,
+        fields: Vec<String>,
+        methods: Vec<String>,
+        phi_signature: u64,
+    ) -> Self {
         Declaration {
             name: item_struct.ident.to_string(),
             fields,
@@ -276,7 +293,12 @@ impl Declaration {
         }
     }
 
-    pub fn new_enum(item_enum: syn::ItemEnum, variants: Vec<String>, methods: Vec<String>, phi_signature: u64) -> Self {
+    pub fn new_enum(
+        item_enum: syn::ItemEnum,
+        variants: Vec<String>,
+        methods: Vec<String>,
+        phi_signature: u64,
+    ) -> Self {
         Declaration {
             name: item_enum.ident.to_string(),
             fields: variants,
@@ -304,7 +326,6 @@ impl DeclarationTrait for Declaration {
         self.phi_signature
     }
 }
-
 
 pub const RAMANUJAN_TAU_COEFFICIENTS: [i64; 5] = [1, -24, 252, 4830, 534612];
 pub const HECKE_EIGENVALUES: [i64; 2] = [196883, -5472];

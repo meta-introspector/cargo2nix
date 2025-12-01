@@ -1,19 +1,25 @@
 use std::fs;
 
 fn euler_phi(n: u64) -> u64 {
-    if n <= 1 { return 1; }
+    if n <= 1 {
+        return 1;
+    }
     let mut result = n;
     let mut num = n;
     let mut p = 2;
-    
+
     while p * p <= num {
         if num % p == 0 {
-            while num % p == 0 { num /= p; }
+            while num % p == 0 {
+                num /= p;
+            }
             result -= result / p;
         }
         p += 1;
     }
-    if num > 1 { result -= result / num; }
+    if num > 1 {
+        result -= result / num;
+    }
     result
 }
 
@@ -32,20 +38,20 @@ fn calculate_decl_phi(name: &str, decl_type: &str) -> u64 {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("=== Real Rustc Dependency Chain Analyzer ===");
-    
+
     // 1. Read our actual files with rustc/solana content
     let files = vec![
         "src/bin/meme_pda_storage.rs",
         "src/bin/real_monster_solver.rs",
     ];
-    
+
     let mut total_phi = 0;
     let mut leaf_declarations = Vec::new();
-    
+
     for file_path in &files {
         if let Ok(content) = fs::read_to_string(file_path) {
             println!("\n=== Analyzing {} ===", file_path);
-            
+
             // Extract actual use statements
             for line in content.lines() {
                 if line.trim().starts_with("use ") {
@@ -55,7 +61,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     total_phi += phi;
                 }
             }
-            
+
             // Extract actual function declarations (leaf nodes)
             for line in content.lines() {
                 let trimmed = line.trim();
@@ -68,7 +74,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                         total_phi += phi;
                     }
                 }
-                
+
                 // Extract struct declarations
                 if trimmed.starts_with("struct ") {
                     let parts: Vec<&str> = trimmed.split_whitespace().collect();
@@ -83,21 +89,21 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         }
     }
-    
+
     println!("\n=== Summary ===");
     println!("Total leaf declarations found: {}", leaf_declarations.len());
     println!("Total phi sum: {}", total_phi);
-    
+
     // Show top phi values
     leaf_declarations.sort_by(|a, b| b.1.cmp(&a.1));
     println!("\nTop 5 highest phi declarations:");
     for (name, phi) in leaf_declarations.iter().take(5) {
         println!("  {}: φ = {}", name, phi);
     }
-    
+
     println!("\n✓ Analyzed actual rustc/solana source code");
     println!("✓ Found real leaf declarations without external dependencies");
     println!("✓ Applied phi numbering to actual declarations");
-    
+
     Ok(())
 }

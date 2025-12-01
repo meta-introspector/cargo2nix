@@ -1,5 +1,5 @@
 use anyhow::Result;
-use serde::{Serialize, Deserialize}; // Add this
+use serde::{Deserialize, Serialize}; // Add this
 
 /// Represents the morphological index of a plugin, describing its capabilities and structure.
 #[derive(Debug, Serialize, Deserialize, Clone)] // Added Clone for easier handling if needed
@@ -14,7 +14,6 @@ pub struct MorphologicalIndex {
     pub semantic_tags: Vec<String>,
     // Add more fields as needed for detailed morphological description
 }
-
 
 pub trait McpPlugin {
     /// Returns the name of the plugin.

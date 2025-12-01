@@ -1,7 +1,7 @@
 //#[cfg(feature = "anyhow_enabled")]
 mod metadata_provider;
-pub use metadata_provider::*;
 use anyhow::{Context, Result};
+pub use metadata_provider::*;
 //#[cfg(not(feature = "anyhow_enabled"))]
 //use std::error::Error;
 //#[cfg(not(feature = "anyhow_enabled"))]
@@ -80,7 +80,6 @@ impl Args {
     }
 }
 
-
 fn main() -> Result<()> {
     let args = Args::parse();
 
@@ -93,7 +92,7 @@ fn main() -> Result<()> {
 
     // 1. Get cargo metadata
     println!("Collecting cargo metadata...");
-    
+
     #[cfg(feature = "real_cargo_metadata")]
     let metadata_provider = RealCargoMetadataProvider;
     #[cfg(not(feature = "real_cargo_metadata"))]
@@ -103,32 +102,33 @@ fn main() -> Result<()> {
         .provide_metadata(&project_root)
         .context("Failed to get cargo metadata")?;
 
-
-
     let workspace_members: Vec<&Package> = metadata
         .workspace_members
         .iter()
-        .filter_map(|id| metadata.packages.iter().find(|pkg| &pkg.id.repr == &id.repr))
+        .filter_map(|id| {
+            metadata
+                .packages
+                .iter()
+                .find(|pkg| &pkg.id.repr == &id.repr)
+        })
         .collect();
 
-    let target_package_ids: Vec<PackageId> =
-        if let Some(pkg_name) = &args.package_name {
-            workspace_members
-                .iter()
-                .filter(|pkg| pkg.name.as_str() == *pkg_name)
-                .map(|pkg| pkg.id.clone())
-                .collect()
-        } else {
-            workspace_members.iter().map(|pkg| pkg.id.clone()).collect()
-        };
+    let target_package_ids: Vec<PackageId> = if let Some(pkg_name) = &args.package_name {
+        workspace_members
+            .iter()
+            .filter(|pkg| pkg.name.as_str() == *pkg_name)
+            .map(|pkg| pkg.id.clone())
+            .collect()
+    } else {
+        workspace_members.iter().map(|pkg| pkg.id.clone()).collect()
+    };
 
     if target_package_ids.is_empty() {
         anyhow::bail!("No target packages found for inversion. Check package_name or ensure workspace has members.");
     }
 
     // 2. Build the inverse dependency graph (dependee -> [dependents])
-    let mut inverse_graph: HashMap<PackageId, Vec<PackageId>> =
-        HashMap::new();
+    let mut inverse_graph: HashMap<PackageId, Vec<PackageId>> = HashMap::new();
     for package in &metadata.packages {
         for dep in &package.dependencies {
             // Find the actual PackageId for the dependency name
@@ -146,8 +146,7 @@ fn main() -> Result<()> {
     }
 
     // 3. Build a forward dependency graph (package -> [direct_dependencies])
-    let mut forward_graph: HashMap<PackageId, Vec<PackageId>> =
-        HashMap::new();
+    let mut forward_graph: HashMap<PackageId, Vec<PackageId>> = HashMap::new();
     for package in &metadata.packages {
         for dep in &package.dependencies {
             if let Some(dep_pkg) = metadata
@@ -193,7 +192,7 @@ fn main() -> Result<()> {
         .filter(|e| e.file_type().is_file() && e.file_name() == "Cargo.toml")
     {
         let cargo_toml_path = entry.path();
-        
+
         #[cfg(feature = "real_cargo_metadata")]
         let submodule_metadata_provider = RealCargoMetadataProvider;
         #[cfg(not(feature = "real_cargo_metadata"))]
@@ -300,7 +299,11 @@ fn main() -> Result<()> {
                 continue;
             }
 
-            let pkg = metadata.packages.iter().find(|p| p.id.repr == pkg_id.repr).unwrap();
+            let pkg = metadata
+                .packages
+                .iter()
+                .find(|p| p.id.repr == pkg_id.repr)
+                .unwrap();
 
             // If it's a local submodule and not already handled as a member or direct dependency
             if let Some(sub_path) = submodule_paths.get(pkg.name.as_str()) {

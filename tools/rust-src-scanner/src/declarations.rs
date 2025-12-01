@@ -24,6 +24,6 @@ pub struct NixDeclaration {
     pub name: String,
     pub path: String, // Format: file_path:line:col
     pub bit_size: Option<u64>,
-    pub value: Option<String>, // For literal values of Const, Static
+    pub value: Option<String>,     // For literal values of Const, Static
     pub monster_factors: Vec<u64>, // List of monster primes derived from properties
 }

@@ -1,42 +1,40 @@
+use anyhow::{Context, Result, anyhow};
+use clap::Parser;
+use libloading::{Library, Symbol}; // For plugin loading
 use lsp_server::{Connection, Message};
 use lsp_types::{
-    InitializeParams, ServerCapabilities, TextDocumentSyncCapability,
-    TextDocumentSyncKind,
-};
-use anyhow::{Context, Result, anyhow};
-use std::path::{PathBuf, Path}; // Need PathBuf and Path for project_root
-use std::io; // Added for stdin().read_line
-use rocksdb::{
-    DB, Options
+    InitializeParams, ServerCapabilities, TextDocumentSyncCapability, TextDocumentSyncKind,
 };
 use mcp_plugin_traits::{McpPlugin, MorphologicalIndex}; // For plugin handling
-use std::process::Command; // For plugin rebuilding
-use libloading::{Library, Symbol}; // For plugin loading
-use clap::Parser; // NEW: For Cli::parse()
+use rocksdb::{DB, Options};
+use std::io; // Added for stdin().read_line
+use std::path::{Path, PathBuf}; // Need PathBuf and Path for project_root
+use std::process::Command; // For plugin rebuilding // NEW: For Cli::parse()
 
 // Module imports
-mod new_test_function; // Keep this as is for now
-mod cli_args;
 mod analysis_types;
-mod hasher;
-pub mod file_ingestion;
-mod query_analysis;
-mod file_retrieval;
 mod bootstrapper;
-mod plan_generator; // Re-added
+mod cli_args;
+pub mod file_ingestion;
+mod file_retrieval;
+mod hasher;
 mod lsp_handlers;
+mod new_test_function; // Keep this as is for now
+mod plan_generator; // Re-added
+mod query_analysis;
 
 // Use statements
-use cli_args::Cli;
-use analysis_types::{PluginMetadata, ProjectFileAnalysis, IngestionChunk, IngestionFileDescriptor};
-use hasher::calculate_content_id; // Still needed for plugin handling
-use file_ingestion::{scan_and_ingest_project};
-use query_analysis::query_project_analysis;
-use file_retrieval::get_file_analysis;
+use analysis_types::{
+    IngestionChunk, IngestionFileDescriptor, PluginMetadata, ProjectFileAnalysis,
+};
 use bootstrapper::boot_compiler;
+use cli_args::Cli;
+use file_ingestion::scan_and_ingest_project;
+use file_retrieval::get_file_analysis;
+use hasher::calculate_content_id; // Still needed for plugin handling
+use lsp_handlers::{ANALYZE_CODE_COMMAND, analyze_code, handle_notification, handle_request};
 use plan_generator::generate_ingestion_plan; // Re-added
-use lsp_handlers::{ANALYZE_CODE_COMMAND, handle_request, handle_notification, analyze_code};
-
+use query_analysis::query_project_analysis;
 
 fn main() -> Result<()> {
     let cli = Cli::parse();
@@ -57,20 +55,30 @@ fn main() -> Result<()> {
         if let Some(plugin_crate_path_str) = cli.rebuild_plugin {
             eprintln!("Rebuilding plugin crate: {}", plugin_crate_path_str);
             let plugin_crate_path = PathBuf::from(&plugin_crate_path_str);
-            
+
             // Extract crate name from path
-            let plugin_crate_name = plugin_crate_path.file_name()
+            let plugin_crate_name = plugin_crate_path
+                .file_name()
                 .and_then(|s| s.to_str())
-                .context(format!("Invalid plugin crate path: {}", plugin_crate_path_str))?;
+                .context(format!(
+                    "Invalid plugin crate path: {}",
+                    plugin_crate_path_str
+                ))?;
 
             let build_output = Command::new("cargo")
                 .arg("build")
                 .arg("--release") // Build in release mode for dynamic libraries
                 .arg("--lib")
                 .arg(format!("--package={}", plugin_crate_name))
-                .arg(format!("--manifest-path={}", plugin_crate_path.join("Cargo.toml").display()))
+                .arg(format!(
+                    "--manifest-path={}",
+                    plugin_crate_path.join("Cargo.toml").display()
+                ))
                 .output()
-                .context(format!("Failed to execute cargo build for plugin: {}", plugin_crate_name))?;
+                .context(format!(
+                    "Failed to execute cargo build for plugin: {}",
+                    plugin_crate_name
+                ))?;
 
             if !build_output.status.success() {
                 return Err(anyhow!(
@@ -83,18 +91,25 @@ fn main() -> Result<()> {
             eprintln!("Plugin '{}' rebuilt successfully.", plugin_crate_name);
         }
 
-        eprintln!("Running in direct plugin execution mode for: {}", plugin_path_str);
-        
+        eprintln!(
+            "Running in direct plugin execution mode for: {}",
+            plugin_path_str
+        );
+
         // --- Dynamic Plugin Loading Logic ---
         // SAFETY: Loading dynamic libraries and calling C functions is inherently unsafe.
         // We assume the plugin provides a safe interface and matches the expected function signatures.
         let lib = unsafe { Library::new(&plugin_path) } // Library::new is unsafe
-            .context(format!("Failed to load dynamic library: {}", plugin_path_str))?;
-        
+            .context(format!(
+                "Failed to load dynamic library: {}",
+                plugin_path_str
+            ))?;
+
         // Resolve the create_plugin symbol
-        let create_plugin: Symbol<fn() -> Box<dyn McpPlugin>> = unsafe { lib.get(b"create_plugin") }
-            .context("Failed to find 'create_plugin' symbol in plugin library")?;
-        
+        let create_plugin: Symbol<fn() -> Box<dyn McpPlugin>> =
+            unsafe { lib.get(b"create_plugin") }
+                .context("Failed to find 'create_plugin' symbol in plugin library")?;
+
         // Resolve the destroy_plugin symbol
         let destroy_plugin: Symbol<fn(Box<dyn McpPlugin>)> = unsafe { lib.get(b"destroy_plugin") }
             .context("Failed to find 'destroy_plugin' symbol in plugin library")?;
@@ -103,11 +118,12 @@ fn main() -> Result<()> {
         let plugin = create_plugin();
 
         eprintln!("Loaded plugin: {} (v{})", plugin.name(), plugin.version());
-        
+
         let test_input = "Hello from MCP server!";
-        let plugin_result = plugin.execute(test_input)
+        let plugin_result = plugin
+            .execute(test_input)
             .context(format!("Plugin '{}' execution failed", plugin.name()))?;
-        
+
         println!("Plugin Output: {}", plugin_result);
 
         // Store plugin metadata in RocksDB
@@ -124,35 +140,51 @@ fn main() -> Result<()> {
         let metadata_json = serde_json::to_string(&metadata)?;
         db.put(plugin_content_id.as_bytes(), metadata_json.as_bytes())
             .context("Failed to write plugin metadata to RocksDB")?;
-        eprintln!("Plugin metadata stored in RocksDB with content ID: {}", metadata.content_id);
+        eprintln!(
+            "Plugin metadata stored in RocksDB with content ID: {}",
+            metadata.content_id
+        );
 
         // Retrieve and store morphological index
         let morphological_index = plugin.morphological_index();
         let morphological_index_json = serde_json::to_string(&morphological_index)?;
         let morphological_index_key = format!("{}_morphological_index", plugin_content_id);
-        db.put(morphological_index_key.as_bytes(), morphological_index_json.as_bytes())
-            .context("Failed to write morphological index to RocksDB")?;
-        eprintln!("Morphological index stored in RocksDB with key: {}", morphological_index_key);
+        db.put(
+            morphological_index_key.as_bytes(),
+            morphological_index_json.as_bytes(),
+        )
+        .context("Failed to write morphological index to RocksDB")?;
+        eprintln!(
+            "Morphological index stored in RocksDB with key: {}",
+            morphological_index_key
+        );
 
         // Example of retrieving data
-        if let Some(retrieved_data) = db.get(plugin_content_id.as_bytes())
-            .context("Failed to retrieve plugin metadata from RocksDB")? {
+        if let Some(retrieved_data) = db
+            .get(plugin_content_id.as_bytes())
+            .context("Failed to retrieve plugin metadata from RocksDB")?
+        {
             let retrieved_metadata: PluginMetadata = serde_json::from_slice(&retrieved_data)?;
             eprintln!("Retrieved metadata from RocksDB: {:?}", retrieved_metadata);
         }
-        if let Some(retrieved_index_data) = db.get(morphological_index_key.as_bytes())
-            .context("Failed to retrieve morphological index from RocksDB")? {
-            let retrieved_morphological_index: MorphologicalIndex = serde_json::from_slice(&retrieved_index_data)?;
-            eprintln!("Retrieved morphological index from RocksDB: {:?}", retrieved_morphological_index);
+        if let Some(retrieved_index_data) = db
+            .get(morphological_index_key.as_bytes())
+            .context("Failed to retrieve morphological index from RocksDB")?
+        {
+            let retrieved_morphological_index: MorphologicalIndex =
+                serde_json::from_slice(&retrieved_index_data)?;
+            eprintln!(
+                "Retrieved morphological index from RocksDB: {:?}",
+                retrieved_morphological_index
+            );
         }
-        
+
         // Explicitly destroy the plugin instance to prevent memory leaks.
         destroy_plugin(plugin); // Call the safe Rust function
-        
+
         eprintln!("Plugin execution complete.");
         Ok(())
         // --- End Dynamic Plugin Loading Logic ---
-
     } else if let Some(file_path) = cli.file {
         eprintln!("Running in direct file analysis mode for: {}", file_path);
         let project_root = PathBuf::from("."); // Use current directory as context
@@ -165,7 +197,8 @@ fn main() -> Result<()> {
         scan_and_ingest_project(&db, &project_root)?; // Calls the moved function
         eprintln!("Project ingestion complete.");
         Ok(())
-    } else if cli.query_project_analysis { // NEW BRANCH
+    } else if cli.query_project_analysis {
+        // NEW BRANCH
         eprintln!("Querying project analysis from RocksDB...");
         query_analysis::query_project_analysis(&db)?; // Calls the moved function
         eprintln!("Query complete.");
@@ -184,23 +217,35 @@ fn main() -> Result<()> {
         bootstrapper::boot_compiler(&db, compiler_source_path, target_source_path)?; // Calls the moved function
         eprintln!("Bootstrap compilation initiated.");
         Ok(())
-    } else if cli.tycoon_start_simulation { // New flag for starting tycoon
+    } else if cli.tycoon_start_simulation {
+        // New flag for starting tycoon
         let rustc_main_path = PathBuf::from("submodules/rust/compiler/rustc/src/main.rs");
-        eprintln!("Initiating Rust Tycoon meme simulation with base: {:?}", rustc_main_path);
+        eprintln!(
+            "Initiating Rust Tycoon meme simulation with base: {:?}",
+            rustc_main_path
+        );
         let project_root = PathBuf::from("submodules/rust/compiler/rustc/"); // Project root for rustc
         scan_and_ingest_project(&db, &project_root)?;
         eprintln!("Project ingested for Tycoon simulation.");
         eprintln!("Performing initial analysis for Tycoon iteration...");
         query_analysis::query_project_analysis(&db)?; // Simulate analysis
-        eprintln!("Analysis complete. Next: Apply transformation and re-ingest for next 'tycoon' generation.");
+        eprintln!(
+            "Analysis complete. Next: Apply transformation and re-ingest for next 'tycoon' generation."
+        );
         // This marks the end of a single "tycoon" iteration.
         eprintln!("Rust Tycoon simulation initial iteration complete.");
-        let rustc_main_content = std::fs::read_to_string(&rustc_main_path)
-            .context(format!("Failed to read rustc main file: {:?}", rustc_main_path))?;
-        eprintln!("Loaded rustc main content (first 100 chars): {}", &rustc_main_content[0..std::cmp::min(rustc_main_content.len(), 100)]);
+        let rustc_main_content = std::fs::read_to_string(&rustc_main_path).context(format!(
+            "Failed to read rustc main file: {:?}",
+            rustc_main_path
+        ))?;
+        eprintln!(
+            "Loaded rustc main content (first 100 chars): {}",
+            &rustc_main_content[0..std::cmp::min(rustc_main_content.len(), 100)]
+        );
 
         eprintln!("\n--- Rust Tycoon: Identifying Needs (Dependencies) ---");
-        let use_statements: Vec<_> = rustc_main_content.lines()
+        let use_statements: Vec<_> = rustc_main_content
+            .lines()
             .filter_map(|line| {
                 if line.trim().starts_with("use ") {
                     Some(line.trim().to_string())
@@ -223,9 +268,12 @@ fn main() -> Result<()> {
 
         if !use_statements.is_empty() {
             loop {
-                eprintln!("\nEnter the number of the 'part' (use statement) you want to 'buy', or '0' to skip for now:");
+                eprintln!(
+                    "\nEnter the number of the 'part' (use statement) you want to 'buy', or '0' to skip for now:"
+                );
                 let mut input = String::new();
-                std::io::stdin().read_line(&mut input)
+                std::io::stdin()
+                    .read_line(&mut input)
                     .context("Failed to read line from stdin")?;
                 let choice: usize = match input.trim().parse() {
                     Ok(num) => num,

@@ -1,21 +1,19 @@
 use std::collections::BTreeMap;
-use std::path::PathBuf;
 use std::fs;
+use std::path::PathBuf;
 
-use chrono::{DateTime, Utc};
-use serde::{Serialize, Deserialize};
-use serde_json;
-use clap::Parser;
 use anyhow::Result;
-
-
+use chrono::{DateTime, Utc};
+use clap::Parser;
+use serde::{Deserialize, Serialize};
+use serde_json;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct FileMetadata {
     pub path: PathBuf,
     pub last_modified: DateTime<Utc>,
     pub hash: String,
-    pub index: u64, // Sequential index for the file
+    pub index: u64,                          // Sequential index for the file
     pub category: String, // Category of the file (e.g., "Nix", "Rust", "Cargo", "Doc")
     pub monster_godel_index: Option<u128>, // Gödel number for semantic hashing
     pub prime_exponents: BTreeMap<u32, u32>, // Exponents for each supersingular prime
@@ -91,13 +89,24 @@ fn main() -> Result<()> {
     for file_metadata in all_file_metadata {
         let estimated_size = serde_json::to_string_pretty(&vec![file_metadata.clone()])?.len(); // Estimate size of one item
 
-        if current_chunk_size_bytes + estimated_size >= args.chunk_size_limit && !current_chunk_files.is_empty() {
+        if current_chunk_size_bytes + estimated_size >= args.chunk_size_limit
+            && !current_chunk_files.is_empty()
+        {
             // Write current chunk to file
             let chunk_file_name = format!("grouped_chunk_{}.json", chunk_index);
             let chunk_file_path = args.output_dir.join(&chunk_file_name);
-            fs::write(&chunk_file_path, serde_json::to_string_pretty(&current_chunk_files)?)?;
-            new_main_state.index_file_paths.push(chunk_file_path.clone());
-            println!("Wrote grouped chunk {} to {:?}", chunk_index, chunk_file_path.display());
+            fs::write(
+                &chunk_file_path,
+                serde_json::to_string_pretty(&current_chunk_files)?,
+            )?;
+            new_main_state
+                .index_file_paths
+                .push(chunk_file_path.clone());
+            println!(
+                "Wrote grouped chunk {} to {:?}",
+                chunk_index,
+                chunk_file_path.display()
+            );
 
             // Reset for next chunk
             current_chunk_files.clear();
@@ -113,15 +122,30 @@ fn main() -> Result<()> {
     if !current_chunk_files.is_empty() {
         let chunk_file_name = format!("grouped_chunk_{}.json", chunk_index);
         let chunk_file_path = args.output_dir.join(&chunk_file_name);
-        fs::write(&chunk_file_path, serde_json::to_string_pretty(&current_chunk_files)?)?;
-        new_main_state.index_file_paths.push(chunk_file_path.clone());
-        println!("Wrote final grouped chunk {} to {:?}", chunk_index, chunk_file_path.display());
+        fs::write(
+            &chunk_file_path,
+            serde_json::to_string_pretty(&current_chunk_files)?,
+        )?;
+        new_main_state
+            .index_file_paths
+            .push(chunk_file_path.clone());
+        println!(
+            "Wrote final grouped chunk {} to {:?}",
+            chunk_index,
+            chunk_file_path.display()
+        );
     }
 
     // Save the new main state file
     let new_main_state_path = args.output_dir.join("main_state.json");
-    fs::write(&new_main_state_path, serde_json::to_string_pretty(&new_main_state)?)?;
-    println!("New main state saved to: {:?}", new_main_state_path.display());
+    fs::write(
+        &new_main_state_path,
+        serde_json::to_string_pretty(&new_main_state)?,
+    )?;
+    println!(
+        "New main state saved to: {:?}",
+        new_main_state_path.display()
+    );
 
     Ok(())
 }

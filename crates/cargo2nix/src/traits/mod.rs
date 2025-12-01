@@ -1,7 +1,7 @@
 use anyhow::Result;
-use cargo::core::{Package, PackageId, Workspace};
 use cargo::core::compiler::{CompileKind, RustcTargetData};
-use cargo::core::resolver::{Resolve, CliFeatures, HasDevUnits, ForceAllTargets};
+use cargo::core::resolver::{CliFeatures, ForceAllTargets, HasDevUnits, Resolve};
+use cargo::core::{Package, PackageId, Workspace};
 use cargo::ops::WorkspaceResolve; // Add WorkspaceResolve
 use std::collections::{BTreeMap, HashSet};
 
@@ -49,7 +49,8 @@ impl CargoResolver for DefaultCargoResolver {
         target_data: &mut RustcTargetData<'a>,
         requested_kinds: &[CompileKind],
     ) -> Result<WorkspaceResolve<'a>> {
-        let specs: Vec<cargo::core::PackageIdSpec> = ws.members().map(|p| p.package_id().to_spec()).collect();
+        let specs: Vec<cargo::core::PackageIdSpec> =
+            ws.members().map(|p| p.package_id().to_spec()).collect();
         let force_all = ForceAllTargets::Yes; // Define force_all here
         cargo::ops::resolve_ws_with_opts(
             ws,
@@ -69,7 +70,8 @@ impl CargoResolver for DefaultCargoResolver {
         target_data: &mut RustcTargetData<'a>,
         requested_kinds: &[CompileKind],
     ) -> Result<WorkspaceResolve<'a>> {
-        let specs: Vec<cargo::core::PackageIdSpec> = ws.members().map(|p| p.package_id().to_spec()).collect();
+        let specs: Vec<cargo::core::PackageIdSpec> =
+            ws.members().map(|p| p.package_id().to_spec()).collect();
         let force_all = ForceAllTargets::Yes; // Define force_all here
         let no_features = CliFeatures::from_command_line(
             &[],   // no features
@@ -183,7 +185,9 @@ impl CargoResolver for DefaultCargoResolver {
                         !features_no_features.contains(&f.to_string())
                             && features_just_feature.contains(&f.to_string())
                     })
-                    .for_each(|(_f, optionality)| optionality.activated_by((root_pkg_name, feature)));
+                    .for_each(|(_f, optionality)| {
+                        optionality.activated_by((root_pkg_name, feature))
+                    });
             }
         }
         Ok(())

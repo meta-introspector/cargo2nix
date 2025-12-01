@@ -1,9 +1,9 @@
 // crates/trait-fixer-attribute-reader-real/src/lib.rs
 
-use rustc_middle::ty::TyCtxt;
 use rustc_hir::def_id::DefId;
-use rustc_span::symbol::Symbol;
+use rustc_middle::ty::TyCtxt;
 use rustc_span::symbol::sym;
+use rustc_span::symbol::Symbol;
 use trait_fixer_attribute_reader_trait::AttributeReader;
 
 impl<'tcx> AttributeReader<'tcx> for TyCtxt<'tcx> {

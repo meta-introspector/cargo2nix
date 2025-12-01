@@ -20,19 +20,25 @@ struct MonsterSimilarity {
 }
 
 fn euler_phi(n: u64) -> u64 {
-    if n <= 1 { return n; }
+    if n <= 1 {
+        return n;
+    }
     let mut result = n;
     let mut num = n;
     let mut p = 2;
-    
+
     while p * p <= num {
         if num % p == 0 {
-            while num % p == 0 { num /= p; }
+            while num % p == 0 {
+                num /= p;
+            }
             result -= result / p;
         }
         p += 1;
     }
-    if num > 1 { result -= result / num; }
+    if num > 1 {
+        result -= result / num;
+    }
     result
 }
 
@@ -45,13 +51,17 @@ fn monster_hash(content: &str) -> u64 {
 }
 
 fn calculate_monster_distance(elem1: u64, elem2: u64) -> f64 {
-    let diff = if elem1 > elem2 { elem1 - elem2 } else { elem2 - elem1 };
+    let diff = if elem1 > elem2 {
+        elem1 - elem2
+    } else {
+        elem2 - elem1
+    };
     (diff as f64) / 196883.0
 }
 
 fn extract_declarations(dir: &Path) -> Vec<MonsterDeclaration> {
     let mut declarations = Vec::new();
-    
+
     if let Ok(entries) = fs::read_dir(dir) {
         for entry in entries.flatten() {
             let path = entry.path();
@@ -69,7 +79,7 @@ fn extract_declarations(dir: &Path) -> Vec<MonsterDeclaration> {
             }
         }
     }
-    
+
     declarations
 }
 
@@ -78,7 +88,7 @@ fn parse_monster_declaration(line: &str) -> Option<MonsterDeclaration> {
         let monster_element = monster_hash(line);
         let phi_value = euler_phi(monster_element);
         let similarity_cluster = phi_value % 1000; // Group by phi mod 1000
-        
+
         Some(MonsterDeclaration {
             name: extract_name(line),
             content: line.to_string(),
@@ -102,28 +112,38 @@ fn extract_name(line: &str) -> String {
 
 fn find_monster_similarities(declarations: &[MonsterDeclaration]) -> Vec<MonsterSimilarity> {
     let mut similarities = Vec::new();
-    
+
     // Group by similarity clusters first
     let mut clusters: HashMap<u64, Vec<&MonsterDeclaration>> = HashMap::new();
     for decl in declarations {
-        clusters.entry(decl.similarity_cluster).or_default().push(decl);
+        clusters
+            .entry(decl.similarity_cluster)
+            .or_default()
+            .push(decl);
     }
-    
+
     // Find similarities within and across clusters
     for (cluster_id, cluster_decls) in &clusters {
         if cluster_decls.len() > 1 {
-            println!("🔮 Monster Cluster {}: {} declarations", cluster_id, cluster_decls.len());
-            
+            println!(
+                "🔮 Monster Cluster {}: {} declarations",
+                cluster_id,
+                cluster_decls.len()
+            );
+
             for i in 0..cluster_decls.len() {
                 for j in (i + 1)..cluster_decls.len() {
                     let decl1 = cluster_decls[i];
                     let decl2 = cluster_decls[j];
-                    
-                    let distance = calculate_monster_distance(decl1.monster_element, decl2.monster_element);
+
+                    let distance =
+                        calculate_monster_distance(decl1.monster_element, decl2.monster_element);
                     let phi_ratio = if decl2.phi_value > 0 {
                         decl1.phi_value as f64 / decl2.phi_value as f64
-                    } else { 1.0 };
-                    
+                    } else {
+                        1.0
+                    };
+
                     if distance < 0.1 || (phi_ratio > 0.8 && phi_ratio < 1.2) {
                         similarities.push(MonsterSimilarity {
                             decl1_monster: decl1.monster_element,
@@ -131,84 +151,103 @@ fn find_monster_similarities(declarations: &[MonsterDeclaration]) -> Vec<Monster
                             monster_distance: distance,
                             phi_ratio,
                         });
-                        
-                        println!("  ⚡ {} ↔ {} (distance: {:.4}, φ-ratio: {:.2})",
-                                decl1.name, decl2.name, distance, phi_ratio);
+
+                        println!(
+                            "  ⚡ {} ↔ {} (distance: {:.4}, φ-ratio: {:.2})",
+                            decl1.name, decl2.name, distance, phi_ratio
+                        );
                     }
                 }
             }
         }
     }
-    
+
     similarities
 }
 
 fn simulate_rocksdb_storage(declarations: &[MonsterDeclaration]) {
     println!("\n=== Monster RocksDB Simulation ===");
-    
+
     let mut monster_db: HashMap<u64, Vec<&MonsterDeclaration>> = HashMap::new();
     let mut phi_index: HashMap<u64, Vec<&MonsterDeclaration>> = HashMap::new();
-    
+
     for decl in declarations {
-        monster_db.entry(decl.monster_element).or_default().push(decl);
+        monster_db
+            .entry(decl.monster_element)
+            .or_default()
+            .push(decl);
         phi_index.entry(decl.phi_value).or_default().push(decl);
     }
-    
+
     println!("📊 Monster Elements: {}", monster_db.len());
     println!("📊 Phi Values: {}", phi_index.len());
-    
+
     // Find exact duplicates by monster element
     let mut duplicates = 0;
     for (monster_elem, decls) in &monster_db {
         if decls.len() > 1 {
             duplicates += decls.len() - 1;
-            println!("🔄 Monster Element {}: {} duplicates", monster_elem, decls.len());
+            println!(
+                "🔄 Monster Element {}: {} duplicates",
+                monster_elem,
+                decls.len()
+            );
             for decl in decls {
                 println!("    {}", decl.name);
             }
         }
     }
-    
+
     println!("📈 Total duplicates found: {}", duplicates);
-    
+
     // Find phi-similar groups
     let mut phi_groups = 0;
     for (phi_val, decls) in &phi_index {
         if decls.len() > 3 {
             phi_groups += 1;
-            println!("🧮 φ({}) = {}: {} similar declarations", 
-                    decls[0].monster_element, phi_val, decls.len());
+            println!(
+                "🧮 φ({}) = {}: {} similar declarations",
+                decls[0].monster_element,
+                phi_val,
+                decls.len()
+            );
         }
     }
-    
+
     println!("📈 Phi similarity groups: {}", phi_groups);
 }
 
 fn main() {
     println!("=== Monster RocksDB Similarity Finder ===");
-    
+
     let declarations = extract_declarations(Path::new("."));
     println!("🔍 Found {} monster declarations", declarations.len());
-    
+
     simulate_rocksdb_storage(&declarations);
-    
+
     let similarities = find_monster_similarities(&declarations);
     println!("\n=== Monster Similarity Analysis ===");
     println!("🎯 Found {} monster similarities", similarities.len());
-    
+
     // Summary statistics
     let mut distance_sum = 0.0;
     let mut phi_ratio_sum = 0.0;
-    
+
     for sim in &similarities {
         distance_sum += sim.monster_distance;
         phi_ratio_sum += sim.phi_ratio;
     }
-    
+
     if !similarities.is_empty() {
-        println!("📊 Average monster distance: {:.4}", distance_sum / similarities.len() as f64);
-        println!("📊 Average phi ratio: {:.2}", phi_ratio_sum / similarities.len() as f64);
+        println!(
+            "📊 Average monster distance: {:.4}",
+            distance_sum / similarities.len() as f64
+        );
+        println!(
+            "📊 Average phi ratio: {:.2}",
+            phi_ratio_sum / similarities.len() as f64
+        );
     }
-    
+
     println!("\n✨ Monster algorithm successfully identified code patterns!");
 }

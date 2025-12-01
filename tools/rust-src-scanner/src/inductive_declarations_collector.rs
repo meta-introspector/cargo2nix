@@ -1,14 +1,14 @@
+use crate::declarations::{DeclarationKind, NixDeclaration};
+use proc_macro2::Span as RealSpan;
+use quote::ToTokens;
+use std::collections::HashMap;
+use syn::spanned::Spanned;
+use syn::ItemImpl;
 use syn::{
     visit::{self, Visit},
-    File, Item, ItemConst, ItemEnum, ItemFn, ItemMod, ItemStatic, ItemStruct, ItemTrait, ItemType, ItemUse,
-    Expr, Lit, Type,
+    Expr, File, Item, ItemConst, ItemEnum, ItemFn, ItemMod, ItemStatic, ItemStruct, ItemTrait,
+    ItemType, ItemUse, Lit, Type,
 };
-use syn::ItemImpl;
-use std::collections::HashMap;
-use crate::declarations::{DeclarationKind, NixDeclaration};
-use quote::ToTokens;
-use syn::spanned::Spanned;
-use proc_macro2::Span as RealSpan;
 
 /// A specialized visitor to collect `NixDeclaration`s with their properties,
 /// focusing on bit field sizes and literal values.
@@ -33,7 +33,10 @@ impl InductiveDeclarationsCollector {
         let (line, column) = if parts.len() >= 3 {
             // Format is typically "file.rs:line:column" or "file.rs:line:column:line:column"
             // We want the starting line and column.
-            (parts[1].parse::<usize>().unwrap_or(0), parts[2].parse::<usize>().unwrap_or(0))
+            (
+                parts[1].parse::<usize>().unwrap_or(0),
+                parts[2].parse::<usize>().unwrap_or(0),
+            )
         } else {
             (0, 0) // Default or error case
         };
@@ -57,24 +60,33 @@ impl InductiveDeclarationsCollector {
                         "usize" | "isize" => Some(64), // Assuming 64-bit platform
                         _ => None,
                     }
-                } else { None }
-            },
+                } else {
+                    None
+                }
+            }
             Type::Reference(type_ref) => {
                 // Size of a reference (pointer)
-                if type_ref.mutability.is_some() { Some(64) } else { Some(64) } // Assuming 64-bit pointers
-            },
+                if type_ref.mutability.is_some() {
+                    Some(64)
+                } else {
+                    Some(64)
+                } // Assuming 64-bit pointers
+            }
             Type::Array(type_array) => {
-                if let (Some(elem_size), Some(len_expr)) = (Self::get_primitive_bit_size(&type_array.elem), Self::get_literal_value(&type_array.len)) {
+                if let (Some(elem_size), Some(len_expr)) = (
+                    Self::get_primitive_bit_size(&type_array.elem),
+                    Self::get_literal_value(&type_array.len),
+                ) {
                     if let Ok(len) = len_expr.parse::<u64>() {
                         return Some(elem_size * len);
                     }
                 }
                 None
-            },
+            }
             Type::Slice(type_slice) => {
                 // Size of a slice is pointer + length (e.g., 2 * 64 bits)
                 Some(128) // Assuming 64-bit platform for pointer and length
-            },
+            }
             Type::Tuple(type_tuple) => {
                 let mut total_size = 0;
                 for elem_ty in &type_tuple.elems {
@@ -101,7 +113,7 @@ impl InductiveDeclarationsCollector {
                 } else {
                     None
                 }
-            },
+            }
             Expr::Path(expr_path) => {
                 // This might be a reference to a const.
                 // For now, we're not resolving paths, but if it's a simple path,
@@ -111,7 +123,7 @@ impl InductiveDeclarationsCollector {
                 } else {
                     None
                 }
-            },
+            }
             _ => None,
         }
     }
@@ -129,7 +141,8 @@ impl InductiveDeclarationsCollector {
             // Collect factors from bit_size
             if let Some(bit_size) = decl.bit_size {
                 for &prime in sorted_monster_primes.iter() {
-                    if prime == 1 { // Handle 1-bit explicitly as a direct match only
+                    if prime == 1 {
+                        // Handle 1-bit explicitly as a direct match only
                         if bit_size == 1 {
                             decl.monster_factors.push(prime);
                         }
@@ -143,7 +156,8 @@ impl InductiveDeclarationsCollector {
             if let Some(value_str) = &decl.value {
                 if let Ok(value) = value_str.parse::<u64>() {
                     for &prime in sorted_monster_primes.iter() {
-                        if prime == 1 { // Handle 1-value explicitly as a direct match only
+                        if prime == 1 {
+                            // Handle 1-value explicitly as a direct match only
                             if value == 1 {
                                 decl.monster_factors.push(prime);
                             }
@@ -189,7 +203,11 @@ impl<'ast> Visit<'ast> for InductiveDeclarationsCollector {
             kind: DeclarationKind::Struct,
             name: i.ident.to_string(),
             path: self.create_path(i.span()),
-            bit_size: if total_bit_size > 0 { Some(total_bit_size) } else { None },
+            bit_size: if total_bit_size > 0 {
+                Some(total_bit_size)
+            } else {
+                None
+            },
             value: None,
             monster_factors: Vec::new(),
         });

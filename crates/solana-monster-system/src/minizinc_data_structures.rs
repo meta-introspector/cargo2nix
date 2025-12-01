@@ -1,4 +1,6 @@
-use crate::core_constants::{MONSTER_GROUP_REPRESENTATION_DIMENSION, HECKE_EIGENVALUES, RAMANUJAN_TAU_COEFFICIENTS};
+use crate::core_constants::{
+    HECKE_EIGENVALUES, MONSTER_GROUP_REPRESENTATION_DIMENSION, RAMANUJAN_TAU_COEFFICIENTS,
+};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
@@ -139,15 +141,36 @@ impl MonsterGroupParameters {
             self.elliptic_fibers.len(),
             self.torus_points.len(),
             self.monster_stabilizers.len(),
-            self.elliptic_fibers.iter().map(|f| f.j_invariant).collect::<Vec<_>>(),
-            self.elliptic_fibers.iter().map(|f| f.monster_element as i64).collect::<Vec<_>>(),
-            self.elliptic_fibers.iter().map(|f| f.fiber_dimension as i32).collect::<Vec<_>>(),
+            self.elliptic_fibers
+                .iter()
+                .map(|f| f.j_invariant)
+                .collect::<Vec<_>>(),
+            self.elliptic_fibers
+                .iter()
+                .map(|f| f.monster_element as i64)
+                .collect::<Vec<_>>(),
+            self.elliptic_fibers
+                .iter()
+                .map(|f| f.fiber_dimension as i32)
+                .collect::<Vec<_>>(),
             self.torus_points.iter().map(|p| p.x).collect::<Vec<_>>(),
             self.torus_points.iter().map(|p| p.y).collect::<Vec<_>>(),
-            self.torus_points.iter().map(|p| p.monster_coordinate as i64).collect::<Vec<_>>(),
-            self.torus_points.iter().map(|p| p.modular_weight).collect::<Vec<_>>(),
-            self.monster_stabilizers.iter().map(|s| s.element as i64).collect::<Vec<_>>(),
-            self.monster_stabilizers.iter().map(|s| s.orbit_size as i32).collect::<Vec<_>>()
+            self.torus_points
+                .iter()
+                .map(|p| p.monster_coordinate as i64)
+                .collect::<Vec<_>>(),
+            self.torus_points
+                .iter()
+                .map(|p| p.modular_weight)
+                .collect::<Vec<_>>(),
+            self.monster_stabilizers
+                .iter()
+                .map(|s| s.element as i64)
+                .collect::<Vec<_>>(),
+            self.monster_stabilizers
+                .iter()
+                .map(|s| s.orbit_size as i32)
+                .collect::<Vec<_>>()
         )
     }
 }
@@ -155,23 +178,40 @@ impl MonsterGroupParameters {
 impl MiniZincInput {
     pub fn from_monster_parameters(params: &MonsterGroupParameters) -> Self {
         let mut parameters = HashMap::new();
-        
-        parameters.insert("monster_order".to_string(), MiniZincValue::Int(params.monster_order.try_into().unwrap()));
-        parameters.insert("hecke_eigenvalues".to_string(), 
-                         MiniZincValue::Array(params.hecke_eigenvalues.iter().map(|&x| MiniZincValue::Int(x.try_into().unwrap())).collect()));
-        parameters.insert("n_fibers".to_string(), MiniZincValue::Int(params.elliptic_fibers.len() as i32));
-        parameters.insert("n_torus_points".to_string(), MiniZincValue::Int(params.torus_points.len() as i32));
-        
+
+        parameters.insert(
+            "monster_order".to_string(),
+            MiniZincValue::Int(params.monster_order.try_into().unwrap()),
+        );
+        parameters.insert(
+            "hecke_eigenvalues".to_string(),
+            MiniZincValue::Array(
+                params
+                    .hecke_eigenvalues
+                    .iter()
+                    .map(|&x| MiniZincValue::Int(x.try_into().unwrap()))
+                    .collect(),
+            ),
+        );
+        parameters.insert(
+            "n_fibers".to_string(),
+            MiniZincValue::Int(params.elliptic_fibers.len() as i32),
+        );
+        parameters.insert(
+            "n_torus_points".to_string(),
+            MiniZincValue::Int(params.torus_points.len() as i32),
+        );
+
         Self { parameters }
     }
 
     pub fn to_dzn(&self) -> String {
         let mut dzn = String::new();
-        
+
         for (key, value) in &self.parameters {
             dzn.push_str(&format!("{} = {};\n", key, value.to_dzn_string()));
         }
-        
+
         dzn
     }
 }
@@ -186,9 +226,15 @@ impl MiniZincValue {
             MiniZincValue::Array(arr) => {
                 let elements: Vec<String> = arr.iter().map(|v| v.to_dzn_string()).collect();
                 format!("[{}]", elements.join(", "))
-            },
+            }
             MiniZincValue::Set(set) => {
-                format!("{{{}}}", set.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(", "))
+                format!(
+                    "{{{}}}",
+                    set.iter()
+                        .map(|x| x.to_string())
+                        .collect::<Vec<_>>()
+                        .join(", ")
+                )
             }
         }
     }
@@ -199,10 +245,10 @@ impl MiniZincOutput {
         let mut variables = HashMap::new();
         let mut objective_value = None;
         let mut status = SolverStatus::Unknown;
-        
+
         for line in output.lines() {
             let line = line.trim();
-            
+
             if line.contains("==========") {
                 status = SolverStatus::Optimal;
             } else if line.contains("UNSATISFIABLE") {
@@ -213,14 +259,14 @@ impl MiniZincOutput {
                 if let Some((key, value)) = line.split_once('=') {
                     let key = key.trim().to_string();
                     let value_str = value.trim().trim_end_matches(';');
-                    
+
                     if let Ok(parsed_value) = Self::parse_minizinc_value(value_str) {
                         variables.insert(key, parsed_value);
                     }
                 }
             }
         }
-        
+
         Ok(Self {
             variables,
             objective_value,
@@ -238,8 +284,9 @@ impl MiniZincOutput {
         } else if let Ok(f) = value_str.parse::<f64>() {
             Ok(MiniZincValue::Float(f))
         } else if value_str.starts_with('[') && value_str.ends_with(']') {
-            let inner = &value_str[1..value_str.len()-1];
-            let elements: Result<Vec<_>, _> = inner.split(',')
+            let inner = &value_str[1..value_str.len() - 1];
+            let elements: Result<Vec<_>, _> = inner
+                .split(',')
                 .map(|s| Self::parse_minizinc_value(s.trim()))
                 .collect();
             Ok(MiniZincValue::Array(elements?))
@@ -252,15 +299,31 @@ impl MiniZincOutput {
         let fiber_placements = self.extract_fiber_placements()?;
         let torus_assignments = self.extract_torus_assignments()?;
         let stabilizer_mappings = self.extract_stabilizer_mappings()?;
-        
-        let total_coherence = self.variables.get("total_coherence")
-            .and_then(|v| if let MiniZincValue::Float(f) = v { Some(*f) } else { None })
+
+        let total_coherence = self
+            .variables
+            .get("total_coherence")
+            .and_then(|v| {
+                if let MiniZincValue::Float(f) = v {
+                    Some(*f)
+                } else {
+                    None
+                }
+            })
             .unwrap_or(0.0);
-        
-        let monster_group_valid = self.variables.get("monster_group_valid")
-            .and_then(|v| if let MiniZincValue::Bool(b) = v { Some(*b) } else { None })
+
+        let monster_group_valid = self
+            .variables
+            .get("monster_group_valid")
+            .and_then(|v| {
+                if let MiniZincValue::Bool(b) = v {
+                    Some(*b)
+                } else {
+                    None
+                }
+            })
             .unwrap_or(false);
-        
+
         Ok(OptimalPlacementSolution {
             fiber_placements,
             torus_assignments,
@@ -299,7 +362,7 @@ mod tests {
             monster_element: 42,
             fiber_dimension: 2,
         });
-        
+
         let dzn = params.to_dzn();
         assert!(dzn.contains("monster_order = 196883"));
         assert!(dzn.contains("fiber_j_invariants = [1728]"));
@@ -307,9 +370,10 @@ mod tests {
 
     #[test]
     fn test_minizinc_output_parsing() {
-        let output = "fiber_x = [1, 2, 3];\nfiber_y = [4, 5, 6];\ntotal_coherence = 0.95;\n==========";
+        let output =
+            "fiber_x = [1, 2, 3];\nfiber_y = [4, 5, 6];\ntotal_coherence = 0.95;\n==========";
         let parsed = MiniZincOutput::parse_from_string(output).unwrap();
-        
+
         assert_eq!(parsed.status as u8, SolverStatus::Optimal as u8);
         assert!(parsed.variables.contains_key("fiber_x"));
     }
@@ -321,7 +385,7 @@ mod tests {
             MiniZincValue::Int(2),
             MiniZincValue::Int(3),
         ]);
-        
+
         assert_eq!(array.to_dzn_string(), "[1, 2, 3]");
     }
 }

@@ -1,8 +1,8 @@
+use crate::metadata_provider::CargoMetadataProvider;
 use anyhow::{Context, Result};
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use walkdir::WalkDir;
-use crate::metadata_provider::CargoMetadataProvider;
 
 // Mini metadata provider for local Cargo.toml files within submodules
 mod metadata_provider {
@@ -41,12 +41,16 @@ mod metadata_provider {
                 .no_deps() // We only need package info, not the full dependency graph
                 .exec()?;
 
-            let packages: Vec<Package> = metadata.packages.into_iter().map(|p| Package {
-                id: PackageId { repr: p.id.repr },
-                name: p.name.to_string(),
-                version: p.version.to_string(),
-                manifest_path: p.manifest_path.into(),
-            }).collect();
+            let packages: Vec<Package> = metadata
+                .packages
+                .into_iter()
+                .map(|p| Package {
+                    id: PackageId { repr: p.id.repr },
+                    name: p.name.to_string(),
+                    version: p.version.to_string(),
+                    manifest_path: p.manifest_path.into(),
+                })
+                .collect();
 
             Ok(Metadata { packages })
         }
@@ -72,7 +76,7 @@ fn main() -> Result<()> {
         .filter(|e| e.file_type().is_file() && e.file_name() == "Cargo.toml")
     {
         let cargo_toml_path = entry.path();
-        
+
         let submodule_package_metadata = metadata_provider
             .provide_metadata(cargo_toml_path.parent().unwrap())
             .context(format!(

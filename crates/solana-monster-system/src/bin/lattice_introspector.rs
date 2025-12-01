@@ -1,65 +1,79 @@
-use solana_monster_system::lattice_introspector::{LatticeIntrospector, ConstraintType};
-use solana_monster_system::core_constants::{MONSTER_GROUP_REPRESENTATION_DIMENSION, HECKE_EIGENVALUES};
+use solana_monster_system::core_constants::{
+    HECKE_EIGENVALUES, MONSTER_GROUP_REPRESENTATION_DIMENSION,
+};
+use solana_monster_system::lattice_introspector::{ConstraintType, LatticeIntrospector};
 use std::env;
 use std::fs;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    
+
     let lattice_size = if args.len() > 1 {
         args[1].parse().unwrap_or(12)
     } else {
         12
     };
-    
+
     let introspection_rounds = if args.len() > 2 {
         args[2].parse().unwrap_or(5)
     } else {
         5
     };
-    
+
     println!("🔍 Lattice Introspector: MiniZinc Integration");
-    println!("Lattice Size: {}, Introspection Rounds: {}", lattice_size, introspection_rounds);
-    println!("Monster Group Order: {}", MONSTER_GROUP_REPRESENTATION_DIMENSION);
-    
+    println!(
+        "Lattice Size: {}, Introspection Rounds: {}",
+        lattice_size, introspection_rounds
+    );
+    println!(
+        "Monster Group Order: {}",
+        MONSTER_GROUP_REPRESENTATION_DIMENSION
+    );
+
     let mut introspector = LatticeIntrospector::new();
     introspector.initialize_lattice(lattice_size);
-    
+
     println!("\n📊 Initial Lattice Configuration:");
     print_lattice_stats(&introspector);
-    
+
     println!("\n🧠 Constraint Analysis:");
     analyze_constraints(&introspector);
-    
+
     // Introspection rounds
     for round in 1..=introspection_rounds {
         println!("\n🔍 Introspection Round {}:", round);
-        
+
         let result = introspector.introspect();
-        
+
         println!("  Level: {}", result.level);
         println!("  Lattice Coherence: {:.4}", result.lattice_coherence);
-        println!("  Constraint Satisfaction: {:.4}", result.constraint_satisfaction);
+        println!(
+            "  Constraint Satisfaction: {:.4}",
+            result.constraint_satisfaction
+        );
         println!("  Monster Alignment: {:.4}", result.monster_alignment);
-        println!("  Optimization Potential: {:.4}", result.optimization_potential);
-        
+        println!(
+            "  Optimization Potential: {:.4}",
+            result.optimization_potential
+        );
+
         if !result.recommendations.is_empty() {
             println!("  📋 Recommendations:");
             for (i, rec) in result.recommendations.iter().enumerate() {
                 println!("    {}. {}", i + 1, rec);
             }
         }
-        
+
         if round % 2 == 0 {
             println!("  🎯 Intermediate Analysis:");
             analyze_lattice_structure(&introspector);
         }
     }
-    
+
     // Generate MiniZinc model
     println!("\n📝 Generating MiniZinc Model...");
     let minizinc_model = introspector.generate_minizinc_model();
-    
+
     // Save MiniZinc model
     let model_filename = "lattice_introspection.mzn";
     if let Err(e) = fs::write(model_filename, &minizinc_model) {
@@ -67,23 +81,27 @@ fn main() {
     } else {
         println!("💾 MiniZinc model saved to: {}", model_filename);
     }
-    
+
     // Generate introspection report
     generate_introspection_report(&introspector, introspection_rounds);
-    
+
     println!("\n🎉 Lattice Introspection Complete!");
-    println!("Final Introspection Level: {}", introspector.introspection_level);
+    println!(
+        "Final Introspection Level: {}",
+        introspector.introspection_level
+    );
 }
 
 fn print_lattice_stats(introspector: &LatticeIntrospector) {
     let total_nodes = introspector.nodes.len();
-    let total_connections: usize = introspector.nodes.iter()
-        .map(|n| n.connections.len())
-        .sum();
-    let avg_depth = introspector.nodes.iter()
+    let total_connections: usize = introspector.nodes.iter().map(|n| n.connections.len()).sum();
+    let avg_depth = introspector
+        .nodes
+        .iter()
         .map(|n| n.introspection_depth as f64)
-        .sum::<f64>() / total_nodes as f64;
-    
+        .sum::<f64>()
+        / total_nodes as f64;
+
     println!("  Total Nodes: {}", total_nodes);
     println!("  Total Connections: {}", total_connections);
     println!("  Average Introspection Depth: {:.2}", avg_depth);
@@ -99,48 +117,63 @@ fn analyze_constraints(introspector: &LatticeIntrospector) {
             ConstraintType::LatticeConnectivity => "Lattice Connectivity",
             ConstraintType::IntrospectionDepth => "Introspection Depth",
         };
-        
-        println!("  {}. {} ({})", 
-                 i + 1, 
-                 constraint.name, 
-                 constraint_type_str);
-        println!("     Variables: {}, Bounds: {:?}, Alignment: {:.2}", 
-                 constraint.variables.len(),
-                 constraint.bounds,
-                 constraint.monster_alignment);
+
+        println!("  {}. {} ({})", i + 1, constraint.name, constraint_type_str);
+        println!(
+            "     Variables: {}, Bounds: {:?}, Alignment: {:.2}",
+            constraint.variables.len(),
+            constraint.bounds,
+            constraint.monster_alignment
+        );
     }
 }
 
 fn analyze_lattice_structure(introspector: &LatticeIntrospector) {
-    let monster_elements: Vec<u64> = introspector.nodes.iter()
+    let monster_elements: Vec<u64> = introspector
+        .nodes
+        .iter()
         .map(|n| n.monster_element)
         .collect();
-    
+
     let sum: u64 = monster_elements.iter().sum();
     let modular_check = sum % 24 == 0;
-    
+
     let unique_elements: std::collections::HashSet<_> = monster_elements.iter().collect();
     let uniqueness_ratio = unique_elements.len() as f64 / monster_elements.len() as f64;
-    
+
     println!("    Monster Group Sum: {} (mod 24 = {})", sum, sum % 24);
-    println!("    Modular Constraint: {}", if modular_check { "✓ Satisfied" } else { "✗ Violated" });
+    println!(
+        "    Modular Constraint: {}",
+        if modular_check {
+            "✓ Satisfied"
+        } else {
+            "✗ Violated"
+        }
+    );
     println!("    Uniqueness Ratio: {:.2}%", uniqueness_ratio * 100.0);
-    
-    let max_connections = introspector.nodes.iter()
+
+    let max_connections = introspector
+        .nodes
+        .iter()
         .map(|n| n.connections.len())
         .max()
         .unwrap_or(0);
-    let min_connections = introspector.nodes.iter()
+    let min_connections = introspector
+        .nodes
+        .iter()
         .map(|n| n.connections.len())
         .min()
         .unwrap_or(0);
-    
-    println!("    Connection Range: {} - {}", min_connections, max_connections);
+
+    println!(
+        "    Connection Range: {} - {}",
+        min_connections, max_connections
+    );
 }
 
 fn generate_introspection_report(introspector: &LatticeIntrospector, rounds: i32) {
     let final_result = introspector.introspect();
-    
+
     let report = format!(
         "# Lattice Introspection Report\n\
         \n\
@@ -181,12 +214,21 @@ fn generate_introspection_report(introspector: &LatticeIntrospector, rounds: i32
         final_result.constraint_satisfaction,
         final_result.monster_alignment,
         final_result.optimization_potential,
-        introspector.constraints.iter()
+        introspector
+            .constraints
+            .iter()
             .enumerate()
-            .map(|(i, c)| format!("{}. {} (Alignment: {:.2})", i + 1, c.name, c.monster_alignment))
+            .map(|(i, c)| format!(
+                "{}. {} (Alignment: {:.2})",
+                i + 1,
+                c.name,
+                c.monster_alignment
+            ))
             .collect::<Vec<_>>()
             .join("\n"),
-        final_result.recommendations.iter()
+        final_result
+            .recommendations
+            .iter()
             .enumerate()
             .map(|(i, r)| format!("{}. {}", i + 1, r))
             .collect::<Vec<_>>()
@@ -194,14 +236,14 @@ fn generate_introspection_report(introspector: &LatticeIntrospector, rounds: i32
         MONSTER_GROUP_REPRESENTATION_DIMENSION,
         HECKE_EIGENVALUES
     );
-    
+
     let report_filename = "lattice_introspection_report.md";
     if let Err(e) = fs::write(report_filename, &report) {
         eprintln!("Warning: Could not save report: {}", e);
     } else {
         println!("📋 Introspection report saved to: {}", report_filename);
     }
-    
+
     println!("\n🔍 MiniZinc Integration Insights:");
     println!("  • Declarative constraint modeling for lattice optimization");
     println!("  • Monster Group mathematical foundation for search space");

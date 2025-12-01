@@ -1,7 +1,0 @@
-[package]
-name = "trait-fixer-trait-checker-trait"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-# Removed all rustc dependencies

@@ -12,7 +12,7 @@ hex = { version = "*", optional = true }
 cargo_metadata = { workspace = true, optional = true }
 sha1 = { version = "*", optional = true }
 pathdiff = { version = "*", optional = true }
-serde = { version = "*", optional = true }
+serde = { workspace = true, features = ["derive"] }
 
 anyhow = { workspace = true }
 serde_json = { workspace = true, optional = true }
@@ -31,9 +31,9 @@ cargo_metadata_enabled = ["dep:cargo_metadata"]
 sha1_enabled = ["dep:sha1"]
 #anyhow_enabled = ["dep:anyhow"]
 pathdiff_enabled = ["dep:pathdiff"]
-serde_enabled = ["dep:serde"]
 
-default = ["cargo_metadata_enabled", "serde_enabled", "serde_json_enabled"]
+
+default = ["cargo_metadata_enabled", "serde_json_enabled"]
 #anyhow = ["dep:anyhow"]
 serde_json_enabled = ["dep:serde_json"]
 #toml_edit_enabled = ["dep:toml_edit"]

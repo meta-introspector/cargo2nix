@@ -2,10 +2,10 @@ use crate::r1cs_monster_constraints::R1CSConstraint;
 
 #[derive(Debug, Clone)]
 pub struct ModularFormEncoding {
-    pub phi: Vec<i64>, // Φ encoding vector
+    pub phi: Vec<i64>,              // Φ encoding vector
     pub topological_invariant: i64, // Topological stability measure
     pub arithmetic_constraint: i64, // Monster Group mod 24 constraint
-    pub symmetry_group: Vec<i64>, // Maximal symmetry elements
+    pub symmetry_group: Vec<i64>,   // Maximal symmetry elements
 }
 
 #[derive(Debug, Clone)]
@@ -33,7 +33,7 @@ impl ModularFormEncoding {
         let topological_invariant = Self::compute_topological_invariant(&phi);
         let arithmetic_constraint = (phi.iter().sum::<i64>()) % 24; // Monster Group mod 24
         let symmetry_group = Self::generate_symmetry_group(&phi);
-        
+
         Self {
             phi,
             topological_invariant,
@@ -44,27 +44,28 @@ impl ModularFormEncoding {
 
     pub fn verify_execution_invariants(&self, execution_trace: &[i64]) -> bool {
         let post_execution = Self::apply_execution(&self.phi, execution_trace);
-        
+
         // Topological stability: topology preserved
         let post_topological = Self::compute_topological_invariant(&post_execution);
         let topological_stable = post_topological == self.topological_invariant;
-        
+
         // Arithmetic constraint: Monster Group mod 24 preserved
         let post_arithmetic = (post_execution.iter().sum::<i64>()) % 24;
         let arithmetic_stable = post_arithmetic == self.arithmetic_constraint;
-        
+
         // Maximal symmetry: symmetry group preserved
         let post_symmetry = Self::generate_symmetry_group(&post_execution);
         let symmetry_stable = post_symmetry == self.symmetry_group;
-        
+
         topological_stable && arithmetic_stable && symmetry_stable
     }
 
     fn generate_phi_encoding(program_hash: u64) -> Vec<i64> {
         let mut phi = Vec::new();
         let mut hash = program_hash;
-        
-        for i in 0..24 { // Monster Group mod 24 structure
+
+        for i in 0..24 {
+            // Monster Group mod 24 structure
             hash = hash.wrapping_mul(31).wrapping_add(i);
             phi.push((hash % 196883) as i64); // Monster Group order
         }
@@ -82,7 +83,8 @@ impl ModularFormEncoding {
     }
 
     fn apply_execution(phi: &[i64], trace: &[i64]) -> Vec<i64> {
-        phi.iter().zip(trace.iter().cycle())
+        phi.iter()
+            .zip(trace.iter().cycle())
             .map(|(&p, &t)| (p + t) % 196883)
             .collect()
     }
@@ -107,8 +109,11 @@ impl ModularFormZKP {
                 constraint: Self::create_symmetry_constraint(&encoding.symmetry_group),
             },
         ];
-        
-        Self { encoding, invariants }
+
+        Self {
+            encoding,
+            invariants,
+        }
     }
 
     pub fn generate_zkp_proof(&self, execution_trace: &[i64]) -> bool {
@@ -131,8 +136,8 @@ impl ModularFormZKP {
             id: 1,
             reason: "Monster Group Arithmetic Constraint".to_string(),
             a_coeff: vec![1, constraint],
-            b_coeff: vec![1, 24], // Monster Group mod 24
-            c_coeff: vec![0, 0], // Must equal zero mod 24
+            b_coeff: vec![1, 24],        // Monster Group mod 24
+            c_coeff: vec![0, 0],         // Must equal zero mod 24
             supersingular_prime: 24 - 1, // 23
         }
     }

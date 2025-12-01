@@ -42,10 +42,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("=== GraphQL Query Result ===");
     println!("Query: {}", query.trim());
     println!("\nExecuting against RocksDB + Git database...");
-    
+
     let result = execute_query(query)?;
     display_result(result);
-    
+
     Ok(())
 }
 
@@ -76,7 +76,8 @@ fn execute_query(_query: &str) -> Result<Vec<CrateNode>, Box<dyn std::error::Err
 fn display_result(crates: Vec<CrateNode>) {
     println!("\nResult:");
     for (i, crate_node) in crates.iter().enumerate() {
-        println!("{}. [{}] {} | {} | {} | {} | {} | git:{}", 
+        println!(
+            "{}. [{}] {} | {} | {} | {} | {} | git:{}",
             i + 1,
             crate_node.criticality,
             crate_node.name,
@@ -87,6 +88,6 @@ fn display_result(crates: Vec<CrateNode>) {
             crate_node.git_hash
         );
     }
-    
+
     println!("\nNote: All values queried from database - no hardcoding");
 }

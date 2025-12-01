@@ -13,11 +13,7 @@ pub struct Invariance {
 impl ReflectionMatrix {
     pub fn new() -> Self {
         Self {
-            matrix: [
-                [-1, 0, 0],
-                [0, -1, 0], 
-                [0, 0, -1],
-            ]
+            matrix: [[-1, 0, 0], [0, -1, 0], [0, 0, -1]],
         }
     }
 
@@ -34,11 +30,17 @@ impl ReflectionMatrix {
 
 impl Vector {
     pub fn new(x: i64, y: i64, z: i64) -> Self {
-        Self { components: [x, y, z] }
+        Self {
+            components: [x, y, z],
+        }
     }
 
     pub fn dot(&self, other: &Vector) -> i64 {
-        self.components.iter().zip(other.components.iter()).map(|(a, b)| a * b).sum()
+        self.components
+            .iter()
+            .zip(other.components.iter())
+            .map(|(a, b)| a * b)
+            .sum()
     }
 }
 
@@ -52,7 +54,11 @@ impl Invariance {
     }
 }
 
-pub fn verify_reflection_invariance(matrix: &ReflectionMatrix, vector: &Vector, invariance: &Invariance) -> bool {
+pub fn verify_reflection_invariance(
+    matrix: &ReflectionMatrix,
+    vector: &Vector,
+    invariance: &Invariance,
+) -> bool {
     let reflected = matrix.multiply_vector(vector);
     let result = reflected.dot(vector) * invariance.value;
     result == 0

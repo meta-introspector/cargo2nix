@@ -7,7 +7,10 @@ impl EvenUnimodular {
     pub fn new(a: i64, b: i64, c: i64, d: i64) -> Self {
         let matrix = [[a, b], [c, d]];
         let determinant = a * d - b * c;
-        Self { matrix, determinant }
+        Self {
+            matrix,
+            determinant,
+        }
     }
 
     pub fn is_unimodular(&self) -> bool {

@@ -1,0 +1,8 @@
+[package]
+name = "real-rules-test"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+trait-fixer-rules-trait = { path = "../../crates/trait-fixer-rules-trait" }
+trait-fixer-rules-real = { path = "../../crates/trait-fixer-rules-real" }

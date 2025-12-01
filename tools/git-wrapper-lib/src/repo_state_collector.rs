@@ -8,11 +8,11 @@ use std::sync::Arc;
 #[cfg(feature = "walkdir_enabled")]
 use walkdir::WalkDir;
 
+use crate::git_traits::GitExecutor;
 #[cfg(feature = "cargo_metadata_enabled")]
 use tool_traits_lib::cargo_metadata_provider::{
     CargoMetadataProvider, DummyCargoMetadataProvider, RealCargoMetadataProvider,
 };
-use crate::git_traits::GitExecutor;
 
 use tool_traits_lib::types::{
     CargoWorkspaceInfo, DependencyInfo, NixFlakeInfo, PackageInfo, RepoState, SubmoduleInfo,
@@ -132,7 +132,7 @@ impl RepoStateCollector for RealRepoStateCollector {
             repo_state.nix_flakes.push(NixFlakeInfo {
                 flake_path,
                 inputs: BTreeMap::new(), // To be populated by actual parsing
-                outputs: Vec::new(),    // To be populated by actual parsing
+                outputs: Vec::new(),     // To be populated by actual parsing
             });
         }
 

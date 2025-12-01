@@ -1,0 +1,13 @@
+[package]
+name = "tokio-stream"
+version = "0.1.1"
+edition = "2018"
+authors = ["Tokio Contributors <team@tokio.rs>"]
+license = "MIT"
+repository = "https://github.com/tokio-rs/tokio"
+homepage = "https://tokio.rs"
+description = "Utilities to work with `Stream` and `tokio`"
+
+[dependencies]
+futures-core = { path = "../futures-rs/futures-core" }
+pin-project-lite = "0.1"

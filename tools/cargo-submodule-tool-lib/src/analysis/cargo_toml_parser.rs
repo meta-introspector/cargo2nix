@@ -1,7 +1,7 @@
-use tool_traits_lib::cargo_toml_parser::CargoTomlParser;
 use anyhow::{Context, Result};
 use std::fs;
 use std::path::Path;
+use tool_traits_lib::cargo_toml_parser::CargoTomlParser;
 
 #[cfg(feature = "toml_edit_enabled")]
 use toml_edit::{Document, Item};

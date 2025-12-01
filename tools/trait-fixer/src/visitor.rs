@@ -1,66 +1,34 @@
-use rustc_hir::{Item, ItemKind, Generics, Impl};
-use rustc_middle::ty::{Ty, TyCtxt, TypeckResults};
+use rustc_hir::{Item, ItemKind};
+use rustc_middle::ty::{Ty, TyCtxt};
 use rustc_span::Span;
-use rustc_ast::ast::{Attribute, DeriveInput};
-use std::collections::HashSet;
+use rustc_hir::def_id::DefId;
 
-pub struct TraitFixer<'tcx> {
-    tcx: TyCtxt<'tcx>,
-    config: crate::rules::Config,
-    fixes: Vec<Fix>,
-}
+use trait_fixer_core::{Fix, TraitFixer};
+use trait_fixer_rules as rules;
+use trait_fixer_hir_info::HirInfo;
+use trait_fixer_lang_items::LangItems;
+use trait_fixer_attribute_reader::AttributeReader;
+use trait_fixer_trait_checker::TraitChecker;
 
-#[derive(Debug)]
-pub enum Fix {
-    AddDerive { span: Span, trait_name: String },
-    AddCloneImpl { def_id: rustc_hir::def_id::DefId },
-    RemoveImpl { item_id: rustc_hir::ItemId },
-}
+
+// The TraitFixer struct is now in trait_fixer_core, so we don't define it here.
+// The Fix enum is also in trait_fixer_core.
 
 impl<'tcx> TraitFixer<'tcx> {
-    pub fn new(tcx: TyCtxt<'tcx>) -> Self {
-        Self {
-            tcx,
-            config: crate::rules::Config::load(),
-            fixes: Vec::new(),
-        }
-    }
-
-    fn all_fields_impl_trait(&self, ty: Ty<'tcx>, trait_name: &str) -> bool {
-        match ty.kind() {
-            rustc_middle::ty::Adt(adt, substs) => {
-                for field in adt.all_fields() {
-                    let field_ty = field.ty(self.tcx, substs);
-                    // This part needs the actual trait DefId, which is complex to get.
-                    // For now, this is a placeholder. A real implementation would involve
-                    // querying the TyCtxt for the trait's DefId.
-                    // For simplicity, we'll assume a basic check or skip for now.
-                    // if !self.tcx.type_implements_trait(
-                    //     self.tcx.get_diagnostic_item(&trait_name.into()).unwrap(),
-                    //     field_ty,
-                    //     substs,
-                    // ) {
-                    //     return false;
-                    // }
-                    // Placeholder: Assume it implements for now for demonstration
-                }
-                true
-            }
-            _ => false,
-        }
-    }
+    // all_fields_impl_trait will be moved to TraitChecker trait implementation
+    // has_derive will be moved to AttributeReader trait implementation
 
     pub fn check_item(&mut self, item: &'tcx Item<'tcx>) {
         for rule in &self.config.rule {
             match &rule.kind {
-                crate::rules::RuleKind::AddDerive => {
-                    if let ItemKind::Struct(..) | ItemKind::Enum(..) | ItemKind::Union(..) = item.kind {
-                        if rule.apply_to.contains(&format!("{:?}", item.kind).to_lowercase()) {
+                rules::RuleKind::AddDerive => {
+                    if let ItemKind::Struct(..) | ItemKind::Enum(..) | ItemKind::Union(..) = item.get_item_kind(&item) {
+                        if rule.apply_to.contains(&format!("{:?}", item.get_item_kind(&item)).to_lowercase()) {
                             if rule.condition == "always" {
                                 let trait_name = rule.trait_name[0].clone();
-                                if !has_derive(self.tcx, item.owner_id.to_def_id(), &trait_name) {
+                                if !self.tcx.has_derive_attr(self.tcx, item.get_owner_id(&item).to_def_id(), &trait_name) {
                                     self.fixes.push(Fix::AddDerive {
-                                        span: item.span,
+                                        span: item.get_item_span(&item),
                                         trait_name,
                                     });
                                 }
@@ -68,18 +36,24 @@ impl<'tcx> TraitFixer<'tcx> {
                         }
                     }
                 }
-                crate::rules::RuleKind::AddImpl if rule.trait_name[0] == "Clone" => {
-                    if let ItemKind::Struct(_, _) = item.kind {
+                rules::RuleKind::AddImpl if rule.trait_name[0] == "Clone" => {
+                    if let ItemKind::Struct(..) = item.get_item_kind(&item) {
                         if rule.condition == "all_fields_clone" {
-                            let typeck = self.tcx.typeck(item.owner_id.to_def_id());
-                            let adt = self.tcx.type_of(item.owner_id.to_def_id());
-                            if self.all_fields_impl_trait(adt, "Clone") {
-                                // Check if Clone is already implemented (placeholder)
-                                // if !self.tcx.has_impl(item.owner_id.to_def_id(), "Clone") {
-                                    self.fixes.push(Fix::AddCloneImpl {
-                                        def_id: item.owner_id.to_def_id(),
-                                    });
-                                // }
+                            // typeck is needed to get the type of the item
+                            let _typeck = self.tcx.typeck(item.get_owner_id(&item));
+                            let adt_ty = self.tcx.type_of(item.get_owner_id(&item)).instantiate(self.tcx, ty::subst::Substs::empty()); // Assuming ty::subst::Substs::empty() is correct
+
+                            let trait_def_id = self.tcx.get_clone_trait_def_id();
+
+                            if let Some(trait_def_id) = trait_def_id {
+                                if self.tcx.type_implements_trait(self.tcx, adt_ty, item.get_owner_id(&item).to_def_id(), trait_def_id) {
+                                    // Check if Clone is already implemented (placeholder)
+                                    // if !self.tcx.has_impl(item.owner_id.to_def_id(), "Clone") {
+                                        self.fixes.push(Fix::AddCloneImpl {
+                                            def_id: item.get_owner_id(&item).to_def_id(),
+                                        });
+                                    // }
+                                }
                             }
                         }
                     }
@@ -88,11 +62,4 @@ impl<'tcx> TraitFixer<'tcx> {
             }
         }
     }
-}
-
-fn has_derive(tcx: TyCtxt, def_id: rustc_hir::def_id::DefId, trait_name: &str) -> bool {
-    tcx.get_attrs(def_id, rustc_span::symbol::sym::derive)
-        .iter()
-        .flat_map(|attr| attr.meta_item_list().into_iter().flatten())
-        .any(|item| item.has_name(rustc_span::symbol::Symbol::intern(trait_name)))
 }

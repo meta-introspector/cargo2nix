@@ -1,5 +1,5 @@
-use crate::vernacular_monster_path::{VernacularEmbedding, MonsterTarget};
 use crate::minizinc_data::MinizincInput;
+use crate::vernacular_monster_path::{MonsterTarget, VernacularEmbedding};
 use std::collections::HashMap;
 
 #[derive(Debug, Clone)]
@@ -17,25 +17,34 @@ pub struct InteractiveConstraintMatcher {
 impl InteractiveConstraintMatcher {
     pub fn new() -> Self {
         let mut rustc_components = HashMap::new();
-        
+
         // Partial matches with Rust compiler components
-        rustc_components.insert("rustc_parse".to_string(), RustcPartialMatch {
-            component: "rustc_parse".to_string(),
-            match_score: 0.73,
-            constraints: vec![7, 12, 19], // Partial Monster Group elements
-        });
-        
-        rustc_components.insert("rustc_hir".to_string(), RustcPartialMatch {
-            component: "rustc_hir".to_string(),
-            match_score: 0.68,
-            constraints: vec![3, 15, 21],
-        });
-        
-        rustc_components.insert("rustc_middle".to_string(), RustcPartialMatch {
-            component: "rustc_middle".to_string(),
-            match_score: 0.81,
-            constraints: vec![9, 6, 18],
-        });
+        rustc_components.insert(
+            "rustc_parse".to_string(),
+            RustcPartialMatch {
+                component: "rustc_parse".to_string(),
+                match_score: 0.73,
+                constraints: vec![7, 12, 19], // Partial Monster Group elements
+            },
+        );
+
+        rustc_components.insert(
+            "rustc_hir".to_string(),
+            RustcPartialMatch {
+                component: "rustc_hir".to_string(),
+                match_score: 0.68,
+                constraints: vec![3, 15, 21],
+            },
+        );
+
+        rustc_components.insert(
+            "rustc_middle".to_string(),
+            RustcPartialMatch {
+                component: "rustc_middle".to_string(),
+                match_score: 0.81,
+                constraints: vec![9, 6, 18],
+            },
+        );
 
         Self {
             rustc_components,
@@ -60,7 +69,7 @@ impl InteractiveConstraintMatcher {
 
     pub fn interactive_review(&mut self) -> Vec<String> {
         let mut suggestions = Vec::new();
-        
+
         for (name, match_data) in &self.rustc_components {
             if match_data.match_score < 0.75 {
                 suggestions.push(format!(
@@ -72,15 +81,18 @@ impl InteractiveConstraintMatcher {
                 ));
             }
         }
-        
+
         suggestions
     }
 
     fn update_global_constraints(&mut self) {
-        let avg_constraint = self.rustc_components.values()
+        let avg_constraint = self
+            .rustc_components
+            .values()
             .map(|m| m.constraints[0])
-            .sum::<i32>() / self.rustc_components.len() as i32;
-            
+            .sum::<i32>()
+            / self.rustc_components.len() as i32;
+
         self.current_constraints.elliptic_fiber = avg_constraint % 24;
         self.current_constraints.torus_x = (avg_constraint + 5) % 24;
         self.current_constraints.torus_y = (avg_constraint + 11) % 24;

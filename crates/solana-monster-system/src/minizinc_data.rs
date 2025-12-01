@@ -37,8 +37,11 @@ pub struct OptimalSolution {
 
 impl fmt::Display for MinizincInput {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "elliptic_fiber = {};\ntorus_x = {};\ntorus_y = {};\nmonster_stabilizer = {};",
-               self.elliptic_fiber, self.torus_x, self.torus_y, self.monster_stabilizer)
+        write!(
+            f,
+            "elliptic_fiber = {};\ntorus_x = {};\ntorus_y = {};\nmonster_stabilizer = {};",
+            self.elliptic_fiber, self.torus_x, self.torus_y, self.monster_stabilizer
+        )
     }
 }
 

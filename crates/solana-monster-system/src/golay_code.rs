@@ -1,6 +1,6 @@
 pub struct GolayCode {
-    pub length: usize,     // 24 bits
-    pub dimension: usize,  // 12 bits
+    pub length: usize,       // 24 bits
+    pub dimension: usize,    // 12 bits
     pub min_distance: usize, // 8
 }
 

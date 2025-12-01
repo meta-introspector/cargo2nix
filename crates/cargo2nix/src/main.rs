@@ -1,11 +1,9 @@
 #![forbid(unsafe_code)]
 
-use std::{
-    path::PathBuf,
-};
+use std::path::PathBuf;
 
 use clap::{CommandFactory, Parser, ValueHint};
-use clap_complete::{Shell};
+use clap_complete::Shell;
 
 use cargo2nix::{generate_cargo_nix, print_completions, write_to_file, write_to_stdout};
 

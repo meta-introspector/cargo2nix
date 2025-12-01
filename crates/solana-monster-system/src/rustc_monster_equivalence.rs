@@ -18,7 +18,7 @@ impl MonsterGroupEquivalence {
     pub fn new() -> Self {
         let supersingular_primes = Self::generate_supersingular_primes();
         let monster_order_factors = Self::monster_order_prime_factors();
-        
+
         Self {
             rustc_blocks: HashMap::new(),
             supersingular_primes,
@@ -30,20 +30,21 @@ impl MonsterGroupEquivalence {
         let hash = self.hash_rustc_name(name);
         let supersingular_index = (hash % 108) as usize;
         let prime_factor = self.supersingular_primes[supersingular_index];
-        
+
         let block = RustcBlock {
             name: name.to_string(),
             prime_factor,
             supersingular_index,
             monster_constraint: (prime_factor % 24) as i32, // Monster Group mod 24
         };
-        
+
         self.rustc_blocks.insert(name.to_string(), block.clone());
         block
     }
 
     pub fn query_matching_blocks(&self, constraint: i32) -> Vec<&RustcBlock> {
-        self.rustc_blocks.values()
+        self.rustc_blocks
+            .values()
             .filter(|block| block.monster_constraint == constraint)
             .collect()
     }
@@ -51,8 +52,8 @@ impl MonsterGroupEquivalence {
     pub fn verify_rustc_monster_equivalence(&self) -> bool {
         // rustc ≡ M requires all blocks satisfy Monster Group constraints
         self.rustc_blocks.values().all(|block| {
-            self.monster_order_factors.contains(&block.prime_factor) &&
-            block.supersingular_index < 108
+            self.monster_order_factors.contains(&block.prime_factor)
+                && block.supersingular_index < 108
         })
     }
 
@@ -66,7 +67,7 @@ impl MonsterGroupEquivalence {
         // First 108 supersingular primes (simplified for demonstration)
         let mut primes = Vec::new();
         let mut candidate = 2u64;
-        
+
         while primes.len() < 108 {
             if Self::is_supersingular_prime(candidate) {
                 primes.push(candidate);
@@ -82,13 +83,21 @@ impl MonsterGroupEquivalence {
     }
 
     fn is_prime(n: u64) -> bool {
-        if n < 2 { return false; }
-        if n == 2 { return true; }
-        if n % 2 == 0 { return false; }
-        
+        if n < 2 {
+            return false;
+        }
+        if n == 2 {
+            return true;
+        }
+        if n % 2 == 0 {
+            return false;
+        }
+
         let sqrt_n = (n as f64).sqrt() as u64;
         for i in (3..=sqrt_n).step_by(2) {
-            if n % i == 0 { return false; }
+            if n % i == 0 {
+                return false;
+            }
         }
         true
     }
@@ -99,6 +108,7 @@ impl MonsterGroupEquivalence {
     }
 
     fn hash_rustc_name(&self, name: &str) -> u64 {
-        name.bytes().fold(0u64, |acc, b| acc.wrapping_mul(31).wrapping_add(b as u64))
+        name.bytes()
+            .fold(0u64, |acc, b| acc.wrapping_mul(31).wrapping_add(b as u64))
     }
 }

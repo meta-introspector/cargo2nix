@@ -5,5 +5,5 @@ edition = "2021"
 
 [dependencies]
 trait-fixer-core-trait = { path = "../trait-fixer-core-trait" }
-trait-fixer-rules = { path = "../trait-fixer-rules" } # Still needed for rules::Config
+trait-fixer-rules-real = { path = "../trait-fixer-rules-real" } # Still needed for rules::Config
 rustc_middle = { workspace = true } # Keep for TyCtxt in struct

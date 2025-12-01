@@ -1,0 +1,25 @@
+│   │       ├── serde_core v1.0.228
+│   │           │   │       │   └── serde_core v1.0.228
+│   │           │   │           ├── serde_core v1.0.228
+│   │           │   │           │   └── serde_core v1.0.228
+│   │           │   │           │   └── serde_core v1.0.228
+│   │           │   │       │       └── serde_core v1.0.228 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/serde/serde_core)
+│   │           │   │       │           │   ├── serde_core v1.0.228 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/serde/serde_core) (*)
+│   │   └── serde_core v1.0.228
+│   │   │   │   │   │   └── serde_core v1.0.228
+│   │   │   │   └── serde_core v1.0.228 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/serde/serde_core)
+│   │   │   │   ├── serde_core v1.0.228 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/serde/serde_core) (*)
+│   │   │   │   │   └── serde_core v1.0.228
+│   │   │   │   │   │   ├── serde_core v1.0.228
+│   │   │   │   │   ├── serde_core v1.0.228
+│   │   │   │   │   └── serde_core v1.0.228
+│   │   │   │   │       ├── serde_core v1.0.228 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/serde/serde_core) (*)
+│   │       │       └── serde_core v1.0.228
+│   └── serde_core v1.0.228 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/serde/serde_core) (*)
+│   │   └── serde_core v1.0.228
+│           ├── serde_core v1.0.228
+│           │   └── serde_core v1.0.228
+│   └── serde_core v1.0.228
+serde_core v1.0.228 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/serde/serde_core) (*)
+serde_core v1.0.228 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/serde/serde_core) (*)
+├── serde_core v1.0.228 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/serde/serde_core) (*)

@@ -48,7 +48,7 @@ impl RustAstParser for DummyRustAstParser {
                 kind: "dummy_function".to_string(),
                 name: "dummy_func_a".to_string(),
                 path: "dummy_file.rs".to_string(),
-                semantic_hash: None, // Will be filled by SemanticHasher
+                semantic_hash: None,   // Will be filled by SemanticHasher
                 monster_factors: None, // Will be filled by SemanticHasher
                 bag_of_words: Some(vec!["func_a".to_string(), "arg1".to_string()]),
                 eight_d_coordinate: Some(vec![1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]),
@@ -60,7 +60,7 @@ impl RustAstParser for DummyRustAstParser {
                 kind: "dummy_struct".to_string(),
                 name: "DummyStruct".to_string(),
                 path: "dummy_file.rs".to_string(),
-                semantic_hash: None, // Will be filled by SemanticHasher
+                semantic_hash: None,   // Will be filled by SemanticHasher
                 monster_factors: None, // Will be filled by SemanticHasher
                 bag_of_words: Some(vec!["struct".to_string(), "field1".to_string()]),
                 eight_d_coordinate: Some(vec![8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0]),
@@ -120,9 +120,12 @@ impl MonsterConformityChecker for DummyMonsterConformityChecker {
     ) -> bool {
         // In a real implementation, this would involve complex checks against
         // the 108 factors and 194 conjugacy classes, now potentially including Bott Periodicity.
-        let base_conformity = declaration.monster_factors.as_ref().map_or(false, |factors| {
-            !factors.is_empty() && declaration.semantic_hash.is_some()
-        });
+        let base_conformity = declaration
+            .monster_factors
+            .as_ref()
+            .map_or(false, |factors| {
+                !factors.is_empty() && declaration.semantic_hash.is_some()
+            });
 
         if base_conformity {
             if let Some(bott_checker) = bott_periodicity_checker {
@@ -130,7 +133,10 @@ impl MonsterConformityChecker for DummyMonsterConformityChecker {
                 // In a real scenario, call bott_checker methods here.
                 bott_checker.test_fixed_point_convergence();
                 // Example of using constants:
-                println!("DummyMonsterConformityChecker: Monster representation dimension: {}", constants.get_representation_dimension());
+                println!(
+                    "DummyMonsterConformityChecker: Monster representation dimension: {}",
+                    constants.get_representation_dimension()
+                );
                 return bott_checker.monster_element(constants) > 0; // Dummy check
             }
             true
@@ -190,11 +196,14 @@ impl MonsterFactorsAxiom for DummyMonsterFactorsAxiom {
     }
 
     fn validate_factors(&self, declaration: &Declaration) -> bool {
-        declaration.monster_factors.as_ref().map_or(false, |factors| {
-            // Dummy validation: just checks if there are at least 108 factors
-            // In a real scenario, this would involve intricate checks of exponents and primes.
-            factors.len() >= 108
-        })
+        declaration
+            .monster_factors
+            .as_ref()
+            .map_or(false, |factors| {
+                // Dummy validation: just checks if there are at least 108 factors
+                // In a real scenario, this would involve intricate checks of exponents and primes.
+                factors.len() >= 108
+            })
     }
 }
 
@@ -205,7 +214,11 @@ pub trait ConjugacyClassAxiom {
     /// Predicate to check if a given transformation type is one of the 194 canonical types.
     fn is_canonical_transformation_type(&self, transformation_type: &str) -> bool;
     /// Predicate to check if a declaration's transformation history aligns with canonical conjugacy classes.
-    fn validate_transformation_history(&self, declaration: &Declaration, transformation_type: &str) -> bool;
+    fn validate_transformation_history(
+        &self,
+        declaration: &Declaration,
+        transformation_type: &str,
+    ) -> bool;
 }
 
 /// A dummy implementation of `ConjugacyClassAxiom` for testing.
@@ -222,7 +235,11 @@ impl ConjugacyClassAxiom for DummyConjugacyClassAxiom {
         transformation_type.starts_with("canonical_")
     }
 
-    fn validate_transformation_history(&self, _declaration: &Declaration, transformation_type: &str) -> bool {
+    fn validate_transformation_history(
+        &self,
+        _declaration: &Declaration,
+        transformation_type: &str,
+    ) -> bool {
         // Dummy validation: checks if the transformation type is canonical.
         self.is_canonical_transformation_type(transformation_type)
     }
@@ -275,12 +292,18 @@ impl BottPeriodicityTrait for DummyBottPeriodicity {
     }
 
     fn test_fixed_point_convergence(&self) {
-        println!("Dummy BottPeriodicity: Testing fixed-point convergence for period {}", self.data.period);
+        println!(
+            "Dummy BottPeriodicity: Testing fixed-point convergence for period {}",
+            self.data.period
+        );
         // Placeholder for actual convergence test logic
     }
 
     fn test_mathematical_structure_extraction(&self) {
-        println!("Dummy BottPeriodicity: Testing mathematical structure extraction for phi_signature {}", self.data.phi_signature);
+        println!(
+            "Dummy BottPeriodicity: Testing mathematical structure extraction for phi_signature {}",
+            self.data.phi_signature
+        );
         // Placeholder for actual structure extraction logic
     }
 

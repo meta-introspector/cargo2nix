@@ -47,20 +47,32 @@ impl CargoMetadataProvider for RealCargoMetadataProvider {
             .exec()?;
 
         // Convert real cargo_metadata types to our dummy types
-        let packages: Vec<Package> = metadata.packages.into_iter().map(|p| Package {
-            id: PackageId { repr: p.id.repr },
-            name: p.name,
-            version: p.version.to_string(),
-            manifest_path: p.manifest_path,
-            dependencies: p.dependencies.into_iter().map(|d| Dependency {
-                name: d.name,
-                source: d.source.map(|s| s.repr),
-                req: d.req.to_string(),
-            }).collect(),
-            source: p.source.map(|s| s.repr),
-        }).collect();
+        let packages: Vec<Package> = metadata
+            .packages
+            .into_iter()
+            .map(|p| Package {
+                id: PackageId { repr: p.id.repr },
+                name: p.name,
+                version: p.version.to_string(),
+                manifest_path: p.manifest_path,
+                dependencies: p
+                    .dependencies
+                    .into_iter()
+                    .map(|d| Dependency {
+                        name: d.name,
+                        source: d.source.map(|s| s.repr),
+                        req: d.req.to_string(),
+                    })
+                    .collect(),
+                source: p.source.map(|s| s.repr),
+            })
+            .collect();
 
-        let workspace_members: Vec<PackageId> = metadata.workspace_members.into_iter().map(|id| PackageId { repr: id.repr }).collect();
+        let workspace_members: Vec<PackageId> = metadata
+            .workspace_members
+            .into_iter()
+            .map(|id| PackageId { repr: id.repr })
+            .collect();
 
         Ok(Metadata {
             packages,
@@ -79,17 +91,19 @@ impl CargoMetadataProvider for DummyCargoMetadataProvider {
     fn provide_metadata(&self, _project_root: &Path) -> Result<Metadata> {
         // Return dummy metadata for testing or when cargo_metadata is not available
         Ok(Metadata {
-            packages: vec![
-                Package {
-                    id: PackageId { repr: "dummy-package-id-1".to_string() },
-                    name: "dummy-package-1".to_string(),
-                    version: "0.1.0".to_string(),
-                    manifest_path: PathBuf::from("/dummy/path/dummy-package-1/Cargo.toml"),
-                    dependencies: vec![],
-                    source: None,
+            packages: vec![Package {
+                id: PackageId {
+                    repr: "dummy-package-id-1".to_string(),
                 },
-            ],
-            workspace_members: vec![PackageId { repr: "dummy-package-id-1".to_string() }],
+                name: "dummy-package-1".to_string(),
+                version: "0.1.0".to_string(),
+                manifest_path: PathBuf::from("/dummy/path/dummy-package-1/Cargo.toml"),
+                dependencies: vec![],
+                source: None,
+            }],
+            workspace_members: vec![PackageId {
+                repr: "dummy-package-id-1".to_string(),
+            }],
             workspace_root: PathBuf::from("/dummy/path"),
         })
     }

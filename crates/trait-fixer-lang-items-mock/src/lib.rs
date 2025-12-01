@@ -1,7 +1,7 @@
 // crates/trait-fixer-lang-items-mock/src/lib.rs
 
 use trait_fixer_lang_items_trait::LangItems;
-use trait_fixer_rustc_mock::{MockTyCtxt, DefId, sym};
+use trait_fixer_rustc_mock::{sym, DefId, MockTyCtxt};
 
 // Implementation for MockTyCtxt
 impl<'tcx> LangItems<'tcx> for MockTyCtxt<'tcx> {

@@ -1,5 +1,5 @@
-use crate::core_constants::{MONSTER_GROUP_REPRESENTATION_DIMENSION, HECKE_EIGENVALUES};
-use std::ffi::{CString, CStr};
+use crate::core_constants::{HECKE_EIGENVALUES, MONSTER_GROUP_REPRESENTATION_DIMENSION};
+use std::ffi::{CStr, CString};
 use std::os::raw::{c_char, c_int, c_void};
 
 // Mock libminizinc FFI bindings (would normally be generated)
@@ -30,18 +30,18 @@ impl LibMiniZincIntegration {
     pub fn solve_monster_lattice(&self, lattice_size: usize) -> Result<Vec<i32>, String> {
         let model = self.generate_monster_lattice_model(lattice_size);
         let model_cstr = CString::new(model).map_err(|e| format!("CString error: {}", e))?;
-        
+
         unsafe {
             let parsed_model = minizinc_parse_model(self.env, model_cstr.as_ptr());
             if parsed_model.is_null() {
                 return Err("Failed to parse MiniZinc model".to_string());
             }
-            
+
             let result = minizinc_solver_run(self.env, parsed_model);
             if result != 0 {
                 return Err("Solver failed".to_string());
             }
-            
+
             let mut solution = Vec::new();
             for i in 0..lattice_size {
                 let var_name = CString::new(format!("lattice_{}", i))
@@ -49,7 +49,7 @@ impl LibMiniZincIntegration {
                 let value = minizinc_get_solution_int(self.env, var_name.as_ptr());
                 solution.push(value);
             }
-            
+
             Ok(solution)
         }
     }
@@ -102,21 +102,25 @@ output [
         )
     }
 
-    pub fn solve_resource_allocation(&self, resources: &[u32], constraints: &[(usize, usize)]) -> Result<Vec<i32>, String> {
+    pub fn solve_resource_allocation(
+        &self,
+        resources: &[u32],
+        constraints: &[(usize, usize)],
+    ) -> Result<Vec<i32>, String> {
         let model = self.generate_resource_model(resources, constraints);
         let model_cstr = CString::new(model).map_err(|e| format!("CString error: {}", e))?;
-        
+
         unsafe {
             let parsed_model = minizinc_parse_model(self.env, model_cstr.as_ptr());
             if parsed_model.is_null() {
                 return Err("Failed to parse resource allocation model".to_string());
             }
-            
+
             let result = minizinc_solver_run(self.env, parsed_model);
             if result != 0 {
                 return Err("Resource allocation solver failed".to_string());
             }
-            
+
             let mut allocation = Vec::new();
             for i in 0..resources.len() {
                 let var_name = CString::new(format!("resource_{}", i))
@@ -124,21 +128,27 @@ output [
                 let value = minizinc_get_solution_int(self.env, var_name.as_ptr());
                 allocation.push(value);
             }
-            
+
             Ok(allocation)
         }
     }
 
     fn generate_resource_model(&self, resources: &[u32], constraints: &[(usize, usize)]) -> String {
         let n = resources.len();
-        let resource_bounds: Vec<String> = resources.iter()
-            .map(|&r| format!("0..{}", r))
+        let resource_bounds: Vec<String> = resources.iter().map(|&r| format!("0..{}", r)).collect();
+
+        let constraint_strs: Vec<String> = constraints
+            .iter()
+            .map(|(i, j)| {
+                format!(
+                    "resource_{} + resource_{} <= {}",
+                    i,
+                    j,
+                    resources[*i].min(resources[*j])
+                )
+            })
             .collect();
-        
-        let constraint_strs: Vec<String> = constraints.iter()
-            .map(|(i, j)| format!("resource_{} + resource_{} <= {}", i, j, resources[*i].min(resources[*j])))
-            .collect();
-        
+
         format!(
             "% Resource Allocation with Monster Group Constraints
 include \"globals.mzn\";
@@ -167,21 +177,29 @@ output [
     \"Total: \", show(total_allocation), \"\\n\"
 ];",
             n,
-            (0..n).map(|i| format!("var {}: resource_{};", resource_bounds[i], i)).collect::<Vec<_>>().join("\n"),
+            (0..n)
+                .map(|i| format!("var {}: resource_{};", resource_bounds[i], i))
+                .collect::<Vec<_>>()
+                .join("\n"),
             constraint_strs.join("\n"),
-            (0..n).map(|i| format!("\"Resource {}: \", show(resource_{}), \"\\n\",", i, i)).collect::<Vec<_>>().join("\n")
+            (0..n)
+                .map(|i| format!("\"Resource {}: \", show(resource_{}), \"\\n\",", i, i))
+                .collect::<Vec<_>>()
+                .join("\n")
         )
     }
 
     pub fn verify_monster_constraints(&self, solution: &[i32]) -> bool {
         let sum: i32 = solution.iter().sum();
         let modular_check = sum % 24 == 0;
-        
+
         let unique_elements: std::collections::HashSet<_> = solution.iter().collect();
         let uniqueness_check = unique_elements.len() == solution.len();
-        
-        let bounds_check = solution.iter().all(|&x| x >= 0 && x < MONSTER_GROUP_REPRESENTATION_DIMENSION as i32);
-        
+
+        let bounds_check = solution
+            .iter()
+            .all(|&x| x >= 0 && x < MONSTER_GROUP_REPRESENTATION_DIMENSION as i32);
+
         modular_check && uniqueness_check && bounds_check
     }
 }
@@ -201,33 +219,41 @@ impl Drop for LibMiniZincIntegration {
 mod mock_ffi {
     use super::*;
     use std::sync::Mutex;
-    
+
     static MOCK_SOLUTIONS: Mutex<Vec<Vec<i32>>> = Mutex::new(Vec::new());
-    
+
     #[no_mangle]
     pub extern "C" fn minizinc_env_new() -> *mut c_void {
         Box::into_raw(Box::new(42u32)) as *mut c_void
     }
-    
+
     #[no_mangle]
     pub extern "C" fn minizinc_env_free(env: *mut c_void) {
         if !env.is_null() {
-            unsafe { Box::from_raw(env as *mut u32); }
+            unsafe {
+                Box::from_raw(env as *mut u32);
+            }
         }
     }
-    
+
     #[no_mangle]
-    pub extern "C" fn minizinc_parse_model(_env: *mut c_void, _model: *const c_char) -> *mut c_void {
+    pub extern "C" fn minizinc_parse_model(
+        _env: *mut c_void,
+        _model: *const c_char,
+    ) -> *mut c_void {
         Box::into_raw(Box::new(24u32)) as *mut c_void
     }
-    
+
     #[no_mangle]
     pub extern "C" fn minizinc_solver_run(_env: *mut c_void, _model: *mut c_void) -> c_int {
         0 // Success
     }
-    
+
     #[no_mangle]
-    pub extern "C" fn minizinc_get_solution_int(_env: *mut c_void, var_name: *const c_char) -> c_int {
+    pub extern "C" fn minizinc_get_solution_int(
+        _env: *mut c_void,
+        var_name: *const c_char,
+    ) -> c_int {
         unsafe {
             let name = CStr::from_ptr(var_name).to_string_lossy();
             if name.starts_with("lattice_") {
@@ -246,33 +272,35 @@ mod mock_ffi {
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[test]
     fn test_libminizinc_integration() {
         let integration = LibMiniZincIntegration::new().unwrap();
-        
+
         let solution = integration.solve_monster_lattice(5).unwrap();
         assert_eq!(solution.len(), 5);
-        
+
         let is_valid = integration.verify_monster_constraints(&solution);
         assert!(is_valid);
     }
-    
+
     #[test]
     fn test_resource_allocation() {
         let integration = LibMiniZincIntegration::new().unwrap();
-        
+
         let resources = vec![100, 200, 150, 300];
         let constraints = vec![(0, 1), (2, 3)];
-        
-        let allocation = integration.solve_resource_allocation(&resources, &constraints).unwrap();
+
+        let allocation = integration
+            .solve_resource_allocation(&resources, &constraints)
+            .unwrap();
         assert_eq!(allocation.len(), 4);
     }
-    
+
     #[test]
     fn test_model_generation() {
         let integration = LibMiniZincIntegration::new().unwrap();
-        
+
         let model = integration.generate_monster_lattice_model(3);
         assert!(model.contains("Monster Group"));
         assert!(model.contains("constraint sum(lattice) mod 24 = 0"));

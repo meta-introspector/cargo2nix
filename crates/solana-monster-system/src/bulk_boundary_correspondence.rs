@@ -1,4 +1,4 @@
-use sha2::{Sha256, Digest};
+use sha2::{Digest, Sha256};
 use std::collections::HashMap;
 
 /// Bulk/Boundary correspondence for compiler verification
@@ -198,30 +198,30 @@ impl BulkBoundaryCorrespondence {
     }
 
     /// Generate boundary state from bulk state (core correspondence)
-    pub fn generate_boundary_from_bulk(&mut self, 
+    pub fn generate_boundary_from_bulk(
+        &mut self,
         source_code: &str,
-        build_config: &str
+        build_config: &str,
     ) -> Result<BoundaryState, CorrespondenceError> {
-        
         // Step 1: Construct bulk state from compiler internals
         let bulk_state = self.construct_bulk_state(source_code, build_config)?;
-        
+
         // Step 2: Store bulk state (hidden from verifier)
         self.bulk_manager.store_bulk_state(bulk_state.clone());
-        
+
         // Step 3: Compute boundary invariants from bulk structure
         let boundary_invariants = self.compute_boundary_invariants(&bulk_state);
-        
+
         // Step 4: Generate cryptographic commitment to bulk
         let bulk_commitment = self.boundary_generator.commit_to_bulk(&bulk_state)?;
-        
+
         // Step 5: Generate ZKP proving bulk/boundary correspondence
         let zkp_proof = self.boundary_generator.generate_correspondence_proof(
-            &bulk_state, 
+            &bulk_state,
             &boundary_invariants,
-            &bulk_commitment
+            &bulk_commitment,
         )?;
-        
+
         Ok(BoundaryState {
             zkp_proof,
             boundary_invariants,
@@ -230,41 +230,54 @@ impl BulkBoundaryCorrespondence {
     }
 
     /// Verify boundary state without accessing bulk
-    pub fn verify_boundary_state(&self, boundary: &BoundaryState) -> Result<bool, CorrespondenceError> {
+    pub fn verify_boundary_state(
+        &self,
+        boundary: &BoundaryState,
+    ) -> Result<bool, CorrespondenceError> {
         // Step 1: Validate boundary invariants are well-formed
-        if !self.correspondence_verifier.validate_boundary_invariants(&boundary.boundary_invariants) {
+        if !self
+            .correspondence_verifier
+            .validate_boundary_invariants(&boundary.boundary_invariants)
+        {
             return Ok(false);
         }
-        
+
         // Step 2: Verify bulk commitment is valid
-        if !self.correspondence_verifier.verify_bulk_commitment(&boundary.bulk_commitment) {
+        if !self
+            .correspondence_verifier
+            .verify_bulk_commitment(&boundary.bulk_commitment)
+        {
             return Ok(false);
         }
-        
+
         // Step 3: Verify ZKP proves bulk/boundary correspondence
         let correspondence_valid = self.correspondence_verifier.verify_correspondence_proof(
             &boundary.zkp_proof,
             &boundary.boundary_invariants,
-            &boundary.bulk_commitment
+            &boundary.bulk_commitment,
         )?;
-        
+
         Ok(correspondence_valid)
     }
 
     /// Construct bulk state from compiler internals
-    fn construct_bulk_state(&self, source_code: &str, build_config: &str) -> Result<BulkState, CorrespondenceError> {
+    fn construct_bulk_state(
+        &self,
+        source_code: &str,
+        build_config: &str,
+    ) -> Result<BulkState, CorrespondenceError> {
         // Extract modular parameters from source structure
         let modular_parameters = self.extract_modular_parameters(source_code);
-        
+
         // Analyze type system state
         let type_system_state = self.analyze_type_system(source_code);
-        
+
         // Parse build configuration
         let build_configuration = self.parse_build_configuration(build_config);
-        
+
         // Trace compilation process
         let computation_trace = self.trace_compilation(source_code, build_config);
-        
+
         Ok(BulkState {
             modular_parameters,
             type_system_state,
@@ -276,19 +289,33 @@ impl BulkBoundaryCorrespondence {
     /// Compute boundary invariants from bulk structure
     fn compute_boundary_invariants(&self, bulk: &BulkState) -> BoundaryInvariants {
         // Topological signature from modular parameters
-        let euler_char = (bulk.modular_parameters.weight as i64) - (bulk.modular_parameters.level as i64);
+        let euler_char =
+            (bulk.modular_parameters.weight as i64) - (bulk.modular_parameters.level as i64);
         let genus = bulk.modular_parameters.level as i64;
         let orbit = bulk.modular_parameters.hecke_eigenvalues[0] % 196883;
-        
+
         // Structure hash from all bulk components
         let mut hasher = Sha256::new();
-        hasher.update(&bulk.modular_parameters.tau_coefficients.iter().map(|x| x.to_be_bytes()).collect::<Vec<_>>().concat());
+        hasher.update(
+            &bulk
+                .modular_parameters
+                .tau_coefficients
+                .iter()
+                .map(|x| x.to_be_bytes())
+                .collect::<Vec<_>>()
+                .concat(),
+        );
         hasher.update(bulk.build_configuration.target_arch.as_bytes());
         let structure_hash = hasher.finalize().into();
-        
+
         // Monster Group invariant
-        let monster_invariant = bulk.modular_parameters.tau_coefficients.iter().product::<i64>() % 196883;
-        
+        let monster_invariant = bulk
+            .modular_parameters
+            .tau_coefficients
+            .iter()
+            .product::<i64>()
+            % 196883;
+
         BoundaryInvariants {
             topological_signature: [euler_char, genus, orbit],
             structure_hash,
@@ -305,11 +332,11 @@ impl BulkBoundaryCorrespondence {
             101..=500 => 8,
             _ => 12,
         };
-        
+
         let level = (source_code.len() % 11) + 1;
         let tau_coefficients = vec![1, -24, 252, 4830, 534612]; // Ramanujan τ values
         let hecke_eigenvalues = [196883, -5472]; // T_2, T_3
-        
+
         ModularParameters {
             weight,
             level,
@@ -406,11 +433,19 @@ impl BoundaryStateGenerator {
         // Generate commitment to bulk state
         let mut hasher = Sha256::new();
         hasher.update(&self.commitment_scheme.generators[0]);
-        hasher.update(&bulk.modular_parameters.tau_coefficients.iter().map(|x| x.to_be_bytes()).collect::<Vec<_>>().concat());
-        
+        hasher.update(
+            &bulk
+                .modular_parameters
+                .tau_coefficients
+                .iter()
+                .map(|x| x.to_be_bytes())
+                .collect::<Vec<_>>()
+                .concat(),
+        );
+
         let commitment_value = hasher.finalize().into();
         let randomness = [3; 32]; // Simplified randomness
-        
+
         Ok(BulkCommitment {
             commitment_value,
             randomness,
@@ -424,21 +459,22 @@ impl BoundaryStateGenerator {
         })
     }
 
-    fn generate_correspondence_proof(&self, 
+    fn generate_correspondence_proof(
+        &self,
         bulk: &BulkState,
         boundary: &BoundaryInvariants,
-        commitment: &BulkCommitment
+        commitment: &BulkCommitment,
     ) -> Result<ZKPProof, CorrespondenceError> {
-        
         // Generate proof that bulk is well-formed
         let well_formedness_proof = self.prove_bulk_well_formedness(bulk)?;
-        
+
         // Generate proof that computation is valid
         let validity_proof = self.prove_computation_validity(bulk)?;
-        
+
         // Generate proof that boundary corresponds to bulk
-        let correspondence_proof = self.prove_bulk_boundary_correspondence(bulk, boundary, commitment)?;
-        
+        let correspondence_proof =
+            self.prove_bulk_boundary_correspondence(bulk, boundary, commitment)?;
+
         Ok(ZKPProof {
             well_formedness_proof,
             validity_proof,
@@ -448,18 +484,28 @@ impl BoundaryStateGenerator {
 
     fn prove_bulk_well_formedness(&self, bulk: &BulkState) -> Result<Vec<u8>, CorrespondenceError> {
         // Simplified proof generation
-        Ok(bulk.modular_parameters.tau_coefficients.iter().map(|x| x.to_be_bytes()).collect::<Vec<_>>().concat())
+        Ok(bulk
+            .modular_parameters
+            .tau_coefficients
+            .iter()
+            .map(|x| x.to_be_bytes())
+            .collect::<Vec<_>>()
+            .concat())
     }
 
     fn prove_computation_validity(&self, bulk: &BulkState) -> Result<Vec<u8>, CorrespondenceError> {
         // Simplified validity proof
-        Ok(vec![bulk.modular_parameters.weight as u8, bulk.modular_parameters.level as u8])
+        Ok(vec![
+            bulk.modular_parameters.weight as u8,
+            bulk.modular_parameters.level as u8,
+        ])
     }
 
-    fn prove_bulk_boundary_correspondence(&self, 
+    fn prove_bulk_boundary_correspondence(
+        &self,
         bulk: &BulkState,
         boundary: &BoundaryInvariants,
-        commitment: &BulkCommitment
+        commitment: &BulkCommitment,
     ) -> Result<Vec<u8>, CorrespondenceError> {
         // Simplified correspondence proof
         let mut proof = Vec::new();
@@ -485,16 +531,17 @@ impl CorrespondenceVerifier {
         commitment.commitment_value != [0; 32]
     }
 
-    fn verify_correspondence_proof(&self, 
+    fn verify_correspondence_proof(
+        &self,
         proof: &ZKPProof,
         boundary: &BoundaryInvariants,
-        commitment: &BulkCommitment
+        commitment: &BulkCommitment,
     ) -> Result<bool, CorrespondenceError> {
         // Verify all three proof components
         let well_formed = !proof.well_formedness_proof.is_empty();
         let valid = !proof.validity_proof.is_empty();
         let corresponds = proof.correspondence_proof.len() >= 64;
-        
+
         Ok(well_formed && valid && corresponds)
     }
 }
@@ -554,11 +601,15 @@ pub struct PublicValidator;
 pub struct ZKPVerifier;
 
 impl PublicValidator {
-    fn new() -> Self { Self }
+    fn new() -> Self {
+        Self
+    }
 }
 
 impl ZKPVerifier {
-    fn new() -> Self { Self }
+    fn new() -> Self {
+        Self
+    }
 }
 
 #[derive(Debug)]
@@ -576,13 +627,13 @@ mod tests {
     #[test]
     fn test_bulk_boundary_correspondence() {
         let mut correspondence = BulkBoundaryCorrespondence::new();
-        
+
         let source = "fn main() { println!(\"hello\"); }";
         let config = "optimization = \"release\"";
-        
+
         let boundary = correspondence.generate_boundary_from_bulk(source, config);
         assert!(boundary.is_ok());
-        
+
         if let Ok(b) = boundary {
             let verification = correspondence.verify_boundary_state(&b);
             assert!(verification.is_ok());
@@ -593,7 +644,7 @@ mod tests {
     #[test]
     fn test_boundary_invariants() {
         let correspondence = BulkBoundaryCorrespondence::new();
-        
+
         let bulk = BulkState {
             modular_parameters: ModularParameters {
                 weight: 4,
@@ -618,7 +669,7 @@ mod tests {
                 transformations: vec![],
             },
         };
-        
+
         let invariants = correspondence.compute_boundary_invariants(&bulk);
         assert_ne!(invariants.monster_invariant, 0);
     }

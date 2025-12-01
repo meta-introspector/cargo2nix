@@ -41,8 +41,7 @@ tools/monster_protocol/*.db
 tools/monster_protocol/*.db/
 tools/monster_protocol/*_storage/
 
-# RocksDB directories
-**/rocksdb/
+
 **/rocks.db/
 **/*.rocksdb/
 mcp_db/ # Explicitly ignoring the MCP RocksDB directory

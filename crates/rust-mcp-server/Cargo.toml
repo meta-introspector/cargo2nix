@@ -15,19 +15,20 @@ include.workspace = true
 path = "src/main.rs" # Expose main.rs content as a library for other crates like rusttycoon
 
 [dependencies]
-lsp-server = "0.7.4" # Or latest compatible version
-lsp-types = "0.94.0" # Version compatible with lsp-server
+lsp-server = "0.7.9"
+lsp-types = "0.94.1"
 anyhow = { workspace = true }
 syn = { workspace = true, features = ["full", "extra-traits", "visit"] }
 quote = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
-serde_json = { workspace = true }
+serde_json = "1.0.145"
 clap = { workspace = true, features = ["derive"] }
 libloading = "0.8.3"
 mcp-plugin-traits = { path = "../mcp-plugin-traits" }
 rocksdb = { workspace = true } # Now inheriting from workspace
 sha2 = { workspace = true }
 walkdir = { workspace = true }
+hex = "0.4" # Added for hex encoding
 
 [lints]
 workspace = true

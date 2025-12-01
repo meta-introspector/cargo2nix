@@ -10,9 +10,9 @@ use trait_fixer_rules_trait::ConfigTrait;
 // Conditionally import the concrete implementations and rustc types
 #[cfg(feature = "use_real_impls")]
 mod real_impls {
+    pub use rustc_driver::Compilation;
     pub use rustc_interface::interface::Compiler;
     pub use rustc_middle::ty::TyCtxt;
-    pub use rustc_driver::Compilation;
 
     pub use crate::trait_fixer_compiler_host_real::ActualCompilerHost;
     pub use crate::trait_fixer_core_real::TraitFixer as CoreFixerImpl;
@@ -21,17 +21,19 @@ mod real_impls {
 
 #[cfg(feature = "use_mock_impls")]
 mod mock_impls {
-    pub use trait_fixer_rustc_mock::{MockCompiler as Compiler, TyCtxt, MockCompilation as Compilation};
     pub use crate::trait_fixer_compiler_host_mock::MockCompilerHost as ActualCompilerHost;
     pub use crate::trait_fixer_core_mock::MockTraitFixer as CoreFixerImpl;
     pub use crate::trait_fixer_rules_mock::MockConfig as RulesConfigImpl;
+    pub use trait_fixer_rustc_mock::{
+        MockCompilation as Compilation, MockCompiler as Compiler, TyCtxt,
+    };
 }
 
 // Re-export chosen implementations and types
-#[cfg(feature = "use_real_impls")]
-use real_impls::*;
 #[cfg(feature = "use_mock_impls")]
 use mock_impls::*;
+#[cfg(feature = "use_real_impls")]
+use real_impls::*;
 
 fn main() {
     let mut args = std::env::args().collect::<Vec<_>>();
@@ -67,8 +69,9 @@ impl rustc_driver::Callbacks for TraitFixerCallbacks {
     fn after_analysis<'tcx>(
         &mut self,
         _compiler: &Compiler, // This Compiler type is now resolved by the feature flag (real/mock)
-        tcx: TyCtxt<'tcx>, // This TyCtxt type is now resolved by the feature flag (real/mock)
-    ) -> Compilation { // This Compilation type is now resolved by the feature flag (real/mock)
+        tcx: TyCtxt<'tcx>,    // This TyCtxt type is now resolved by the feature flag (real/mock)
+    ) -> Compilation {
+        // This Compilation type is now resolved by the feature flag (real/mock)
         // Instantiate the CoreFixerImpl, which uses the correct TyCtxt from the feature flag
         let mut fixer = CoreFixerImpl::new(tcx);
 
@@ -91,7 +94,10 @@ impl rustc_driver::Callbacks for TraitFixerCallbacks {
 fn report_fixes(fixes: &[Fix]) {
     for fix in fixes {
         match fix {
-            Fix::AddDerive { span: _, trait_name } => {
+            Fix::AddDerive {
+                span: _,
+                trait_name,
+            } => {
                 println!("Consider adding #[derive({})]", trait_name);
             }
             _ => println!("Fix available"),
@@ -99,6 +105,7 @@ fn report_fixes(fixes: &[Fix]) {
     }
 }
 
-fn apply_fixes(fixes: &[Fix], _compiler: &Compiler) { // Compiler type is conditional
+fn apply_fixes(fixes: &[Fix], _compiler: &Compiler) {
+    // Compiler type is conditional
     println!("--fix mode: {} fixes would be applied", fixes.len());
 }

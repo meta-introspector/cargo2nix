@@ -23,7 +23,7 @@ pub struct IngestionChunk {
     pub chunk_id: String, // Hash of the chunk's content or a sequential ID
     pub files: Vec<IngestionFileDescriptor>,
     pub estimated_size_bytes: usize, // Estimated serialized size of this chunk's metadata
-    // Potentially other metadata like estimated processing time for files in this chunk
+                                     // Potentially other metadata like estimated processing time for files in this chunk
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)] // Derive Clone for IngestionFileDescriptor

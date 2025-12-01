@@ -1,11 +1,11 @@
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 /// AST-based Monster Group factor collection
 /// Maps Rust syntax elements to Monster Group prime factors
-use syn::{visit::Visit, Item, Expr, Type, Pat, Stmt};
-use std::collections::HashMap;
-use serde::{Deserialize, Serialize};
+use syn::{visit::Visit, Expr, Item, Pat, Stmt, Type};
 
 /// Monster Group primes for factor assignment
-const MONSTER_PRIMES: [u64; 15] = [2,3,5,7,11,13,17,19,23,29,31,41,47,59,71];
+const MONSTER_PRIMES: [u64; 15] = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 41, 47, 59, 71];
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FileFactors {
@@ -20,7 +20,7 @@ pub struct MonsterFactorMapping {
     pub term_to_prime: HashMap<String, u64>,
     pub file_factors: Vec<FileFactors>,
     pub total_factors_used: HashMap<u64, u32>, // prime -> total exponent
-    pub target_monster: HashMap<u64, u32>, // Monster Group target
+    pub target_monster: HashMap<u64, u32>,     // Monster Group target
 }
 
 pub struct ASTFactorCollector {
@@ -34,14 +34,16 @@ impl ASTFactorCollector {
         }
     }
 
-    pub fn collect_file_factors(&mut self, file_path: &str, syntax_tree: &syn::File) -> FileFactors {
+    pub fn collect_file_factors(
+        &mut self,
+        file_path: &str,
+        syntax_tree: &syn::File,
+    ) -> FileFactors {
         self.term_counts.clear();
         self.visit_file(syntax_tree);
-        
+
         let assigned_factors = self.calculate_factors();
-        let total_contribution = assigned_factors.iter()
-            .map(|(p, e)| p.pow(*e))
-            .product();
+        let total_contribution = assigned_factors.iter().map(|(p, e)| p.pow(*e)).product();
 
         FileFactors {
             file_path: file_path.to_string(),
@@ -54,37 +56,37 @@ impl ASTFactorCollector {
     fn calculate_factors(&self) -> Vec<(u64, u32)> {
         let mut factors = Vec::new();
         let mapping = self.create_term_mapping();
-        
+
         for (term, &count) in &self.term_counts {
             if let Some(&prime) = mapping.get(term) {
                 let exponent = self.count_to_exponent(count);
                 factors.push((prime, exponent));
             }
         }
-        
+
         factors
     }
 
     fn create_term_mapping(&self) -> HashMap<String, u64> {
         let mut mapping = HashMap::new();
-        
+
         // Core language constructs → Monster Group primes
-        mapping.insert("fn".to_string(), 71);           // Functions → highest prime
-        mapping.insert("struct".to_string(), 59);       // Structs → second highest
-        mapping.insert("enum".to_string(), 47);         // Enums
-        mapping.insert("trait".to_string(), 41);        // Traits
-        mapping.insert("impl".to_string(), 31);         // Implementations
-        mapping.insert("mod".to_string(), 29);          // Modules
-        mapping.insert("use".to_string(), 23);          // Imports
-        mapping.insert("let".to_string(), 19);          // Bindings
-        mapping.insert("match".to_string(), 17);        // Pattern matching
-        mapping.insert("if".to_string(), 13);           // Conditionals
-        mapping.insert("for".to_string(), 11);          // Loops
-        mapping.insert("while".to_string(), 7);         // While loops
-        mapping.insert("type".to_string(), 5);          // Type aliases
-        mapping.insert("const".to_string(), 3);         // Constants
-        mapping.insert("static".to_string(), 2);        // Statics
-        
+        mapping.insert("fn".to_string(), 71); // Functions → highest prime
+        mapping.insert("struct".to_string(), 59); // Structs → second highest
+        mapping.insert("enum".to_string(), 47); // Enums
+        mapping.insert("trait".to_string(), 41); // Traits
+        mapping.insert("impl".to_string(), 31); // Implementations
+        mapping.insert("mod".to_string(), 29); // Modules
+        mapping.insert("use".to_string(), 23); // Imports
+        mapping.insert("let".to_string(), 19); // Bindings
+        mapping.insert("match".to_string(), 17); // Pattern matching
+        mapping.insert("if".to_string(), 13); // Conditionals
+        mapping.insert("for".to_string(), 11); // Loops
+        mapping.insert("while".to_string(), 7); // While loops
+        mapping.insert("type".to_string(), 5); // Type aliases
+        mapping.insert("const".to_string(), 3); // Constants
+        mapping.insert("static".to_string(), 2); // Statics
+
         mapping
     }
 
@@ -139,10 +141,24 @@ pub struct MonsterFactorSolver {
 impl MonsterFactorSolver {
     pub fn new() -> Self {
         let mut target_monster = HashMap::new();
-        let monster_factors = [(2,46), (3,20), (5,9), (7,6), (11,2), (13,3), 
-                              (17,1), (19,1), (23,1), (29,1), (31,1), (41,1), 
-                              (47,1), (59,1), (71,1)];
-        
+        let monster_factors = [
+            (2, 46),
+            (3, 20),
+            (5, 9),
+            (7, 6),
+            (11, 2),
+            (13, 3),
+            (17, 1),
+            (19, 1),
+            (23, 1),
+            (29, 1),
+            (31, 1),
+            (41, 1),
+            (47, 1),
+            (59, 1),
+            (71, 1),
+        ];
+
         for (prime, exp) in monster_factors {
             target_monster.insert(prime, exp);
         }
@@ -153,7 +169,7 @@ impl MonsterFactorSolver {
                 file_factors: Vec::new(),
                 total_factors_used: HashMap::new(),
                 target_monster,
-            }
+            },
         }
     }
 
@@ -162,7 +178,7 @@ impl MonsterFactorSolver {
         for (prime, exp) in &file_factors.assigned_factors {
             *self.mapping.total_factors_used.entry(*prime).or_insert(0) += exp;
         }
-        
+
         self.mapping.file_factors.push(file_factors);
     }
 
@@ -171,13 +187,24 @@ impl MonsterFactorSolver {
         let mut valid = true;
 
         for (&prime, &target_exp) in &self.mapping.target_monster {
-            let used_exp = self.mapping.total_factors_used.get(&prime).copied().unwrap_or(0);
-            
+            let used_exp = self
+                .mapping
+                .total_factors_used
+                .get(&prime)
+                .copied()
+                .unwrap_or(0);
+
             if used_exp > target_exp {
-                issues.push(format!("Prime {} exceeds limit: {} > {}", prime, used_exp, target_exp));
+                issues.push(format!(
+                    "Prime {} exceeds limit: {} > {}",
+                    prime, used_exp, target_exp
+                ));
                 valid = false;
             } else if used_exp < target_exp {
-                issues.push(format!("Prime {} under-utilized: {} < {}", prime, used_exp, target_exp));
+                issues.push(format!(
+                    "Prime {} under-utilized: {} < {}",
+                    prime, used_exp, target_exp
+                ));
             }
         }
 
@@ -187,25 +214,42 @@ impl MonsterFactorSolver {
     pub fn generate_sat_problem(&self) -> String {
         // Generate SAT clauses for exact Monster Group matching
         let mut clauses = Vec::new();
-        
+
         for (&prime, &target_exp) in &self.mapping.target_monster {
-            let used_exp = self.mapping.total_factors_used.get(&prime).copied().unwrap_or(0);
-            clauses.push(format!("prime_{}_target_{}_used_{}", prime, target_exp, used_exp));
+            let used_exp = self
+                .mapping
+                .total_factors_used
+                .get(&prime)
+                .copied()
+                .unwrap_or(0);
+            clauses.push(format!(
+                "prime_{}_target_{}_used_{}",
+                prime, target_exp, used_exp
+            ));
         }
-        
+
         clauses.join("\n")
     }
 
     pub fn print_summary(&self) {
         println!("🔢 Monster Factor Collection Summary");
         println!("Files analyzed: {}", self.mapping.file_factors.len());
-        
+
         println!("\nFactor usage vs Monster Group targets:");
         for (&prime, &target_exp) in &self.mapping.target_monster {
-            let used_exp = self.mapping.total_factors_used.get(&prime).copied().unwrap_or(0);
-            let status = if used_exp == target_exp { "✅" } 
-                        else if used_exp < target_exp { "⬇️" } 
-                        else { "⬆️" };
+            let used_exp = self
+                .mapping
+                .total_factors_used
+                .get(&prime)
+                .copied()
+                .unwrap_or(0);
+            let status = if used_exp == target_exp {
+                "✅"
+            } else if used_exp < target_exp {
+                "⬇️"
+            } else {
+                "⬆️"
+            };
             println!("  {} : {} / {} {}", prime, used_exp, target_exp, status);
         }
 

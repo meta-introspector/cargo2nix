@@ -1,7 +1,7 @@
-use std::process::Command;
-use std::path::Path;
-use std::fs;
 use crate::minizinc_data::{MinizincInput, OptimalSolution};
+use std::fs;
+use std::path::Path;
+use std::process::Command;
 
 pub fn execute_minizinc_with_data<P: AsRef<Path>>(
     model_path: P,
@@ -9,7 +9,7 @@ pub fn execute_minizinc_with_data<P: AsRef<Path>>(
 ) -> Result<OptimalSolution, Box<dyn std::error::Error>> {
     let temp_data = format!("/tmp/minizinc_data_{}.dzn", std::process::id());
     fs::write(&temp_data, input_data.to_string())?;
-    
+
     let result = execute_minizinc(model_path, &temp_data);
     fs::remove_file(&temp_data).ok();
     result
@@ -27,7 +27,11 @@ pub fn execute_minizinc(
         .output()?;
 
     if !output.status.success() {
-        return Err(format!("MiniZinc failed: {}", String::from_utf8_lossy(&output.stderr)).into());
+        return Err(format!(
+            "MiniZinc failed: {}",
+            String::from_utf8_lossy(&output.stderr)
+        )
+        .into());
     }
 
     let stdout = String::from_utf8(output.stdout)?;

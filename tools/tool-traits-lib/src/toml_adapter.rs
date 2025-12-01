@@ -1,4 +1,3 @@
-
 use toml_edit::{Document, Table, Value};
 
 pub trait TomlAdapter: Send + Sync {

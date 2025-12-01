@@ -1,3 +1,4 @@
+
 .PHONY: all build cargo2nix nix-build clean generate-cargo-nix run-rust-src-scanner
 
 update.txt:
@@ -6,26 +7,20 @@ update.txt:
 all: nix-build
 
 generate-cargo-nix:
-	/nix/store/1x74bj4qh82967g90knam14sc51rqhfk-cargo-1.89.0-aarch64-unknown-linux-gnu/bin/cargo update
+	cargo update
 	target/cargo2nix -o Cargo.nix
 
-mCargo.nix:
-	~/nix/vendor/rust/cargo2nix/target/cargo2nix --overwrite # Corrected path for cargo2nix
-
 build:
-	nix develop ./flake-phase1.nix#default --command cargo build
+	RUSTC_BOOTSTRAP=1 cargo build --message-format=json 2>&1
 
 nix-cargo-build:
-	nix develop ./flake-phase1.nix#default --command cargo build
+	RUSTC_BOOTSTRAP=1 cargo build --message-format=json 2>&1
 
 cargo2nix: nix-cargo-build
 	target/debug/cargo2nix --overwrite
 
 nix-build: generate-cargo-nix
-	nix develop ./flake-phase1.nix#default --command cargo build 
-
-run-nix-build: generate-cargo-nix #cargo2nix
-	nix build -f full-flake.nix -vvv --trace-verbose  --show-trace --keep-build-log --keep-derivations  --keep-env-derivations --keep-failed --keep-going --keep-outputs 2>&1 | tee nixbuild.log
+	cargo build --message-format=json 2>&1
 
 nix-eval-cargo2nix-attrs:
 	nix eval --raw --impure --expr 'builtins.attrNames (import ./flake.nix { }).packages.aarch64-linux.cargo2nix'
@@ -49,8 +44,6 @@ nix-eval-cargo2nix-raw-json:
 build-submodule-tool:
 	@echo "Building cargo-submodule-tool..."
 	cd submodules/cargo/cargo-submodule-tool && nix develop ../../../flake-phase1.nix#default --command cargo build
-
-
 
 
 

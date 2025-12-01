@@ -2,8 +2,8 @@
 
 use rustc_hir::def_id::DefId;
 use rustc_hir::ItemId;
-use rustc_span::Span;
 use rustc_middle::ty::TyCtxt;
+use rustc_span::Span;
 
 #[derive(Debug)]
 pub enum Fix {

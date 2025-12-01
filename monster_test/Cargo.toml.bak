@@ -1,0 +1,13 @@
+[package]
+name = "monster_test"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+
+[dependencies]
+sha2 = "0.10"
+
+[[bin]]
+name = "test_monster"
+path = "src/main.rs"

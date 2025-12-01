@@ -1,6 +1,6 @@
 use anyhow::{Context, Result};
-use tool_traits_lib::regex_adapter::{RegexCaptures, RegexMatcher}; // Using anyhow for Result type
-use regex::{self, Regex}; // For the actual regex implementation
+use regex::{self, Regex};
+use tool_traits_lib::regex_adapter::{RegexCaptures, RegexMatcher}; // Using anyhow for Result type // For the actual regex implementation
 
 // RealRegexMatcher: Uses the actual regex crate for matching
 #[derive(Debug)]
@@ -38,7 +38,6 @@ impl<'t> RegexCaptures for RealRegexCaptures<'t> {
     }
 }
 
-
 // DummyRegexMatcher: Provides dummy implementations for testing or when regex feature is not enabled
 #[derive(Debug)]
 pub struct DummyRegexMatcher;
@@ -73,7 +72,6 @@ impl<'t> RegexCaptures for DummyRegexCaptures {
         0
     }
 }
-
 
 // Conditional type alias for CurrentRegexMatcher
 #[cfg(feature = "regex_enabled")]

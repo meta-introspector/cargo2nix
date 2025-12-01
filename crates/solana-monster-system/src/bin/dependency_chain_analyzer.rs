@@ -1,20 +1,26 @@
-use std::fs;
 use std::collections::HashMap;
+use std::fs;
 
 fn euler_phi(n: u64) -> u64 {
-    if n <= 1 { return 1; }
+    if n <= 1 {
+        return 1;
+    }
     let mut result = n;
     let mut num = n;
     let mut p = 2;
-    
+
     while p * p <= num {
         if num % p == 0 {
-            while num % p == 0 { num /= p; }
+            while num % p == 0 {
+                num /= p;
+            }
             result -= result / p;
         }
         p += 1;
     }
-    if num > 1 { result -= result / num; }
+    if num > 1 {
+        result -= result / num;
+    }
     result
 }
 
@@ -33,21 +39,21 @@ fn calculate_decl_phi(name: &str, decl_type: &str) -> u64 {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("=== Dependency Chain Analyzer ===");
-    
+
     // 1. Read our actual Solana/rustc files
     let files = vec![
         "src/bin/meme_pda_storage.rs",
         "src/bin/multi_input_solfunmeme.rs",
         "src/bin/real_monster_solver.rs",
     ];
-    
+
     let mut all_uses = Vec::new();
     let mut leaf_decls = Vec::new();
-    
+
     for file_path in &files {
         if let Ok(content) = fs::read_to_string(file_path) {
             println!("\n=== {} ===", file_path);
-            
+
             // Extract use statements
             for line in content.lines() {
                 if line.trim().starts_with("use ") {
@@ -56,7 +62,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     all_uses.push(use_stmt.to_string());
                 }
             }
-            
+
             // Extract leaf declarations (our own functions/structs)
             for line in content.lines() {
                 let trimmed = line.trim();
@@ -79,7 +85,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         }
     }
-    
+
     // 2. Analyze std library uses (these are leaf - no further deps to follow)
     println!("\n=== Standard Library Dependencies ===");
     let mut std_phi_sum = 0;
@@ -90,19 +96,19 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             std_phi_sum += phi;
         }
     }
-    
+
     // 3. Calculate totals
     let leaf_phi_sum: u64 = leaf_decls.iter().map(|(_, _, phi)| phi).sum();
     let total_phi = leaf_phi_sum + std_phi_sum;
-    
+
     println!("\n=== Summary ===");
     println!("Our leaf declarations: φ = {}", leaf_phi_sum);
     println!("Standard library uses: φ = {}", std_phi_sum);
     println!("Total phi sum: φ = {}", total_phi);
-    
+
     println!("\n✓ Analyzed actual rustc/solana code");
     println!("✓ Found leaf declarations without external deps");
     println!("✓ Applied phi numbering to real code");
-    
+
     Ok(())
 }

@@ -1,5 +1,5 @@
-use crate::dual_integrity_synthesis::DualIntegritySynthesis;
 use crate::compiler_correctness_theorem::CompilerCorrectnessTheorem;
+use crate::dual_integrity_synthesis::DualIntegritySynthesis;
 use crate::quasi_fiber_bundle::QuasiFiberBundle;
 use std::collections::HashMap;
 
@@ -131,32 +131,34 @@ impl BottUniversalSynthesis {
     }
 
     /// Execute complete universal architectural synthesis
-    pub fn execute_universal_synthesis(&mut self,
+    pub fn execute_universal_synthesis(
+        &mut self,
         source_code: &str,
         build_configuration: &str,
-        private_compilation_data: &[u8]
+        private_compilation_data: &[u8],
     ) -> Result<UniversalSynthesisResult, SynthesisError> {
-        
         // Phase 1: Geometric realization via Monster Group quasi fiber bundle
-        let geometric_realization = self.realize_geometric_structure(
-            source_code, build_configuration
-        )?;
-        
+        let geometric_realization =
+            self.realize_geometric_structure(source_code, build_configuration)?;
+
         // Phase 2: Mathematical proof via dual integrity system
-        let mathematical_proof = self.generate_mathematical_proof(
-            source_code, build_configuration
-        )?;
-        
+        let mathematical_proof =
+            self.generate_mathematical_proof(source_code, build_configuration)?;
+
         // Phase 3: Cryptographic guarantee via ZKP system
         let cryptographic_guarantee = self.establish_cryptographic_guarantee(
-            source_code, build_configuration, private_compilation_data
+            source_code,
+            build_configuration,
+            private_compilation_data,
         )?;
-        
+
         // Phase 4: Universal property verification via Bott framework
         let universal_properties = self.universal_coordinator.verify_universal_properties(
-            &geometric_realization, &mathematical_proof, &cryptographic_guarantee
+            &geometric_realization,
+            &mathematical_proof,
+            &cryptographic_guarantee,
         )?;
-        
+
         Ok(UniversalSynthesisResult {
             geometric_realization,
             mathematical_proof,
@@ -166,25 +168,25 @@ impl BottUniversalSynthesis {
     }
 
     /// Realize geometric structure through Monster Group quasi fiber bundle
-    fn realize_geometric_structure(&mut self,
+    fn realize_geometric_structure(
+        &mut self,
         source_code: &str,
-        build_configuration: &str
+        build_configuration: &str,
     ) -> Result<GeometricRealization, SynthesisError> {
-        
         // Monster Group base space construction
         let base_space = self.construct_monster_base_space(source_code);
-        
+
         // Meme fiber space construction
         let fiber_space = self.construct_meme_fiber_space(build_configuration);
-        
+
         // Bundle projection maps
         let projection_maps = self.construct_projection_maps(&base_space, &fiber_space);
-        
+
         // Bott periodicity structure
-        let bott_structure = self.universal_coordinator.construct_bott_structure(
-            &base_space, &fiber_space
-        )?;
-        
+        let bott_structure = self
+            .universal_coordinator
+            .construct_bott_structure(&base_space, &fiber_space)?;
+
         Ok(GeometricRealization {
             base_space,
             fiber_space,
@@ -194,20 +196,21 @@ impl BottUniversalSynthesis {
     }
 
     /// Generate mathematical proof of system correctness
-    fn generate_mathematical_proof(&mut self,
+    fn generate_mathematical_proof(
+        &mut self,
         source_code: &str,
-        build_configuration: &str
+        build_configuration: &str,
     ) -> Result<MathematicalProof, SynthesisError> {
-        
         // Univalence principle proof
         let univalence_proof = self.prove_univalence_principle(source_code, build_configuration)?;
-        
+
         // Modular form preservation proof
         let modular_preservation_proof = self.prove_modular_preservation(source_code)?;
-        
+
         // Topological invariant proof
-        let topological_proof = self.prove_topological_invariants(source_code, build_configuration)?;
-        
+        let topological_proof =
+            self.prove_topological_invariants(source_code, build_configuration)?;
+
         Ok(MathematicalProof {
             univalence_proof,
             modular_preservation_proof,
@@ -216,20 +219,22 @@ impl BottUniversalSynthesis {
     }
 
     /// Establish cryptographic guarantee
-    fn establish_cryptographic_guarantee(&mut self,
+    fn establish_cryptographic_guarantee(
+        &mut self,
         source_code: &str,
         build_configuration: &str,
-        private_data: &[u8]
+        private_data: &[u8],
     ) -> Result<CryptographicGuarantee, SynthesisError> {
-        
         // Dual integrity verification
         let integrity_result = self.dual_integrity.verify_complete_integrity(
-            source_code, build_configuration, private_data
+            source_code,
+            build_configuration,
+            private_data,
         )?;
-        
+
         Ok(CryptographicGuarantee {
             zkp_validity: ZKPValidity {
-                valid: false, // Commented out direct access to private field
+                valid: false,    // Commented out direct access to private field
                 proof_size: 256, // bytes
             },
             residue_verification: ResidueVerification {
@@ -263,7 +268,11 @@ impl BottUniversalSynthesis {
     }
 
     /// Construct bundle projection maps
-    fn construct_projection_maps(&self, base: &MonsterGroupSpace, fiber: &MemeSpace) -> ProjectionMaps {
+    fn construct_projection_maps(
+        &self,
+        base: &MonsterGroupSpace,
+        fiber: &MemeSpace,
+    ) -> ProjectionMaps {
         ProjectionMaps {
             base_projection: BaseProjection {
                 map_type: "monster_group_quotient".to_string(),
@@ -276,15 +285,23 @@ impl BottUniversalSynthesis {
         }
     }
 
-    fn prove_univalence_principle(&mut self, source_code: &str, build_config: &str) -> Result<UnivalenceProof, SynthesisError> {
+    fn prove_univalence_principle(
+        &mut self,
+        source_code: &str,
+        build_config: &str,
+    ) -> Result<UnivalenceProof, SynthesisError> {
         Ok(UnivalenceProof {
             equivalence_constructed: true,
             path_extracted: true,
-            homotopy_type_consistent: source_code.len() == build_config.len() || source_code.len() != build_config.len(),
+            homotopy_type_consistent: source_code.len() == build_config.len()
+                || source_code.len() != build_config.len(),
         })
     }
 
-    fn prove_modular_preservation(&self, source_code: &str) -> Result<ModularPreservationProof, SynthesisError> {
+    fn prove_modular_preservation(
+        &self,
+        source_code: &str,
+    ) -> Result<ModularPreservationProof, SynthesisError> {
         Ok(ModularPreservationProof {
             sl2z_invariant: true,
             tau_coefficients_preserved: true,
@@ -292,7 +309,11 @@ impl BottUniversalSynthesis {
         })
     }
 
-    fn prove_topological_invariants(&self, source_code: &str, build_config: &str) -> Result<TopologicalProof, SynthesisError> {
+    fn prove_topological_invariants(
+        &self,
+        source_code: &str,
+        build_config: &str,
+    ) -> Result<TopologicalProof, SynthesisError> {
         Ok(TopologicalProof {
             euler_characteristic_preserved: true,
             betti_numbers_invariant: true,
@@ -311,30 +332,30 @@ impl UniversalCoordinator {
     }
 
     /// Verify universal architectural properties
-    fn verify_universal_properties(&self,
+    fn verify_universal_properties(
+        &self,
         geometric: &GeometricRealization,
         mathematical: &MathematicalProof,
-        cryptographic: &CryptographicGuarantee
+        cryptographic: &CryptographicGuarantee,
     ) -> Result<UniversalProperties, SynthesisError> {
-        
         // Bott periodicity verification
-        let bott_periodicity = self.periodicity_enforcer.verify_period_8_structure(
-            &geometric.bott_structure
-        );
-        
+        let bott_periodicity = self
+            .periodicity_enforcer
+            .verify_period_8_structure(&geometric.bott_structure);
+
         // K-theory functoriality
-        let k_theory_functorial = self.k_theory_manager.verify_functoriality(
-            geometric, mathematical
-        );
-        
+        let k_theory_functorial = self
+            .k_theory_manager
+            .verify_functoriality(geometric, mathematical);
+
         // Universal mapping property
-        let universal_mapping = self.universal_verifier.verify_universal_mapping(
-            geometric, cryptographic
-        );
-        
+        let universal_mapping = self
+            .universal_verifier
+            .verify_universal_mapping(geometric, cryptographic);
+
         // Architectural completeness
         let architectural_complete = bott_periodicity && k_theory_functorial && universal_mapping;
-        
+
         Ok(UniversalProperties {
             bott_periodicity,
             k_theory_functorial,
@@ -344,35 +365,59 @@ impl UniversalCoordinator {
     }
 
     /// Construct Bott periodicity structure
-    fn construct_bott_structure(&self,
+    fn construct_bott_structure(
+        &self,
         base: &MonsterGroupSpace,
-        fiber: &MemeSpace
+        fiber: &MemeSpace,
     ) -> Result<BottStructure, SynthesisError> {
-        
         // Period-8 cycle from Bott periodicity theorem
         let period_8_cycle = [
-            Complex { real: 1.0, imag: 0.0 },   // ℝ
-            Complex { real: 0.0, imag: 1.0 },   // ℂ
-            Complex { real: -1.0, imag: 0.0 },  // ℍ
-            Complex { real: 0.0, imag: -1.0 },  // ℍ⊕ℍ
-            Complex { real: 1.0, imag: 1.0 },   // Cliff(4)
-            Complex { real: -1.0, imag: 1.0 },  // Cliff(5)
-            Complex { real: -1.0, imag: -1.0 }, // Cliff(6)
-            Complex { real: 1.0, imag: -1.0 },  // Cliff(7)
+            Complex {
+                real: 1.0,
+                imag: 0.0,
+            }, // ℝ
+            Complex {
+                real: 0.0,
+                imag: 1.0,
+            }, // ℂ
+            Complex {
+                real: -1.0,
+                imag: 0.0,
+            }, // ℍ
+            Complex {
+                real: 0.0,
+                imag: -1.0,
+            }, // ℍ⊕ℍ
+            Complex {
+                real: 1.0,
+                imag: 1.0,
+            }, // Cliff(4)
+            Complex {
+                real: -1.0,
+                imag: 1.0,
+            }, // Cliff(5)
+            Complex {
+                real: -1.0,
+                imag: -1.0,
+            }, // Cliff(6)
+            Complex {
+                real: 1.0,
+                imag: -1.0,
+            }, // Cliff(7)
         ];
-        
+
         // Clifford algebra action
         let clifford_action = CliffordAction {
             generators: vec![1, -1, 1, -1], // Simplified Clifford generators
             action_matrix: vec![vec![1, 0], vec![0, -1]], // Pauli matrix representation
         };
-        
+
         // Periodicity isomorphism
         let periodicity_iso = PeriodicityIsomorphism {
             period: 8,
             isomorphism_class: (base.group_order % 8) as usize,
         };
-        
+
         Ok(BottStructure {
             period_8_cycle,
             clifford_action,
@@ -390,8 +435,7 @@ impl BottPeriodicityEnforcer {
     }
 
     fn verify_period_8_structure(&self, bott_structure: &BottStructure) -> bool {
-        bott_structure.period_8_cycle.len() == 8 && 
-        bott_structure.periodicity_iso.period == 8
+        bott_structure.period_8_cycle.len() == 8 && bott_structure.periodicity_iso.period == 8
     }
 }
 
@@ -403,7 +447,11 @@ impl KTheoryManager {
         }
     }
 
-    fn verify_functoriality(&self, _geometric: &GeometricRealization, _mathematical: &MathematicalProof) -> bool {
+    fn verify_functoriality(
+        &self,
+        _geometric: &GeometricRealization,
+        _mathematical: &MathematicalProof,
+    ) -> bool {
         true // Simplified verification
     }
 }
@@ -501,25 +549,39 @@ pub struct AlgebraicKTheory;
 pub struct UniversalPropertyVerifier;
 
 impl Period8Tracker {
-    fn new() -> Self { Self }
+    fn new() -> Self {
+        Self
+    }
 }
 
 impl CliffordAlgebraIntegration {
-    fn new() -> Self { Self }
+    fn new() -> Self {
+        Self
+    }
 }
 
 impl TopologicalKTheory {
-    fn new() -> Self { Self }
+    fn new() -> Self {
+        Self
+    }
 }
 
 impl AlgebraicKTheory {
-    fn new() -> Self { Self }
+    fn new() -> Self {
+        Self
+    }
 }
 
 impl UniversalPropertyVerifier {
-    fn new() -> Self { Self }
-    
-    fn verify_universal_mapping(&self, _geometric: &GeometricRealization, _crypto: &CryptographicGuarantee) -> bool {
+    fn new() -> Self {
+        Self
+    }
+
+    fn verify_universal_mapping(
+        &self,
+        _geometric: &GeometricRealization,
+        _crypto: &CryptographicGuarantee,
+    ) -> bool {
         true
     }
 }
@@ -545,7 +607,7 @@ mod tests {
     #[test]
     fn test_universal_synthesis() {
         let mut synthesis = BottUniversalSynthesis::new();
-        
+
         let source = r#"
             fn fibonacci(n: u32) -> u32 {
                 match n {
@@ -555,7 +617,7 @@ mod tests {
                 }
             }
         "#;
-        
+
         let config = r#"
             [package]
             name = "fibonacci"
@@ -564,12 +626,12 @@ mod tests {
             
             [dependencies]
         "#;
-        
+
         let private_data = b"compilation_secrets_and_optimizations";
-        
+
         let result = synthesis.execute_universal_synthesis(source, config, private_data);
         assert!(result.is_ok());
-        
+
         if let Ok(synthesis_result) = result {
             assert!(synthesis_result.universal_properties.architectural_complete);
             assert!(synthesis_result.universal_properties.bott_periodicity);
@@ -581,23 +643,23 @@ mod tests {
     #[test]
     fn test_bott_structure_construction() {
         let coordinator = UniversalCoordinator::new();
-        
+
         let base_space = MonsterGroupSpace {
             group_order: 196883,
             generators: vec![196883, -5472],
             structure_constants: vec![1, -24, 252, 4830, 534612],
             source_encoding: 42,
         };
-        
+
         let fiber_space = MemeSpace {
             dimension: 196883,
             fiber_coordinates: vec![1, 2, 3],
             semantic_structure: vec![1, 2, 3],
         };
-        
+
         let bott_structure = coordinator.construct_bott_structure(&base_space, &fiber_space);
         assert!(bott_structure.is_ok());
-        
+
         if let Ok(structure) = bott_structure {
             assert_eq!(structure.period_8_cycle.len(), 8);
             assert_eq!(structure.periodicity_iso.period, 8);

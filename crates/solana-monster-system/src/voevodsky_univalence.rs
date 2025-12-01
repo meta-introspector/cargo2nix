@@ -90,16 +90,20 @@ impl VoevodskysUnivalence {
 
     /// Apply Univalence Principle: (A ≃ B) ≃ (A = B)
     /// Equivalence of types is equivalent to equality of types
-    pub fn apply_univalence_principle(&mut self, type_a: &TypeId, type_b: &TypeId) -> UnivalenceApplication {
+    pub fn apply_univalence_principle(
+        &mut self,
+        type_a: &TypeId,
+        type_b: &TypeId,
+    ) -> UnivalenceApplication {
         // Construct equivalence type between A and B
         let equivalence = self.construct_equivalence_type(type_a, type_b);
-        
+
         // Apply univalence: convert equivalence to path (equality)
         let equality_path = self.equivalence_to_path(&equivalence);
-        
+
         // Verify path satisfies Monster Group constraints
         let monster_valid = self.verify_monster_group_constraints(&equality_path);
-        
+
         // Store equivalence for future reference
         let equiv_key = format!("{}_{}", type_a.0, type_b.0);
         self.equivalences.insert(equiv_key, equivalence.clone());
@@ -131,13 +135,13 @@ impl VoevodskysUnivalence {
         // Left inverse homotopy: f∘g ~ id_B
         let left_homotopy = Homotopy {
             path_between_paths: vec![1, 0, 0], // Identity homotopy
-            group_action: 196883, // T_2 Hecke eigenvalue
+            group_action: 196883,              // T_2 Hecke eigenvalue
         };
 
-        // Right inverse homotopy: g∘f ~ id_A  
+        // Right inverse homotopy: g∘f ~ id_A
         let right_homotopy = Homotopy {
             path_between_paths: vec![0, 1, 0], // Identity homotopy
-            group_action: -5472, // T_3 Hecke eigenvalue
+            group_action: -5472,               // T_3 Hecke eigenvalue
         };
 
         EquivalenceType {
@@ -166,12 +170,16 @@ impl VoevodskysUnivalence {
     /// Verify equivalence satisfies coherence conditions
     fn verify_equivalence_coherence(&self, equivalence: &EquivalenceType) -> bool {
         // Check composition f∘g gives identity up to homotopy
-        let forward_inverse_comp = self.compose_path_maps(&equivalence.forward, &equivalence.inverse);
-        let left_coherent = self.is_homotopic_to_identity(&forward_inverse_comp, &equivalence.left_inverse_homotopy);
+        let forward_inverse_comp =
+            self.compose_path_maps(&equivalence.forward, &equivalence.inverse);
+        let left_coherent = self
+            .is_homotopic_to_identity(&forward_inverse_comp, &equivalence.left_inverse_homotopy);
 
         // Check composition g∘f gives identity up to homotopy
-        let inverse_forward_comp = self.compose_path_maps(&equivalence.inverse, &equivalence.forward);
-        let right_coherent = self.is_homotopic_to_identity(&inverse_forward_comp, &equivalence.right_inverse_homotopy);
+        let inverse_forward_comp =
+            self.compose_path_maps(&equivalence.inverse, &equivalence.forward);
+        let right_coherent = self
+            .is_homotopic_to_identity(&inverse_forward_comp, &equivalence.right_inverse_homotopy);
 
         left_coherent && right_coherent
     }
@@ -179,7 +187,9 @@ impl VoevodskysUnivalence {
     /// Compose two path maps
     fn compose_path_maps(&self, f: &PathMap, g: &PathMap) -> PathMap {
         // Composition in homotopy category
-        let composed_encoding = f.tau_encoding.iter()
+        let composed_encoding = f
+            .tau_encoding
+            .iter()
             .zip(g.tau_encoding.iter())
             .map(|(a, b)| (a * b) % 196883) // Monster Group modular arithmetic
             .collect::<Vec<_>>();
@@ -194,20 +204,29 @@ impl VoevodskysUnivalence {
     /// Check if path map is homotopic to identity
     fn is_homotopic_to_identity(&self, path: &PathMap, homotopy: &Homotopy) -> bool {
         // Identity has τ encoding [1, 0, 0, 0, 0] up to Monster Group action
-        let identity_check = path.tau_encoding[0] == 1 && 
-                           path.tau_encoding[1..].iter().all(|&x| (x % homotopy.group_action.abs()) == 0);
-        
+        let identity_check = path.tau_encoding[0] == 1
+            && path.tau_encoding[1..]
+                .iter()
+                .all(|&x| (x % homotopy.group_action.abs()) == 0);
+
         identity_check && path.source == path.target
     }
 
     /// Compute modular inverse of τ encoding
     fn compute_modular_inverse(&self, tau_encoding: &[i64; 5]) -> [i64; 5] {
-        tau_encoding.iter().map(|&x| {
-            if x == 0 { 0 } else {
-                // Extended Euclidean algorithm for modular inverse mod 196883
-                self.mod_inverse(x, 196883).unwrap_or(1)
-            }
-        }).collect::<Vec<_>>().try_into().unwrap_or([1, 1, 1, 1, 1])
+        tau_encoding
+            .iter()
+            .map(|&x| {
+                if x == 0 {
+                    0
+                } else {
+                    // Extended Euclidean algorithm for modular inverse mod 196883
+                    self.mod_inverse(x, 196883).unwrap_or(1)
+                }
+            })
+            .collect::<Vec<_>>()
+            .try_into()
+            .unwrap_or([1, 1, 1, 1, 1])
     }
 
     /// Modular inverse using extended Euclidean algorithm
@@ -226,7 +245,11 @@ impl VoevodskysUnivalence {
             old_s = temp_s;
         }
 
-        if old_r > 1 { None } else { Some((old_s % m + m) % m) }
+        if old_r > 1 {
+            None
+        } else {
+            Some((old_s % m + m) % m)
+        }
     }
 
     /// Verify Monster Group constraints on equality path
@@ -241,9 +264,13 @@ impl VoevodskysUnivalence {
     }
 
     /// Define compiler correctness via univalence
-    pub fn define_compiler_correctness(&mut self, source_type: TypeId, target_type: TypeId) -> CorrectnessDefinition {
+    pub fn define_compiler_correctness(
+        &mut self,
+        source_type: TypeId,
+        target_type: TypeId,
+    ) -> CorrectnessDefinition {
         let univalence_app = self.apply_univalence_principle(&source_type, &target_type);
-        
+
         CorrectnessDefinition {
             source: source_type,
             target: target_type,
@@ -299,7 +326,7 @@ mod tests {
         let mut univalence = VoevodskysUnivalence::new();
         let type_a = TypeId("CompilationState_A".to_string());
         let type_b = TypeId("CompilationState_B".to_string());
-        
+
         let result = univalence.apply_univalence_principle(&type_a, &type_b);
         assert!(result.equivalence_constructed);
     }
@@ -309,7 +336,7 @@ mod tests {
         let mut univalence = VoevodskysUnivalence::new();
         let source = TypeId("SourceCode".to_string());
         let target = TypeId("CompiledArtifact".to_string());
-        
+
         let correctness = univalence.define_compiler_correctness(source, target);
         assert!(correctness.equivalence_witness);
     }

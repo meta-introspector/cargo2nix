@@ -10,7 +10,9 @@ pub struct DummyCargoMetadataProvider;
 
 impl CargoMetadataProvider for DummyCargoMetadataProvider {
     fn provide_metadata(&self, _manifest_path: &Path) -> Result<Metadata> {
-        anyhow::bail!("`CargoMetadataProvider` requires the `cargo_metadata_enabled` feature to be enabled.")
+        anyhow::bail!(
+            "`CargoMetadataProvider` requires the `cargo_metadata_enabled` feature to be enabled."
+        )
     }
 }
 

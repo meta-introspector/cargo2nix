@@ -20,3 +20,9 @@ pub enum AppError {
     #[error("Compilation error: {0}")]
     CompilationError(String),
 }
+
+impl From<String> for AppError {
+    fn from(err: String) -> Self {
+        AppError::Custom(err)
+    }
+}

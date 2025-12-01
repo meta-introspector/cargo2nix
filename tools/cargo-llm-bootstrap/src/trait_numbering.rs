@@ -93,7 +93,7 @@ impl TraitNumberer {
             let mut next_pending = Vec::new();
 
             for (decl_name, deps) in std::mem::take(&mut self.pending_declarations) {
-                let mut sum_of_deps_numbers = 0;
+                let mut sum_of_deps_numbers: u64 = 0;
                 let mut all_deps_resolved = true;
 
                 for dep_name in &deps {

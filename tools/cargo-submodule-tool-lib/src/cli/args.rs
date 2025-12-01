@@ -7,11 +7,11 @@ use std::path::PathBuf;
 pub mod add_submodules;
 pub mod submodule_status;
 //pub mod generate_nix;
-pub mod generate_patches;
 pub mod analyze;
-pub mod update_cargo_toml;
-pub mod process_tt_txt;
 pub mod collect_repo_state;
+pub mod generate_patches;
+pub mod process_tt_txt;
+pub mod update_cargo_toml;
 //pub mod generate_workspaces;
 
 #[cfg(feature = "clap_enabled")]

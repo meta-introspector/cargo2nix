@@ -1,7 +1,7 @@
 // crates/trait-fixer-query-context-mock/src/lib.rs
 
 use trait_fixer_query_context_trait::QueryContext;
-use trait_fixer_rustc_mock::{MockTyCtxt, Item};
+use trait_fixer_rustc_mock::{Item, MockTyCtxt};
 
 // Implementation for MockTyCtxt
 impl<'tcx> QueryContext<'tcx> for MockTyCtxt<'tcx> {

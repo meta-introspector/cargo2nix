@@ -149,37 +149,37 @@ impl DualIntegritySynthesis {
     }
 
     /// Perform complete dual integrity verification
-    pub fn verify_complete_integrity(&mut self, 
+    pub fn verify_complete_integrity(
+        &mut self,
         source_code: &str,
         build_config: &str,
-        private_data: &[u8]
+        private_data: &[u8],
     ) -> Result<CompleteIntegrityResult, IntegrityError> {
-        
         // Track 1: Mathematical soundness verification
-        let mathematical_evidence = self.verify_mathematical_soundness(
-            source_code, build_config
-        )?;
-        
+        let mathematical_evidence =
+            self.verify_mathematical_soundness(source_code, build_config)?;
+
         // Track 2: Cryptographic security verification
-        let cryptographic_evidence = self.verify_cryptographic_security(
-            source_code, build_config, private_data
-        )?;
-        
+        let cryptographic_evidence =
+            self.verify_cryptographic_security(source_code, build_config, private_data)?;
+
         // Cross-track validation
-        let cross_validation = self.synthesis_coordinator.cross_validate(
-            &mathematical_evidence, &cryptographic_evidence
-        )?;
-        
+        let cross_validation = self
+            .synthesis_coordinator
+            .cross_validate(&mathematical_evidence, &cryptographic_evidence)?;
+
         // Architectural principle enforcement
-        let principles_satisfied = self.synthesis_coordinator.enforce_principles(
-            &mathematical_evidence, &cryptographic_evidence
-        )?;
-        
+        let principles_satisfied = self
+            .synthesis_coordinator
+            .enforce_principles(&mathematical_evidence, &cryptographic_evidence)?;
+
         // Complete integrity assessment
         let system_integrity = self.synthesis_coordinator.assess_complete_integrity(
-            &mathematical_evidence, &cryptographic_evidence, &cross_validation
+            &mathematical_evidence,
+            &cryptographic_evidence,
+            &cross_validation,
         );
-        
+
         Ok(CompleteIntegrityResult {
             mathematical_sound: mathematical_evidence.is_sound(),
             cryptographically_secure: cryptographic_evidence.is_secure(),
@@ -190,31 +190,31 @@ impl DualIntegritySynthesis {
     }
 
     /// Verify mathematical soundness (geometric/topological)
-    fn verify_mathematical_soundness(&mut self, 
-        source_code: &str, 
-        build_config: &str
+    fn verify_mathematical_soundness(
+        &mut self,
+        source_code: &str,
+        build_config: &str,
     ) -> Result<MathematicalEvidence, IntegrityError> {
-        
         // Univalence principle verification
-        let univalence_satisfied = self.mathematical_track.verify_univalence_principle(
-            source_code, build_config
-        )?;
-        
+        let univalence_satisfied = self
+            .mathematical_track
+            .verify_univalence_principle(source_code, build_config)?;
+
         // Modular structure preservation
-        let modular_preserved = self.mathematical_track.verify_modular_preservation(
-            source_code
-        )?;
-        
+        let modular_preserved = self
+            .mathematical_track
+            .verify_modular_preservation(source_code)?;
+
         // Topological invariant maintenance
-        let topology_preserved = self.mathematical_track.verify_topology_preservation(
-            source_code, build_config
-        )?;
-        
+        let topology_preserved = self
+            .mathematical_track
+            .verify_topology_preservation(source_code, build_config)?;
+
         // Monster Group consistency
-        let monster_consistent = self.mathematical_track.verify_monster_consistency(
-            source_code
-        )?;
-        
+        let monster_consistent = self
+            .mathematical_track
+            .verify_monster_consistency(source_code)?;
+
         Ok(MathematicalEvidence {
             univalence_satisfied,
             modular_preserved,
@@ -224,29 +224,34 @@ impl DualIntegritySynthesis {
     }
 
     /// Verify cryptographic security (ZKP/commitment)
-    fn verify_cryptographic_security(&mut self,
+    fn verify_cryptographic_security(
+        &mut self,
         source_code: &str,
         build_config: &str,
-        private_data: &[u8]
+        private_data: &[u8],
     ) -> Result<CryptographicEvidence, IntegrityError> {
-        
         // Generate and verify Wodzicki residue ZKP
         let residue_result = self.cryptographic_track.residue_zkp.generate_residue_zkp(
-            source_code, build_config, private_data
+            source_code,
+            build_config,
+            private_data,
         )?;
-        let zkp_valid = self.cryptographic_track.residue_zkp.verify_residue(&residue_result)?;
-        
+        let zkp_valid = self
+            .cryptographic_track
+            .residue_zkp
+            .verify_residue(&residue_result)?;
+
         // Verify commitment binding
-        let commitment_binding = self.cryptographic_track.verify_commitment_binding(
-            source_code, private_data
-        )?;
-        
+        let commitment_binding = self
+            .cryptographic_track
+            .verify_commitment_binding(source_code, private_data)?;
+
         // Commented out: verify_residue_extraction
-        let residue_verified = false; 
-        
+        let residue_verified = false;
+
         // Commented out: verify_trace_vanishing
         let trace_vanished = false;
-        
+
         Ok(CryptographicEvidence {
             zkp_valid,
             commitment_binding,
@@ -265,12 +270,20 @@ impl MathematicalSoundness {
         }
     }
 
-    fn verify_univalence_principle(&mut self, source_code: &str, build_config: &str) -> Result<bool, IntegrityError> {
+    fn verify_univalence_principle(
+        &mut self,
+        source_code: &str,
+        build_config: &str,
+    ) -> Result<bool, IntegrityError> {
         // Apply Voevodsky's univalence principle
-        let source_type = crate::voevodsky_univalence::TypeId(format!("source_{}", source_code.len()));
-        let target_type = crate::voevodsky_univalence::TypeId(format!("target_{}", build_config.len()));
-        
-        let univalence_app = self.univalence_verifier.apply_univalence_principle(&source_type, &target_type);
+        let source_type =
+            crate::voevodsky_univalence::TypeId(format!("source_{}", source_code.len()));
+        let target_type =
+            crate::voevodsky_univalence::TypeId(format!("target_{}", build_config.len()));
+
+        let univalence_app = self
+            .univalence_verifier
+            .apply_univalence_principle(&source_type, &target_type);
         Ok(univalence_app.univalence_satisfied)
     }
 
@@ -280,11 +293,17 @@ impl MathematicalSoundness {
         Ok(self.modular_analyzer.verify_sl2z_invariance(&modular_form))
     }
 
-    fn verify_topology_preservation(&self, source_code: &str, build_config: &str) -> Result<bool, IntegrityError> {
+    fn verify_topology_preservation(
+        &self,
+        source_code: &str,
+        build_config: &str,
+    ) -> Result<bool, IntegrityError> {
         // Verify topological invariants are preserved
-        let euler_char = self.topology_computer.compute_euler_characteristic(source_code);
+        let euler_char = self
+            .topology_computer
+            .compute_euler_characteristic(source_code);
         let betti_numbers = self.topology_computer.compute_betti_numbers(build_config);
-        
+
         Ok(euler_char != 0 && !betti_numbers.is_empty())
     }
 
@@ -304,7 +323,11 @@ impl CryptographicSecurity {
         }
     }
 
-    fn verify_commitment_binding(&self, source_code: &str, private_data: &[u8]) -> Result<bool, IntegrityError> {
+    fn verify_commitment_binding(
+        &self,
+        source_code: &str,
+        private_data: &[u8],
+    ) -> Result<bool, IntegrityError> {
         let commitment = self.commitment_scheme.commit(source_code, private_data)?;
         Ok(self.commitment_scheme.verify_binding(&commitment))
     }
@@ -328,24 +351,24 @@ impl SynthesisCoordinator {
     }
 
     /// Cross-validate mathematical and cryptographic tracks
-    fn cross_validate(&self, 
+    fn cross_validate(
+        &self,
         math_evidence: &MathematicalEvidence,
-        crypto_evidence: &CryptographicEvidence
+        crypto_evidence: &CryptographicEvidence,
     ) -> Result<CrossValidationResult, IntegrityError> {
-        
         // Check track consistency
         let tracks_consistent = math_evidence.is_sound() == crypto_evidence.is_secure();
-        
+
         // Verify shared invariants
-        let shared_invariants_valid = self.cross_validator.verify_shared_invariants(
-            math_evidence, crypto_evidence
-        );
-        
+        let shared_invariants_valid = self
+            .cross_validator
+            .verify_shared_invariants(math_evidence, crypto_evidence);
+
         // Check for contradictions
-        let contradiction_free = self.cross_validator.check_contradiction_free(
-            math_evidence, crypto_evidence
-        );
-        
+        let contradiction_free = self
+            .cross_validator
+            .check_contradiction_free(math_evidence, crypto_evidence);
+
         Ok(CrossValidationResult {
             tracks_consistent,
             shared_invariants_valid,
@@ -354,40 +377,40 @@ impl SynthesisCoordinator {
     }
 
     /// Enforce architectural principles
-    fn enforce_principles(&self,
+    fn enforce_principles(
+        &self,
         math_evidence: &MathematicalEvidence,
-        crypto_evidence: &CryptographicEvidence
+        crypto_evidence: &CryptographicEvidence,
     ) -> Result<bool, IntegrityError> {
-        
         // Bulk/boundary correspondence
-        let bulk_boundary_satisfied = self.principle_enforcer.verify_bulk_boundary_correspondence(
-            math_evidence, crypto_evidence
-        );
-        
+        let bulk_boundary_satisfied = self
+            .principle_enforcer
+            .verify_bulk_boundary_correspondence(math_evidence, crypto_evidence);
+
         // Wodzicki residue principle
-        let wodzicki_satisfied = self.principle_enforcer.verify_wodzicki_principle(
-            crypto_evidence
-        );
-        
+        let wodzicki_satisfied = self
+            .principle_enforcer
+            .verify_wodzicki_principle(crypto_evidence);
+
         // Univalence principle
-        let univalence_satisfied = self.principle_enforcer.verify_univalence_principle(
-            math_evidence
-        );
-        
+        let univalence_satisfied = self
+            .principle_enforcer
+            .verify_univalence_principle(math_evidence);
+
         Ok(bulk_boundary_satisfied && wodzicki_satisfied && univalence_satisfied)
     }
 
     /// Assess complete system integrity
-    fn assess_complete_integrity(&self,
+    fn assess_complete_integrity(
+        &self,
         math_evidence: &MathematicalEvidence,
         crypto_evidence: &CryptographicEvidence,
-        cross_validation: &CrossValidationResult
+        cross_validation: &CrossValidationResult,
     ) -> SystemIntegrity {
-        
         let math_sound = math_evidence.is_sound();
         let crypto_secure = crypto_evidence.is_secure();
         let cross_valid = cross_validation.tracks_consistent;
-        
+
         match (math_sound, crypto_secure, cross_valid) {
             (true, true, true) => SystemIntegrity::Complete,
             (true, true, false) => SystemIntegrity::Compromised, // Added to cover non-exhaustive pattern
@@ -400,17 +423,16 @@ impl SynthesisCoordinator {
 
 impl MathematicalEvidence {
     fn is_sound(&self) -> bool {
-        self.univalence_satisfied && 
-        self.modular_preserved && 
-        self.topology_preserved && 
-        self.monster_consistent
+        self.univalence_satisfied
+            && self.modular_preserved
+            && self.topology_preserved
+            && self.monster_consistent
     }
 }
 
 impl CryptographicEvidence {
     fn is_secure(&self) -> bool {
-        self.zkp_valid && 
-        self.commitment_binding
+        self.zkp_valid && self.commitment_binding
     }
 }
 
@@ -500,28 +522,42 @@ pub struct Commitment {
 }
 
 impl SL2ZOrbitAnalyzer {
-    fn new() -> Self { Self }
-    fn verify_orbit_invariance(&self, _form: &ModularForm) -> bool { true }
+    fn new() -> Self {
+        Self
+    }
+    fn verify_orbit_invariance(&self, _form: &ModularForm) -> bool {
+        true
+    }
 }
 
 impl TauCoefficientVerifier {
-    fn new() -> Self { Self }
+    fn new() -> Self {
+        Self
+    }
 }
 
 impl EulerCharacteristicComputer {
-    fn new() -> Self { Self }
+    fn new() -> Self {
+        Self
+    }
 }
 
 impl BettiNumberComputer {
-    fn new() -> Self { Self }
+    fn new() -> Self {
+        Self
+    }
 }
 
 impl PedersenParameters {
-    fn new() -> Self { Self }
+    fn new() -> Self {
+        Self
+    }
 }
 
 impl MonsterGroupEnhancement {
-    fn new() -> Self { Self }
+    fn new() -> Self {
+        Self
+    }
 }
 
 impl ZKProofVerifier {
@@ -534,43 +570,65 @@ impl ZKProofVerifier {
 }
 
 impl ProofValidationEngine {
-    fn new() -> Self { Self }
+    fn new() -> Self {
+        Self
+    }
 }
 
 impl SoundnessChecker {
-    fn new() -> Self { Self }
+    fn new() -> Self {
+        Self
+    }
 }
 
 impl CrossTrackValidator {
-    fn new() -> Self { Self }
-    
-    fn verify_shared_invariants(&self, _math: &MathematicalEvidence, _crypto: &CryptographicEvidence) -> bool {
+    fn new() -> Self {
+        Self
+    }
+
+    fn verify_shared_invariants(
+        &self,
+        _math: &MathematicalEvidence,
+        _crypto: &CryptographicEvidence,
+    ) -> bool {
         true
     }
-    
-    fn check_contradiction_free(&self, _math: &MathematicalEvidence, _crypto: &CryptographicEvidence) -> bool {
+
+    fn check_contradiction_free(
+        &self,
+        _math: &MathematicalEvidence,
+        _crypto: &CryptographicEvidence,
+    ) -> bool {
         true
     }
 }
 
 impl ArchitecturalPrincipleEnforcer {
-    fn new() -> Self { Self }
-    
-    fn verify_bulk_boundary_correspondence(&self, _math: &MathematicalEvidence, _crypto: &CryptographicEvidence) -> bool {
+    fn new() -> Self {
+        Self
+    }
+
+    fn verify_bulk_boundary_correspondence(
+        &self,
+        _math: &MathematicalEvidence,
+        _crypto: &CryptographicEvidence,
+    ) -> bool {
         true
     }
-    
+
     fn verify_wodzicki_principle(&self, crypto: &CryptographicEvidence) -> bool {
         crypto.residue_verified && crypto.trace_vanished
     }
-    
+
     fn verify_univalence_principle(&self, math: &MathematicalEvidence) -> bool {
         math.univalence_satisfied
     }
 }
 
 impl CompleteIntegrityAssessor {
-    fn new() -> Self { Self }
+    fn new() -> Self {
+        Self
+    }
 }
 
 #[derive(Debug)]
@@ -594,14 +652,14 @@ mod tests {
     #[test]
     fn test_complete_dual_integrity() {
         let mut synthesis = DualIntegritySynthesis::new();
-        
+
         let source = "fn main() { println!(\"hello world\"); }";
         let config = "opt-level = 3\ntarget = \"x86_64\"";
         let private_data = b"sensitive_compilation_data";
-        
+
         let result = synthesis.verify_complete_integrity(source, config, private_data);
         assert!(result.is_ok());
-        
+
         if let Ok(integrity) = result {
             assert!(integrity.mathematical_sound);
             assert!(integrity.cryptographically_secure);
@@ -614,13 +672,13 @@ mod tests {
     #[test]
     fn test_mathematical_soundness() {
         let mut synthesis = DualIntegritySynthesis::new();
-        
+
         let source = "fn test() -> i32 { 42 }";
         let config = "debug = true";
-        
+
         let math_evidence = synthesis.verify_mathematical_soundness(source, config);
         assert!(math_evidence.is_ok());
-        
+
         if let Ok(evidence) = math_evidence {
             assert!(evidence.is_sound());
         }
@@ -629,14 +687,14 @@ mod tests {
     #[test]
     fn test_cryptographic_security() {
         let mut synthesis = DualIntegritySynthesis::new();
-        
+
         let source = "struct Point { x: i32, y: i32 }";
         let config = "edition = \"2021\"";
         let private_data = b"build_secrets";
-        
+
         let crypto_evidence = synthesis.verify_cryptographic_security(source, config, private_data);
         assert!(crypto_evidence.is_ok());
-        
+
         if let Ok(evidence) = crypto_evidence {
             assert!(evidence.is_secure());
         }

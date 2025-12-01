@@ -113,7 +113,8 @@ impl RollupLock {
         Err(Box::new(std::io::Error::new(
             std::io::ErrorKind::Other,
             "serde_json feature not enabled for RollupLock::load",
-        )).into())
+        ))
+        .into())
     }
 
     #[cfg(feature = "serde_json_enabled")]
@@ -135,7 +136,8 @@ impl RollupLock {
         Err(Box::new(std::io::Error::new(
             std::io::ErrorKind::Other,
             "serde_json feature not enabled for RollupLock::save",
-        )).into())
+        ))
+        .into())
     }
 
     pub fn get_metadata(&self, path: &Path) -> Option<&FileMetadata> {

@@ -1,8 +1,8 @@
 use anyhow::{Context, Result};
+use clap::Parser;
 use std::path::{Path, PathBuf};
 use tokio::fs;
-use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
-use clap::Parser; // Add this for CLI argument parsing
+use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader}; // Add this for CLI argument parsing
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -61,7 +61,9 @@ pub async fn ensure_non_vendored_workspaces(
         if let Some(path) = cargo_toml_path {
             if path.exists() {
                 let cargo_toml_content = fs::read_to_string(&path).await?;
-                if !cargo_toml_content.contains("\n[workspace]") && !cargo_toml_content.starts_with("[workspace]") {
+                if !cargo_toml_content.contains("\n[workspace]")
+                    && !cargo_toml_content.starts_with("[workspace]")
+                {
                     println!(
                         "ACTION: Would add [workspace] to {}/Cargo.toml ({})",
                         module_name,
@@ -101,25 +103,41 @@ pub async fn ensure_non_vendored_workspaces(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use tokio::fs;
     use tempfile::tempdir;
+    use tokio::fs;
 
     async fn setup_test_project() -> Result<(PathBuf, PathBuf)> {
         let tmp_dir = tempdir()?;
         let project_root = tmp_dir.path().to_path_buf();
 
         fs::create_dir_all(&project_root.join("submodules/test_module_1")).await?;
-        fs::write(project_root.join("submodules/test_module_1/Cargo.toml"), "[package]\nname=\"test_module_1\"\nversion=\"0.1.0\"\nedition=\"2021\"\n").await?;
+        fs::write(
+            project_root.join("submodules/test_module_1/Cargo.toml"),
+            "[package]\nname=\"test_module_1\"\nversion=\"0.1.0\"\nedition=\"2021\"\n",
+        )
+        .await?;
 
         fs::create_dir_all(&project_root.join("vendor/test_module_2")).await?;
-        fs::write(project_root.join("vendor/test_module_2/Cargo.toml"), "[package]\nname=\"test_module_2\"\nversion=\"0.1.0\"\nedition=\"2021\"\n").await?;
+        fs::write(
+            project_root.join("vendor/test_module_2/Cargo.toml"),
+            "[package]\nname=\"test_module_2\"\nversion=\"0.1.0\"\nedition=\"2021\"\n",
+        )
+        .await?;
 
         fs::create_dir_all(&project_root.join("submodules/test_module_3")).await?;
-        fs::write(project_root.join("submodules/test_module_3/Cargo.toml"), "[package]\nname=\"test_module_3\"\nversion=\"0.1.0\"\nedition=\"2021\"\n[workspace]\n").await?;
+        fs::write(
+            project_root.join("submodules/test_module_3/Cargo.toml"),
+            "[package]\nname=\"test_module_3\"\nversion=\"0.1.0\"\nedition=\"2021\"\n[workspace]\n",
+        )
+        .await?;
 
         let non_vendored_modules_file = project_root.join(".cargo/non_vendored_modules.txt");
         fs::create_dir_all(non_vendored_modules_file.parent().unwrap()).await?;
-        fs::write(&non_vendored_modules_file, "test_module_1 10\ntest_module_2 20\ntest_module_3 30\ntest_module_4 40\n").await?;
+        fs::write(
+            &non_vendored_modules_file,
+            "test_module_1 10\ntest_module_2 20\ntest_module_3 30\ntest_module_4 40\n",
+        )
+        .await?;
 
         Ok((project_root, non_vendored_modules_file))
     }
@@ -127,16 +145,19 @@ mod tests {
     #[tokio::test]
     async fn test_ensure_workspaces_dry_run() -> Result<()> {
         let (project_root, non_vendored_modules_file) = setup_test_project().await?;
-        
+
         ensure_non_vendored_workspaces(&project_root, &non_vendored_modules_file, true).await?;
 
-        let content1 = fs::read_to_string(project_root.join("submodules/test_module_1/Cargo.toml")).await?;
+        let content1 =
+            fs::read_to_string(project_root.join("submodules/test_module_1/Cargo.toml")).await?;
         assert!(!content1.contains("[workspace]")); // Should not have been added
 
-        let content2 = fs::read_to_string(project_root.join("vendor/test_module_2/Cargo.toml")).await?;
+        let content2 =
+            fs::read_to_string(project_root.join("vendor/test_module_2/Cargo.toml")).await?;
         assert!(!content2.contains("[workspace]")); // Should not have been added
 
-        let content3 = fs::read_to_string(project_root.join("submodules/test_module_3/Cargo.toml")).await?;
+        let content3 =
+            fs::read_to_string(project_root.join("submodules/test_module_3/Cargo.toml")).await?;
         assert!(content3.contains("[workspace]")); // Should already exist
 
         Ok(())
@@ -145,16 +166,19 @@ mod tests {
     #[tokio::test]
     async fn test_ensure_workspaces_actual_run() -> Result<()> {
         let (project_root, non_vendored_modules_file) = setup_test_project().await?;
-        
+
         ensure_non_vendored_workspaces(&project_root, &non_vendored_modules_file, false).await?;
 
-        let content1 = fs::read_to_string(project_root.join("submodules/test_module_1/Cargo.toml")).await?;
+        let content1 =
+            fs::read_to_string(project_root.join("submodules/test_module_1/Cargo.toml")).await?;
         assert!(content1.contains("[workspace]")); // Should have been added
 
-        let content2 = fs::read_to_string(project_root.join("vendor/test_module_2/Cargo.toml")).await?;
+        let content2 =
+            fs::read_to_string(project_root.join("vendor/test_module_2/Cargo.toml")).await?;
         assert!(content2.contains("[workspace]")); // Should have been added
 
-        let content3 = fs::read_to_string(project_root.join("submodules/test_module_3/Cargo.toml")).await?;
+        let content3 =
+            fs::read_to_string(project_root.join("submodules/test_module_3/Cargo.toml")).await?;
         assert!(content3.contains("[workspace]")); // Should already exist
 
         Ok(())
@@ -173,7 +197,8 @@ async fn main() -> Result<()> {
         &args.project_root,
         &args.non_vendored_modules_file,
         args.dry_run,
-    ).await?;
+    )
+    .await?;
 
     Ok(())
 }

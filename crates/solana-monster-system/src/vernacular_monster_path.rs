@@ -38,7 +38,7 @@ impl VernacularMonsterSolver {
     pub fn to_minizinc_path_problem(&self) -> MinizincInput {
         let source_hash = self.hash_embedding(&self.input_embedding);
         let target_element = self.target_monster.element_id;
-        
+
         MinizincInput {
             elliptic_fiber: source_hash % 24,
             torus_x: target_element % 24,
@@ -48,14 +48,16 @@ impl VernacularMonsterSolver {
     }
 
     fn hash_embedding(&self, embedding: &VernacularEmbedding) -> i32 {
-        let token_hash = embedding.rust_tokens.iter()
-            .fold(0u64, |acc, token| acc.wrapping_mul(31).wrapping_add(
-                token.bytes().fold(0u64, |a, b| a.wrapping_add(b as u64))
-            ));
-        
-        let vector_hash = embedding.embedding_vector.iter()
+        let token_hash = embedding.rust_tokens.iter().fold(0u64, |acc, token| {
+            acc.wrapping_mul(31)
+                .wrapping_add(token.bytes().fold(0u64, |a, b| a.wrapping_add(b as u64)))
+        });
+
+        let vector_hash = embedding
+            .embedding_vector
+            .iter()
             .fold(0i64, |acc, &val| acc.wrapping_add(val as i64));
-        
+
         ((token_hash as i64 + vector_hash) % 196883) as i32
     }
 }

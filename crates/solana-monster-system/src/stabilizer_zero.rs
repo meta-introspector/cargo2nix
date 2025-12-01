@@ -12,7 +12,9 @@ impl StabilizerGroup {
     }
 
     pub fn act_on_zero(&self, zero_vector: &ZeroVector) -> i64 {
-        self.elements.iter().zip(zero_vector.components.iter())
+        self.elements
+            .iter()
+            .zip(zero_vector.components.iter())
             .map(|(g, v)| g * v)
             .sum()
     }
@@ -20,7 +22,9 @@ impl StabilizerGroup {
 
 impl ZeroVector {
     pub fn new(size: usize) -> Self {
-        Self { components: vec![0; size] }
+        Self {
+            components: vec![0; size],
+        }
     }
 
     pub fn is_zero(&self) -> bool {

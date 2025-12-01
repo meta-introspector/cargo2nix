@@ -1,5 +1,5 @@
-use std::fs;
 use std::collections::HashMap;
+use std::fs;
 
 #[derive(Debug, Clone, serde::Serialize)] // Add serde::Serialize for JSON export
 struct RepoSemantics {
@@ -15,46 +15,47 @@ fn analyze_semantics(name: &str) -> RepoSemantics {
         // Core Rust
         "rust" | "rustc" | "rustfmt" | "rust-clippy" => "rust-core",
         n if n.starts_with("rust-") => "rust-ecosystem",
-        
+
         // Build & Package Management
         "cargo" | "cargo2nix" | "cmake-rs" | "cc-rs" => "build-tools",
-        
+
         // Async & Concurrency
         "tokio" | "async-std" | "futures-rs" | "crossbeam" | "rayon" => "async-concurrency",
-        
+
         // Serialization & Data
         "serde" | "bincode" | "toml" | "json" | "yaml-rust2" => "serialization",
-        
+
         // Cryptography & Security
         n if n.contains("crypto") || n.contains("hash") || n.contains("tls") => "crypto-security",
         "ring" | "rustls" | "openssl" => "crypto-security",
-        
+
         // Networking & HTTP
         "hyper" | "reqwest" | "h2" | "http" | "warp" => "networking",
-        
+
         // CLI & Terminal
         "clap" | "console" | "termcolor" | "crossterm" => "cli-terminal",
-        
+
         // Testing & Development
         "criterion" | "proptest" | "quickcheck" | "trybuild" => "testing-dev",
-        
+
         // System & OS
         "libc" | "nix" | "winapi-rs" | "windows-rs" => "system-os",
-        
+
         // Memory & Allocation
         n if n.contains("alloc") || n.contains("arena") => "memory-alloc",
-        
+
         // Parsing & Text
         "nom" | "regex" | "unicode-" => "parsing-text",
-        
+
         // Graphics & UI
         "wasm-bindgen" | "gloo" => "web-ui",
-        
+
         // Math & Algorithms
         n if n.starts_with("num-") || n.starts_with("rand") => "math-algorithms",
-        
-        _ => "utility"
-    }.to_string();
+
+        _ => "utility",
+    }
+    .to_string();
 
     let purpose = match category.as_str() {
         "rust-core" => "Fundamental Rust language and toolchain components.",
@@ -72,7 +73,8 @@ fn analyze_semantics(name: &str) -> RepoSemantics {
         "web-ui" => "Web-related functionalities, WASM, and user interface components.",
         "math-algorithms" => "Mathematical operations and common algorithms.",
         _ => "General purpose utility library or component.",
-    }.to_string();
+    }
+    .to_string();
 
     let language = "Rust".to_string(); // Assuming all repos are Rust for this context
 
@@ -105,7 +107,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let json_output = serde_json::to_string_pretty(&all_semantics)?;
     fs::write("repo_semantics.json", json_output)?;
 
-    println!("Semantic analysis complete. {} repositories analyzed.", all_semantics.len());
+    println!(
+        "Semantic analysis complete. {} repositories analyzed.",
+        all_semantics.len()
+    );
     println!("Output saved to repo_semantics.json");
 
     Ok(())

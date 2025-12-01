@@ -1,11 +1,11 @@
+use std::collections::{HashMap, HashSet, VecDeque};
 use std::fs;
 use std::path::PathBuf;
-use std::collections::{HashMap, VecDeque, HashSet};
 
 use clap::Parser;
-use serde::{Deserialize, Serialize};
-use petgraph::graph::{DiGraph, NodeIndex};
 use petgraph::algo::toposort;
+use petgraph::graph::{DiGraph, NodeIndex};
+use serde::{Deserialize, Serialize};
 
 // Re-define CargoEntry and DependencyGraphData to match rust-src-scanner's output
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -29,12 +29,18 @@ pub struct SemanticId {
 
 impl std::fmt::Display for SemanticId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "ID:{}-W:{:.2}-D:{}-LMFDB:{:?}-Types:{}-Exprs:{}",
-               self.unique_idx, self.weight, self.depth, self.lmfdb_id,
-               self.ast_types_count, self.expressions_count)
+        write!(
+            f,
+            "ID:{}-W:{:.2}-D:{}-LMFDB:{:?}-Types:{}-Exprs:{}",
+            self.unique_idx,
+            self.weight,
+            self.depth,
+            self.lmfdb_id,
+            self.ast_types_count,
+            self.expressions_count
+        )
     }
 }
-
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DependencyGraphData {
@@ -61,10 +67,17 @@ struct Args {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
 
-    println!("Reading dependency graph from: {:?}", args.graph_input_path.display());
+    println!(
+        "Reading dependency graph from: {:?}",
+        args.graph_input_path.display()
+    );
     let graph_json_content = fs::read_to_string(&args.graph_input_path)?;
     let graph_data: DependencyGraphData = serde_json::from_str(&graph_json_content)?;
-    println!("Successfully loaded graph with {} nodes and {} edges.", graph_data.nodes.len(), graph_data.edges.len());
+    println!(
+        "Successfully loaded graph with {} nodes and {} edges.",
+        graph_data.nodes.len(),
+        graph_data.edges.len()
+    );
 
     // Build petgraph from deserialized data
     let mut graph = DiGraph::<String, ()>::new();
@@ -76,13 +89,19 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     for (source_name, target_name) in &graph_data.edges {
-        if let (Some(&source_idx), Some(&target_idx)) = (package_name_to_node_index.get(source_name), package_name_to_node_index.get(target_name)) {
+        if let (Some(&source_idx), Some(&target_idx)) = (
+            package_name_to_node_index.get(source_name),
+            package_name_to_node_index.get(target_name),
+        ) {
             graph.add_edge(source_idx, target_idx, ());
         } else {
             // Handle cases where an edge points to a node not in our graph_data.nodes
             // This can happen for external dependencies not fully scanned.
             // For now, we'll just print a warning.
-            println!("Warning: Edge from {} to {} involves an unknown node. Skipping.", source_name, target_name);
+            println!(
+                "Warning: Edge from {} to {} involves an unknown node. Skipping.",
+                source_name, target_name
+            );
         }
     }
 
@@ -93,7 +112,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Initialize in-degrees for all nodes
     for node_idx in graph.node_indices() {
-        in_degree.insert(node_idx, graph.neighbors_directed(node_idx, petgraph::Direction::Incoming).count());
+        in_degree.insert(
+            node_idx,
+            graph
+                .neighbors_directed(node_idx, petgraph::Direction::Incoming)
+                .count(),
+        );
     }
 
     // 1. Identify source nodes (nodes with no incoming edges) and initialize their layer to 0
@@ -112,7 +136,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         let current_layer = *crate_layers.get(&graph[current_node_idx]).unwrap(); // Should always be present
 
         // Iterate through successors (nodes that current_node_idx points to)
-        for successor_idx in graph.neighbors_directed(current_node_idx, petgraph::Direction::Outgoing) {
+        for successor_idx in
+            graph.neighbors_directed(current_node_idx, petgraph::Direction::Outgoing)
+        {
             let successor_name = graph[successor_idx].clone();
             let potential_new_layer = current_layer + 1;
 
@@ -135,7 +161,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("\n--- Layered Graph Analysis (Leaves as Layer 0) ---");
     let mut layers_output: HashMap<usize, Vec<String>> = HashMap::new();
     for (crate_name, layer) in &crate_layers {
-        layers_output.entry(*layer).or_default().push(crate_name.clone());
+        layers_output
+            .entry(*layer)
+            .or_default()
+            .push(crate_name.clone());
     }
 
     let mut sorted_layers: Vec<(usize, Vec<String>)> = layers_output.into_iter().collect();
@@ -152,7 +181,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // --- Identify Leaf Crates (still useful for verification) ---
     let mut leaf_crates: Vec<String> = Vec::new();
     for node_idx in graph.node_indices() {
-        if graph.neighbors_directed(node_idx, petgraph::Direction::Outgoing).count() == 0 {
+        if graph
+            .neighbors_directed(node_idx, petgraph::Direction::Outgoing)
+            .count()
+            == 0
+        {
             leaf_crates.push(graph[node_idx].clone());
         }
     }

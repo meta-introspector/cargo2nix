@@ -1,4 +1,4 @@
-use sha2::{Sha256, Digest};
+use sha2::{Digest, Sha256};
 use std::collections::HashMap;
 
 /// ZKP system realizing topological and analytical principles
@@ -239,25 +239,25 @@ impl TopologicalZKP {
     }
 
     /// Generate ZKP of compilation integrity without revealing internal state
-    pub fn prove_compilation_integrity(&mut self, 
-        compilation_trace: &CompilationTrace
+    pub fn prove_compilation_integrity(
+        &mut self,
+        compilation_trace: &CompilationTrace,
     ) -> Result<TopologicalProof, ZKPError> {
-        
         // Step 1: Compute public topological invariants
         let public_invariants = self.compute_public_invariants(compilation_trace)?;
-        
+
         // Step 2: Construct private witness from internal states
         let private_witness = self.construct_private_witness(compilation_trace)?;
-        
+
         // Step 3: Verify analytical properties (continuity, poles)
         self.verify_analytical_properties(&private_witness)?;
-        
+
         // Step 4: Build topology preservation circuit
         let circuit = self.build_topology_circuit(public_invariants, private_witness);
-        
+
         // Step 5: Generate ZKP
         let proof_data = self.generate_topology_proof(&circuit)?;
-        
+
         Ok(TopologicalProof {
             public_invariants: circuit.public_invariants,
             proof_data,
@@ -277,32 +277,35 @@ impl TopologicalZKP {
         if !self.validate_public_invariants(&proof.public_invariants) {
             return Ok(false);
         }
-        
+
         // Step 2: Check topological consistency
         if !self.check_topological_consistency(&proof.public_invariants) {
             return Ok(false);
         }
-        
+
         // Step 3: Verify ZKP without learning private witness
         let is_valid = self.verify_zkp_proof(&proof.proof_data, &proof.public_invariants)?;
-        
+
         Ok(is_valid)
     }
 
     /// Compute public topological invariants
-    fn compute_public_invariants(&self, trace: &CompilationTrace) -> Result<TopologicalInvariants, ZKPError> {
+    fn compute_public_invariants(
+        &self,
+        trace: &CompilationTrace,
+    ) -> Result<TopologicalInvariants, ZKPError> {
         // Euler characteristic from compilation graph
         let euler_char = self.topology_computer.compute_euler_characteristic(trace);
-        
+
         // Betti numbers from homology
         let betti_numbers = self.topology_computer.compute_betti_numbers(trace);
-        
+
         // Genus from modular curve
         let genus = self.compute_genus_from_trace(trace);
-        
+
         // Monster Group orbit signature
         let orbit_signature = [196883, -5472]; // T_2, T_3 eigenvalues
-        
+
         Ok(TopologicalInvariants {
             euler_characteristic: euler_char,
             betti_numbers,
@@ -312,14 +315,19 @@ impl TopologicalZKP {
     }
 
     /// Construct private witness (hidden from verifier)
-    fn construct_private_witness(&self, trace: &CompilationTrace) -> Result<CompilationWitness, ZKPError> {
-        let internal_states = trace.states.iter().map(|state| {
-            InternalState {
+    fn construct_private_witness(
+        &self,
+        trace: &CompilationTrace,
+    ) -> Result<CompilationWitness, ZKPError> {
+        let internal_states = trace
+            .states
+            .iter()
+            .map(|state| InternalState {
                 ast_hash: self.hash_ast(&state.ast),
                 dependency_topology: self.compute_dependency_topology(&state.dependencies),
                 l_function_values: self.compute_l_function_values(&state.l_function_data),
-            }
-        }).collect();
+            })
+            .collect();
 
         let transition_maps = self.compute_state_transitions(trace);
         let deformation_witness = self.construct_deformation_witness(trace);
@@ -335,13 +343,19 @@ impl TopologicalZKP {
     fn verify_analytical_properties(&self, witness: &CompilationWitness) -> Result<(), ZKPError> {
         // Check L-function pole structure
         for state in &witness.internal_states {
-            if !self.analysis_verifier.verify_pole_structure(&state.l_function_values) {
+            if !self
+                .analysis_verifier
+                .verify_pole_structure(&state.l_function_values)
+            {
                 return Err(ZKPError::AnalyticalPropertyViolation);
             }
         }
 
         // Check continuity of deformation
-        if !self.analysis_verifier.verify_continuity(&witness.deformation_witness) {
+        if !self
+            .analysis_verifier
+            .verify_continuity(&witness.deformation_witness)
+        {
             return Err(ZKPError::ContinuityViolation);
         }
 
@@ -349,11 +363,11 @@ impl TopologicalZKP {
     }
 
     /// Build topology preservation circuit
-    fn build_topology_circuit(&self, 
-        invariants: TopologicalInvariants, 
-        witness: CompilationWitness
+    fn build_topology_circuit(
+        &self,
+        invariants: TopologicalInvariants,
+        witness: CompilationWitness,
     ) -> TopologyCircuit {
-        
         let mut constraints = Vec::new();
 
         // Constraint: Euler characteristic preservation
@@ -397,7 +411,10 @@ impl TopologicalZKP {
     }
 
     fn compute_l_function_values(&self, data: &str) -> Vec<Complex> {
-        vec![Complex { real: 1.0, imag: 0.0 }] // Simplified
+        vec![Complex {
+            real: 1.0,
+            imag: 0.0,
+        }] // Simplified
     }
 
     fn compute_genus_from_trace(&self, trace: &CompilationTrace) -> i64 {
@@ -405,18 +422,20 @@ impl TopologicalZKP {
     }
 
     fn compute_state_transitions(&self, trace: &CompilationTrace) -> Vec<StateTransition> {
-        (0..trace.states.len().saturating_sub(1)).map(|i| {
-            StateTransition {
-                from_state: i,
-                to_state: i + 1,
-                transformation: TransformationType::Optimization,
-                deformation: TopologicalDeformation {
-                    homotopy_class: 0,
-                    parameter: 0.5,
-                    preservation_witness: [1, -24, 252], // τ(1), τ(2), τ(3)
-                },
-            }
-        }).collect()
+        (0..trace.states.len().saturating_sub(1))
+            .map(|i| {
+                StateTransition {
+                    from_state: i,
+                    to_state: i + 1,
+                    transformation: TransformationType::Optimization,
+                    deformation: TopologicalDeformation {
+                        homotopy_class: 0,
+                        parameter: 0.5,
+                        preservation_witness: [1, -24, 252], // τ(1), τ(2), τ(3)
+                    },
+                }
+            })
+            .collect()
     }
 
     fn construct_deformation_witness(&self, trace: &CompilationTrace) -> DeformationWitness {
@@ -447,7 +466,11 @@ impl TopologicalZKP {
         invariants.euler_characteristic == 2 - 2 * invariants.genus
     }
 
-    fn verify_zkp_proof(&self, proof_data: &[u8], invariants: &TopologicalInvariants) -> Result<bool, ZKPError> {
+    fn verify_zkp_proof(
+        &self,
+        proof_data: &[u8],
+        invariants: &TopologicalInvariants,
+    ) -> Result<bool, ZKPError> {
         // Simplified verification
         Ok(proof_data.len() >= 16 && invariants.orbit_signature == [196883, -5472])
     }
@@ -501,13 +524,15 @@ impl AnalysisVerifier {
     }
 
     fn verify_pole_structure(&self, values: &[Complex]) -> bool {
-        values.iter().all(|c| c.real.is_finite() && c.imag.is_finite())
+        values
+            .iter()
+            .all(|c| c.real.is_finite() && c.imag.is_finite())
     }
 
     fn verify_continuity(&self, witness: &DeformationWitness) -> bool {
-        witness.invariant_preservation.euler_preserved &&
-        witness.invariant_preservation.betti_preserved &&
-        witness.invariant_preservation.genus_preserved
+        witness.invariant_preservation.euler_preserved
+            && witness.invariant_preservation.betti_preserved
+            && witness.invariant_preservation.genus_preserved
     }
 }
 
@@ -580,21 +605,19 @@ mod tests {
     #[test]
     fn test_topological_zkp() {
         let mut zkp = TopologicalZKP::new();
-        
+
         let trace = CompilationTrace {
-            states: vec![
-                CompilationState {
-                    ast: "fn main() {}".to_string(),
-                    dependencies: vec!["std".to_string()],
-                    l_function_data: "L(s,1)".to_string(),
-                }
-            ],
+            states: vec![CompilationState {
+                ast: "fn main() {}".to_string(),
+                dependencies: vec!["std".to_string()],
+                l_function_data: "L(s,1)".to_string(),
+            }],
             transitions: vec![],
         };
-        
+
         let proof = zkp.prove_compilation_integrity(&trace);
         assert!(proof.is_ok());
-        
+
         if let Ok(p) = proof {
             let verification = zkp.verify_topology_proof(&p);
             assert!(verification.is_ok());

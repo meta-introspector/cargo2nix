@@ -1,4 +1,4 @@
-use sha2::{Sha256, Digest};
+use sha2::{Digest, Sha256};
 use std::collections::HashMap;
 
 /// Dual-track architectural integrity framework
@@ -43,16 +43,20 @@ impl DualIntegrityFramework {
     }
 
     /// Parallel verification of compiler output trustworthiness
-    pub fn verify_compiler_output(&mut self, cargo_nix: &str, artifacts: &[&str]) -> DualVerification {
+    pub fn verify_compiler_output(
+        &mut self,
+        cargo_nix: &str,
+        artifacts: &[&str],
+    ) -> DualVerification {
         // Track 1: Geometric mathematics verification
         let geometric_result = self.geometric_verification(cargo_nix, artifacts);
-        
+
         // Track 2: Cryptographic verification
         let crypto_result = self.cryptographic_verification(cargo_nix, artifacts);
-        
+
         // Cross-validation between tracks
         let cross_valid = self.cross_validate(&geometric_result, &crypto_result);
-        
+
         DualVerification {
             geometric_valid: geometric_result.is_valid,
             cryptographic_valid: crypto_result.is_valid,
@@ -65,10 +69,10 @@ impl DualIntegrityFramework {
     fn geometric_verification(&mut self, cargo_nix: &str, artifacts: &[&str]) -> GeometricResult {
         // Verify quasi fiber bundle structure preservation
         let bundle_coherence = self.verify_bundle_coherence(cargo_nix);
-        
+
         // Check modular form invariants
         let modular_consistency = self.verify_modular_invariants(artifacts);
-        
+
         // Validate Hecke operator eigenvalue consistency
         let hecke_validity = self.verify_hecke_consistency(cargo_nix, artifacts);
 
@@ -84,10 +88,10 @@ impl DualIntegrityFramework {
     fn cryptographic_verification(&mut self, cargo_nix: &str, artifacts: &[&str]) -> CryptoResult {
         // Build Merkle tree of compilation artifacts
         let merkle_valid = self.build_and_verify_merkle_tree(artifacts);
-        
+
         // Verify signature chain integrity
         let signature_valid = self.verify_signature_chain(cargo_nix);
-        
+
         // Hash-based integrity checking
         let hash_valid = self.verify_hash_integrity(cargo_nix, artifacts);
 
@@ -117,7 +121,9 @@ impl DualIntegrityFramework {
             cross_validation: geo.is_valid == crypto.is_valid,
         };
 
-        self.cryptographic_track.integrity_proofs.push(proof.clone());
+        self.cryptographic_track
+            .integrity_proofs
+            .push(proof.clone());
         proof.cross_validation
     }
 
@@ -125,7 +131,7 @@ impl DualIntegrityFramework {
     fn verify_bundle_coherence(&self, cargo_nix: &str) -> bool {
         let char_sum: i64 = cargo_nix.chars().map(|c| c as i64).sum();
         let invariant_check = char_sum % 196883; // Monster Group order
-        
+
         // Must be non-zero and satisfy modular constraints
         invariant_check != 0 && invariant_check % 24 != 0 // Not divisible by |τ(2)|
     }
@@ -134,8 +140,12 @@ impl DualIntegrityFramework {
     fn verify_modular_invariants(&self, artifacts: &[&str]) -> bool {
         for (i, artifact) in artifacts.iter().enumerate() {
             let artifact_hash: i64 = artifact.chars().map(|c| c as i64).sum();
-            let expected_tau = self.geometric_track.monster_group_invariants.get(i % 5).unwrap_or(&1);
-            
+            let expected_tau = self
+                .geometric_track
+                .monster_group_invariants
+                .get(i % 5)
+                .unwrap_or(&1);
+
             if (artifact_hash % expected_tau.abs()) == 0 {
                 return false; // Invariant violation
             }
@@ -147,7 +157,7 @@ impl DualIntegrityFramework {
     fn verify_hecke_consistency(&self, cargo_nix: &str, artifacts: &[&str]) -> bool {
         let total_size = cargo_nix.len() + artifacts.iter().map(|a| a.len()).sum::<usize>();
         let eigenvalue = if total_size % 2 == 0 { 196883 } else { -5472 };
-        
+
         self.geometric_track.hecke_eigenvalues.contains(&eigenvalue)
     }
 
@@ -158,11 +168,14 @@ impl DualIntegrityFramework {
         }
 
         // Build Merkle tree bottom-up
-        let mut level: Vec<[u8; 32]> = artifacts.iter().map(|artifact| {
-            let mut hasher = Sha256::new();
-            hasher.update(artifact.as_bytes());
-            hasher.finalize().into()
-        }).collect();
+        let mut level: Vec<[u8; 32]> = artifacts
+            .iter()
+            .map(|artifact| {
+                let mut hasher = Sha256::new();
+                hasher.update(artifact.as_bytes());
+                hasher.finalize().into()
+            })
+            .collect();
 
         while level.len() > 1 {
             let mut next_level = Vec::new();
@@ -185,11 +198,11 @@ impl DualIntegrityFramework {
     fn verify_signature_chain(&mut self, cargo_nix: &str) -> bool {
         let mut hasher = Sha256::new();
         hasher.update(cargo_nix.as_bytes());
-        
+
         if let Some(prev_sig) = self.cryptographic_track.signature_chain.last() {
             hasher.update(prev_sig);
         }
-        
+
         let new_signature = hasher.finalize().into();
         self.cryptographic_track.signature_chain.push(new_signature);
         true
@@ -199,11 +212,11 @@ impl DualIntegrityFramework {
     fn verify_hash_integrity(&self, cargo_nix: &str, artifacts: &[&str]) -> bool {
         let mut combined_hasher = Sha256::new();
         combined_hasher.update(cargo_nix.as_bytes());
-        
+
         for artifact in artifacts {
             combined_hasher.update(artifact.as_bytes());
         }
-        
+
         let combined_hash = combined_hasher.finalize();
         // Verify hash has expected properties (non-zero, specific bit patterns)
         combined_hash.iter().any(|&b| b != 0)
@@ -240,7 +253,7 @@ mod tests {
     fn test_dual_verification() {
         let mut framework = DualIntegrityFramework::new();
         let artifacts = vec!["artifact1", "artifact2"];
-        
+
         let result = framework.verify_compiler_output("test_cargo_nix", &artifacts);
         assert!(result.cross_validated);
     }

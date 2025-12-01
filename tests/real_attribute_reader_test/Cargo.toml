@@ -1,0 +1,11 @@
+[package]
+name = "real-attribute-reader-test"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+trait-fixer-attribute-reader-trait = { path = "../../crates/trait-fixer-attribute-reader-trait" }
+trait-fixer-attribute-reader-real = { path = "../../crates/trait-fixer-attribute-reader-real" }
+rustc_middle = { workspace = true } # Needed for TyCtxt in test
+rustc_hir = { workspace = true } # Needed for DefId in test
+rustc_span = { workspace = true } # Needed for Symbol in test

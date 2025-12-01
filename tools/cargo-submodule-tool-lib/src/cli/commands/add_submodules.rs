@@ -8,28 +8,28 @@ use cargo_metadata::{MetadataCommand, Package, PackageId};
 
 use super::super::cli::args::add_submodules::AddSubmodulesArgs;
 use super::super::cli::args::Cli;
-#[cfg(not(feature = "git_enabled"))]
-use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
-#[cfg(not(feature = "git_enabled"))]
-use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Use our dummy GitExecutor
-#[cfg(not(feature = "git_enabled"))]
-use git_wrapper_lib::dummy_rollup_lock::DummyRollupLock as RollupLock;
-use git_wrapper_lib::git_traits::GitExecutor; // Use our re-exported GitExecutor
-#[cfg(feature = "git_enabled")]
-use git_wrapper_lib::pure_rust_git_executor::PureRustGitExecutor;
-#[cfg(feature = "git_enabled")]
-use git_wrapper_lib::execv::RealExecv; // Use our re-exported RealExecv
-#[cfg(feature = "git_enabled")]
-use git_wrapper_lib::git_types::RollupLock; // Use our re-exported RollupLock
-#[cfg(feature = "git_enabled")]
-use git_wrapper_lib::system_git_executor::SystemGitExecutor; // Added for non-git2 case
 use super::super::fs_cache::RealFileSystemStat;
 use super::super::fs_writer::CachedFileSystemWriter;
 use super::super::fs_writer::FileSystemWriter;
 use super::super::fs_writer::RealFileSystemWriter;
 use super::super::repo_sync_lib::repo_sync_config::RepoSyncConfig;
+#[cfg(not(feature = "git_enabled"))]
+use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Use our dummy GitExecutor
+#[cfg(not(feature = "git_enabled"))]
+use git_wrapper_lib::dummy_rollup_lock::DummyRollupLock as RollupLock;
+#[cfg(not(feature = "git_enabled"))]
+use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
 #[cfg(feature = "git_enabled")]
-use git_wrapper_lib::git_traits::GhExecutor; // Use dummy for RollupLock when git is not enabled
+use git_wrapper_lib::execv::RealExecv; // Use our re-exported RealExecv
+#[cfg(feature = "git_enabled")]
+use git_wrapper_lib::git_traits::GhExecutor;
+use git_wrapper_lib::git_traits::GitExecutor; // Use our re-exported GitExecutor
+#[cfg(feature = "git_enabled")]
+use git_wrapper_lib::git_types::RollupLock; // Use our re-exported RollupLock
+#[cfg(feature = "git_enabled")]
+use git_wrapper_lib::pure_rust_git_executor::PureRustGitExecutor;
+#[cfg(feature = "git_enabled")]
+use git_wrapper_lib::system_git_executor::SystemGitExecutor; // Added for non-git2 case // Use dummy for RollupLock when git is not enabled
 
 pub fn run_add_submodules_command(args: &AddSubmodulesArgs, cli: &Cli) -> Result<()> {
     println!("Collecting repository state for: {:?}", args.root_dir); // Changed project_root to args.root_dir

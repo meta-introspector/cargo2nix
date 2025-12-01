@@ -7,7 +7,9 @@ pub mod repo_sync_config {
     pub struct RepoSyncConfig;
     impl RepoSyncConfig {
         pub fn load_from_file(_path: &Path) -> Result<Self> {
-            unimplemented!("RepoSyncConfig is not available without `cargo_repo_sync_lib_enabled` feature.")
+            unimplemented!(
+                "RepoSyncConfig is not available without `cargo_repo_sync_lib_enabled` feature."
+            )
         }
     }
 }
@@ -17,11 +19,11 @@ pub mod run_submodule_status;
 #[cfg(not(feature = "cargo_repo_sync_lib_enabled"))]
 pub mod run_submodule_status {
     use anyhow::Result;
-    use std::path::Path;
-    use std::collections::HashMap;
     use git_wrapper_lib::executors::GitExecutor;
-    use std::sync::{Arc, Mutex};
     use git_wrapper_lib::executors::RollupLock;
+    use std::collections::HashMap;
+    use std::path::Path;
+    use std::sync::{Arc, Mutex};
 
     pub fn run_submodule_status(
         _git_executor: Arc<dyn GitExecutor + Send + Sync>,
@@ -29,6 +31,8 @@ pub mod run_submodule_status {
         _project_root: &Path,
         _rollup_lock: Arc<Mutex<RollupLock>>,
     ) -> Result<HashMap<String, String>> {
-        unimplemented!("run_submodule_status is not available without `cargo_repo_sync_lib_enabled` feature.")
+        unimplemented!(
+            "run_submodule_status is not available without `cargo_repo_sync_lib_enabled` feature."
+        )
     }
 }

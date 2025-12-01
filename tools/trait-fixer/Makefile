@@ -1,6 +1,11 @@
 # Makefile for trait-fixer
 
-export CFG_RELEASE := 1
+# Export CFG_RELEASE for rustc_span and RUSTC_OVERRIDE_VERSION_STRING for rustc_hir
+CFG_RELEASE_VALUE := 1.74.0
+export CFG_RELEASE := $(strip $(CFG_RELEASE_VALUE))
+export CFG_RELEASE_CHANNEL := dev
+export RUSTC_INSTALL_BINDIR := $(shell rustc --print sysroot)/bin
+
 # Enable bootstrap cfg and unstable library features for rustc components
 
 # Default build target

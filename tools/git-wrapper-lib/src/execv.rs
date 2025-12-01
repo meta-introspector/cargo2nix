@@ -4,8 +4,8 @@ use anyhow::Result;
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>; // Fallback for Result
 
 use std::ffi::OsStr;
-use std::path::Path;
 use std::os::unix::process::ExitStatusExt;
+use std::path::Path;
 use std::process::{Command, Output};
 
 use crate::git_traits::Execv;

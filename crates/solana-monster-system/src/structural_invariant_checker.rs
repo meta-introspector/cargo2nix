@@ -10,9 +10,9 @@ pub struct StructuralInvariant {
 
 #[derive(Debug, Clone)]
 pub enum InvariantType {
-    Algebraic,      // a: algebraic structure preservation
-    Topological,    // b: topological invariant maintenance  
-    Arithmetic,     // c: arithmetic constraint satisfaction
+    Algebraic,   // a: algebraic structure preservation
+    Topological, // b: topological invariant maintenance
+    Arithmetic,  // c: arithmetic constraint satisfaction
 }
 
 pub struct InvariantConsistencyChecker {
@@ -42,42 +42,55 @@ impl InvariantConsistencyChecker {
                 consistency_check: |a, b, c| (a * b - c) == 0,
             },
         ];
-        
+
         Self {
             invariants,
             constraints: Vec::new(),
         }
     }
 
-    pub fn check_constraint_consistency(&self, constraint: &R1CSConstraint, witness: &[i64]) -> bool {
+    pub fn check_constraint_consistency(
+        &self,
+        constraint: &R1CSConstraint,
+        witness: &[i64],
+    ) -> bool {
         let a_val = Self::dot_product(&constraint.a_coeff, witness);
         let b_val = Self::dot_product(&constraint.b_coeff, witness);
         let c_val = Self::dot_product(&constraint.c_coeff, witness);
-        
+
         // Check all structural invariants
-        self.invariants.iter().all(|invariant| {
-            (invariant.consistency_check)(a_val, b_val, c_val)
-        })
+        self.invariants
+            .iter()
+            .all(|invariant| (invariant.consistency_check)(a_val, b_val, c_val))
     }
 
-    pub fn verify_structural_consistency(&self, constraints: &[R1CSConstraint], witness: &[i64]) -> (usize, usize) {
+    pub fn verify_structural_consistency(
+        &self,
+        constraints: &[R1CSConstraint],
+        witness: &[i64],
+    ) -> (usize, usize) {
         let mut consistent = 0;
         let total = constraints.len();
-        
+
         for constraint in constraints {
             if self.check_constraint_consistency(constraint, witness) {
                 consistent += 1;
             }
         }
-        
+
         (consistent, total)
     }
 
     pub fn generate_invariant_constraints(&self) -> Vec<R1CSConstraint> {
-        self.invariants.iter().enumerate().map(|(id, invariant)| {
-            R1CSConstraint {
+        self.invariants
+            .iter()
+            .enumerate()
+            .map(|(id, invariant)| R1CSConstraint {
                 id,
-                reason: format!("Structural Invariant {:?} Consistency", invariant.invariant_type),
+                reason: format!(
+                    "Structural Invariant {:?} Consistency",
+                    invariant.invariant_type
+                ),
                 a_coeff: vec![1, invariant.value % 24],
                 b_coeff: vec![1, 1],
                 c_coeff: vec![0, invariant.value % 24],
@@ -86,8 +99,8 @@ impl InvariantConsistencyChecker {
                     InvariantType::Topological => 47,
                     InvariantType::Arithmetic => 71,
                 },
-            }
-        }).collect()
+            })
+            .collect()
     }
 
     fn dot_product(coeffs: &[i64], values: &[i64]) -> i64 {

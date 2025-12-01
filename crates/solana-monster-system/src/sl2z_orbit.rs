@@ -73,7 +73,7 @@ impl SL2ZOrbit {
     /// Compute canonical orbit representative
     fn compute_orbit_representative(&mut self, form: &ModularFormOrbit) -> OrbitData {
         let form_key = format!("{:?}", form);
-        
+
         if let Some(cached) = self.orbit_cache.get(&form_key) {
             return cached.clone();
         }
@@ -81,7 +81,7 @@ impl SL2ZOrbit {
         // Apply SL₂(ℤ) action to find canonical representative
         let representative = self.find_canonical_representative(form);
         let stabilizers = self.compute_stabilizer_subgroup(&representative);
-        
+
         let orbit_data = OrbitData {
             representative,
             orbit_size: None, // Computed lazily if needed
@@ -99,7 +99,8 @@ impl SL2ZOrbit {
         let mut best = form.clone();
 
         // Apply generators iteratively to explore orbit
-        for _ in 0..100 { // Limit iterations to prevent infinite loops
+        for _ in 0..100 {
+            // Limit iterations to prevent infinite loops
             let current_key = format!("{:?}", current.orbit_signature);
             if visited.contains(&current_key) {
                 break;
@@ -127,10 +128,14 @@ impl SL2ZOrbit {
     /// Apply S transformation: z ↦ -1/z
     fn apply_s_transformation(&self, form: &ModularFormOrbit) -> ModularFormOrbit {
         // S transformation affects q-expansion: q^n ↦ q^n with phase
-        let transformed_coeffs: Vec<i64> = form.normalized_coefficients.iter()
+        let transformed_coeffs: Vec<i64> = form
+            .normalized_coefficients
+            .iter()
             .enumerate()
             .map(|(n, &coeff)| {
-                if n == 0 { coeff } else {
+                if n == 0 {
+                    coeff
+                } else {
                     // S acts on q^n with (-1)^(weight*n) factor
                     let phase = if (form.weight * n) % 2 == 0 { 1 } else { -1 };
                     (coeff * phase) % 196883 // Monster Group modulus
@@ -149,10 +154,14 @@ impl SL2ZOrbit {
     /// Apply T transformation: z ↦ z+1
     fn apply_t_transformation(&self, form: &ModularFormOrbit) -> ModularFormOrbit {
         // T transformation: q^n ↦ ζ^n * q^n where ζ = e^(2πi/level)
-        let transformed_coeffs: Vec<i64> = form.normalized_coefficients.iter()
+        let transformed_coeffs: Vec<i64> = form
+            .normalized_coefficients
+            .iter()
             .enumerate()
             .map(|(n, &coeff)| {
-                if n == 0 { coeff } else {
+                if n == 0 {
+                    coeff
+                } else {
                     // T acts with level-th root of unity
                     let zeta_power = (n * 2) % form.level; // Simplified ζ^n
                     (coeff + zeta_power as i64) % 196883
@@ -171,14 +180,18 @@ impl SL2ZOrbit {
     /// Compute orbit signature from coefficients
     fn compute_orbit_signature(&self, coeffs: &[i64], weight: usize) -> [i64; 3] {
         let tau_2 = if coeffs.len() > 1 { coeffs[1] } else { -24 }; // τ(2)
-        let tau_3 = if coeffs.len() > 2 { coeffs[2] } else { 252 };  // τ(3)
-        let hecke = if weight % 2 == 0 { 196883 } else { -5472 };   // Hecke eigenvalue
+        let tau_3 = if coeffs.len() > 2 { coeffs[2] } else { 252 }; // τ(3)
+        let hecke = if weight % 2 == 0 { 196883 } else { -5472 }; // Hecke eigenvalue
 
         [tau_2, tau_3, hecke]
     }
 
     /// Check if candidate is better canonical representative
-    fn is_canonical_better(&self, candidate: &ModularFormOrbit, current_best: &ModularFormOrbit) -> bool {
+    fn is_canonical_better(
+        &self,
+        candidate: &ModularFormOrbit,
+        current_best: &ModularFormOrbit,
+    ) -> bool {
         // Lexicographic ordering on orbit signature
         candidate.orbit_signature < current_best.orbit_signature
     }
@@ -212,7 +225,12 @@ impl SL2ZOrbit {
     }
 
     /// Create modular form orbit from semantic equivalence data
-    pub fn from_modular_form(&self, weight: usize, level: usize, q_expansion: &[i64]) -> ModularFormOrbit {
+    pub fn from_modular_form(
+        &self,
+        weight: usize,
+        level: usize,
+        q_expansion: &[i64],
+    ) -> ModularFormOrbit {
         let normalized_coeffs = self.normalize_coefficients(q_expansion);
         let orbit_signature = self.compute_orbit_signature(&normalized_coeffs, weight);
 
@@ -232,24 +250,33 @@ impl SL2ZOrbit {
 
         // Normalize by first non-zero coefficient
         let first_nonzero = coeffs.iter().find(|&&c| c != 0).unwrap_or(&1);
-        coeffs.iter().map(|&c| (c / first_nonzero) % 196883).collect()
+        coeffs
+            .iter()
+            .map(|&c| (c / first_nonzero) % 196883)
+            .collect()
     }
 }
 
 impl SL2ZMatrix {
     /// S generator: [[0,1],[-1,0]]
     fn s_generator() -> Self {
-        Self { matrix: [[0, 1], [-1, 0]] }
+        Self {
+            matrix: [[0, 1], [-1, 0]],
+        }
     }
 
     /// T generator: [[1,1],[0,1]]
     fn t_generator() -> Self {
-        Self { matrix: [[1, 1], [0, 1]] }
+        Self {
+            matrix: [[1, 1], [0, 1]],
+        }
     }
 
     /// Identity matrix
     fn identity() -> Self {
-        Self { matrix: [[1, 0], [0, 1]] }
+        Self {
+            matrix: [[1, 0], [0, 1]],
+        }
     }
 
     /// Verify determinant is 1
@@ -271,7 +298,7 @@ mod tests {
     fn test_sl2z_generators() {
         let s = SL2ZMatrix::s_generator();
         let t = SL2ZMatrix::t_generator();
-        
+
         assert!(s.is_valid_sl2z());
         assert!(t.is_valid_sl2z());
         assert_eq!(s.determinant(), 1);
@@ -281,20 +308,20 @@ mod tests {
     #[test]
     fn test_orbit_equivalence() {
         let mut orbit = SL2ZOrbit::new();
-        
+
         let form1 = orbit.from_modular_form(4, 1, &[1, -24, 252]);
         let form2 = orbit.from_modular_form(4, 1, &[1, -24, 252]);
-        
+
         assert!(orbit.same_orbit(&form1, &form2));
     }
 
     #[test]
     fn test_orbit_invariants() {
         let orbit = SL2ZOrbit::new();
-        
+
         let form1 = orbit.from_modular_form(4, 1, &[1, -24]);
         let form2 = orbit.from_modular_form(6, 1, &[1, -24]); // Different weight
-        
+
         assert!(!orbit.orbit_invariants_match(&form1, &form2));
     }
 }

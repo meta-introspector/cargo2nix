@@ -9,8 +9,8 @@ use std::time::SystemTime;
 #[cfg(feature = "tool_traits_lib_enabled")]
 use tool_traits_lib::serde_adapter::{CurrentSerdeAdapter, SerdeAdapter};
 
-use git_wrapper_lib::git_types::FileMetadata;
 use git_wrapper_lib::git_traits::GitExecutor;
+use git_wrapper_lib::git_types::FileMetadata;
 use git_wrapper_lib::git_types::RollupLock;
 
 pub trait FileSystemStat: Send + Sync {

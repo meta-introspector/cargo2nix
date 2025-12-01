@@ -108,7 +108,7 @@ impl GitExecutor for SystemGitExecutor {
         submodule_path: &Path,
         branch: &str,
         _rollup_lock: Arc<Mutex<RollupLock>>, // Prefixed with _
-        _root_dir: &Path, // Prefixed with _
+        _root_dir: &Path,                     // Prefixed with _
     ) -> Result<()> {
         #[cfg(feature = "with-trace")]
         println!("TRACE: checkout_branch called with submodule_path: {:?}, branch: {}, rollup_lock: {:?}, root_dir: {:?}", submodule_path, branch, rollup_lock, root_dir);

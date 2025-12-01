@@ -2,49 +2,52 @@
 // use crate::analysis::cargo_config_patcher::{CargoConfigPatcher, RealCargoConfigPatcher};
 #[cfg(not(feature = "nix_generation"))]
 use super::super::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
-use super::super::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
-use super::super::analysis::dep_graph_data_merger::{DepGraphDataMerger, RealDepGraphDataMerger};
-use tool_traits_lib::types::MergedCrateInfo;
-use super::super::analysis::dep_graph_processor::{RealDepGraphProcessor};
-use tool_traits_lib::dep_graph_processor::DepGraphProcessor;
-use super::super::analysis::layer0_analyzer::{Layer0Analyzer, RealLayer0Analyzer};
-use crate::analysis::non_vendored_module_finder::{
-    NonVendoredModuleFinder, RealNonVendoredModuleFinder,
+use super::super::analysis::cargo_metadata_provider::{
+    CargoMetadataProvider, RealCargoMetadataProvider,
 };
+use super::super::analysis::dep_graph_data_merger::{DepGraphDataMerger, RealDepGraphDataMerger};
+use super::super::analysis::dep_graph_processor::RealDepGraphProcessor;
+use super::super::analysis::layer0_analyzer::{Layer0Analyzer, RealLayer0Analyzer};
 #[cfg(feature = "git_enabled")]
 // use crate::analysis::submodule_config_patcher::{
 //     RealSubmoduleConfigPatcher, SubmoduleConfigPatcher,
 // };
 #[cfg(feature = "cargo-toml-editor-lib")]
 use super::super::analysis::workspace_remover::{RealWorkspaceRemover, WorkspaceRemover};
+use crate::analysis::non_vendored_module_finder::{
+    NonVendoredModuleFinder, RealNonVendoredModuleFinder,
+};
+use tool_traits_lib::dep_graph_processor::DepGraphProcessor;
+use tool_traits_lib::types::MergedCrateInfo;
 // use crate::cargo_config_generator::{
 //     generate_patch_entries, parse_members_file, update_config_toml,
 // };
-use super::super::cli::args::analyze::AnalyzeArgs; use super::super::cli::args::Cli;
-#[cfg(not(feature = "git_enabled"))]
-use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
-#[cfg(not(feature = "git_enabled"))]
-use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Use our dummy struct directly
-#[cfg(not(feature = "git_enabled"))]
-use git_wrapper_lib::dummy_rollup_lock::DummyRollupLock as RollupLock;
-use git_wrapper_lib::git_traits::GitExecutor; // Use our re-exported GitExecutor
-#[cfg(feature = "git_enabled")]
-use git_wrapper_lib::pure_rust_git_executor::PureRustGitExecutor;
-#[cfg(feature = "git_enabled")]
-use git_wrapper_lib::RealExecv; // Use our re-exported RealExecv
-#[cfg(feature = "git_enabled")]
-use git_wrapper_lib::git_types::RollupLock; // Use our re-exported RollupLock
-#[cfg(feature = "git_enabled")]
-use git_wrapper_lib::system_git_executor::SystemGitExecutor; // Added for non-git2 case
+use super::super::cli::args::analyze::AnalyzeArgs;
+use super::super::cli::args::Cli;
 use super::super::fs_cache::{FileSystemStat, RealFileSystemStat};
 use super::super::fs_writer::{CachedFileSystemWriter, FileSystemWriter, RealFileSystemWriter};
 use anyhow::{anyhow, Context, Result};
 #[cfg(feature = "nix_generation")]
 use cargo_metadata::{MetadataCommand, Package, PackageId};
-//#[cfg(feature = "cargo_repo_sync_lib_enabled")]
-//use cargo_repo_sync_lib::repo_sync_config::RepoSyncConfig;
-//#[cfg(feature = "cargo_repo_sync_lib_enabled")]
-//use cargo_repo_sync_lib::run_submodule_status::run_submodule_status;
+#[cfg(not(feature = "git_enabled"))]
+use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Use our dummy struct directly
+#[cfg(not(feature = "git_enabled"))]
+use git_wrapper_lib::dummy_rollup_lock::DummyRollupLock as RollupLock;
+#[cfg(not(feature = "git_enabled"))]
+use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
+use git_wrapper_lib::git_traits::GitExecutor; // Use our re-exported GitExecutor
+#[cfg(feature = "git_enabled")]
+use git_wrapper_lib::git_types::RollupLock; // Use our re-exported RollupLock
+#[cfg(feature = "git_enabled")]
+use git_wrapper_lib::pure_rust_git_executor::PureRustGitExecutor;
+#[cfg(feature = "git_enabled")]
+use git_wrapper_lib::system_git_executor::SystemGitExecutor; // Added for non-git2 case
+#[cfg(feature = "git_enabled")]
+use git_wrapper_lib::RealExecv; // Use our re-exported RealExecv
+                                //#[cfg(feature = "cargo_repo_sync_lib_enabled")]
+                                //use cargo_repo_sync_lib::repo_sync_config::RepoSyncConfig;
+                                //#[cfg(feature = "cargo_repo_sync_lib_enabled")]
+                                //use cargo_repo_sync_lib::run_submodule_status::run_submodule_status;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex}; // Use dummy for RollupLock when git is not enabled
@@ -167,7 +170,7 @@ pub fn run_analyze_command(args: &AnalyzeArgs, cli: &Cli) -> Result<()> {
     );
     // let submodule_config_patcher = RealSubmoduleConfigPatcher;
     // let submodule_patches =
-        // submodule_config_patcher.generate_submodule_patches(&members_file, &project_root)?;
+    // submodule_config_patcher.generate_submodule_patches(&members_file, &project_root)?;
     // if !submodule_patches.is_empty() {
     //     println!("Generated submodule patch entries:");
     //     for (header, entries) in submodule_patches {

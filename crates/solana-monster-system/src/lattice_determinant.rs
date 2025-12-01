@@ -8,7 +8,9 @@ impl LatticeDeterminant {
     }
 
     pub fn compute_2x2(a: i64, b: i64, c: i64, d: i64) -> Self {
-        Self { value: a * d - b * c }
+        Self {
+            value: a * d - b * c,
+        }
     }
 
     pub fn is_zero(&self) -> bool {

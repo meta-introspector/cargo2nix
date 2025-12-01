@@ -2,6 +2,7 @@ use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use walkdir::WalkDir;
 use crate::error::AppError;
+use crate::error::AppError;
 use crate::trait_extractor::TraitExtractor;
 use crate::trait_numbering::TraitNumberer;
 use crate::trait_types::{DeclTrait, TraitDeps, TraitLattice, TraitMorphism, MorphismKind};

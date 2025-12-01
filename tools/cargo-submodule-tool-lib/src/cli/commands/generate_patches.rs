@@ -1,18 +1,19 @@
 use cargo_metadata::{MetadataCommand, Package, PackageId};
 
-use super::super::cli::args::generate_patches::GeneratePatchesArgs; use super::super::cli::args::Cli;
-#[cfg(not(feature = "git_enabled"))]
-use git_wrapper_lib::dummy_rollup_lock::DummyRollupLock as RollupLock; // Use dummy for RollupLock when git is not enabled
-#[cfg(feature = "git_enabled")]
-use git_wrapper_lib::git_types::RollupLock; // Use our re-exported RollupLock
+use super::super::cli::args::generate_patches::GeneratePatchesArgs;
+use super::super::cli::args::Cli;
 use super::super::fs_cache::{FileSystemStat, RealFileSystemStat};
-use super::super::repo_sync_lib::run_submodule_status::run_submodule_status;
 use super::super::repo_sync_lib::repo_sync_config::RepoSyncConfig;
+use super::super::repo_sync_lib::run_submodule_status::run_submodule_status;
 use anyhow::{Context, Result};
 #[cfg(feature = "nix_generation")]
 use cargo2nix::discovery::{find_cargo_locks, find_cargo_manifests};
 #[cfg(feature = "nix_generation")]
 use cargo2nix::generate_cargo_nix::generate_cargo_nix;
+#[cfg(not(feature = "git_enabled"))]
+use git_wrapper_lib::dummy_rollup_lock::DummyRollupLock as RollupLock; // Use dummy for RollupLock when git is not enabled
+#[cfg(feature = "git_enabled")]
+use git_wrapper_lib::git_types::RollupLock; // Use our re-exported RollupLock
 #[cfg(feature = "nix_generation")]
 use std::fs;
 #[cfg(feature = "nix_generation")]
@@ -26,18 +27,20 @@ use std::sync::{Arc, Mutex};
 
 #[cfg(not(feature = "nix_generation"))]
 use super::super::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
-use super::super::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
+use super::super::analysis::cargo_metadata_provider::{
+    CargoMetadataProvider, RealCargoMetadataProvider,
+};
 #[cfg(feature = "cargo-toml-editor-lib")]
 use super::super::analysis::workspace_remover::RealWorkspaceRemover;
 #[cfg(not(feature = "git_enabled"))]
-use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
-#[cfg(not(feature = "git_enabled"))]
 use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Use our dummy GitExecutor
+#[cfg(not(feature = "git_enabled"))]
+use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
+#[cfg(feature = "git_enabled")]
+use git_wrapper_lib::execv::RealExecv; // Use our re-exported RealExecv;
 use git_wrapper_lib::git_traits::GitExecutor; // Use our re-exported GitExecutor
 #[cfg(feature = "git_enabled")]
 use git_wrapper_lib::pure_rust_git_executor::PureRustGitExecutor;
-#[cfg(feature = "git_enabled")]
-use git_wrapper_lib::execv::RealExecv; // Use our re-exported RealExecv;
 #[cfg(feature = "git_enabled")]
 use git_wrapper_lib::system_git_executor::SystemGitExecutor; // Added for non-git2 case
 

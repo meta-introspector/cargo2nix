@@ -1,15 +1,15 @@
 use std::collections::{BTreeMap, BTreeSet, HashMap};
 use std::path::{Path, PathBuf};
 
-use anyhow::{anyhow, Result};
-use cargo::core::{dependency::DepKind, GitReference, Package, PackageId, SourceId};
-use cargo::core::resolver::{Resolve};
+use anyhow::{Result, anyhow};
+use cargo::core::resolver::Resolve;
+use cargo::core::{GitReference, Package, PackageId, SourceId, dependency::DepKind};
 use cargo_platform::Platform;
 use serde::Serialize;
 
+use crate::expr::BoolExpr;
 use crate::manifest::TomlProfile;
 use crate::platform;
-use crate::expr::BoolExpr;
 
 type FeatureStr<'a> = &'a str;
 type PackageName<'a> = &'a str;
@@ -214,8 +214,6 @@ fn to_source(pkg: &ResolvedPackage<'_>, cwd: &Path) -> Result<Source> {
     Ok(source)
 }
 
-
-
 fn to_dependencies(
     pkg: &ResolvedPackage<'_>,
 ) -> (Vec<Dependency>, Vec<Dependency>, Vec<Dependency>) {
@@ -392,13 +390,16 @@ impl<'a> Optionality<'a> {
                 ))
             })),
         }
-    }}
+    }
+}
 
 pub fn display_root_feature((pkg_name, feature): RootFeature) -> String {
     format!("{}/{}", pkg_name, feature)
 }
 
-pub fn simplify_optionality<'a, 'b: 'a>(rpkgs: impl IntoIterator<Item = &'a mut ResolvedPackage<'b>>) {
+pub fn simplify_optionality<'a, 'b: 'a>(
+    rpkgs: impl IntoIterator<Item = &'a mut ResolvedPackage<'b>>,
+) {
     for rpkg in rpkgs.into_iter() {
         // Dev dependencies can't be optional.
         rpkg.deps
@@ -417,8 +418,8 @@ pub fn simplify_optionality<'a, 'b: 'a>(rpkgs: impl IntoIterator<Item = &'a mut 
 }
 
 pub fn is_proc_macro(pkg: &Package) -> bool {
-    use cargo::core::compiler::CrateType;
     use cargo::core::TargetKind;
+    use cargo::core::compiler::CrateType;
     pkg.targets()
         .iter()
         .filter_map(|t| match t.kind() {
@@ -428,4 +429,3 @@ pub fn is_proc_macro(pkg: &Package) -> bool {
         .flatten()
         .any(|k| *k == CrateType::ProcMacro)
 }
-

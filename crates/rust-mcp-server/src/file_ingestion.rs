@@ -1,12 +1,11 @@
-use anyhow::{Context, Result};
-use std::path::Path;
-use rocksdb::DB;
-use walkdir::WalkDir;
-use syn::{visit::Visit, ItemFn, ItemUse, ItemMod};
-use quote::ToTokens; // NEW: For to_token_stream()
 use crate::analysis_types::ProjectFileAnalysis; // Assuming ProjectFileAnalysis is public
-use crate::hasher::calculate_content_id; // Assuming calculate_content_id is public
-
+use crate::hasher::calculate_content_id;
+use anyhow::{Context, Result};
+use quote::ToTokens; // NEW: For to_token_stream()
+use rocksdb::DB;
+use std::path::Path;
+use syn::{ItemFn, ItemMod, ItemUse, visit::Visit};
+use walkdir::WalkDir; // Assuming calculate_content_id is public
 
 /// A visitor to collect various Rust items
 pub struct RustItemCollector {
@@ -17,7 +16,11 @@ pub struct RustItemCollector {
 
 impl RustItemCollector {
     pub fn new() -> Self {
-        RustItemCollector { functions: Vec::new(), uses: Vec::new(), mods: Vec::new() } // Initialize new fields
+        RustItemCollector {
+            functions: Vec::new(),
+            uses: Vec::new(),
+            mods: Vec::new(),
+        } // Initialize new fields
     }
 }
 
@@ -27,24 +30,31 @@ impl<'ast> Visit<'ast> for RustItemCollector {
         syn::visit::visit_item_fn(self, i);
     }
 
-    fn visit_item_use(&mut self, i: &'ast ItemUse) { // NEW
+    fn visit_item_use(&mut self, i: &'ast ItemUse) {
+        // NEW
         self.uses.push(i.to_token_stream().to_string()); // Store the whole use statement
         syn::visit::visit_item_use(self, i);
     }
 
-    fn visit_item_mod(&mut self, i: &'ast ItemMod) { // NEW
+    fn visit_item_mod(&mut self, i: &'ast ItemMod) {
+        // NEW
         self.mods.push(i.ident.to_string()); // Store module name
         syn::visit::visit_item_mod(self, i);
     }
 }
 
 // Ingests a single file and stores its analysis in RocksDB
-pub fn ingest_single_file(db: &DB, absolute_file_path: &Path, project_root: &Path) -> Result<ProjectFileAnalysis> {
+pub fn ingest_single_file(
+    db: &DB,
+    absolute_file_path: &Path,
+    project_root: &Path,
+) -> Result<ProjectFileAnalysis> {
     use anyhow::anyhow; // Ensure anyhow::anyhow is in scope for this function
 
-    let relative_file_path = absolute_file_path.strip_prefix(project_root)
-                                    .map(|p| p.to_string_lossy().to_string())
-                                    .unwrap_or_else(|_| absolute_file_path.to_string_lossy().to_string());
+    let relative_file_path = absolute_file_path
+        .strip_prefix(project_root)
+        .map(|p| p.to_string_lossy().to_string())
+        .unwrap_or_else(|_| absolute_file_path.to_string_lossy().to_string());
 
     let extension = absolute_file_path.extension().and_then(|s| s.to_str());
 
@@ -56,7 +66,10 @@ pub fn ingest_single_file(db: &DB, absolute_file_path: &Path, project_root: &Pat
     };
 
     if file_type == "unknown" {
-        return Err(anyhow!("Cannot ingest unknown file type: {}", relative_file_path));
+        return Err(anyhow!(
+            "Cannot ingest unknown file type: {}",
+            relative_file_path
+        ));
     }
 
     let code = std::fs::read_to_string(&absolute_file_path)
@@ -67,10 +80,18 @@ pub fn ingest_single_file(db: &DB, absolute_file_path: &Path, project_root: &Pat
         let syntax_tree = match std::panic::catch_unwind(|| syn::parse_file(&code)) {
             Ok(Ok(tree)) => tree,
             Ok(Err(e)) => {
-                return Err(anyhow!("Failed to parse Rust code from file {}: {}", relative_file_path, e));
-            },
+                return Err(anyhow!(
+                    "Failed to parse Rust code from file {}: {}",
+                    relative_file_path,
+                    e
+                ));
+            }
             Err(e) => {
-                return Err(anyhow!("Panic while parsing Rust code from file {}: {:?}", relative_file_path, e));
+                return Err(anyhow!(
+                    "Panic while parsing Rust code from file {}: {:?}",
+                    relative_file_path,
+                    e
+                ));
             }
         };
 
@@ -92,21 +113,42 @@ pub fn ingest_single_file(db: &DB, absolute_file_path: &Path, project_root: &Pat
 
     // Store the analysis in RocksDB using content-addressable key
     let analysis_json = serde_json::to_string(&analysis)?;
-    let db_key_content_addressable = format!("file_analysis:{}:{}:{}", file_type, relative_file_path, file_content_hash);
-    db.put(db_key_content_addressable.as_bytes(), analysis_json.as_bytes())
-        .context(format!("Failed to write content-addressable analysis for {} to RocksDB", relative_file_path))?;
+    let db_key_content_addressable = format!(
+        "file_analysis:{}:{}:{}",
+        file_type, relative_file_path, file_content_hash
+    );
+    db.put(
+        db_key_content_addressable.as_bytes(),
+        analysis_json.as_bytes(),
+    )
+    .context(format!(
+        "Failed to write content-addressable analysis for {} to RocksDB",
+        relative_file_path
+    ))?;
 
     // Also store in git_tree_entry index (path -> latest content hash)
     let db_key_git_tree = format!("git_tree_entry:{}", relative_file_path);
     db.put(db_key_git_tree.as_bytes(), file_content_hash.as_bytes())
-        .context(format!("Failed to write git tree entry for {} to RocksDB", relative_file_path))?;
-    
+        .context(format!(
+            "Failed to write git tree entry for {} to RocksDB",
+            relative_file_path
+        ))?;
+
     // NEW: Store a direct lookup from file_path to its latest analysis
     let db_key_file_path_to_analysis = format!("file_path_to_analysis:{}", relative_file_path);
-    db.put(db_key_file_path_to_analysis.as_bytes(), analysis_json.as_bytes())
-        .context(format!("Failed to write file_path_to_analysis index for {} to RocksDB", relative_file_path))?;
+    db.put(
+        db_key_file_path_to_analysis.as_bytes(),
+        analysis_json.as_bytes(),
+    )
+    .context(format!(
+        "Failed to write file_path_to_analysis index for {} to RocksDB",
+        relative_file_path
+    ))?;
 
-    eprintln!("Stored analysis for {} in RocksDB (and git_tree_entry).", relative_file_path);
+    eprintln!(
+        "Stored analysis for {} in RocksDB (and git_tree_entry).",
+        relative_file_path
+    );
 
     Ok(analysis)
 }
@@ -117,7 +159,11 @@ pub fn scan_and_ingest_project(db: &DB, project_root: &Path) -> Result<()> {
     let mut files_processed = 0;
     for entry in WalkDir::new(project_root)
         .into_iter()
-        .filter_entry(|e| !e.path().to_string_lossy().contains("submodules/rust/tests/ui/"))
+        .filter_entry(|e| {
+            !e.path()
+                .to_string_lossy()
+                .contains("submodules/rust/tests/ui/")
+        })
         .filter_map(|e| e.ok())
     {
         let path = entry.path();
@@ -128,6 +174,10 @@ pub fn scan_and_ingest_project(db: &DB, project_root: &Path) -> Result<()> {
             }
         }
     }
-    eprintln!("Processed {} files in {:?}.", files_processed, start_time.elapsed());
+    eprintln!(
+        "Processed {} files in {:?}.",
+        files_processed,
+        start_time.elapsed()
+    );
     Ok(())
 }

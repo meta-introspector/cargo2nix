@@ -1,15 +1,15 @@
 // crates/trait-fixer-trait-checker-real/src/lib.rs
 
-use rustc_middle::ty::{Ty, TyCtxt, ParamEnv, Predicate, TypingMode};
 use rustc_hir::def_id::DefId;
-use rustc_span::DUMMY_SP;
+use rustc_infer::infer::{InferCtxt, TyCtxtInferExt};
+use rustc_middle::ty::subst;
+use rustc_middle::ty::Binder;
+use rustc_middle::ty::{ParamEnv, Predicate, Ty, TyCtxt, TypingMode};
 use rustc_span::symbol::Symbol;
-use rustc_infer::infer::{TyCtxtInferExt, InferCtxt};
+use rustc_span::DUMMY_SP;
 use rustc_trait_selection::traits::{
     ObligationCause, ObligationCauseCode, PredicateObligation, TraitEngine,
-};
-use rustc_middle::ty::Binder;
-use rustc_middle::ty::subst; // For subst::Substs::empty()
+}; // For subst::Substs::empty()
 
 use trait_fixer_trait_checker_trait::TraitChecker; // Import the trait
 
@@ -43,14 +43,18 @@ impl<'tcx> TraitChecker<'tcx> for TyCtxt<'tcx> {
                 ObligationCauseCode::Misc,
             ),
             param_env,
-            Binder::dummy(
-                tcx.mk_trait_ref(trait_def_id, tcx.mk_args_trait(adt_ty, subst::Substs::empty()))
-            ),
+            Binder::dummy(tcx.mk_trait_ref(
+                trait_def_id,
+                tcx.mk_args_trait(adt_ty, subst::Substs::empty()),
+            )),
         );
 
         let infcx = tcx.infer_ctxt().build(TypingMode::default());
         infcx.probe(|_infcx| {
-            _infcx.at(&obligation.cause, obligation.param_env).predicate_may_hold(&obligation.predicate).is_ok()
+            _infcx
+                .at(&obligation.cause, obligation.param_env)
+                .predicate_may_hold(&obligation.predicate)
+                .is_ok()
         })
     }
 }

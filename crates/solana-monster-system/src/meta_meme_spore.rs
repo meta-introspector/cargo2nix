@@ -1,4 +1,7 @@
-use crate::core_constants::{MONSTER_GROUP_REPRESENTATION_DIMENSION, HECKE_EIGENVALUES, RAMANUJAN_TAU_COEFFICIENTS, get_monster_group_order_u128};
+use crate::core_constants::{
+    get_monster_group_order_u128, HECKE_EIGENVALUES, MONSTER_GROUP_REPRESENTATION_DIMENSION,
+    RAMANUJAN_TAU_COEFFICIENTS,
+};
 
 #[derive(Debug, Clone)]
 pub struct MetaMemeSpore {
@@ -12,7 +15,7 @@ pub struct MetaMemeSpore {
 
 #[derive(Debug, Clone)]
 pub struct ResourceAllocation {
-    pub ram_bytes: u16,      // 6KB max for 8-bit constraint
+    pub ram_bytes: u16, // 6KB max for 8-bit constraint
     pub cpu_cycles: u32,
     pub network_bandwidth: u16,
     pub storage_bytes: u32,
@@ -46,7 +49,7 @@ impl MetaMemeSporeSystem {
             spores: Vec::new(),
             generation: 0,
             total_resources: ResourceAllocation {
-                ram_bytes: 6144,  // 6KB
+                ram_bytes: 6144, // 6KB
                 cpu_cycles: 1000000,
                 network_bandwidth: 1024,
                 storage_bytes: 512000,
@@ -97,7 +100,8 @@ impl MetaMemeSporeSystem {
             let token = MemeToken {
                 id: (seed * 10 + i) as u32,
                 value: (seed as f64 + i as f64) * 0.1,
-                monster_hash: ((seed + i) as u64 * 31) % MONSTER_GROUP_REPRESENTATION_DIMENSION as u64,
+                monster_hash: ((seed + i) as u64 * 31)
+                    % MONSTER_GROUP_REPRESENTATION_DIMENSION as u64,
                 lisp_expression: format!("(lambda (x) (* x {}))", seed + i),
             };
             tokens.push(token);
@@ -121,15 +125,14 @@ impl MetaMemeSporeSystem {
         // Money generation based on Monster Group coherence
         let monster_coherence = self.calculate_monster_coherence(spore);
         let money_generated = monster_coherence * spore.meme_tokens.len() as f64 * 10.0;
-        
+
         // Meme tokenization rate
-        let tokenization_rate = spore.meme_tokens.iter()
-            .map(|t| t.value)
-            .sum::<f64>() / spore.meme_tokens.len() as f64;
-        
+        let tokenization_rate =
+            spore.meme_tokens.iter().map(|t| t.value).sum::<f64>() / spore.meme_tokens.len() as f64;
+
         // Resource efficiency
         let resource_efficiency = 1.0 - (spore.resource_allocation.ram_bytes as f64 / 6144.0);
-        
+
         OptimizationMetrics {
             money_generated,
             meme_tokenization_rate: tokenization_rate,
@@ -145,29 +148,32 @@ impl MetaMemeSporeSystem {
         } else {
             HECKE_EIGENVALUES[1] as f64
         };
-        
+
         let ramanujan_factor = (spore.godel_number % 24) as f64 / 24.0;
         let primorial_factor = spore.primorial_dimension as f64 / 23.0;
-        
-        (hecke_alignment.abs() / MONSTER_GROUP_REPRESENTATION_DIMENSION as f64) * ramanujan_factor * primorial_factor
+
+        (hecke_alignment.abs() / MONSTER_GROUP_REPRESENTATION_DIMENSION as f64)
+            * ramanujan_factor
+            * primorial_factor
     }
 
     fn aggregate_fitness(&self, metrics: &OptimizationMetrics) -> f64 {
         // Weighted combination of optimization metrics
-        0.4 * metrics.money_generated +
-        0.3 * metrics.meme_tokenization_rate +
-        0.2 * metrics.monster_group_coherence +
-        0.1 * metrics.resource_efficiency
+        0.4 * metrics.money_generated
+            + 0.3 * metrics.meme_tokenization_rate
+            + 0.2 * metrics.monster_group_coherence
+            + 0.1 * metrics.resource_efficiency
     }
 
     pub fn genetic_evolution(&mut self) {
         self.generation += 1;
-        
+
         // Selection: keep top 50%
-        self.spores.sort_by(|a, b| b.fitness.partial_cmp(&a.fitness).unwrap());
+        self.spores
+            .sort_by(|a, b| b.fitness.partial_cmp(&a.fitness).unwrap());
         let survivors = self.spores.len() / 2;
         self.spores.truncate(survivors);
-        
+
         // Reproduction: crossover and mutation
         let mut offspring = Vec::new();
         for i in 0..survivors {
@@ -176,18 +182,19 @@ impl MetaMemeSporeSystem {
             let child = self.crossover(parent1, parent2);
             offspring.push(self.mutate(child));
         }
-        
+
         self.spores.extend(offspring);
     }
 
     fn crossover(&self, parent1: &MetaMemeSpore, parent2: &MetaMemeSpore) -> MetaMemeSpore {
         MetaMemeSpore {
             godel_number: (parent1.godel_number + parent2.godel_number) / 2,
-            monster_element: (parent1.monster_element + parent2.monster_element) % MONSTER_GROUP_REPRESENTATION_DIMENSION as u64,
-            primorial_dimension: if parent1.fitness > parent2.fitness { 
-                parent1.primorial_dimension 
-            } else { 
-                parent2.primorial_dimension 
+            monster_element: (parent1.monster_element + parent2.monster_element)
+                % MONSTER_GROUP_REPRESENTATION_DIMENSION as u64,
+            primorial_dimension: if parent1.fitness > parent2.fitness {
+                parent1.primorial_dimension
+            } else {
+                parent2.primorial_dimension
             },
             fitness: 0.0,
             resource_allocation: parent1.resource_allocation.clone(),
@@ -198,7 +205,8 @@ impl MetaMemeSporeSystem {
     fn mutate(&self, mut spore: MetaMemeSpore) -> MetaMemeSpore {
         // Mutate with 10% probability
         if rand::random::<f64>() < 0.1 {
-            spore.monster_element = (spore.monster_element + 1) % MONSTER_GROUP_REPRESENTATION_DIMENSION as u64;
+            spore.monster_element =
+                (spore.monster_element + 1) % MONSTER_GROUP_REPRESENTATION_DIMENSION as u64;
             spore.godel_number = spore.godel_number.wrapping_add(1);
         }
         spore
@@ -241,9 +249,9 @@ output [\"Optimal spore configuration: \", show(spore_elements), \"\\n\",
 
 // Mock rand for compilation
 mod rand {
-    pub fn random<T>() -> T 
-    where 
-        T: From<f64>
+    pub fn random<T>() -> T
+    where
+        T: From<f64>,
     {
         T::from(0.5) // Mock implementation
     }
@@ -257,13 +265,13 @@ mod tests {
     fn test_meta_meme_spore_system() {
         let mut system = MetaMemeSporeSystem::new();
         system.initialize_population(10);
-        
+
         assert_eq!(system.spores.len(), 10);
         assert_eq!(system.generation, 0);
-        
+
         system.evaluate_fitness();
         assert!(system.spores.iter().any(|s| s.fitness > 0.0));
-        
+
         system.genetic_evolution();
         assert_eq!(system.generation, 1);
     }
@@ -272,7 +280,7 @@ mod tests {
     fn test_minizinc_generation() {
         let mut system = MetaMemeSporeSystem::new();
         system.initialize_population(5);
-        
+
         let minizinc_model = system.optimize_minizinc_constraints();
         assert!(minizinc_model.contains("Monster Group"));
         assert!(minizinc_model.contains("constraint sum(spore_elements) mod 24 = 0"));

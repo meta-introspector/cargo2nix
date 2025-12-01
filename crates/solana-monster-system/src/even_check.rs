@@ -4,8 +4,8 @@ pub struct EvenCheck {
 
 impl EvenCheck {
     pub fn new(value: i64) -> Self {
-        Self { 
-            result: if value % 2 == 0 { 1 } else { 0 }
+        Self {
+            result: if value % 2 == 0 { 1 } else { 0 },
         }
     }
 

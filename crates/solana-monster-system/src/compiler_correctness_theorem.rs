@@ -1,4 +1,4 @@
-use crate::sl2z_orbit::{SL2ZOrbit, ModularFormOrbit};
+use crate::sl2z_orbit::{ModularFormOrbit, SL2ZOrbit};
 use std::collections::HashMap;
 
 /// Formal compiler correctness as mathematical theorem
@@ -90,12 +90,12 @@ impl CompilerCorrectnessTheorem {
 
     /// **THEOREM**: A compiler transformation T is correct if and only if
     /// it preserves modular structure up to SL₂(ℤ)-isomorphism
-    pub fn prove_transformation_correctness(&mut self, 
-        source_code: &str, 
+    pub fn prove_transformation_correctness(
+        &mut self,
+        source_code: &str,
         target_code: &str,
-        transformation_type: TransformationType
+        transformation_type: TransformationType,
     ) -> CorrectnessTheorem {
-        
         // Convert source and target to modular forms
         let source_form = self.code_to_modular_form(source_code);
         let target_form = self.code_to_modular_form(target_code);
@@ -107,7 +107,8 @@ impl CompilerCorrectnessTheorem {
             return CorrectnessTheorem {
                 is_correct: false,
                 proof: None,
-                theorem_statement: "Transformation violates modular structure preservation".to_string(),
+                theorem_statement: "Transformation violates modular structure preservation"
+                    .to_string(),
             };
         }
 
@@ -149,7 +150,8 @@ impl CompilerCorrectnessTheorem {
         let level = self.compute_code_level(code);
         let q_expansion = self.compute_q_expansion_from_code(code);
 
-        self.orbit_analyzer.from_modular_form(weight, level, &q_expansion)
+        self.orbit_analyzer
+            .from_modular_form(weight, level, &q_expansion)
     }
 
     /// Compute modular form weight from code complexity
@@ -169,7 +171,7 @@ impl CompilerCorrectnessTheorem {
         let struct_hash = code.chars().map(|c| c as usize).sum::<usize>();
         match struct_hash % 5 {
             0 => 1,
-            1 => 2, 
+            1 => 2,
             2 => 3,
             3 => 5,
             _ => 11,
@@ -198,29 +200,37 @@ impl CompilerCorrectnessTheorem {
     }
 
     /// Construct explicit SL₂(ℤ)-isomorphism witness
-    fn construct_isomorphism_witness(&self, source: &ModularFormOrbit, target: &ModularFormOrbit) -> Vec<SL2ZTransformation> {
+    fn construct_isomorphism_witness(
+        &self,
+        source: &ModularFormOrbit,
+        target: &ModularFormOrbit,
+    ) -> Vec<SL2ZTransformation> {
         let mut transformations = Vec::new();
 
         // Simple heuristic: use coefficient differences to determine transformations
-        let coeff_diff: i64 = target.normalized_coefficients.iter().sum::<i64>() - 
-                             source.normalized_coefficients.iter().sum::<i64>();
+        let coeff_diff: i64 = target.normalized_coefficients.iter().sum::<i64>()
+            - source.normalized_coefficients.iter().sum::<i64>();
 
         match coeff_diff % 4 {
-            0 => {}, // Identity transformation
+            0 => {} // Identity transformation
             1 => transformations.push(SL2ZTransformation::T),
             2 => {
                 transformations.push(SL2ZTransformation::S);
                 transformations.push(SL2ZTransformation::T);
-            },
+            }
             3 => transformations.push(SL2ZTransformation::TInverse),
-            _ => {},
+            _ => {}
         }
 
         transformations
     }
 
     /// Verify modular structure preservation
-    fn verify_structure_preservation(&self, source: &ModularFormOrbit, target: &ModularFormOrbit) -> StructurePreservation {
+    fn verify_structure_preservation(
+        &self,
+        source: &ModularFormOrbit,
+        target: &ModularFormOrbit,
+    ) -> StructurePreservation {
         StructurePreservation {
             weight_preserved: source.weight == target.weight,
             level_preserved: self.levels_compatible(source.level, target.level),
@@ -235,27 +245,41 @@ impl CompilerCorrectnessTheorem {
     }
 
     /// Check Ramanujan τ coefficient compatibility
-    fn tau_coefficients_compatible(&self, source: &ModularFormOrbit, target: &ModularFormOrbit) -> bool {
+    fn tau_coefficients_compatible(
+        &self,
+        source: &ModularFormOrbit,
+        target: &ModularFormOrbit,
+    ) -> bool {
         if source.normalized_coefficients.len() != target.normalized_coefficients.len() {
             return false;
         }
 
-        source.normalized_coefficients.iter()
+        source
+            .normalized_coefficients
+            .iter()
             .zip(target.normalized_coefficients.iter())
             .all(|(&a, &b)| (a - b) % 196883 == 0)
     }
 
     /// Check Hecke eigenvalue compatibility
-    fn hecke_eigenvalues_compatible(&self, source: &ModularFormOrbit, target: &ModularFormOrbit) -> bool {
-        source.orbit_signature[2] == target.orbit_signature[2] || 
-        source.orbit_signature[2] == -target.orbit_signature[2]
+    fn hecke_eigenvalues_compatible(
+        &self,
+        source: &ModularFormOrbit,
+        target: &ModularFormOrbit,
+    ) -> bool {
+        source.orbit_signature[2] == target.orbit_signature[2]
+            || source.orbit_signature[2] == -target.orbit_signature[2]
     }
 
     /// Verify Monster Group invariants
-    fn verify_monster_invariants(&self, source: &ModularFormOrbit, target: &ModularFormOrbit) -> bool {
+    fn verify_monster_invariants(
+        &self,
+        source: &ModularFormOrbit,
+        target: &ModularFormOrbit,
+    ) -> bool {
         let source_invariant = source.orbit_signature.iter().product::<i64>() % 196883;
         let target_invariant = target.orbit_signature.iter().product::<i64>() % 196883;
-        
+
         source_invariant == target_invariant
     }
 
@@ -276,10 +300,10 @@ impl CompilerCorrectnessTheorem {
 
 impl StructurePreservation {
     fn is_valid(&self) -> bool {
-        self.weight_preserved && 
-        self.level_preserved && 
-        self.tau_coefficients_preserved && 
-        self.hecke_eigenvalues_preserved
+        self.weight_preserved
+            && self.level_preserved
+            && self.tau_coefficients_preserved
+            && self.hecke_eigenvalues_preserved
     }
 }
 
@@ -309,28 +333,32 @@ mod tests {
     #[test]
     fn test_correctness_theorem() {
         let mut theorem = CompilerCorrectnessTheorem::new();
-        
+
         let source = "fn main() { println!(\"hello\"); }";
         let target = "fn main() {\n    println!(\"hello\");\n}"; // Formatting change
-        
+
         let result = theorem.prove_transformation_correctness(
-            source, target, TransformationType::Refactoring
+            source,
+            target,
+            TransformationType::Refactoring,
         );
-        
+
         assert!(result.is_correct); // Formatting preserves modular structure
     }
 
     #[test]
     fn test_optimization_correctness() {
         let mut theorem = CompilerCorrectnessTheorem::new();
-        
+
         let source = "fn add(a: i32, b: i32) -> i32 { a + b }";
         let target = "fn add(a: i32, b: i32) -> i32 { a + b }"; // No change
-        
+
         let result = theorem.prove_transformation_correctness(
-            source, target, TransformationType::Optimization
+            source,
+            target,
+            TransformationType::Optimization,
         );
-        
+
         assert!(result.is_correct);
     }
 }

@@ -1,7 +1,7 @@
 use anyhow::{Result, anyhow};
 use rocksdb::DB;
-use std::collections::HashMap;
 use serde_json;
+use std::collections::HashMap;
 
 use crate::analysis_types::ProjectFileAnalysis; // Assuming ProjectFileAnalysis is public
 
@@ -13,7 +13,6 @@ pub fn query_project_analysis(db: &DB) -> Result<()> {
     let mut file_type_counts: HashMap<String, usize> = HashMap::new();
     let mut unique_file_type_hashes: HashMap<String, HashMap<String, usize>> = HashMap::new();
 
-
     let prefix = b"file_analysis:";
 
     for item in db.iterator(rocksdb::IteratorMode::Start) {
@@ -22,12 +21,17 @@ pub fn query_project_analysis(db: &DB) -> Result<()> {
 
         if key_str.starts_with("file_analysis:") {
             if let Ok(analysis) = serde_json::from_slice::<ProjectFileAnalysis>(&value_bytes) {
-                *content_hash_counts.entry(analysis.content_hash.clone()).or_insert(0) += 1;
-                *file_type_counts.entry(analysis.file_type.clone()).or_insert(0) += 1;
-                *unique_file_type_hashes.entry(analysis.file_type.clone())
-                                         .or_insert_with(HashMap::new)
-                                         .entry(analysis.content_hash.clone())
-                                         .or_insert(0) += 1;
+                *content_hash_counts
+                    .entry(analysis.content_hash.clone())
+                    .or_insert(0) += 1;
+                *file_type_counts
+                    .entry(analysis.file_type.clone())
+                    .or_insert(0) += 1;
+                *unique_file_type_hashes
+                    .entry(analysis.file_type.clone())
+                    .or_insert_with(HashMap::new)
+                    .entry(analysis.content_hash.clone())
+                    .or_insert(0) += 1;
                 all_analyses.push(analysis);
             } else {
                 eprintln!("Warning: Failed to deserialize RocksDB entry: {}", key_str);
@@ -39,24 +43,35 @@ pub fn query_project_analysis(db: &DB) -> Result<()> {
     for analysis in &all_analyses {
         if let Some(&count) = content_hash_counts.get(&analysis.content_hash) {
             if count > 1 {
-                duplicate_content_hashes.entry(analysis.content_hash.clone())
-                                        .or_insert_with(Vec::new)
-                                        .push(analysis.file_path.clone());
+                duplicate_content_hashes
+                    .entry(analysis.content_hash.clone())
+                    .or_insert_with(Vec::new)
+                    .push(analysis.file_path.clone());
             }
         }
     }
 
     eprintln!("\n--- Project Analysis Summary ---");
     eprintln!("Total analyzed files indexed: {}", all_analyses.len());
-    eprintln!("Unique file content hashes (overall): {}", content_hash_counts.len());
-    eprintln!("Files with duplicate content hashes (overall): {}", duplicate_content_hashes.len());
+    eprintln!(
+        "Unique file content hashes (overall): {}",
+        content_hash_counts.len()
+    );
+    eprintln!(
+        "Files with duplicate content hashes (overall): {}",
+        duplicate_content_hashes.len()
+    );
 
     eprintln!("\n--- Analysis by File Type ---");
     for (file_type, count) in file_type_counts {
-        let unique_hashes = unique_file_type_hashes.get(&file_type).map_or(0, |m| m.len());
-        eprintln!("  {}: Total = {}, Unique Hashes = {}", file_type, count, unique_hashes);
+        let unique_hashes = unique_file_type_hashes
+            .get(&file_type)
+            .map_or(0, |m| m.len());
+        eprintln!(
+            "  {}: Total = {}, Unique Hashes = {}",
+            file_type, count, unique_hashes
+        );
     }
-
 
     if !duplicate_content_hashes.is_empty() {
         eprintln!("\n--- Details of Duplicate Content Hashes (Overall) ---");

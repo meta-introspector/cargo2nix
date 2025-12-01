@@ -1,5 +1,5 @@
-use crate::vernacular_monster_path::{VernacularEmbedding, MonsterTarget};
 use crate::minizinc_data::MinizincInput;
+use crate::vernacular_monster_path::{MonsterTarget, VernacularEmbedding};
 
 pub struct SelfDescribingMonster;
 
@@ -20,20 +20,20 @@ impl SelfDescribingMonster {
 
     pub fn target_monster() -> MonsterTarget {
         MonsterTarget {
-            element_id: 0, // Identity element - self-reference
+            element_id: 0,        // Identity element - self-reference
             stabilizer_class: 24, // Monster Group mod 24
-            eigenvalue: 1.0, // Perfect eigenvalue
+            eigenvalue: 1.0,      // Perfect eigenvalue
         }
     }
 
     pub fn self_path() -> MinizincInput {
         let self_embedding = Self::describe_self();
         let self_target = Self::target_monster();
-        
+
         MinizincInput {
-            elliptic_fiber: 0, // Identity fiber
-            torus_x: 0,        // Identity point
-            torus_y: 0,        // Identity point
+            elliptic_fiber: 0,      // Identity fiber
+            torus_x: 0,             // Identity point
+            torus_y: 0,             // Identity point
             monster_stabilizer: 24, // Monster Group order mod 24
         }
     }

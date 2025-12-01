@@ -1,14 +1,26 @@
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 /// Comprehensive term collection with 4K page optimization
 /// Collects all terms, names, constants with Monster Group factor assignment
 use syn::{visit::Visit, *};
-use std::collections::HashMap;
-use serde::{Deserialize, Serialize};
 
 const PAGE_SIZE: usize = 4096; // 4K pages
 const MONSTER_FACTORS: [(u64, u32); 15] = [
-    (2, 46), (3, 20), (5, 9), (7, 6), (11, 2), (13, 3),
-    (17, 1), (19, 1), (23, 1), (29, 1), (31, 1), (41, 1),
-    (47, 1), (59, 1), (71, 1)
+    (2, 46),
+    (3, 20),
+    (5, 9),
+    (7, 6),
+    (11, 2),
+    (13, 3),
+    (17, 1),
+    (19, 1),
+    (23, 1),
+    (29, 1),
+    (31, 1),
+    (41, 1),
+    (47, 1),
+    (59, 1),
+    (71, 1),
 ];
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -73,30 +85,30 @@ impl MonsterFactorAllocator {
         for (prime, exp) in MONSTER_FACTORS {
             available.insert(prime, exp);
         }
-        
+
         Self {
             available_factors: available,
             used_factors: HashMap::new(),
         }
     }
-    
+
     pub fn allocate_factor(&mut self, term_count: usize, semantic_type: &str) -> (u64, u32) {
         let prime = self.select_prime_for_semantic(semantic_type);
         let needed_exp = self.count_to_exponent(term_count);
-        
+
         let available = self.available_factors.get(&prime).copied().unwrap_or(0);
         let used = self.used_factors.get(&prime).copied().unwrap_or(0);
-        
+
         let actual_exp = needed_exp.min(available);
-        
+
         if actual_exp > 0 {
             self.available_factors.insert(prime, available - actual_exp);
             self.used_factors.insert(prime, used + actual_exp);
         }
-        
+
         (prime, actual_exp)
     }
-    
+
     fn select_prime_for_semantic(&self, semantic_type: &str) -> u64 {
         match semantic_type {
             "rustc_main" => 71,
@@ -116,7 +128,7 @@ impl MonsterFactorAllocator {
             _ => 2, // Default to prime 2 with 46 available factors
         }
     }
-    
+
     fn count_to_exponent(&self, count: usize) -> u32 {
         match count {
             0 => 0,
@@ -138,7 +150,7 @@ impl ComprehensiveTermCollector {
             factor_allocator: MonsterFactorAllocator::new(),
         }
     }
-    
+
     pub fn collect_file_terms(&mut self, file_path: &str, syntax_tree: &syn::File) -> FileSummary {
         let mut file_summary = FileSummary {
             file_path: file_path.to_string(),
@@ -147,35 +159,39 @@ impl ComprehensiveTermCollector {
             file_factors: Vec::new(),
             chunks: Vec::new(),
         };
-        
+
         // Collect terms for each top-level declaration
         for item in &syntax_tree.items {
             let decl_summary = self.collect_declaration_terms(item);
             file_summary.file_terms.merge(&decl_summary.terms);
             file_summary.declarations.push(decl_summary);
         }
-        
+
         // Assign file-level factors
         file_summary.file_factors = self.assign_file_factors(&file_summary.file_terms);
-        
+
         // Create semantic chunks (4K pages)
         file_summary.chunks = self.create_semantic_chunks(&file_summary);
-        
+
         file_summary
     }
-    
+
     fn collect_declaration_terms(&mut self, item: &Item) -> DeclSummary {
         self.current_terms = TermCounts::new();
-        
+
         let (decl_name, decl_type) = self.extract_decl_info(item);
         self.current_decl = Some(decl_name.clone());
-        
+
         // Visit the declaration to collect terms
         self.visit_item(item);
-        
-        let assigned_factors = assign_factors_for_declaration_terms(&mut self.factor_allocator, &self.current_terms, &decl_type);
+
+        let assigned_factors = assign_factors_for_declaration_terms(
+            &mut self.factor_allocator,
+            &self.current_terms,
+            &decl_type,
+        );
         let semantic_chunk_id = self.generate_chunk_id(&decl_name, &assigned_factors);
-        
+
         DeclSummary {
             decl_name,
             decl_type,
@@ -184,7 +200,7 @@ impl ComprehensiveTermCollector {
             semantic_chunk_id,
         }
     }
-    
+
     fn extract_decl_info(&self, item: &Item) -> (String, String) {
         match item {
             Item::Fn(f) => (f.sig.ident.to_string(), "fn".to_string()),
@@ -199,49 +215,51 @@ impl ComprehensiveTermCollector {
             _ => ("unknown".to_string(), "unknown".to_string()),
         }
     }
-    
+
     fn assign_file_factors(&mut self, file_terms: &TermCounts) -> Vec<(u64, u32)> {
-        vec![
-            self.factor_allocator.allocate_factor(file_terms.total_terms, "file"),
-        ]
+        vec![self
+            .factor_allocator
+            .allocate_factor(file_terms.total_terms, "file")]
     }
-    
+
     fn create_semantic_chunks(&mut self, file_summary: &FileSummary) -> Vec<SemanticChunk> {
         let mut chunks = Vec::new();
         let mut current_size = 0;
         let mut chunk_terms = TermCounts::new();
         let mut chunk_counter = 0;
-        
+
         for decl in &file_summary.declarations {
             let decl_size = self.estimate_decl_size(&decl.terms);
-            
+
             if current_size + decl_size > PAGE_SIZE && current_size > 0 {
                 // Create chunk
                 let chunk = self.finalize_chunk(chunk_counter, current_size, chunk_terms);
                 chunks.push(chunk);
-                
+
                 // Reset for next chunk
                 chunk_counter += 1;
                 current_size = 0;
                 chunk_terms = TermCounts::new();
             }
-            
+
             current_size += decl_size;
             chunk_terms.merge(&decl.terms);
         }
-        
+
         // Final chunk
         if current_size > 0 {
             chunks.push(self.finalize_chunk(chunk_counter, current_size, chunk_terms));
         }
-        
+
         chunks
     }
-    
+
     fn finalize_chunk(&mut self, chunk_id: usize, size: usize, terms: TermCounts) -> SemanticChunk {
-        let (prime, _) = self.factor_allocator.allocate_factor(terms.total_terms, "chunk");
+        let (prime, _) = self
+            .factor_allocator
+            .allocate_factor(terms.total_terms, "chunk");
         let semantic_meaning = self.derive_semantic_meaning(&terms, prime);
-        
+
         SemanticChunk {
             chunk_id: format!("chunk_{}", chunk_id),
             size_bytes: size,
@@ -250,7 +268,7 @@ impl ComprehensiveTermCollector {
             semantic_meaning,
         }
     }
-    
+
     fn derive_semantic_meaning(&self, terms: &TermCounts, prime: u64) -> String {
         let dominant_category = if terms.keywords.len() > terms.identifiers.len() {
             "control_flow"
@@ -261,15 +279,15 @@ impl ComprehensiveTermCollector {
         } else {
             "general_code"
         };
-        
+
         format!("{}_{}", dominant_category, prime)
     }
-    
+
     fn estimate_decl_size(&self, terms: &TermCounts) -> usize {
         // Rough estimate: 10 bytes per term on average
         terms.total_terms * 10
     }
-    
+
     fn generate_chunk_id(&self, decl_name: &str, factors: &[(u64, u32)]) -> String {
         let factor_sum: u64 = factors.iter().map(|(p, e)| p * (*e as u64)).sum();
         format!("{}_{}", decl_name, factor_sum % 1000)
@@ -277,9 +295,13 @@ impl ComprehensiveTermCollector {
 }
 
 // Private helper function to assign factors for a declaration's terms
-fn assign_factors_for_declaration_terms(allocator: &mut MonsterFactorAllocator, terms: &TermCounts, decl_type: &str) -> Vec<(u64, u32)> {
+fn assign_factors_for_declaration_terms(
+    allocator: &mut MonsterFactorAllocator,
+    terms: &TermCounts,
+    decl_type: &str,
+) -> Vec<(u64, u32)> {
     let mut factors = Vec::new();
-    
+
     // Assign factors based on term counts and declaration type
     if terms.identifiers.len() > 0 {
         factors.push(allocator.allocate_factor(terms.identifiers.len(), "identifier"));
@@ -293,10 +315,10 @@ fn assign_factors_for_declaration_terms(allocator: &mut MonsterFactorAllocator, 
     if terms.types.len() > 0 {
         factors.push(allocator.allocate_factor(terms.types.len(), "type"));
     }
-    
+
     // Add semantic factor for declaration type
     factors.push(allocator.allocate_factor(1, decl_type));
-    
+
     factors
 }
 
@@ -310,7 +332,7 @@ impl TermCounts {
             total_terms: 0,
         }
     }
-    
+
     pub fn merge(&mut self, other: &TermCounts) {
         for (k, v) in &other.identifiers {
             *self.identifiers.entry(k.clone()).or_insert(0) += v;
@@ -334,7 +356,7 @@ impl<'ast> Visit<'ast> for ComprehensiveTermCollector {
         *self.current_terms.identifiers.entry(name).or_insert(0) += 1;
         self.current_terms.total_terms += 1;
     }
-    
+
     fn visit_lit(&mut self, lit: &'ast Lit) {
         let value = match lit {
             Lit::Str(s) => format!("\"{}\"", s.value()),
@@ -347,10 +369,14 @@ impl<'ast> Visit<'ast> for ComprehensiveTermCollector {
         self.current_terms.total_terms += 1;
         syn::visit::visit_lit(self, lit);
     }
-    
+
     fn visit_type(&mut self, ty: &'ast Type) {
         let type_name = match ty {
-            Type::Path(p) => p.path.segments.last().map_or("path".to_string(), |s| s.ident.to_string()),
+            Type::Path(p) => p
+                .path
+                .segments
+                .last()
+                .map_or("path".to_string(), |s| s.ident.to_string()),
             Type::Reference(_) => "ref".to_string(),
             Type::Ptr(_) => "ptr".to_string(),
             Type::Array(_) => "array".to_string(),

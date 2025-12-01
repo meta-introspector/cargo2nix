@@ -54,7 +54,6 @@ pub mod sym {
     pub const Debug: Symbol = Symbol; // For lang_items().get_diagnostic_item(sym::Debug)
 }
 
-
 // --- Mock TyCtxt ---
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct TyCtxt<'tcx>(pub PhantomData<&'tcx ()>);
@@ -91,7 +90,6 @@ impl<'tcx> TyCtxt<'tcx> {
         vec![MockAttribute]
     }
 }
-
 
 // --- Mock Hir and related types ---
 pub struct MockHir;
@@ -170,7 +168,6 @@ impl MockInferCtxtAt {
     }
 }
 
-
 // --- Mock Attributes ---
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct MockAttribute;
@@ -231,7 +228,12 @@ impl MockObligationCause {
 pub struct MockPredicateObligation;
 
 impl MockPredicateObligation {
-    pub fn new(_tcx: TyCtxt, _cause: MockObligationCause, _param_env: MockParamEnv, _predicate: MockPredicate) -> Self {
+    pub fn new(
+        _tcx: TyCtxt,
+        _cause: MockObligationCause,
+        _param_env: MockParamEnv,
+        _predicate: MockPredicate,
+    ) -> Self {
         MockPredicateObligation
     }
 }

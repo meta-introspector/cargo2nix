@@ -1,5 +1,5 @@
-use std::path::Path;
 use std::fs;
+use std::path::Path;
 
 pub struct RepoDatabase {
     pub path: String,
@@ -8,9 +8,11 @@ pub struct RepoDatabase {
 impl RepoDatabase {
     pub fn new(db_path: &str) -> Self {
         fs::create_dir_all(Path::new(db_path).parent().unwrap()).unwrap();
-        Self { path: db_path.to_string() }
+        Self {
+            path: db_path.to_string(),
+        }
     }
-    
+
     pub fn init_git_repos(&self) -> Vec<String> {
         vec![
             "https://github.com/rust-lang/rust.git".to_string(),

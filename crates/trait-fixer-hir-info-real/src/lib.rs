@@ -1,8 +1,8 @@
 // crates/trait-fixer-hir-info-real/src/lib.rs
 
 use rustc_hir::Item;
-use rustc_hir::OwnerId;
 use rustc_hir::ItemKind;
+use rustc_hir::OwnerId;
 use rustc_span::Span;
 // use std::marker::PhantomData; // This is not needed for the real rustc, but it helps when mocking. // Remove this line if not used
 

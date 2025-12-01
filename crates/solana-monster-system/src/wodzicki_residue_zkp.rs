@@ -198,24 +198,25 @@ impl WodzickiResidueZKP {
     }
 
     /// Generate Wodzicki residue ZKP from compilation process
-    pub fn generate_residue_zkp(&mut self, 
+    pub fn generate_residue_zkp(
+        &mut self,
         source_code: &str,
         build_config: &str,
-        private_data: &[u8]
+        private_data: &[u8],
     ) -> Result<WodzickiResidue, ResidueError> {
-        
         // Step 1: Construct non-commutative operator from compilation
-        let operator = self.construct_compilation_operator(source_code, build_config, private_data)?;
-        
+        let operator =
+            self.construct_compilation_operator(source_code, build_config, private_data)?;
+
         // Step 2: Verify trace vanishes (private computation details disappear)
         let trace_vanishing = self.trace_vanisher.verify_trace_vanishes(&operator)?;
-        
+
         // Step 3: Compute Wodzicki residue (public verifiable index)
         let residue = self.residue_computer.compute_wodzicki_residue(&operator)?;
-        
+
         // Step 4: Generate verification data
         let verification_data = self.generate_verification_data(&operator, &trace_vanishing)?;
-        
+
         Ok(WodzickiResidue {
             residue_value: residue,
             order: operator.order,
@@ -230,36 +231,36 @@ impl WodzickiResidueZKP {
         if !self.verify_trace_vanishing(&residue.verification_data.trace_vanishing_proof) {
             return Ok(false);
         }
-        
+
         // Step 2: Verify residue is well-formed
         if !self.verify_residue_well_formed(residue) {
             return Ok(false);
         }
-        
+
         // Step 3: Verify Monster Group residue invariant
         if !self.verify_monster_residue_invariant(residue) {
             return Ok(false);
         }
-        
+
         Ok(true)
     }
 
     /// Construct non-commutative operator from compilation process
-    fn construct_compilation_operator(&self, 
+    fn construct_compilation_operator(
+        &self,
         source_code: &str,
         build_config: &str,
-        private_data: &[u8]
+        private_data: &[u8],
     ) -> Result<NonCommutativeOperator, ResidueError> {
-        
         // Public symbol (survives in residue)
         let symbol = self.extract_operator_symbol(source_code, build_config);
-        
+
         // Private kernel (vanishes in trace)
         let kernel = self.construct_operator_kernel(source_code, build_config, private_data);
-        
+
         // Operator order determines residue behavior
         let order = self.compute_operator_order(source_code);
-        
+
         Ok(NonCommutativeOperator {
             symbol,
             kernel,
@@ -275,13 +276,13 @@ impl WodzickiResidueZKP {
             real: complexity.ln(),
             imag: (build_config.len() as f64).sqrt(),
         };
-        
+
         // Symbol degree
         let degree = (source_code.len() / 100) as i64;
-        
+
         // Monster Group action
         let monster_action = (source_code.len() as i64 * build_config.len() as i64) % 196883;
-        
+
         OperatorSymbol {
             leading_coefficient,
             degree,
@@ -290,36 +291,32 @@ impl WodzickiResidueZKP {
     }
 
     /// Construct private operator kernel (will vanish in trace)
-    fn construct_operator_kernel(&self, 
+    fn construct_operator_kernel(
+        &self,
         source_code: &str,
         build_config: &str,
-        private_data: &[u8]
+        private_data: &[u8],
     ) -> OperatorKernel {
-        
         // Internal compilation states (private)
-        let internal_states = vec![
-            CompilationState {
-                ast_data: source_code.as_bytes().to_vec(),
-                type_state: vec![1, 2, 3], // Simplified
-                optimization_state: build_config.as_bytes().to_vec(),
-            }
-        ];
-        
+        let internal_states = vec![CompilationState {
+            ast_data: source_code.as_bytes().to_vec(),
+            type_state: vec![1, 2, 3], // Simplified
+            optimization_state: build_config.as_bytes().to_vec(),
+        }];
+
         // Private transformations (private)
-        let private_transformations = vec![
-            PrivateTransformation {
-                transformation_type: "optimization".to_string(),
-                internal_params: vec![42, 24, 252], // Ramanujan τ values
-            }
-        ];
-        
+        let private_transformations = vec![PrivateTransformation {
+            transformation_type: "optimization".to_string(),
+            internal_params: vec![42, 24, 252], // Ramanujan τ values
+        }];
+
         // Sensitive data (private)
         let sensitive_data = SensitiveData {
             source_fragments: vec![source_code.to_string()],
             build_secrets: HashMap::new(),
             dependency_details: vec!["private_dep".to_string()],
         };
-        
+
         OperatorKernel {
             internal_states,
             private_transformations,
@@ -339,14 +336,14 @@ impl WodzickiResidueZKP {
     }
 
     /// Generate verification data
-    fn generate_verification_data(&self, 
+    fn generate_verification_data(
+        &self,
         operator: &NonCommutativeOperator,
-        trace_vanishing: &TraceVanishingProof
+        trace_vanishing: &TraceVanishingProof,
     ) -> Result<ResidueVerificationData, ResidueError> {
-        
         // Symbol hash
         let symbol_hash = self.hash_operator_symbol(&operator.symbol);
-        
+
         Ok(ResidueVerificationData {
             timestamp: std::time::SystemTime::now()
                 .duration_since(std::time::UNIX_EPOCH)
@@ -358,7 +355,7 @@ impl WodzickiResidueZKP {
     }
 
     fn hash_operator_symbol(&self, symbol: &OperatorSymbol) -> [u8; 32] {
-        use sha2::{Sha256, Digest};
+        use sha2::{Digest, Sha256};
         let mut hasher = Sha256::new();
         hasher.update(&symbol.leading_coefficient.real.to_be_bytes());
         hasher.update(&symbol.leading_coefficient.imag.to_be_bytes());
@@ -368,8 +365,7 @@ impl WodzickiResidueZKP {
     }
 
     fn verify_trace_vanishing(&self, proof: &TraceVanishingProof) -> bool {
-        proof.vanishing_verified && 
-        proof.trace_result.magnitude() < 1e-10 // Trace effectively zero
+        proof.vanishing_verified && proof.trace_result.magnitude() < 1e-10 // Trace effectively zero
     }
 
     fn verify_residue_well_formed(&self, residue: &WodzickiResidue) -> bool {
@@ -385,7 +381,10 @@ impl NonCommutativeOperator {
     fn new() -> Self {
         Self {
             symbol: OperatorSymbol {
-                leading_coefficient: Complex { real: 1.0, imag: 0.0 },
+                leading_coefficient: Complex {
+                    real: 1.0,
+                    imag: 0.0,
+                },
                 degree: 0,
                 monster_action: 0,
             },
@@ -415,7 +414,10 @@ impl ResidueComputer {
                 integration_params: IntegrationParameters {
                     contour: IntegrationContour {
                         radius: 1.0,
-                        center: Complex { real: 0.0, imag: 0.0 },
+                        center: Complex {
+                            real: 0.0,
+                            imag: 0.0,
+                        },
                     },
                     residue_order: 1,
                 },
@@ -424,19 +426,22 @@ impl ResidueComputer {
     }
 
     /// Compute Wodzicki residue (verifiable index)
-    fn compute_wodzicki_residue(&self, operator: &NonCommutativeOperator) -> Result<Complex, ResidueError> {
+    fn compute_wodzicki_residue(
+        &self,
+        operator: &NonCommutativeOperator,
+    ) -> Result<Complex, ResidueError> {
         // Wodzicki residue formula: Res(P) = (1/2πi) ∮ tr(σ(P)(x,ξ)) dξ
         // where σ(P) is the symbol and tr is the trace (which vanishes)
-        
+
         let symbol = &operator.symbol;
-        
+
         // Residue computation using symbol only (kernel vanishes)
         let residue_real = symbol.leading_coefficient.real / (2.0 * std::f64::consts::PI);
         let residue_imag = symbol.leading_coefficient.imag / (2.0 * std::f64::consts::PI);
-        
+
         // Apply Monster Group correction
         let monster_correction = (symbol.monster_action as f64) / 196883.0;
-        
+
         Ok(Complex {
             real: residue_real * (1.0 + monster_correction),
             imag: residue_imag * (1.0 + monster_correction),
@@ -453,23 +458,24 @@ impl TraceVanisher {
                     regularization: 1e-12,
                 },
             },
-            vanishing_verifier: VanishingVerifier {
-                tolerance: 1e-10,
-            },
+            vanishing_verifier: VanishingVerifier { tolerance: 1e-10 },
         }
     }
 
     /// Verify that operator trace vanishes (private data disappears)
-    fn verify_trace_vanishes(&self, operator: &NonCommutativeOperator) -> Result<TraceVanishingProof, ResidueError> {
+    fn verify_trace_vanishes(
+        &self,
+        operator: &NonCommutativeOperator,
+    ) -> Result<TraceVanishingProof, ResidueError> {
         // Compute trace of operator (should vanish for non-commutative operators)
         let trace_result = self.trace_computer.compute_operator_trace(operator);
-        
+
         // Verify trace vanishes within tolerance
         let vanishing_verified = self.vanishing_verifier.verify_vanishing(&trace_result);
-        
+
         // Generate residue extraction proof
         let residue_extraction_proof = self.generate_extraction_proof(operator);
-        
+
         Ok(TraceVanishingProof {
             trace_result,
             vanishing_verified,
@@ -478,7 +484,7 @@ impl TraceVanisher {
     }
 
     fn generate_extraction_proof(&self, operator: &NonCommutativeOperator) -> [u8; 32] {
-        use sha2::{Sha256, Digest};
+        use sha2::{Digest, Sha256};
         let mut hasher = Sha256::new();
         hasher.update(&operator.order.to_be_bytes());
         hasher.update(b"trace_vanishes");
@@ -491,11 +497,11 @@ impl TraceComputer {
     fn compute_operator_trace(&self, operator: &NonCommutativeOperator) -> Complex {
         // For non-commutative operators, trace vanishes due to non-commutativity
         // This is the key insight: private data disappears in the trace
-        
+
         // Simplified trace computation that vanishes
         let trace_contribution = operator.kernel.internal_states.len() as f64;
         let vanishing_factor = 1.0 / (trace_contribution + 1.0);
-        
+
         Complex {
             real: vanishing_factor * self.trace_params.regularization,
             imag: 0.0,
@@ -534,14 +540,14 @@ mod tests {
     #[test]
     fn test_wodzicki_residue_generation() {
         let mut zkp = WodzickiResidueZKP::new();
-        
+
         let source = "fn main() { println!(\"hello\"); }";
         let config = "opt-level = 3";
         let private_data = b"sensitive_build_data";
-        
+
         let residue = zkp.generate_residue_zkp(source, config, private_data);
         assert!(residue.is_ok());
-        
+
         if let Ok(r) = residue {
             // Verify residue without accessing private data
             let verification = zkp.verify_residue(&r);
@@ -554,10 +560,10 @@ mod tests {
     fn test_trace_vanishing() {
         let zkp = WodzickiResidueZKP::new();
         let operator = NonCommutativeOperator::new();
-        
+
         let trace_proof = zkp.trace_vanisher.verify_trace_vanishes(&operator);
         assert!(trace_proof.is_ok());
-        
+
         if let Ok(proof) = trace_proof {
             assert!(proof.vanishing_verified);
             assert!(proof.trace_result.magnitude() < 1e-10);
@@ -567,22 +573,28 @@ mod tests {
     #[test]
     fn test_residue_verification() {
         let zkp = WodzickiResidueZKP::new();
-        
+
         let residue = WodzickiResidue {
-            residue_value: Complex { real: 1.0, imag: 0.5 },
+            residue_value: Complex {
+                real: 1.0,
+                imag: 0.5,
+            },
             order: 2,
             monster_residue: 12345,
             verification_data: ResidueVerificationData {
                 timestamp: 1234567890,
                 symbol_hash: [1; 32],
                 trace_vanishing_proof: TraceVanishingProof {
-                    trace_result: Complex { real: 1e-12, imag: 0.0 },
+                    trace_result: Complex {
+                        real: 1e-12,
+                        imag: 0.0,
+                    },
                     vanishing_verified: true,
                     residue_extraction_proof: [2; 32],
                 },
             },
         };
-        
+
         let is_valid = zkp.verify_residue(&residue);
         assert!(is_valid.is_ok());
         assert!(is_valid.unwrap());

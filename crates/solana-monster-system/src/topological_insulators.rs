@@ -9,7 +9,10 @@ pub struct KOTheoryClassification {
 
 impl TopologicalInsulator {
     pub fn new(dimension: usize, ko_class: i64) -> Self {
-        Self { dimension, ko_class }
+        Self {
+            dimension,
+            ko_class,
+        }
     }
 
     pub fn is_trivial(&self) -> bool {

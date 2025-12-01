@@ -2,7 +2,7 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fs;
-use std::path::{PathBuf};
+use std::path::PathBuf;
 use std::process::{Command, Stdio};
 use std::time::{Instant, SystemTime, UNIX_EPOCH};
 
@@ -22,7 +22,7 @@ const GIT_WRAPPER_LIB_PATH: &str = "tools/git-wrapper-lib";
 
 #[derive(Debug, Default, Clone)]
 #[cfg_attr(feature = "serde_enabled", derive(Serialize, Deserialize))]
-struct BuildResult {    
+struct BuildResult {
     feature_set: String,
     status: String,
     build_time_ms: Option<u128>,

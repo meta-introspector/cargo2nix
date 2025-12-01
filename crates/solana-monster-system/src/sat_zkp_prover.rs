@@ -1,4 +1,4 @@
-use crate::core_constants::{MONSTER_GROUP_REPRESENTATION_DIMENSION};
+use crate::core_constants::MONSTER_GROUP_REPRESENTATION_DIMENSION;
 use std::collections::{HashMap, HashSet};
 
 /// SAT solver-based ZK circuit prover for mathematical properties
@@ -77,7 +77,11 @@ pub enum CircuitGate {
     /// Constraint gate (equality)
     Constraint { left: String, right: String },
     /// Monster Group operation
-    MonsterOp { input: String, output: String, order: i64 },
+    MonsterOp {
+        input: String,
+        output: String,
+        order: i64,
+    },
 }
 
 /// Public input to ZK circuit
@@ -165,22 +169,25 @@ impl SATZKProver {
     }
 
     /// Construct ZK circuit from Rust code and prove mathematical properties
-    pub fn prove_mathematical_properties(&mut self, rust_code: &str) -> Result<ProofResult, ProverError> {
+    pub fn prove_mathematical_properties(
+        &mut self,
+        rust_code: &str,
+    ) -> Result<ProofResult, ProverError> {
         // Step 1: Parse code and extract mathematical structures
         let math_structures = self.extract_mathematical_structures(rust_code)?;
-        
+
         // Step 2: Encode as SAT constraints
         let sat_constraints = self.encode_as_sat_constraints(&math_structures)?;
-        
+
         // Step 3: Construct ZK circuit
         let zk_circuit = self.construct_zk_circuit(&sat_constraints)?;
-        
+
         // Step 4: Generate proof using SAT solver
         let proof = self.generate_sat_proof(&zk_circuit)?;
-        
+
         // Step 5: Verify proof
         let verification = self.verify_proof(&proof)?;
-        
+
         Ok(ProofResult {
             proof_valid: verification.valid,
             mathematical_properties: math_structures,
@@ -190,16 +197,19 @@ impl SATZKProver {
     }
 
     /// Test for fixed point convergence
-    pub fn test_fixed_point_convergence(&mut self, rust_code: &str) -> Result<FixedPointResult, ProverError> {
+    pub fn test_fixed_point_convergence(
+        &mut self,
+        rust_code: &str,
+    ) -> Result<FixedPointResult, ProverError> {
         let mut iteration = 0;
         let max_iterations = 10;
-        
+
         let mut current_code = rust_code.to_string();
-        
+
         while iteration < max_iterations {
             // Analyze current code
             let analysis = self.analyze_code(&current_code)?;
-            
+
             // Check for fixed point
             if self.fixed_point_detector.is_fixed_point(&analysis) {
                 return Ok(FixedPointResult {
@@ -208,16 +218,16 @@ impl SATZKProver {
                     final_analysis: analysis,
                 });
             }
-            
+
             // Generate new code based on analysis
             current_code = self.generate_code_from_analysis(&analysis)?;
-            
+
             // Store analysis for next iteration
             self.fixed_point_detector.add_analysis(analysis);
-            
+
             iteration += 1;
         }
-        
+
         Ok(FixedPointResult {
             converged: false,
             iterations: max_iterations,
@@ -226,60 +236,66 @@ impl SATZKProver {
     }
 
     /// Extract mathematical structures from Rust code
-    fn extract_mathematical_structures(&self, code: &str) -> Result<MathematicalStructures, ProverError> {
+    fn extract_mathematical_structures(
+        &self,
+        code: &str,
+    ) -> Result<MathematicalStructures, ProverError> {
         let mut structures = MathematicalStructures::new();
-        
+
         // Look for Monster Group constants
         if code.contains("196883") {
             structures.monster_group_order = Some(MONSTER_GROUP_REPRESENTATION_DIMENSION as i64);
         }
-        
+
         // Look for Ramanujan τ values
         if code.contains("-24") && code.contains("252") {
             structures.tau_coefficients = vec![1, -24, 252, 4830, 534612];
         }
-        
+
         // Look for Hecke eigenvalues
         if code.contains("196883") && code.contains("-5472") {
             structures.hecke_eigenvalues = vec![196883, -5472];
         }
-        
+
         // Look for period-8 structures
         if code.matches('[').count() >= 8 || code.matches("8").count() > 0 {
             structures.period_8_structure = true;
         }
-        
+
         Ok(structures)
     }
 
     /// Encode mathematical structures as SAT constraints
-    fn encode_as_sat_constraints(&mut self, structures: &MathematicalStructures) -> Result<Vec<Clause>, ProverError> {
+    fn encode_as_sat_constraints(
+        &mut self,
+        structures: &MathematicalStructures,
+    ) -> Result<Vec<Clause>, ProverError> {
         let mut clauses = Vec::new();
-        
+
         // Monster Group order constraint: monster_order = 196883
         if let Some(order) = structures.monster_group_order {
             let constraint = self.property_encoder.encode_monster_order_constraint(order);
             clauses.extend(constraint);
         }
-        
+
         // Ramanujan τ constraints
         for (i, &tau_val) in structures.tau_coefficients.iter().enumerate() {
             let constraint = self.property_encoder.encode_tau_constraint(i, tau_val);
             clauses.extend(constraint);
         }
-        
+
         // Hecke eigenvalue constraints
         for (i, &eigenval) in structures.hecke_eigenvalues.iter().enumerate() {
             let constraint = self.property_encoder.encode_hecke_constraint(i, eigenval);
             clauses.extend(constraint);
         }
-        
+
         // Bott periodicity constraint
         if structures.period_8_structure {
             let constraint = self.property_encoder.encode_bott_periodicity_constraint();
             clauses.extend(constraint);
         }
-        
+
         Ok(clauses)
     }
 
@@ -288,13 +304,13 @@ impl SATZKProver {
         let mut gates = Vec::new();
         let mut public_inputs = Vec::new();
         let mut private_witnesses = Vec::new();
-        
+
         // Add Monster Group order as public input
         public_inputs.push(PublicInput {
             name: "monster_order".to_string(),
             value: MONSTER_GROUP_REPRESENTATION_DIMENSION as i64,
         });
-        
+
         // Add Ramanujan τ values as private witnesses
         for (i, &tau_val) in [1, -24, 252, 4830, 534612].iter().enumerate() {
             private_witnesses.push(PrivateWitness {
@@ -302,7 +318,7 @@ impl SATZKProver {
                 value: tau_val,
             });
         }
-        
+
         // Create constraint gates from SAT clauses
         for (i, clause) in constraints.iter().enumerate() {
             gates.push(CircuitGate::Constraint {
@@ -310,14 +326,14 @@ impl SATZKProver {
                 right: format!("clause_{}_right", i),
             });
         }
-        
+
         // Add Monster Group operation gate
         gates.push(CircuitGate::MonsterOp {
             input: "input_element".to_string(),
             output: "monster_result".to_string(),
             order: MONSTER_GROUP_REPRESENTATION_DIMENSION as i64,
         });
-        
+
         Ok(ZKCircuit {
             gates,
             public_inputs,
@@ -333,19 +349,26 @@ impl SATZKProver {
                 CircuitGate::Constraint { left, right } => {
                     self.sat_solver.add_equality_constraint(left, right);
                 }
-                CircuitGate::MonsterOp { input, output, order } => {
-                    self.sat_solver.add_monster_constraint(input, output, *order);
+                CircuitGate::MonsterOp {
+                    input,
+                    output,
+                    order,
+                } => {
+                    self.sat_solver
+                        .add_monster_constraint(input, output, *order);
                 }
                 _ => {}
             }
         }
-        
+
         // Solve SAT instance
         let sat_solution = self.sat_solver.solve()?;
-        
+
         // Generate ZK proof from SAT solution
-        let zk_proof = self.circuit_constructor.generate_proof(&sat_solution, circuit)?;
-        
+        let zk_proof = self
+            .circuit_constructor
+            .generate_proof(&sat_solution, circuit)?;
+
         Ok(SATProof {
             sat_solution,
             zk_proof,
@@ -356,10 +379,10 @@ impl SATZKProver {
     fn verify_proof(&self, proof: &SATProof) -> Result<VerificationResult, ProverError> {
         // Verify SAT solution satisfies all clauses
         let sat_valid = self.sat_solver.verify_solution(&proof.sat_solution);
-        
+
         // Verify ZK proof
         let zk_valid = self.circuit_constructor.verify_proof(&proof.zk_proof);
-        
+
         Ok(VerificationResult {
             valid: sat_valid && zk_valid,
             sat_verified: sat_valid,
@@ -375,9 +398,9 @@ impl SATZKProver {
             topological_structures: code.contains("Period8") || code.contains("Bott"),
             zkp_patterns: code.contains("ZKP") || code.contains("Proof"),
         };
-        
+
         let completeness = self.calculate_completeness(&properties);
-        
+
         Ok(AnalysisResult {
             properties,
             proof_valid: completeness > 0.8,
@@ -386,34 +409,48 @@ impl SATZKProver {
     }
 
     /// Generate code from analysis (for fixed point iteration)
-    fn generate_code_from_analysis(&self, analysis: &AnalysisResult) -> Result<String, ProverError> {
+    fn generate_code_from_analysis(
+        &self,
+        analysis: &AnalysisResult,
+    ) -> Result<String, ProverError> {
         let mut code = String::new();
-        
+
         if analysis.properties.monster_group {
-            code.push_str(&format!("const MONSTER_ORDER: i64 = {};\n", MONSTER_GROUP_REPRESENTATION_DIMENSION));
+            code.push_str(&format!(
+                "const MONSTER_ORDER: i64 = {};\n",
+                MONSTER_GROUP_REPRESENTATION_DIMENSION
+            ));
         }
-        
+
         if analysis.properties.modular_forms {
             code.push_str("const TAU_COEFFICIENTS: [i64; 5] = [1, -24, 252, 4830, 534612];\n");
         }
-        
+
         if analysis.properties.topological_structures {
             code.push_str("struct BottPeriodicity { period: usize }\n");
         }
-        
+
         if analysis.properties.zkp_patterns {
             code.push_str("struct ZKProof { valid: bool }\n");
         }
-        
+
         Ok(code)
     }
 
     fn calculate_completeness(&self, properties: &MathematicalProperties) -> f64 {
         let mut score = 0.0;
-        if properties.monster_group { score += 0.25; }
-        if properties.modular_forms { score += 0.25; }
-        if properties.topological_structures { score += 0.25; }
-        if properties.zkp_patterns { score += 0.25; }
+        if properties.monster_group {
+            score += 0.25;
+        }
+        if properties.modular_forms {
+            score += 0.25;
+        }
+        if properties.topological_structures {
+            score += 0.25;
+        }
+        if properties.zkp_patterns {
+            score += 0.25;
+        }
         score
     }
 }
@@ -431,14 +468,26 @@ impl SATSolver {
         // Add clause: (¬left ∨ right) ∧ (left ∨ ¬right)
         self.clauses.push(Clause {
             literals: vec![
-                Literal { variable: left.to_string(), negated: true },
-                Literal { variable: right.to_string(), negated: false },
+                Literal {
+                    variable: left.to_string(),
+                    negated: true,
+                },
+                Literal {
+                    variable: right.to_string(),
+                    negated: false,
+                },
             ],
         });
         self.clauses.push(Clause {
             literals: vec![
-                Literal { variable: left.to_string(), negated: false },
-                Literal { variable: right.to_string(), negated: true },
+                Literal {
+                    variable: left.to_string(),
+                    negated: false,
+                },
+                Literal {
+                    variable: right.to_string(),
+                    negated: true,
+                },
             ],
         });
     }
@@ -446,22 +495,23 @@ impl SATSolver {
     fn add_monster_constraint(&mut self, input: &str, output: &str, order: i64) {
         // Simplified: output = input mod order
         self.clauses.push(Clause {
-            literals: vec![
-                Literal { variable: format!("monster_{}_{}", input, output), negated: false },
-            ],
+            literals: vec![Literal {
+                variable: format!("monster_{}_{}", input, output),
+                negated: false,
+            }],
         });
     }
 
     fn solve(&mut self) -> Result<SATSolution, ProverError> {
         // Simplified SAT solving (DPLL algorithm would go here)
         self.solver_state = SolverState::Satisfiable;
-        
+
         // Generate satisfying assignment
         let mut assignment = HashMap::new();
         assignment.insert("monster_order".to_string(), true);
         assignment.insert("tau_valid".to_string(), true);
         assignment.insert("bott_periodic".to_string(), true);
-        
+
         Ok(SATSolution { assignment })
     }
 
@@ -478,7 +528,11 @@ impl SATSolver {
     fn clause_satisfied(&self, clause: &Clause, assignment: &HashMap<String, bool>) -> bool {
         for literal in &clause.literals {
             let var_value = assignment.get(&literal.variable).unwrap_or(&false);
-            let literal_value = if literal.negated { !var_value } else { *var_value };
+            let literal_value = if literal.negated {
+                !var_value
+            } else {
+                *var_value
+            };
             if literal_value {
                 return true; // Clause satisfied
             }
@@ -543,8 +597,8 @@ impl FixedPointDetector {
 
     fn is_fixed_point(&self, analysis: &AnalysisResult) -> bool {
         if let Some(last_analysis) = self.analysis_history.last() {
-            (analysis.completeness - last_analysis.completeness).abs() < self.convergence_threshold &&
-            analysis.properties == last_analysis.properties
+            (analysis.completeness - last_analysis.completeness).abs() < self.convergence_threshold
+                && analysis.properties == last_analysis.properties
         } else {
             false
         }
@@ -564,7 +618,11 @@ impl ZKCircuitConstructor {
         }
     }
 
-    fn generate_proof(&self, solution: &SATSolution, circuit: &ZKCircuit) -> Result<ZKProofData, ProverError> {
+    fn generate_proof(
+        &self,
+        solution: &SATSolution,
+        circuit: &ZKCircuit,
+    ) -> Result<ZKProofData, ProverError> {
         // Generate ZK proof from SAT solution
         Ok(ZKProofData {
             proof_bytes: vec![1, 2, 3, 4], // Simplified
@@ -658,7 +716,7 @@ mod tests {
     #[test]
     fn test_sat_zkp_prover() {
         let mut prover = SATZKProver::new();
-        
+
         let rust_code = r#"
             const MONSTER_ORDER: i64 = 196883;
             const TAU_COEFFICIENTS: [i64; 5] = [1, -24, 252, 4830, 534612];
@@ -672,26 +730,38 @@ mod tests {
                 valid: bool,
             }
         "#;
-        
+
         let result = prover.prove_mathematical_properties(rust_code);
         assert!(result.is_ok());
-        
+
         if let Ok(proof_result) = result {
             assert!(proof_result.proof_valid);
-            assert!(proof_result.mathematical_properties.monster_group_order.is_some());
-            assert_eq!(proof_result.mathematical_properties.monster_group_order.unwrap(), MONSTER_GROUP_REPRESENTATION_DIMENSION as i64);
+            assert!(proof_result
+                .mathematical_properties
+                .monster_group_order
+                .is_some());
+            assert_eq!(
+                proof_result
+                    .mathematical_properties
+                    .monster_group_order
+                    .unwrap(),
+                MONSTER_GROUP_REPRESENTATION_DIMENSION as i64
+            );
         }
     }
 
     #[test]
     fn test_fixed_point_convergence() {
         let mut prover = SATZKProver::new();
-        
-        let initial_code = &format!("const MONSTER_ORDER: i64 = {};", MONSTER_GROUP_REPRESENTATION_DIMENSION);
-        
+
+        let initial_code = &format!(
+            "const MONSTER_ORDER: i64 = {};",
+            MONSTER_GROUP_REPRESENTATION_DIMENSION
+        );
+
         let result = prover.test_fixed_point_convergence(initial_code);
         assert!(result.is_ok());
-        
+
         if let Ok(fixed_point_result) = result {
             // Should converge as the mathematical structures are self-consistent
             assert!(fixed_point_result.converged || fixed_point_result.iterations > 0);
@@ -701,13 +771,23 @@ mod tests {
     #[test]
     fn test_mathematical_structure_extraction() {
         let prover = SATZKProver::new();
-        
-        let code_with_monster = &format!("const ORDER: i64 = {};", MONSTER_GROUP_REPRESENTATION_DIMENSION);
-        let structures = prover.extract_mathematical_structures(code_with_monster).unwrap();
-        assert_eq!(structures.monster_group_order, Some(MONSTER_GROUP_REPRESENTATION_DIMENSION as i64));
-        
+
+        let code_with_monster = &format!(
+            "const ORDER: i64 = {};",
+            MONSTER_GROUP_REPRESENTATION_DIMENSION
+        );
+        let structures = prover
+            .extract_mathematical_structures(code_with_monster)
+            .unwrap();
+        assert_eq!(
+            structures.monster_group_order,
+            Some(MONSTER_GROUP_REPRESENTATION_DIMENSION as i64)
+        );
+
         let code_with_tau = "let tau = [-24, 252];";
-        let structures = prover.extract_mathematical_structures(code_with_tau).unwrap();
+        let structures = prover
+            .extract_mathematical_structures(code_with_tau)
+            .unwrap();
         assert!(!structures.tau_coefficients.is_empty());
     }
 }

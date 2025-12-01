@@ -1,6 +1,6 @@
+use super::git_types::RollupLock;
 use anyhow::Result;
-use std::path::Path;
-use super::git_types::RollupLock; // Assuming RollupLock is in git_types
+use std::path::Path; // Assuming RollupLock is in git_types
 
 pub struct DummyRollupLock;
 

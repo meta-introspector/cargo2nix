@@ -1,6 +1,6 @@
 pub struct R1CSCheck {
     pub a: Vec<i64>,
-    pub b: Vec<i64>, 
+    pub b: Vec<i64>,
     pub c: Vec<i64>,
 }
 
@@ -13,7 +13,7 @@ impl R1CSCheck {
         let a_val = dot_product(&self.a, witness);
         let b_val = dot_product(&self.b, witness);
         let c_val = dot_product(&self.c, witness);
-        
+
         a_val * b_val == c_val
     }
 }

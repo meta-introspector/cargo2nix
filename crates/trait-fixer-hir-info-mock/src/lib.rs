@@ -1,8 +1,8 @@
 // crates/trait-fixer-hir-info-mock/src/lib.rs
 
+use std::marker::PhantomData;
 use trait_fixer_hir_info_trait::HirInfo;
-use trait_fixer_rustc_mock::{Item, OwnerId, ItemKind, Span};
-use std::marker::PhantomData; // Needed for ItemKind and Item in mock
+use trait_fixer_rustc_mock::{Item, ItemKind, OwnerId, Span}; // Needed for ItemKind and Item in mock
 
 // Implementation for Mock Item directly.
 impl<'tcx> HirInfo<'tcx> for Item<'tcx> {

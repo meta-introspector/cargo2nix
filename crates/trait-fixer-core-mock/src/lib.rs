@@ -1,8 +1,8 @@
 // crates/trait-fixer-core-mock/src/lib.rs
 
 use trait_fixer_core_trait::{CoreFixer, Fix};
-use trait_fixer_rustc_mock::{MockTyCtxt, Item}; // Need Mock Item
-use trait_fixer_rules; // For rules::Config
+use trait_fixer_rules;
+use trait_fixer_rustc_mock::{Item, MockTyCtxt}; // Need Mock Item // For rules::Config
 
 pub struct MockTraitFixer<'tcx> {
     pub tcx: MockTyCtxt<'tcx>,
@@ -17,7 +17,6 @@ impl<'tcx> MockTraitFixer<'tcx> {
         println!("Mock Checking item: {:?}", item);
     }
 }
-
 
 impl<'tcx> CoreFixer<'tcx> for MockTraitFixer<'tcx> {
     fn new(tcx: MockTyCtxt<'tcx>) -> Self {

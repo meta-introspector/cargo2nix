@@ -14,7 +14,10 @@ impl CodeWord {
 
 impl HammingDistance {
     pub fn compute(word1: &CodeWord, word2: &CodeWord) -> Self {
-        let distance = word1.bits.iter().zip(word2.bits.iter())
+        let distance = word1
+            .bits
+            .iter()
+            .zip(word2.bits.iter())
             .map(|(a, b)| if a != b { 1 } else { 0 })
             .sum();
         Self { distance }

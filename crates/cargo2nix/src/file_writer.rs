@@ -3,11 +3,11 @@ use std::{
     path::PathBuf,
 };
 
-use anyhow::{anyhow, Context, Result};
+use anyhow::{Context, Result, anyhow};
 use colorify::colorify;
 
-use crate::version_req;
 use crate::version;
+use crate::version_req;
 
 pub fn write_to_file(path: &PathBuf, rendered: &str, overwrite: &bool) -> Result<()> {
     if !overwrite && path.exists() {
@@ -45,7 +45,7 @@ pub fn write_to_file(path: &PathBuf, rendered: &str, overwrite: &bool) -> Result
         io::stdin().read_line(&mut line)?;
         if line.trim() != "yes" {
             println!("aborted!");
-            return Ok(())
+            return Ok(());
         }
     }
 

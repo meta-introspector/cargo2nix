@@ -1,8 +1,8 @@
-#[cfg(feature = "tool_traits_lib_enabled")]
-use tool_traits_lib::types::MergedCrateInfo;
 #[cfg(feature = "anyhow_enabled")]
 use anyhow::{anyhow, Result};
-use std::collections::HashMap; // Corrected import
+use std::collections::HashMap;
+#[cfg(feature = "tool_traits_lib_enabled")]
+use tool_traits_lib::types::MergedCrateInfo; // Corrected import
 
 #[cfg(feature = "nix_generation")]
 pub trait Layer0Analyzer {

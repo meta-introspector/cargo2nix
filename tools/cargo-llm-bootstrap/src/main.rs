@@ -12,6 +12,9 @@ mod trait_numbering;
 mod trait_lattice_generator;
 use trait_lattice_generator::TraitLatticeGenerator;
 
+mod error;
+mod semantic_constraints;
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     

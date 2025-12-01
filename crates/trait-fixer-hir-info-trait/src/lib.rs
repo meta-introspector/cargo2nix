@@ -1,8 +1,8 @@
 // crates/trait-fixer-hir-info-trait/src/lib.rs
 
 use rustc_hir::Item;
-use rustc_hir::OwnerId;
 use rustc_hir::ItemKind;
+use rustc_hir::OwnerId;
 use rustc_span::Span;
 
 pub trait HirInfo<'tcx> {

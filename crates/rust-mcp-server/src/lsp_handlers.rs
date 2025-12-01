@@ -2,7 +2,7 @@ use anyhow::{Context, Result};
 use lsp_server::{Connection, Message, Notification, Request, RequestId, Response};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use syn::{visit::Visit, ItemFn};
+use syn::{ItemFn, visit::Visit};
 
 // Custom command to analyze code
 pub const ANALYZE_CODE_COMMAND: &str = "mcp/analyzeCode";
@@ -10,7 +10,9 @@ pub const ANALYZE_CODE_COMMAND: &str = "mcp/analyzeCode";
 use crate::file_ingestion::RustItemCollector; // Changed from FunctionNameCollector
 
 pub fn handle_request(connection: &Connection, req: Request) -> Result<()> {
-    let Request { id, method, params, .. } = req;
+    let Request {
+        id, method, params, ..
+    } = req;
     match method.as_str() {
         ANALYZE_CODE_COMMAND => {
             // A custom command to analyze code content
@@ -59,8 +61,7 @@ pub struct AnalyzeCodeResult {
 
 pub fn analyze_code(params: Value) -> Result<AnalyzeCodeResult> {
     let analyze_params: AnalyzeCodeParams = serde_json::from_value(params)?;
-    let syntax_tree = syn::parse_file(&analyze_params.text)
-        .context("Failed to parse Rust code")?;
+    let syntax_tree = syn::parse_file(&analyze_params.text).context("Failed to parse Rust code")?;
 
     let mut collector = RustItemCollector::new(); // Changed to RustItemCollector
     collector.visit_file(&syntax_tree);

@@ -1,22 +1,22 @@
+use anyhow::Result;
 use clap::{Arg, Command};
 use std::path::Path;
-use anyhow::Result;
 
-mod file_scanner;
+mod declarations;
 mod dependency_analyzer;
+mod file_scanner;
+mod inductive_declarations_collector;
 mod monster_factor_collector;
 mod term_collector;
-mod declarations;
-mod inductive_declarations_collector;
 
-use file_scanner::FileScanner;
-use dependency_analyzer::DependencyAnalyzer;
-use monster_factor_collector::{ASTFactorCollector, MonsterFactorSolver};
-use term_collector::ComprehensiveTermCollector;
-use inductive_declarations_collector::InductiveDeclarationsCollector;
 use crate::declarations::NixDeclaration;
-use rocksdb::{DB, Options}; // Import rocksdb
-use syn::visit::Visit; // Add this import
+use dependency_analyzer::DependencyAnalyzer;
+use file_scanner::FileScanner;
+use inductive_declarations_collector::InductiveDeclarationsCollector;
+use monster_factor_collector::{ASTFactorCollector, MonsterFactorSolver};
+use rocksdb::{Options, DB}; // Import rocksdb
+use syn::visit::Visit;
+use term_collector::ComprehensiveTermCollector; // Add this import
 
 fn main() -> Result<()> {
     let matches = Command::new("rust-src-scanner")
@@ -27,19 +27,19 @@ fn main() -> Result<()> {
             Arg::new("rust-src-path")
                 .long("rust-src-path")
                 .help("Path to the Rust source code to scan")
-                .required(true)
+                .required(true),
         )
         .arg(
             Arg::new("output-dir")
                 .long("output-dir")
                 .help("Directory to output results (e.g., RocksDB, JSON)")
-                .required(true)
+                .required(true),
         )
         .arg(
             Arg::new("inductive-decls")
                 .long("inductive-decls")
                 .action(clap::ArgAction::SetTrue)
-                .help("Collect inductive declarations from Rust source")
+                .help("Collect inductive declarations from Rust source"),
         )
         .get_matches();
 
@@ -65,7 +65,11 @@ fn collect_monster_group_factors(rust_src_path: &str, output_dir: &str) -> Resul
     Ok(())
 }
 
-fn run_standard_analysis(rust_src_path: &str, output_dir: &str, cache_path: Option<&String>) -> Result<()> {
+fn run_standard_analysis(
+    rust_src_path: &str,
+    output_dir: &str,
+    cache_path: Option<&String>,
+) -> Result<()> {
     // ... (run_standard_analysis function)
     Ok(())
 }
@@ -82,7 +86,7 @@ fn collect_inductive_declarations(rust_src_path: &str, output_dir: &str) -> Resu
     // Create output directory for JSON and RocksDB
     let db_path = Path::new(output_dir).join("inductive_decls.rocksdb");
     std::fs::create_dir_all(&db_path)?; // Create directory for RocksDB
-    
+
     // Open RocksDB
     let db = DB::open_default(&db_path)?;
     println!("Opened RocksDB at {:?}", &db_path);
@@ -92,11 +96,12 @@ fn collect_inductive_declarations(rust_src_path: &str, output_dir: &str) -> Resu
     println!("Found {} Rust files", rust_files.len());
 
     let mut processed_files = 0;
-    for file_path in rust_files.iter().take(100) { // Limit for proof
+    for file_path in rust_files.iter().take(100) {
+        // Limit for proof
         if let Ok(content) = std::fs::read_to_string(&file_path) {
             if let Ok(syntax_tree) = syn::parse_file(&content) {
                 let mut collector = InductiveDeclarationsCollector::new(
-                    file_path.to_str().unwrap_or("unknown").to_string()
+                    file_path.to_str().unwrap_or("unknown").to_string(),
                 );
                 Visit::visit_file(&mut collector, &syntax_tree);
                 collector.finalize_declarations(USER_MONSTER_PRIMES);
@@ -106,8 +111,14 @@ fn collect_inductive_declarations(rust_src_path: &str, output_dir: &str) -> Resu
         }
     }
 
-    println!("✅ Processed {} files for inductive declarations", processed_files);
-    println!("Total NixDeclarations collected: {}", all_declarations.len());
+    println!(
+        "✅ Processed {} files for inductive declarations",
+        processed_files
+    );
+    println!(
+        "Total NixDeclarations collected: {}",
+        all_declarations.len()
+    );
 
     // Store in RocksDB
     for decl in all_declarations {
@@ -119,5 +130,3 @@ fn collect_inductive_declarations(rust_src_path: &str, output_dir: &str) -> Resu
 
     Ok(())
 }
-
-

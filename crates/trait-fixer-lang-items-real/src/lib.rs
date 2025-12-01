@@ -1,7 +1,7 @@
 // crates/trait-fixer-lang-items-real/src/lib.rs
 
-use rustc_middle::ty::TyCtxt;
 use rustc_hir::def_id::DefId;
+use rustc_middle::ty::TyCtxt;
 use rustc_span::symbol::sym;
 
 use trait_fixer_lang_items_trait::LangItems; // Import the trait

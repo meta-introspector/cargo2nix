@@ -9,7 +9,7 @@ impl Monster108Constraints {
     pub fn new() -> Self {
         let supersingular_primes = Self::generate_108_supersingular_primes();
         let constraints = Self::generate_108_constraints(&supersingular_primes);
-        
+
         Self {
             constraints,
             supersingular_primes,
@@ -18,8 +18,11 @@ impl Monster108Constraints {
 
     fn generate_108_constraints(primes: &[u64]) -> Vec<R1CSConstraint> {
         let reasons = Self::get_108_reasons();
-        
-        reasons.iter().zip(primes.iter()).enumerate()
+
+        reasons
+            .iter()
+            .zip(primes.iter())
+            .enumerate()
             .map(|(id, (reason, &prime))| R1CSConstraint {
                 id,
                 reason: reason.clone(),
@@ -34,7 +37,7 @@ impl Monster108Constraints {
     fn generate_108_supersingular_primes() -> Vec<u64> {
         let mut primes = Vec::new();
         let mut candidate = 2u64;
-        
+
         while primes.len() < 108 {
             if Self::is_supersingular_prime(candidate) {
                 primes.push(candidate);
@@ -49,12 +52,20 @@ impl Monster108Constraints {
     }
 
     fn is_prime(n: u64) -> bool {
-        if n < 2 { return false; }
-        if n == 2 { return true; }
-        if n % 2 == 0 { return false; }
-        
+        if n < 2 {
+            return false;
+        }
+        if n == 2 {
+            return true;
+        }
+        if n % 2 == 0 {
+            return false;
+        }
+
         for i in (3..=(n as f64).sqrt() as u64).step_by(2) {
-            if n % i == 0 { return false; }
+            if n % i == 0 {
+                return false;
+            }
         }
         true
     }
@@ -74,7 +85,6 @@ impl Monster108Constraints {
             "Fischer-Griess Monster Construction".to_string(),
             "Conway-Norton Conjecture Verification".to_string(),
             "Borcherds Infinite Product Formula".to_string(),
-            
             // Arithmetic Constraints (13-24)
             "Prime Factor Decomposition Integrity".to_string(),
             "Modular Arithmetic Closure".to_string(),
@@ -88,7 +98,6 @@ impl Monster108Constraints {
             "L-Function Special Values".to_string(),
             "Dirichlet Character Orthogonality".to_string(),
             "Euler Product Convergence".to_string(),
-            
             // Topological Invariants (25-36)
             "Euler Characteristic Preservation".to_string(),
             "Homology Group Stability".to_string(),
@@ -102,7 +111,6 @@ impl Monster108Constraints {
             "Chern Class Calculation".to_string(),
             "Pontryagin Class Invariance".to_string(),
             "Stiefel-Whitney Class Preservation".to_string(),
-            
             // Symmetry Groups (37-48)
             "Automorphism Group Action".to_string(),
             "Conjugacy Class Structure".to_string(),
@@ -116,7 +124,6 @@ impl Monster108Constraints {
             "Simple Group Classification".to_string(),
             "Sporadic Group Embedding".to_string(),
             "Exceptional Lie Group Connection".to_string(),
-            
             // Modular Forms (49-60)
             "Eisenstein Series Coefficients".to_string(),
             "Cusp Form Dimension Formula".to_string(),
@@ -130,7 +137,6 @@ impl Monster108Constraints {
             "Jacquet-Langlands Correspondence".to_string(),
             "Modularity Theorem Application".to_string(),
             "Serre Conjecture Verification".to_string(),
-            
             // Elliptic Curves (61-72)
             "Weierstrass Equation Normalization".to_string(),
             "Discriminant Non-Vanishing".to_string(),
@@ -144,7 +150,6 @@ impl Monster108Constraints {
             "Reduction Type Classification".to_string(),
             "Conductor Exponent Formula".to_string(),
             "Tamagawa Number Computation".to_string(),
-            
             // Cryptographic Properties (73-84)
             "Discrete Logarithm Hardness".to_string(),
             "Elliptic Curve Discrete Log".to_string(),
@@ -158,7 +163,6 @@ impl Monster108Constraints {
             "Side-Channel Resistance".to_string(),
             "Fault Attack Immunity".to_string(),
             "Quantum Resistance Analysis".to_string(),
-            
             // Computational Complexity (85-96)
             "Polynomial Time Verification".to_string(),
             "NP-Completeness Reduction".to_string(),
@@ -172,7 +176,6 @@ impl Monster108Constraints {
             "Register Allocation Efficiency".to_string(),
             "Loop Unrolling Optimization".to_string(),
             "Vectorization Opportunity".to_string(),
-            
             // System Integration (97-108)
             "Type System Soundness".to_string(),
             "Memory Safety Guarantee".to_string(),

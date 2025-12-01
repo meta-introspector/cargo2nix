@@ -20,7 +20,10 @@ pub fn is_supersingular_prime_factor(n: u32) -> bool {
     // This is a placeholder. A real implementation would involve checking
     // properties of supersingular primes related to elliptic curves or other areas.
     // For now, let's just return true for a few small primes for demonstration.
-    matches!(n, 2 | 3 | 5 | 7 | 11 | 13 | 17 | 19 | 23 | 29 | 31 | 41 | 47 | 59 | 71)
+    matches!(
+        n,
+        2 | 3 | 5 | 7 | 11 | 13 | 17 | 19 | 23 | 29 | 31 | 41 | 47 | 59 | 71
+    )
 }
 
 // A placeholder to return the hardcoded Monster Group order as u128 if possible, else string

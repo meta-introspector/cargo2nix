@@ -25,22 +25,25 @@ impl SubmoduleDB {
             categories: HashMap::new(),
         }
     }
-    
+
     /// Initialize with existing submodules from directory scan
-    pub fn scan_existing_submodules(&mut self, submodules_dir: &str) -> Result<(), Box<dyn std::error::Error>> {
+    pub fn scan_existing_submodules(
+        &mut self,
+        submodules_dir: &str,
+    ) -> Result<(), Box<dyn std::error::Error>> {
         let path = Path::new(submodules_dir);
         if !path.exists() {
             return Ok(());
         }
-        
+
         for entry in fs::read_dir(path)? {
             let entry = entry?;
             let name = entry.file_name().to_string_lossy().to_string();
-            
+
             if entry.file_type()?.is_dir() && !name.starts_with('.') {
                 let submodule_path = format!("{}/{}", submodules_dir, name);
                 let has_cargo = Path::new(&format!("{}/Cargo.toml", submodule_path)).exists();
-                
+
                 let repo_info = RepoInfo {
                     name: name.clone(),
                     url: self.guess_repo_url(&name),
@@ -49,39 +52,47 @@ impl SubmoduleDB {
                     has_cargo_toml: has_cargo,
                     submodule_path,
                 };
-                
+
                 self.add_repo(repo_info);
             }
         }
-        
+
         Ok(())
     }
-    
+
     /// Add repository to database
     pub fn add_repo(&mut self, repo: RepoInfo) {
         let category = repo.category.clone();
         let name = repo.name.clone();
         self.repos.insert(name.clone(), repo);
-        
-        self.categories.entry(category)
+
+        self.categories
+            .entry(category)
             .or_insert_with(Vec::new)
             .push(name);
     }
-    
+
     /// Get repositories by category
     pub fn get_by_category(&self, category: &str) -> Vec<&RepoInfo> {
-        self.categories.get(category)
-            .map(|names| names.iter().filter_map(|name| self.repos.get(name)).collect())
+        self.categories
+            .get(category)
+            .map(|names| {
+                names
+                    .iter()
+                    .filter_map(|name| self.repos.get(name))
+                    .collect()
+            })
             .unwrap_or_default()
     }
-    
+
     /// Get high priority repositories
     pub fn get_high_priority(&self) -> Vec<&RepoInfo> {
-        self.repos.values()
+        self.repos
+            .values()
             .filter(|repo| repo.priority <= 2)
             .collect()
     }
-    
+
     /// Initialize with known important repositories
     pub fn initialize_core_repos(&mut self) {
         let core_repos = vec![
@@ -118,24 +129,24 @@ impl SubmoduleDB {
                 submodule_path: "submodules/tokio".to_string(),
             },
         ];
-        
+
         for repo in core_repos {
             self.add_repo(repo);
         }
     }
-    
+
     fn guess_repo_url(&self, name: &str) -> String {
         // Try to guess GitHub URL from common patterns
         match name {
             n if n.starts_with("rust-") => format!("https://github.com/rust-lang/{}.git", n),
             n if n.ends_with("-rs") => {
-                let base = &n[..n.len()-3];
+                let base = &n[..n.len() - 3];
                 format!("https://github.com/{}-rs/{}.git", base, base)
-            },
+            }
             _ => format!("https://github.com/unknown/{}.git", name),
         }
     }
-    
+
     fn categorize_repo(&self, name: &str) -> String {
         match name {
             "rust" | "rustc" | "rustfmt" | "clippy" => "compiler".to_string(),
@@ -144,11 +155,13 @@ impl SubmoduleDB {
             "tokio" | "async-std" | "futures-rs" => "async".to_string(),
             "clap" | "structopt" => "cli".to_string(),
             n if n.contains("crypto") || n.contains("hash") => "crypto".to_string(),
-            n if n.contains("http") || n.contains("hyper") || n.contains("reqwest") => "networking".to_string(),
+            n if n.contains("http") || n.contains("hyper") || n.contains("reqwest") => {
+                "networking".to_string()
+            }
             _ => "utility".to_string(),
         }
     }
-    
+
     fn calculate_priority(&self, name: &str) -> u8 {
         match name {
             "rust" | "cargo" => 1,
@@ -157,21 +170,23 @@ impl SubmoduleDB {
             _ => 3,
         }
     }
-    
+
     /// Export database as JSON for external tools
     pub fn export_json(&self) -> String {
         // Simple JSON export
         let mut json = String::from("{\n");
         json.push_str("  \"repos\": {\n");
-        
+
         for (i, (name, repo)) in self.repos.iter().enumerate() {
-            if i > 0 { json.push_str(",\n"); }
+            if i > 0 {
+                json.push_str(",\n");
+            }
             json.push_str(&format!(
                 "    \"{}\": {{\n      \"url\": \"{}\",\n      \"category\": \"{}\",\n      \"priority\": {},\n      \"has_cargo\": {}\n    }}",
                 name, repo.url, repo.category, repo.priority, repo.has_cargo_toml
             ));
         }
-        
+
         json.push_str("\n  }\n}");
         json
     }
@@ -179,30 +194,30 @@ impl SubmoduleDB {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut db = SubmoduleDB::new();
-    
+
     // Initialize with core repositories
     db.initialize_core_repos();
-    
+
     // Scan existing submodules
     db.scan_existing_submodules("submodules")?;
-    
+
     println!("Submodule Database Initialized:");
     println!("Total repositories: {}", db.repos.len());
-    
+
     for category in db.categories.keys() {
         let repos = db.get_by_category(category);
         println!("  {}: {} repos", category, repos.len());
     }
-    
+
     println!("\nHigh Priority Repositories:");
     for repo in db.get_high_priority() {
         println!("  {} (priority {}): {}", repo.name, repo.priority, repo.url);
     }
-    
+
     // Export to JSON
     let json = db.export_json();
     fs::write("submodule_database.json", json)?;
     println!("\nDatabase exported to submodule_database.json");
-    
+
     Ok(())
 }

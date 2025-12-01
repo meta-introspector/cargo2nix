@@ -1,5 +1,5 @@
 // Real libminizinc binding for Monster Group solving
-use std::ffi::{CString, CStr};
+use std::ffi::{CStr, CString};
 use std::os::raw::{c_char, c_int, c_void};
 
 // libminizinc FFI bindings
@@ -27,7 +27,7 @@ impl MiniZincSolver {
             }
         }
     }
-    
+
     fn load_model(&self, model: &str) -> Result<(), &'static str> {
         let c_model = CString::new(model).map_err(|_| "Invalid model string")?;
         unsafe {
@@ -39,7 +39,7 @@ impl MiniZincSolver {
             }
         }
     }
-    
+
     fn solve(&self) -> Result<String, &'static str> {
         unsafe {
             let result = MZN_solver_solve(self.solver);
@@ -48,9 +48,7 @@ impl MiniZincSolver {
                 if solution_ptr.is_null() {
                     Err("No solution found")
                 } else {
-                    let solution = CStr::from_ptr(solution_ptr)
-                        .to_string_lossy()
-                        .into_owned();
+                    let solution = CStr::from_ptr(solution_ptr).to_string_lossy().into_owned();
                     Ok(solution)
                 }
             } else {
@@ -102,45 +100,48 @@ output [
   "Binary: 2^", show(binary_exp), " = ", show(pow(2, binary_exp)), "\n",
   "Ternary: 3^", show(ternary_exp), " = ", show(pow(3, ternary_exp)), "\n"
 ];
-"#.to_string()
+"#
+    .to_string()
 }
 
 fn fallback_solve() {
     println!("=== Fallback Manual Solver ===");
-    
+
     // Real input values
     let solana_blocks = 250000_u64;
     let code_lines = 45000_u64;
     let meme_power = 12000_u64;
     let social_score = 350000_u64;
-    
+
     // Monster Group calculation
     let binary_exp = (solana_blocks / 33333).min(30);
     let ternary_exp = (meme_power / 3333).min(15);
-    
-    let monster_element = (2_u64.pow(binary_exp as u32) + 
-                          3_u64.pow(ternary_exp as u32)) % 196883;
-    
+
+    let monster_element = (2_u64.pow(binary_exp as u32) + 3_u64.pow(ternary_exp as u32)) % 196883;
+
     println!("Input values:");
     println!("  Solana blocks: {}", solana_blocks);
     println!("  Code lines: {}", code_lines);
     println!("  Meme power: {}", meme_power);
     println!("  Social score: {}", social_score);
-    
+
     println!("\nMonster Group solution:");
     println!("  Binary exponent: {}", binary_exp);
     println!("  Ternary exponent: {}", ternary_exp);
     println!("  Monster element: {}", monster_element);
-    println!("  Coverage: {:.2}%", (monster_element as f64 / 196883.0) * 100.0);
+    println!(
+        "  Coverage: {:.2}%",
+        (monster_element as f64 / 196883.0) * 100.0
+    );
 }
 
 fn main() {
     println!("=== libminizinc Monster Group Solver ===");
-    
+
     match MiniZincSolver::new() {
         Ok(solver) => {
             println!("✓ libminizinc solver created");
-            
+
             let model = create_monster_model();
             match solver.load_model(&model) {
                 Ok(()) => {

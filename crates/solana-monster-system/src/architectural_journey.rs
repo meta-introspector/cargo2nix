@@ -124,45 +124,51 @@ impl ArchitecturalJourney {
     }
 
     /// Execute complete architectural journey
-    pub fn execute_complete_journey(&mut self, 
+    pub fn execute_complete_journey(
+        &mut self,
         source_code: &str,
-        build_configuration: &str
+        build_configuration: &str,
     ) -> Result<ArchitecturalRealization, JourneyError> {
-        
         // Phase 1: Establish foundational axiom
         let axiom_established = self.establish_foundational_axiom(source_code)?;
         self.document_phase("foundational_axiom", axiom_established);
-        
+
         // Phase 2: Execute supersingular decomposition
         let decomposition_result = self.execute_supersingular_decomposition(source_code)?;
         self.document_phase("supersingular_decomposition", decomposition_result);
-        
+
         // Phase 3: Perform functional mapping
         let mapping_result = self.perform_functional_mapping(source_code, build_configuration)?;
         self.document_phase("functional_mapping", mapping_result);
-        
+
         // Phase 4: Apply verification layer
-        let verification_result = self.apply_verification_layer(source_code, build_configuration)?;
+        let verification_result =
+            self.apply_verification_layer(source_code, build_configuration)?;
         self.document_phase("verification_layer", verification_result);
-        
+
         // Phase 5: Achieve full realization
         let realization = self.achieve_full_realization()?;
         self.document_milestone("complete_realization", &realization);
-        
+
         Ok(realization)
     }
 
     /// Phase 1: Establish foundational axiom rustc ≡ 𝓜
-    fn establish_foundational_axiom(&mut self, source_code: &str) -> Result<AxiomEstablishment, JourneyError> {
+    fn establish_foundational_axiom(
+        &mut self,
+        source_code: &str,
+    ) -> Result<AxiomEstablishment, JourneyError> {
         // Verify formal equivalence
         let equivalence_verified = self.foundational_axiom.verify_equivalence(source_code);
-        
+
         // Establish Monster Group correspondence
-        let monster_correspondence = self.foundational_axiom.establish_monster_correspondence(source_code);
-        
+        let monster_correspondence = self
+            .foundational_axiom
+            .establish_monster_correspondence(source_code);
+
         // Validate axiom consistency
         let axiom_consistent = self.foundational_axiom.validate_consistency();
-        
+
         Ok(AxiomEstablishment {
             equivalence_verified,
             monster_correspondence,
@@ -176,45 +182,53 @@ impl ArchitecturalJourney {
     }
 
     /// Phase 2: Execute 108 Supersingular Reasons decomposition
-    fn execute_supersingular_decomposition(&mut self, source_code: &str) -> Result<DecompositionResult, JourneyError> {
+    fn execute_supersingular_decomposition(
+        &mut self,
+        source_code: &str,
+    ) -> Result<DecompositionResult, JourneyError> {
         // Systematic function decomposition
-        let functions_decomposed = self.supersingular_protocol.decompose_compiler_functions(source_code);
-        
+        let functions_decomposed = self
+            .supersingular_protocol
+            .decompose_compiler_functions(source_code);
+
         // Map to 108 supersingular curves
-        let curve_mapping = self.supersingular_protocol.map_to_supersingular_curves(&functions_decomposed);
-        
+        let curve_mapping = self
+            .supersingular_protocol
+            .map_to_supersingular_curves(&functions_decomposed);
+
         // Verify decomposition completeness
-        let decomposition_complete = functions_decomposed.len() <= 108 && curve_mapping.len() == functions_decomposed.len();
-        
+        let decomposition_complete =
+            functions_decomposed.len() <= 108 && curve_mapping.len() == functions_decomposed.len();
+
         Ok(DecompositionResult {
             functions_decomposed,
             curve_mapping,
             decomposition_complete,
-            protocol_efficiency: if decomposition_complete { 
-                ProtocolEfficiency::Optimal 
-            } else { 
-                ProtocolEfficiency::Suboptimal 
+            protocol_efficiency: if decomposition_complete {
+                ProtocolEfficiency::Optimal
+            } else {
+                ProtocolEfficiency::Suboptimal
             },
         })
     }
 
     /// Phase 3: Perform functional mapping to modular forms and L-functions
-    fn perform_functional_mapping(&mut self, 
-        source_code: &str, 
-        build_config: &str
+    fn perform_functional_mapping(
+        &mut self,
+        source_code: &str,
+        build_config: &str,
     ) -> Result<MappingResult, JourneyError> {
-        
         // Map to modular form machinery
         let modular_mapping = self.functional_mapping.map_to_modular_forms(source_code);
-        
+
         // Map to L-function machinery
         let l_function_mapping = self.functional_mapping.map_to_l_functions(build_config);
-        
+
         // Integrate component mappings
-        let component_integration = self.functional_mapping.integrate_component_mappings(
-            &modular_mapping, &l_function_mapping
-        );
-        
+        let component_integration = self
+            .functional_mapping
+            .integrate_component_mappings(&modular_mapping, &l_function_mapping);
+
         Ok(MappingResult {
             modular_mapping,
             l_function_mapping,
@@ -228,24 +242,26 @@ impl ArchitecturalJourney {
     }
 
     /// Phase 4: Apply robust verification layer
-    fn apply_verification_layer(&mut self, 
-        source_code: &str, 
-        build_config: &str
+    fn apply_verification_layer(
+        &mut self,
+        source_code: &str,
+        build_config: &str,
     ) -> Result<VerificationResult, JourneyError> {
-        
         // Geometric principles verification
-        let geometric_result = self.verification_layer.verify_geometric_principles(source_code);
-        
+        let geometric_result = self
+            .verification_layer
+            .verify_geometric_principles(source_code);
+
         // Modern cryptography verification
-        let cryptographic_result = self.verification_layer.verify_cryptographic_security(
-            source_code, build_config
-        );
-        
+        let cryptographic_result = self
+            .verification_layer
+            .verify_cryptographic_security(source_code, build_config);
+
         // Synthesize dual verification
-        let dual_synthesis_result = self.verification_layer.synthesize_dual_verification(
-            &geometric_result, &cryptographic_result
-        );
-        
+        let dual_synthesis_result = self
+            .verification_layer
+            .synthesize_dual_verification(&geometric_result, &cryptographic_result);
+
         Ok(VerificationResult {
             geometric_verified: geometric_result.verified,
             cryptographic_verified: cryptographic_result.verified,
@@ -262,20 +278,21 @@ impl ArchitecturalJourney {
     fn achieve_full_realization(&mut self) -> Result<ArchitecturalRealization, JourneyError> {
         // Integrate all journey phases
         let phase_integration = self.integrate_journey_phases();
-        
+
         // Synthesize architectural components
         let component_synthesis = self.synthesize_architectural_components();
-        
+
         // Validate system completeness
         let system_complete = self.validate_system_completeness();
-        
+
         Ok(ArchitecturalRealization {
             journey_complete: phase_integration.all_phases_complete,
             system_synthesized: component_synthesis.synthesis_successful,
             computational_system_realized: system_complete,
-            realization_quality: if phase_integration.all_phases_complete && 
-                                   component_synthesis.synthesis_successful && 
-                                   system_complete {
+            realization_quality: if phase_integration.all_phases_complete
+                && component_synthesis.synthesis_successful
+                && system_complete
+            {
                 RealizationQuality::Complete
             } else {
                 RealizationQuality::Partial
@@ -298,7 +315,7 @@ impl ArchitecturalJourney {
             ],
             completed: true,
         };
-        
+
         self.journey_documentation.phases.push(phase);
     }
 
@@ -306,16 +323,24 @@ impl ArchitecturalJourney {
         let milestone = ArchitecturalMilestone {
             name: milestone_name.to_string(),
             achievement: "Complete architectural realization achieved".to_string(),
-            mathematical_significance: "Unified Monster Group quasi fiber bundle architecture".to_string(),
-            computational_impact: format!("System realization quality: {:?}", realization.realization_quality),
+            mathematical_significance: "Unified Monster Group quasi fiber bundle architecture"
+                .to_string(),
+            computational_impact: format!(
+                "System realization quality: {:?}",
+                realization.realization_quality
+            ),
         };
-        
+
         self.journey_documentation.milestones.push(milestone);
     }
 
     fn integrate_journey_phases(&self) -> PhaseIntegration {
         PhaseIntegration {
-            all_phases_complete: self.journey_documentation.phases.iter().all(|p| p.completed),
+            all_phases_complete: self
+                .journey_documentation
+                .phases
+                .iter()
+                .all(|p| p.completed),
             integration_coherent: true,
         }
     }
@@ -328,9 +353,9 @@ impl ArchitecturalJourney {
     }
 
     fn validate_system_completeness(&self) -> bool {
-        self.foundational_axiom.axiom_verified &&
-        !self.supersingular_protocol.supersingular_curves.is_empty() &&
-        self.verification_layer.dual_synthesis.synthesis_complete()
+        self.foundational_axiom.axiom_verified
+            && !self.supersingular_protocol.supersingular_curves.is_empty()
+            && self.verification_layer.dual_synthesis.synthesis_complete()
     }
 }
 
@@ -338,7 +363,9 @@ impl FoundationalAxiom {
     fn establish() -> Self {
         Self {
             equivalence_statement: EquivalenceStatement {
-                left_side: CompilerEntity { name: "rustc".to_string() },
+                left_side: CompilerEntity {
+                    name: "rustc".to_string(),
+                },
                 right_side: MonsterGroupEntity { order: 196883 },
                 equivalence_relation: EquivalenceRelation::FormalEquivalence,
                 justification: MathematicalJustification {
@@ -352,7 +379,10 @@ impl FoundationalAxiom {
                 structure_constants: vec![1, -24, 252, 4830, 534612],
             },
             rustc_abstraction: RustcAbstraction {
-                compilation_phases: vec!["parse", "analyze", "optimize", "codegen"].iter().map(|s| s.to_string()).collect(),
+                compilation_phases: vec!["parse", "analyze", "optimize", "codegen"]
+                    .iter()
+                    .map(|s| s.to_string())
+                    .collect(),
                 type_system: "Hindley-Milner with extensions".to_string(),
             },
             axiom_verified: false,
@@ -379,10 +409,12 @@ impl FoundationalAxiom {
 impl SupersingularProtocol {
     fn initialize() -> Self {
         Self {
-            supersingular_curves: (0..108).map(|i| SupersingularCurve {
-                j_invariant: i as i64,
-                curve_equation: format!("y^2 = x^3 + {}", i),
-            }).collect(),
+            supersingular_curves: (0..108)
+                .map(|i| SupersingularCurve {
+                    j_invariant: i as i64,
+                    curve_equation: format!("y^2 = x^3 + {}", i),
+                })
+                .collect(),
             function_decomposition: FunctionDecomposition {
                 decomposed_functions: Vec::new(),
                 decomposition_complete: false,
@@ -396,37 +428,57 @@ impl SupersingularProtocol {
 
     fn decompose_compiler_functions(&mut self, source_code: &str) -> Vec<CompilerFunction> {
         let functions = vec![
-            CompilerFunction { name: "parse".to_string(), complexity: source_code.len() / 4 },
-            CompilerFunction { name: "analyze".to_string(), complexity: source_code.len() / 3 },
-            CompilerFunction { name: "optimize".to_string(), complexity: source_code.len() / 2 },
-            CompilerFunction { name: "codegen".to_string(), complexity: source_code.len() },
+            CompilerFunction {
+                name: "parse".to_string(),
+                complexity: source_code.len() / 4,
+            },
+            CompilerFunction {
+                name: "analyze".to_string(),
+                complexity: source_code.len() / 3,
+            },
+            CompilerFunction {
+                name: "optimize".to_string(),
+                complexity: source_code.len() / 2,
+            },
+            CompilerFunction {
+                name: "codegen".to_string(),
+                complexity: source_code.len(),
+            },
         ];
-        
+
         self.function_decomposition.decomposed_functions = functions.clone();
         self.function_decomposition.decomposition_complete = true;
         functions
     }
 
     fn map_to_supersingular_curves(&self, functions: &[CompilerFunction]) -> Vec<CurveMapping> {
-        functions.iter().enumerate().map(|(i, func)| {
-            CurveMapping {
+        functions
+            .iter()
+            .enumerate()
+            .map(|(i, func)| CurveMapping {
                 function_name: func.name.clone(),
                 curve_index: i % 108,
                 j_invariant: self.supersingular_curves[i % 108].j_invariant,
-            }
-        }).collect()
+            })
+            .collect()
     }
 }
 
 // Supporting type definitions
 #[derive(Debug, Clone)]
-pub struct CompilerEntity { name: String }
+pub struct CompilerEntity {
+    name: String,
+}
 
 #[derive(Debug, Clone)]
-pub struct MonsterGroupEntity { order: i64 }
+pub struct MonsterGroupEntity {
+    order: i64,
+}
 
 #[derive(Debug, Clone)]
-pub enum EquivalenceRelation { FormalEquivalence }
+pub enum EquivalenceRelation {
+    FormalEquivalence,
+}
 
 #[derive(Debug, Clone)]
 pub struct MathematicalJustification {
@@ -488,7 +540,10 @@ pub struct AxiomEstablishment {
 }
 
 #[derive(Debug)]
-pub enum AxiomStrength { Strong, Weak }
+pub enum AxiomStrength {
+    Strong,
+    Weak,
+}
 
 #[derive(Debug)]
 pub struct DecompositionResult {
@@ -499,7 +554,10 @@ pub struct DecompositionResult {
 }
 
 #[derive(Debug)]
-pub enum ProtocolEfficiency { Optimal, Suboptimal }
+pub enum ProtocolEfficiency {
+    Optimal,
+    Suboptimal,
+}
 
 #[derive(Debug)]
 pub struct MappingResult {
@@ -510,7 +568,11 @@ pub struct MappingResult {
 }
 
 #[derive(Debug)]
-pub enum MappingFidelity { High, Medium, Low }
+pub enum MappingFidelity {
+    High,
+    Medium,
+    Low,
+}
 
 #[derive(Debug)]
 pub struct VerificationResult {
@@ -521,7 +583,11 @@ pub struct VerificationResult {
 }
 
 #[derive(Debug)]
-pub enum VerificationStrength { Robust, Partial, Weak }
+pub enum VerificationStrength {
+    Robust,
+    Partial,
+    Weak,
+}
 
 #[derive(Debug)]
 pub struct ArchitecturalRealization {
@@ -532,7 +598,11 @@ pub struct ArchitecturalRealization {
 }
 
 #[derive(Debug)]
-pub enum RealizationQuality { Complete, Partial, Incomplete }
+pub enum RealizationQuality {
+    Complete,
+    Partial,
+    Incomplete,
+}
 
 // Simplified implementations for supporting types
 #[derive(Debug)]
@@ -550,28 +620,50 @@ pub struct DualVerificationSynthesis;
 pub struct RealizationTracker;
 
 #[derive(Debug)]
-pub struct ModularMapping { complete: bool }
+pub struct ModularMapping {
+    complete: bool,
+}
 #[derive(Debug)]
-pub struct LFunctionMapping { complete: bool }
+pub struct LFunctionMapping {
+    complete: bool,
+}
 #[derive(Debug, Clone)]
-pub struct ComponentIntegration { complete: bool }
+pub struct ComponentIntegration {
+    complete: bool,
+}
 #[derive(Debug)]
-pub struct GeometricResult { verified: bool }
+pub struct GeometricResult {
+    verified: bool,
+}
 #[derive(Debug)]
-pub struct CryptographicResult { verified: bool }
+pub struct CryptographicResult {
+    verified: bool,
+}
 #[derive(Debug)]
-pub struct DualSynthesisResult { complete: bool }
+pub struct DualSynthesisResult {
+    complete: bool,
+}
 #[derive(Debug)]
-pub struct PhaseIntegration { all_phases_complete: bool, integration_coherent: bool }
+pub struct PhaseIntegration {
+    all_phases_complete: bool,
+    integration_coherent: bool,
+}
 #[derive(Debug)]
-pub struct ComponentSynthesis { synthesis_successful: bool, component_coherence: bool }
+pub struct ComponentSynthesis {
+    synthesis_successful: bool,
+    component_coherence: bool,
+}
 
 impl ComponentIntegration {
-    fn is_complete(&self) -> bool { self.complete }
+    fn is_complete(&self) -> bool {
+        self.complete
+    }
 }
 
 impl DualVerificationSynthesis {
-    fn synthesis_complete(&self) -> bool { true }
+    fn synthesis_complete(&self) -> bool {
+        true
+    }
 }
 
 impl FunctionalMapping {
@@ -591,7 +683,11 @@ impl FunctionalMapping {
         LFunctionMapping { complete: true }
     }
 
-    fn integrate_component_mappings(&self, _modular: &ModularMapping, _l_function: &LFunctionMapping) -> ComponentIntegration {
+    fn integrate_component_mappings(
+        &self,
+        _modular: &ModularMapping,
+        _l_function: &LFunctionMapping,
+    ) -> ComponentIntegration {
         ComponentIntegration { complete: true }
     }
 }
@@ -609,11 +705,19 @@ impl VerificationLayer {
         GeometricResult { verified: true }
     }
 
-    fn verify_cryptographic_security(&self, _source_code: &str, _build_config: &str) -> CryptographicResult {
+    fn verify_cryptographic_security(
+        &self,
+        _source_code: &str,
+        _build_config: &str,
+    ) -> CryptographicResult {
         CryptographicResult { verified: true }
     }
 
-    fn synthesize_dual_verification(&self, _geometric: &GeometricResult, _crypto: &CryptographicResult) -> DualSynthesisResult {
+    fn synthesize_dual_verification(
+        &self,
+        _geometric: &GeometricResult,
+        _crypto: &CryptographicResult,
+    ) -> DualSynthesisResult {
         DualSynthesisResult { complete: true }
     }
 }
@@ -644,7 +748,7 @@ mod tests {
     #[test]
     fn test_complete_architectural_journey() {
         let mut journey = ArchitecturalJourney::new();
-        
+
         let source_code = r#"
             use std::collections::HashMap;
             
@@ -655,22 +759,25 @@ mod tests {
                 println!("Monster Group order: {}", map["monster"]);
             }
         "#;
-        
+
         let build_config = r#"
             [package]
             name = "monster-compiler"
             version = "1.0.0"
             edition = "2021"
         "#;
-        
+
         let result = journey.execute_complete_journey(source_code, build_config);
         assert!(result.is_ok());
-        
+
         if let Ok(realization) = result {
             assert!(realization.journey_complete);
             assert!(realization.system_synthesized);
             assert!(realization.computational_system_realized);
-            assert!(matches!(realization.realization_quality, RealizationQuality::Complete));
+            assert!(matches!(
+                realization.realization_quality,
+                RealizationQuality::Complete
+            ));
         }
     }
 
@@ -678,13 +785,13 @@ mod tests {
     fn test_foundational_axiom() {
         let mut axiom = FoundationalAxiom::establish();
         let source = "fn test() { println!(\"Monster Group\"); }";
-        
+
         let equivalence_verified = axiom.verify_equivalence(source);
         assert!(equivalence_verified);
-        
+
         let correspondence = axiom.establish_monster_correspondence(source);
         assert!(correspondence);
-        
+
         let consistency = axiom.validate_consistency();
         assert!(consistency);
     }

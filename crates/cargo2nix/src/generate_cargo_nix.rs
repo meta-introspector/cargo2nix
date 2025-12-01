@@ -6,15 +6,15 @@ use std::{
 };
 
 use anyhow::{Context, Result}; // Add Context trait
+use cargo::core::resolver::features::{CliFeatures, HasDevUnits};
 use cargo::{
     core::{
-        compiler::{CompileKind, RustcTargetData},
         Workspace,
+        compiler::{CompileKind, RustcTargetData},
     },
-    ops::{resolve_with_previous},
+    ops::resolve_with_previous,
     util::important_paths::find_root_manifest_for_wd,
 };
-use cargo::core::resolver::features::{CliFeatures, HasDevUnits};
 use sha2::{Digest, Sha256};
 use tera::Tera;
 
@@ -55,7 +55,8 @@ pub fn generate_cargo_nix(workspace_directory: &PathBuf, locked: bool) -> Result
     let cargo_resolver = crate::traits::DefaultCargoResolver; // Instantiate the resolver
 
     // Resolve entire workspace with all features.
-    let resolved_all_opts = cargo_resolver.resolve_with_all_features(&ws, &mut target_data, &requested_kinds)?;
+    let resolved_all_opts =
+        cargo_resolver.resolve_with_all_features(&ws, &mut target_data, &requested_kinds)?;
     let _resolved_all = &resolved_all_opts.targeted_resolve;
 
     let pkgs_by_id = resolved_all_opts
@@ -78,7 +79,8 @@ pub fn generate_cargo_nix(workspace_directory: &PathBuf, locked: bool) -> Result
     // Resolve with just packages but no features turned on.  We can compare
     // with this `Resolve` to detect if turning on a feature made a
     // dependency or feature appear
-    let resolved_no_features_opts = cargo_resolver.resolve_with_no_features(&ws, &mut target_data, &requested_kinds)?;
+    let resolved_no_features_opts =
+        cargo_resolver.resolve_with_no_features(&ws, &mut target_data, &requested_kinds)?;
     let resolved_no_features = &resolved_no_features_opts.targeted_resolve;
 
     let root_pkgs: Vec<_> = ws.members().collect();
@@ -111,7 +113,10 @@ pub fn generate_cargo_nix(workspace_directory: &PathBuf, locked: bool) -> Result
 
     let cargo_lock_path = root_manifest_path.clone().with_file_name("Cargo.lock");
     let mut hasher = Sha256::new();
-    let mut file = fs::File::open(&cargo_lock_path).context(format!("Does the Cargo.lock file exist at {}?", cargo_lock_path.display()))?;
+    let mut file = fs::File::open(&cargo_lock_path).context(format!(
+        "Does the Cargo.lock file exist at {}?",
+        cargo_lock_path.display()
+    ))?;
     let mut buffer = Vec::new();
     file.read_to_end(&mut buffer)?;
     hasher.update(&buffer);

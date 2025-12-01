@@ -1,10 +1,10 @@
 // crates/trait-fixer-core-real/src/lib.rs
 
-use rustc_middle::ty::TyCtxt;
-use rustc_hir::Item; // Needed for Item
-// Re-export rules for configuration
-pub use trait_fixer_rules as rules; // This will be the alias for the rules crate
-use trait_fixer_core_trait::{CoreFixer, Fix}; // Import the trait and Fix enum
+use rustc_hir::Item;
+use rustc_middle::ty::TyCtxt; // Needed for Item
+                              // Re-export rules for configuration
+use trait_fixer_core_trait::{CoreFixer, Fix};
+pub use trait_fixer_rules as rules; // This will be the alias for the rules crate // Import the trait and Fix enum
 
 pub struct TraitFixer<'tcx> {
     pub tcx: TyCtxt<'tcx>,

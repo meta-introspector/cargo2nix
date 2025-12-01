@@ -18,11 +18,11 @@ impl MonsterTrait {
     pub fn new(name: &str, element: u64, hecke: i32) -> Result<Self, Box<dyn std::error::Error>> {
         let c_name = CString::new(name)?;
         let ptr = unsafe { monster_create_trait(c_name.as_ptr(), element, hecke) };
-        
+
         if ptr.is_null() {
             return Err("Failed to create Monster trait".into());
         }
-        
+
         Ok(MonsterTrait { ptr })
     }
 }
@@ -53,11 +53,11 @@ mod tests {
     fn test_monster_verification() {
         assert!(verify_monster_element(196882));
         assert!(!verify_monster_element(196883));
-        
+
         assert!(verify_hecke_eigenvalue(196883));
         assert!(verify_hecke_eigenvalue(-5472));
         assert!(!verify_hecke_eigenvalue(0));
-        
+
         let elements = vec![24, 48, 72];
         assert!(verify_modular_constraint(&elements));
     }

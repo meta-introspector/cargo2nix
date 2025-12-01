@@ -9,11 +9,14 @@ use monster_math_traits::{Declaration, RustAstParser};
 use once_cell::sync::Lazy;
 use prelude_generator::use_extractor::expand_macros_and_parse;
 use prelude_generator::use_extractor::rustc_info::get_rustc_info;
+use quote::ToTokens;
 use regex::Regex;
 use split_expanded_lib::{ErrorSample, RustcInfo as SplitExpandedRustcInfo};
-use syn::{self, visit::Visit, ItemConst, ItemEnum, ItemFn, ItemMod, ItemStatic, ItemStruct, ItemTrait, ItemType, ItemUnion};
+use syn::{
+    self, visit::Visit, ItemConst, ItemEnum, ItemFn, ItemMod, ItemStatic, ItemStruct, ItemTrait,
+    ItemType, ItemUnion,
+};
 use tokio::runtime::Runtime;
-use quote::ToTokens;
 
 lazy_static! {
     static ref TOKIO_RUNTIME: Runtime = Runtime::new().expect("Failed to create Tokio runtime");
@@ -40,8 +43,7 @@ impl RustAstParser for RealRustAstParser {
             let temp_dir = tempfile::tempdir().expect("Failed to create temporary directory");
             let temp_crate_path = temp_dir.path();
             let temp_src_dir = temp_crate_path.join("src");
-            fs::create_dir_all(&temp_src_dir)
-                .expect("Failed to create temporary src directory");
+            fs::create_dir_all(&temp_src_dir).expect("Failed to create temporary src directory");
 
             let lib_rs_path = temp_src_dir.join("lib.rs");
             fs::write(&lib_rs_path, code).expect("Failed to write code to temporary lib.rs");
@@ -69,7 +71,7 @@ once_cell = "1.19.0"
 regex = "1"
 split-expanded-lib = { path = "../../tools/rust-bootstrap-nix/split-expanded-lib" }
 prelude-generator = { path = "../../tools/rust-bootstrap-nix/prelude-generator" }
-"#
+"#,
             )
             .expect("Failed to write Cargo.toml");
 

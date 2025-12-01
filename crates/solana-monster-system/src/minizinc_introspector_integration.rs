@@ -1,7 +1,7 @@
-use crate::core_constants::{MONSTER_GROUP_REPRESENTATION_DIMENSION, HECKE_EIGENVALUES};
-use std::process::{Command, Stdio};
+use crate::core_constants::{HECKE_EIGENVALUES, MONSTER_GROUP_REPRESENTATION_DIMENSION};
 use std::fs;
 use std::path::Path;
+use std::process::{Command, Stdio};
 
 pub struct MiniZincIntrospectorIntegration {
     vendor_path: String,
@@ -18,22 +18,22 @@ impl MiniZincIntrospectorIntegration {
 
     pub fn verify_vendorization(&self) -> Result<VendorizationStatus, String> {
         let mut status = VendorizationStatus::default();
-        
+
         // Check vendor directory
         status.vendor_directory_exists = Path::new(&self.vendor_path).exists();
-        
+
         // Check .gitmodules
         if let Ok(gitmodules) = fs::read_to_string(".gitmodules") {
             status.gitmodules_configured = gitmodules.contains("vendor/libminizinc");
             status.correct_repository = gitmodules.contains("minizinc-introspector");
         }
-        
+
         // Check asciicast_processor
         status.asciicast_processor_exists = Path::new(&self.asciicast_processor_path).exists();
-        
+
         // Check submodule initialization
         status.submodule_initialized = Path::new(&format!("{}/.git", self.vendor_path)).exists();
-        
+
         Ok(status)
     }
 
@@ -43,9 +43,12 @@ impl MiniZincIntrospectorIntegration {
         }
 
         let monster_enhanced_input = self.enhance_with_monster_group(input_file)?;
-        
+
         let output = Command::new("python3")
-            .arg(&format!("{}/process_asciicast.py", self.asciicast_processor_path))
+            .arg(&format!(
+                "{}/process_asciicast.py",
+                self.asciicast_processor_path
+            ))
             .arg(&monster_enhanced_input)
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
@@ -55,15 +58,17 @@ impl MiniZincIntrospectorIntegration {
         if output.status.success() {
             Ok(String::from_utf8_lossy(&output.stdout).to_string())
         } else {
-            Err(format!("asciicast_processor failed: {}", 
-                       String::from_utf8_lossy(&output.stderr)))
+            Err(format!(
+                "asciicast_processor failed: {}",
+                String::from_utf8_lossy(&output.stderr)
+            ))
         }
     }
 
     fn enhance_with_monster_group(&self, input_file: &str) -> Result<String, String> {
         let content = fs::read_to_string(input_file)
             .map_err(|e| format!("Failed to read input file: {}", e))?;
-        
+
         let enhanced_content = format!(
             "% Monster Group Enhanced Asciicast\n\
             % Monster Group Order: {}\n\
@@ -86,7 +91,7 @@ impl MiniZincIntrospectorIntegration {
         let enhanced_file = format!("{}.monster_enhanced", input_file);
         fs::write(&enhanced_file, enhanced_content)
             .map_err(|e| format!("Failed to write enhanced file: {}", e))?;
-        
+
         Ok(enhanced_file)
     }
 
@@ -136,15 +141,13 @@ impl MiniZincIntrospectorIntegration {
                 \"Monster Group Sum: \", show(sum(introspection_vars)), \" (mod 24 = \", \n\
                 show(sum(introspection_vars) mod 24), \")\\n\"\n\
             ];",
-            problem_size,
-            MONSTER_GROUP_REPRESENTATION_DIMENSION
+            problem_size, MONSTER_GROUP_REPRESENTATION_DIMENSION
         )
     }
 
     pub fn run_introspector_solver(&self, model: &str) -> Result<IntrospectorResult, String> {
         let model_file = "introspector_model.mzn";
-        fs::write(model_file, model)
-            .map_err(|e| format!("Failed to write model file: {}", e))?;
+        fs::write(model_file, model).map_err(|e| format!("Failed to write model file: {}", e))?;
 
         // Try to use vendored minizinc if available
         let minizinc_path = format!("{}/bin/minizinc", self.vendor_path);
@@ -167,14 +170,16 @@ impl MiniZincIntrospectorIntegration {
             let result_str = String::from_utf8_lossy(&output.stdout);
             Ok(self.parse_introspector_result(&result_str))
         } else {
-            Err(format!("MiniZinc solver failed: {}", 
-                       String::from_utf8_lossy(&output.stderr)))
+            Err(format!(
+                "MiniZinc solver failed: {}",
+                String::from_utf8_lossy(&output.stderr)
+            ))
         }
     }
 
     fn parse_introspector_result(&self, output: &str) -> IntrospectorResult {
         let mut result = IntrospectorResult::default();
-        
+
         for line in output.lines() {
             if line.contains("Introspection Variables:") {
                 result.variables = self.extract_array_from_line(line);
@@ -186,7 +191,7 @@ impl MiniZincIntrospectorIntegration {
                 result.monster_group_valid = line.contains("mod 24 = 0");
             }
         }
-        
+
         result
     }
 
@@ -194,8 +199,9 @@ impl MiniZincIntrospectorIntegration {
         // Simple parser for MiniZinc array output
         if let Some(start) = line.find('[') {
             if let Some(end) = line.find(']') {
-                let array_str = &line[start+1..end];
-                return array_str.split(',')
+                let array_str = &line[start + 1..end];
+                return array_str
+                    .split(',')
                     .filter_map(|s| s.trim().parse().ok())
                     .collect();
             }
@@ -221,15 +227,15 @@ pub struct VendorizationStatus {
 
 impl VendorizationStatus {
     pub fn is_complete(&self) -> bool {
-        self.vendor_directory_exists && 
-        self.gitmodules_configured && 
-        self.correct_repository && 
-        self.submodule_initialized
+        self.vendor_directory_exists
+            && self.gitmodules_configured
+            && self.correct_repository
+            && self.submodule_initialized
     }
 
     pub fn missing_components(&self) -> Vec<String> {
         let mut missing = Vec::new();
-        
+
         if !self.vendor_directory_exists {
             missing.push("Vendor directory".to_string());
         }
@@ -245,7 +251,7 @@ impl VendorizationStatus {
         if !self.submodule_initialized {
             missing.push("Submodule initialization".to_string());
         }
-        
+
         missing
     }
 }
@@ -265,7 +271,7 @@ mod tests {
     #[test]
     fn test_introspector_integration() {
         let integration = MiniZincIntrospectorIntegration::new();
-        
+
         let model = integration.generate_introspector_model(5);
         assert!(model.contains("Monster Group"));
         assert!(model.contains("constraint sum(introspection_vars) mod 24 = 0"));
@@ -275,7 +281,7 @@ mod tests {
     fn test_vendorization_status() {
         let integration = MiniZincIntrospectorIntegration::new();
         let status = integration.verify_vendorization().unwrap();
-        
+
         // Status should be created without errors
         assert!(!status.is_complete() || status.is_complete());
     }
@@ -284,7 +290,7 @@ mod tests {
     fn test_result_parsing() {
         let integration = MiniZincIntrospectorIntegration::new();
         let output = "Introspection Variables: [24, 48, 72]\nDepth Levels: [2, 3, 4]\nTotal Introspection: 150\nMonster Group Sum: 144 (mod 24 = 0)";
-        
+
         let result = integration.parse_introspector_result(output);
         assert_eq!(result.variables, vec![24, 48, 72]);
         assert_eq!(result.depth_levels, vec![2, 3, 4]);

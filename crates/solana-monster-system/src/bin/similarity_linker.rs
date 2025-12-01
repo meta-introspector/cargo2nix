@@ -31,16 +31,20 @@ fn calculate_content_hash(content: &str) -> u64 {
 fn calculate_similarity(sig1: &str, sig2: &str) -> f64 {
     let words1: Vec<&str> = sig1.split_whitespace().collect();
     let words2: Vec<&str> = sig2.split_whitespace().collect();
-    
+
     let common = words1.iter().filter(|w| words2.contains(w)).count();
     let total = (words1.len() + words2.len()) as f64;
-    
-    if total == 0.0 { 0.0 } else { (2.0 * common as f64) / total }
+
+    if total == 0.0 {
+        0.0
+    } else {
+        (2.0 * common as f64) / total
+    }
 }
 
 fn extract_declarations(dir: &Path) -> Vec<Declaration> {
     let mut declarations = Vec::new();
-    
+
     if let Ok(entries) = fs::read_dir(dir) {
         for entry in entries.flatten() {
             let path = entry.path();
@@ -56,14 +60,14 @@ fn extract_declarations(dir: &Path) -> Vec<Declaration> {
             }
         }
     }
-    
+
     declarations
 }
 
 fn parse_declaration(line: &str, file_path: &Path, line_num: usize) -> Option<Declaration> {
     let content_hash = calculate_content_hash(line);
     let cas_id = content_hash % 196883; // Monster Group order
-    
+
     if line.starts_with("fn ") {
         let name = line.split_whitespace().nth(1)?.split('(').next()?;
         Some(Declaration {
@@ -75,7 +79,13 @@ fn parse_declaration(line: &str, file_path: &Path, line_num: usize) -> Option<De
             signature: line.to_string(),
         })
     } else if line.starts_with("struct ") {
-        let name = line.split_whitespace().nth(1)?.split('{').next()?.split('(').next()?;
+        let name = line
+            .split_whitespace()
+            .nth(1)?
+            .split('{')
+            .next()?
+            .split('(')
+            .next()?;
         Some(Declaration {
             name: name.to_string(),
             decl_type: "struct".to_string(),
@@ -85,7 +95,13 @@ fn parse_declaration(line: &str, file_path: &Path, line_num: usize) -> Option<De
             signature: line.to_string(),
         })
     } else if line.starts_with("trait ") {
-        let name = line.split_whitespace().nth(1)?.split('{').next()?.split(':').next()?;
+        let name = line
+            .split_whitespace()
+            .nth(1)?
+            .split('{')
+            .next()?
+            .split(':')
+            .next()?;
         Some(Declaration {
             name: name.to_string(),
             decl_type: "trait".to_string(),
@@ -101,21 +117,21 @@ fn parse_declaration(line: &str, file_path: &Path, line_num: usize) -> Option<De
 
 fn find_similarities(declarations: &[Declaration]) -> Vec<SimilarityLink> {
     let mut links = Vec::new();
-    
+
     for i in 0..declarations.len() {
         for j in (i + 1)..declarations.len() {
             let decl1 = &declarations[i];
             let decl2 = &declarations[j];
-            
+
             let similarity = calculate_similarity(&decl1.signature, &decl2.signature);
-            
+
             if similarity > 0.7 {
                 let link_type = if decl1.decl_type == decl2.decl_type {
                     "same_type".to_string()
                 } else {
                     "cross_type".to_string()
                 };
-                
+
                 links.push(SimilarityLink {
                     decl1_cas: decl1.cas_id,
                     decl2_cas: decl2.cas_id,
@@ -125,45 +141,60 @@ fn find_similarities(declarations: &[Declaration]) -> Vec<SimilarityLink> {
             }
         }
     }
-    
+
     links
 }
 
 fn main() {
     println!("=== Declaration Similarity Linker ===");
-    
+
     let declarations = extract_declarations(Path::new("./src"));
     println!("Found {} declarations", declarations.len());
-    
+
     let mut content_map: HashMap<u64, Vec<&Declaration>> = HashMap::new();
     for decl in &declarations {
         content_map.entry(decl.content_hash).or_default().push(decl);
     }
-    
+
     println!("\n=== Content-Addressable Index ===");
     for (content_id, decls) in &content_map {
         if decls.len() > 1 {
-            println!("Content ID {}: {} identical declarations", content_id, decls.len());
+            println!(
+                "Content ID {}: {} identical declarations",
+                content_id,
+                decls.len()
+            );
             for decl in decls {
                 println!("  {} {} (CAS: {})", decl.decl_type, decl.name, decl.cas_id);
             }
         }
     }
-    
+
     let links = find_similarities(&declarations);
     println!("\n=== Similarity Links ===");
     println!("Found {} similarity links", links.len());
-    
+
     for link in &links {
-        let decl1 = declarations.iter().find(|d| d.cas_id == link.decl1_cas).unwrap();
-        let decl2 = declarations.iter().find(|d| d.cas_id == link.decl2_cas).unwrap();
-        
-        println!("LINK: {} {} ↔ {} {} (similarity: {:.2}, type: {})",
-                 decl1.decl_type, decl1.name,
-                 decl2.decl_type, decl2.name,
-                 link.similarity_score, link.link_type);
+        let decl1 = declarations
+            .iter()
+            .find(|d| d.cas_id == link.decl1_cas)
+            .unwrap();
+        let decl2 = declarations
+            .iter()
+            .find(|d| d.cas_id == link.decl2_cas)
+            .unwrap();
+
+        println!(
+            "LINK: {} {} ↔ {} {} (similarity: {:.2}, type: {})",
+            decl1.decl_type,
+            decl1.name,
+            decl2.decl_type,
+            decl2.name,
+            link.similarity_score,
+            link.link_type
+        );
     }
-    
+
     println!("\n=== Summary ===");
     println!("Total declarations: {}", declarations.len());
     println!("Unique content hashes: {}", content_map.len());

@@ -3,7 +3,8 @@ use std::path::Path;
 use syn::{File, Item, ItemEnum, ItemFn, ItemImpl, ItemStruct, ItemTrait, Signature, ReturnType, Type as SynType};
 use syn::punctuated::Punctuated;
 use syn::token::Paren;
-//use crate::error::AppError;
+use quote::ToTokens;
+use crate::error::AppError;
 use crate::trait_types::{DeclKind, DeclTrait, TraitDeps};
 
 pub struct TraitExtractor;
@@ -40,14 +41,16 @@ impl TraitExtractor {
                 },
                 Item::Mod(item_mod) => {
                     // Handle modules later if needed, for now just create a basic trait
-                    decl_traits.push(DeclTrait {
-                        name: item_mod.ident.to_string(),
-                        kind: DeclKind::Module,
-                        generics: Vec::new(),
-                        bounds: Vec::new(),
-                        associated_items: Vec::new(),
-                        godel_number: 0, // Placeholder
-                    });
+                DeclTrait {
+                    name: item_mod.ident.to_string(),
+                    kind: DeclKind::Module,
+                    generics: Vec::new(),
+                    bounds: Vec::new(),
+                    associated_items: Vec::new(),
+                    godel_number: 0, // Placeholder
+                    monster_number: None, // Added
+                    enum_numbering: None, // Added
+                });
                 },
                 _ => {
                     // Ignore other items for now or handle as 'Other'
@@ -59,9 +62,9 @@ impl TraitExtractor {
     }
 
     fn extract_struct(&self, item_struct: &ItemStruct) -> DeclTrait {
-        let generics = item_struct.generics.params.iter().map(|param| param.to_string()).collect();
+        let generics = item_struct.generics.params.iter().map(|param| param.to_token_stream().to_string()).collect();
         let bounds = item_struct.generics.where_clause.as_ref().map_or(Vec::new(), |clause| {
-            clause.predicates.iter().map(|pred| pred.to_string()).collect()
+            clause.predicates.iter().map(|pred| pred.to_token_stream().to_string()).collect()
         });
 
         DeclTrait {
@@ -71,13 +74,15 @@ impl TraitExtractor {
             bounds,
             associated_items: Vec::new(), // Structs don't have associated items in this context
             godel_number: 0, // Placeholder
+            monster_number: None, // Added
+            enum_numbering: None, // Added
         }
     }
 
     fn extract_enum(&self, item_enum: &ItemEnum) -> DeclTrait {
-        let generics = item_enum.generics.params.iter().map(|param| param.to_string()).collect();
+        let generics = item_enum.generics.params.iter().map(|param| param.to_token_stream().to_string()).collect();
         let bounds = item_enum.generics.where_clause.as_ref().map_or(Vec::new(), |clause| {
-            clause.predicates.iter().map(|pred| pred.to_string()).collect()
+            clause.predicates.iter().map(|pred| pred.to_token_stream().to_string()).collect()
         });
 
         DeclTrait {
@@ -87,13 +92,15 @@ impl TraitExtractor {
             bounds,
             associated_items: Vec::new(),
             godel_number: 0, // Placeholder
+            monster_number: None, // Added
+            enum_numbering: None, // Added
         }
     }
 
     fn extract_fn(&self, item_fn: &ItemFn) -> DeclTrait {
-        let generics = item_fn.sig.generics.params.iter().map(|param| param.to_string()).collect();
+        let generics = item_fn.sig.generics.params.iter().map(|param| param.to_token_stream().to_string()).collect();
         let bounds = item_fn.sig.generics.where_clause.as_ref().map_or(Vec::new(), |clause| {
-            clause.predicates.iter().map(|pred| pred.to_string()).collect()
+            clause.predicates.iter().map(|pred| pred.to_token_stream().to_string()).collect()
         });
 
         // Extract return type as an associated item if it's a known trait
@@ -113,12 +120,14 @@ impl TraitExtractor {
             bounds,
             associated_items,
             godel_number: 0, // Placeholder
+            monster_number: None, // Added
+            enum_numbering: None, // Added
         }
     }
 
     fn extract_trait(&self, item_trait: &ItemTrait) -> DeclTrait {
-        let generics = item_trait.generics.params.iter().map(|param| param.to_string()).collect();
-        let bounds = item_trait.supertraits.iter().map(|sup| sup.to_string()).collect();
+        let generics = item_trait.generics.params.iter().map(|param| param.to_token_stream().to_string()).collect();
+        let bounds = item_trait.supertraits.iter().map(|sup| sup.to_token_stream().to_string()).collect();
         let associated_items = item_trait.items.iter().filter_map(|item| {
             if let syn::TraitItem::Fn(method) = item {
                 Some(method.sig.ident.to_string())
@@ -134,13 +143,15 @@ impl TraitExtractor {
             bounds,
             associated_items,
             godel_number: 0, // Placeholder
+            monster_number: None, // Added
+            enum_numbering: None, // Added
         }
     }
 
     fn extract_impl(&self, item_impl: &ItemImpl) -> Result<(DeclTrait, TraitDeps), AppError> {
-        let generics = item_impl.generics.params.iter().map(|param| param.to_string()).collect();
+        let generics = item_impl.generics.params.iter().map(|param| param.to_token_stream().to_string()).collect();
         let bounds = item_impl.generics.where_clause.as_ref().map_or(Vec::new(), |clause| {
-            clause.predicates.iter().map(|pred| pred.to_string()).collect()
+            clause.predicates.iter().map(|pred| pred.to_token_stream().to_string()).collect()
         });
 
         let mut impl_trait_name = "UnknownTrait".to_string();
@@ -194,6 +205,8 @@ impl TraitExtractor {
             bounds,
             associated_items: Vec::new(),
             godel_number: 0, // Placeholder
+            monster_number: None, // Added
+            enum_numbering: None, // Added
         };
 
         let trait_deps = TraitDeps {

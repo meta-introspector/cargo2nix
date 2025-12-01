@@ -4,24 +4,24 @@ use std::sync::{Arc, Mutex};
 
 #[cfg(not(feature = "nix_generation"))]
 use super::super::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
-use tool_traits_lib::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
-#[cfg(not(feature = "git_enabled"))]
-use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
+use super::super::fs_cache::RealFileSystemStat;
 #[cfg(not(feature = "git_enabled"))]
 use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Use our dummy GitExecutor
 #[cfg(not(feature = "git_enabled"))]
 use git_wrapper_lib::dummy_rollup_lock::DummyRollupLock as RollupLock; // Use dummy for RollupLock when git is not enabled
+#[cfg(not(feature = "git_enabled"))]
+use git_wrapper_lib::execv::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
 use git_wrapper_lib::git_traits::GitExecutor; // Use our re-exported GitExecutor
-#[cfg(feature = "git_enabled")]
-use git_wrapper_lib::pure_rust_git_executor::PureRustGitExecutor;
-#[cfg(feature = "git_enabled")]
-use git_wrapper_lib::RealExecv; // Use our re-exported RealExecv
 #[cfg(feature = "git_enabled")]
 use git_wrapper_lib::git_types::RollupLock; // Use our re-exported RollupLock
 #[cfg(feature = "git_enabled")]
-use git_wrapper_lib::system_git_executor::SystemGitExecutor; // Added for non-git2 case
+use git_wrapper_lib::pure_rust_git_executor::PureRustGitExecutor;
 use git_wrapper_lib::repo_state_collector::{RealRepoStateCollector, RepoStateCollector}; // Use our re-exported RepoStateCollector
-use super::super::fs_cache::RealFileSystemStat; // Still in cargo-submodule-tool-lib
+#[cfg(feature = "git_enabled")]
+use git_wrapper_lib::system_git_executor::SystemGitExecutor; // Added for non-git2 case
+#[cfg(feature = "git_enabled")]
+use git_wrapper_lib::RealExecv; // Use our re-exported RealExecv
+use tool_traits_lib::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider}; // Still in cargo-submodule-tool-lib
 
 pub fn run_collect_repo_state_command(project_root: PathBuf) -> Result<()> {
     println!("Collecting repository state for: {:?}", project_root);

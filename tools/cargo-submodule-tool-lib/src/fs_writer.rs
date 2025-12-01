@@ -3,10 +3,10 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 
+use crate::fs_cache::FileSystemStat;
 #[cfg(not(feature = "git_enabled"))]
 use git_wrapper_lib::dummy_rollup_lock::DummyRollupLock;
 use git_wrapper_lib::git_types::RollupLock; // Use our re-exported RollupLock
-use crate::fs_cache::FileSystemStat;
 
 pub trait FileSystemWriter {
     fn write_file(&self, path: &Path, contents: &[u8]) -> Result<()>;

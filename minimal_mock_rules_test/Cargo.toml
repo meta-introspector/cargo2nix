@@ -1,0 +1,9 @@
+[workspace]
+members = [
+    "trait-fixer-rules-trait",
+    "trait-fixer-rules-mock",
+]
+
+[workspace.dependencies]
+serde = { version = "1.0", features = ["derive"] }
+trait-fixer-rules-trait = { path = "trait-fixer-rules-trait" }

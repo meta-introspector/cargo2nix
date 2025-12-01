@@ -5,7 +5,7 @@ pub struct ConwayGroup {
 
 impl ConwayGroup {
     pub fn co0() -> Self {
-        Self { 
+        Self {
             order: 8315553613086720000, // |Co0|
             leech_lattice: true,
         }

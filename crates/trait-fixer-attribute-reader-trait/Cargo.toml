@@ -4,5 +4,4 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-rustc_middle = { workspace = true }
-rustc_hir = { workspace = true } # for DefId
+# Removed rustc_middle and rustc_hir dependencies

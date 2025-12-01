@@ -1,8 +1,8 @@
+use super::plan_generator;
+use crate::file_retrieval::get_file_analysis;
 use anyhow::{Result, anyhow};
 use rocksdb::DB;
-use std::path::{Path, PathBuf}; // NEW: Add Path and PathBuf
-use crate::file_retrieval::get_file_analysis;
-use super::plan_generator; // Corrected: plan_generator is a sibling module
+use std::path::{Path, PathBuf}; // NEW: Add Path and PathBuf // Corrected: plan_generator is a sibling module
 
 // Function to initiate bootstrap compilation
 pub fn boot_compiler(db: &DB, compiler_source_path: &str, target_source_path: &str) -> Result<()> {

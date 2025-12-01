@@ -1,21 +1,28 @@
-use anyhow::{Result, Context};
-use std::path::{PathBuf, Path};
 use crate::{Factory, FactoryBlock}; // Correct import for Factory and FactoryBlock trait
-use std::process::Command; // Added
-use std::fs; // Added
+use anyhow::{Context, Result};
 use chrono::Local; // Added for timestamps
-use serde_json::Value; // Added for parsing flake.lock
 use quote::quote; // Added for Rust code generation
-use serde::{Deserialize, Serialize}; // Add this import
+use serde::{Deserialize, Serialize};
+use serde_json::Value; // Added for parsing flake.lock
+use std::fs; // Added
+use std::path::{Path, PathBuf};
+use std::process::Command; // Added // Add this import
 
 #[derive(Clone, Serialize, Deserialize)] // Add Serialize, Deserialize
 #[typetag::serde] // Add typetag
 pub struct SolanaRustcIngestBlock;
 impl FactoryBlock for SolanaRustcIngestBlock {
-    fn name(&self) -> &'static str { "Solana Rustc Ingester" }
-    fn cost(&self) -> u32 { 150 } // Cost for ingesting large codebases
+    fn name(&self) -> &'static str {
+        "Solana Rustc Ingester"
+    }
+    fn cost(&self) -> u32 {
+        150
+    } // Cost for ingesting large codebases
     fn execute(&self, factory: &mut Factory, current_crate_path: &PathBuf) -> Result<()> {
-        println!("Solana Rustc Ingester activated! Ingesting Solana Rustc source code from {:?} into database.", current_crate_path);
+        println!(
+            "Solana Rustc Ingester activated! Ingesting Solana Rustc source code from {:?} into database.",
+            current_crate_path
+        );
         // This simulates the `ingest-full-rustc` or `ingest-all-code` targets.
         // It would populate the factory's internal representation of the code.
         factory.points += 40;
@@ -27,10 +34,16 @@ impl FactoryBlock for SolanaRustcIngestBlock {
 #[typetag::serde] // Add typetag
 pub struct SolanaRustcMonsterProveBlock;
 impl FactoryBlock for SolanaRustcMonsterProveBlock {
-    fn name(&self) -> &'static str { "Solana Rustc Monster Prover" }
-    fn cost(&self) -> u32 { 300 } // High cost for complex proof
+    fn name(&self) -> &'static str {
+        "Solana Rustc Monster Prover"
+    }
+    fn cost(&self) -> u32 {
+        300
+    } // High cost for complex proof
     fn execute(&self, factory: &mut Factory, _current_crate_path: &PathBuf) -> Result<()> {
-        println!("Solana Rustc Monster Prover activated! Generating monster group proofs for Solana Rustc.");
+        println!(
+            "Solana Rustc Monster Prover activated! Generating monster group proofs for Solana Rustc."
+        );
         factory.points += 80;
         Ok(())
     }
@@ -40,10 +53,16 @@ impl FactoryBlock for SolanaRustcMonsterProveBlock {
 #[typetag::serde] // Add typetag
 pub struct SolanaRustcLevel10Block;
 impl FactoryBlock for SolanaRustcLevel10Block {
-    fn name(&self) -> &'static str { "Solana Rustc Lvl 10" }
-    fn cost(&self) -> u32 { 500 } // Very high cost for advanced level
+    fn name(&self) -> &'static str {
+        "Solana Rustc Lvl 10"
+    }
+    fn cost(&self) -> u32 {
+        500
+    } // Very high cost for advanced level
     fn execute(&self, factory: &mut Factory, _current_crate_path: &PathBuf) -> Result<()> {
-        println!("Solana Rustc Level 10 activated! Achieving full self-reflection for Solana Rustc.");
+        println!(
+            "Solana Rustc Level 10 activated! Achieving full self-reflection for Solana Rustc."
+        );
         factory.points += 150;
         Ok(())
     }
@@ -53,10 +72,16 @@ impl FactoryBlock for SolanaRustcLevel10Block {
 #[typetag::serde] // Add typetag
 pub struct SolanaSealevelLayerBlock;
 impl FactoryBlock for SolanaSealevelLayerBlock {
-    fn name(&self) -> &'static str { "Solana Sealevel Layer" }
-    fn cost(&self) -> u32 { 100 } // Cost for a new layer
+    fn name(&self) -> &'static str {
+        "Solana Sealevel Layer"
+    }
+    fn cost(&self) -> u32 {
+        100
+    } // Cost for a new layer
     fn execute(&self, factory: &mut Factory, _current_crate_path: &PathBuf) -> Result<()> {
-        println!("Solana Sealevel Layer activated! Deeper hardware-level abstractions are now available.");
+        println!(
+            "Solana Sealevel Layer activated! Deeper hardware-level abstractions are now available."
+        );
         factory.points += 40;
         Ok(())
     }
@@ -66,8 +91,12 @@ impl FactoryBlock for SolanaSealevelLayerBlock {
 #[typetag::serde] // Add typetag
 pub struct SolanaValidatorTycoonBlock;
 impl FactoryBlock for SolanaValidatorTycoonBlock {
-    fn name(&self) -> &'static str { "Solana Validator Tycoon" }
-    fn cost(&self) -> u32 { 200 } // Cost for validator operation
+    fn name(&self) -> &'static str {
+        "Solana Validator Tycoon"
+    }
+    fn cost(&self) -> u32 {
+        200
+    } // Cost for validator operation
     fn execute(&self, factory: &mut Factory, _current_crate_path: &PathBuf) -> Result<()> {
         println!("Solana Validator Tycoon activated! Simulating Solana validator operations.");
         factory.points += 50;
@@ -79,10 +108,16 @@ impl FactoryBlock for SolanaValidatorTycoonBlock {
 #[typetag::serde] // Add typetag
 pub struct RustcToSolanaLoaderBlock;
 impl FactoryBlock for RustcToSolanaLoaderBlock {
-    fn name(&self) -> &'static str { "Rustc to Solana Loader" }
-    fn cost(&self) -> u32 { 120 } // Cost for code transformation
+    fn name(&self) -> &'static str {
+        "Rustc to Solana Loader"
+    }
+    fn cost(&self) -> u32 {
+        120
+    } // Cost for code transformation
     fn execute(&self, factory: &mut Factory, _current_crate_path: &PathBuf) -> Result<()> {
-        println!("Rustc to Solana Loader activated! Transforming Rustc output for Solana deployment.");
+        println!(
+            "Rustc to Solana Loader activated! Transforming Rustc output for Solana deployment."
+        );
         factory.points += 30;
         Ok(())
     }

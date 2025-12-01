@@ -4,6 +4,7 @@ use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 use std::time::SystemTime;
 
+use anyhow::{Context, Result};
 #[cfg(not(feature = "git_enabled"))]
 use git_wrapper_lib::executors::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
 #[cfg(not(feature = "git_enabled"))]
@@ -17,7 +18,6 @@ use git_wrapper_lib::executors::PureRustGitExecutor;
 use git_wrapper_lib::executors::RealExecv; // Use our re-exported RealExecv
 #[cfg(feature = "git_enabled")]
 use git_wrapper_lib::executors::RollupLock; // Use our re-exported RollupLock
-use anyhow::{Context, Result};
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex}; // Use our dummy GitExecutor
 
