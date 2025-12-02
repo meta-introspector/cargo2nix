@@ -4,6 +4,7 @@
 	nix-eval-cargo2nix-attrs nix-eval-flake-packages-attrs nix-eval-flake-root nix-flake-show 
 	nix-eval-cargo2nix-attrs-json nix-eval-cargo2nix-raw-json build-submodule-tool build-gix-diff-minimal 
 	process-repolist nix-cargo-build
+	build-gix-attributes build-rustc-apfloat build-measureme
 
 # Default target
 all: nix-direct-build
@@ -62,6 +63,18 @@ build-submodule-tool:
 
 build-gix-diff-minimal:
 	RUSTC_BOOTSTRAP=1 cargo build -p gix-diff > gix_diff_build_log.txt 2>&1
+
+build-gix-attributes:
+	@echo "Building gix-attributes..."
+	nix develop --command cargo build -p gix-attributes
+
+build-rustc-apfloat:
+	@echo "Building rustc-apfloat..."
+	nix develop --command cargo build -p rustc_apfloat
+
+build-measureme:
+	@echo "Building measureme..."
+	nix develop --command cargo build -p measureme
 
 build-cargo-llm-bootstrap:
 	@echo "Building cargo-llm-bootstrap..."
