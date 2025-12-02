@@ -252,7 +252,7 @@ jiff = { version = "0.2.15", features = [ "std" ] }
 jobserver = "0.1.34"
 la-arena = { path = "submodules/rust-analyzer/lib/la-arena" }
 lazy_static = { path = "submodules/lazy-static" }
-libc = "0.2.178"
+libc = { path = "submodules/libc", features = ["extra_traits"] }
 libgit2-sys = { path = "submodules/git2-rs/libgit2-sys" }
 libloading = { path = "submodules/rust_libloading" }
 libm = { path = "submodules/compiler-builtins/libm" }
@@ -702,3 +702,4 @@ tokio-core = { path = "submodules/tokio-core" }
 tokio-stream = { path = "submodules/tokio/tokio-stream" }
 tracing-subscriber = { path = "submodules/tracing/tracing-subscriber" }
 tracing-tree = { path = "submodules/tracing-tree" }
+libc = { path = "submodules/libc", features = ["extra_traits"] }

@@ -446,6 +446,9 @@
 [submodule "submodules/proc-macro2"]
 	path = submodules/proc-macro2
 	url = https://github.com/meta-introspector/proc-macro2.git
+[submodule "submodules/rocksdb"]
+	path = submodules/rocksdb
+	url = https://github.com/meta-introspector/rust-rocksdb
 [submodule "submodules/quote"]
 	path = submodules/quote
 	url = https://github.com/meta-introspector/quote.git
