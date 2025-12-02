@@ -49,14 +49,14 @@ pub struct Cli {
 #[cfg(feature = "clap_enabled")]
 #[derive(Subcommand)]
 pub enum Commands {
-    AddSubmodules(add_submodules::AddSubmodulesArgs),
-    SubmoduleStatus(submodule_status::SubmoduleStatusArgs),
+    AddSubmodules(#[clap(flatten)] add_submodules::AddSubmodulesArgs),
+    SubmoduleStatus(#[clap(flatten)] submodule_status::SubmoduleStatusArgs),
     //GenerateNix(generate_nix::GenerateNixArgs),
-    GeneratePatches(generate_patches::GeneratePatchesArgs),
-    Analyze(analyze::AnalyzeArgs),
+    GeneratePatches(#[clap(flatten)] generate_patches::GeneratePatchesArgs),
+    Analyze(#[clap(flatten)] analyze::AnalyzeArgs),
     //UpdateCargoToml(update_cargo_toml::UpdateCargoTomlArgs),
-    ProcessTtTxt(process_tt_txt::ProcessTtTxtArgs),
-    CollectRepoState(collect_repo_state::CollectRepoStateArgs),
+    ProcessTtTxt(#[clap(flatten)] process_tt_txt::ProcessTtTxtArgs),
+    CollectRepoState(#[clap(flatten)] collect_repo_state::CollectRepoStateArgs),
     //GenerateWorkspaces(generate_workspaces::GenerateWorkspacesArgs),
 }
 

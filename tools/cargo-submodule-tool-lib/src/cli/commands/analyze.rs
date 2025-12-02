@@ -1,19 +1,19 @@
 #[cfg(feature = "cargo-toml-editor-lib")]
 // use crate::analysis::cargo_config_patcher::{CargoConfigPatcher, RealCargoConfigPatcher};
 #[cfg(not(feature = "nix_generation"))]
-use super::super::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
-use super::super::analysis::cargo_metadata_provider::{
+use crate::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
+use crate::analysis::cargo_metadata_provider::{
     CargoMetadataProvider, RealCargoMetadataProvider,
 };
-use super::super::analysis::dep_graph_data_merger::{DepGraphDataMerger, RealDepGraphDataMerger};
-use super::super::analysis::dep_graph_processor::RealDepGraphProcessor;
-use super::super::analysis::layer0_analyzer::{Layer0Analyzer, RealLayer0Analyzer};
+use crate::analysis::dep_graph_data_merger::{DepGraphDataMerger, RealDepGraphDataMerger};
+use crate::analysis::dep_graph_processor::RealDepGraphProcessor;
+use crate::analysis::layer0_analyzer::{Layer0Analyzer, RealLayer0Analyzer};
 #[cfg(feature = "git_enabled")]
 // use crate::analysis::submodule_config_patcher::{
 //     RealSubmoduleConfigPatcher, SubmoduleConfigPatcher,
 // };
 #[cfg(feature = "cargo-toml-editor-lib")]
-use super::super::analysis::workspace_remover::{RealWorkspaceRemover, WorkspaceRemover};
+use crate::analysis::workspace_remover::{RealWorkspaceRemover, WorkspaceRemover};
 use crate::analysis::non_vendored_module_finder::{
     NonVendoredModuleFinder, RealNonVendoredModuleFinder,
 };
@@ -22,10 +22,10 @@ use tool_traits_lib::types::MergedCrateInfo;
 // use crate::cargo_config_generator::{
 //     generate_patch_entries, parse_members_file, update_config_toml,
 // };
-use super::super::cli::args::analyze::AnalyzeArgs;
-use super::super::cli::args::Cli;
-use super::super::fs_cache::{FileSystemStat, RealFileSystemStat};
-use super::super::fs_writer::{CachedFileSystemWriter, FileSystemWriter, RealFileSystemWriter};
+use super::args::analyze::AnalyzeArgs;
+use super::args::Cli;
+use crate::fs_cache::{FileSystemStat, RealFileSystemStat};
+use crate::fs_writer::{CachedFileSystemWriter, FileSystemWriter, RealFileSystemWriter};
 use anyhow::{anyhow, Context, Result};
 #[cfg(feature = "nix_generation")]
 use cargo_metadata::{MetadataCommand, Package, PackageId};

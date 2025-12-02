@@ -4,21 +4,29 @@ use rustc_hir::Item;
 use rustc_hir::ItemKind;
 use rustc_hir::OwnerId;
 use rustc_span::Span;
-// use std::marker::PhantomData; // This is not needed for the real rustc, but it helps when mocking. // Remove this line if not used
+// 
 
 use trait_fixer_hir_info_trait::HirInfo; // Import the trait
 
-// Implementation for Item directly.
-impl<'tcx> HirInfo<'tcx> for Item<'tcx> {
-    fn get_owner_id(&self, _item: &'tcx Item<'tcx>) -> OwnerId {
-        self.owner_id
+// Newtype struct to wrap rustc_hir::Item
+pub struct RealHirInfoItem<'tcx>(pub Item<'tcx>);
+
+// Implementation for RealHirInfoItem
+impl<'tcx> HirInfo<'tcx> for RealHirInfoItem<'tcx> {
+    fn get_owner_id(&self) -> OwnerId {
+        self.0.owner_id
     }
 
-    fn get_item_kind(&self, _item: &'tcx Item<'tcx>) -> &'tcx ItemKind<'_> {
-        &self.kind
+    fn get_item_kind<'a>(&'a self) -> &'a ItemKind<'tcx> {
+        &self.0.kind
     }
 
-    fn get_item_span(&self, _item: &'tcx Item<'tcx>) -> Span {
-        self.span
+    fn get_item_span(&self) -> Span {
+        self.0.span
     }
 }
+
+// Helper function to convert Item to RealHirInfoItem if needed elsewhere
+// pub fn to_real_hir_info_item(item: Item) -> RealHirInfoItem {
+//     RealHirInfoItem(item)
+// }

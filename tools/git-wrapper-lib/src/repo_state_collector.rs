@@ -1,8 +1,8 @@
 #[cfg(feature = "anyhow_enabled")]
-use anyhow::{Context, Result};
+use anyhow::Result;
 #[cfg(not(feature = "anyhow_enabled"))]
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
-use std::collections::{BTreeMap, HashMap};
+use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
 #[cfg(feature = "walkdir_enabled")]
@@ -10,9 +10,7 @@ use walkdir::WalkDir;
 
 use crate::git_traits::GitExecutor;
 #[cfg(feature = "cargo_metadata_enabled")]
-use tool_traits_lib::cargo_metadata_provider::{
-    CargoMetadataProvider, DummyCargoMetadataProvider, RealCargoMetadataProvider,
-};
+use tool_traits_lib::cargo_metadata_provider::CargoMetadataProvider;
 
 use tool_traits_lib::types::{
     CargoWorkspaceInfo, DependencyInfo, NixFlakeInfo, PackageInfo, RepoState, SubmoduleInfo,

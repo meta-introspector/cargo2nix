@@ -6,7 +6,7 @@ use rustc_hir::OwnerId;
 use rustc_span::Span;
 
 pub trait HirInfo<'tcx> {
-    fn get_owner_id(&self, item: &'tcx Item<'tcx>) -> OwnerId;
-    fn get_item_kind(&self, item: &'tcx Item<'tcx>) -> &'tcx ItemKind<'_>;
-    fn get_item_span(&self, item: &'tcx Item<'tcx>) -> Span;
+    fn get_owner_id(&self) -> OwnerId;
+    fn get_item_kind<'a>(&'a self) -> &'a ItemKind<'tcx>;
+    fn get_item_span(&self) -> Span;
 }

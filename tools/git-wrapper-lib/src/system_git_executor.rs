@@ -1,5 +1,5 @@
 #[cfg(feature = "anyhow_enabled")]
-use anyhow::{Context, Result};
+use anyhow::Result;
 #[cfg(not(feature = "anyhow_enabled"))]
 use std::error::Error; // For fallback Result
 #[cfg(not(feature = "anyhow_enabled"))]

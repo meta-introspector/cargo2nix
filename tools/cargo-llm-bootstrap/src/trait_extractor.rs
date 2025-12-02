@@ -41,16 +41,16 @@ impl TraitExtractor {
                 },
                 Item::Mod(item_mod) => {
                     // Handle modules later if needed, for now just create a basic trait
-                DeclTrait {
-                    name: item_mod.ident.to_string(),
-                    kind: DeclKind::Module,
-                    generics: Vec::new(),
-                    bounds: Vec::new(),
-                    associated_items: Vec::new(),
-                    godel_number: 0, // Placeholder
-                    monster_number: None, // Added
-                    enum_numbering: None, // Added
-                });
+                    decl_traits.push(DeclTrait {
+                        name: item_mod.ident.to_string(),
+                        kind: DeclKind::Module,
+                        generics: Vec::new(),
+                        bounds: Vec::new(),
+                        associated_items: Vec::new(),
+                        godel_number: 0, // Placeholder
+                        monster_number: None, // Added
+                        enum_numbering: None, // Added
+                    }); // Corrected line
                 },
                 _ => {
                     // Ignore other items for now or handle as 'Other'

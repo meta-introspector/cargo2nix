@@ -1,5 +1,5 @@
 #[cfg(feature = "anyhow_enabled")]
-use anyhow::{Context, Result as AnyhowResult};
+use anyhow::Result as AnyhowResult;
 #[cfg(feature = "anyhow_enabled")]
 type Result<T, E = anyhow::Error> = AnyhowResult<T, E>;
 #[cfg(not(feature = "anyhow_enabled"))]

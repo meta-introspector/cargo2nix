@@ -1,4 +1,4 @@
-use anyhow::{Context, Result};
+use anyhow::Result;
 use regex::{self, Regex};
 use tool_traits_lib::regex_adapter::{RegexCaptures, RegexMatcher}; // Using anyhow for Result type // For the actual regex implementation
 

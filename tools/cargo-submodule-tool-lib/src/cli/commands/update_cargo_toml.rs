@@ -7,12 +7,12 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 
-use super::super::cli::args::update_cargo_toml::UpdateCargoTomlArgs;
-use super::super::cli::args::Cli;
-use super::super::fs_cache::{FileSystemStat, RealFileSystemStat};
-use super::super::fs_writer::{CachedFileSystemWriter, FileSystemWriter, RealFileSystemWriter};
-use super::super::repo_sync_lib::repo_sync_config::RepoSyncConfig;
-use super::super::repo_sync_lib::run_submodule_status::run_submodule_status;
+use super::args::update_cargo_toml::UpdateCargoTomlArgs;
+use super::args::Cli;
+use crate::fs_cache::{FileSystemStat, RealFileSystemStat};
+use crate::fs_writer::{CachedFileSystemWriter, FileSystemWriter, RealFileSystemWriter};
+use crate::repo_sync_lib::repo_sync_config::RepoSyncConfig;
+use crate::repo_sync_lib::run_submodule_status::run_submodule_status;
 //use crate::RollupLock;
 #[cfg(feature = "nix_generation")]
 use cargo2nix::discovery::{find_cargo_locks, find_cargo_manifests};
@@ -21,9 +21,9 @@ use cargo2nix::generate_cargo_nix::generate_cargo_nix;
 
 // Import analysis modules
 // use crate::analysis::cargo_config_patcher::{CargoConfigPatcher, RealCargoConfigPatcher};
-use super::super::analysis::dep_graph_data_merger::{DepGraphDataMerger, RealDepGraphDataMerger};
-use super::super::analysis::dep_graph_processor::RealDepGraphProcessor;
-use super::super::analysis::layer0_analyzer::{Layer0Analyzer, RealLayer0Analyzer};
+use crate::analysis::dep_graph_data_merger::{DepGraphDataMerger, RealDepGraphDataMerger};
+use crate::analysis::dep_graph_processor::RealDepGraphProcessor;
+use crate::analysis::layer0_analyzer::{Layer0Analyzer, RealLayer0Analyzer};
 use crate::analysis::non_vendored_module_finder::{
     NonVendoredModuleFinder, RealNonVendoredModuleFinder,
 };
@@ -35,10 +35,10 @@ use tool_traits_lib::types::MergedCrateInfo;
 //     generate_patch_entries, parse_members_file, update_config_toml,
 // };
 
-use super::super::analysis::cargo_metadata_provider::{
+use crate::analysis::cargo_metadata_provider::{
     CargoMetadataProvider, RealCargoMetadataProvider,
 };
-use super::super::analysis::workspace_remover::{RealWorkspaceRemover, WorkspaceRemover};
+use crate::analysis::workspace_remover::{RealWorkspaceRemover, WorkspaceRemover};
 use git_wrapper_lib::execv::RealExecv;
 use git_wrapper_lib::git_traits::GitExecutor;
 use git_wrapper_lib::pure_rust_git_executor::PureRustGitExecutor;

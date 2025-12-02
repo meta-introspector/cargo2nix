@@ -3,8 +3,8 @@ use std::path::PathBuf;
 use std::sync::{Arc, Mutex};
 
 #[cfg(not(feature = "nix_generation"))]
-use super::super::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
-use super::super::fs_cache::RealFileSystemStat;
+use crate::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
+use crate::fs_cache::RealFileSystemStat;
 #[cfg(not(feature = "git_enabled"))]
 use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Use our dummy GitExecutor
 #[cfg(not(feature = "git_enabled"))]

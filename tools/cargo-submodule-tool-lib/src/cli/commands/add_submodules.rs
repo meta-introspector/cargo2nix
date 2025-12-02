@@ -6,13 +6,13 @@ use std::sync::{Arc, Mutex};
 #[cfg(feature = "nix_generation")]
 use cargo_metadata::{MetadataCommand, Package, PackageId};
 
-use super::super::cli::args::add_submodules::AddSubmodulesArgs;
-use super::super::cli::args::Cli;
-use super::super::fs_cache::RealFileSystemStat;
-use super::super::fs_writer::CachedFileSystemWriter;
-use super::super::fs_writer::FileSystemWriter;
-use super::super::fs_writer::RealFileSystemWriter;
-use super::super::repo_sync_lib::repo_sync_config::RepoSyncConfig;
+use super::args::add_submodules::AddSubmodulesArgs;
+use super::args::Cli;
+use crate::fs_cache::RealFileSystemStat;
+use crate::fs_writer::CachedFileSystemWriter;
+use crate::fs_writer::FileSystemWriter;
+use crate::fs_writer::RealFileSystemWriter;
+use crate::repo_sync_lib::repo_sync_config::RepoSyncConfig;
 #[cfg(not(feature = "git_enabled"))]
 use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Use our dummy GitExecutor
 #[cfg(not(feature = "git_enabled"))]

@@ -1,10 +1,10 @@
 use cargo_metadata::{MetadataCommand, Package, PackageId};
 
-use super::super::cli::args::generate_patches::GeneratePatchesArgs;
-use super::super::cli::args::Cli;
-use super::super::fs_cache::{FileSystemStat, RealFileSystemStat};
-use super::super::repo_sync_lib::repo_sync_config::RepoSyncConfig;
-use super::super::repo_sync_lib::run_submodule_status::run_submodule_status;
+use super::args::generate_patches::GeneratePatchesArgs;
+use super::args::Cli;
+use crate::fs_cache::{FileSystemStat, RealFileSystemStat};
+use crate::repo_sync_lib::repo_sync_config::RepoSyncConfig;
+use crate::repo_sync_lib::run_submodule_status::run_submodule_status;
 use anyhow::{Context, Result};
 #[cfg(feature = "nix_generation")]
 use cargo2nix::discovery::{find_cargo_locks, find_cargo_manifests};
@@ -26,12 +26,12 @@ use std::sync::{Arc, Mutex};
 // };
 
 #[cfg(not(feature = "nix_generation"))]
-use super::super::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
-use super::super::analysis::cargo_metadata_provider::{
+use crate::analysis::cargo_metadata_provider::DummyCargoMetadataProvider;
+use crate::analysis::cargo_metadata_provider::{
     CargoMetadataProvider, RealCargoMetadataProvider,
 };
 #[cfg(feature = "cargo-toml-editor-lib")]
-use super::super::analysis::workspace_remover::RealWorkspaceRemover;
+use crate::analysis::workspace_remover::RealWorkspaceRemover;
 #[cfg(not(feature = "git_enabled"))]
 use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Use our dummy GitExecutor
 #[cfg(not(feature = "git_enabled"))]

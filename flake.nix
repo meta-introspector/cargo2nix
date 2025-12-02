@@ -43,9 +43,8 @@
             pkgs.pkg-config # Needed for build scripts to find libraries
 
             # Compilers (clang is used in error messages, so include it)
-            pkgs.clang
-            pkgs.gcc
-            pkgs.llvm # LLVM for rustc_llvm
+            pkgs.llvmPackages_19.llvm # LLVM for rustc_llvm
+            pkgs.clang # Add clang to default dev shell
 
             # Other potentially useful tools
             pkgs.statix
@@ -53,7 +52,8 @@
 
           shellHook = ''
             export PKG_CONFIG_PATH="${pkgs.openssl_1_1.dev}/lib/pkgconfig''${PKG_CONFIG_PATH:+:}$PKG_CONFIG_PATH";
-            export LLVM_CONFIG="${pkgs.llvm}/bin/llvm-config";
+            export LLVM_CONFIG="${pkgs.llvmPackages_19.llvm}/bin/llvm-config";
+            export LIBCLANG_PATH="/nix/store/10mkp77lmqz8x2awd8hzv6pf7f7rkf6d-clang-19.1.7-lib/lib";
             export REAL_LIBRARY_PATH_VAR="LD_LIBRARY_PATH";
             export REAL_LIBRARY_PATH="$LD_LIBRARY_PATH";
             # Ensure cargo is available in PATH for cargo build inside nix develop
@@ -61,6 +61,7 @@
             export RUSTC_BOOTSTRAP=1;
             export CFLAGS="-O2 -g";
             export CXXFLAGS="-O2 -g";
+            export CFG_RELEASE="1.70.0"; # Added to resolve rustc_hir error
             echo "Nix development shell with Rust, libgit2, curl, and OpenSSL 1.1.1w ready.";
           '';
         };
@@ -81,7 +82,7 @@
             pkgs.zlib    # For compression
             pkgs.nghttp2 # For HTTP/2 support
             pkgs.pkg-config # Needed for build scripts to find libraries
-            pkgs.llvm # LLVM for rustc_llvm
+            pkgs.llvmPackages_19.llvm # LLVM for rustc_llvm
             # Compilers (clang is used in error messages, so include it)
             pkgs.clang
             pkgs.gcc
@@ -92,7 +93,8 @@
 
           shellHook = ''
             export PKG_CONFIG_PATH="${pkgs.openssl_1_1.dev}/lib/pkgconfig''${PKG_CONFIG_PATH:+:}$PKG_CONFIG_PATH";
-            export LLVM_CONFIG="${pkgs.llvm}/bin/llvm-config";
+            export LLVM_CONFIG="${pkgs.llvmPackages_19.llvm}/bin/llvm-config";
+            export LIBCLANG_PATH="${pkgs.llvmPackages_19.libclang}";
             export REAL_LIBRARY_PATH_VAR="LD_LIBRARY_PATH";
             export REAL_LIBRARY_PATH="$LD_LIBRARY_PATH";
             # Ensure cargo is available in PATH for cargo build inside nix develop
