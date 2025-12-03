@@ -812,9 +812,6 @@
 [submodule "submodules/gloo"]
 	path = submodules/gloo
 	url = https://github.com/rustwasm/gloo
-[submodule "submodules/ungrammar"]
-	path = submodules/ungrammar
-	url = https://github.com/matklad/ungrammar
 [submodule "submodules/text-size"]
 	path = submodules/text-size
 	url = https://github.com/rust-analyzer/text-size
@@ -1445,9 +1442,6 @@
 [submodule "submodules/dunce"]
 	path = submodules/dunce
 	url = https://gitlab.com/kornelski/dunce
-[submodule "submodules/unicode-bom"]
-	path = submodules/unicode-bom
-	url = https://gitlab.com/philbooth/unicode-bom
 [submodule "submodules/libredox"]
 	path = submodules/libredox
 	url = https://gitlab.redox-os.org/redox-os/libredox.git
