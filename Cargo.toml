@@ -439,7 +439,7 @@ time = { version = "0.3.44", features = ["parsing", "formatting", "serde"] }
 tinystr = { path = "submodules/icu4x/utils/tinystr" }
 tinyvec = { path = "submodules/tinyvec" }
 tinyvec_macros = { path = "submodules/tinyvec_macros" }
-tokio = { version = "1.48.0", path = "../tokio", features = ["full"] }
+tokio = { path = "submodules/tokio/tokio", features = ["full"] }
 tokio-core = { path = "submodules/tokio-core" }
 tokio-stream = { path = "submodules/tokio/tokio-stream" }
 tokio-test = { path = "submodules/tokio/tokio-test" }
@@ -546,6 +546,7 @@ zlib-rs = { path = "submodules/zlib-rs/zlib-rs" }
 resolver = "3"
 members = [
 	"submodules/hyper",
+    "crates/addr2line-bin",
     "crates/factory_block_factory_block",
     "crates/monster_math_traits",
     "crates/rusttycoon",
@@ -553,12 +554,13 @@ members = [
     "crates/solana-monster-system",
     "crates/ast_parser_impl",
     "tools/cargo-repo-sync", # Add this line
-    "tools/cargo-submodule-tool",
+    #"tools/cargo-submodule-tool",
     "tools/dep2submodule",
     "tools/generate_workspace_deps",
     "tools/cargo-workspace-from-tree",
     "tools/secret-manager-rs",
     "tools/cargo-submodule-tool-lib",
+    #"tools/cargo-submodule-tool",
     "tools/syn-adapter-lib",
     "tools/feature-permutation-builder",
     "tools/cargo-feature-adapter",
@@ -598,7 +600,7 @@ members = [
         "crates/trait-fixer-core-mock",
         "crates/trait-fixer-hir-info-trait",
         "crates/trait-fixer-hir-info-real",
-        "crates/trait-fixer-hir-info-mock",
+        #"crates/trait-fixer-hir-info-mock",
         "crates/trait-fixer-lang-items-trait",
         "crates/trait-fixer-lang-items-real",
         "crates/trait-fixer-lang-items-mock",
@@ -613,7 +615,8 @@ members = [
         "crates/trait-fixer-trait-checker-real",
         "crates/trait-fixer-trait-checker-mock",
         "tests/trait_fixer_mocks",
-        "tests/real_rules_test", "patcher",
+        "tests/real_rules_test",
+	#"patcher",
     ]
 exclude = [
     "crates/solana-monster-system/generated_pure_traits.rs",
