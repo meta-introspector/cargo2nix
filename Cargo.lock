@@ -33,6 +33,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "addr2line-bin"
+version = "0.1.0"
+dependencies = [
+ "addr2line 0.25.1",
+ "clap 4.5.51",
+]
+
+[[package]]
 name = "adler2"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2070,30 +2078,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "cargo-submodule-tool"
-version = "0.1.0"
-dependencies = [
- "anyhow 1.0.100",
- "cargo-repo-sync-lib",
- "cargo-submodule-tool-lib",
- "cargo_metadata 0.23.1",
- "clap 4.5.51",
- "clap_derive 4.5.49",
- "git-wrapper-lib",
- "git2 0.21.0",
- "hex 0.4.3",
- "lazy_static 1.5.0",
- "pathdiff 0.2.3",
- "serde 1.0.228",
- "serde_json 1.0.145",
- "sha1 0.10.6",
- "syn 2.0.110",
- "toml 0.9.8",
- "toml_edit 0.23.7",
- "walkdir 2.5.0",
-]
-
-[[package]]
 name = "cargo-submodule-tool-lib"
 version = "0.1.0"
 dependencies = [
@@ -2101,7 +2085,6 @@ dependencies = [
  "cargo-repo-sync-lib",
  "cargo2nix",
  "cargo_metadata 0.23.1",
- "clap 4.5.51",
  "git-wrapper-lib",
  "git2 0.21.0",
  "hex 0.4.3",
@@ -4853,7 +4836,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bfe33edd8e85a12a67454e37f8c75e730830d83e313556ab9ebf9ee7fbeb3bfb"
 dependencies = [
  "crc32fast 1.4.2",
- "libz-rs-sys 0.5.2",
+ "libz-rs-sys 0.5.3",
  "libz-sys",
  "miniz_oxide 0.8.9 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -4872,8 +4855,8 @@ name = "fluent-bundle"
 version = "0.16.0"
 dependencies = [
  "fluent-langneg",
- "fluent-syntax 0.12.0",
- "intl-memoizer 0.5.3",
+ "fluent-syntax",
+ "intl-memoizer",
  "intl_pluralrules",
  "rustc-hash 2.1.1",
  "self_cell",
@@ -4901,16 +4884,6 @@ dependencies = [
  "serde 1.0.228",
  "serde_json 1.0.145",
  "thiserror 2.0.17",
-]
-
-[[package]]
-name = "fluent-syntax"
-version = "0.12.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "54f0d287c53ffd184d04d8677f590f4ac5379785529e5e08b1c8083acdd5c198"
-dependencies = [
- "memchr 2.7.6 (registry+https://github.com/rust-lang/crates.io-index)",
- "thiserror 2.0.17 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -6499,7 +6472,6 @@ dependencies = [
  "tar",
  "tempfile 3.23.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "winnow 0.7.14",
- "xz2",
 ]
 
 [[package]]
@@ -7525,9 +7497,9 @@ dependencies = [
 
 [[package]]
 name = "hyper-util"
-version = "0.1.18"
+version = "0.1.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "52e9a2a24dc5c6821e71a7030e1e14b7b632acac55c40e9d2e082c621261bb56"
+checksum = "727805d60e7938b76b826a6ef209eb70eaa1812794f9424d4a4e2d740662df5f"
 dependencies = [
  "base64 0.22.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "bytes 1.11.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -7972,18 +7944,10 @@ dependencies = [
 
 [[package]]
 name = "intl-memoizer"
-version = "0.5.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fe22e020fce238ae18a6d5d8c502ee76a52a6e880d99477657e6acc30ec57bda"
-dependencies = [
- "type-map",
- "unic-langid",
-]
-
-[[package]]
-name = "intl-memoizer"
 version = "0.5.3"
 dependencies = [
+ "fluent-langneg",
+ "intl_pluralrules",
  "type-map",
  "unic-langid",
 ]
@@ -8708,11 +8672,11 @@ dependencies = [
 
 [[package]]
 name = "libz-rs-sys"
-version = "0.5.2"
+version = "0.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "840db8cf39d9ec4dd794376f38acc40d0fc65eec2a8f484f7fd375b84602becd"
+checksum = "8b484ba8d4f775eeca644c452a56650e544bf7e617f1d170fe7298122ead5222"
 dependencies = [
- "zlib-rs 0.5.2",
+ "zlib-rs 0.5.3",
 ]
 
 [[package]]
@@ -10292,13 +10256,6 @@ name = "paste"
 version = "1.0.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
-
-[[package]]
-name = "patcher"
-version = "0.1.0"
-dependencies = [
- "regex 1.12.2",
-]
 
 [[package]]
 name = "pathdiff"
@@ -12608,10 +12565,10 @@ name = "rustc_error_messages"
 version = "0.0.0"
 dependencies = [
  "fluent-bundle",
- "fluent-syntax 0.12.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "fluent-syntax",
  "icu_list",
  "icu_locale",
- "intl-memoizer 0.5.2",
+ "intl-memoizer",
  "rustc_ast",
  "rustc_ast_pretty",
  "rustc_baked_icu_data",
@@ -12693,7 +12650,7 @@ version = "0.0.0"
 dependencies = [
  "annotate-snippets 0.11.5",
  "fluent-bundle",
- "fluent-syntax 0.12.0",
+ "fluent-syntax",
  "proc-macro2 1.0.103",
  "quote 1.0.42",
  "syn 2.0.110",
@@ -19154,15 +19111,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2fb433233f2df9344722454bc7e96465c9d03bff9d77c248f9e7523fe79585b5"
 
 [[package]]
-name = "xz2"
-version = "0.1.7"
-dependencies = [
- "futures 0.1.31",
- "quickcheck 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
- "rand 0.8.5",
-]
-
-[[package]]
 name = "yansi"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -19392,9 +19340,9 @@ dependencies = [
 
 [[package]]
 name = "zlib-rs"
-version = "0.5.2"
+version = "0.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2f06ae92f42f5e5c42443fd094f245eb656abf56dd7cce9b8b263236565e00f2"
+checksum = "36134c44663532e6519d7a6dfdbbe06f6f8192bde8ae9ed076e9b213f0e31df7"
 
 [[package]]
 name = "zopfli"
@@ -19484,3 +19432,7 @@ version = "0.1.20"
 [[patch.unused]]
 name = "tokio-core"
 version = "0.1.18"
+
+[[patch.unused]]
+name = "xz2"
+version = "0.1.7"

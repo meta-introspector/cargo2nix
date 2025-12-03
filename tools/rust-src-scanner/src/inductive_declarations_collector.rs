@@ -28,19 +28,8 @@ impl InductiveDeclarationsCollector {
 
     /// Helper to create a path string
     fn create_path(&self, span: RealSpan) -> String {
-        let span_str = span.to_string();
-        let parts: Vec<&str> = span_str.split(':').collect();
-        let (line, column) = if parts.len() >= 3 {
-            // Format is typically "file.rs:line:column" or "file.rs:line:column:line:column"
-            // We want the starting line and column.
-            (
-                parts[1].parse::<usize>().unwrap_or(0),
-                parts[2].parse::<usize>().unwrap_or(0),
-            )
-        } else {
-            (0, 0) // Default or error case
-        };
-        format!("{}:{}:{}", self.current_file_path, line, column)
+        let start = span.start();
+        format!("{}:{}:{}", self.current_file_path, start.line, start.column)
     }
 
     // Helper to determine bit size for primitive types
@@ -268,7 +257,7 @@ impl<'ast> Visit<'ast> for InductiveDeclarationsCollector {
         // The path in `use` statements can be complex. For simplicity, just store the raw use statement.
         self.declarations.push(NixDeclaration {
             kind: DeclarationKind::Use,
-            name: format!("{:?}", i.tree),
+            name: i.tree.to_token_stream().to_string(),
             path: self.create_path(i.span()),
             bit_size: None,
             value: None,
@@ -305,7 +294,7 @@ impl<'ast> Visit<'ast> for InductiveDeclarationsCollector {
         // Impls are complex; typically don't have a direct "size" or "value"
         self.declarations.push(NixDeclaration {
             kind: DeclarationKind::Impl,
-            name: format!("{:?}", i.self_ty), // Use debug print for type for now
+            name: i.self_ty.to_token_stream().to_string(), // Use debug print for type for now
             path: self.create_path(i.span()),
             bit_size: None,
             value: None,

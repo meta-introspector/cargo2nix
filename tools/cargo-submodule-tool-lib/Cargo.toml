@@ -10,7 +10,8 @@ anyhow = { workspace = true, optional = true }
 #cargo-toml-editor-lib = { path = "../cargo-toml-editor-lib", optional = true }
 cargo2nix = { path = "../../crates/cargo2nix", optional = true }
 cargo_metadata = { workspace = true, optional = true }
-clap = { workspace = true, optional = true }
+
+
 git-wrapper-lib = { path = "../git-wrapper-lib", optional = true }
 git2 = { workspace=true, optional = true }
 hex = { workspace=true, optional = true }
@@ -40,7 +41,7 @@ git2_enabled = ["dep:git2"]
 sha1_enabled = ["dep:sha1"]
 serde_json_enabled = ["dep:serde_json"]
 git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
-default = ["dummy_tools", "tool_traits_lib_enabled", "anyhow_enabled", "serde_enabled", "toml_enabled", "walkdir_enabled", "cargo_repo_sync_lib_enabled", "cargo_metadata_enabled", "git_wrapper_lib_enabled", "toml_edit_enabled", "real_regex_adapter_lib_enabled", "clap_enabled"]
+default = ["dummy_tools", "tool_traits_lib_enabled", "anyhow_enabled", "serde_enabled", "toml_enabled", "walkdir_enabled", "cargo_repo_sync_lib_enabled", "cargo_metadata_enabled", "git_wrapper_lib_enabled", "toml_edit_enabled", "real_regex_adapter_lib_enabled"]
 dummy_tools = [] # No optional dependencies enabled by default
 
 
@@ -58,7 +59,10 @@ lazy_static_enabled = ["dep:lazy_static"]
 pathdiff_enabled = ["dep:pathdiff"]
 url_enabled = ["dep:url"]
 lru_enabled = ["dep:lru"]
-clap_enabled = ["dep:clap"]
+
+clap_enabled = [] #FIXME: merge with cli
+cli = []
+
 toml_enabled = ["dep:toml"]
 toml_edit_enabled = ["dep:toml_edit"]
 real_regex_adapter_lib_enabled = ["dep:real-regex-adapter-lib"]

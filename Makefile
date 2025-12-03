@@ -1,10 +1,11 @@
-.PHONY: all build cargo2nix nix-build-with-cargo2nix clean generate-cargo-nix run-rust-src-scanner 
-	build-cargo-llm-bootstrap build-hir-expand build-cargo-test-support build-prelude-generator 
-	build-trait-fixer-hir-info-real nix-direct-build update.txt 
-	nix-eval-cargo2nix-attrs nix-eval-flake-packages-attrs nix-eval-flake-root nix-flake-show 
-	nix-eval-cargo2nix-attrs-json nix-eval-cargo2nix-raw-json build-submodule-tool build-gix-diff-minimal 
-	process-repolist nix-cargo-build
-	build-gix-attributes build-rustc-apfloat build-measureme
+.PHONY: all build cargo2nix nix-build-with-cargo2nix clean generate-cargo-nix run-rust-src-scanner \
+	build-cargo-llm-bootstrap build-hir-expand build-cargo-test-support build-prelude-generator \
+	build-trait-fixer-hir-info-real nix-direct-build update.txt \
+	nix-eval-cargo2nix-attrs nix-eval-flake-packages-attrs nix-eval-flake-root nix-flake-show \
+	nix-eval-cargo2nix-attrs-json nix-eval-cargo2nix-raw-json build-submodule-tool build-gix-diff-minimal \
+	process-repolist nix-cargo-build build-tracing-test build-hyper build-addr2line build-gix-merge \
+	build-gix-attributes build-rustc-apfloat build-measureme build-rust-src-scanner \
+	build-cargo-submodule-tool-lib build-addr2line-bin build-and-report
 
 # Default target
 all: nix-direct-build
@@ -16,9 +17,8 @@ nix-direct-build:
 nix-build-with-cargo2nix: generate-cargo-nix
 	cargo build --message-format=json 2>&1
 
-# Cargo-related build targets
 build:
-	RUSTC_BOOTSTRAP=1 cargo build --message-format=json 2>&1
+	nix develop --command bash -c "RUSTC_BOOTSTRAP=1 cargo build --message-format=json 2>&1"
 
 generate-cargo-nix:
 	cargo update
@@ -62,7 +62,7 @@ build-submodule-tool:
 	cd submodules/cargo/cargo-submodule-tool && nix develop ../../../flake-phase1.nix#default --command cargo build
 
 build-gix-diff-minimal:
-	RUSTC_BOOTSTRAP=1 cargo build -p gix-diff > gix_diff_build_log.txt 2>&1
+	RUSTC_BOOTSTRAP=1 cargo build -p gix-diff > gix_diff_build_log.txt 2>&1 || true
 
 build-gix-attributes:
 	@echo "Building gix-attributes..."
@@ -103,8 +103,43 @@ run-rust-src-scanner:
 		--output-dir /path/to/your/output/directory
 
 process-repolist:
-	./process_repolist.sh repolist.json
+	./process_repolist.sh repollist.json
 
 test-hir-ty:
 	RUSTC_BOOTSTRAP=1 cargo build -p hir-ty > hir-ty_build.log 2>&1 || true
 	grep -E 'error(\[E[0-9]{4}\])?:' hir-ty_build.log > hir-ty_errors.log || true
+
+build-tracing-test:
+	nix develop --command cargo build -p tracing-test
+
+build-hyper:
+	nix develop --command cargo build -p hyper
+
+build-addr2line:
+	nix develop --command cargo build -p addr2line
+
+build-gix-merge:
+	nix develop --command cargo build -p gix-merge
+
+build-rust-src-scanner:
+	@echo "Building rust-src-scanner..."
+	nix develop --command cargo build -p rust-src-scanner
+
+build-cargo-submodule-tool-lib:
+	@echo "Building cargo-submodule-tool-lib..."
+	nix develop --command cargo build -p cargo-submodule-tool-lib
+
+build-addr2line-bin:
+	@echo "Building addr2line-bin..."
+	nix develop --command cargo build -p addr2line-bin
+
+JQ_ERROR_FILTER = 'select(.reason == "compiler-message" and .message.level == "error") | .message.rendered'
+
+build-and-report:
+	@echo "Building with Nix and generating report..."
+	nix develop --command bash -c "RUSTC_BOOTSTRAP=1 cargo build --message-format=json 2>&1" > full_build_report.json
+	jq -r $(JQ_ERROR_FILTER) full_build_report.json > build_errors.log
+	@echo "Full build report saved to full_build_report.json"
+	@echo "Error log saved to build_errors.log"
+	@echo "Detected errors:"
+	@cat build_errors.log
