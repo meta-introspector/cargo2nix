@@ -1732,3 +1732,9 @@
 [submodule "submodules/measureme"]
 	path = submodules/measureme
 	url = https://github.com/meta-introspector/measureme
+[submodule "submodules/lzma-rust2"]
+	path = submodules/lzma-rust2
+	url = https://github.com/hasenbanck/lzma-rust2/
+[submodule "submodules/liblzma-rs"]
+	path = submodules/liblzma-rs
+	url = https://github.com/portable-network-archive/liblzma-rs
