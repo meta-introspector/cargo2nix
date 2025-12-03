@@ -1574,9 +1574,6 @@
 [submodule "submodules/rustc-build-sysroot"]
 	path = submodules/rustc-build-sysroot
 	url = https://github.com/anza-xyz/rustc-build-sysroot
-[submodule "tools/rust-bootstrap-nix"]
-	path = tools/rust-bootstrap-nix
-	url = /data/data/com.termux.nix/files/home/rust-bootstrap-nix/
 [submodule "/data/data/com.termux.nix/files/home/experiments/pick-up-nix/vendor/nix/cargo2nix/tools/eigenvalues"]
 	path = /data/data/com.termux.nix/files/home/experiments/pick-up-nix/vendor/nix/cargo2nix/tools/eigenvalues
 	url = https://github.com/meta-introspector/eigenvalues.git
@@ -1729,3 +1726,6 @@
 [submodule "submodules/liblzma-rs"]
 	path = submodules/liblzma-rs
 	url = https://github.com/portable-network-archive/liblzma-rs
+[submodule "tools/rust-bootstrap-nix"]
+	path = tools/rust-bootstrap-nix
+	url = /data/data/com.termux.nix/files/home/rust-bootstrap-nix/

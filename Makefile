@@ -5,7 +5,8 @@
 	nix-eval-cargo2nix-attrs-json nix-eval-cargo2nix-raw-json build-submodule-tool build-gix-diff-minimal \
 	process-repolist nix-cargo-build build-tracing-test build-hyper build-addr2line build-gix-merge \
 	build-gix-attributes build-rustc-apfloat build-measureme build-rust-src-scanner \
-	build-cargo-submodule-tool-lib build-addr2line-bin build-and-report
+	build-cargo-submodule-tool-lib build-addr2line-bin \
+	build-all-packages build-package-% report-build-status clean-build-logs main-report
 
 # Default target
 all: nix-direct-build
@@ -29,6 +30,82 @@ cargo2nix: nix-cargo-build
 
 nix-cargo-build:
 	RUSTC_BOOTSTRAP=1 cargo build --message-format=json 2>&1
+
+main-report:
+	@echo "--- Building main cargo2nix package and reporting errors (optimized) ---"
+	@mkdir -p build_logs
+	nix develop --command bash -c "RUSTC_BOOTSTRAP=1 cargo build -p cargo2nix --message-format=json 2>&1" > build_logs/cargo2nix_build_raw.log 2>&1 || true
+	@echo "--- Errors for cargo2nix ---"
+	@grep '"level":"error"' build_logs/cargo2nix_build_raw.log | \
+	grep '"reason":"compiler-message"' | \
+	sed 's/.*"message":{[^}]*"rendered":"\([^"]*\)".*/\1/' | \
+	sed 's/\\n/\n/g' | \
+	sed 's/\\t/\t/g' | \
+	sed 's/\\"/"/g' | \
+	sed 's/\\r//g' | \
+	sed 's/\\//g' \
+	> build_logs/cargo2nix_errors.log
+	@if [ -s build_logs/cargo2nix_errors.log ]; then \
+		echo "BUILD FAILED for cargo2nix. Detected errors:"; \
+		cat build_logs/cargo2nix_errors.log; \
+	else \
+		echo "BUILD SUCCEEDED for cargo2nix. No compiler errors found."; \
+	fi
+	@echo "--- End of report for cargo2nix ---"
+
+JQ_ERROR_FILTER = 'select(.reason == "compiler-message" and .message.level == "error") | .message.rendered'
+
+# Define packages to build and test
+PACKAGES = cargo2nix submodule-tool gix-diff gix-attributes rustc_apfloat measureme cargo-llm-bootstrap hir-expand cargo-test-support prelude-generator trait-fixer-hir-info-real tracing-test hyper addr2line gix-merge rust-src-scanner cargo-submodule-tool-lib addr2line-bin hir-ty
+
+# New PHONY targets
+.PHONY: build-all-packages build-package-% report-build-status clean-build-logs
+
+# Target to build all defined packages and generate a report
+build-all-packages: clean-build-logs $(foreach P,$(PACKAGES),build-package-$(P)) report-build-status
+
+# Generic target to build a single package
+build-package-%:
+	@echo "--- Building package: $* ---"
+	@mkdir -p build_logs
+	nix develop --command bash -c "RUSTC_BOOTSTRAP=1 cargo build -p $* --message-format=json 2>&1" > build_logs/$*_build_raw.log 2>&1 || true
+	@grep '"level":"error"' build_logs/$*_build_raw.log | \
+	grep '"reason":"compiler-message"' | \
+	sed 's/.*"message":{[^}]*"rendered":"\([^"]*\)".*/\1/' | \
+	sed 's/\\n/\n/g' | \
+	sed 's/\\t/\t/g' | \
+	sed 's/\\"/"/g' | \
+	sed 's/\\r//g' | \
+	sed 's/\\//g' \
+	> build_logs/$*_errors.log
+	@if [ -s build_logs/$*_errors.log ]; then \
+		echo "BUILD FAILED for $* (errors in build_logs/$*_errors.log)"; \
+		echo "$* FAILED" >> build_logs/build_status.log; \
+		cat build_logs/$*_errors.log; \
+	else \
+		echo "BUILD SUCCEEDED for $*"; \
+		echo "$* SUCCEEDED" >> build_logs/build_status.log; \
+	fi
+
+
+
+
+# Target to report the build status of all packages
+report-build-status:
+	@echo ""
+	@echo "--- Build Report ---"
+	@if [ -f build_logs/build_status.log ]; then \
+		cat build_logs/build_status.log; \
+	else \
+		echo "No build status log found. Run 'make build-all-packages' first."; \
+	fi
+	@echo "--------------------"
+	@echo "Detailed logs in build_logs/ directory."
+
+# Clean up build logs
+clean-build-logs:
+	@echo "Cleaning up build logs..."
+	@rm -rf build_logs
 
 # Utility targets
 clean:
@@ -134,12 +211,3 @@ build-addr2line-bin:
 	nix develop --command cargo build -p addr2line-bin
 
 JQ_ERROR_FILTER = 'select(.reason == "compiler-message" and .message.level == "error") | .message.rendered'
-
-build-and-report:
-	@echo "Building with Nix and generating report..."
-	nix develop --command bash -c "RUSTC_BOOTSTRAP=1 cargo build --message-format=json 2>&1" > full_build_report.json
-	jq -r $(JQ_ERROR_FILTER) full_build_report.json > build_errors.log
-	@echo "Full build report saved to full_build_report.json"
-	@echo "Error log saved to build_errors.log"
-	@echo "Detected errors:"
-	@cat build_errors.log

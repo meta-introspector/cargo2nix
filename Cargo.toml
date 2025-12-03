@@ -708,5 +708,12 @@ xz2 = { path = "submodules/xz2-rs" }
 tokio = { path = "submodules/tokio/tokio" }
 tokio-test = { path = "submodules/tokio/tokio-test" }
 tokio-util = { path = "submodules/tokio/tokio-util" }
+anstyle = { path = "submodules/anstyle/crates/anstyle" }
+anstream = { path = "submodules/anstyle/crates/anstream" }
+anstyle-parse = { path = "submodules/anstyle/crates/anstyle-parse" }
+anstyle-query = { path = "submodules/anstyle/crates/anstyle-query" }
+colorchoice = { path = "submodules/anstyle/crates/colorchoice" }
+annotate-snippets = { path = "submodules/annotate-snippets-rs" }
+
 #lzma-rust2 = { path = "submodules/lzma-rust2" }
 #liblzma = { path = "submodules/liblzma-rs"}
