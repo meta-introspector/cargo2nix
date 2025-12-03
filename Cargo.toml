@@ -439,7 +439,7 @@ time = { version = "0.3.44", features = ["parsing", "formatting", "serde"] }
 tinystr = { path = "submodules/icu4x/utils/tinystr" }
 tinyvec = { path = "submodules/tinyvec" }
 tinyvec_macros = { path = "submodules/tinyvec_macros" }
-tokio = { path = "submodules/tokio/tokio" , features = ["full"] }
+tokio = { version = "1.48.0", path = "../tokio", features = ["full"] }
 tokio-core = { path = "submodules/tokio-core" }
 tokio-stream = { path = "submodules/tokio/tokio-stream" }
 tokio-test = { path = "submodules/tokio/tokio-test" }
