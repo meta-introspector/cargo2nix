@@ -1,7 +1,7 @@
 [workspace.dependencies]
-#fluent-langneg = { path= "submodules/fluent-rs/fluent-langneg" }
+lzma-rust2 = { path = "submodules/lzma-rust2" }#fluent-langneg = { path= "submodules/fluent-rs/fluent-langneg" }
 #futures-task = { path = "submodules/futures-rs/futures-task" }
-#gix = { path = "submodules/gitoxide/gix", features = ["progress-tree", "parallel", "dirwalk", "status"] }
+gix = { path = "submodules/gitoxide/gix", features = ["progress-tree", "parallel", "dirwalk", "status"] }
 #parking_lot_core = { path = "submodules/parking_lot/core" }
 #rayon-core = { path = "submodules/rayon/rayon-core" }
 #rusqlite = { version = "0.37.0", features = ["bundled"] }
@@ -63,7 +63,7 @@ cfg = { path = "submodules/rust-analyzer/crates/cfg", features = ["tt"] } # Add 
 cfg-if = { path = "submodules/cfg-if" }
 cfg_aliases = { path = "submodules/cfg_aliases" }
 chrono = { path = "submodules/chrono" }
-clap = { path = "submodules/clap", features = ["derive"] }
+clap = { path = "submodules/clap" }
 clap_builder = { path = "submodules/clap/clap_builder" }
 clap_complete = { path = "submodules/clap/clap_complete" }
 clap_derive = { path = "submodules/clap/clap_derive" }
@@ -512,10 +512,12 @@ windows_x86_64_msvc = { path = "submodules/windows-rs/crates/targets/x86_64_msvc
 winnow = "0.7.13"
 xattr = { path = "submodules/xattr" }
 xz2 = { path = "submodules/xz2-rs" }
+zip = { path = "submodules/zip2" }
 yoke-derive = { path = "submodules/icu4x/utils/yoke/derive" }
 zerocopy = { path = "submodules/zerocopy" }
 zerofrom-derive = { path = "submodules/icu4x/utils/zerofrom/derive" }
 zerovec-derive = { path = "submodules/icu4x/utils/zerovec/derive" }
+
 zlib-rs = { path = "submodules/zlib-rs/zlib-rs" }
 
 
@@ -543,6 +545,7 @@ zlib-rs = { path = "submodules/zlib-rs/zlib-rs" }
 [workspace]
 resolver = "3"
 members = [
+	"submodules/hyper",
     "crates/factory_block_factory_block",
     "crates/monster_math_traits",
     "crates/rusttycoon",
@@ -610,7 +613,7 @@ members = [
         "crates/trait-fixer-trait-checker-real",
         "crates/trait-fixer-trait-checker-mock",
         "tests/trait_fixer_mocks",
-        "tests/real_rules_test",
+        "tests/real_rules_test", "patcher",
     ]
 exclude = [
     "crates/solana-monster-system/generated_pure_traits.rs",
@@ -655,16 +658,9 @@ warnings = "allow"
 
 [patch.crates-io]
 
-# Patch serde crates to use local submodules
-#"tokio-test" = { path = "submodules/tokio-test-vendored" }
-#futures = { path = "submodules/futures-vendored" }
-#multer = { path = "submodules/multer-vendored" }
-#ra-ap-rustc_pattern_analysis 
-#ra-ap-rustc_type_ir #v0.#137.0
-#rusqlite # v0.37.0
-#rustc_apfloat # v0.2.3+llvm-462a31f5a5ab
 async-stream = { path = "submodules/async-stream-vendored" }
 bstr = { path = "submodules/bstr" }
+clap = { path = "submodules/clap" }
 curl = { path = "submodules/curl-rust", features = ["http2"]  }
 curl-sys = { path = "submodules/curl-rust/curl-sys" }
 dashmap = { path = "submodules/dashmap" , version = "7.0.0-hack"} 
@@ -678,10 +674,13 @@ futures-task = { path = "submodules/futures-rs/futures-task" }
 futures-util = { path = "submodules/futures-rs/futures-util" }
 hyper = { path = "submodules/hyper" }
 idna = {path = "submodules/rust-url/idna/" }
+libc = { path = "submodules/libc", features = ["extra_traits"] }
 libgit2-sys = { path = "submodules/git2-rs/libgit2-sys" }
+#lzma-rust2 = { path = "submodules/lzma-rust2" }
+lzma-sys = { path = "submodules/xz2-rs/lzma-sys" }
 measureme  = { path= "submodules/measureme/measureme" }
-parking_lot_core = { path = "submodules/parking_lot/core" , version = "0.9.13"}
 parking_lot = { path = "submodules/parking_lot" , version = "0.12.6"}
+parking_lot_core = { path = "submodules/parking_lot/core" , version = "0.9.13"}
 proc-macro2 = { path = "submodules/proc-macro2" }
 quote = { path = "submodules/quote" }
 ra-ap-rustc_abi = {  path = "./submodules/rust/compiler/rustc_abi", package="rustc_abi" }
@@ -702,4 +701,9 @@ tokio-core = { path = "submodules/tokio-core" }
 tokio-stream = { path = "submodules/tokio/tokio-stream" }
 tracing-subscriber = { path = "submodules/tracing/tracing-subscriber" }
 tracing-tree = { path = "submodules/tracing-tree" }
-libc = { path = "submodules/libc", features = ["extra_traits"] }
+xz2 = { path = "submodules/xz2-rs" }
+tokio = { path = "submodules/tokio/tokio" }
+tokio-test = { path = "submodules/tokio/tokio-test" }
+tokio-util = { path = "submodules/tokio/tokio-util" }
+#lzma-rust2 = { path = "submodules/lzma-rust2" }
+#liblzma = { path = "submodules/liblzma-rs"}
