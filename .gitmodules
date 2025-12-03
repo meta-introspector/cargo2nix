@@ -1268,9 +1268,6 @@
 [submodule "submodules/test"]
 	path = submodules/test
 	url = https://github.com/meta-introspector/test
-[submodule "submodules/time"]
-	path = submodules/time
-	url = https://github.com/meta-introspector/time
 [submodule "submodules/tinyvec_macros"]
 	path = submodules/tinyvec_macros
 	url = https://github.com/meta-introspector/tinyvec_macros

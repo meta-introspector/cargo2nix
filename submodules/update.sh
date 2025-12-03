@@ -61,25 +61,27 @@ fi
 
 # --- Actual script logic (only executed if not dry run) ---
 
-# Pull latest changes and rebase
-echo "Pulling latest changes with rebase..."
-git pull --rebase origin main
+    # Stage all changes in the current submodule
+    git add .
 
-# Check for any staged changes to commit after adds and potential rebase
-if ! git diff --cached --quiet; then
-    echo "Committing staged changes..."
-    git commit -m 'feat: Add/update Nix flake for submodule (CRQ-016)' -n
-else
-    echo "No staged changes to commit after pull."
-fi
+    # Pull latest changes and rebase
+    echo "Pulling latest changes with rebase..."
+    git pull --rebase origin $(git rev-parse --abbrev-ref HEAD)
 
-REMOTE_URL=$(git remote get-url origin)
-echo "The remote URL for this submodule is: $REMOTE_URL"
+    # Check for any staged changes to commit after adds and potential rebase
+    if ! git diff --cached --quiet; then
+        echo "Committing staged changes..."
+        git commit -m 'feat: Add/update Nix flake for submodule (CRQ-016)' -n
+    else
+        echo "No staged changes to commit after pull."
+    fi
 
-if [[ "$REMOTE_URL" == *"github.com/meta-introspector/"* ]]; then
-    echo "Remote is from github.com/meta-introspector/. Attempting push."
-    if git push origin HEAD >> /mnt/data1/nix/vendor/rust/cargo2nix/submodules/log.txt; then
-        echo "Push successful for $REMOTE_URL"
+    REMOTE_URL=$(git remote get-url origin)
+    echo "The remote URL for this submodule is: $REMOTE_URL"
+
+    if [[ "$REMOTE_URL" == *"github.com/meta-introspector/"* ]]; then
+        echo "Remote is from github.com/meta-introspector/. Attempting push."
+        if git push origin HEAD:$(git rev-parse --abbrev-ref HEAD) >> /mnt/data1/nix/vendor/rust/cargo2nix/submodules/log.txt; then        echo "Push successful for $REMOTE_URL"
     else
         echo "Failed push for $REMOTE_URL. Check /mnt/data1/nix/vendor/rust/cargo2nix/submodules/log.txt for details."
     fi
