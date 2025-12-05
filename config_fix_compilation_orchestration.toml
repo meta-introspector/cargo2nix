@@ -1,0 +1,24 @@
+[[edits]]
+type = "ReplaceExpression"
+target_file = "submodules/cargo/src/cargo/core/compiler/compilation_orchestration.rs"
+function_name = "" # No specific function name, it's inside a closure passed to .map_err().with_context()
+old_code_snippet = """            .with_context(|| {
+                // adapted from rustc_errors/src/lib.rs
+                let warnings = match output_options.warnings_seen {
+                    0 => String::new(),
+                    1 => "; 1 warning emitted".to_string(),
+                    count => format!("""
+new_code_snippet = """            .with_context(|| {
+                let warnings_str = match output_options.warnings_seen {
+                    0 => String::new(),
+                    1 => "; 1 warning emitted".to_string(),
+                    count => format!("; {} warnings emitted", count),
+                };
+                let errors_str = match output_options.errors_seen {
+                    0 => String::new(),
+                    1 => " due to 1 previous error".to_string(),
+                    count => format!(" due to {} previous errors", count),
+                };
+                // Combine everything for the context message
+                format!("could not compile `{}`{}{}", name, errors_str, warnings_str)
+            })"""

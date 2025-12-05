@@ -1,0 +1,76 @@
+# edits-todo-compilation_orchestration_repro_script.toml
+
+[[edits]]
+file_path = "submodules/cargo/src/cargo/core/compiler/compilation_orchestration.rs"
+instruction = "Implement `generate_repro_script` to create a bash script that reruns the failed rustc command with its environment and arguments."
+old_string = """fn generate_repro_script(
+    _cmd: &ProcessBuilder,
+    _id: PackageId,
+    _target: &Target,
+    _stdout: &[String],
+    _stderr: &[String],
+) -> CargoResult<()> {
+    // This function would generate a script to reproduce compilation failures.
+    // For now, it's a placeholder.
+    Ok(())
+}"""
+new_string = """fn generate_repro_script(
+    cmd: &ProcessBuilder,
+    id: PackageId,
+    target: &Target,
+    stdout_lines: &[String],
+    stderr_lines: &[String],
+) -> CargoResult<()> {
+    let mut script_content = String::new();
+
+    script_content.push_str("#!/bin/bash\n\n");
+    script_content.push_str(format!("# Reproduction script for failed compilation of package: {}\n", id).as_str());
+    script_content.push_str(format!("# Target: {}\n", target.name()).as_str());
+    script_content.push_str(format!("# Generated on: {}\n\n", Local::now().format("%Y-%m-%d %H:%M:%S")).as_str());
+
+    // Set working directory
+    if let Some(cwd) = cmd.get_cwd() {
+        script_content.push_str(format!("cd {}\n", cwd.display()).as_str());
+    }
+
+    // Export environment variables
+    for (key, val) in cmd.get_envs().iter() {
+        if let Some(val) = val {
+            script_content.push_str(format!("export {}={}\n", key.to_string_lossy(), val.to_string_lossy()).as_str());
+        } else {
+            script_content.push_str(format!("unset {}\n", key.to_string_lossy()).as_str());
+        }
+    }
+    script_content.push_str("\n");
+
+    // Rustc command
+    let program = cmd.get_program().to_string_lossy();
+    script_content.push_str(format!("{} ", program).as_str());
+    for arg in cmd.get_args() {
+        script_content.push_str(format!("'{}' ", arg.to_string_lossy()).as_str());
+    }
+    script_content.push_str("\n\n");
+
+    script_content.push_str("# Captured stdout:\n");
+    for line in stdout_lines {
+        script_content.push_str(format!("# {}\n", line).as_str());
+    }
+    script_content.push_str("\n");
+
+    script_content.push_str("# Captured stderr:\n");
+    for line in stderr_lines {
+        script_content.push_str(format!("# {}\n", line).as_str());
+    }
+    script_content.push_str("\n");
+
+    // Determine script path
+    let repro_scripts_dir = std::env::temp_dir().join("cargo_repro_scripts");
+    paths::create_dir_all(&repro_scripts_dir)?;
+    let timestamp = Local::now().format("%Y%m%d%H%M%S").to_string();
+    let script_name = format!("repro-{}-{}.sh", id.name(), timestamp);
+    let script_path = repro_scripts_dir.join(script_name);
+
+    std::fs::write(&script_path, script_content.as_bytes())?;
+    println!("Generated reproduction script: {}", script_path.display());
+    Ok(())
+}"""

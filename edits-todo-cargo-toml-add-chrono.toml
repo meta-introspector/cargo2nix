@@ -1,0 +1,10 @@
+# edits-todo-cargo-toml-add-chrono.toml
+
+[[edits]]
+file_path = "submodules/cargo/Cargo.toml"
+instruction = "Add `chrono` crate as a dependency with workspace = true."
+old_string = """color-print.workspace = true
+crates-io.workspace = true"""
+new_string = """chrono = { workspace = true, features = ["serde", "std"] }
+color-print.workspace = true
+crates-io.workspace = true"""

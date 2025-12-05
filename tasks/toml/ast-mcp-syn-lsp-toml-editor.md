@@ -1,0 +1,1 @@
+if we stop the compiler and hold all the code in memory the llm can interact with the object quickly.
