@@ -1729,3 +1729,6 @@
 [submodule "tools/rust-bootstrap-nix"]
 	path = tools/rust-bootstrap-nix
 	url = /data/data/com.termux.nix/files/home/rust-bootstrap-nix/
+[submodule "submodules/claude-code-mux"]
+	path = submodules/claude-code-mux
+	url = https://github.com/meta-introspector/claude-code-mux
