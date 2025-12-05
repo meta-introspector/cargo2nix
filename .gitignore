@@ -10,6 +10,10 @@ logs
 /cargo_build_log.log
 /full_build_log.log
 
+bin/
+cargo-repro-script-*.sh
+run3.sh
+
 vendor/
 # Temporary files
 #*#
