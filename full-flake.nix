@@ -142,7 +142,9 @@
                           set -x
                         fi
                         env \
-                          "RUSTFLAGS=-C debuginfo=2 -C overflow-checks=y -Z unstable-options" \
+                          "RUSTC_LOG=debug" \
+                          "BOOTSTRAP_TRACING=trace" \
+                          "RUSTFLAGS=-C debuginfo=2 -C overflow-checks=y -Z unstable-options -Z verbose-internals -Z time-passes -Z time-llvm-passes -Z self-profile -C save-temps --emit=llvm-ir,asm -Z dump-mir=all -Z dump-mir-dataflow -Z dump-mir-graphviz -Z trace-macros -Z track-diagnostics -Z incremental-info -Z print-llvm-passes -Z verify-llvm-ir -C llvm-args=-print-after-all -C llvm-args=-print-before-all" \
                           "CC_aarch64-unknown-linux-gnu"="${pkgs.gcc}/bin/cc" \
                           "CXX_aarch64-unknown-linux-gnu"="${pkgs.gcc}/bin/c++" \
                           ${rustToolchain}/bin/cargo build --quiet $CARGO_VERBOSE --release --target aarch64-unknown-linux-gnu \
