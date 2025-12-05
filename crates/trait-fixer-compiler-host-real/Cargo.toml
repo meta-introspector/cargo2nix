@@ -1,0 +1,8 @@
+[package]
+name = "trait-fixer-compiler-host-real"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rustc_driver = { workspace = true }
+trait-fixer-compiler-host-trait = { path = "../trait-fixer-compiler-host-trait" }

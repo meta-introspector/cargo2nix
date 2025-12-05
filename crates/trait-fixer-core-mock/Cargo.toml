@@ -1,0 +1,9 @@
+[package]
+name = "trait-fixer-core-mock"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+trait-fixer-core-trait = { path = "../trait-fixer-core-trait" }
+trait-fixer-rustc-mock = { path = "../trait-fixer-rustc-mock" }
+trait-fixer-rules-mock = { path = "../trait-fixer-rules-mock" } # For rules::Config or its mock

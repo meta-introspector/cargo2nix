@@ -1,0 +1,100 @@
+[package]
+name = "solana-monster-system"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+aho-corasick = { workspace=true } #  "1.1.4"
+anyhow = { workspace=true } #  "1.0.100"
+block-buffer = { workspace=true } #  "0.10.4"
+camino = { workspace=true } #  "1.2.1"
+cargo-platform = { workspace=true } #  "0.3.1"
+cargo  = { workspace=true } #  { workspace = { workspace=true } # true } # "0.92.0" # 94
+cargo_metadata = { workspace=true } #  "0.23.1"
+cfg-if = { workspace=true } #  "1.0.4"
+clap  = { workspace=true } #  "4.5.53"
+clap_complete = { workspace=true } # "4.5.61"
+#clap_derive = { workspace=true } # "4.5.49"
+colorify = { workspace=true } # "0.2.3"
+cpufeatures = { workspace=true } #  "0.2.17"
+crypto-common = { workspace=true } #  "0.1.6"
+digest = { workspace=true } #  "0.10.7"
+equivalent = { workspace=true } #  "1.0.2"
+fs_extra = { workspace=true } # "1.3.0"
+generic-array = { workspace=true } #  "0.14.9"
+git2 = { workspace=true } # "0.20.2"
+hashbrown = { workspace=true } #  "0.16.1"
+hex = { workspace=true } #  "0.4.3"
+indexmap = { workspace=true } #  "2.12.1"
+itoa = { workspace=true } #  "1.0.15"
+lazy_static = { workspace=true } # "1.5.0"
+libc = { workspace=true } #  "0.2.177"
+md5 = { workspace=true } # "0.8.0"
+memchr = { workspace=true } #  "2.7.6"
+pathdiff = { workspace=true } #  "0.2.3"
+proc-macro2  = { workspace=true } #  { workspace  = { workspace=true } #  true }
+quote = { workspace=true } #  "1.0.42"
+regex-automata = { workspace=true } #  "0.4.13"
+regex-syntax = { workspace=true } #  "0.8.8"
+regex = { workspace=true } #  "1.12.2"
+ryu = { workspace=true } #  "1.0.20"
+same-file = { workspace=true } #  "1.0.6"
+semver = { workspace=true } #  "1.0.27"
+serde = { workspace=true } #  { version  = { workspace=true } #  "1.0", features  = { workspace=true } #  ["derive"] }
+serde_core = { workspace=true } #  "1.0.228"
+serde_derive = { workspace=true } #  "1.0.228"
+serde_json = { workspace=true } #  "1.0"
+sha1 = { workspace=true } #  "0.10.6"
+sha2 = { workspace=true } # "0.10.9"
+syn = { workspace=true } #  "2.0.110"
+syn-adapter-lib  = { workspace=true } #  { path = "../../tools/syn-adapter-lib", features = ["syn-parsing"] }
+tempfile = { workspace=true } # "3.23.0"
+tera = { workspace=true } # "1.20.1"
+thiserror-impl = { workspace=true } #  "2.0.17"
+thiserror = { workspace=true } #  "2.0.17"
+toml = { workspace=true } # "0.9.8"
+toml_datetime = { workspace=true } #  "0.7.3"
+toml_edit = { workspace=true } #  "0.23.7"
+toml_parser = { workspace=true } #  "1.0.4"
+toml_writer = { workspace=true } #  "1.0.4"
+cargo-repo-sync-lib = { path = "../../tools/cargo-repo-sync-lib" }
+git-wrapper-lib = { path = "../../tools/git-wrapper-lib" }
+#cargo-submodule-tool-lib = { path = "../../tools/cargo-submodule-tool-lib" }
+typenum = { workspace=true } #  "1.19.0"
+unicode-ident = { workspace=true } #  "1.0.22"
+url = { workspace=true } # "2.5.7"
+version_check = { workspace=true } #  "0.9.5"
+walkdir = { workspace=true } #  "2.5.0"
+# async-graphql  = { workspace=true } #  "7.0"
+tokio  = { workspace=true } #  { version = "1.0", features = ["full"] }
+tool-traits-lib = { path = "../../tools/tool-traits-lib", features = [
+#    "anyhow_enabled",
+    "serde_json_enabled",
+    "regex_enabled",
+    "walkdir_enabled",
+    "clap_enabled",
+    "cargo_metadata_enabled",
+    "sha1_enabled",
+    "pathdiff_enabled",
+    "hex_enabled",
+    "git2_enabled"
+]}
+real-toml-adapter-lib = { path = "../../tools/real-toml-adapter-lib", features = ["toml_edit_enabled"] }
+real-regex-adapter-lib = { path = "../../tools/real-regex-adapter-lib" }
+real-walkdir-adapter-lib = { path = "../../tools/real-walkdir-adapter-lib", features = ["walkdir_enabled"] }
+rocksdb  = { workspace=true } #  = "0.21.0"
+
+[build-dependencies]
+
+[[bin]]
+name = "self_hosted_solana_system"
+path = "src/bin/self_hosted_solana_system.rs"
+
+[[bin]]
+name = "semantic_analyzer"
+path = "src/bin/semantic_analyzer.rs"
+
+[[bin]]
+name = "trait_generator"
+path = "src/bin/trait_generator.rs"
+

@@ -1,0 +1,15 @@
+cargo2nix FAILED
+submodule-tool SUCCEEDED
+gix-diff SUCCEEDED
+gix-attributes SUCCEEDED
+rustc_apfloat SUCCEEDED
+measureme SUCCEEDED
+cargo-llm-bootstrap SUCCEEDED
+hir-expand SUCCEEDED
+cargo-test-support SUCCEEDED
+prelude-generator SUCCEEDED
+trait-fixer-hir-info-real FAILED
+tracing-test SUCCEEDED
+hyper SUCCEEDED
+addr2line SUCCEEDED
+gix-merge SUCCEEDED

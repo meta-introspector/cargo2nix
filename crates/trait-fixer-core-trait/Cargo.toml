@@ -1,0 +1,9 @@
+[package]
+name = "trait-fixer-core-trait"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rustc_span = { workspace = true } # for Span
+rustc_hir = { workspace = true } # for ItemId, DefId
+rustc_middle = { workspace = true } # for TyCtxt

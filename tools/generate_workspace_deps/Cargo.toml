@@ -1,0 +1,46 @@
+[package]
+name = "generate_workspace_deps"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+syn = { version = "*", optional = true }
+toml_edit = { version = "*", optional = true }
+clap = { version = "*", optional = true }
+
+hex = { version = "*", optional = true }
+sha1 = { version = "*", optional = true }
+pathdiff = { version = "*", optional = true }
+serde = { version = "*", optional = true }
+serde_json = { version = "*", optional = true }
+
+anyhow = { workspace = true }
+git2 = { workspace = true, optional = true }
+cargo_metadata = { workspace = true, optional = true }
+walkdir = { workspace = true, optional = true }
+regex = { workspace = true, optional = true }
+cargo-submodule-tool-lib = { path = "../cargo-submodule-tool-lib", optional = true }
+cargo-repo-sync-lib = { path = "../cargo-repo-sync-lib", optional = true }
+cargo-edit-lib = { path = "../cargo-edit-lib" }
+#cargo_edit_tool = { path = "../cargo-edit-tool" }
+
+
+
+[features]
+syn_enabled = ["dep:syn"]
+toml_edit_enabled = ["dep:toml_edit"]
+clap_enabled = ["dep:clap"]
+hex_enabled = ["dep:hex"]
+sha1_enabled = ["dep:sha1"]
+pathdiff_enabled = ["dep:pathdiff"]
+serde_enabled = ["dep:serde"]
+serde_json_enabled = ["dep:serde_json"]
+
+default = ["pathdiff_enabled", "cargo_metadata_enabled", "walkdir_enabled"]
+#anyhow_enabled = ["dep:anyhow"]
+git2_enabled = ["dep:git2"]
+cargo_metadata_enabled = ["dep:cargo_metadata"]
+walkdir_enabled = ["dep:walkdir"]
+regex_enabled = ["dep:regex"]
+cargo_submodule_tool_lib_enabled = ["dep:cargo-submodule-tool-lib"]

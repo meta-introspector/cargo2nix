@@ -1,0 +1,41 @@
+[package]
+name = "tool-traits-lib"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+syn = { version = "*", optional = true }
+clap = { version = "*", optional = true }
+
+git2 = { version = "*", optional = true }
+hex = { version = "*", optional = true }
+cargo_metadata = { workspace = true, optional = true }
+sha1 = { version = "*", optional = true }
+pathdiff = { version = "*", optional = true }
+serde = { workspace = true, features = ["derive"] }
+
+anyhow = { workspace = true }
+serde_json = { workspace = true, optional = true }
+toml_edit = { workspace = true }
+regex = { workspace = true, optional = true }
+walkdir = { workspace = true, optional = true }
+
+
+[features]
+syn_enabled = ["dep:syn"]
+clap_enabled = ["dep:clap"]
+
+git2_enabled = ["dep:git2"]
+hex_enabled = ["dep:hex"]
+cargo_metadata_enabled = ["dep:cargo_metadata"]
+sha1_enabled = ["dep:sha1"]
+#anyhow_enabled = ["dep:anyhow"]
+pathdiff_enabled = ["dep:pathdiff"]
+
+
+default = ["cargo_metadata_enabled", "serde_json_enabled"]
+#anyhow = ["dep:anyhow"]
+serde_json_enabled = ["dep:serde_json"]
+#toml_edit_enabled = ["dep:toml_edit"]
+regex_enabled = ["dep:regex"]
+walkdir_enabled = ["dep:walkdir"]

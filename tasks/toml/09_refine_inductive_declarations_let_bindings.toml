@@ -1,0 +1,30 @@
+# tasks/toml/09_refine_inductive_declarations_let_bindings.toml
+#
+# This task focuses on extending the inductive declaration collection to include
+# `let` bindings, which represent local variable declarations within functions.
+
+[task]
+name = "Refine Inductive Declarations for Let Bindings"
+description = "Enhance `rust-src-scanner` to identify `let` bindings within function bodies, extract their types and optional initial values, and assign monster factors accordingly."
+priority = "medium"
+status = "pending"
+assignee = "Gemini"
+due_date = "2025-12-07"
+
+[steps]
+step_1 = { description = "Review current `InductiveDeclarationsCollector` to identify the appropriate `syn` visitor method (e.g., `visit_expr_let` or `visit_pat`) to capture `let` bindings.", command = "review_collector_code_let_bindings.sh" }
+step_2 = { description = "Implement or extend the visitor logic to create `NixDeclaration` objects for `let` bindings, including their `DeclarationKind::LetBinding`, name, path, bit size (from type), and value (from initializer expression).", command = "implement_let_binding_collection.sh" }
+step_3 = { description = "Ensure `get_primitive_bit_size` and `get_literal_value` can be reused or extended for types and expressions found in `let` bindings.", command = "verify_helpers_for_let_bindings.sh" }
+step_4 = { description = "Update the `NixDeclaration` for `let` bindings to include their calculated bit sizes and values, and ensure monster factors are derived from these properties.", command = "update_nix_declaration_let_bindings.sh" }
+step_5 = { description = "Create unit tests for `let` binding collection, covering various primitive types, initializations, and scopes.", command = "add_unit_tests_let_bindings.sh" }
+step_6 = { description = "Run `rust-src-scanner` with the updated logic against a test Rust project containing `let` bindings and verify the collected declarations in RocksDB.", command = "verify_let_binding_declarations.sh" }
+
+[output]
+rocksdb_path = "/tmp/rust_scanner_output/inductive_decls.rocksdb"
+refinement_report = "/tmp/rust_scanner_output/refinement_report_let_bindings.md"
+
+[dependencies]
+rust_src_scanner_compiled = true
+07_verify_inductive_declarations = true
+08_refine_inductive_declarations_complex_types = true
+"

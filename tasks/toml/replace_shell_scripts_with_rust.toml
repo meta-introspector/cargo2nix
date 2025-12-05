@@ -1,0 +1,184 @@
+name = "Replace Shell Scripts with Rust"
+description = "Replace existing Python and shell scripts (e.g., `ensure_non_vendored_workspaces.sh`, `generate_repolist.sh`, `tools/repo_manager`) with Rust implementations using traits and functors for improved maintainability, performance, type safety, and significantly reducing overall build times by eliminating interpreter overhead and leveraging Rust's compile-time checks."
+status = "in-progress"
+depends_on = []
+
+[benefits]
+compile_time_reduction = "Eliminates Python/shell interpreter startup costs, faster execution of native Rust code, and reduces the need for runtime checks by catching errors at compile time."
+warning_reduction = "Rust's strong type system and borrow checker catch many errors at compile time that might manifest as runtime issues or warnings in scripts, leading to cleaner builds."
+performance = "Native Rust code generally offers superior execution speed compared to interpreted scripts."
+maintainability_and_type_safety = "Improved code quality, easier refactoring, and fewer runtime surprises due to Rust's robust type system."
+
+[[python_script_translation_plan]]
+name = "analyze_layer0_usage.py"
+task = "Translate analyze_layer0_usage.py to Rust."
+plan = [
+    "Define a `Layer0Analyzer` trait and `RealLayer0Analyzer` struct in `tools/cargo-repo-sync/src/analysis/layer0_analyzer.rs`.",
+    "Implement the logic for finding the most used Layer 0 module.",
+    "Integrate into `run_analyze_command` in `tools/cargo-repo-sync/src/cli/run_commands.rs`."
+]
+
+[[python_script_translation_plan]]
+name = "find_non_vendored.py"
+task = "Translate find_non_vendored.py to Rust."
+plan = [
+    "Define a `NonVendoredModuleFinder` trait and `RealNonVendoredModuleFinder` struct in `tools/cargo-repo-sync/src/analysis/non_vendored_module_finder.rs`.",
+    "Implement the logic for finding and counting non-vendored modules.",
+    "Integrate into `run_analyze_command` in `tools/cargo-repo-sync/src/cli/run_commands.rs`."
+]
+status = "completed"
+
+[[python_script_translation_plan]]
+name = "generate_config_patches.py"
+task = "Translate generate_config_patches.py to Rust."
+plan = [
+    "Define a `CargoConfigPatcher` trait and `RealCargoConfigPatcher` struct in `tools/cargo-repo-sync/src/analysis/cargo_config_patcher.rs`.",
+    "Implement the logic for generating `[patch.crates-io]` entries based on `Cargo.lock` and `Cargo.toml`.",
+    "Integrate into `run_analyze_command` in `tools/cargo-repo-sync/src/cli/run_commands.rs`."
+]
+
+[[python_script_translation_plan]]
+name = "generate_deps_from_names_txt.py"
+task = "Translate generate_deps_from_names_txt.py to Rust."
+plan = [
+    "Create a new module in `tools/cargo-repo-sync/src/` for this functionality.",
+    "Implement logic to read a names file and generate dependency entries."
+]
+
+[[python_script_translation_plan]]
+name = "generate_workspace_deps_from_submodules.py"
+task = "Translate generate_workspace_deps_from_submodules.py to Rust."
+plan = [
+    "Create a new module in `tools/cargo-repo-sync/src/` for this functionality.",
+    "Implement logic to generate workspace dependencies from submodules."
+]
+
+[[python_script_translation_plan]]
+name = "merge_depgraph_data.py"
+task = "Translate merge_depgraph_data.py to Rust."
+plan = [
+    "Define a `DepGraphDataMerger` trait and `RealDepGraphDataMerger` struct in `tools/cargo-repo-sync/src/analysis/dep_graph_data_merger.rs`.",
+    "Implement the logic for merging layer data and usage counts.",
+    "Integrate into `run_analyze_command` in `tools/cargo-repo-sync/src/cli/run_commands.rs`."
+]
+
+[[python_script_translation_plan]]
+name = "process_tt_txt.py"
+task = "Translate process_tt_txt.py to Rust."
+plan = [
+    "Create a new module in `tools/cargo-repo-sync/src/` for this functionality.",
+    "Implement logic to process `tt.txt` files."
+]
+
+[[python_script_translation_plan]]
+name = "remove_submodule_workspaces.py"
+task = "Translate remove_submodule_workspaces.py to Rust."
+plan = [
+    "Define a `WorkspaceRemover` trait and `RealWorkspaceRemover` struct in `tools/cargo-repo-sync/src/analysis/workspace_remover.rs`.",
+    "Implement the logic for removing workspace sections from `Cargo.toml` files in submodules.",
+    "Integrate into `run_analyze_command` in `tools/cargo-repo-sync/src/cli/run_commands.rs`."
+]
+
+[[python_script_translation_plan]]
+name = "update_cargo_toml.py"
+task = "Translate update_cargo_toml.py to Rust."
+plan = [
+    "Create a new module in `tools/cargo-repo-sync/src/` for this functionality.",
+    "Implement logic to update `Cargo.toml` files."
+]
+
+[[shell_script_translation_plan]]
+name = "ensure_non_vendored_workspaces.sh"
+task = "Translate ensure_non_vendored_workspaces.sh to Rust."
+plan = [
+    "Analyze the shell script's functionality (likely checking for non-vendored workspaces).",
+    "Implement equivalent checks and logic in Rust."
+]
+status = "completed"
+
+[[shell_script_translation_plan]]
+name = "ensure_submodule_workspaces.sh"
+task = "Translate ensure_submodule_workspaces.sh to Rust."
+plan = [
+    "Analyze the shell script's functionality (likely ensuring submodules are treated as workspaces).",
+    "Implement equivalent checks and logic in Rust."
+]
+
+[[shell_script_translation_plan]]
+name = "execute_gh_plan.sh"
+task = "Translate execute_gh_plan.sh to Rust."
+plan = [
+    "Analyze the shell script's functionality (likely executing a plan using the `gh` CLI tool).",
+    "Implement equivalent `gh` CLI calls using Rust's `std::process::Command` or a `gh` Rust API if available."
+]
+
+[[shell_script_translation_plan]]
+name = "extract_packages.sh"
+task = "Translate extract_packages.sh to Rust."
+plan = [
+    "Analyze the shell script's functionality (likely extracting package names or paths).",
+    "Implement equivalent file parsing and string manipulation in Rust."
+]
+
+[[shell_script_translation_plan]]
+name = "find_cargo2nix_executables.sh"
+task = "Translate find_cargo2nix_executables.sh to Rust."
+plan = [
+    "Analyze the shell script's functionality (likely finding executables related to `cargo2nix`).",
+    "Implement equivalent file system traversal and executable detection in Rust."
+]
+
+[[shell_script_translation_plan]]
+name = "fix2.sh"
+task = "Translate fix2.sh to Rust."
+plan = [
+    "Analyze the shell script's functionality (likely a general-purpose fix-it script).",
+    "Implement equivalent logic in Rust."
+]
+
+[[shell_script_translation_plan]]
+name = "generate_repolist.sh"
+task = "Translate generate_repolist.sh to Rust."
+plan = [
+    "Analyze the shell script's functionality (likely generating a list of repositories).",
+    "Implement equivalent logic in Rust, possibly using `git2` crate for Git operations."
+]
+
+[[shell_script_translation_plan]]
+name = "generate_workspace_deps.sh"
+task = "Translate generate_workspace_deps.sh to Rust."
+plan = [
+    "Analyze the shell script's functionality (likely generating workspace dependencies).",
+    "Implement equivalent logic in Rust."
+]
+status = "completed"
+note = "Translated to Rust as `tools/generate_workspace_deps` executable, leveraging `cargo-repo-sync-cli` for submodule path generation."
+
+[[shell_script_translation_plan]]
+name = "process_repolist.sh"
+task = "Translate process_repolist.sh to Rust."
+plan = [
+    "Analyze the shell script's functionality (likely processing a list of repositories).",
+    "Implement equivalent logic in Rust."
+]
+
+[[shell_script_translation_plan]]
+name = "process_repos.sh"
+task = "Translate process_repos.sh to Rust."
+plan = [
+    "Analyze the shell script's functionality (likely processing multiple repositories).",
+    "Implement equivalent logic in Rust."
+]
+
+[[shell_script_translation_plan]]
+name = "run_dependency_generation.sh"
+task = "Translate run_dependency_generation.sh to Rust."
+plan = [
+    "Analyze the shell script's functionality (likely orchestrating dependency generation).",
+    "Implement equivalent orchestration logic in Rust."
+]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/layer0_analyzer.rs",
+    "crates/solana-monster-system/src/bin/semantic_dep_graph.rs",
+    "crates/solana-monster-system/src/bin/package_record_extractor.rs"
+]

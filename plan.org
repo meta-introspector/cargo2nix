@@ -1,0 +1,54 @@
+treat each datatype in rustc, each point in the lattice of functions as a graphql type that can be served queried and used alone or in a group.
+be able to decouple stages of the compiler.
+
+also assrrt that each stage of the compiler is one of the 192 conjucancy classes of the monster group .
+each ast has the same dimensioon as the 192k mosnter element.
+
+there is an equivalance betweent he rust code, the graphql query, the monster element, an emoji matrix, a hecke operator, a pure function.
+we can query and render any quoted structure in json. thegraphql can quote and splice any rust code at any stage. like a digital mycelium we can grow it from a clipping or soil sample.
+
+we can think of this constraint system as taking in all the asts, all the intermediate layers
+of the compiler as input and using the order of the monster group as output and finding the sat solver that maps them onto the monsters including all aspects
+we can imagine this as the hecke operator that is applied over and over again and it pureifies the asts into deeper and deeper mysteries.
+
+each data type, each function, aspect  of the compiler is turned into  a trait and that becomes a new graphql scheme.
+the heck operators connects teh schemes via numerics giving them a meta programming numeric represntation that up holds all constraints.
+eventaully we get superconstrained like the lmfdb functions that are symmetrical and harmonic on many dimensions.
+
+all the dependencies of a chunk of nodes become the address because the cas contains the signatures of all the things it needs. 
+yes now we want to load our git modules and relations into 1 db,
+then cargo crates into 2 db then the ast decls to 3 db.
+then we will find similarity between the delcs and have them all linked. each object gets it own content id
+yes, very good, we have so much code so much duplication. lets load this code into our rocksdb and find similar code via our monster algorithm.
+now we can find all the code that for example uses syn and serde and json and io in similar ways
+
+ok now produce a list and order of the cargo crate built as a report and show what submodule it will build at what branch
+yes /mnt/data1/nix/vendor/rust/cargo2nix/tools/rust-bootstrap-nix/ you can read all that we started to rewrite rustc bootstrap from python to rust multiple times.
+now we will look we wrote quite a few cargo level and code level code. we want to develop a plan to build solana rustc crate by crate not using cargo. but we want to construct our own driver that will force it to use submodules for all code. we will use nix compiler. we have all this code written, you just have to find it. see our rust nix bootstrap code.
+/mnt/data1/nix/vendor/rust/cargo2nix/git_files_inventory2.txt is being updated, now we need to open all the .gitmodules from all the git and import the links lets show show what paths, what branchs, what versions are at what locations, what is duplicatd. we need to import all the cargo locks from rust and our code here and find all the git repos from the code via the cargo metadata. see we have some code for that somewhere. search tools for cargo.
+that has 500 crates as is still loading.
+
+
+1. git repo -> forks in meta-introspector -> submodule -> branchs <-> crate <- cargo metadata
+2. crate <- cargo metadata -> subodules/ git repo , rust files -> rustc.
+3. rustc|syn|llvm traits -> decl
+4. decl -> graphql queries|constraints| levels | 108 tests| monster index for each decl.
+5. find closest decls by monster index.
+6. each decl requires objects of mosnter index and the composite lattice postition is all the factors of input + proc + output factors.
+7. this will allow us to dedupliate everytthing ew need to boostrap rust.
+   then we will extract each layer of functions in rust and wrap it in serde traits so we can sample and resuume each step and run it inside and outside the compiler
+8. rocksdb becomes the compilers memory.
+9. solana accounts will use each decl as a program as a contract
+10. nix store, git objects, ipfs objects, agent memory, solana accounts, memes all become one thing.
+    
+
+interesting is if we calculate the phi score of how each crate is used by the others we can find similar usage and match imps automattically.
+so if sa say this modules uses this modules with phi usage score of X, we can find all the modules tha share that usage score as a pairing.
+
+https://github.com/meta-introspector/indradb
+https://github.com/meta-introspector/graph-rocks-rs
+https://github.com/meta-introspector/solomon-db
+
+now for each variable we can start it with its type + its usage to give each var a complexity scrore, we will then find dulicate variables.
+for each constant we factorize it into its primes and smallest words and acount those as part of the phi score. prime 23 is counted as 23! we will find the existing mondster code in our codebase by looking for 71
+

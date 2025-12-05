@@ -1,0 +1,25 @@
+[package]
+name = "rust-src-scanner"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+walkdir  = { workspace=true } #  "2.5.0"
+syn  = { workspace=true, features = ["full", "visit"] }
+petgraph  = { workspace=true } #  "0.6.4"
+clap  = { workspace=true } #  "4.5.53"
+toml  = { workspace=true } #  "0.8.11"
+chrono  = { workspace=true } #  "0.4.38"
+sha2  = { workspace=true } #  "0.10.9"
+serde  = { workspace=true } #  { version  = { workspace=true } #  "1.0", features  = { workspace=true } #  ["derive"] }
+serde_json  = { workspace=true } #  "1.0"
+anyhow  = { workspace=true } #  "1.0.100"
+rocksdb  = { workspace=true } #  "0.21.0"
+proc-macro2 = { workspace = true, features = ["span-locations"] }
+quote = { workspace = true }
+
+# Future dependencies for advanced semantic analysis, LMFDB integration,
+# and eigenmatrix construction (e.g., nalgebra, petgraph) will be added here.
+
+[features]
+disable-eigenvector = []

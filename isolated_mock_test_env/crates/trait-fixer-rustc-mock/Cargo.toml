@@ -1,0 +1,7 @@
+# crates/trait-fixer-rustc-mock/Cargo.toml
+[package]
+name = "trait-fixer-rustc-mock"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]

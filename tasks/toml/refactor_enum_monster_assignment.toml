@@ -1,0 +1,18 @@
+name = "Refactor EnumMonsterAssignment for Configurability and Live Data"
+description = """
+The `enum_monster_assignment.py` script currently serves as a simulation/demonstration of assigning rustc enums to Monster Group primes. It heavily relies on hardcoded data for `MONSTER_PRIMES`, `MONSTER_EXPONENTS`, the total number of enums (8948), and a `enum_assignments` dictionary for distribution. Its `semantic_prime_assignment` logic also uses hardcoded string matching.
+
+This task aims to:
+1. Clarify its demonstrative nature in the script's documentation.
+2. Introduce configurability for the hardcoded mathematical constants and distribution data.
+3. Explore the possibility of integrating with a live rustc codebase for actual enum extraction, moving beyond pure simulation.
+"""
+status = "todo"
+depends_on = []
+steps = [
+    "Update the script's top-level docstring to explicitly state that it is a *simulation* or *demonstration* script.",
+    "Externalize `MONSTER_PRIMES` and `MONSTER_EXPONENTS` into a configuration file (e.g., a TOML or JSON file).",
+    "Externalize the `total enums` number and the `enum_assignments` dictionary into a configuration file or a data file that the script can load.",
+    "Refactor `semantic_prime_assignment` to use configurable patterns/rules for semantic matching rather than hardcoded `if/elif` statements.",
+    "If feasible and in scope, explore how the script could ingest actual AST data from a `rustc` codebase (e.g., by integrating with `rust-analyzer` or `syn`) to perform assignments on live data, rather than simulated counts."
+]

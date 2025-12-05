@@ -1,0 +1,65 @@
+[package]
+name = "secret-manager-rs"
+categories.workspace = true
+version.workspace = true
+authors.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+
+license.workspace = true
+homepage.workspace = true
+repository.workspace = true
+keywords.workspace = true
+include.workspace = true
+
+[dependencies]
+cargo-submodule-tool-lib = { workspace = true, optional = true }
+syn = { version = "*", optional = true }
+toml_edit = { version = "*", optional = true }
+cargo-repo-sync-lib = { workspace = true, optional = true }
+git2 = { version = "*", optional = true }
+hex = { version = "*", optional = true }
+cargo_metadata = { workspace = true, optional = true }
+sha1 = { version = "*", optional = true }
+pathdiff = { version = "*", optional = true }
+serde_json = { version = "*", optional = true }
+walkdir = { version = "*", optional = true }
+git-wrapper-lib = { workspace = true, optional = true }
+tokio = { version = "1", features = ["full"], optional = true }
+clap = { version = "4", features = ["derive"], optional = true }
+anyhow = { version = "1", optional = true }
+tracing = { version = "0.1", optional = true }
+tracing-subscriber = { version = "0.3", optional = true }
+aws-sdk-ssm = { version = "0.33", optional = true } # For AWS Parameter Store
+serde = { version = "1", features = ["derive"], optional = true }
+serde_yaml = { version = "0.9", optional = true }
+async-trait = { version = "0.1", optional = true } # For async traits if needed, good practice for AWS SDK
+# For GPG key generation, we'll shell out to `gpg` for simplicity and robustness.
+# For SSH key generation, we'll shell out to `ssh-keygen`.
+
+[features]
+cargo_submodule_tool_lib_enabled = ["dep:cargo-submodule-tool-lib"]
+syn_enabled = ["dep:syn"]
+toml_edit_enabled = ["dep:toml_edit"]
+cargo_repo_sync_lib_enabled = ["dep:cargo-repo-sync-lib"]
+git2_enabled = ["dep:git2"]
+hex_enabled = ["dep:hex"]
+cargo_metadata_enabled = ["dep:cargo_metadata"]
+sha1_enabled = ["dep:sha1"]
+pathdiff_enabled = ["dep:pathdiff"]
+serde_json_enabled = ["dep:serde_json"]
+walkdir_enabled = ["dep:walkdir"]
+git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
+default = []
+tokio_enabled = ["dep:tokio"]
+clap_enabled = ["dep:clap"]
+anyhow_enabled = ["dep:anyhow"]
+tracing_enabled = ["dep:tracing"]
+tracing_subscriber_enabled = ["dep:tracing-subscriber"]
+aws_sdk_ssm_enabled = ["dep:aws-sdk-ssm"]
+serde_enabled = ["dep:serde"]
+serde_yaml_enabled = ["dep:serde_yaml"]
+async_trait_enabled = ["dep:async-trait"]
+
+[lints]
+workspace = true

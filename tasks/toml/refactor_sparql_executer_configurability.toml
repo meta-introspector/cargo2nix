@@ -1,0 +1,17 @@
+name = "Refactor SparqlExecuter for Configurability"
+description = ""
+The `SparqlExecuter` class contains hardcoded values for the SPARQL endpoint URL ("http://164.107.116.56:3093/sparql") and the Freebase URI prefix ("http://rdf.freebase.com/ns/"). These values should be moved to a configuration file or environment variables to improve flexibility and maintainability. Additionally, the hardcoded time offset string "-08:00" should be made configurable or handled dynamically.
+"
+status = "todo"
+depends_on = []
+steps = [
+    "Introduce a configuration mechanism (e.g., environment variables, a `config.toml` file, or a dedicated settings class) for the SPARQL endpoint URL.",
+    "Replace the hardcoded SPARQL endpoint URL with a reference to the new configuration.",
+    "Introduce a configuration mechanism for the Freebase URI prefix.",
+    "Replace all occurrences of the hardcoded Freebase URI prefix with a reference to the new configuration.",
+    "Replace the hardcoded time offset string \"-08:00\" with a configurable value or handle it dynamically."
+]
+related_binaries = [
+    "crates/tool-refactorings/src/sparql_executer.rs" # Module, but relevant
+]
+

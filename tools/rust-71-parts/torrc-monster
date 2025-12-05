@@ -1,0 +1,29 @@
+# Monster Group Tor Configuration
+SocksPort 9050
+ControlPort 9051
+
+# Monster Factor 71 Service
+HiddenServiceDir /var/lib/tor/monster_symbiotic-compiler/
+HiddenServicePort 8071 127.0.0.1:8071
+HiddenServiceVersion 3
+
+# Monster Factor 59 Service
+HiddenServiceDir /var/lib/tor/monster_ast-transport/
+HiddenServicePort 8059 127.0.0.1:8059
+HiddenServiceVersion 3
+
+# Monster Factor 47 Service
+HiddenServiceDir /var/lib/tor/monster_hecke-engine/
+HiddenServicePort 8047 127.0.0.1:8047
+HiddenServiceVersion 3
+
+# Monster Factor 41 Service
+HiddenServiceDir /var/lib/tor/monster_monster-network/
+HiddenServicePort 8041 127.0.0.1:8041
+HiddenServiceVersion 3
+
+# Monster Factor 31 Service
+HiddenServiceDir /var/lib/tor/monster_zkp-discovery/
+HiddenServicePort 8031 127.0.0.1:8031
+HiddenServiceVersion 3
+

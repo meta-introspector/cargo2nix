@@ -1,0 +1,11 @@
+[package]
+name = "trait-fixer-mocks-test"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+trait-fixer-attribute-reader-trait = { path = "../../crates/trait-fixer-attribute-reader-trait" }
+trait-fixer-attribute-reader-mock = { path = "../../crates/trait-fixer-attribute-reader-mock" }
+trait-fixer-rustc-mock = { path = "../../crates/trait-fixer-rustc-mock" }
+trait-fixer-compiler-host-trait = { path = "../../crates/trait-fixer-compiler-host-trait" }
+trait-fixer-compiler-host-mock = { path = "../../crates/trait-fixer-compiler-host-mock" }

@@ -1,0 +1,10 @@
+[package]
+name = "monster_protocol-core"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+monster_protocol-traits = { path = "../monster_protocol-traits" }
+# im = { version = "15.1.0", features = ["serde"] } # Optional, if HashMap/HashSet from im-rs are used

@@ -1,0 +1,64 @@
+[package]
+name = "trait-fixer"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+default = ["use_real_impls"] # Default to real implementations
+use_real_impls = [
+    "trait-fixer-attribute-reader-real",
+    "trait-fixer-compiler-host-real",
+    "trait-fixer-core-real",
+    "trait-fixer-hir-info-real",
+    "trait-fixer-lang-items-real",
+    "trait-fixer-query-context-real",
+    "trait-fixer-rules-real",
+    "trait-fixer-trait-checker-real",
+]
+use_mock_impls = [
+    "trait-fixer-attribute-reader-mock",
+    "trait-fixer-compiler-host-mock",
+    "trait-fixer-core-mock",
+    "trait-fixer-hir-info-mock",
+    "trait-fixer-lang-items-mock",
+    "trait-fixer-query-context-mock",
+    "trait-fixer-rules-mock",
+    "trait-fixer-trait-checker-mock",
+]
+
+[dependencies]
+# Dependencies on the trait definition crates (always present)
+trait-fixer-attribute-reader-trait = { path = "../../crates/trait-fixer-attribute-reader-trait" }
+trait-fixer-compiler-host-trait = { path = "../../crates/trait-fixer-compiler-host-trait" }
+trait-fixer-core-trait = { path = "../../crates/trait-fixer-core-trait" }
+trait-fixer-hir-info-trait = { path = "../../crates/trait-fixer-hir-info-trait" }
+trait-fixer-lang-items-trait = { path = "../../crates/trait-fixer-lang-items-trait" }
+trait-fixer-query-context-trait = { path = "../../crates/trait-fixer-query-context-trait" }
+trait-fixer-rules-trait = { path = "../../crates/trait-fixer-rules-trait" }
+trait-fixer-trait-checker-trait = { path = "../../crates/trait-fixer-trait-checker-trait" }
+
+# Conditional dependencies on real/mock implementations
+trait-fixer-attribute-reader-real = { path = "../../crates/trait-fixer-attribute-reader-real", optional = true }
+trait-fixer-attribute-reader-mock = { path = "../../crates/trait-fixer-attribute-reader-mock", optional = true }
+trait-fixer-compiler-host-real = { path = "../../crates/trait-fixer-compiler-host-real", optional = true }
+trait-fixer-compiler-host-mock = { path = "../../crates/trait-fixer-compiler-host-mock", optional = true }
+trait-fixer-core-real = { path = "../../crates/trait-fixer-core-real", optional = true }
+trait-fixer-core-mock = { path = "../../crates/trait-fixer-core-mock", optional = true }
+trait-fixer-hir-info-real = { path = "../../crates/trait-fixer-hir-info-real", optional = true }
+trait-fixer-hir-info-mock = { path = "../../crates/trait-fixer-hir-info-mock", optional = true }
+trait-fixer-lang-items-real = { path = "../../crates/trait-fixer-lang-items-real", optional = true }
+trait-fixer-lang-items-mock = { path = "../../crates/trait-fixer-lang-items-mock", optional = true }
+trait-fixer-query-context-real = { path = "../../crates/trait-fixer-query-context-real", optional = true }
+trait-fixer-query-context-mock = { path = "../../crates/trait-fixer-query-context-mock", optional = true }
+trait-fixer-rules-real = { path = "../../crates/trait-fixer-rules-real", optional = true }
+trait-fixer-rules-mock = { path = "../../crates/trait-fixer-rules-mock", optional = true }
+trait-fixer-trait-checker-real = { path = "../../crates/trait-fixer-trait-checker-real", optional = true }
+trait-fixer-trait-checker-mock = { path = "../../crates/trait-fixer-trait-checker-mock", optional = true }
+
+# Direct dependencies of trait-fixer (non-rustc)
+if_chain = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.8"
+
+[build-dependencies]
+rustc_tools_util = {workspace=true}

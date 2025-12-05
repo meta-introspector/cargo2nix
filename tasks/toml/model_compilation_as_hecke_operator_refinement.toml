@@ -1,0 +1,19 @@
+name = "Model Compilation as Action of Hecke Operator (Refinement)"
+description = """
+Refine the modeling of core compilation dynamics (program/module composition) by the action of
+Hecke operators (Tₙ). Formalize the relation Φ(P₁ ∘ P₂) = T_complexity(P₁) Φ(P₂), stating that
+composing P₂ with P₁ is analytically equivalent to acting on P₂'s geometric representation with Tₙ.
+The `MonstrousCanonicalForm` trait models this Hecke operator action, influencing its
+`monstrous_form` method. Document the `rustc` pipeline as instantiation of Hecke operator.
+"""
+status = "todo"
+depends_on = [
+    "implement_hecke_operator_for_program_composition.toml",
+    "formalize_modular_form_encoding_phi_map.toml"
+]
+related_concepts = ["Hecke operators", "program composition", "Φ function", "MonstrousCanonicalForm trait"]
+related_binaries = [
+    "crates/solana-monster-system/src/hecke_operators.rs", # Module, but relevant
+    "tools/rust-71-parts/src/bin/hecke_demo.rs",
+    "crates/solana-monster-system/src/bin/rustc_monster_polynomial.rs"
+]

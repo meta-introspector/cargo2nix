@@ -1,0 +1,68 @@
+
+[agent]
+provider = "ollama"                    # Ollama provider
+default_model = "mistral-nemo:12b"           # Any locally available model
+# Note: API key only required when targeting Ollama Cloud
+
+[tools]
+default_policy = "prompt"             # Safety: "allow", "prompt", or "deny"
+
+[tools.policies]
+read_file = "allow"                   # Always allow file reading
+write_file = "prompt"                 # Prompt before modifications
+run_pty_cmd = "prompt"           # Prompt before commands
+
+[llm]
+provider = "ollama"
+#model = "llama3.2"
+model = "mistral-nemo:12b"           # Any locally available modeldefault_model = "mistral-nemo:12b"           # Any locally available model
+base_url = "http://127.0.0.1:11434"
+
+[workspace]
+root = "/mnt/data1/nix/vendor/rust/cargo2nix"
+
+[tools]
+enable_tree_sitter = true
+enable_ripgrep = true
+
+[mcp]
+sse_servers = [ ]
+shttp_servers = [ ]
+
+[mcp.ui.renderers]
+context7 = "context7"
+sequential-thinking = "sequential-thinking"
+
+[[mcp.stdio_servers]]
+name = "context7"
+command = "npx"
+args = [ "-y", "@upstash/context7-mcp@latest" ]
+
+[[mcp.stdio_servers]]
+name = "fetch"
+command = "uvx"
+args = [ "mcp-server-fetch" ]
+
+[[mcp.stdio_servers]]
+name = "time"
+command = "uvx"
+args = [ "mcp-server-time" ]
+
+[[mcp.stdio_servers]]
+name = "serena"
+command = "uvx"
+args = [
+  "--from",
+  "git+https://github.com/oraios/serena",
+  "serena",
+  "start-mcp-server",
+  "--context",
+  "ide-assistant",
+  "--project",
+  "./"
+]
+
+[[mcp.stdio_servers]]
+name = "sequential-thinking"
+command = "npx"
+args = [ "-y", "@modelcontextprotocol/server-sequential-thinking" ]

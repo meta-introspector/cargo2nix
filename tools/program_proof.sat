@@ -1,0 +1,7 @@
+% SAT formula for program proof
+constraint struct_valid = 1;
+constraint fn_valid = 1;
+constraint assign_valid = 1;
+% Monster Group constraints
+constraint monster_42 + monster_156 + monster_167 <= 3;
+solve satisfy;

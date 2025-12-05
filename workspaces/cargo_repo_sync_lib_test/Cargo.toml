@@ -1,0 +1,16 @@
+[package]
+name = "cargo_repo_sync_lib_test_pkg"
+version = "0.1.0"
+
+edition = "2024"
+resolver = "3"
+
+[dependencies]
+#cargo-repo-sync-lib = { path = "../../tools/cargo-repo-sync-lib" }
+git-wrapper-lib = { path = "../../tools/git-wrapper-lib" }
+cargo-edit-lib = { path = "../../tools/cargo-edit-lib", features = ["real_cargo_metadata"] }
+cargo-edit-tool = { path = "../../tools/cargo-edit-tool" }
+anyhow = { path = "../../submodules/anyhow" }
+cargo_metadata = { path = "../../submodules/cargo_metadata" }
+serde_json = { path = "../../submodules/json" }
+nix-generator-lib = { path = "../../tools/nix-generator-lib" }

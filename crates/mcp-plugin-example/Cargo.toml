@@ -1,0 +1,22 @@
+[package]
+name = "mcp-plugin-example"
+categories.workspace = true
+version.workspace = true
+authors.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+homepage.workspace = true
+repository.workspace = true
+keywords.workspace = true
+include.workspace = true
+
+[dependencies]
+mcp-plugin-traits = { path = "../mcp-plugin-traits" }
+anyhow = { workspace = true }
+
+[lib]
+crate-type = ["cdylib"] # Compile this library as a C-compatible dynamic library
+
+[lints]
+workspace = true

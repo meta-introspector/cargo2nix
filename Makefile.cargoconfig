@@ -1,0 +1,145 @@
+# Define project root
+PROJECT_ROOT := $(shell pwd)
+
+# Define paths for tools and temporary files
+TRANSFORM_PATHS_SCRIPT := $(PROJECT_ROOT)/tools/cargo-repo-sync/transform_paths.py
+FILTER_CONFIG_PATHS_SCRIPT := $(PROJECT_ROOT)/tools/cargo-repo-sync/filter_config_paths.py
+GENERATE_REPOLIST_SCRIPT := $(PROJECT_ROOT)/generate_repolist.sh
+JQ_PATH := $(shell which jq) # Assuming jq is available in PATH
+
+# New shell scripts
+BACKUP_CONFIGS_SCRIPT := $(PROJECT_ROOT)/tools/cargo-repo-sync/backup_configs.sh
+OVERWRITE_CONFIGS_SCRIPT := $(PROJECT_ROOT)/tools/cargo-repo-sync/overwrite_configs.sh
+CHECK_UNVENDORED_CONFIGS_SCRIPT := $(PROJECT_ROOT)/tools/cargo-repo-sync/check_unvendored_configs.py
+
+CARGO_CONFIG_DIR := $(PROJECT_ROOT)/.cargo
+CARGO_CONFIG_ROOT := $(CARGO_CONFIG_DIR)/config.toml
+
+# --- NEW ADDITIONS START HERE ---
+FIND_NON_VENDORED_BIN := $(PROJECT_ROOT)/target/debug/find_non_vendored
+NON_VENDORED_MODULES_FILE := $(CARGO_CONFIG_DIR)/non_vendored_modules.txt
+UNVENDORED_CONFIG_REPORT_FILE := $(CARGO_CONFIG_DIR)/unvendored_config_report.txt
+# --- NEW ADDITIONS END HERE ---
+ABSOLUTE_CONFIG_FILE := $(CARGO_CONFIG_DIR)/absolute_config.toml.tmp
+RAW_FIND_OUTPUT := $(CARGO_CONFIG_DIR)/raw_find_output.txt # New cached file for raw find output
+FILTERED_CONFIG_PATHS_FILE := $(CARGO_CONFIG_DIR)/filtered_config_paths.txt
+
+.PHONY: all clean update-cargo-configs backup-configs check-non-vendored-configs check-unvendored-configs-report
+
+all: update-cargo-configs check-non-vendored-configs check-unvendored-configs-report ensure-workspaces-rust depgraph.dot
+
+# Main target to update all Cargo configurations
+update-cargo-configs: backup-configs $(CARGO_CONFIG_ROOT) $(ABSOLUTE_CONFIG_FILE) $(FILTERED_CONFIG_PATHS_FILE)
+	$(OVERWRITE_CONFIGS_SCRIPT) $(ABSOLUTE_CONFIG_FILE) $(FILTERED_CONFIG_PATHS_FILE) $(CARGO_CONFIG_ROOT)
+	@echo "--- Verifying root $(CARGO_CONFIG_ROOT) content ---"
+	@cat $(CARGO_CONFIG_ROOT)
+	cargo update
+	@echo "--- Verification complete ---"
+
+
+non-vendored :$(NON_VENDORED_MODULES_FILE)
+	     echo
+	     
+# Target to identify non-vendored modules
+$(NON_VENDORED_MODULES_FILE): tree.txt $(FIND_NON_VENDORED_BIN)
+	@echo "--- Identifying non-vendored modules and saving to $(NON_VENDORED_MODULES_FILE) ---"
+	@mkdir -p $(CARGO_CONFIG_DIR)
+	$(FIND_NON_VENDORED_BIN) --project-root $(PROJECT_ROOT) --input-file tree.txt > $@
+	@echo "--- Non-vendored modules identified ---"
+
+# Target to check configurations for non-vendored modules
+check-non-vendored-configs: $(NON_VENDORED_MODULES_FILE) $(CARGO_CONFIG_ROOT)
+	@echo "--- Generating report for non-vendored modules ---"
+	@if [ -s "$(NON_VENDORED_MODULES_FILE)" ]; then \
+		echo "Module Name | In submodules/ | In .cargo/config.toml"; \
+		echo "------------|----------------|----------------------"; \
+		while IFS= read -r module_name; do \
+			IN_SUBMODULES="No"; \
+			IN_CARGO_CONFIG="No"; \
+			if [ -d "$(PROJECT_ROOT)/submodules/$$module_name" ]; then \
+				IN_SUBMODULES="Yes"; \
+			fi; \
+			if grep -q "^\s*$$module_name\s*=" "$(CARGO_CONFIG_ROOT)"; then \
+				IN_CARGO_CONFIG="Yes"; \
+			fi; \
+			printf "%-11s | %-14s | %-20s\n" "$$module_name" "$$IN_SUBMODULES" "$$IN_CARGO_CONFIG"; \
+		done < $(NON_VENDORED_MODULES_FILE); \
+	else \
+		echo "No non-vendored modules found or file is empty."; \
+	fi
+	@echo "--- Report for non-vendored modules complete ---"
+
+# New target to generate the unvendored config report
+check-unvendored-configs-report: $(NON_VENDORED_MODULES_FILE) $(CARGO_CONFIG_ROOT)
+	@echo "--- Generating unvendored config report to $(UNVENDORED_CONFIG_REPORT_FILE) ---"
+	$(CHECK_UNVENDORED_CONFIGS_SCRIPT) $(NON_VENDORED_MODULES_FILE) $(CARGO_CONFIG_ROOT) > $(UNVENDORED_CONFIG_REPORT_FILE)
+	@echo "--- Unvendored config report generated ---"
+
+# Target to backup existing config.toml files
+backup-configs: $(FILTERED_CONFIG_PATHS_FILE)
+	$(BACKUP_CONFIGS_SCRIPT) $(FILTERED_CONFIG_PATHS_FILE) $(CARGO_CONFIG_ROOT)
+
+# Target to create the root .cargo/config.toml with relative paths
+root: $(CARGO_CONFIG_ROOT)
+	echo ok
+	cargo update
+
+tree.txt :
+	cargo tree > tree.txt
+
+depgraph.dot:
+	cargo depgraph --all-deps --all-features --dev-deps --build-deps > depgraph.dot
+
+$(CARGO_CONFIG_ROOT):
+	@echo "--- Generating root $(CARGO_CONFIG_ROOT) ---"
+	@mkdir -p $(CARGO_CONFIG_DIR)
+	@echo "[patch.crates-io]\n" > $(CARGO_CONFIG_ROOT) # Print header first
+	$(GENERATE_REPOLIST_SCRIPT) | $(JQ_PATH) -r '."patch.crates-io" | to_entries[] | "\(.key) = { path = \"submodules/\(.key)\" }"' >> $(CARGO_CONFIG_ROOT) # Append to file
+	@echo "--- Root $(CARGO_CONFIG_ROOT) generated ---"
+
+# Target to create the temporary file with absolute paths
+$(ABSOLUTE_CONFIG_FILE): $(CARGO_CONFIG_ROOT)
+	@echo "--- Generating $(ABSOLUTE_CONFIG_FILE) with absolute paths ---"
+	@cat $(CARGO_CONFIG_ROOT) | /nix/store/a65r9k46dxhyx2gn60bpx7j62anjdjr7-python3-3.13.7/bin/python $(TRANSFORM_PATHS_SCRIPT) > $(ABSOLUTE_CONFIG_FILE)
+	@echo "--- $(ABSOLUTE_CONFIG_FILE) generated ---"
+
+# Target to cache the raw output of the find command
+$(RAW_FIND_OUTPUT):
+	@echo "--- Generating $(RAW_FIND_OUTPUT) (raw find output) ---"
+	@find $(PROJECT_ROOT) -name config.toml > $@ # Use $@ for the target file
+	@echo "--- $(RAW_FIND_OUTPUT) generated ---"
+
+# Modified target to filter the cached raw find output
+$(FILTERED_CONFIG_PATHS_FILE): $(RAW_FIND_OUTPUT)
+	@echo "--- Generating $(FILTERED_CONFIG_PATHS_FILE) (filtered paths) ---"
+	$(FILTER_CONFIG_PATHS_SCRIPT) $(RAW_FIND_OUTPUT) $@ # Pass input and output file arguments
+	@echo "--- $(FILTERED_CONFIG_PATHS_FILE) generated ---"
+
+clean:
+	@echo "--- Cleaning up generated files ---"
+	@rm -f $(CARGO_CONFIG_ROOT) $(ABSOLUTE_CONFIG_FILE) $(RAW_FIND_OUTPUT) $(FILTERED_CONFIG_PATHS_FILE) $(NON_VENDORED_MODULES_FILE) $(UNVENDORED_CONFIG_REPORT_FILE)
+	# Remove backups
+	@if [ -f "$(CARGO_CONFIG_ROOT).bak" ]; then rm -f "$(CARGO_CONFIG_ROOT).bak"; fi
+	@if [ -f "$(FILTERED_CONFIG_PATHS_FILE)" ]; then \
+		while IFS= read -r file_path; do \
+			if [ -f "$$file_path.bak" ]; then rm -f "$$file_path.bak"; fi; \
+		done < $(FILTERED_CONFIG_PATHS_FILE); \
+	fi
+	@echo "--- Cleanup complete ---"
+
+# New Rust binary for ensuring workspaces
+ENSURE_WORKSPACES_BIN := $(PROJECT_ROOT)/target/debug/ensure_workspaces
+
+# Target to build the ensure_workspaces Rust binary
+$(ENSURE_WORKSPACES_BIN):
+	cargo build -p cargo-repo-sync --bin ensure_workspaces
+
+# Target to build the find_non_vendored Rust binary
+$(FIND_NON_VENDORED_BIN):
+	cargo build -p cargo-repo-sync --bin find_non_vendored
+
+# New target to run the ensure_workspaces Rust binary
+ensure-workspaces-rust: $(ENSURE_WORKSPACES_BIN) $(NON_VENDORED_MODULES_FILE)
+	@echo "--- Ensuring [workspace] sections with Rust binary ---"
+	$(ENSURE_WORKSPACES_BIN) --project-root $(PROJECT_ROOT) --non-vendored-modules-file $(NON_VENDORED_MODULES_FILE)
+	@echo "--- Rust binary ensure_workspaces completed ---"

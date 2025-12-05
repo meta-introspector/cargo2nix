@@ -1,0 +1,7 @@
+name = "Generate Root Workspace Dependencies"
+description = "Use `cargo-repo-sync generate-workspace-deps` to automatically generate the `[workspace.dependencies]` section for the root `Cargo.toml`, including all submodule dependencies with `path = "..."` references, contributing to unified dependency management."
+status = "todo"
+depends_on = []
+related_binaries = [
+    "crates/solana-monster-system/src/bin/generate_workspace_deps.rs" # Placeholder assuming it will be in solana-monster-system/src/bin
+]

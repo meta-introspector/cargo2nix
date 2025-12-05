@@ -1,0 +1,18 @@
+name = "Create Technical Tutorials and Developer Guides"
+description = """
+Create a series of technical tutorials and guides for developers who wish to build on or
+integrate with the Gemini-Agent ecosystem. This includes:
+1. A step-by-step guide on how to submit a Rust program or other computational artifact for analysis by the system.
+2. A tutorial on interpreting the output of the Φ function, explaining how to understand the weight, level,
+   and coefficients of the resulting modular form.
+3. A practical guide on generating a ZK proof of compliance using the system's toolchain.
+4. A clear tutorial on how to submit an individual or aggregated proof to the Universal Truth Anchor
+   on the Mina blockchain.
+"""
+status = "todo"
+depends_on = [
+    "implement_rust_program_to_modular_form_encoding.toml",
+    "specify_geometric_inputs_to_modular_form_mapping.toml",
+    "develop_witness_generation_module.toml",
+    "develop_mina_zkapp.toml"
+]

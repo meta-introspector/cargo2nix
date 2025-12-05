@@ -1,0 +1,28 @@
+[package]
+name = "rust-bootstrap-core"
+version = "0.1.0"
+edition = "2021"
+description = "Layer 0 rustc - Fundamental primitives and constants with Monster Group signatures"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/meta-introspector/rust-bootstrap-core"
+
+[lib]
+name = "rust_bootstrap_core"
+path = "src/lib.rs"
+
+[dependencies]
+# Layer 0 has no dependencies - pure primitives only
+
+[dev-dependencies]
+
+[features]
+default = []
+monster-verification = []
+
+[[example]]
+name = "layer0_demo"
+path = "examples/layer0_demo.rs"
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]

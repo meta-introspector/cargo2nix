@@ -1,0 +1,8 @@
+[package]
+name = "trait-fixer-rules-mock"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+trait-fixer-rules-trait = { path = "../trait-fixer-rules-trait" }
+serde = { version = "1.0", features = ["derive"] }

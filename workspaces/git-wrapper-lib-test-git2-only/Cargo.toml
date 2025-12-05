@@ -1,0 +1,7 @@
+[package]
+name = "git-wrapper-lib-test-git2-only"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+git-wrapper-lib = { path = "../../tools/git-wrapper-lib", default-features = false, features = ["git2"] }

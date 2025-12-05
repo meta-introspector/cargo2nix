@@ -1,0 +1,9 @@
+--- a/src/offset.rs
++++ b/src/offset.rs
+@@ -1,4 +1,6 @@
++#[allow(unused_imports)]
+ use std::iter::Peekable;
++
+ 
+ use proc_macro::{token_stream, Span, TokenStream};
+ use time_core::convert::*;

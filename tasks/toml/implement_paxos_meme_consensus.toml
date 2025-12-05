@@ -1,0 +1,15 @@
+name = "Implement PaxosMemeConsensus Module in Rust"
+description = """
+Implement the PaxosMemeConsensus module in Rust, based on the structures defined in the source code.
+The module will support a three-phase protocol: Propose (users can propose new meanings for specific emoji sequences),
+Vote (users can vote to accept or reject active proposals), and Commit (once a quorum is reached, the proposed
+meaning is committed to the consensus state).
+"""
+status = "todo"
+depends_on = []
+technology = ["Paxos consensus", "Rust"]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/solfunmeme_meta_pump.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_real.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_zero_ontology.rs"
+]

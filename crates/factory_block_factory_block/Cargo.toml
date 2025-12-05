@@ -1,0 +1,10 @@
+[package]
+name = "factory_block_factory_block"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0"
+rusttycoon = { path = "../rusttycoon" }
+monster_math_traits = { path = "../monster_math_traits" }
+ast_parser_impl = { path = "../ast_parser_impl" }

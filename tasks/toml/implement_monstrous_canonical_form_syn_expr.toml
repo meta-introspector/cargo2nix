@@ -1,0 +1,12 @@
+name = "Implement MonstrousCanonicalForm for syn::Expr (Raw Source AST)"
+description = """
+Implement the `MonstrousCanonicalForm` trait for `syn::Expr`. This implementation will involve
+a visitor pattern that folds the Abstract Syntax Tree (`syn::Expr`) into a `Weight12Ring`
+q-expansion, as described in the formal theory.
+"""
+status = "todo"
+depends_on = [
+    "define_core_mathematical_models.toml",
+    "formalize_modular_form_encoding_phi_map.toml"
+]
+related_concepts = ["syn::Expr", "MonstrousCanonicalForm trait", "Weight12Ring trait", "q-expansion"]

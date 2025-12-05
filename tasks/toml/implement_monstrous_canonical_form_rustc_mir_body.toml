@@ -1,0 +1,12 @@
+name = "Implement MonstrousCanonicalForm for rustc_middle::mir::Body (HIR/MIR bodies)"
+description = """
+Implement the `MonstrousCanonicalForm` trait for `rustc_middle::mir::Body<'a>`. This task is part
+of the planned `rustc` fork and involves mapping the High-Level Intermediate Representation (HIR)
+or Mid-level Intermediate Representation (MIR) bodies into a `Weight12Ring` q-expansion.
+"""
+status = "todo"
+depends_on = [
+    "define_core_mathematical_models.toml",
+    "formalize_modular_form_encoding_phi_map.toml"
+]
+related_concepts = ["rustc_middle::mir::Body", "MonstrousCanonicalForm trait", "Weight12Ring trait", "q-expansion", "rustc fork"]

@@ -1,0 +1,19 @@
+name = "Refactor MovieToolkits for Configurability"
+description = """
+The `movie_toolkits` class contains several hardcoded values that should be configurable. This includes API query parameters (`include_adult`, `language`, `page`), specific job titles for crew filtering (`must_contain_job`), the maximum number of crew/cast members to return (`10`), and the list of target languages (`target_lang`).
+"""
+status = "todo"
+depends_on = []
+steps = [
+    "Introduce a configuration mechanism for `include_adult`, `language`, and `page` parameters.",
+    "Introduce a configuration mechanism for the `must_contain_job` list.",
+    "Introduce a configuration mechanism for the crew/cast limit (e.g., `10`).",
+    "Introduce a configuration mechanism for the `target_lang` list.",
+    "Replace all hardcoded values with references to the new configuration.",
+    "Consider handling the `data[\"results\"][0]` indexing more robustly if multiple search results are expected or if the list can be empty."
+]
+related_binaries = [
+    "crates/tool-refactorings/src/movie_toolkits.rs", # Module, but relevant
+    "crates/tool-refactorings/src/movie_toolkit_config.rs" # Module, but relevant
+]
+

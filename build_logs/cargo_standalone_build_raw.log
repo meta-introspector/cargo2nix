@@ -1,0 +1,2 @@
+path '/mnt/data1/nix/vendor/rust/cargo2nix/submodules/cargo' does not contain a 'flake.nix', searching up
+error: path '/mnt/data1/nix/vendor/rust/cargo2nix/submodules/cargo' is not part of a flake (neither it nor its parent directories contain a 'flake.nix' file)

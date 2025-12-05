@@ -1,0 +1,9 @@
+[package]
+name = "trait-fixer-attribute-reader-mock"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+trait-fixer-attribute-reader-trait = { path = "../trait-fixer-attribute-reader-trait" }
+trait-fixer-rustc-mock = { path = "../trait-fixer-rustc-mock" }
+rustc_span = { workspace = true } # For Symbol and sym

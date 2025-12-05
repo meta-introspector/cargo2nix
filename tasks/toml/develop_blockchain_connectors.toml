@@ -1,0 +1,9 @@
+name = "Develop Blockchain Connectors for Universal Bridge"
+description = """
+Build dedicated connectors for Solana, Ethereum/Base, and Bitcoin ecosystems.
+Each connector will generate a ZK proof of its chain's state/transactions
+and submit it to the Universal Bridge.
+"""
+status = "todo"
+depends_on = ["implement_mina_zk_rollup_bridge.toml"]
+blockchains = ["Solana", "Ethereum/Base", "Bitcoin"]

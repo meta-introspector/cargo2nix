@@ -1,0 +1,6 @@
+# oci/sops.yaml
+creation_rules:
+  - path_regex: oci/secrets/.*\.age$
+    key_groups:
+      - pgp:
+          - "0xYOUR_PGP_KEY_FINGERPRINT" # Replace with your PGP key fingerprint

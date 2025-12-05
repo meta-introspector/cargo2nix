@@ -1,0 +1,19 @@
+name = "Refactor CodeExecutorMarkdownFileBrowser for Robustness and Configurability"
+description = """
+The `CodeExecutorMarkdownFileBrowser` class contains several hardcoded values and fragile parsing logic. The `viewport_size`, `save_converted_files` default, converted files directory name ("converted_files"), and converted file extension (".converted.md") should be configurable. Additionally, the parsing of title and content using magic numbers (`title_line[6:]`, `[8:]`) is fragile and should be improved for robustness.
+"""
+status = "todo"
+depends_on = []
+steps = [
+    "Introduce a configuration mechanism for `viewport_size` (default `1024 * 8`).",
+    "Introduce a configuration mechanism for `save_converted_files` (default `False`).",
+    "Introduce a configuration mechanism for the converted files subdirectory name (default \"converted_files\").",
+    "Introduce a configuration mechanism for the converted file extension (default `'.converted.md'`).",
+    "Replace the hardcoded directory name and file extension with references to the new configuration.",
+    "Refactor the parsing logic for `title_line[6:]` and `[8:]` to use more robust methods (e.g., string splitting or regex) that don't rely on magic numbers."
+]
+related_binaries = [
+    "crates/tool-refactorings/src/code_executor_file_browser.rs", # Module, but relevant
+    "crates/tool-refactorings/src/file_browser_config.rs" # Module, but relevant
+]
+

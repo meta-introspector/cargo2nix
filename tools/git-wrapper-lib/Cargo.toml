@@ -1,0 +1,44 @@
+[package]
+name = "git-wrapper-lib"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+syn = { version = "*", optional = true }
+clap = { version = "*", optional = true }
+
+cargo_metadata = { workspace = true, optional = true }
+
+anyhow = { workspace = true, optional = true }
+git2 = { workspace = true, optional=true }
+walkdir = { workspace = true, optional = true }
+regex = { workspace = true, optional = true }
+toml_edit = { workspace = true, optional = true }
+pathdiff = { workspace = true, optional = true }
+sha1 = { workspace = true, optional = true }
+hex = { workspace = true, optional = true }
+serde = { workspace = true, features = ["derive"], optional = true }
+serde_json = { workspace = true, optional = true }
+tool-traits-lib = { path = "../tool-traits-lib", optional = true }
+
+[features]
+
+syn_enabled = ["dep:syn"]
+clap_enabled = ["dep:clap"]
+
+cargo_metadata_enabled = ["dep:cargo_metadata"]
+
+default = ["anyhow_enabled", "cargo_metadata_enabled", "walkdir_enabled", "tool_traits_lib_enabled"]
+anyhow_enabled = ["dep:anyhow"]
+walkdir_enabled = ["dep:walkdir"]
+regex_enabled = ["dep:regex"]
+toml_edit_enabled = ["dep:toml_edit"]
+pathdiff_enabled = ["dep:pathdiff"]
+serde_enabled = ["dep:serde"]
+serde_json_enabled = ["dep:serde_json"]
+git2_enabled = ["dep:git2", "sha1_enabled", "hex_enabled"]
+sha1_enabled = ["dep:sha1"]
+hex_enabled = ["dep:hex"]
+tool_traits_lib_enabled = ["dep:tool-traits-lib"]
+with-trace = []

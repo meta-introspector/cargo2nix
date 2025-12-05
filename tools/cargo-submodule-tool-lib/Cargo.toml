@@ -1,0 +1,73 @@
+[package]
+name = "cargo-submodule-tool-lib"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = { workspace = true, optional = true }
+ # Corrected dependency name
+#nix-generator-lib = { path = "../nix-generator-lib", optional = true }
+#cargo-toml-editor-lib = { path = "../cargo-toml-editor-lib", optional = true }
+cargo2nix = { path = "../../crates/cargo2nix", optional = true }
+cargo_metadata = { workspace = true, optional = true }
+
+
+git-wrapper-lib = { path = "../git-wrapper-lib", optional = true }
+git2 = { workspace=true, optional = true }
+hex = { workspace=true, optional = true }
+lazy_static = { workspace = true, optional = true }
+lru = { version = "0.12", optional = true }
+md5 = { workspace = true, optional = true }
+#nix-generator-lib = { path = "../nix-generator-lib", optional = true }
+pathdiff = { workspace = true, optional = true }
+regex = { workspace = true, optional = true }
+serde = { workspace = true,  features = ["derive"], optional = true }
+serde_json = { workspace = true, optional = true }
+sha1 = { version = "*", optional = true }
+sha2 = { workspace = true, optional = true }
+syn = { version = "*", optional = true }
+toml = { workspace = true, optional = true }
+toml_edit = { workspace = true, optional = true }
+tool-traits-lib = { path = "../tool-traits-lib", optional = true } # Added new dependency
+url = { workspace = true, optional = true }
+walkdir = { workspace = true, optional = true }
+real-regex-adapter-lib = { path = "../real-regex-adapter-lib", optional = true }
+cargo-repo-sync-lib = { path = "../cargo-repo-sync-lib", optional = true }
+
+[features]
+
+syn_enabled = ["dep:syn"]
+git2_enabled = ["dep:git2"]
+sha1_enabled = ["dep:sha1"]
+serde_json_enabled = ["dep:serde_json"]
+git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
+default = ["dummy_tools", "tool_traits_lib_enabled", "anyhow_enabled", "serde_enabled", "toml_enabled", "walkdir_enabled", "cargo_repo_sync_lib_enabled", "cargo_metadata_enabled", "git_wrapper_lib_enabled", "toml_edit_enabled", "real_regex_adapter_lib_enabled"]
+dummy_tools = [] # No optional dependencies enabled by default
+
+
+cargo_metadata_enabled = ["dep:cargo_metadata"]
+nix_generation = []
+regex_enabled = ["dep:regex"]
+walkdir_enabled = ["dep:walkdir"]
+cargo_toml_editor_lib_enabled = []
+
+git_enabled = ["dep:git-wrapper-lib", "dep:git2"]
+hex_enabled = ["dep:hex"]
+md5_enabled = ["dep:md5"]
+sha2_enabled = ["dep:sha2"]
+lazy_static_enabled = ["dep:lazy_static"]
+pathdiff_enabled = ["dep:pathdiff"]
+url_enabled = ["dep:url"]
+lru_enabled = ["dep:lru"]
+
+clap_enabled = [] #FIXME: merge with cli
+cli = []
+
+toml_enabled = ["dep:toml"]
+toml_edit_enabled = ["dep:toml_edit"]
+real_regex_adapter_lib_enabled = ["dep:real-regex-adapter-lib"]
+
+serde_enabled = ["dep:serde", "dep:serde_json"]
+anyhow_enabled = ["dep:anyhow"]
+tool_traits_lib_enabled = ["dep:tool-traits-lib"]
+cargo_repo_sync_lib_enabled = [] # Declare it as a feature

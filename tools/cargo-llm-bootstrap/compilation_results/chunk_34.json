@@ -1,0 +1,102 @@
+[
+  {
+    "path": "/home/mdupont/nix/vendor/rust/platform-tools-agave-rust-solana/vendor/rust-src/library/compiler-builtins/crates/panic-handler/Cargo.toml",
+    "last_modified": "2025-11-24T15:03:06.404786183Z",
+    "hash": "0",
+    "index": 238,
+    "category": "Cargo",
+    "monster_godel_index": 440895,
+    "prime_exponents": {
+      "2": 0,
+      "3": 1,
+      "5": 1,
+      "7": 1,
+      "11": 0,
+      "13": 1,
+      "17": 1,
+      "19": 1,
+      "23": 0,
+      "29": 0,
+      "31": 0,
+      "41": 0,
+      "47": 0,
+      "59": 0,
+      "71": 0
+    }
+  },
+  {
+    "path": "/home/mdupont/nix/vendor/rust/platform-tools-agave-rust-solana/vendor/rust-src/library/compiler-builtins/libm/Cargo.toml",
+    "last_modified": "2025-11-24T15:03:06.405786182Z",
+    "hash": "0",
+    "index": 239,
+    "category": "Cargo",
+    "monster_godel_index": 881790,
+    "prime_exponents": {
+      "2": 1,
+      "3": 1,
+      "5": 1,
+      "7": 1,
+      "11": 0,
+      "13": 1,
+      "17": 1,
+      "19": 1,
+      "23": 0,
+      "29": 0,
+      "31": 0,
+      "41": 0,
+      "47": 0,
+      "59": 0,
+      "71": 0
+    }
+  },
+  {
+    "path": "/home/mdupont/nix/vendor/rust/platform-tools-agave-rust-solana/vendor/rust-src/library/compiler-builtins/compiler-builtins/Cargo.toml",
+    "last_modified": "2025-11-24T15:03:06.401786183Z",
+    "hash": "0",
+    "index": 240,
+    "category": "Cargo",
+    "monster_godel_index": 46189,
+    "prime_exponents": {
+      "2": 0,
+      "3": 0,
+      "5": 0,
+      "7": 0,
+      "11": 1,
+      "13": 1,
+      "17": 1,
+      "19": 1,
+      "23": 0,
+      "29": 0,
+      "31": 0,
+      "41": 0,
+      "47": 0,
+      "59": 0,
+      "71": 0
+    }
+  },
+  {
+    "path": "/home/mdupont/nix/vendor/rust/platform-tools-agave-rust-solana/vendor/rust-src/library/profiler_builtins/Cargo.toml",
+    "last_modified": "2025-11-24T15:03:06.435786181Z",
+    "hash": "0",
+    "index": 241,
+    "category": "Cargo",
+    "monster_godel_index": 92378,
+    "prime_exponents": {
+      "2": 1,
+      "3": 0,
+      "5": 0,
+      "7": 0,
+      "11": 1,
+      "13": 1,
+      "17": 1,
+      "19": 1,
+      "23": 0,
+      "29": 0,
+      "31": 0,
+      "41": 0,
+      "47": 0,
+      "59": 0,
+      "71": 0
+    }
+  }
+]

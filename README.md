@@ -1,3 +1,4 @@
+
 # cargo2nix
 
 [![darwin & linux CI](https://github.com/cargo2nix/cargo2nix/actions/workflows/ci.yml/badge.svg)](https://github.com/cargo2nix/cargo2nix/actions/?workflow=CI)
@@ -5,6 +6,53 @@
 [![latest release](https://img.shields.io/github/v/tag/cargo2nix/cargo2nix?color=%23009922&label=release)](https://github.com/cargo2nix/cargo2nix/releases)
 
 Bring [Nix](https://nixos.org/nix) dependency management to your Rust project!
+
+## plan
+
+This plan outlines the evolution of cargo2nix as a critical component in building a quasi-meta computationally self-aware system, adhering to a monotonic, additive development philosophy. While the broader project utilizes shell scripts for orchestration, `cargo2nix` aims to eventually replace some of these with Rust-based solutions for deeper, more robust, and formally verifiable integration, aligned with the project's quasi-meta computationally self-aware system goals.
+
+1. replace python and shell scripts with rust traits and functors2. create a new nix submodule rust resolver that resolves all code to our git submodules tree and ignores all uses. any use will resolve to our our store. 
+3. decl level resolution. each decl is a standalone object and compiled separatly from all others in a virtual canonical file system that is mapped into nix.
+4. compile caching
+5. export to legacy rust. we can regenerate and replace existing Cargo.toml code with our system.
+6. compiler stages as nix derivations. 
+because we want to support many target compilers (wasm, ebpf, zk circom) etc we want to 
+be able to build new rust compilers minimally as possible and port all functions if possible to those new restricted platforms, we want to do this without editing all the cargo files and messing with everything.
+7. every binary is a thin wrapper around layers or a lattice of functions, each function adding only one thing to the mix each step.
+
+
+## cargo-repo-sync: Streamlining Git Operations in Nix Ecosystems
+
+cargo-repo-sync designed to simplify and automate common Git operations, particularly around submodules and branches, within a `cargo2nix`-managed Rust project. It integrates seamlessly with your Nix development workflow, providing features for reproducible and controlled Git actions.
+
+### Key Features:
+- **Cargo.toml/Cargo.lock Discovery:** Automatically locate all `Cargo.toml` and `Cargo.lock` files within the project and its submodules.
+- **Automated Cargo.nix Generation:** Generate `Cargo.nix` files for each discovered Rust project, integrating them into the Nix ecosystem.
+- **Super Fast Resolution System (rollup.lock):** Leverage `rollup.lock` to cache metadata and conditionally generate `Cargo.nix` files only when changes are detected, significantly speeding up the build process.
+- **Unified Dependency Management:** Aim for a single, consistent version of each crate across all submodules, simplifying dependency graphs and reducing conflicts.
+- **Submodule Management:** Easily add, update, and remove Git submodules.
+- **Branch Management:** Streamline creation, deletion, and merging of branches.
+- **Dry Run Mode:** Simulate any operation without making actual changes, allowing for safe planning and verification.
+- **Execution Plans:** Define and execute complex sequences of Git and Cargo commands using `plan.lock` files, with support for dependency resolution.
+- **Reporting:** Review detailed logs of past operations for auditing and debugging.
+- **Full Git Submodule Automation:** Automate the entire lifecycle of vendored Git repositories, including adding, committing, branching, and pushing.
+
+### Usage:
+`cargo repo-sync` is typically run from within your project's development shell.
+
+```bash
+# Example: Run a dry run of the default plan
+cargo repo-sync --dry-run
+
+# Example: Generate a plan.lock file from your tasks
+cargo repo-sync plan generate
+
+# Example: Run a specific step from your plan.lock
+cargo repo-sync plan run --step <STEP_ID>
+
+# Example: View logs for a specific submodule
+cargo repo-sync report --submodule <SUBMODULE_NAME>
+```
 
 - **Development Shell** - knowing all the dependencies means easy creation of
   complete shells.  Run `nix develop` or `direnv allow` in this repo and see!
@@ -14,23 +62,32 @@ Bring [Nix](https://nixos.org/nix) dependency management to your Rust project!
   [nixpkgs](https://github.com/NixOS/nixpkgs) for repeatable environment setup
   across multiple distributions and platforms
 
-## Run it now!
+## Run cargo2nix
 
 With [nix](https://nixos.org/nix) (with flake support) installed, generate a
-`Cargo.nix` for your project:
+`Cargo.nix` for your project using the `cargo2nix` tool:
 
 ```bash
 # Use nix to get cargo2nix & rust toolchain on your path
-nix develop github:cargo2nix/cargo2nix#bootstrap
+nix develop github:meta-introspector/cargo2nix?ref=release-0.12#bootstrap
 
 # In directory with Cargo.toml & Cargo.lock files (cargo generate-lockfile)
 cargo2nix
 
-# Or skip the shell and run it directly
-nix run github:cargo2nix/cargo2nix
-
 # You'll need this in version control
 git add Cargo.nix
+```
+
+cargo repo-sync
+
+cargo repo-sync
+
+```bash
+# Enter the development shell (from the project root)
+nix develop
+
+cargo repo-sync
+cargo repo-sync
 ```
 
 ### Use what you generated!
@@ -43,9 +100,9 @@ A bare minimum flake.nix:
 ```nix
 {
   inputs = {
-    cargo2nix.url = "github:cargo2nix/cargo2nix/release-0.12";
-    flake-utils.follows = "cargo2nix/flake-utils";
-    nixpkgs.follows = "cargo2nix/nixpkgs";
+    cargo2nix.url = "github:meta-introspector/cargo2nix/release-0.12";
+    flake-utils.follows = "meta-introspector/cargo2nix/flake-utils";
+    nixpkgs.follows = "meta-introspector/cargo2nix/nixpkgs";
   };
 
   outputs = inputs: with inputs;
@@ -101,7 +158,7 @@ a bare NixOS system or fresh OSX environment with no dependencies or toolchains
 installed, you will have everything you need to run `cargo build`.  See the
 `devShell` attribute in `flake.nix` to see how to prepare this kind of shell.
 
-The `workspaceShell` function, created by [`makePackagSet`](#Arguments), accepts
+The `workspaceShell` function, created by [`makePackageSet`](#Arguments), accepts
 all the same options as the nix [`mkShell`] function.
 
 [`mkShell`]: https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-mkShell
@@ -112,9 +169,9 @@ In your flake, you can choose your cargo2nix version by changing the URL.
 
 | Flake URL                               |                            Result                          |
 |-----------------------------------------|:----------------------------------------------------------:|
-| github:cargo2nix/cargo2nix/             | latest release (check repo's default branch, release-0.12) |
-| github:cargo2nix/cargo2nix/release-0.12 |                    use a specific release                  |
-| github:cargo2nix/cargo2nix/main         |                    latest features & fixes                 |
+| github:meta-introspector/cargo2nix/     | latest release (check repo's default branch, release-0.12) |
+| github:meta-introspector/cargo2nix/release-0.12 |                    use a specific release                  |
+| github:meta-introspector/cargo2nix/main |                    latest features & fixes                 |
 
 Only use unstable for developing with the latest features.  PR's against old
 releases can be accepted but no active support will be done.  **The default
@@ -125,7 +182,7 @@ Update your flake lock with the latest or a specific version of cargo2nix:
 
 ```shell
 nix flake lock --update-input cargo2nix
-nix flake lock --update-input cargo2nix --override-input cargo2nix github:cargo2nix/cargo2nix/?rev=d45481420482fa7d9b0a62836555e24ec07d93be
+nix flake lock --update-input cargo2nix --override-input cargo2nix github:meta-introspector/cargo2nix/?rev=d45481420482fa7d9b0a62836555e24ec07d93be
 ```
 
 If you need newer versions of Rust or the flake-utils inputs, just specify them
@@ -209,7 +266,7 @@ like so:
   inputs = {
     rust-overlay.url = "github:oxalica/rust-overlay/stable";
     cargo2nix = {
-      url = "github:cargo2nix/cargo2nix/release-0.12";
+      url = "github:meta-introspector/cargo2nix/release-0.12";
       inputs.rust-overlay.follows = "rust-overlay";
     };
   };
@@ -222,50 +279,35 @@ rust-overlay version.
 
 ## How it works
 
-- The `cargo2nix` utility reads the Rust workspace configuration and
-  `Cargo.lock` and generates nix expressions that encode some of the feature,
-  platform, and target logic into a `Cargo.nix`
+The `cargo2nix` ecosystem works by combining several powerful mechanisms to provide robust and reproducible Rust dependency management within Nix:
 
-- The cargo2nix [Nixpkgs](https://github.com/NixOS/nixpkgs) [overlay](./overlay)
-  consumes the `Cargo.nix`, feeding it what you pass to `makePackageSet` to
-  provide workspace outputs you can expose in your nix flake
+- **Cargo.toml/Cargo.lock Discovery and Metadata Caching:** The `cargo-repo-sync` tool automatically discovers `Cargo.toml` and `Cargo.lock` files across your project and its submodules. It then calculates and caches their metadata (e.g., hash, modification time) in a `rollup.lock` file. This cache is crucial for the "Super Fast Resolution System."
 
-- Because we know all of the dependencies, it's easy to create a shell from those
-  dependencies as environment setup using the `workspaceShell` function and
-  exposing the result in the `devShell` flake output
+- **Super Fast Resolution System (CRQ-016 Related):** Before generating a `Cargo.nix` file for a Rust project, `cargo-repo-sync` compares the current metadata of `Cargo.toml` and `Cargo.lock` against the stored metadata in `rollup.lock`. If no changes are detected, the `Cargo.nix` generation is skipped, significantly speeding up subsequent builds and ensuring that only necessary updates are processed. If changes are found, `Cargo.nix` is regenerated, and `rollup.lock` is updated with the new metadata. This system is a core component of the broader project's CRQ-016 initiative for Submodule Nixification and Flake Refactoring, enabling efficient dependency management across submodules.
 
-### Building crates isolated from each other
+- **Automated Cargo.nix Generation:** The `cargo2nix` utility reads the Rust workspace configuration and `Cargo.lock` and generates Nix expressions that encode feature, platform, and target logic into a `Cargo.nix` file for each Rust project.
 
-Just like regular `cargo` builds, the Nix dependencies form a [DAG][DAG], but
-purity means we only expose essential information to dependencies and manually
-invoke `cargo`.  Communication from dependencies to dependents is handled by
-writing some extra outputs and then reading those outputs inside the next
-dependent build.
+- **Nixpkgs Overlay Consumption:** The `cargo2nix` [Nixpkgs](https://github.com/NixOS/nixpkgs) [overlay](./overlay) consumes these generated `Cargo.nix` files, feeding them to `makePackageSet` to provide workspace outputs that can be exposed in your Nix flake.
 
-There's two broad categories of information that need to be transmitted when
-hand-building crates in isolation:
+- **Unified Dependency Management (Ultimate Vision - CRQ-016 & `github:meta-introspector` Alignment):** The long-term goal is to centralize the management of all Rust dependencies across submodules. This involves generating a single, unified `Cargo.nix` and `flake.nix` that enforce a single version of each crate, automatically generating overrides as needed, and fully automating the Git submodule lifecycle (adding, committing, branching, pushing) for a seamless and highly efficient vendored Git repository management system. This vision directly supports the CRQ-016 objectives for Submodule Nixification and Flake Refactoring, and leverages the `github:meta-introspector` policy for integrating external dependencies in a controlled and consistent manner.
+
+- **Development Shell:** Because we know all of the dependencies, it's easy to create a shell from those dependencies as environment setup using the `workspaceShell` function and exposing the result in the `devShell` flake output.
+
+- **Building Crates Isolated from Each Other:** Just like regular `cargo` builds, the Nix dependencies form a [DAG][DAG]. Purity means we only expose essential information to dependencies and manually invoke `cargo`. Communication from dependencies to dependents is handled by writing some extra outputs and then reading those outputs inside the next dependent build.
+
+There's two broad categories of information that need to be transmitted when hand-building crates in isolation:
 
 - **Global information**
-
   - target such as `x86_64-unknown-linux-gnu`
   - cargo actions such as `build` or `test`
-  - features which turn on optional dependencies & downstream features via logic
-    in the [`Cargo.nix`](./Cargo.nix) expressions
+  - features which turn on optional dependencies & downstream features via logic in the [`Cargo.nix`](./Cargo.nix) expressions
 
-  This information is known before any of the crates are built.  It's used at
-  evaluation time to decide what will be built. See `nix show-derivation` results.
+  This information is known before any of the crates are built. It's used at evaluation time to decide what will be built. See `nix show-derivation` results.
 
 - **Propagated information**
+  Each dependency writes information such as linker flags alongside its rlib and other outputs. When the dependent is going to consume the dependency, it reads this information back.
 
-  Each dependency writes information such as linker flags alongside its rlib and
-  other outputs.  When the dependent is going to consume the dependency, it
-  reads this information back.
-
-Derivations are evaluated in Nix with global information available.  During the
-build, rlibs and dependency information are propagated back up the DAG.  Each
-derivation's build shell combines the linking, features, target, and other
-information.  You can see how it's used in
-[`mkcrate.nix`](./overlay/mkcrate.nix)
+Derivations are evaluated in Nix with global information available. During the build, rlibs and dependency information are propagated back up the DAG. Each derivation's build shell combines the linking, features, target, and other information. You can see how it's used in [`mkcrate.nix`](./overlay/mkcrate.nix)
 
 [DAG]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
 
@@ -434,6 +476,8 @@ fresh source and are using the `--ignore-environment` switch, everything is
 identical to how the overlay builds the crate, cutting out guess work.
 
 ## Contributing
+
+For an in-depth guide on setting up your development environment and understanding the Nixification workflow within the Meta-Introspector project, please refer to the [Onboarding Guide](./docs/onboarding_guide.md).
 
 See [Contributing](./CONTRIBUTING.md) for potentially more information.
 

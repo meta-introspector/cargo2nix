@@ -1,0 +1,6 @@
+description = "Create a new `GitAddCommitPushCommand` that implements `CargoCommand`. Its `needs_execution` should return `true` if there are uncommitted changes or unpushed commits. Its `execute` method should perform `git add .`, `git commit`, and `git push`."
+steps = [
+    "Define `struct GitAddCommitPushCommand`.",
+    "Implement `CargoCommand` for `GitAddCommitPushCommand`, using Git state tracking functions for `needs_execution`.",
+    "Implement `execute` to run `git add .`, `git commit`, and `git push`."
+]

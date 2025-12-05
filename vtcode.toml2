@@ -1,0 +1,415 @@
+[1m[34m[CONFIG][0m
+
+
+Generated configuration:
+
+[agent]
+provider = "ollama"
+api_key_env = "OPENAI_API_KEY"
+default_model = "mistral-nemo:12b"
+theme = "ciapre-dark"
+todo_planning_mode = true
+ui_surface = "auto"
+max_conversation_turns = 50
+reasoning_effort = "low"
+verbosity = "medium"
+temperature = 0.7
+max_tokens = 2000
+refine_temperature = 0.3
+refine_max_tokens = 800
+enable_self_review = false
+max_review_passes = 1
+refine_prompts_enabled = false
+refine_prompts_max_passes = 1
+refine_prompts_model = ""
+project_doc_max_bytes = 16384
+instruction_max_bytes = 16384
+instruction_files = []
+
+[agent.small_model]
+enabled = true
+model = ""
+max_tokens = 1000
+temperature = 0.3
+use_for_large_reads = true
+use_for_web_summary = true
+use_for_git_history = true
+
+[agent.onboarding]
+enabled = true
+intro_text = "Let's get oriented. I preloaded workspace context so we can move fast."
+include_project_overview = true
+include_language_summary = false
+include_guideline_highlights = true
+include_usage_tips_in_welcome = false
+include_recommended_actions_in_welcome = false
+guideline_highlight_limit = 3
+usage_tips = [
+    "Describe your current coding goal or ask for a quick status overview.",
+    "Reference AGENTS.md guidelines when proposing changes.",
+    "Draft or refresh your TODO list with update_plan before coding.",
+    "Use the Zed Assistant to interact with VT Code's ACP integration.",
+]
+recommended_actions = [
+    "Start the session by outlining a 3–6 step TODO plan via update_plan.",
+    "Review the highlighted guidelines and share the task you want to tackle.",
+    "Try using slash commands like /logs, /status, and /doctor for diagnostics.",
+]
+
+[agent.custom_prompts]
+enabled = true
+directory = ".vtcode/prompts"
+extra_directories = []
+max_file_size_kb = 64
+
+[agent.custom_api_keys]
+
+[agent.checkpointing]
+enabled = false
+max_snapshots = 50
+max_age_days = 30
+
+[tools]
+default_policy = "prompt"
+max_tool_loops = 100
+max_repeated_tool_calls = 2
+
+[tools.policies]
+apply_patch = "prompt"
+close_pty_session = "allow"
+create_pty_session = "allow"
+edit_file = "allow"
+grep_file = "allow"
+list_files = "allow"
+list_pty_sessions = "allow"
+read_file = "allow"
+read_pty_session = "allow"
+resize_pty_session = "allow"
+run_pty_cmd = "allow"
+run_terminal_cmd = "allow"
+send_pty_input = "allow"
+update_plan = "allow"
+write_file = "allow"
+
+[tools.web_fetch]
+mode = "restricted"
+dynamic_blocklist_enabled = false
+dynamic_blocklist_path = "~/.vtcode/web_fetch_blocklist.json"
+dynamic_whitelist_enabled = false
+dynamic_whitelist_path = "~/.vtcode/web_fetch_whitelist.json"
+blocked_domains = []
+allowed_domains = []
+blocked_patterns = []
+enable_audit_logging = false
+audit_log_path = "~/.vtcode/web_fetch_audit.log"
+strict_https_only = true
+
+[commands]
+allow_list = []
+extra_path_entries = []
+deny_list = []
+allow_glob = []
+deny_glob = []
+allow_regex = []
+deny_regex = []
+
+[permissions]
+enabled = true
+resolve_commands = true
+audit_enabled = true
+audit_directory = "~/.vtcode/audit"
+log_allowed_commands = true
+log_denied_commands = true
+log_permission_prompts = true
+cache_enabled = true
+cache_ttl_seconds = 300
+
+[security]
+human_in_the_loop = true
+require_write_tool_for_claims = true
+auto_apply_detected_patches = false
+
+[ui]
+tool_output_mode = "compact"
+tool_output_max_lines = 50
+tool_output_spool_bytes = 200000
+allow_tool_ansi = false
+inline_viewport_rows = 16
+show_timeline_pane = true
+
+[ui.status_line]
+mode = "auto"
+refresh_interval_ms = 2000
+command_timeout_ms = 200
+
+[pty]
+enabled = true
+default_rows = 24
+default_cols = 120
+max_sessions = 10
+command_timeout_seconds = 300
+stdout_tail_lines = 5
+scrollback_lines = 100
+max_scrollback_bytes = 50000000
+large_output_threshold_kb = 5000
+
+[debug]
+enable_tracing = false
+trace_level = "info"
+trace_targets = []
+debug_log_dir = "~/.vtcode/debug"
+max_debug_log_size_mb = 50
+max_debug_log_age_days = 7
+
+[context]
+max_context_tokens = 90000
+trim_to_percent = 80
+preserve_recent_turns = 12
+semantic_compression = false
+tool_aware_retention = false
+max_structural_depth = 3
+preserve_recent_tools = 5
+model_input_token_budget = 25000
+model_input_byte_fuse = 10240
+
+[context.ledger]
+enabled = true
+max_entries = 12
+include_in_prompt = true
+preserve_in_compression = true
+
+[context.token_budget]
+enabled = true
+model = "gpt-5-nano"
+warning_threshold = 0.75
+alert_threshold = 0.85
+detailed_tracking = false
+
+[router]
+enabled = true
+heuristic_classification = true
+llm_router_model = ""
+
+[router.models]
+simple = "x-ai/grok-4.1-fast"
+standard = "x-ai/grok-4.1-fast"
+complex = "x-ai/grok-4.1-fast"
+codegen_heavy = "x-ai/grok-4.1-fast"
+retrieval_heavy = "x-ai/grok-4.1-fast"
+
+[router.budgets]
+
+[router.heuristics]
+short_request_max_chars = 120
+long_request_min_chars = 1200
+code_patch_markers = [
+    "```",
+    "diff --git",
+    "apply_patch",
+    "unified diff",
+    "patch",
+    "edit_file",
+    "create_file",
+]
+retrieval_markers = [
+    "search",
+    "web",
+    "google",
+    "docs",
+    "cite",
+    "source",
+    "up-to-date",
+]
+complex_markers = [
+    "plan",
+    "multi-step",
+    "decompose",
+    "orchestrate",
+    "architecture",
+    "benchmark",
+    "implement end-to-end",
+    "design api",
+    "refactor module",
+    "evaluate",
+    "tests suite",
+]
+
+[telemetry]
+trajectory_enabled = true
+
+[syntax_highlighting]
+enabled = true
+theme = "base16-ocean.dark"
+cache_themes = true
+max_file_size_mb = 10
+enabled_languages = [
+    "rust",
+    "python",
+    "javascript",
+    "typescript",
+    "go",
+    "java",
+]
+highlight_timeout_ms = 1000
+
+[timeouts]
+default_ceiling_seconds = 180
+pty_ceiling_seconds = 300
+mcp_ceiling_seconds = 120
+streaming_ceiling_seconds = 600
+warning_threshold_percent = 80
+
+[automation.full_auto]
+enabled = true
+max_turns = 100
+allowed_tools = [
+    "write_file",
+    "read_file",
+    "list_files",
+    "grep_file",
+    "run_terminal_cmd",
+    "create_pty_session",
+    "run_pty_cmd",
+    "read_pty_session",
+    "resize_pty_session",
+    "close_pty_session",
+    "update_plan",
+    "apply_patch",
+    "send_pty_input",
+]
+require_profile_ack = false
+profile_path = "automation/full_auto_profile.toml"
+
+[prompt_cache]
+enabled = false
+cache_dir = "~/.vtcode/cache/prompts"
+max_entries = 1000
+max_age_days = 30
+enable_auto_cleanup = true
+min_quality_threshold = 0.7
+
+[prompt_cache.providers.openai]
+enabled = true
+min_prefix_tokens = 1024
+idle_expiration_seconds = 3600
+surface_metrics = true
+prompt_cache_retention = "24h"
+
+[prompt_cache.providers.anthropic]
+enabled = true
+default_ttl_seconds = 300
+extended_ttl_seconds = 3600
+max_breakpoints = 4
+cache_system_messages = true
+cache_user_messages = true
+
+[prompt_cache.providers.gemini]
+enabled = true
+mode = "implicit"
+min_prefix_tokens = 1024
+explicit_ttl_seconds = 3600
+
+[prompt_cache.providers.openrouter]
+enabled = true
+propagate_provider_capabilities = true
+report_savings = true
+
+[prompt_cache.providers.moonshot]
+enabled = true
+
+[prompt_cache.providers.xai]
+enabled = true
+
+[prompt_cache.providers.deepseek]
+enabled = true
+surface_metrics = true
+
+[prompt_cache.providers.zai]
+enabled = false
+
+[mcp]
+enabled = true
+max_concurrent_connections = 5
+request_timeout_seconds = 30
+retry_attempts = 3
+experimental_use_rmcp_client = true
+
+[mcp.ui]
+mode = "compact"
+max_events = 50
+show_provider_names = true
+
+[mcp.ui.renderers]
+context7 = "context7"
+sequential-thinking = "sequential-thinking"
+
+[[mcp.providers]]
+name = "time"
+command = "uvx"
+args = ["mcp-server-time"]
+enabled = true
+max_concurrent_requests = 3
+
+[mcp.providers.env]
+
+[[mcp.providers]]
+name = "fetch"
+command = "uvx"
+args = ["mcp-server-fetch"]
+enabled = true
+max_concurrent_requests = 3
+
+[mcp.providers.env]
+
+[mcp.server]
+enabled = false
+bind_address = "127.0.0.1"
+port = 3000
+transport = "sse"
+name = "vtcode-mcp-server"
+version = "0.39.13"
+exposed_tools = []
+
+[mcp.allowlist]
+enforce = false
+
+[mcp.allowlist.default]
+
+[mcp.allowlist.providers]
+
+[mcp.security]
+auth_enabled = false
+
+[mcp.security.rate_limit]
+requests_per_minute = 100
+concurrent_requests = 10
+
+[mcp.security.validation]
+schema_validation_enabled = true
+path_traversal_protection = true
+max_argument_size = 1048576
+
+[acp]
+enabled = true
+
+[acp.zed]
+enabled = true
+transport = "stdio"
+workspace_trust = "full_auto"
+
+[acp.zed.tools]
+read_file = true
+list_files = true
+
+[hooks.lifecycle]
+session_start = []
+session_end = []
+user_prompt_submit = []
+pre_tool_use = []
+post_tool_use = []
+
+[model]
+skip_loop_detection = false
+loop_detection_threshold = 3
+loop_detection_interactive = true
+

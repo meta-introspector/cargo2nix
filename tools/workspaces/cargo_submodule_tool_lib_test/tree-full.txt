@@ -1,0 +1,1775 @@
+cargo_submodule_tool_lib_test_pkg v0.1.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/workspaces/cargo_submodule_tool_lib_test)
+├── adler2 v2.0.1
+├── allocator-api2 v0.2.21
+├── annotate-snippets v0.12.9
+│   ├── anstyle v1.0.13
+│   ├── memchr v2.7.6
+│   └── unicode-width v0.2.2
+├── anstyle-parse v0.2.7
+│   └── utf8parse v0.2.2
+├── anstyle-query v1.1.5
+├── arc-swap v1.7.1
+├── arrayref v0.3.9
+├── atomic-maybe-uninit v0.3.12
+├── autocfg v1.5.0
+├── base64ct v1.8.0
+├── blake3 v1.8.2
+│   ├── arrayref v0.3.9
+│   ├── arrayvec v0.7.6
+│   ├── cfg-if v1.0.4
+│   └── constant_time_eq v0.3.1
+│   [build-dependencies]
+│   └── cc v1.2.47
+│       ├── find-msvc-tools v0.1.5
+│       ├── jobserver v0.1.34
+│       │   └── libc v0.2.177
+│       ├── libc v0.2.177
+│       └── shlex v1.3.0
+├── block-buffer v0.11.0
+│   └── hybrid-array v0.4.5
+│       └── typenum v1.19.0
+├── byteorder v1.5.0
+├── bytes v1.11.0
+├── camino v1.2.1
+│   └── serde_core v1.0.228
+├── cargo v0.92.0
+│   ├── annotate-snippets v0.12.9 (*)
+│   ├── anstream v0.6.21
+│   │   ├── anstyle v1.0.13
+│   │   ├── anstyle-parse v0.2.7 (*)
+│   │   ├── anstyle-query v1.1.5
+│   │   ├── colorchoice v1.0.4
+│   │   ├── is_terminal_polyfill v1.70.2
+│   │   └── utf8parse v0.2.2
+│   ├── anstyle v1.0.13
+│   ├── anyhow v1.0.100
+│   ├── base64 v0.22.1
+│   ├── blake3 v1.8.2 (*)
+│   ├── cargo-credential v0.4.9
+│   │   ├── anyhow v1.0.100
+│   │   ├── libc v0.2.177
+│   │   ├── serde v1.0.228
+│   │   │   ├── serde_core v1.0.228
+│   │   │   └── serde_derive v1.0.228 (proc-macro)
+│   │   │       ├── proc-macro2 v1.0.103
+│   │   │       │   └── unicode-ident v1.0.22
+│   │   │       ├── quote v1.0.42
+│   │   │       │   └── proc-macro2 v1.0.103 (*)
+│   │   │       └── syn v2.0.110
+│   │   │           ├── proc-macro2 v1.0.103 (*)
+│   │   │           ├── quote v1.0.42 (*)
+│   │   │           └── unicode-ident v1.0.22
+│   │   ├── serde_json v1.0.145
+│   │   │   ├── itoa v1.0.15
+│   │   │   ├── memchr v2.7.6
+│   │   │   ├── ryu v1.0.20
+│   │   │   └── serde_core v1.0.228
+│   │   ├── thiserror v2.0.17
+│   │   │   └── thiserror-impl v2.0.17 (proc-macro)
+│   │   │       ├── proc-macro2 v1.0.103 (*)
+│   │   │       ├── quote v1.0.42 (*)
+│   │   │       └── syn v2.0.110 (*)
+│   │   └── time v0.3.44
+│   │       ├── deranged v0.5.5
+│   │       │   ├── powerfmt v0.2.0
+│   │       │   └── serde_core v1.0.228
+│   │       ├── itoa v1.0.15
+│   │       ├── num-conv v0.1.0
+│   │       ├── powerfmt v0.2.0
+│   │       ├── serde v1.0.228 (*)
+│   │       └── time-core v0.1.6
+│   ├── cargo-credential-libsecret v0.5.2
+│   │   ├── anyhow v1.0.100
+│   │   ├── cargo-credential v0.4.9 (*)
+│   │   └── libloading v0.8.9
+│   │       └── cfg-if v1.0.4
+│   ├── cargo-platform v0.3.1
+│   │   └── serde v1.0.228 (*)
+│   ├── cargo-util v0.2.24
+│   │   ├── anyhow v1.0.100
+│   │   ├── filetime v0.2.26
+│   │   │   ├── cfg-if v1.0.4
+│   │   │   └── libc v0.2.177
+│   │   ├── hex v0.4.3
+│   │   ├── ignore v0.4.25
+│   │   │   ├── crossbeam-deque v0.8.6
+│   │   │   │   ├── crossbeam-epoch v0.9.18
+│   │   │   │   │   └── crossbeam-utils v0.8.21
+│   │   │   │   └── crossbeam-utils v0.8.21
+│   │   │   ├── globset v0.4.18
+│   │   │   │   ├── aho-corasick v1.1.4
+│   │   │   │   │   └── memchr v2.7.6
+│   │   │   │   ├── bstr v1.12.1
+│   │   │   │   │   ├── memchr v2.7.6
+│   │   │   │   │   └── regex-automata v0.4.13
+│   │   │   │   │       ├── aho-corasick v1.1.4 (*)
+│   │   │   │   │       ├── memchr v2.7.6
+│   │   │   │   │       └── regex-syntax v0.8.8
+│   │   │   │   ├── log v0.4.28
+│   │   │   │   ├── regex-automata v0.4.13 (*)
+│   │   │   │   └── regex-syntax v0.8.8
+│   │   │   ├── log v0.4.28
+│   │   │   ├── memchr v2.7.6
+│   │   │   ├── regex-automata v0.4.13 (*)
+│   │   │   ├── same-file v1.0.6
+│   │   │   └── walkdir v2.5.0
+│   │   │       └── same-file v1.0.6
+│   │   ├── jobserver v0.1.34 (*)
+│   │   ├── libc v0.2.177
+│   │   ├── same-file v1.0.6
+│   │   ├── sha2 v0.10.9
+│   │   │   ├── cfg-if v1.0.4
+│   │   │   ├── cpufeatures v0.2.17
+│   │   │   │   └── libc v0.2.177
+│   │   │   └── digest v0.10.7
+│   │   │       ├── block-buffer v0.10.4
+│   │   │       │   └── generic-array v0.14.9
+│   │   │       │       ├── typenum v1.19.0
+│   │   │       │       └── zeroize v1.8.2
+│   │   │       │       [build-dependencies]
+│   │   │       │       └── version_check v0.9.5
+│   │   │       ├── const-oid v0.9.6
+│   │   │       ├── crypto-common v0.1.6
+│   │   │       │   ├── generic-array v0.14.9 (*)
+│   │   │       │   └── typenum v1.19.0
+│   │   │       └── subtle v2.6.1
+│   │   ├── shell-escape v0.1.5
+│   │   ├── tempfile v3.23.0
+│   │   │   ├── fastrand v2.3.0
+│   │   │   ├── getrandom v0.3.4
+│   │   │   │   ├── cfg-if v1.0.4
+│   │   │   │   └── libc v0.2.177
+│   │   │   ├── once_cell v1.21.3
+│   │   │   └── rustix v1.1.2
+│   │   │       ├── bitflags v2.10.0
+│   │   │       └── linux-raw-sys v0.11.0
+│   │   ├── tracing v0.1.41
+│   │   │   ├── pin-project-lite v0.2.16
+│   │   │   ├── tracing-attributes v0.1.30 (proc-macro)
+│   │   │   │   ├── proc-macro2 v1.0.103 (*)
+│   │   │   │   ├── quote v1.0.42 (*)
+│   │   │   │   └── syn v2.0.110 (*)
+│   │   │   └── tracing-core v0.1.34
+│   │   │       └── once_cell v1.21.3
+│   │   └── walkdir v2.5.0 (*)
+│   ├── cargo-util-schemas v0.10.1
+│   │   ├── semver v1.0.27
+│   │   │   └── serde_core v1.0.228
+│   │   ├── serde v1.0.228 (*)
+│   │   ├── serde-untagged v0.1.9
+│   │   │   ├── erased-serde v0.4.9
+│   │   │   │   ├── serde_core v1.0.228
+│   │   │   │   └── typeid v1.0.3
+│   │   │   ├── serde_core v1.0.228
+│   │   │   └── typeid v1.0.3
+│   │   ├── serde-value v0.7.0
+│   │   │   ├── ordered-float v2.10.1
+│   │   │   │   └── num-traits v0.2.19
+│   │   │   │       [build-dependencies]
+│   │   │   │       └── autocfg v1.5.0
+│   │   │   └── serde v1.0.228 (*)
+│   │   ├── thiserror v2.0.17 (*)
+│   │   ├── toml v0.9.8
+│   │   │   ├── indexmap v2.12.1
+│   │   │   │   ├── equivalent v1.0.2
+│   │   │   │   └── hashbrown v0.16.1
+│   │   │   │       ├── allocator-api2 v0.2.21
+│   │   │   │       ├── equivalent v1.0.2
+│   │   │   │       └── foldhash v0.2.0
+│   │   │   ├── serde_core v1.0.228
+│   │   │   ├── serde_spanned v1.0.3
+│   │   │   │   └── serde_core v1.0.228
+│   │   │   ├── toml_datetime v0.7.3
+│   │   │   │   └── serde_core v1.0.228
+│   │   │   ├── toml_parser v1.0.4
+│   │   │   │   └── winnow v0.7.13
+│   │   │   │       └── memchr v2.7.6
+│   │   │   ├── toml_writer v1.0.4
+│   │   │   └── winnow v0.7.13 (*)
+│   │   ├── unicode-xid v0.2.6
+│   │   └── url v2.5.7
+│   │       ├── form_urlencoded v1.2.2
+│   │       │   └── percent-encoding v2.3.2
+│   │       ├── idna v1.1.0
+│   │       │   ├── idna_adapter v1.2.1
+│   │       │   │   ├── icu_normalizer v2.1.1
+│   │       │   │   │   ├── icu_collections v2.1.1
+│   │       │   │   │   │   ├── displaydoc v0.2.5 (proc-macro)
+│   │       │   │   │   │   │   ├── proc-macro2 v1.0.103 (*)
+│   │       │   │   │   │   │   ├── quote v1.0.42 (*)
+│   │       │   │   │   │   │   └── syn v2.0.110 (*)
+│   │       │   │   │   │   ├── potential_utf v0.1.4
+│   │       │   │   │   │   │   ├── writeable v0.6.2
+│   │       │   │   │   │   │   └── zerovec v0.11.5
+│   │       │   │   │   │   │       ├── yoke v0.8.1
+│   │       │   │   │   │   │       │   ├── stable_deref_trait v1.2.1
+│   │       │   │   │   │   │       │   ├── yoke-derive v0.8.1 (proc-macro)
+│   │       │   │   │   │   │       │   │   ├── proc-macro2 v1.0.103 (*)
+│   │       │   │   │   │   │       │   │   ├── quote v1.0.42 (*)
+│   │       │   │   │   │   │       │   │   ├── syn v2.0.110 (*)
+│   │       │   │   │   │   │       │   │   └── synstructure v0.13.2
+│   │       │   │   │   │   │       │   │       ├── proc-macro2 v1.0.103 (*)
+│   │       │   │   │   │   │       │   │       ├── quote v1.0.42 (*)
+│   │       │   │   │   │   │       │   │       └── syn v2.0.110 (*)
+│   │       │   │   │   │   │       │   └── zerofrom v0.1.6
+│   │       │   │   │   │   │       │       └── zerofrom-derive v0.1.6 (proc-macro)
+│   │       │   │   │   │   │       │           ├── proc-macro2 v1.0.103 (*)
+│   │       │   │   │   │   │       │           ├── quote v1.0.42 (*)
+│   │       │   │   │   │   │       │           ├── syn v2.0.110 (*)
+│   │       │   │   │   │   │       │           └── synstructure v0.13.2 (*)
+│   │       │   │   │   │   │       ├── zerofrom v0.1.6 (*)
+│   │       │   │   │   │   │       └── zerovec-derive v0.11.2 (proc-macro)
+│   │       │   │   │   │   │           ├── proc-macro2 v1.0.103 (*)
+│   │       │   │   │   │   │           ├── quote v1.0.42 (*)
+│   │       │   │   │   │   │           └── syn v2.0.110 (*)
+│   │       │   │   │   │   ├── yoke v0.8.1 (*)
+│   │       │   │   │   │   ├── zerofrom v0.1.6 (*)
+│   │       │   │   │   │   └── zerovec v0.11.5 (*)
+│   │       │   │   │   ├── icu_normalizer_data v2.1.1
+│   │       │   │   │   ├── icu_provider v2.1.1
+│   │       │   │   │   │   ├── displaydoc v0.2.5 (proc-macro) (*)
+│   │       │   │   │   │   ├── icu_locale_core v2.1.1
+│   │       │   │   │   │   │   ├── displaydoc v0.2.5 (proc-macro) (*)
+│   │       │   │   │   │   │   ├── litemap v0.8.1
+│   │       │   │   │   │   │   ├── tinystr v0.8.2
+│   │       │   │   │   │   │   │   ├── displaydoc v0.2.5 (proc-macro) (*)
+│   │       │   │   │   │   │   │   └── zerovec v0.11.5 (*)
+│   │       │   │   │   │   │   ├── writeable v0.6.2
+│   │       │   │   │   │   │   └── zerovec v0.11.5 (*)
+│   │       │   │   │   │   ├── writeable v0.6.2
+│   │       │   │   │   │   ├── yoke v0.8.1 (*)
+│   │       │   │   │   │   ├── zerofrom v0.1.6 (*)
+│   │       │   │   │   │   ├── zerotrie v0.2.3
+│   │       │   │   │   │   │   ├── displaydoc v0.2.5 (proc-macro) (*)
+│   │       │   │   │   │   │   ├── yoke v0.8.1 (*)
+│   │       │   │   │   │   │   └── zerofrom v0.1.6 (*)
+│   │       │   │   │   │   └── zerovec v0.11.5 (*)
+│   │       │   │   │   ├── smallvec v1.15.1
+│   │       │   │   │   ├── utf16_iter v1.0.5
+│   │       │   │   │   ├── utf8_iter v1.0.4
+│   │       │   │   │   ├── write16 v1.0.0
+│   │       │   │   │   └── zerovec v0.11.5 (*)
+│   │       │   │   └── icu_properties v2.1.1
+│   │       │   │       ├── icu_collections v2.1.1 (*)
+│   │       │   │       ├── icu_locale_core v2.1.1 (*)
+│   │       │   │       ├── icu_properties_data v2.1.1
+│   │       │   │       ├── icu_provider v2.1.1 (*)
+│   │       │   │       ├── zerotrie v0.2.3 (*)
+│   │       │   │       └── zerovec v0.11.5 (*)
+│   │       │   ├── smallvec v1.15.1
+│   │       │   └── utf8_iter v1.0.4
+│   │       ├── percent-encoding v2.3.2
+│   │       └── serde v1.0.228 (*)
+│   ├── clap v4.5.53
+│   │   └── clap_builder v4.5.53
+│   │       ├── anstream v0.6.21 (*)
+│   │       ├── anstyle v1.0.13
+│   │       ├── clap_lex v0.7.6
+│   │       ├── strsim v0.11.1
+│   │       └── terminal_size v0.4.3
+│   │           └── rustix v1.1.2 (*)
+│   ├── clap_complete v4.5.61
+│   │   ├── clap v4.5.53 (*)
+│   │   ├── clap_lex v0.7.6
+│   │   ├── is_executable v1.0.5
+│   │   └── shlex v1.3.0
+│   ├── color-print v0.3.7
+│   │   └── color-print-proc-macro v0.3.7 (proc-macro)
+│   │       ├── nom v7.1.3
+│   │       │   ├── memchr v2.7.6
+│   │       │   └── minimal-lexical v0.2.1
+│   │       ├── proc-macro2 v1.0.103 (*)
+│   │       ├── quote v1.0.42 (*)
+│   │       └── syn v2.0.110 (*)
+│   ├── crates-io v0.40.14
+│   │   ├── curl v0.4.49
+│   │   │   ├── curl-sys v0.4.84+curl-8.17.0
+│   │   │   │   ├── libc v0.2.177
+│   │   │   │   ├── libnghttp2-sys v0.1.11+1.64.0
+│   │   │   │   │   └── libc v0.2.177
+│   │   │   │   │   [build-dependencies]
+│   │   │   │   │   └── cc v1.2.47 (*)
+│   │   │   │   ├── libz-sys v1.1.23
+│   │   │   │   │   └── libc v0.2.177
+│   │   │   │   │   [build-dependencies]
+│   │   │   │   │   ├── cc v1.2.47 (*)
+│   │   │   │   │   ├── pkg-config v0.3.32
+│   │   │   │   │   └── vcpkg v0.2.15
+│   │   │   │   └── openssl-sys v0.9.111
+│   │   │   │       └── libc v0.2.177
+│   │   │   │       [build-dependencies]
+│   │   │   │       ├── cc v1.2.47 (*)
+│   │   │   │       ├── pkg-config v0.3.32
+│   │   │   │       └── vcpkg v0.2.15
+│   │   │   │   [build-dependencies]
+│   │   │   │   ├── cc v1.2.47 (*)
+│   │   │   │   └── pkg-config v0.3.32
+│   │   │   ├── libc v0.2.177
+│   │   │   ├── openssl-probe v0.1.6
+│   │   │   ├── openssl-sys v0.9.111 (*)
+│   │   │   └── socket2 v0.6.1
+│   │   │       └── libc v0.2.177
+│   │   ├── percent-encoding v2.3.2
+│   │   ├── serde v1.0.228 (*)
+│   │   ├── serde_json v1.0.145 (*)
+│   │   ├── thiserror v2.0.17 (*)
+│   │   └── url v2.5.7 (*)
+│   ├── curl v0.4.49 (*)
+│   ├── curl-sys v0.4.84+curl-8.17.0 (*)
+│   ├── filetime v0.2.26 (*)
+│   ├── flate2 v1.1.5
+│   │   ├── crc32fast v1.5.0
+│   │   │   └── cfg-if v1.0.4
+│   │   └── libz-rs-sys v0.5.2
+│   │       └── zlib-rs v0.5.2
+│   ├── git2 v0.20.2
+│   │   ├── bitflags v2.10.0
+│   │   ├── libc v0.2.177
+│   │   ├── libgit2-sys v0.18.2+1.9.1
+│   │   │   ├── libc v0.2.177
+│   │   │   ├── libssh2-sys v0.3.1
+│   │   │   │   ├── libc v0.2.177
+│   │   │   │   ├── libz-sys v1.1.23 (*)
+│   │   │   │   └── openssl-sys v0.9.111 (*)
+│   │   │   │   [build-dependencies]
+│   │   │   │   ├── cc v1.2.47 (*)
+│   │   │   │   └── pkg-config v0.3.32
+│   │   │   ├── libz-sys v1.1.23 (*)
+│   │   │   └── openssl-sys v0.9.111 (*)
+│   │   │   [build-dependencies]
+│   │   │   ├── cc v1.2.47 (*)
+│   │   │   └── pkg-config v0.3.32
+│   │   ├── log v0.4.28
+│   │   ├── openssl-probe v0.1.6
+│   │   ├── openssl-sys v0.9.111 (*)
+│   │   └── url v2.5.7 (*)
+│   ├── git2-curl v0.21.0
+│   │   ├── curl v0.4.49 (*)
+│   │   ├── git2 v0.20.2 (*)
+│   │   ├── log v0.4.28
+│   │   └── url v2.5.7 (*)
+│   ├── gix v0.73.0
+│   │   ├── gix-actor v0.35.6
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── gix-date v0.10.7
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── itoa v1.0.15
+│   │   │   │   ├── jiff v0.2.16
+│   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-utils v0.3.1
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── fastrand v2.3.0
+│   │   │   │   └── unicode-normalization v0.1.25
+│   │   │   │       └── tinyvec v1.10.0
+│   │   │   │           └── tinyvec_macros v0.1.1
+│   │   │   ├── itoa v1.0.15
+│   │   │   ├── thiserror v2.0.17 (*)
+│   │   │   └── winnow v0.7.13 (*)
+│   │   ├── gix-attributes v0.27.0
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── gix-glob v0.21.0
+│   │   │   │   ├── bitflags v2.10.0
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── gix-features v0.43.1
+│   │   │   │   │   ├── bytes v1.11.0
+│   │   │   │   │   ├── crc32fast v1.5.0 (*)
+│   │   │   │   │   ├── crossbeam-channel v0.5.15
+│   │   │   │   │   │   └── crossbeam-utils v0.8.21
+│   │   │   │   │   ├── flate2 v1.1.5 (*)
+│   │   │   │   │   ├── gix-path v0.10.21
+│   │   │   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   │   │   ├── gix-trace v0.1.15
+│   │   │   │   │   │   ├── gix-validate v0.10.1
+│   │   │   │   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   │   │   │   ├── home v0.5.12
+│   │   │   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   │   │   ├── gix-trace v0.1.15
+│   │   │   │   │   ├── gix-utils v0.3.1 (*)
+│   │   │   │   │   ├── libc v0.2.177
+│   │   │   │   │   ├── once_cell v1.21.3
+│   │   │   │   │   ├── parking_lot v0.12.5
+│   │   │   │   │   │   ├── lock_api v0.4.14
+│   │   │   │   │   │   │   └── scopeguard v1.2.0
+│   │   │   │   │   │   └── parking_lot_core v0.9.12
+│   │   │   │   │   │       ├── cfg-if v1.0.4
+│   │   │   │   │   │       ├── libc v0.2.177
+│   │   │   │   │   │       └── smallvec v1.15.1
+│   │   │   │   │   ├── prodash v30.0.1
+│   │   │   │   │   │   ├── bytesize v2.3.0
+│   │   │   │   │   │   ├── human_format v1.1.0
+│   │   │   │   │   │   └── parking_lot v0.12.5 (*)
+│   │   │   │   │   ├── thiserror v2.0.17 (*)
+│   │   │   │   │   └── walkdir v2.5.0 (*)
+│   │   │   │   └── gix-path v0.10.21 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-quote v0.6.1
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── gix-utils v0.3.1 (*)
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-trace v0.1.15
+│   │   │   ├── kstring v2.0.2
+│   │   │   │   └── static_assertions v1.1.0
+│   │   │   ├── smallvec v1.15.1
+│   │   │   ├── thiserror v2.0.17 (*)
+│   │   │   └── unicode-bom v2.0.3
+│   │   ├── gix-command v0.6.3
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-quote v0.6.1 (*)
+│   │   │   ├── gix-trace v0.1.15
+│   │   │   └── shell-words v1.1.0
+│   │   ├── gix-commitgraph v0.29.0
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── gix-chunk v0.4.12
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-hash v0.19.0
+│   │   │   │   ├── faster-hex v0.10.0
+│   │   │   │   │   └── heapless v0.8.0
+│   │   │   │   │       ├── hash32 v0.3.1
+│   │   │   │   │       │   └── byteorder v1.5.0
+│   │   │   │   │       └── stable_deref_trait v1.2.1
+│   │   │   │   ├── gix-features v0.43.1 (*)
+│   │   │   │   ├── sha1-checked v0.10.0
+│   │   │   │   │   ├── digest v0.10.7 (*)
+│   │   │   │   │   └── sha1 v0.10.6
+│   │   │   │   │       ├── cfg-if v1.0.4
+│   │   │   │   │       ├── cpufeatures v0.2.17 (*)
+│   │   │   │   │       └── digest v0.10.7 (*)
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── memmap2 v0.9.9
+│   │   │   │   └── libc v0.2.177
+│   │   │   └── thiserror v2.0.17 (*)
+│   │   ├── gix-config v0.46.0
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── gix-config-value v0.15.3
+│   │   │   │   ├── bitflags v2.10.0
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   ├── libc v0.2.177
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-features v0.43.1 (*)
+│   │   │   ├── gix-glob v0.21.0 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-ref v0.53.1
+│   │   │   │   ├── gix-actor v0.35.6 (*)
+│   │   │   │   ├── gix-features v0.43.1 (*)
+│   │   │   │   ├── gix-fs v0.16.1
+│   │   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   │   ├── fastrand v2.3.0
+│   │   │   │   │   ├── gix-features v0.43.1 (*)
+│   │   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   │   ├── gix-utils v0.3.1 (*)
+│   │   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   │   ├── gix-lock v18.0.0
+│   │   │   │   │   ├── gix-tempfile v18.0.0
+│   │   │   │   │   │   ├── dashmap v6.1.0
+│   │   │   │   │   │   │   ├── cfg-if v1.0.4
+│   │   │   │   │   │   │   ├── crossbeam-utils v0.8.21
+│   │   │   │   │   │   │   ├── hashbrown v0.14.5
+│   │   │   │   │   │   │   ├── lock_api v0.4.14 (*)
+│   │   │   │   │   │   │   ├── once_cell v1.21.3
+│   │   │   │   │   │   │   └── parking_lot_core v0.9.12 (*)
+│   │   │   │   │   │   ├── gix-fs v0.16.1 (*)
+│   │   │   │   │   │   ├── libc v0.2.177
+│   │   │   │   │   │   ├── once_cell v1.21.3
+│   │   │   │   │   │   ├── parking_lot v0.12.5 (*)
+│   │   │   │   │   │   └── tempfile v3.23.0 (*)
+│   │   │   │   │   ├── gix-utils v0.3.1 (*)
+│   │   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   │   ├── gix-object v0.50.2
+│   │   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   │   ├── gix-actor v0.35.6 (*)
+│   │   │   │   │   ├── gix-date v0.10.7 (*)
+│   │   │   │   │   ├── gix-features v0.43.1 (*)
+│   │   │   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   │   │   ├── gix-hashtable v0.9.0
+│   │   │   │   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   │   │   │   ├── hashbrown v0.15.5
+│   │   │   │   │   │   │   ├── allocator-api2 v0.2.21
+│   │   │   │   │   │   │   ├── equivalent v1.0.2
+│   │   │   │   │   │   │   └── foldhash v0.1.5
+│   │   │   │   │   │   └── parking_lot v0.12.5 (*)
+│   │   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   │   ├── gix-utils v0.3.1 (*)
+│   │   │   │   │   ├── gix-validate v0.10.1 (*)
+│   │   │   │   │   ├── itoa v1.0.15
+│   │   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   │   ├── thiserror v2.0.17 (*)
+│   │   │   │   │   └── winnow v0.7.13 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   ├── gix-tempfile v18.0.0 (*)
+│   │   │   │   ├── gix-utils v0.3.1 (*)
+│   │   │   │   ├── gix-validate v0.10.1 (*)
+│   │   │   │   ├── memmap2 v0.9.9 (*)
+│   │   │   │   ├── thiserror v2.0.17 (*)
+│   │   │   │   └── winnow v0.7.13 (*)
+│   │   │   ├── gix-sec v0.12.2
+│   │   │   │   ├── bitflags v2.10.0
+│   │   │   │   └── libc v0.2.177
+│   │   │   ├── memchr v2.7.6
+│   │   │   ├── once_cell v1.21.3
+│   │   │   ├── smallvec v1.15.1
+│   │   │   ├── thiserror v2.0.17 (*)
+│   │   │   ├── unicode-bom v2.0.3
+│   │   │   └── winnow v0.7.13 (*)
+│   │   ├── gix-credentials v0.30.0
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── gix-command v0.6.3 (*)
+│   │   │   ├── gix-config-value v0.15.3 (*)
+│   │   │   ├── gix-date v0.10.7 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-prompt v0.11.2
+│   │   │   │   ├── gix-command v0.6.3 (*)
+│   │   │   │   ├── gix-config-value v0.15.3 (*)
+│   │   │   │   ├── parking_lot v0.12.5 (*)
+│   │   │   │   ├── rustix v1.1.2 (*)
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-sec v0.12.2 (*)
+│   │   │   ├── gix-trace v0.1.15
+│   │   │   ├── gix-url v0.32.0
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── gix-features v0.43.1 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   ├── percent-encoding v2.3.2
+│   │   │   │   ├── thiserror v2.0.17 (*)
+│   │   │   │   └── url v2.5.7 (*)
+│   │   │   └── thiserror v2.0.17 (*)
+│   │   ├── gix-date v0.10.7 (*)
+│   │   ├── gix-diff v0.53.0
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── gix-attributes v0.27.0 (*)
+│   │   │   ├── gix-command v0.6.3 (*)
+│   │   │   ├── gix-filter v0.20.0
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── encoding_rs v0.8.35
+│   │   │   │   │   └── cfg-if v1.0.4
+│   │   │   │   ├── gix-attributes v0.27.0 (*)
+│   │   │   │   ├── gix-command v0.6.3 (*)
+│   │   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   │   ├── gix-object v0.50.2 (*)
+│   │   │   │   ├── gix-packetline-blocking v0.19.3
+│   │   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   │   ├── faster-hex v0.10.0 (*)
+│   │   │   │   │   ├── gix-trace v0.1.15
+│   │   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   ├── gix-quote v0.6.1 (*)
+│   │   │   │   ├── gix-trace v0.1.15
+│   │   │   │   ├── gix-utils v0.3.1 (*)
+│   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-fs v0.16.1 (*)
+│   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   ├── gix-index v0.41.0
+│   │   │   │   ├── bitflags v2.10.0
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── filetime v0.2.26 (*)
+│   │   │   │   ├── fnv v1.0.7
+│   │   │   │   ├── gix-bitmap v0.2.15
+│   │   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   │   ├── gix-features v0.43.1 (*)
+│   │   │   │   ├── gix-fs v0.16.1 (*)
+│   │   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   │   ├── gix-lock v18.0.0 (*)
+│   │   │   │   ├── gix-object v0.50.2 (*)
+│   │   │   │   ├── gix-traverse v0.47.0
+│   │   │   │   │   ├── bitflags v2.10.0
+│   │   │   │   │   ├── gix-commitgraph v0.29.0 (*)
+│   │   │   │   │   ├── gix-date v0.10.7 (*)
+│   │   │   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   │   │   ├── gix-hashtable v0.9.0 (*)
+│   │   │   │   │   ├── gix-object v0.50.2 (*)
+│   │   │   │   │   ├── gix-revwalk v0.21.0
+│   │   │   │   │   │   ├── gix-commitgraph v0.29.0 (*)
+│   │   │   │   │   │   ├── gix-date v0.10.7 (*)
+│   │   │   │   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   │   │   │   ├── gix-hashtable v0.9.0 (*)
+│   │   │   │   │   │   ├── gix-object v0.50.2 (*)
+│   │   │   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   │   ├── gix-utils v0.3.1 (*)
+│   │   │   │   ├── gix-validate v0.10.1 (*)
+│   │   │   │   ├── hashbrown v0.15.5 (*)
+│   │   │   │   ├── itoa v1.0.15
+│   │   │   │   ├── libc v0.2.177
+│   │   │   │   ├── memmap2 v0.9.9 (*)
+│   │   │   │   ├── rustix v1.1.2 (*)
+│   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-object v0.50.2 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-pathspec v0.12.0
+│   │   │   │   ├── bitflags v2.10.0
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── gix-attributes v0.27.0 (*)
+│   │   │   │   ├── gix-config-value v0.15.3 (*)
+│   │   │   │   ├── gix-glob v0.21.0 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-tempfile v18.0.0 (*)
+│   │   │   ├── gix-trace v0.1.15
+│   │   │   ├── gix-traverse v0.47.0 (*)
+│   │   │   ├── gix-worktree v0.42.0
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── gix-attributes v0.27.0 (*)
+│   │   │   │   ├── gix-features v0.43.1 (*)
+│   │   │   │   ├── gix-fs v0.16.1 (*)
+│   │   │   │   ├── gix-glob v0.21.0 (*)
+│   │   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   │   ├── gix-ignore v0.16.0
+│   │   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   │   ├── gix-glob v0.21.0 (*)
+│   │   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   │   ├── gix-trace v0.1.15
+│   │   │   │   │   └── unicode-bom v2.0.3
+│   │   │   │   ├── gix-index v0.41.0 (*)
+│   │   │   │   ├── gix-object v0.50.2 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   └── gix-validate v0.10.1 (*)
+│   │   │   ├── imara-diff v0.1.8
+│   │   │   │   └── hashbrown v0.15.5 (*)
+│   │   │   └── thiserror v2.0.17 (*)
+│   │   ├── gix-dir v0.15.0
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── gix-discover v0.41.0
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── gix-fs v0.16.1 (*)
+│   │   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   ├── gix-ref v0.53.1 (*)
+│   │   │   │   ├── gix-sec v0.12.2 (*)
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-fs v0.16.1 (*)
+│   │   │   ├── gix-ignore v0.16.0 (*)
+│   │   │   ├── gix-index v0.41.0 (*)
+│   │   │   ├── gix-object v0.50.2 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-pathspec v0.12.0 (*)
+│   │   │   ├── gix-trace v0.1.15
+│   │   │   ├── gix-utils v0.3.1 (*)
+│   │   │   ├── gix-worktree v0.42.0 (*)
+│   │   │   └── thiserror v2.0.17 (*)
+│   │   ├── gix-discover v0.41.0 (*)
+│   │   ├── gix-features v0.43.1 (*)
+│   │   ├── gix-filter v0.20.0 (*)
+│   │   ├── gix-fs v0.16.1 (*)
+│   │   ├── gix-glob v0.21.0 (*)
+│   │   ├── gix-hash v0.19.0 (*)
+│   │   ├── gix-hashtable v0.9.0 (*)
+│   │   ├── gix-ignore v0.16.0 (*)
+│   │   ├── gix-index v0.41.0 (*)
+│   │   ├── gix-lock v18.0.0 (*)
+│   │   ├── gix-negotiate v0.21.0
+│   │   │   ├── bitflags v2.10.0
+│   │   │   ├── gix-commitgraph v0.29.0 (*)
+│   │   │   ├── gix-date v0.10.7 (*)
+│   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   ├── gix-object v0.50.2 (*)
+│   │   │   ├── gix-revwalk v0.21.0 (*)
+│   │   │   ├── smallvec v1.15.1
+│   │   │   └── thiserror v2.0.17 (*)
+│   │   ├── gix-object v0.50.2 (*)
+│   │   ├── gix-odb v0.70.0
+│   │   │   ├── arc-swap v1.7.1
+│   │   │   ├── gix-date v0.10.7 (*)
+│   │   │   ├── gix-features v0.43.1 (*)
+│   │   │   ├── gix-fs v0.16.1 (*)
+│   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   ├── gix-hashtable v0.9.0 (*)
+│   │   │   ├── gix-object v0.50.2 (*)
+│   │   │   ├── gix-pack v0.60.0
+│   │   │   │   ├── clru v0.6.2
+│   │   │   │   ├── gix-chunk v0.4.12 (*)
+│   │   │   │   ├── gix-features v0.43.1 (*)
+│   │   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   │   ├── gix-hashtable v0.9.0 (*)
+│   │   │   │   ├── gix-object v0.50.2 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   ├── gix-tempfile v18.0.0 (*)
+│   │   │   │   ├── memmap2 v0.9.9 (*)
+│   │   │   │   ├── parking_lot v0.12.5 (*)
+│   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-quote v0.6.1 (*)
+│   │   │   ├── parking_lot v0.12.5 (*)
+│   │   │   ├── tempfile v3.23.0 (*)
+│   │   │   └── thiserror v2.0.17 (*)
+│   │   ├── gix-pack v0.60.0 (*)
+│   │   ├── gix-path v0.10.21 (*)
+│   │   ├── gix-pathspec v0.12.0 (*)
+│   │   ├── gix-prompt v0.11.2 (*)
+│   │   ├── gix-protocol v0.51.0
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── gix-credentials v0.30.0 (*)
+│   │   │   ├── gix-date v0.10.7 (*)
+│   │   │   ├── gix-features v0.43.1 (*)
+│   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   ├── gix-lock v18.0.0 (*)
+│   │   │   ├── gix-negotiate v0.21.0 (*)
+│   │   │   ├── gix-object v0.50.2 (*)
+│   │   │   ├── gix-ref v0.53.1 (*)
+│   │   │   ├── gix-refspec v0.31.0
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   │   ├── gix-revision v0.35.0
+│   │   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   │   ├── gix-commitgraph v0.29.0 (*)
+│   │   │   │   │   ├── gix-date v0.10.7 (*)
+│   │   │   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   │   │   ├── gix-object v0.50.2 (*)
+│   │   │   │   │   ├── gix-revwalk v0.21.0 (*)
+│   │   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   │   ├── gix-validate v0.10.1 (*)
+│   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-revwalk v0.21.0 (*)
+│   │   │   ├── gix-shallow v0.5.0
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   │   ├── gix-lock v18.0.0 (*)
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-trace v0.1.15
+│   │   │   ├── gix-transport v0.48.0
+│   │   │   │   ├── base64 v0.22.1
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── curl v0.4.49 (*)
+│   │   │   │   ├── gix-command v0.6.3 (*)
+│   │   │   │   ├── gix-credentials v0.30.0 (*)
+│   │   │   │   ├── gix-features v0.43.1 (*)
+│   │   │   │   ├── gix-packetline v0.19.3
+│   │   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   │   ├── faster-hex v0.10.0 (*)
+│   │   │   │   │   ├── gix-trace v0.1.15
+│   │   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   │   ├── gix-quote v0.6.1 (*)
+│   │   │   │   ├── gix-sec v0.12.2 (*)
+│   │   │   │   ├── gix-url v0.32.0 (*)
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-utils v0.3.1 (*)
+│   │   │   ├── maybe-async v0.2.10 (proc-macro)
+│   │   │   │   ├── proc-macro2 v1.0.103 (*)
+│   │   │   │   ├── quote v1.0.42 (*)
+│   │   │   │   └── syn v2.0.110 (*)
+│   │   │   ├── thiserror v2.0.17 (*)
+│   │   │   └── winnow v0.7.13 (*)
+│   │   ├── gix-ref v0.53.1 (*)
+│   │   ├── gix-refspec v0.31.0 (*)
+│   │   ├── gix-revision v0.35.0 (*)
+│   │   ├── gix-revwalk v0.21.0 (*)
+│   │   ├── gix-sec v0.12.2 (*)
+│   │   ├── gix-shallow v0.5.0 (*)
+│   │   ├── gix-status v0.20.0
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── filetime v0.2.26 (*)
+│   │   │   ├── gix-diff v0.53.0 (*)
+│   │   │   ├── gix-dir v0.15.0 (*)
+│   │   │   ├── gix-features v0.43.1 (*)
+│   │   │   ├── gix-filter v0.20.0 (*)
+│   │   │   ├── gix-fs v0.16.1 (*)
+│   │   │   ├── gix-hash v0.19.0 (*)
+│   │   │   ├── gix-index v0.41.0 (*)
+│   │   │   ├── gix-object v0.50.2 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-pathspec v0.12.0 (*)
+│   │   │   ├── gix-worktree v0.42.0 (*)
+│   │   │   └── thiserror v2.0.17 (*)
+│   │   ├── gix-submodule v0.20.0
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── gix-config v0.46.0 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-pathspec v0.12.0 (*)
+│   │   │   ├── gix-refspec v0.31.0 (*)
+│   │   │   ├── gix-url v0.32.0 (*)
+│   │   │   └── thiserror v2.0.17 (*)
+│   │   ├── gix-tempfile v18.0.0 (*)
+│   │   ├── gix-trace v0.1.15
+│   │   ├── gix-transport v0.48.0 (*)
+│   │   ├── gix-traverse v0.47.0 (*)
+│   │   ├── gix-url v0.32.0 (*)
+│   │   ├── gix-utils v0.3.1 (*)
+│   │   ├── gix-validate v0.10.1 (*)
+│   │   ├── gix-worktree v0.42.0 (*)
+│   │   ├── once_cell v1.21.3
+│   │   ├── prodash v30.0.1 (*)
+│   │   ├── smallvec v1.15.1
+│   │   └── thiserror v2.0.17 (*)
+│   ├── glob v0.3.3
+│   ├── hex v0.4.3
+│   ├── hmac v0.12.1
+│   │   └── digest v0.10.7 (*)
+│   ├── home v0.5.12
+│   ├── http-auth v0.1.10
+│   │   ├── base64 v0.22.1
+│   │   ├── digest v0.10.7 (*)
+│   │   ├── hex v0.4.3
+│   │   ├── md-5 v0.10.6
+│   │   │   ├── cfg-if v1.0.4
+│   │   │   └── digest v0.10.7 (*)
+│   │   ├── memchr v2.7.6
+│   │   ├── rand v0.8.5
+│   │   │   ├── libc v0.2.177
+│   │   │   ├── rand_chacha v0.3.1
+│   │   │   │   ├── ppv-lite86 v0.2.21
+│   │   │   │   │   └── zerocopy v0.8.28
+│   │   │   │   └── rand_core v0.6.4
+│   │   │   │       └── getrandom v0.2.16
+│   │   │   │           ├── cfg-if v1.0.4
+│   │   │   │           └── libc v0.2.177
+│   │   │   └── rand_core v0.6.4 (*)
+│   │   └── sha2 v0.10.9 (*)
+│   ├── ignore v0.4.25 (*)
+│   ├── im-rc v15.1.0
+│   │   ├── bitmaps v2.1.0
+│   │   │   └── typenum v1.19.0
+│   │   ├── rand_core v0.6.4 (*)
+│   │   ├── rand_xoshiro v0.6.0
+│   │   │   └── rand_core v0.6.4 (*)
+│   │   ├── sized-chunks v0.6.5
+│   │   │   ├── bitmaps v2.1.0 (*)
+│   │   │   └── typenum v1.19.0
+│   │   └── typenum v1.19.0
+│   │   [build-dependencies]
+│   │   └── version_check v0.9.5
+│   ├── indexmap v2.12.1 (*)
+│   ├── itertools v0.14.0
+│   │   └── either v1.15.0
+│   ├── jiff v0.2.16
+│   ├── jobserver v0.1.34 (*)
+│   ├── lazycell v1.3.0
+│   ├── libc v0.2.177
+│   ├── libgit2-sys v0.18.2+1.9.1 (*)
+│   ├── memchr v2.7.6
+│   ├── opener v0.8.3
+│   │   └── bstr v1.12.1 (*)
+│   ├── os_info v3.13.0
+│   │   ├── log v0.4.28
+│   │   ├── nix v0.30.1
+│   │   │   ├── bitflags v2.10.0
+│   │   │   ├── cfg-if v1.0.4
+│   │   │   └── libc v0.2.177
+│   │   │   [build-dependencies]
+│   │   │   └── cfg_aliases v0.2.1
+│   │   └── serde v1.0.228 (*)
+│   ├── pasetors v0.7.7
+│   │   ├── ct-codecs v1.1.6
+│   │   ├── ed25519-compact v2.2.0
+│   │   │   ├── ct-codecs v1.1.6
+│   │   │   └── getrandom v0.3.4 (*)
+│   │   ├── getrandom v0.3.4 (*)
+│   │   ├── orion v0.17.11
+│   │   │   ├── ct-codecs v1.1.6
+│   │   │   ├── fiat-crypto v0.3.0
+│   │   │   ├── getrandom v0.3.4 (*)
+│   │   │   ├── subtle v2.6.1
+│   │   │   └── zeroize v1.8.2
+│   │   ├── p384 v0.13.1
+│   │   │   ├── ecdsa v0.16.9
+│   │   │   │   ├── der v0.7.10
+│   │   │   │   │   ├── const-oid v0.9.6
+│   │   │   │   │   ├── pem-rfc7468 v0.7.0
+│   │   │   │   │   │   └── base64ct v1.8.0
+│   │   │   │   │   └── zeroize v1.8.2
+│   │   │   │   ├── digest v0.10.7 (*)
+│   │   │   │   ├── elliptic-curve v0.13.8
+│   │   │   │   │   ├── base16ct v0.2.0
+│   │   │   │   │   ├── crypto-bigint v0.5.5
+│   │   │   │   │   │   ├── generic-array v0.14.9 (*)
+│   │   │   │   │   │   ├── rand_core v0.6.4 (*)
+│   │   │   │   │   │   ├── subtle v2.6.1
+│   │   │   │   │   │   └── zeroize v1.8.2
+│   │   │   │   │   ├── digest v0.10.7 (*)
+│   │   │   │   │   ├── ff v0.13.1
+│   │   │   │   │   │   ├── rand_core v0.6.4 (*)
+│   │   │   │   │   │   └── subtle v2.6.1
+│   │   │   │   │   ├── generic-array v0.14.9 (*)
+│   │   │   │   │   ├── group v0.13.0
+│   │   │   │   │   │   ├── ff v0.13.1 (*)
+│   │   │   │   │   │   ├── rand_core v0.6.4 (*)
+│   │   │   │   │   │   └── subtle v2.6.1
+│   │   │   │   │   ├── hkdf v0.12.4
+│   │   │   │   │   │   └── hmac v0.12.1 (*)
+│   │   │   │   │   ├── pem-rfc7468 v0.7.0 (*)
+│   │   │   │   │   ├── pkcs8 v0.10.2
+│   │   │   │   │   │   ├── der v0.7.10 (*)
+│   │   │   │   │   │   └── spki v0.7.3
+│   │   │   │   │   │       └── der v0.7.10 (*)
+│   │   │   │   │   ├── rand_core v0.6.4 (*)
+│   │   │   │   │   ├── sec1 v0.7.3
+│   │   │   │   │   │   ├── base16ct v0.2.0
+│   │   │   │   │   │   ├── der v0.7.10 (*)
+│   │   │   │   │   │   ├── generic-array v0.14.9 (*)
+│   │   │   │   │   │   ├── pkcs8 v0.10.2 (*)
+│   │   │   │   │   │   ├── subtle v2.6.1
+│   │   │   │   │   │   └── zeroize v1.8.2
+│   │   │   │   │   ├── subtle v2.6.1
+│   │   │   │   │   └── zeroize v1.8.2
+│   │   │   │   ├── rfc6979 v0.4.0
+│   │   │   │   │   ├── hmac v0.12.1 (*)
+│   │   │   │   │   └── subtle v2.6.1
+│   │   │   │   ├── signature v2.2.0
+│   │   │   │   │   ├── digest v0.10.7 (*)
+│   │   │   │   │   └── rand_core v0.6.4 (*)
+│   │   │   │   └── spki v0.7.3 (*)
+│   │   │   ├── elliptic-curve v0.13.8 (*)
+│   │   │   ├── primeorder v0.13.6
+│   │   │   │   └── elliptic-curve v0.13.8 (*)
+│   │   │   └── sha2 v0.10.9 (*)
+│   │   ├── rand_core v0.6.4 (*)
+│   │   ├── regex v1.12.2
+│   │   │   ├── aho-corasick v1.1.4 (*)
+│   │   │   ├── memchr v2.7.6
+│   │   │   ├── regex-automata v0.4.13 (*)
+│   │   │   └── regex-syntax v0.8.8
+│   │   ├── serde v1.0.228 (*)
+│   │   ├── serde_derive v1.0.228 (proc-macro) (*)
+│   │   ├── serde_json v1.0.145 (*)
+│   │   ├── sha2 v0.10.9 (*)
+│   │   ├── subtle v2.6.1
+│   │   ├── time v0.3.44 (*)
+│   │   └── zeroize v1.8.2
+│   ├── pathdiff v0.2.3
+│   ├── rand v0.9.2
+│   │   ├── rand_chacha v0.9.0
+│   │   │   ├── ppv-lite86 v0.2.21 (*)
+│   │   │   └── rand_core v0.9.3
+│   │   │       └── getrandom v0.3.4 (*)
+│   │   └── rand_core v0.9.3 (*)
+│   ├── regex v1.12.2 (*)
+│   ├── rusqlite v0.37.0
+│   │   ├── bitflags v2.10.0
+│   │   ├── fallible-iterator v0.3.0
+│   │   ├── fallible-streaming-iterator v0.1.9
+│   │   ├── hashlink v0.10.0
+│   │   │   └── hashbrown v0.15.5 (*)
+│   │   ├── libsqlite3-sys v0.35.0
+│   │   │   [build-dependencies]
+│   │   │   ├── cc v1.2.47 (*)
+│   │   │   ├── pkg-config v0.3.32
+│   │   │   └── vcpkg v0.2.15
+│   │   └── smallvec v1.15.1
+│   ├── rustc-hash v2.1.1
+│   ├── rustc-stable-hash v0.1.2
+│   ├── rustfix v0.9.3
+│   │   ├── serde v1.0.228 (*)
+│   │   ├── serde_json v1.0.145 (*)
+│   │   ├── thiserror v2.0.17 (*)
+│   │   └── tracing v0.1.41 (*)
+│   ├── same-file v1.0.6
+│   ├── semver v1.0.27 (*)
+│   ├── serde v1.0.228 (*)
+│   ├── serde-untagged v0.1.9 (*)
+│   ├── serde_ignored v0.1.14
+│   │   └── serde_core v1.0.228
+│   ├── serde_json v1.0.145 (*)
+│   ├── sha1 v0.10.6 (*)
+│   ├── shell-escape v0.1.5
+│   ├── supports-hyperlinks v3.1.0
+│   ├── supports-unicode v3.0.0
+│   ├── tar v0.4.44
+│   │   ├── filetime v0.2.26 (*)
+│   │   ├── libc v0.2.177
+│   │   └── xattr v1.6.1
+│   │       └── rustix v1.1.2 (*)
+│   ├── tempfile v3.23.0 (*)
+│   ├── thiserror v2.0.17 (*)
+│   ├── time v0.3.44 (*)
+│   ├── toml v0.9.8 (*)
+│   ├── toml_edit v0.23.7
+│   │   ├── indexmap v2.12.1 (*)
+│   │   ├── serde_core v1.0.228
+│   │   ├── serde_spanned v1.0.3 (*)
+│   │   ├── toml_datetime v0.7.3 (*)
+│   │   ├── toml_parser v1.0.4 (*)
+│   │   ├── toml_writer v1.0.4
+│   │   └── winnow v0.7.13 (*)
+│   ├── tracing v0.1.41 (*)
+│   ├── tracing-chrome v0.7.2
+│   │   ├── serde_json v1.0.145 (*)
+│   │   ├── tracing-core v0.1.34 (*)
+│   │   └── tracing-subscriber v0.3.20
+│   │       ├── matchers v0.2.0
+│   │       │   └── regex-automata v0.4.13 (*)
+│   │       ├── nu-ansi-term v0.50.3
+│   │       ├── once_cell v1.21.3
+│   │       ├── regex-automata v0.4.13 (*)
+│   │       ├── sharded-slab v0.1.7
+│   │       │   └── lazy_static v1.5.0
+│   │       ├── smallvec v1.15.1
+│   │       ├── thread_local v1.1.9
+│   │       │   └── cfg-if v1.0.4
+│   │       ├── tracing v0.1.41 (*)
+│   │       ├── tracing-core v0.1.34 (*)
+│   │       └── tracing-log v0.2.0
+│   │           ├── log v0.4.28
+│   │           ├── once_cell v1.21.3
+│   │           └── tracing-core v0.1.34 (*)
+│   ├── tracing-subscriber v0.3.20 (*)
+│   ├── unicase v2.8.1
+│   ├── unicode-width v0.2.2
+│   ├── unicode-xid v0.2.6
+│   ├── url v2.5.7 (*)
+│   ├── walkdir v2.5.0 (*)
+│   └── winnow v0.7.13 (*)
+│   [build-dependencies]
+│   ├── flate2 v1.1.5 (*)
+│   └── tar v0.4.44 (*)
+├── cargo-credential-libsecret v0.5.2 (*)
+├── cargo-platform v0.3.1 (*)
+├── cargo-submodule-tool-lib v0.1.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib)
+│   ├── anyhow v1.0.100 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/anyhow)
+│   ├── git-wrapper-lib v0.1.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/git-wrapper-lib)
+│   │   ├── anyhow v1.0.100 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/anyhow)
+│   │   ├── hex v0.4.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-hex)
+│   │   ├── pathdiff v0.2.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/pathdiff)
+│   │   ├── regex v1.12.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/regex)
+│   │   │   ├── aho-corasick v1.1.4 (*)
+│   │   │   ├── memchr v2.7.6
+│   │   │   ├── regex-automata v0.4.13 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/regex/regex-automata)
+│   │   │   │   ├── aho-corasick v1.1.4 (*)
+│   │   │   │   ├── memchr v2.7.6
+│   │   │   │   └── regex-syntax v0.8.8 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/regex/regex-syntax)
+│   │   │   └── regex-syntax v0.8.8 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/regex/regex-syntax)
+│   │   ├── serde v1.0.228 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/serde/serde)
+│   │   │   ├── serde_core v1.0.228 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/serde/serde_core)
+│   │   │   └── serde_derive v1.0.228 (proc-macro) (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/serde/serde_derive)
+│   │   │       ├── proc-macro2 v1.0.103 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/proc-macro2)
+│   │   │       │   └── unicode-ident v1.0.22
+│   │   │       ├── quote v1.0.42 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quote)
+│   │   │       │   └── proc-macro2 v1.0.103 (*)
+│   │   │       └── syn v2.0.110 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/syn)
+│   │   │           ├── proc-macro2 v1.0.103 (*)
+│   │   │           ├── quote v1.0.42 (*)
+│   │   │           └── unicode-ident v1.0.22
+│   │   ├── serde_json v1.0.145 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/json)
+│   │   │   ├── itoa v1.0.15
+│   │   │   ├── memchr v2.7.6
+│   │   │   ├── ryu v1.0.20
+│   │   │   └── serde_core v1.0.228 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/serde/serde_core)
+│   │   ├── sha1 v0.11.0-rc.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/hashes/sha1)
+│   │   │   ├── cfg-if v1.0.4
+│   │   │   ├── cpufeatures v0.2.17 (*)
+│   │   │   └── digest v0.11.0-rc.4
+│   │   │       ├── block-buffer v0.11.0 (*)
+│   │   │       ├── const-oid v0.10.1
+│   │   │       └── crypto-common v0.2.0-rc.5
+│   │   │           └── hybrid-array v0.4.5 (*)
+│   │   ├── toml_edit v0.23.7 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/toml/crates/toml_edit)
+│   │   │   ├── indexmap v2.12.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/indexmap)
+│   │   │   │   ├── arbitrary v1.4.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/arbitrary)
+│   │   │   │   ├── equivalent v1.0.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/equivalent)
+│   │   │   │   ├── hashbrown v0.16.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/hashbrown)
+│   │   │   │   │   ├── allocator-api2 v0.2.21
+│   │   │   │   │   ├── equivalent v1.0.2
+│   │   │   │   │   ├── foldhash v0.2.0
+│   │   │   │   │   └── parking_lot_core v0.9.12 (*)
+│   │   │   │   ├── quickcheck v1.0.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quickcheck)
+│   │   │   │   │   ├── env_logger v0.11.8
+│   │   │   │   │   │   ├── anstream v0.6.21 (*)
+│   │   │   │   │   │   ├── anstyle v1.0.13
+│   │   │   │   │   │   ├── env_filter v0.1.4
+│   │   │   │   │   │   │   ├── log v0.4.28
+│   │   │   │   │   │   │   └── regex v1.12.2 (*)
+│   │   │   │   │   │   ├── jiff v0.2.16
+│   │   │   │   │   │   └── log v0.4.28
+│   │   │   │   │   ├── log v0.4.28
+│   │   │   │   │   └── rand v0.9.2 (*)
+│   │   │   │   ├── rayon v1.11.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rayon)
+│   │   │   │   │   ├── either v1.15.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/either)
+│   │   │   │   │   └── rayon-core v1.13.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rayon/rayon-core)
+│   │   │   │   │       ├── crossbeam-deque v0.8.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/crossbeam/crossbeam-deque)
+│   │   │   │   │       │   ├── crossbeam-epoch v0.9.18 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/crossbeam/crossbeam-epoch)
+│   │   │   │   │       │   │   └── crossbeam-utils v0.8.21 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/crossbeam/crossbeam-utils)
+│   │   │   │   │       │   │       └── atomic-maybe-uninit v0.3.12 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/atomic-maybe-uninit)
+│   │   │   │   │       │   └── crossbeam-utils v0.8.21 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/crossbeam/crossbeam-utils) (*)
+│   │   │   │   │       └── crossbeam-utils v0.8.21 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/crossbeam/crossbeam-utils) (*)
+│   │   │   │   └── sval v2.16.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/sval)
+│   │   │   ├── serde_core v1.0.228 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/serde/serde_core)
+│   │   │   ├── toml_datetime v0.7.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/toml/crates/toml_datetime)
+│   │   │   ├── toml_parser v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/toml/crates/toml_parser)
+│   │   │   │   └── winnow v0.7.13 (*)
+│   │   │   ├── toml_writer v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/toml/crates/toml_writer)
+│   │   │   └── winnow v0.7.13 (*)
+│   │   └── walkdir v2.5.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/walkdir)
+│   │       └── same-file v1.0.6
+│   ├── nix-generator-lib v0.1.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/nix-generator-lib)
+│   │   ├── anyhow v1.0.100 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/anyhow)
+│   │   ├── cargo-edit-lib v0.1.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-edit-lib)
+│   │   │   ├── anyhow v1.0.100 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/anyhow)
+│   │   │   └── git-wrapper-lib v0.1.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/git-wrapper-lib) (*)
+│   │   ├── cargo_metadata v0.23.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cargo_metadata)
+│   │   │   ├── camino v1.2.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/camino)
+│   │   │   │   └── serde_core v1.0.228
+│   │   │   ├── cargo-platform v0.3.1 (*)
+│   │   │   ├── semver v1.0.27 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/semver)
+│   │   │   │   └── serde_core v1.0.228
+│   │   │   ├── serde v1.0.228 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/serde/serde) (*)
+│   │   │   ├── serde_json v1.0.145 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/json) (*)
+│   │   │   └── thiserror v2.0.17 (*)
+│   │   ├── git-wrapper-lib v0.1.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/git-wrapper-lib) (*)
+│   │   └── serde v1.0.228 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/serde/serde) (*)
+│   ├── serde v1.0.228 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/serde/serde) (*)
+│   └── serde_json v1.0.145 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/json) (*)
+├── cargo-util v0.2.24 (*)
+├── cargo-util-schemas v0.10.1 (*)
+├── cargo_metadata v0.23.1
+│   ├── camino v1.2.1 (*)
+│   ├── cargo-platform v0.3.1 (*)
+│   ├── semver v1.0.27 (*)
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.145 (*)
+│   └── thiserror v2.0.17 (*)
+├── cfg_aliases v0.2.1
+├── chacha20 v0.10.0-rc.5
+│   ├── cfg-if v1.0.4
+│   └── cipher v0.5.0-rc.2
+│       ├── block-buffer v0.11.0 (*)
+│       ├── crypto-common v0.2.0-rc.5 (*)
+│       └── inout v0.2.1
+│           └── hybrid-array v0.4.5 (*)
+├── chrono-tz v0.9.0
+│   ├── chrono v0.4.42
+│   │   ├── iana-time-zone v0.1.64
+│   │   └── num-traits v0.2.19 (*)
+│   └── phf v0.11.3
+│       └── phf_shared v0.11.3
+│           └── siphasher v1.0.1
+│   [build-dependencies]
+│   └── chrono-tz-build v0.3.0
+│       ├── parse-zoneinfo v0.3.1
+│       │   └── regex v1.12.2 (*)
+│       ├── phf v0.11.3 (*)
+│       └── phf_codegen v0.11.3
+│           ├── phf_generator v0.11.3
+│           │   ├── phf_shared v0.11.3 (*)
+│           │   └── rand v0.8.5 (*)
+│           └── phf_shared v0.11.3 (*)
+├── chrono-tz-build v0.3.0 (*)
+├── clap_builder v4.5.53 (*)
+├── clap_derive v4.5.49 (proc-macro)
+│   ├── heck v0.5.0
+│   ├── proc-macro2 v1.0.103 (*)
+│   ├── quote v1.0.42 (*)
+│   └── syn v2.0.110 (*)
+├── clru v0.6.2
+├── color-print v0.3.7 (*)
+├── color-print-proc-macro v0.3.7 (proc-macro) (*)
+├── colorchoice v1.0.4
+├── colorify v0.2.3
+├── const-oid v0.10.1
+├── constant_time_eq v0.3.1
+├── crates-io v0.40.14 (*)
+├── crossbeam-channel v0.5.15 (*)
+├── crypto-bigint v0.5.5 (*)
+├── crypto-common v0.2.0-rc.5 (*)
+├── ct-codecs v1.1.6
+├── dashmap v7.0.0-rc2
+│   ├── cfg-if v1.0.4
+│   ├── crossbeam-utils v0.8.21
+│   ├── equivalent v1.0.2
+│   ├── hashbrown v0.15.5 (*)
+│   ├── lock_api v0.4.14 (*)
+│   └── parking_lot_core v0.9.12 (*)
+├── deunicode v1.6.2
+├── ecdsa v0.16.9 (*)
+├── ed25519-compact v2.2.0 (*)
+├── encoding_rs v0.8.35 (*)
+├── env_filter v0.1.4 (*)
+├── env_logger v0.11.8 (*)
+├── erased-serde v0.4.9 (*)
+├── fallible-iterator v0.3.0
+├── fallible-streaming-iterator v0.1.9
+├── fiat-crypto v0.3.0
+├── find-msvc-tools v0.1.5
+├── fnv v1.0.7
+├── foldhash v0.1.5
+├── getrandom v0.2.16 (*)
+├── git2-curl v0.21.0 (*)
+├── gix v0.74.1
+│   ├── gix-actor v0.35.6 (*)
+│   ├── gix-archive v0.23.1
+│   │   ├── bstr v1.12.1 (*)
+│   │   ├── flate2 v1.1.5 (*)
+│   │   ├── gix-date v0.10.7 (*)
+│   │   ├── gix-object v0.51.1
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── gix-actor v0.35.6 (*)
+│   │   │   ├── gix-date v0.10.7 (*)
+│   │   │   ├── gix-features v0.44.1
+│   │   │   │   ├── bytes v1.11.0
+│   │   │   │   ├── bytesize v2.3.0
+│   │   │   │   ├── crc32fast v1.5.0 (*)
+│   │   │   │   ├── crossbeam-channel v0.5.15 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   ├── gix-trace v0.1.15
+│   │   │   │   ├── gix-utils v0.3.1 (*)
+│   │   │   │   ├── libc v0.2.177
+│   │   │   │   ├── libz-rs-sys v0.5.2 (*)
+│   │   │   │   ├── once_cell v1.21.3
+│   │   │   │   ├── parking_lot v0.12.5 (*)
+│   │   │   │   ├── prodash v30.0.1 (*)
+│   │   │   │   ├── thiserror v2.0.17 (*)
+│   │   │   │   └── walkdir v2.5.0 (*)
+│   │   │   ├── gix-hash v0.20.1
+│   │   │   │   ├── faster-hex v0.10.0 (*)
+│   │   │   │   ├── gix-features v0.44.1 (*)
+│   │   │   │   ├── sha1-checked v0.10.0 (*)
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-hashtable v0.10.0
+│   │   │   │   ├── gix-hash v0.20.1 (*)
+│   │   │   │   ├── hashbrown v0.16.1 (*)
+│   │   │   │   └── parking_lot v0.12.5 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-utils v0.3.1 (*)
+│   │   │   ├── gix-validate v0.10.1 (*)
+│   │   │   ├── itoa v1.0.15
+│   │   │   ├── smallvec v1.15.1
+│   │   │   ├── thiserror v2.0.17 (*)
+│   │   │   └── winnow v0.7.13 (*)
+│   │   ├── gix-path v0.10.21 (*)
+│   │   ├── gix-worktree-stream v0.23.0
+│   │   │   ├── gix-attributes v0.28.1
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── gix-glob v0.22.1
+│   │   │   │   │   ├── bitflags v2.10.0
+│   │   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   │   ├── gix-features v0.44.1 (*)
+│   │   │   │   │   └── gix-path v0.10.21 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   ├── gix-quote v0.6.1 (*)
+│   │   │   │   ├── gix-trace v0.1.15
+│   │   │   │   ├── kstring v2.0.2 (*)
+│   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   ├── thiserror v2.0.17 (*)
+│   │   │   │   └── unicode-bom v2.0.3
+│   │   │   ├── gix-features v0.44.1 (*)
+│   │   │   ├── gix-filter v0.21.0
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── encoding_rs v0.8.35 (*)
+│   │   │   │   ├── gix-attributes v0.28.1 (*)
+│   │   │   │   ├── gix-command v0.6.3 (*)
+│   │   │   │   ├── gix-hash v0.20.1 (*)
+│   │   │   │   ├── gix-object v0.51.1 (*)
+│   │   │   │   ├── gix-packetline-blocking v0.19.3 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   ├── gix-quote v0.6.1 (*)
+│   │   │   │   ├── gix-trace v0.1.15
+│   │   │   │   ├── gix-utils v0.3.1 (*)
+│   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-fs v0.17.0
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── fastrand v2.3.0
+│   │   │   │   ├── gix-features v0.44.1 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   ├── gix-utils v0.3.1 (*)
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-hash v0.20.1 (*)
+│   │   │   ├── gix-object v0.51.1 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-traverse v0.48.0
+│   │   │   │   ├── bitflags v2.10.0
+│   │   │   │   ├── gix-commitgraph v0.30.1
+│   │   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   │   ├── gix-chunk v0.4.12 (*)
+│   │   │   │   │   ├── gix-hash v0.20.1 (*)
+│   │   │   │   │   ├── memmap2 v0.9.9 (*)
+│   │   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   │   ├── gix-date v0.10.7 (*)
+│   │   │   │   ├── gix-hash v0.20.1 (*)
+│   │   │   │   ├── gix-hashtable v0.10.0 (*)
+│   │   │   │   ├── gix-object v0.51.1 (*)
+│   │   │   │   ├── gix-revwalk v0.22.0
+│   │   │   │   │   ├── gix-commitgraph v0.30.1 (*)
+│   │   │   │   │   ├── gix-date v0.10.7 (*)
+│   │   │   │   │   ├── gix-hash v0.20.1 (*)
+│   │   │   │   │   ├── gix-hashtable v0.10.0 (*)
+│   │   │   │   │   ├── gix-object v0.51.1 (*)
+│   │   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── parking_lot v0.12.5 (*)
+│   │   │   └── thiserror v2.0.17 (*)
+│   │   ├── jiff v0.2.16
+│   │   ├── tar v0.4.44 (*)
+│   │   ├── thiserror v2.0.17 (*)
+│   │   └── zip v5.1.1
+│   │       ├── crc32fast v1.5.0 (*)
+│   │       ├── flate2 v1.1.5 (*)
+│   │       ├── indexmap v2.12.1 (*)
+│   │       └── memchr v2.7.6
+│   ├── gix-attributes v0.28.1 (*)
+│   ├── gix-blame v0.4.0
+│   │   ├── gix-commitgraph v0.30.1 (*)
+│   │   ├── gix-date v0.10.7 (*)
+│   │   ├── gix-diff v0.54.1
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── gix-attributes v0.28.1 (*)
+│   │   │   ├── gix-command v0.6.3 (*)
+│   │   │   ├── gix-filter v0.21.0 (*)
+│   │   │   ├── gix-fs v0.17.0 (*)
+│   │   │   ├── gix-hash v0.20.1 (*)
+│   │   │   ├── gix-index v0.42.1
+│   │   │   │   ├── bitflags v2.10.0
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── filetime v0.2.26 (*)
+│   │   │   │   ├── fnv v1.0.7
+│   │   │   │   ├── gix-bitmap v0.2.15 (*)
+│   │   │   │   ├── gix-features v0.44.1 (*)
+│   │   │   │   ├── gix-fs v0.17.0 (*)
+│   │   │   │   ├── gix-hash v0.20.1 (*)
+│   │   │   │   ├── gix-lock v19.0.0
+│   │   │   │   │   ├── gix-tempfile v19.0.1
+│   │   │   │   │   │   ├── dashmap v6.1.0 (*)
+│   │   │   │   │   │   ├── gix-fs v0.17.0 (*)
+│   │   │   │   │   │   ├── libc v0.2.177
+│   │   │   │   │   │   ├── parking_lot v0.12.5 (*)
+│   │   │   │   │   │   ├── signal-hook v0.3.18
+│   │   │   │   │   │   │   ├── libc v0.2.177
+│   │   │   │   │   │   │   └── signal-hook-registry v1.4.6
+│   │   │   │   │   │   │       └── libc v0.2.177
+│   │   │   │   │   │   ├── signal-hook-registry v1.4.6 (*)
+│   │   │   │   │   │   └── tempfile v3.23.0 (*)
+│   │   │   │   │   ├── gix-utils v0.3.1 (*)
+│   │   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   │   ├── gix-object v0.51.1 (*)
+│   │   │   │   ├── gix-traverse v0.48.0 (*)
+│   │   │   │   ├── gix-utils v0.3.1 (*)
+│   │   │   │   ├── gix-validate v0.10.1 (*)
+│   │   │   │   ├── hashbrown v0.16.1 (*)
+│   │   │   │   ├── itoa v1.0.15
+│   │   │   │   ├── libc v0.2.177
+│   │   │   │   ├── memmap2 v0.9.9 (*)
+│   │   │   │   ├── rustix v1.1.2 (*)
+│   │   │   │   ├── smallvec v1.15.1
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-object v0.51.1 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-pathspec v0.13.0
+│   │   │   │   ├── bitflags v2.10.0
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── gix-attributes v0.28.1 (*)
+│   │   │   │   ├── gix-config-value v0.15.3 (*)
+│   │   │   │   ├── gix-glob v0.22.1 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   └── thiserror v2.0.17 (*)
+│   │   │   ├── gix-tempfile v19.0.1 (*)
+│   │   │   ├── gix-trace v0.1.15
+│   │   │   ├── gix-traverse v0.48.0 (*)
+│   │   │   ├── gix-worktree v0.43.1
+│   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   ├── gix-attributes v0.28.1 (*)
+│   │   │   │   ├── gix-features v0.44.1 (*)
+│   │   │   │   ├── gix-fs v0.17.0 (*)
+│   │   │   │   ├── gix-glob v0.22.1 (*)
+│   │   │   │   ├── gix-hash v0.20.1 (*)
+│   │   │   │   ├── gix-ignore v0.17.1
+│   │   │   │   │   ├── bstr v1.12.1 (*)
+│   │   │   │   │   ├── gix-glob v0.22.1 (*)
+│   │   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   │   ├── gix-trace v0.1.15
+│   │   │   │   │   └── unicode-bom v2.0.3
+│   │   │   │   ├── gix-index v0.42.1 (*)
+│   │   │   │   ├── gix-object v0.51.1 (*)
+│   │   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   │   └── gix-validate v0.10.1 (*)
+│   │   │   ├── imara-diff v0.1.8 (*)
+│   │   │   └── thiserror v2.0.17 (*)
+│   │   ├── gix-hash v0.20.1 (*)
+│   │   ├── gix-object v0.51.1 (*)
+│   │   ├── gix-revwalk v0.22.0 (*)
+│   │   ├── gix-trace v0.1.15
+│   │   ├── gix-traverse v0.48.0 (*)
+│   │   ├── gix-worktree v0.43.1 (*)
+│   │   ├── smallvec v1.15.1
+│   │   └── thiserror v2.0.17 (*)
+│   ├── gix-command v0.6.3 (*)
+│   ├── gix-commitgraph v0.30.1 (*)
+│   ├── gix-config v0.47.1
+│   │   ├── bstr v1.12.1 (*)
+│   │   ├── gix-config-value v0.15.3 (*)
+│   │   ├── gix-features v0.44.1 (*)
+│   │   ├── gix-glob v0.22.1 (*)
+│   │   ├── gix-path v0.10.21 (*)
+│   │   ├── gix-ref v0.54.1
+│   │   │   ├── gix-actor v0.35.6 (*)
+│   │   │   ├── gix-features v0.44.1 (*)
+│   │   │   ├── gix-fs v0.17.0 (*)
+│   │   │   ├── gix-hash v0.20.1 (*)
+│   │   │   ├── gix-lock v19.0.0 (*)
+│   │   │   ├── gix-object v0.51.1 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-tempfile v19.0.1 (*)
+│   │   │   ├── gix-utils v0.3.1 (*)
+│   │   │   ├── gix-validate v0.10.1 (*)
+│   │   │   ├── memmap2 v0.9.9 (*)
+│   │   │   ├── thiserror v2.0.17 (*)
+│   │   │   └── winnow v0.7.13 (*)
+│   │   ├── gix-sec v0.12.2 (*)
+│   │   ├── memchr v2.7.6
+│   │   ├── smallvec v1.15.1
+│   │   ├── thiserror v2.0.17 (*)
+│   │   ├── unicode-bom v2.0.3
+│   │   └── winnow v0.7.13 (*)
+│   ├── gix-credentials v0.31.1
+│   │   ├── bstr v1.12.1 (*)
+│   │   ├── gix-command v0.6.3 (*)
+│   │   ├── gix-config-value v0.15.3 (*)
+│   │   ├── gix-date v0.10.7 (*)
+│   │   ├── gix-path v0.10.21 (*)
+│   │   ├── gix-prompt v0.11.2 (*)
+│   │   ├── gix-sec v0.12.2 (*)
+│   │   ├── gix-trace v0.1.15
+│   │   ├── gix-url v0.33.1
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── gix-features v0.44.1 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── percent-encoding v2.3.2
+│   │   │   ├── thiserror v2.0.17 (*)
+│   │   │   └── url v2.5.7 (*)
+│   │   └── thiserror v2.0.17 (*)
+│   ├── gix-date v0.10.7 (*)
+│   ├── gix-diff v0.54.1 (*)
+│   ├── gix-dir v0.16.0
+│   │   ├── bstr v1.12.1 (*)
+│   │   ├── gix-discover v0.42.0
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── gix-fs v0.17.0 (*)
+│   │   │   ├── gix-hash v0.20.1 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── gix-ref v0.54.1 (*)
+│   │   │   ├── gix-sec v0.12.2 (*)
+│   │   │   └── thiserror v2.0.17 (*)
+│   │   ├── gix-fs v0.17.0 (*)
+│   │   ├── gix-ignore v0.17.1 (*)
+│   │   ├── gix-index v0.42.1 (*)
+│   │   ├── gix-object v0.51.1 (*)
+│   │   ├── gix-path v0.10.21 (*)
+│   │   ├── gix-pathspec v0.13.0 (*)
+│   │   ├── gix-trace v0.1.15
+│   │   ├── gix-utils v0.3.1 (*)
+│   │   ├── gix-worktree v0.43.1 (*)
+│   │   └── thiserror v2.0.17 (*)
+│   ├── gix-discover v0.42.0 (*)
+│   ├── gix-features v0.44.1 (*)
+│   ├── gix-filter v0.21.0 (*)
+│   ├── gix-fs v0.17.0 (*)
+│   ├── gix-glob v0.22.1 (*)
+│   ├── gix-hash v0.20.1 (*)
+│   ├── gix-hashtable v0.10.0 (*)
+│   ├── gix-ignore v0.17.1 (*)
+│   ├── gix-index v0.42.1 (*)
+│   ├── gix-lock v19.0.0 (*)
+│   ├── gix-mailmap v0.27.4
+│   │   ├── bstr v1.12.1 (*)
+│   │   ├── gix-actor v0.35.6 (*)
+│   │   ├── gix-date v0.10.7 (*)
+│   │   └── thiserror v2.0.17 (*)
+│   ├── gix-negotiate v0.22.0
+│   │   ├── bitflags v2.10.0
+│   │   ├── gix-commitgraph v0.30.1 (*)
+│   │   ├── gix-date v0.10.7 (*)
+│   │   ├── gix-hash v0.20.1 (*)
+│   │   ├── gix-object v0.51.1 (*)
+│   │   ├── gix-revwalk v0.22.0 (*)
+│   │   ├── smallvec v1.15.1
+│   │   └── thiserror v2.0.17 (*)
+│   ├── gix-object v0.51.1 (*)
+│   ├── gix-odb v0.71.1
+│   │   ├── arc-swap v1.7.1
+│   │   ├── gix-date v0.10.7 (*)
+│   │   ├── gix-features v0.44.1 (*)
+│   │   ├── gix-fs v0.17.0 (*)
+│   │   ├── gix-hash v0.20.1 (*)
+│   │   ├── gix-hashtable v0.10.0 (*)
+│   │   ├── gix-object v0.51.1 (*)
+│   │   ├── gix-pack v0.61.1
+│   │   │   ├── clru v0.6.2
+│   │   │   ├── gix-chunk v0.4.12 (*)
+│   │   │   ├── gix-features v0.44.1 (*)
+│   │   │   ├── gix-hash v0.20.1 (*)
+│   │   │   ├── gix-hashtable v0.10.0 (*)
+│   │   │   ├── gix-object v0.51.1 (*)
+│   │   │   ├── gix-path v0.10.21 (*)
+│   │   │   ├── memmap2 v0.9.9 (*)
+│   │   │   ├── smallvec v1.15.1
+│   │   │   ├── thiserror v2.0.17 (*)
+│   │   │   └── uluru v3.1.0
+│   │   │       └── arrayvec v0.7.6
+│   │   ├── gix-path v0.10.21 (*)
+│   │   ├── gix-quote v0.6.1 (*)
+│   │   ├── parking_lot v0.12.5 (*)
+│   │   ├── tempfile v3.23.0 (*)
+│   │   └── thiserror v2.0.17 (*)
+│   ├── gix-pack v0.61.1 (*)
+│   ├── gix-path v0.10.21 (*)
+│   ├── gix-pathspec v0.13.0 (*)
+│   ├── gix-prompt v0.11.2 (*)
+│   ├── gix-protocol v0.52.1
+│   │   ├── bstr v1.12.1 (*)
+│   │   ├── gix-date v0.10.7 (*)
+│   │   ├── gix-features v0.44.1 (*)
+│   │   ├── gix-hash v0.20.1 (*)
+│   │   ├── gix-ref v0.54.1 (*)
+│   │   ├── gix-shallow v0.6.0
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── gix-hash v0.20.1 (*)
+│   │   │   ├── gix-lock v19.0.0 (*)
+│   │   │   └── thiserror v2.0.17 (*)
+│   │   ├── gix-transport v0.49.1
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── gix-command v0.6.3 (*)
+│   │   │   ├── gix-features v0.44.1 (*)
+│   │   │   ├── gix-packetline v0.19.3 (*)
+│   │   │   ├── gix-quote v0.6.1 (*)
+│   │   │   ├── gix-sec v0.12.2 (*)
+│   │   │   ├── gix-url v0.33.1 (*)
+│   │   │   └── thiserror v2.0.17 (*)
+│   │   ├── gix-utils v0.3.1 (*)
+│   │   ├── maybe-async v0.2.10 (proc-macro) (*)
+│   │   ├── thiserror v2.0.17 (*)
+│   │   └── winnow v0.7.13 (*)
+│   ├── gix-ref v0.54.1 (*)
+│   ├── gix-refspec v0.32.0
+│   │   ├── bstr v1.12.1 (*)
+│   │   ├── gix-hash v0.20.1 (*)
+│   │   ├── gix-revision v0.36.1
+│   │   │   ├── bitflags v2.10.0
+│   │   │   ├── bstr v1.12.1 (*)
+│   │   │   ├── gix-commitgraph v0.30.1 (*)
+│   │   │   ├── gix-date v0.10.7 (*)
+│   │   │   ├── gix-hash v0.20.1 (*)
+│   │   │   ├── gix-hashtable v0.10.0 (*)
+│   │   │   ├── gix-object v0.51.1 (*)
+│   │   │   ├── gix-revwalk v0.22.0 (*)
+│   │   │   ├── gix-trace v0.1.15
+│   │   │   └── thiserror v2.0.17 (*)
+│   │   ├── gix-validate v0.10.1 (*)
+│   │   ├── smallvec v1.15.1
+│   │   └── thiserror v2.0.17 (*)
+│   ├── gix-revision v0.36.1 (*)
+│   ├── gix-revwalk v0.22.0 (*)
+│   ├── gix-sec v0.12.2 (*)
+│   ├── gix-shallow v0.6.0 (*)
+│   ├── gix-status v0.21.1
+│   │   ├── bstr v1.12.1 (*)
+│   │   ├── filetime v0.2.26 (*)
+│   │   ├── gix-diff v0.54.1 (*)
+│   │   ├── gix-dir v0.16.0 (*)
+│   │   ├── gix-features v0.44.1 (*)
+│   │   ├── gix-filter v0.21.0 (*)
+│   │   ├── gix-fs v0.17.0 (*)
+│   │   ├── gix-hash v0.20.1 (*)
+│   │   ├── gix-index v0.42.1 (*)
+│   │   ├── gix-object v0.51.1 (*)
+│   │   ├── gix-path v0.10.21 (*)
+│   │   ├── gix-pathspec v0.13.0 (*)
+│   │   ├── gix-worktree v0.43.1 (*)
+│   │   └── thiserror v2.0.17 (*)
+│   ├── gix-submodule v0.21.0
+│   │   ├── bstr v1.12.1 (*)
+│   │   ├── gix-config v0.47.1 (*)
+│   │   ├── gix-path v0.10.21 (*)
+│   │   ├── gix-pathspec v0.13.0 (*)
+│   │   ├── gix-refspec v0.32.0 (*)
+│   │   ├── gix-url v0.33.1 (*)
+│   │   └── thiserror v2.0.17 (*)
+│   ├── gix-tempfile v19.0.1 (*)
+│   ├── gix-trace v0.1.15
+│   ├── gix-traverse v0.48.0 (*)
+│   ├── gix-url v0.33.1 (*)
+│   ├── gix-utils v0.3.1 (*)
+│   ├── gix-validate v0.10.1 (*)
+│   ├── gix-worktree v0.43.1 (*)
+│   ├── gix-worktree-state v0.21.0
+│   │   ├── bstr v1.12.1 (*)
+│   │   ├── gix-features v0.44.1 (*)
+│   │   ├── gix-filter v0.21.0 (*)
+│   │   ├── gix-fs v0.17.0 (*)
+│   │   ├── gix-glob v0.22.1 (*)
+│   │   ├── gix-hash v0.20.1 (*)
+│   │   ├── gix-index v0.42.1 (*)
+│   │   ├── gix-object v0.51.1 (*)
+│   │   ├── gix-path v0.10.21 (*)
+│   │   ├── gix-worktree v0.43.1 (*)
+│   │   ├── io-close v0.3.7
+│   │   │   └── libc v0.2.177
+│   │   └── thiserror v2.0.17 (*)
+│   ├── gix-worktree-stream v0.23.0 (*)
+│   ├── parking_lot v0.12.5 (*)
+│   ├── regex v1.12.2 (*)
+│   ├── signal-hook v0.3.18 (*)
+│   ├── smallvec v1.15.1
+│   └── thiserror v2.0.17 (*)
+├── gix-archive v0.23.1 (*)
+├── gix-bitmap v0.2.15 (*)
+├── gix-blame v0.4.0 (*)
+├── gix-mailmap v0.27.4 (*)
+├── gix-odb v0.71.1 (*)
+├── gix-protocol v0.52.1 (*)
+├── gix-status v0.21.1 (*)
+├── gix-submodule v0.21.0 (*)
+├── gix-worktree-state v0.21.0 (*)
+├── glob v0.3.3
+├── globwalk v0.9.1
+│   ├── bitflags v2.10.0
+│   ├── ignore v0.4.25 (*)
+│   └── walkdir v2.5.0 (*)
+├── group v0.13.0 (*)
+├── hash32 v0.3.1 (*)
+├── hashbrown v0.16.1 (*)
+├── hashlink v0.11.0
+│   └── hashbrown v0.16.1 (*)
+├── heapless v0.8.0 (*)
+├── hkdf v0.12.4 (*)
+├── hmac v0.12.1 (*)
+├── home v0.5.12
+├── http-auth v0.1.10 (*)
+├── human_format v1.1.0
+├── humansize v2.1.3
+│   └── libm v0.2.15
+├── iana-time-zone v0.1.64
+├── icu_normalizer v2.1.1 (*)
+├── icu_normalizer_data v2.1.1
+├── icu_properties v2.1.1 (*)
+├── icu_properties_data v2.1.1
+├── im-rc v15.1.0 (*)
+├── imara-diff v0.1.8 (*)
+├── indexmap v2.12.1 (*)
+├── io-close v0.3.7 (*)
+├── is_executable v1.0.5
+├── is_terminal_polyfill v1.70.2
+├── itertools v0.14.0 (*)
+├── kstring v2.0.2 (*)
+├── libloading v0.9.0
+│   └── cfg-if v1.0.4
+├── libm v0.2.15
+├── libnghttp2-sys v0.1.11+1.64.0 (*)
+├── libz-rs-sys v0.5.2 (*)
+├── linux-raw-sys v0.11.0
+├── litemap v0.8.1
+├── litrs v1.0.0
+├── maybe-async v0.2.10 (proc-macro) (*)
+├── md-5 v0.10.6 (*)
+├── minimal-lexical v0.2.1
+├── miniz_oxide v0.8.9
+│   ├── adler2 v2.0.1
+│   └── simd-adler32 v0.3.7
+├── nix v0.30.1 (*)
+├── nom v7.1.3 (*)
+├── nu-ansi-term v0.50.3
+├── num-conv v0.1.0
+├── opener v0.8.3 (*)
+├── openssl-probe v0.1.6
+├── ordered-float v2.10.1 (*)
+├── orion v0.17.11 (*)
+├── os_info v3.13.0 (*)
+├── p384 v0.13.1 (*)
+├── parse-zoneinfo v0.3.1 (*)
+├── pasetors v0.7.7 (*)
+├── pest_derive v2.8.4 (proc-macro)
+│   ├── pest v2.8.4
+│   │   ├── memchr v2.7.6
+│   │   └── ucd-trie v0.1.7
+│   └── pest_generator v2.8.4
+│       ├── pest v2.8.4 (*)
+│       ├── pest_meta v2.8.4
+│       │   └── pest v2.8.4 (*)
+│       │   [build-dependencies]
+│       │   └── sha2 v0.10.9 (*)
+│       ├── proc-macro2 v1.0.103 (*)
+│       ├── quote v1.0.42 (*)
+│       └── syn v2.0.110 (*)
+├── pest_generator v2.8.4 (*)
+├── pest_meta v2.8.4 (*)
+├── phf_codegen v0.11.3 (*)
+├── phf_generator v0.11.3 (*)
+├── pin-project-lite v0.2.16
+├── potential_utf v0.1.4 (*)
+├── powerfmt-macros v0.1.0 (proc-macro)
+│   ├── proc-macro2 v1.0.103 (*)
+│   ├── quote v1.0.42 (*)
+│   └── syn v2.0.110 (*)
+├── ppv-lite86 v0.2.21 (*)
+├── primeorder v0.13.6 (*)
+├── quickcheck v1.0.3
+│   ├── env_logger v0.8.4
+│   │   ├── log v0.4.28
+│   │   └── regex v1.12.2 (*)
+│   ├── log v0.4.28
+│   └── rand v0.8.5 (*)
+├── rand v0.9.2 (*)
+├── rand_chacha v0.3.1 (*)
+├── rand_core v0.9.3 (*)
+├── rand_xoshiro v0.6.0 (*)
+├── rayon-core v0.0.1
+├── rfc6979 v0.4.0 (*)
+├── rustc-hash v2.1.1
+├── rustc-stable-hash v0.1.2
+├── rustfix v0.9.3 (*)
+├── sec1 v0.7.3 (*)
+├── serde-value v0.7.0 (*)
+├── serde_ignored v0.1.14 (*)
+├── serde_spanned v1.0.3 (*)
+├── sha1 v0.10.6 (*)
+├── sha1-checked v0.10.0 (*)
+├── sharded-slab v0.1.7 (*)
+├── shell-words v1.1.0
+├── signature v2.2.0 (*)
+├── simd-adler32 v0.3.7
+├── siphasher v1.0.1
+├── sized-chunks v0.6.5 (*)
+├── slug v0.1.6
+│   └── deunicode v1.6.2
+├── socket2 v0.6.1 (*)
+├── static_assertions v1.1.0
+├── strsim v0.11.1
+├── supports-hyperlinks v3.1.0
+├── supports-unicode v3.0.0
+├── sval v2.16.0
+├── tera v1.20.1
+│   ├── chrono v0.4.42 (*)
+│   ├── chrono-tz v0.9.0 (*)
+│   ├── globwalk v0.9.1 (*)
+│   ├── humansize v2.1.3 (*)
+│   ├── lazy_static v1.5.0
+│   ├── percent-encoding v2.3.2
+│   ├── pest v2.8.4 (*)
+│   ├── pest_derive v2.8.4 (proc-macro) (*)
+│   ├── rand v0.8.5 (*)
+│   ├── regex v1.12.2 (*)
+│   ├── serde v1.0.228 (*)
+│   ├── serde_json v1.0.145 (*)
+│   ├── slug v0.1.6 (*)
+│   └── unicode-segmentation v1.12.0
+├── terminal_size v0.4.3 (*)
+├── thread_local v1.1.9 (*)
+├── tinystr v0.8.2 (*)
+├── tinyvec v1.10.0 (*)
+├── tinyvec_macros v0.1.1
+├── tracing-attributes v0.1.30 (proc-macro) (*)
+├── tracing-chrome v0.7.2 (*)
+├── tracing-log v0.2.0 (*)
+├── typesize v0.1.14
+│   └── typesize-derive v0.1.11 (proc-macro)
+│       ├── proc-macro2 v1.0.103 (*)
+│       ├── quote v1.0.42 (*)
+│       └── syn v2.0.110 (*)
+├── typesize-derive v0.1.11 (proc-macro) (*)
+├── ucd-trie v0.1.7
+├── uluru v3.1.0 (*)
+├── unicase v2.8.1
+├── unicode-normalization v0.1.25 (*)
+├── unicode-segmentation v1.12.0
+├── xattr v1.6.1 (*)
+├── yoke-derive v0.8.1 (proc-macro) (*)
+├── zerocopy v0.8.28
+├── zerofrom-derive v0.1.6 (proc-macro) (*)
+├── zerovec-derive v0.11.2 (proc-macro) (*)
+└── zlib-rs v0.5.2

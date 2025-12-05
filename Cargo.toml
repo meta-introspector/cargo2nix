@@ -1,20 +1,721 @@
-[package]
-edition = "2021"
-license = "MIT"
-name = "cargo2nix"
-version = "0.12.0"
+[workspace.dependencies]
+lzma-rust2 = { path = "submodules/lzma-rust2" }#fluent-langneg = { path= "submodules/fluent-rs/fluent-langneg" }
+#futures-task = { path = "submodules/futures-rs/futures-task" }
+gix = { path = "submodules/gitoxide/gix", features = ["progress-tree", "parallel", "dirwalk", "status"] }
+#parking_lot_core = { path = "submodules/parking_lot/core" }
+#rayon-core = { path = "submodules/rayon/rayon-core" }
+#rusqlite = { version = "0.37.0", features = ["bundled"] }
+#tokio-stream = { path = "submodules/tokio-stream-vendored" }
+addr2line = { path = "submodules/addr2line" }
+adler2 = { path = "submodules/adler2" }
+ahash = { path = "submodules/ahash" }
+aho-corasick = { path = "submodules/aho-corasick" }
+aho_corasick = { path = "submodules/aho-corasick" }
+allocator-api2 = { path = "submodules/allocator-api2" }
+annotate-snippets = { path = "submodules/annotate-snippets-rs" }
+anstream = { path = "submodules/anstyle/crates/anstream" }
+anstyle = { path = "submodules/anstyle/crates/anstyle" }
+anstyle-parse = { path = "submodules/anstyle/crates/anstyle-parse" }
+anstyle-query = { path = "submodules/anstyle/crates/anstyle-query" }
+anyhow = { path = "submodules/anyhow" }
+arbitrary = { path="submodules/arbitrary/" }
+arc-swap = { path = "submodules/arc-swap" }
+arrayref = { path = "submodules/arrayref" }
+arrayvec = { path = "submodules/arrayvec" }
+assert-impl = { path = "submodules/assert-impl"}
+async-graphql-derive= { path =  "submodules/async-graphql/derive" }
+async-graphql-parser= { path =  "submodules/async-graphql/parser" }
+async-graphql-value= { path =  "submodules/async-graphql/value" }
+async-graphql= { path =  "submodules/async-graphql" }
+async-std = { path = "submodules/async-std" }
+async-stream = { path = "submodules/async-stream-vendored" }
+async-trait = "0.1.79"
+atomic-maybe-uninit = { path = "submodules/atomic-maybe-uninit" }
+autocfg = { path = "submodules/autocfg" }
+backtrace = { path = "submodules/backtrace-rs" }
+base-db = { path = "submodules/rust-analyzer/crates/base-db"}
+base64 = { path = "submodules/rust-base64" }
+base64ct = { path = "submodules/formats/base64ct" }
+bincode = { path = "submodules/bincode" }
+bitflags = { path = "submodules/bitflags" }
+blake3 = { path = "submodules/BLAKE3" }
+block-buffer = { path = "submodules/utils/block-buffer" }
+blocking = { path = "submodules/blocking" }
+bstr = { path = "submodules/bstr" }
+byteorder = { path = "submodules/byteorder" }
+bytes = { path = "submodules/bytes" }
+bytesize = { path = "submodules/bytesize" }
+camino = { path = "submodules/camino" }
+cargo = { path = "submodules/cargo" }
+cargo-credential = { path = "submodules/cargo/credential/cargo-credential" }
+cargo-credential-libsecret = { path = "submodules/cargo/credential/cargo-credential-libsecret" }
+cargo-credential-macos-keychain = { path = "submodules/cargo/credential/cargo-credential-macos-keychain" }
+cargo-credential-wincred = { path = "submodules/cargo/credential/cargo-credential-wincred" }
+cargo-platform = { path = "submodules/cargo/crates/cargo-platform" }
+cargo-repo-sync-lib = { path = "tools/cargo-repo-sync-lib" }
+cargo-submodule-tool-lib = { path = "tools/cargo-submodule-tool-lib" }
+cargo-test-macro = { path = "submodules/cargo/crates/cargo-test-macro" }
+cargo-test-support = { path = "submodules/cargo/crates/cargo-test-support" }
+cargo-util = { path = "submodules/cargo/crates/cargo-util" }
+cargo-util-schemas = { path = "submodules/cargo/crates/cargo-util-schemas" }
+cargo_metadata = { path = "submodules/cargo_metadata" }
+cfg = { path = "submodules/rust-analyzer/crates/cfg", features = ["tt"] } # Add this line
+cfg-if = { path = "submodules/cfg-if" }
+cfg_aliases = { path = "submodules/cfg_aliases" }
+chrono = { path = "submodules/chrono" }
+clap = { path = "submodules/clap", features = ["derive"] }
+clap_builder = { path = "submodules/clap/clap_builder" }
+clap_complete = { path = "submodules/clap/clap_complete" }
+#clap_derive = { path = "submodules/clap/clap_derive" }
+clru = { path = "submodules/clru-rs" }
+color-print = { path = "submodules/color-print/color-print" }
+color-print-proc-macro = { path = "submodules/color-print/color-print-proc-macro" }
+colorchoice = { path = "submodules/anstyle/crates/colorchoice" }
+colorify = { path = "submodules/colorify" }
+const-oid = { path = "submodules/formats/const-oid" }
+constant_time_eq = { path = "submodules/constant_time_eq" }
+core-foundation = { version = "0.10.1", features = ["mac_os_10_7_support"] }
+cpp_demangle = { path = "submodules/cpp_demangle" }
+cpufeatures = { path = "submodules/utils/cpufeatures" }
+crates-io = { path = "submodules/cargo/crates/crates-io" }
+crc32fast = { path = "submodules/rust-crc32fast" }
+criterion = { path = "submodules/criterion" }
+crossbeam = { path="submodules/crossbeam/" }
+crossbeam-channel = { path = "submodules/crossbeam/crossbeam-channel" }
+crossbeam-deque = { path = "submodules/crossbeam/crossbeam-deque" }
+crossbeam-utils = { path = "submodules/crossbeam/crossbeam-utils" }
+crypto-bigint = { path = "submodules/crypto-bigint" }
+crypto-common = { path = "submodules/traits/crypto-common" }
+ct-codecs = { path = "submodules/rust-ct-codecs" }
+curl = { path = "submodules/curl-rust", features = ["http2"]  }
+curl-sys = { path = "submodules/curl-rust/curl-sys" }
+dashmap = { path = "submodules/dashmap", features = ["raw-api", "inline"], version = "7.0.0-hack" } 
+defmac = { path = "submodules/defmac" }
+digest = { path = "submodules/traits/digest" }
+dissimilar = { path = "submodules/dissimilar" }
+document-features = { path = "submodules/document-features" }
+dot-parser = { path = "submodules/dot-parser" }
+dot-parser-macros = { path = "submodules/dot-parser/macros" }
+ecdsa = { path = "submodules/signatures/ecdsa" }
+ed25519-compact = { path = "submodules/rust-ed25519-compact" }
+edition = { path = "submodules/rust-analyzer/crates/edition" }
+either = { path = "submodules/either" }
+encoding_rs = { path = "submodules/encoding_rs" }
+env_filter = { path = "submodules/env_logger/crates/env_filter" }
+env_logger = { path = "submodules/env_logger" }
+equivalent = { path = "submodules/equivalent" }
+erased-serde = { path = "submodules/erased-serde" }
+expect-test = { path = "submodules/expect-test" }
+fallible-iterator = { path = "submodules/rust-fallible-iterator" }
+fallible-streaming-iterator = { path = "submodules/fallible-streaming-iterator" }
+faster-hex = { path = "submodules/faster-hex" }
+fastrand = { path = "submodules/fastrand" }
+fiat-crypto = { path = "submodules/fiat-crypto/fiat-rust" }
+filetime = "0.2.26"
+find-msvc-tools = { path = "submodules/cc-rs/find-msvc-tools" }
+fixedbitset = { path = "submodules/fixedbitset" }
+flate2 = { version = "1.1.5", features = ["zlib-rs"] }
+fluent-langneg = "0.13"
+fluent-syntax = { path= "submodules/fluent-rs/fluent-syntax" }
+fnv = { path = "submodules/rust-fnv" }
+foldhash = { path = "submodules/foldhash" }
+fs_extra = { path = "submodules/fs_extra" }
+futures = { path = "submodules/futures-rs/futures" }
+futures-channel = { path = "submodules/futures-rs/futures-channel" }
+futures-concurrency.path = "submodules/futures-concurrency"
+futures-core = { path = "submodules/futures-rs/futures-core" }
+futures-executor = { path = "submodules/futures-rs/futures-executor" }
+futures-io = { path = "submodules/futures-rs/futures-io" }
+futures-lite = { path = "submodules/futures-lite" }
+futures-macro = { path = "submodules/futures-rs/futures-macro" }
+futures-sink = { path = "submodules/futures-rs/futures-sink" }
+futures-task = { path = "submodules/futures-rs/futures-task" }
+futures-test = { path = "submodules/futures-rs/futures-test" }
+futures-timer = { path = "submodules/futures-timer" }
+futures-util = { path = "submodules/futures-rs/futures-util" }
+fuzz = { path = "submodules/quinn/fuzz" }
+fxhash = { path = "submodules/fxhash" }
+generator = { path = "submodules/generator-rs" }
+generic-array = { path = "submodules/generic-array" }
+getrandom = { path = "submodules/getrandom" }
+git-wrapper-lib = { path = "tools/git-wrapper-lib" }
+git2 = { path = "submodules/git2-rs" }
+git2-curl = { path = "submodules/git2-rs/git2-curl" }
+gix-actor = { path = "submodules/gitoxide/gix-actor" }
+gix-archive = { path = "submodules/gitoxide/gix-archive" }
+gix-attributes = { path = "submodules/gitoxide/gix-attributes" }
+gix-bitmap = { path = "submodules/gitoxide/gix-bitmap" }
+gix-blame = { path = "submodules/gitoxide/gix-blame" }
+gix-chunk = { path = "submodules/gitoxide/gix-chunk" }
+gix-command = { path = "submodules/gitoxide/gix-command" }
+gix-commitgraph = { path = "submodules/gitoxide/gix-commitgraph" }
+gix-config = { path = "submodules/gitoxide/gix-config" }
+gix-config-value = { path = "submodules/gitoxide/gix-config-value" }
+gix-credentials = { path = "submodules/gitoxide/gix-credentials" }
+gix-date = { path = "submodules/gitoxide/gix-date" }
+gix-diff = { path = "submodules/gitoxide/gix-diff" }
+gix-dir = { path = "submodules/gitoxide/gix-dir" }
+gix-discover = { path = "submodules/gitoxide/gix-discover" }
+gix-features = { path = "submodules/gitoxide/gix-features" }
+gix-fetchhead = { path = "submodules/gitoxide/gix-fetchhead" }
+gix-filter = { path = "submodules/gitoxide/gix-filter" }
+gix-fs = { path = "submodules/gitoxide/gix-fs" }
+gix-fsck = { path = "submodules/gitoxide/gix-fsck" }
+gix-glob = { path = "submodules/gitoxide/gix-glob" }
+gix-hash = { path = "submodules/gitoxide/gix-hash" }
+gix-hashtable = { path = "submodules/gitoxide/gix-hashtable" }
+gix-ignore = { path = "submodules/gitoxide/gix-ignore" }
+gix-index = { path = "submodules/gitoxide/gix-index" }
+gix-lfs = { path = "submodules/gitoxide/gix-lfs" }
+gix-lock = { path = "submodules/gitoxide/gix-lock" }
+gix-macros = { path = "submodules/gitoxide/gix-macros" }
+gix-mailmap = { path = "submodules/gitoxide/gix-mailmap" }
+gix-merge = { path = "submodules/gitoxide/gix-merge" }
+gix-negotiate = { path = "submodules/gitoxide/gix-negotiate" }
+gix-note = { path = "submodules/gitoxide/gix-note" }
+gix-object = { path = "submodules/gitoxide/gix-object" }
+gix-odb = { path = "submodules/gitoxide/gix-odb" }
+gix-pack = { path = "submodules/gitoxide/gix-pack" }
+gix-packetline = { path = "submodules/gitoxide/gix-packetline" }
+gix-path = { path = "submodules/gitoxide/gix-path" }
+gix-pathspec = { path = "submodules/gitoxide/gix-pathspec" }
+gix-prompt = { path = "submodules/gitoxide/gix-prompt" }
+gix-protocol = { path = "submodules/gitoxide/gix-protocol" }
+gix-quote = { path = "submodules/gitoxide/gix-quote" }
+gix-rebase = { path = "submodules/gitoxide/gix-rebase" }
+gix-ref = { path = "submodules/gitoxide/gix-ref" }
+gix-refspec = { path = "submodules/gitoxide/gix-refspec" }
+gix-revision = { path = "submodules/gitoxide/gix-revision" }
+gix-revwalk = { path = "submodules/gitoxide/gix-revwalk" }
+gix-sec = { path = "submodules/gitoxide/gix-sec" }
+gix-sequencer = { path = "submodules/gitoxide/gix-sequencer" }
+gix-shallow = { path = "submodules/gitoxide/gix-shallow" }
+gix-status = { path = "submodules/gitoxide/gix-status" }
+gix-submodule = { path = "submodules/gitoxide/gix-submodule" }
+gix-tempfile = { path = "submodules/gitoxide/gix-tempfile", features = [] }
+gix-testtools = { path = "submodules/gitoxide/tests/tools" }
+gix-tix = { path = "submodules/gitoxide/gix-tix" }
+gix-trace = { path = "submodules/gitoxide/gix-trace" }
+gix-transport = { path = "submodules/gitoxide/gix-transport" }
+gix-traverse = { path = "submodules/gitoxide/gix-traverse" }
+gix-tui = { path = "submodules/gitoxide/gix-tui" }
+gix-url = { path = "submodules/gitoxide/gix-url" }
+gix-utils = { path = "submodules/gitoxide/gix-utils" }
+gix-validate = { path = "submodules/gitoxide/gix-validate" }
+gix-worktree = { path = "submodules/gitoxide/gix-worktree" }
+gix-worktree-state = { path = "submodules/gitoxide/gix-worktree-state" }
+gix-worktree-stream = { path = "submodules/gitoxide/gix-worktree-stream" }
+glob = { path = "submodules/glob" }
+globwalk = { path = "submodules/globwalk" }
+group = { path = "submodules/group" }
+hash32 = { path = "submodules/hash32" }
+hashbrown = { path = "submodules/hashbrown" }
+hashlink = { path = "submodules/hashlink" }
+heapless = { path = "submodules/heapless" }
+hex = { path = "submodules/rust-hex" }
+hir = { path = "submodules/rust-analyzer/crates/hir" }
+hir-def = { path = "submodules/rust-analyzer/crates/hir-def" }
+hir-expand = { path = "submodules/rust-analyzer/crates/hir-expand"}
+hir-ty = { path = "submodules/rust-analyzer/crates/hir-ty"}
+hkdf = { path = "submodules/KDFs/hkdf" }
+hmac = { path = "submodules/MACs/hmac" }
+home = { path = "submodules/cargo/crates/home" }
+http = { package = "http", version = "1.1.0" }
+http-auth = { path = "submodules/http-auth" }
+human_format = { path = "submodules/human-format-rs" }
+iai = "0.1"
+iana-time-zone = { path = "submodules/iana-time-zone" }
+icu_normalizer = { path = "submodules/icu4x/components/normalizer" }
+icu_properties = { path = "submodules/icu4x/components/properties" }
+icu_properties_data = { path = "submodules/icu4x/provider/data/properties" }
+ide = { path = "submodules/rust-analyzer/crates/ide"}
+ide-assists = { path = "submodules/rust-analyzer/crates/ide-assists"}
+ide-completion = { path = "submodules/rust-analyzer/crates/ide-completion"}
+ide-db = { path = "submodules/rust-analyzer/crates/ide-db"}
+ide-diagnostics = { path = "submodules/rust-analyzer/crates/ide-diagnostics"}
+ide-ssr = { path = "submodules/rust-analyzer/crates/ide-ssr"}
+ignore = "0.4.25"
+im-rc = { path = "submodules/im-rs/rc" }
+imara-diff = { path = "submodules/imara-diff" }
+indexmap = { path = "submodules/indexmap" }
+intern = { path = "./submodules/rust-analyzer/crates/intern"} # Add this line
+intl-memoizer = { path= "submodules/fluent-rs/intl-memoizer" }
+intl_pluralrules = "7.0"
+io-uring = { path = "submodules/io-uring" }
+is_executable = { path = "submodules/is_executable" }
+is_terminal_polyfill = { path = "submodules/is_terminal_polyfill" }
+itertools = { path = "submodules/itertools" }
+itoa = { path = "submodules/itoa" }
+jemalloc-ctl = { path = "submodules/jemallocator/jemalloc-ctl" , package = "tikv-jemalloc-ctl"}
+jemallocator = { path = "submodules/jemallocator/jemallocator" }
+jiff = { version = "0.2.15", features = [ "std" ] }
+jobserver = "0.1.34"
+la-arena = { path = "submodules/rust-analyzer/lib/la-arena" }
+lazy_static = { path = "submodules/lazy-static" }
+libc = { path = "submodules/libc", features = ["extra_traits"] }
+libgit2-sys = { path = "submodules/git2-rs/libgit2-sys" }
+libloading = { path = "submodules/rust_libloading" }
+libm = { path = "submodules/compiler-builtins/libm" }
+libnghttp2-sys = { path = "submodules/nghttp2-rs" }
+libz-rs-sys = { path = "submodules/zlib-rs/libz-rs-sys" }
+line-index = { path = "submodules/rust-analyzer/lib/line-index" }
+linux-raw-sys = { path = "submodules/linux-raw-sys" }
+litemap = { path = "submodules/icu4x/utils/litemap" }
+litrs = { path = "submodules/litrs" }
+load-cargo = { path = "submodules/rust-analyzer/crates/load-cargo"}
+lock_api = { path = "submodules/parking_lot/lock_api" }
+log = "0.4"
+loom = { path = "submodules/loom" }
+lsp-server = { path = "submodules/rust-analyzer/lib/lsp-server" }
+macros = { path = "submodules/rust-analyzer/crates/macros"}
+macrotest.path = "submodules/macrotest"
+maybe-async = { path = "submodules/maybe-async-rs" }
+mbe = { path = "submodules/rust-analyzer/crates/mbe"}
+md-5 = { path = "submodules/hashes/md5" }
+md5 = { path = "submodules/md5" }
+measureme  = { path= "submodules/measureme/measureme" }
+memchr = { path = "submodules/memchr" }
+memfd = "0.6.5"
+memmap2 = { path = "submodules/memmap2-rs" }
+memoffset = { path = "submodules/memoffset" }
+minimal-lexical = { path = "submodules/minimal-lexical" }
+miniz_oxide = { path = "submodules/miniz_oxide/miniz_oxide" }
+mio = { path = "submodules/mio" }
+miow = "0.6.1"
+mockall = { path = "submodules/mockall/mockall" }
+nix.path = "submodules/nix"
+nohash-hasher = { path = "submodules/nohash-hasher" }
+nom = { path = "submodules/nom" }
+nu-ansi-term = { path = "submodules/nu-ansi-term" }
+num-conv = { path = "submodules/num-conv" }
+object = { path = "submodules/object", features = ['read_core', 'elf', 'macho', 'pe', 'xcoff', 'unaligned', 'archive'] }
+odds = { path = "submodules/odds" }
+once_cell = { path = "submodules/once_cell" }
+oorandom = { path = "submodules/oorandom" }
+opener = { path = "submodules/opener/opener" }
+openssl = "0.10.74"
+openssl-probe = { path = "submodules/openssl-probe" }
+orion = { path = "submodules/orion" }
+os_info = { path = "submodules/os_info/os_info" }
+p384 = { path = "submodules/elliptic-curves/p384" }
+parking_lot = { path = "submodules/parking_lot" , version = "0.12.6"}
+#parking_lot = { path = "submodules/parking_lot" , version ="0.9.13"}
+parking_lot_core = { path = "submodules/parking_lot/core" , version = "0.9.13"}
+parser = { path = "submodules/rust-analyzer/crates/parser"}
+pasetors = { path = "submodules/pasetors", features = ["v3", "serde"] }
+pathdiff = { path = "submodules/pathdiff" }
+paths = { path = "submodules/rust-analyzer/crates/paths"}
+percent-encoding = "2.3.2"
+perf-event-open-sys = "3.0.0"
+pest_derive = { path = "submodules/pest/derive" }
+pest_generator = { path = "submodules/pest/generator" }
+pest_meta = { path = "submodules/pest/meta" }
+petgraph = { path = "submodules/petgraph" } # FIXME
+pin-project-lite = { path = "submodules/pin-project-lite" }
+pin-utils = { path = "submodules/pin-utils" }
+potential_utf = { path = "submodules/icu4x/utils/potential_utf" }
+powerfmt-macros = { path = "submodules/powerfmt/powerfmt-macros" }
+ppv-lite86 = { path = "submodules/cryptocorrosion/utils-simd/ppv-lite86" }
+primeorder = { path = "submodules/elliptic-curves/primeorder" }
+proc-macro-api = { path = "submodules/rust-analyzer/crates/proc-macro-api"}
+proc-macro-srv = { path = "submodules/rust-analyzer/crates/proc-macro-srv"}
+proc-macro-srv-cli = { path = "submodules/rust-analyzer/crates/proc-macro-srv-cli"}
+proc-macro2 = { path = "submodules/proc-macro2" }
+process-wrap = { version = "8.2.1", features = ["std"] }
+prodash = { path = "submodules/prodash" }
+profile = { path = "submodules/rust-analyzer/crates/profile"}
+project-model = { path = "submodules/rust-analyzer/crates/project-model"}
+proptest = "1.9.0"
+pulldown-cmark = { version = "0.9.6" }
+query-group = { package = "query-group-macro", path = "./submodules/rust-analyzer/crates/query-group-macro"} # Add this line
+quickcheck = { path = "submodules/quickcheck" }
+quote = { path = "submodules/quote" }
+ra-ap-rustc_abi = {  path = "./submodules/rust/compiler/rustc_abi", package="rustc_abi" }
+ra-ap-rustc_ast_ir = { path = "./submodules/rust/compiler/rustc_ast_ir", package="rustc_ast_ir" }
+ra-ap-rustc_index = { path = "./submodules/rust/compiler/rustc_index", package="rustc_index" }
+ra-ap-rustc_lexer = { path = "./submodules/rust/compiler/rustc_lexer" , package="rustc_lexer" }
+ra-ap-rustc_next_trait_solver = { path = "./submodules/rust/compiler/rustc_next_trait_solver", package= "rustc_next_trait_solver" }
+ra-ap-rustc_parse_format = { path = "./submodules/rust/compiler/rustc_parse_format", package="rustc_parse_format" }
+ra-ap-rustc_pattern_analysis = { path = "./submodules/rust/compiler/rustc_pattern_analysis", package="rustc_pattern_analysis" }
+ra-ap-rustc_type_ir = {  path = "./submodules/rust/compiler/rustc_type_ir", package="rustc_type_ir" }
+rand = { path = "submodules/rand" }
+rand_xorshift = { path = "submodules/rngs/rand_xorshift" }
+rayon = { path = "submodules/rayon" }
+rayon-core = {  path = "submodules/rayon/rayon-core" }
+regex = { path = "submodules/regex", features = ["std"] }
+regex-automata = { path = "submodules/regex/regex-automata" }
+regex-syntax = { path = "submodules/regex/regex-syntax" }
+reqwest = { path = "submodules/reqwest" }
+rfc6979 = { path = "submodules/signatures/rfc6979" }
+rocksdb = { path = "submodules/rocksdb" }
+rowan = { path = "submodules/rowan" }
+rusqlite = { path = "submodules/rusqlite", features = ["fallible_uint"]}
+rustc-demangle = { path = "submodules/rustc-demangle" }
+rustc-hash = { path = "submodules/rustc-hash" }
+rustc-literal-escaper = { path = "submodules/rustc-literal-escaper" }
+rustc-stable-hash = { path = "submodules/rustc-stable-hash" }
+rustc_apfloat = { path = "submodules/rustc_apfloat" }
+rustc_ast = { path = "submodules/rust/compiler/rustc_ast" }
+rustc_data_structures = { path = "submodules/rust/compiler/rustc_data_structures" }
+rustc_driver = { path = "submodules/rust/compiler/rustc_driver" }
+rustc_hir = { path = "submodules/rust/compiler/rustc_hir" }
+rustc_index = { path = "submodules/rust/compiler/rustc_index" }
+rustc_infer = { path = "submodules/rust/compiler/rustc_infer" }
+rustc_interface = { path = "submodules/rust/compiler/rustc_interface" }
+rustc_lint = { path = "submodules/rust/compiler/rustc_lint" }
+rustc_middle = { path = "submodules/rust/compiler/rustc_middle" }
+rustc_session = { path = "submodules/rust/compiler/rustc_session" }
+rustc_span = { path = "submodules/rust/compiler/rustc_span" }
+rustc_tools_util = { path = "submodules/rust/src/tools/clippy/rustc_tools_util" }
+rustc_trait_selection = { path = "submodules/rust/compiler/rustc_trait_selection" }
+rustc_transmute = { path = "submodules/rust/compiler/rustc_transmute" }
+rustfix = { path = "submodules/cargo/crates/rustfix" }
+rustix = { path = "submodules/rustix" }
+rustversion = { path = "submodules/rustversion" }
+ruzstd = { path = "submodules/zstd-rs/ruzstd" }
+ryu = { path = "submodules/ryu" }
+salsa = { path = "submodules/salsa" , features = ["rayon", "salsa_unstable", "macros", "inventory"] } # Add this line
+salsa-macros = { path = "submodules/salsa/components/salsa-macros" }
+same-file = { path = "submodules/same-file" }
+schemars = "1.0.5"
+scoped-tls = { path = "submodules/scoped-tls" }
+sec1 = { path = "submodules/formats/sec1" }
+security-framework = "3.5.1"
+semver = { path = "submodules/semver", features = ["serde"] }
+serde = { path = "submodules/serde/serde", features = ["derive"] }
+serde-untagged = "0.1.9"
+serde-value = { path = "submodules/serde-value" }
+serde_core = { path = "submodules/serde/serde_core" }
+serde_derive = { path = "submodules/serde/serde_derive" }
+serde_ignored = { path = "submodules/serde-ignored" }
+serde_json = { path = "submodules/json" }
+serde_spanned = { path = "submodules/toml/crates/serde_spanned" }
+serial_test= { path = "submodules/serial_test/serial_test" }
+sha1 = { path = "submodules/hashes/sha1" }
+sha1-checked = { path = "submodules/hashes/sha1-checked" }
+sha2 = { path = "submodules/hashes/sha2" }
+sharded-slab = { path = "submodules/sharded-slab" }
+shell-escape = "0.1.5"
+signal-hook = { path = "submodules/signal-hook" }
+signal-hook-async-std = { path = "submodules/signal-hook/signal-hook-async-std" }
+signal-hook-mio = { path = "submodules/signal-hook/signal-hook-mio" }
+signal-hook-registry = { path = "submodules/signal-hook/signal-hook-registry" }
+signal-hook-tokio = { path = "submodules/signal-hook/signal-hook-tokio" }
+signature = { path = "submodules/traits/signature" }
+simd-adler32 = { path = "submodules/simd-adler32" }
+similar = "2.7.0"
+sized-chunks = { path = "submodules/sized-chunks" }
+slab = { path = "submodules/slab" }
+smallvec = { path = "submodules/rust-smallvec" }
+smol_str = { path = "submodules/rust-analyzer/lib/smol_str" }
+snapbox = { path = "submodules/snapbox/crates/snapbox", features = ["dir", "json"] }
+socket2 = { path = "submodules/socket2" }
+span = { path = "./submodules/rust-analyzer/crates/span"} # Add this line
+static_assertions = { path = "submodules/static-assertions-rs" }
+stdx = { path = "submodules/rust-analyzer/crates/stdx"}
+strsim = { path = "submodules/strsim-rs" }
+supports-hyperlinks = { path = "submodules/supports-hyperlinks" }
+supports-unicode = { path = "submodules/supports-unicode" }
+sval = { path = "submodules/sval" }
+syn = { path = "submodules/syn" }
+syn-adapter-lib= {path=   "tools/syn-adapter-lib"}
+syn-codegen = { path = "submodules/syn/json" }
+syntax = { path = "./submodules/rust-analyzer/crates/syntax"} # Add this line
+syntax-bridge = { path = "./submodules/rust-analyzer/crates/syntax-bridge"} # Add this line
+tar = { version = "0.4.44" }
+temp-dir = { path = "submodules/temp-dir/temp-dir" }
+temp-env = { path = "submodules/temp-env" }
+tempfile = { path = "submodules/tempfile" }
+tera = { path = "submodules/tera" }
+terminal_size = { path = "submodules/terminal-size" }
+test-fixture = { path = "submodules/rust-analyzer/crates/test-fixture"}
+test-utils = { path = "submodules/rust-analyzer/crates/test-utils"}
+text-size = { path = "submodules/text-size" }
+thiserror = { path = "submodules/thiserror" }
+thiserror-impl = { path = "submodules/thiserror/impl" }
+thread_local = { path = "submodules/thread_local-rs" }
+tikv-jemalloc-sys = { path = "submodules/jemallocator/jemalloc-sys" }
+time = { version = "0.3.44", features = ["parsing", "formatting", "serde"] }
+tinystr = { path = "submodules/icu4x/utils/tinystr" }
+tinyvec = { path = "submodules/tinyvec" }
+tinyvec_macros = { path = "submodules/tinyvec_macros" }
+tokio = { path = "submodules/tokio/tokio", features = ["full"] }
+tokio-core = { path = "submodules/tokio-core" }
+tokio-stream = { path = "submodules/tokio/tokio-stream" }
+tokio-test = { path = "submodules/tokio/tokio-test" }
+tokio-util = { path = "submodules/tokio/tokio-util" }
+toml = { path = "submodules/toml/crates/toml" }
+toml_datetime = { path = "submodules/toml/crates/toml_datetime" }
+toml_edit = { path = "submodules/toml/crates/toml_edit" }
+toml_parser = { path = "submodules/toml/crates/toml_parser" }
+toml_writer = { path = "submodules/toml/crates/toml_writer" }
+tool-traits-lib = { path = "./tools/tool-traits-lib" }
+toolchain = { path = "submodules/rust-analyzer/crates/toolchain"}
+tracing = { path = "submodules/tracing/tracing" }
+tracing-attributes = { path = "submodules/tracing/tracing-attributes" }
+tracing-chrome = { path = "submodules/tracing-chrome" }
+tracing-core = { path = "submodules/tracing/tracing-core" }
+tracing-log = { path = "submodules/tracing/tracing-log" }
+tracing-subscriber = { path = "submodules/tracing/tracing-subscriber", features = ["env-filter"] }
+tracing-tower = { path = "submodules/tracing/tracing-tower" }
+tracing-tree = { path = "submodules/tracing-tree" }
+triomphe = { version = "0.1.14", features = ["std"] } # Add this line
+trybuild = { path = "submodules/trybuild" }
+trycmd = { path = "submodules/snapbox/crates/trycmd" }
+tt = { path = "./submodules/rust-analyzer/crates/tt"} # Add this line
+twox-hash = { path = "submodules/twox-hash" }
+typenum = { path = "submodules/typenum" }
+typesize = { path = "submodules/typesize" }
+typesize-derive = { path = "submodules/typesize/typesize-derive" }
+ucd-trie = { path = "submodules/ucd-generate/ucd-trie" }
+uluru = { path = "submodules/uluru" }
+unic-langid = "0.9"
+unicase = { path = "submodules/unicase" }
+unicode-bom = { path = "submodules/unicode-bom" }
+unicode-ident = { path = "submodules/unicode-ident" }
+unicode-normalization = { path = "submodules/unicode-normalization" }
+unicode-segmentation = { path = "submodules/unicode-segmentation" }
+unicode-width = { path = "submodules/unicode-width" }
+url = { path = "submodules/rust-url/url" }
+version_check = { path = "submodules/version_check" }
+vfs = { path = "./submodules/rust-analyzer/crates/vfs"} # Add this line
+vfs-notify = { path = "submodules/rust-analyzer/crates/vfs-notify"}
+walkdir = { path = "submodules/walkdir" }
+wasm_sync = { path = "submodules/wasm_sync" }
+windows = { path = "submodules/windows-rs/crates/libs/windows" }
+windows-bindgen = { path = "submodules/windows-rs/crates/libs/bindgen" }
+windows-bindings = { path = "submodules/jni-rs/windows-bindings" }
+windows-collections = { path = "submodules/windows-rs/crates/libs/collections" }
+windows-core = { path = "submodules/windows-rs/crates/libs/core" }
+windows-future = { path = "submodules/windows-rs/crates/libs/future" }
+windows-implement = { path = "submodules/windows-rs/crates/libs/implement" }
+windows-interface = { path = "submodules/windows-rs/crates/libs/interface" }
+windows-link = { path = "submodules/windows-rs/crates/libs/link" }
+windows-metadata = { path = "submodules/windows-rs/crates/libs/metadata" }
+windows-numerics = { path = "submodules/windows-rs/crates/libs/numerics" }
+windows-registry = { path = "submodules/windows-rs/crates/libs/registry" }
+windows-result = { path = "submodules/windows-rs/crates/libs/result" }
+windows-services = { path = "submodules/windows-rs/crates/libs/services" }
+windows-strings = { path = "submodules/windows-rs/crates/libs/strings" }
+windows-sys = { path = "submodules/windows-rs/crates/libs/sys" }
+windows-targets = { path = "submodules/rust/library/windows_targets" }
+windows-threading = { path = "submodules/windows-rs/crates/libs/threading" }
+windows-version = { path = "submodules/windows-rs/crates/libs/version" }
+windows_aarch64_gnullvm = { path = "submodules/windows-rs/crates/targets/aarch64_gnullvm" }
+windows_aarch64_msvc = { path = "submodules/windows-rs/crates/targets/aarch64_msvc" }
+windows_i686_gnu = { path = "submodules/windows-rs/crates/targets/i686_gnu" }
+windows_i686_gnullvm = { path = "submodules/windows-rs/crates/targets/i686_gnullvm" }
+windows_i686_msvc = { path = "submodules/windows-rs/crates/targets/i686_msvc" }
+windows_x86_64_gnu = { path = "submodules/windows-rs/crates/targets/x86_64_gnu" }
+windows_x86_64_gnullvm = { path = "submodules/windows-rs/crates/targets/x86_64_gnullvm" }
+windows_x86_64_msvc = { path = "submodules/windows-rs/crates/targets/x86_64_msvc" }
+winnow = "0.7.13"
+xattr = { path = "submodules/xattr" }
+xz2 = { path = "submodules/xz2-rs" }
+zip = { path = "submodules/zip2" }
+yoke-derive = { path = "submodules/icu4x/utils/yoke/derive" }
+zerocopy = { path = "submodules/zerocopy" }
+zerofrom-derive = { path = "submodules/icu4x/utils/zerofrom/derive" }
+zerovec-derive = { path = "submodules/icu4x/utils/zerovec/derive" }
 
-[dependencies]
-anyhow = {version = "1.0.75", features = ["backtrace"]}
-cargo = "0.86.0"
-cargo-platform = "0.2.0"
-clap = {version = "4.4.6", features = ["derive"]}
-clap_complete = {version = "4.4.3"}
-colorify = "0.2.3"
-pathdiff = "0.2.1"
-semver = "1.0.20"
-serde = {version = "1.0.189", features = ["derive"]}
-sha2 = "0.10.8"
-tempfile = "3.8.0"
-tera = {version = "1.19.1", default-features = false}
-toml = "0.8.2"
+zlib-rs = { path = "submodules/zlib-rs/zlib-rs" }
+
+
+# [workspace.dependencies]
+# analyzeme = { version = "12.0.3", path = "analyzeme" }
+# decodeme = { version = "12.0.3", path = "decodeme" }
+# decodeme_10 = { version = "10.1.3", package = "decodeme" }
+# measureme = { version = "12.0.3", path = "measureme" }
+# measureme_10 = { version = "10.1.3", package = "measureme" }
+# clap = { version = "4.5.0", features = ["derive"] }
+# flate2 = "1.0"
+# inferno = { version = "0.11", default-features = false }
+# log = "0.4"
+# memchr = "2"
+# memmap2 = "0.2.1"
+# parking_lot = "0.12.0"
+# prettytable-rs = "0.10"
+# rustc-hash = "1.0.1"
+# serde = { version = "1.0", features = ["derive"] }
+# serde_json = "1.0"
+# smallvec = "1.0"
+
+
+
+[workspace]
+resolver = "3"
+members = [
+	"submodules/hyper",
+    "crates/addr2line-bin",
+    "crates/factory_block_factory_block",
+    "crates/monster_math_traits",
+    "crates/rusttycoon",
+    "crates/factory_abi",
+    "crates/solana-monster-system",
+    "crates/ast_parser_impl",
+    "tools/cargo-repo-sync", # Add this line
+    #"tools/cargo-submodule-tool",
+    "tools/dep2submodule",
+    "tools/generate_workspace_deps",
+    "tools/cargo-workspace-from-tree",
+    "tools/secret-manager-rs",
+    "tools/cargo-submodule-tool-lib",
+    #"tools/cargo-submodule-tool",
+    "tools/syn-adapter-lib",
+    "tools/feature-permutation-builder",
+    "tools/cargo-feature-adapter",
+    "tools/cargo-llm-bootstrap",
+    "tools/rust-src-scanner",
+    "tools/graph-petal-generator",
+    "tools/monster-grouper",
+    "tools/trait-fixer",
+    "submodules/rust/compiler/rustc_ast",
+    "submodules/rust/compiler/rustc_data_structures",
+    "submodules/rust/compiler/rustc_driver",
+    "submodules/rust/compiler/rustc_hir",
+    "submodules/rust/compiler/rustc_index",
+    "submodules/rust/compiler/rustc_interface",
+    "submodules/rust/compiler/rustc_lint",
+    "submodules/rust/compiler/rustc_middle",
+    "submodules/rust/compiler/rustc_session",
+    "submodules/rust/compiler/rustc_span",
+    "submodules/rust/src/tools/clippy/rustc_tools_util",
+    "submodules/rust/compiler/rustc_fluent_macro",
+#    "submodules/static-assertions-rs",
+    "submodules/static-assertions-rs/proc",
+
+    "submodules/rowan",
+    "submodules/expect-test",
+    "submodules/dot-parser",
+    "submodules/dot-parser/macros",
+    "submodules/rocksdb",
+        "submodules/rocksdb/librocksdb-sys",
+        "crates/trait-fixer-attribute-reader-trait",
+        "crates/trait-fixer-attribute-reader-real",
+        "crates/trait-fixer-attribute-reader-mock",
+        "crates/trait-fixer-compiler-host-trait",
+        "crates/trait-fixer-compiler-host-real",
+        "crates/trait-fixer-compiler-host-mock",
+        "crates/trait-fixer-core-trait",
+        "crates/trait-fixer-core-real",
+        "crates/trait-fixer-core-mock",
+        "crates/trait-fixer-hir-info-trait",
+        "crates/trait-fixer-hir-info-real",
+        "crates/trait-fixer-hir-info-mock",
+        "crates/trait-fixer-lang-items-trait",
+        "crates/trait-fixer-lang-items-real",
+        "crates/trait-fixer-lang-items-mock",
+        "crates/trait-fixer-query-context-trait",
+        "crates/trait-fixer-query-context-real",
+        "crates/trait-fixer-query-context-mock",
+        "crates/trait-fixer-rules-trait",
+        "crates/trait-fixer-rules-real",
+        "crates/trait-fixer-rules-mock",
+        "crates/trait-fixer-rustc-mock",
+        "crates/trait-fixer-trait-checker-trait",
+        "crates/trait-fixer-trait-checker-real",
+        "crates/trait-fixer-trait-checker-mock",
+        "tests/trait_fixer_mocks",
+        "tests/real_rules_test",
+	#"patcher",
+    ]
+exclude = [
+]
+
+[workspace.package]
+publish=false
+description="wip"
+categories = []
+version = "0.1.0"
+authors = ["Your Name <your.email@example.com>"]
+rust-version = "1.89"
+edition = "2024"
+#resolver = "3"
+license = "MIT OR Apache-2.0"
+homepage = "https://github.com/meta-introspector/cargo2nix"
+repository = "https://github.com/meta-introspector/cargo2nix"
+keywords = ["rust"]
+include = [
+  "build.rs",
+  "src/**/*",
+  "Cargo.toml",
+  "Cargo.lock",
+  "LICENSE*",
+  "README.md",
+  "examples/**/*"
+]
+
+
+
+
+[workspace.lints]
+
+[workspace.lints.rust]
+#unexpected_cfgs = { level = "warn", check-cfg = ["has_specialisation"] }
+all = "allow"
+warnings = "allow"
+[workspace.lints.clippy]
+#unexpected_cfgs = { level = "warn", check-cfg = ["has_specialisation"] }
+all = "allow"
+warnings = "allow"
+
+[patch.crates-io]
+
+async-stream = { path = "submodules/async-stream-vendored" }
+bstr = { path = "submodules/bstr" }
+clap = { path = "submodules/clap" }
+git2 = { path = "submodules/git2-rs" }
+curl = { path = "submodules/curl-rust", features = ["http2"]  }
+curl-sys = { path = "submodules/curl-rust/curl-sys" }
+dashmap = { path = "submodules/dashmap" , version = "7.0.0-hack"} 
+fluent-bundle = { path= "submodules/fluent-rs/fluent-bundle" }
+futures-channel = { path = "submodules/futures-rs/futures-channel" }
+futures-core = { path = "submodules/futures-rs/futures-core" }
+futures-executor = { path = "submodules/futures-rs/futures-executor" }
+futures-io = { path = "submodules/futures-rs/futures-io" }
+futures-sink = { path = "submodules/futures-rs/futures-sink" }
+futures-task = { path = "submodules/futures-rs/futures-task" }
+futures-util = { path = "submodules/futures-rs/futures-util" }
+hyper = { path = "submodules/hyper" }
+idna = {path = "submodules/rust-url/idna/" }
+libc = { path = "submodules/libc", features = ["extra_traits"] }
+libgit2-sys = { path = "submodules/git2-rs/libgit2-sys" }
+#lzma-rust2 = { path = "submodules/lzma-rust2" }
+lzma-sys = { path = "submodules/xz2-rs/lzma-sys" }
+measureme  = { path= "submodules/measureme/measureme" }
+parking_lot = { path = "submodules/parking_lot" , version = "0.12.6"}
+parking_lot_core = { path = "submodules/parking_lot/core" , version = "0.9.13"}
+proc-macro2 = { path = "submodules/proc-macro2" }
+quote = { path = "submodules/quote" }
+ra-ap-rustc_abi = {  path = "./submodules/rust/compiler/rustc_abi", package="rustc_abi" }
+ra-ap-rustc_ast_ir = { path = "./submodules/rust/compiler/rustc_ast_ir", package="rustc_ast_ir" }
+ra-ap-rustc_index  = { path = "submodules/rust/compiler/rustc_index" , package="rustc_index"}
+ra-ap-rustc_lexer = { path = "./submodules/rust/compiler/rustc_lexer" , package="rustc_lexer" }
+ra-ap-rustc_parse_format = { path = "./submodules/rust/compiler/rustc_parse_format", package="rustc_parse_format" }
+ra-ap-rustc_pattern_analysis = { path = "./submodules/rust/compiler/rustc_pattern_analysis", package="rustc_pattern_analysis" }
+ra-ap-rustc_type_ir = {  path = "./submodules/rust/compiler/rustc_type_ir", package="rustc_type_ir" }
+rayon-core = {  path = "submodules/rayon/rayon-core" }
+rusqlite = { path = "submodules/rusqlite", features = ["fallible_uint"]}
+serde = { path = "submodules/serde/serde" }
+serde_core = { path = "submodules/serde/serde_core" }
+serde_derive = { path = "submodules/serde/serde_derive" }
+smallvec = { path = "submodules/rust-smallvec", version = "2.0.0-alpha.12" }
+syn = { path = "submodules/syn" }
+tokio-core = { path = "submodules/tokio-core" }
+tokio-stream = { path = "submodules/tokio/tokio-stream" }
+tracing-subscriber = { path = "submodules/tracing/tracing-subscriber" }
+tracing-tree = { version = "0.4.1", path = "submodules/tracing-tree" }
+xz2 = { path = "submodules/xz2-rs" }
+tokio = { path = "submodules/tokio/tokio" }
+tokio-test = { path = "submodules/tokio/tokio-test" }
+tokio-util = { path = "submodules/tokio/tokio-util" }
+anstyle = { path = "submodules/anstyle/crates/anstyle" }
+anstream = { path = "submodules/anstyle/crates/anstream" }
+anstyle-parse = { path = "submodules/anstyle/crates/anstyle-parse" }
+anstyle-query = { path = "submodules/anstyle/crates/anstyle-query" }
+colorchoice = { path = "submodules/anstyle/crates/colorchoice" }
+annotate-snippets = { path = "submodules/annotate-snippets-rs" }
+cargo = { path = "submodules/cargo" }
+
+#lzma-rust2 = { path = "submodules/lzma-rust2" }
+#liblzma = { path = "submodules/liblzma-rs"}

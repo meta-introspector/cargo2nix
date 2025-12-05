@@ -1,0 +1,19 @@
+name = "Synthesize Formal Theory: rustc ZKP as Topological Index"
+description = """
+Synthesize the components to form a single, formal statement: the analytic index computed by `rustc`
+for a program P (witnessed by its ZKP) is equal to the topological index of its modular form
+encoding Φ(P). The `MonstrouslyVerified` blanket `impl` embodies this synthesis.
+Document this as the cornerstone of the framework.
+"""
+status = "todo"
+depends_on = [
+    "establish_correspondence_mathematical_computational_concepts.toml",
+    "define_analytic_task_rustc_as_zkp_generation.toml"
+]
+related_concepts = ["Analytic index", "topological index", "Zero-Knowledge Proof (ZKP)", "modular form encoding", "MonstrouslyVerified blanket impl"]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/zkp_monster_circuit.rs",
+    "crates/solana-monster-system/src/bin/zkp_monster_verifier.rs",
+    "crates/solana-monster-system/src/bin/rustc_monster_polynomial.rs",
+    "crates/solana-monster-system/src/modular_form_encoding.rs" # Module, but relevant
+]

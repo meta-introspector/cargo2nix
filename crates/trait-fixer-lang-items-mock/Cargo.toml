@@ -1,0 +1,8 @@
+[package]
+name = "trait-fixer-lang-items-mock"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+trait-fixer-lang-items-trait = { path = "../trait-fixer-lang-items-trait" }
+trait-fixer-rustc-mock = { path = "../trait-fixer-rustc-mock" }

@@ -1,0 +1,30 @@
+# tasks/toml/08_refine_inductive_declarations_complex_types.toml
+#
+# This task addresses the refinement of inductive declaration collection to
+# handle complex custom types like structs and enums more comprehensively.
+# The current implementation simplifies size calculation for these types.
+
+[task]
+name = "Refine Inductive Declarations for Complex Types"
+description = "Enhance `rust-src-scanner` to recursively calculate bit sizes for custom structs and enums, and to assign monster factors based on these more precise sizes."
+priority = "medium"
+status = "pending"
+assignee = "Gemini"
+due_date = "2025-12-05"
+
+[steps]
+step_1 = { description = "Review current `InductiveDeclarationsCollector`'s `get_primitive_bit_size` and `visit_item_struct`/`visit_item_enum` methods to identify points of extension for recursive size calculation.", command = "review_collector_code.sh" }
+step_2 = { description = "Implement logic to resolve definitions of custom types (structs, enums) within the parsed files, potentially building a symbol table or a multi-pass analysis.", command = "implement_type_resolution.sh" }
+step_3 = { description = "Modify `get_primitive_bit_size` (or create a new helper) to recursively calculate the total bit size of structs by summing field sizes, and enums by considering their variants and discriminants.", command = "implement_recursive_size_calc.sh" }
+step_4 = { description = "Update the `NixDeclaration` for structs and enums to include their calculated bit sizes and ensure monster factors are derived from these sizes.", command = "update_nix_declaration.sh" }
+step_5 = { description = "Create unit tests for the recursive size calculation logic to cover nested structs, enums with data, and various primitive combinations.", command = "add_unit_tests_size_calc.sh" }
+step_6 = { description = "Run `rust-src-scanner` with the updated logic against a test Rust project containing complex types and verify the refined declarations in RocksDB.", command = "verify_refined_declarations.sh" }
+
+[output]
+rocksdb_path = "/tmp/rust_scanner_output/inductive_decls.rocksdb"
+refinement_report = "/tmp/rust_scanner_output/refinement_report.md"
+
+[dependencies]
+rust_src_scanner_compiled = true
+07_verify_inductive_declarations = true
+"

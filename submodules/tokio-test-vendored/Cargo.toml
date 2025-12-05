@@ -1,0 +1,20 @@
+[package]
+name = "tokio-test"
+version = "0.4.3"
+edition = "2018"
+description = "Testing utilities for Tokio- and futures-based code"
+license = "MIT"
+homepage = "https://tokio.rs"
+repository = "https://github.com/tokio-rs/tokio"
+documentation = "https://docs.rs/tokio-test/0.4.3"
+
+[dependencies]
+async-stream = "0.3.5" # Using our vendored version
+bytes = "1.0.0"
+futures-core = { path = "../futures-rs/futures-core" }
+tokio = { version = "1.2.0", features = ["full"] }
+tokio-stream = "0.1.1" # Will be vendored/patched
+
+[dev-dependencies]
+futures-util = { path = "../futures-rs/futures-util" }
+tokio = { version = "1.2.0", features = ["macros", "rt-multi-thread"] }

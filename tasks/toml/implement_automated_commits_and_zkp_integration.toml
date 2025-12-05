@@ -1,0 +1,12 @@
+description = "Develop a system for automatically committing changes detected by the file system monitor and integrating Zero-Knowledge Proofs to verify the integrity of the global state updates."
+steps = [
+    "Implement a background process that listens to file system events and triggers automated Git commits.",
+    "Research and select a suitable ZKP system (e.g., `halo2`, `arkworks`).",
+    "Define the verifiable computation for proving the integrity of `rollup.lock` updates (e.g., proving that a new hash is correctly derived from file content, or that a state transition is valid).",
+    "Implement ZKP generation and verification within the Solana program or an off-chain prover."
+]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/zkp_monster_circuit.rs",
+    "crates/solana-monster-system/src/bin/meme_pda_storage.rs",
+    "crates/solana-monster-system/src/bin/solfunmeme_zero_ontology.rs"
+]

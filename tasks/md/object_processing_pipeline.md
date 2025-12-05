@@ -1,0 +1,1 @@
+ok now lets run this and collect our cache (including the same sha that git uses ) then we will calculate if we have objects not in .git objects because we include those in our data, we can then fold identical objects. next we will assign them a position in our elliptical curve/torus.

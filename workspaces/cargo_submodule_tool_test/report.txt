@@ -1,0 +1,2087 @@
+-*- mode: cargo-compilation; default-directory: "~/cargo2nix/workspaces/cargo_submodule_tool_test/" -*-
+Cargo started at Fri Nov 21 17:06:51
+
+/nix/store/mycvvd0d9ih11ybr7q6iqbfy0wppgj24-rust-default-1.92.0-nightly-2025-09-16/bin/cargo build
+warning: resolver for the non root package will be ignored, specify resolver at the workspace root:
+package:   /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/workspaces/cargo_submodule_tool_test/Cargo.toml
+workspace: /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/workspaces/Cargo.toml
+warning: virtual workspace defaulting to `resolver = "1"` despite one or more workspace members being on edition 2024 which implies `resolver = "3"`
+note: to keep the current resolver, specify `workspace.resolver = "1"` in the workspace root's manifest
+note: to use the edition 2024 resolver, specify `workspace.resolver = "3"` in the workspace root's manifest
+note: for more details see https://doc.rust-lang.org/cargo/reference/resolver.html#resolver-versions
+warning: /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/Cargo.toml: unused manifest key: workspace.package.resolver
+warning: patch for `curl` uses the features mechanism. default-features and features will not take effect because the patch dependency does not support this mechanism
+warning: patch for `pasetors` uses the features mechanism. default-features and features will not take effect because the patch dependency does not support this mechanism
+warning: patch for `serde` uses the features mechanism. default-features and features will not take effect because the patch dependency does not support this mechanism
+warning: patch for `serde_core` uses the features mechanism. default-features and features will not take effect because the patch dependency does not support this mechanism
+warning: Patch `anstyle v1.0.13 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/anstyle/crates/anstyle)` was not used in the crate graph.
+Patch `bit-vec v0.8.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/bit-vec)` was not used in the crate graph.
+Patch `blocking v1.6.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/blocking)` was not used in the crate graph.
+Patch `camino v1.2.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/camino)` was not used in the crate graph.
+Patch `cargo-platform v0.3.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cargo/crates/cargo-platform)` was not used in the crate graph.
+Patch `cc v1.2.46 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cc-rs)` was not used in the crate graph.
+Patch `cfg-if v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg-if)` was not used in the crate graph.
+Patch `cfg_aliases v0.2.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/cfg_aliases)` was not used in the crate graph.
+Patch `clap v4.5.53 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/clap)` was not used in the crate graph.
+Patch `clru v0.6.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/clru-rs)` was not used in the crate graph.
+Patch `crc32fast v1.5.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-crc32fast)` was not used in the crate graph.
+Patch `criterion v0.1.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/criterion)` was not used in the crate graph.
+Patch `crunchy v0.2.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/crunchy)` was not used in the crate graph.
+Patch `ct-codecs v1.1.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-ct-codecs)` was not used in the crate graph.
+Patch `curl v0.4.49 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/curl-rust)` was not used in the crate graph.
+Patch `curl-sys v0.4.84+curl-8.17.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/curl-rust/curl-sys)` was not used in the crate graph.
+Patch `deranged v0.5.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/deranged/deranged)` was not used in the crate graph.
+Patch `displaydoc v0.2.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/displaydoc)` was not used in the crate graph.
+Patch `ed25519-compact v2.1.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-ed25519-compact)` was not used in the crate graph.
+Patch `either v1.15.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/either)` was not used in the crate graph.
+Patch `encoding_rs v0.8.35 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/encoding_rs)` was not used in the crate graph.
+Patch `equivalent v1.0.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/equivalent)` was not used in the crate graph.
+Patch `erased-serde v0.4.9 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/erased-serde)` was not used in the crate graph.
+Patch `errno v0.3.14 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-errno)` was not used in the crate graph.
+Patch `fallible-iterator v0.3.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-fallible-iterator)` was not used in the crate graph.
+Patch `fallible-streaming-iterator v0.1.9 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/fallible-streaming-iterator)` was not used in the crate graph.
+Patch `fastrand v2.3.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/fastrand)` was not used in the crate graph.
+Patch `ff v0.13.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/ff)` was not used in the crate graph.
+Patch `filetime v0.2.26 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/filetime)` was not used in the crate graph.
+Patch `flate2 v1.1.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/flate2-rs)` was not used in the crate graph.
+Patch `fnv v1.0.7 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-fnv)` was not used in the crate graph.
+Patch `foldhash v0.2.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/foldhash)` was not used in the crate graph.
+Patch `futures-concurrency v7.6.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/futures-concurrency)` was not used in the crate graph.
+Patch `getrandom v0.3.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/getrandom)` was not used in the crate graph.
+Patch `gimli v0.32.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/gimli)` was not used in the crate graph.
+Patch `git2 v0.21.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/git2-rs)` was not used in the crate graph.
+Patch `git2-curl v0.22.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/git2-rs/git2-curl)` was not used in the crate graph.
+Patch `glob v0.3.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/glob)` was not used in the crate graph.
+Patch `group v0.13.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/group)` was not used in the crate graph.
+Patch `hashbrown v0.16.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/hashbrown)` was not used in the crate graph.
+Patch `heck v0.5.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/heck)` was not used in the crate graph.
+Patch `hex v0.4.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-hex)` was not used in the crate graph.
+Patch `http-auth v0.1.10 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/http-auth)` was not used in the crate graph.
+Patch `idna_adapter v1.2.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/idna_adapter)` was not used in the crate graph.
+Patch `indexmap v2.12.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/indexmap)` was not used in the crate graph.
+Patch `is_executable v1.0.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/is_executable)` was not used in the crate graph.
+Patch `is_terminal_polyfill v1.70.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/is_terminal_polyfill)` was not used in the crate graph.
+Patch `jiff v0.2.16 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/jiff)` was not used in the crate graph.
+Patch `jobserver v0.1.34 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/jobserver-rs)` was not used in the crate graph.
+Patch `kstring v2.0.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/kstring)` was not used in the crate graph.
+Patch `lazycell v1.3.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/lazycell)` was not used in the crate graph.
+Patch `libz-sys v1.1.23 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/libz-sys)` was not used in the crate graph.
+Patch `log v0.4.28 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/log)` was not used in the crate graph.
+Patch `macrotest v1.2.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/macrotest)` was not used in the crate graph.
+Patch `matchers v0.2.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/matchers)` was not used in the crate graph.
+Patch `maybe-async v0.2.10 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/maybe-async-rs)` was not used in the crate graph.
+Patch `memmap2 v0.9.9 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memmap2-rs)` was not used in the crate graph.
+Patch `minimal-lexical v0.2.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/minimal-lexical)` was not used in the crate graph.
+Patch `mio-aio v1.0.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/mio-aio)` was not used in the crate graph.
+Patch `miow v0.6.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/miow)` was not used in the crate graph.
+Patch `mockall v0.13.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/mockall/mockall)` was not used in the crate graph.
+Patch `nix v0.30.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/nix)` was not used in the crate graph.
+Patch `nu-ansi-term v0.50.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/nu-ansi-term)` was not used in the crate graph.
+Patch `num-conv v0.2.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/num-conv)` was not used in the crate graph.
+Patch `num-traits v0.2.19 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/num-traits)` was not used in the crate graph.
+Patch `num_threads v0.1.7 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/num_threads)` was not used in the crate graph.
+Patch `once_cell v1.21.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/once_cell)` was not used in the crate graph.
+Patch `once_cell_polyfill v1.56.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/once_cell_polyfill)` was not used in the crate graph.
+Patch `openssl-probe v0.1.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/openssl-probe)` was not used in the crate graph.
+Patch `openssl-sys v0.9.111 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-openssl/openssl-sys)` was not used in the crate graph.
+Patch `orion v0.17.11 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/orion)` was not used in the crate graph.
+Patch `parking_lot v0.12.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/parking_lot)` was not used in the crate graph.
+Patch `pasetors v0.7.7 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/pasetors)` was not used in the crate graph.
+Patch `pathdiff v0.2.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/pathdiff)` was not used in the crate graph.
+Patch `pin-project-lite v0.2.16 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/pin-project-lite)` was not used in the crate graph.
+Patch `pkg-config v0.3.32 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/pkg-config-rs)` was not used in the crate graph.
+Patch `portable-atomic v1.11.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/portable-atomic)` was not used in the crate graph.
+Patch `prettyplease v0.2.37 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/prettyplease)` was not used in the crate graph.
+Patch `quickcheck v1.0.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/quickcheck)` was not used in the crate graph.
+Patch `r-efi v5.3.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/r-efi)` was not used in the crate graph.
+Patch `rayon v1.11.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rayon)` was not used in the crate graph.
+Patch `rayon-core v1.13.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rayon/rayon-core)` was not used in the crate graph.
+Patch `regex v1.12.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/regex)` was not used in the crate graph.
+Patch `rustc-demangle v0.1.26 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rustc-demangle)` was not used in the crate graph.
+Patch `rustc-hash v2.1.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rustc-hash)` was not used in the crate graph.
+Patch `rustc-stable-hash v0.1.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rustc-stable-hash)` was not used in the crate graph.
+Patch `rustix v1.1.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rustix)` was not used in the crate graph.
+Patch `rustversion v1.0.22 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rustversion)` was not used in the crate graph.
+Patch `ruzstd v0.8.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/zstd-rs/ruzstd)` was not used in the crate graph.
+Patch `same-file v1.0.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/same-file)` was not used in the crate graph.
+Patch `schannel v0.1.28 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/schannel-rs)` was not used in the crate graph.
+Patch `scopeguard v1.2.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/scopeguard)` was not used in the crate graph.
+Patch `serde-untagged v0.1.9 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/serde-untagged)` was not used in the crate graph.
+Patch `serde-value v0.7.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/serde-value)` was not used in the crate graph.
+Patch `sharded-slab v0.1.7 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/sharded-slab)` was not used in the crate graph.
+Patch `shell-escape v0.1.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/shell-escape)` was not used in the crate graph.
+Patch `shell-words v1.1.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/shell-words)` was not used in the crate graph.
+Patch `shlex v1.3.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/rust-shlex)` was not used in the crate graph.
+Patch `simd-adler32 v0.3.7 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/simd-adler32)` was not used in the crate graph.
+Patch `socket2 v0.6.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/socket2)` was not used in the crate graph.
+Patch `stable_deref_trait v1.2.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/stable_deref_trait)` was not used in the crate graph.
+Patch `strsim v0.11.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/strsim-rs)` was not used in the crate graph.
+Patch `subtle v2.6.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/subtle)` was not used in the crate graph.
+Patch `supports-hyperlinks v3.1.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/supports-hyperlinks)` was not used in the crate graph.
+Patch `supports-unicode v3.0.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/supports-unicode)` was not used in the crate graph.
+Patch `synstructure v0.13.2 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/synstructure)` was not used in the crate graph.
+Patch `tar v0.4.44 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/tar-rs)` was not used in the crate graph.
+Patch `tempfile v3.23.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/tempfile)` was not used in the crate graph.
+Patch `thiserror v2.0.17 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thiserror)` was not used in the crate graph.
+Patch `thread_local v1.1.9 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/thread_local-rs)` was not used in the crate graph.
+Patch `time v0.3.44 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/time/time)` was not used in the crate graph.
+Patch `tinyvec v1.10.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/tinyvec)` was not used in the crate graph.
+Patch `tinyvec_macros v0.1.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/tinyvec_macros)` was not used in the crate graph.
+Patch `typeid v1.0.3 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/typeid)` was not used in the crate graph.
+Patch `typenum v1.19.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/typenum)` was not used in the crate graph.
+Patch `unicase v2.8.1 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/unicase)` was not used in the crate graph.
+Patch `unicode-normalization v0.1.25 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/unicode-normalization)` was not used in the crate graph.
+Patch `unicode-segmentation v1.12.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/unicode-segmentation)` was not used in the crate graph.
+Patch `unicode-xid v0.2.6 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/unicode-xid)` was not used in the crate graph.
+Patch `utf8_iter v1.0.4 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/utf8_iter)` was not used in the crate graph.
+Patch `vcpkg v0.2.15 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/vcpkg-rs)` was not used in the crate graph.
+Patch `version_check v0.9.5 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/version_check)` was not used in the crate graph.
+Patch `walkdir v2.5.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/walkdir)` was not used in the crate graph.
+Patch `wasm-bindgen v0.2.105 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/wasm-bindgen)` was not used in the crate graph.
+Patch `winapi-util v0.1.11 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/winapi-util)` was not used in the crate graph.
+Patch `winnow v0.7.13 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/winnow)` was not used in the crate graph.
+Patch `zerocopy v0.8.27 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/zerocopy)` was not used in the crate graph.
+Check that the patched package version and available features are compatible
+with the dependency requirements. If the patch has a different version from
+what is locked in the Cargo.lock file, run `cargo update` to use the new
+version. This may also occur with an optional dependency that is not enabled.
+warning: struct `SensibleMoveMask` is never constructed
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memchr/src/vector.rs:118:19
+    |
+118 | pub(crate) struct SensibleMoveMask(u32);
+    |                   ^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `get_for_offset` is never used
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/memchr/src/vector.rs:126:8
+    |
+120 | impl SensibleMoveMask {
+    | --------------------- method in this implementation
+...
+126 |     fn get_for_offset(self) -> u32 {
+    |        ^^^^^^^^^^^^^^
+
+warning: `memchr` (lib) generated 2 warnings
+   Compiling cargo-submodule-tool-lib v0.1.0 (/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib)
+error[E0432]: unresolved import `toml_edit`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_toml_patcher.rs:5:5
+  |
+5 | use toml_edit::{DocumentMut, Item, RawString};
+  |     ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+  |
+  = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `crate::executors::git_executor`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/submodule_status.rs:7:23
+  |
+7 | use crate::executors::git_executor::GitExecutor;
+  |                       ^^^^^^^^^^^^ could not find `git_executor` in `executors`
+
+error[E0432]: unresolved import `crate::executors::git_executor`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:25:23
+   |
+25 | use crate::executors::git_executor::GitExecutor;
+   |                       ^^^^^^^^^^^^ could not find `git_executor` in `executors`
+
+error[E0432]: unresolved import `crate::analysis::cargo_metadata_provider::RealCargoMetadataProvider`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:26:71
+   |
+26 | use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
+   |                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                                                       |
+   |                                                                       no `RealCargoMetadataProvider` in `analysis::cargo_metadata_provider`
+   |                                                                       help: a similar name exists in the module: `CargoMetadataProvider`
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_metadata_provider.rs:11:12
+   |
+10 | #[cfg(feature = "nix_generation")]
+   |       -------------------------- the item is gated behind the `nix_generation` feature
+11 | pub struct RealCargoMetadataProvider;
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0432]: unresolved import `crate::executors::git_executor`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_patches.rs:24:23
+   |
+24 | use crate::executors::git_executor::GitExecutor;
+   |                       ^^^^^^^^^^^^ could not find `git_executor` in `executors`
+
+error[E0432]: unresolved import `crate::analysis::cargo_metadata_provider::RealCargoMetadataProvider`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_patches.rs:26:71
+   |
+26 | use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
+   |                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                                                       |
+   |                                                                       no `RealCargoMetadataProvider` in `analysis::cargo_metadata_provider`
+   |                                                                       help: a similar name exists in the module: `CargoMetadataProvider`
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_metadata_provider.rs:11:12
+   |
+10 | #[cfg(feature = "nix_generation")]
+   |       -------------------------- the item is gated behind the `nix_generation` feature
+11 | pub struct RealCargoMetadataProvider;
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0432]: unresolved import `crate::analysis::cargo_metadata_provider::RealCargoMetadataProvider`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/analyze.rs:19:71
+   |
+19 | use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
+   |                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                                                       |
+   |                                                                       no `RealCargoMetadataProvider` in `analysis::cargo_metadata_provider`
+   |                                                                       help: a similar name exists in the module: `CargoMetadataProvider`
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_metadata_provider.rs:11:12
+   |
+10 | #[cfg(feature = "nix_generation")]
+   |       -------------------------- the item is gated behind the `nix_generation` feature
+11 | pub struct RealCargoMetadataProvider;
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0432]: unresolved import `crate::executors::git_executor`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/analyze.rs:22:23
+   |
+22 | use crate::executors::git_executor::GitExecutor;
+   |                       ^^^^^^^^^^^^ could not find `git_executor` in `executors`
+
+error[E0432]: unresolved import `walkdir`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_workspaces.rs:10:5
+   |
+10 | use walkdir::WalkDir;
+   |     ^^^^^^^ use of unresolved module or unlinked crate `walkdir`
+   |
+   = help: if you wanted to use a crate named `walkdir`, use `cargo add walkdir` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `crate::analysis::cargo_metadata_provider::RealCargoMetadataProvider`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:30:71
+   |
+30 | use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
+   |                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                                                       |
+   |                                                                       no `RealCargoMetadataProvider` in `analysis::cargo_metadata_provider`
+   |                                                                       help: a similar name exists in the module: `CargoMetadataProvider`
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_metadata_provider.rs:11:12
+   |
+10 | #[cfg(feature = "nix_generation")]
+   |       -------------------------- the item is gated behind the `nix_generation` feature
+11 | pub struct RealCargoMetadataProvider;
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0432]: unresolved import `crate::executors::git_executor`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/collect_repo_state.rs:6:23
+  |
+6 | use crate::executors::git_executor::GitExecutor;
+  |                       ^^^^^^^^^^^^ could not find `git_executor` in `executors`
+
+error[E0432]: unresolved import `crate::analysis::cargo_metadata_provider::RealCargoMetadataProvider`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/collect_repo_state.rs:11:71
+   |
+11 | use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider, DummyCargoMetadataProvider};
+   |                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                                                       |
+   |                                                                       no `RealCargoMetadataProvider` in `analysis::cargo_metadata_provider`
+   |                                                                       help: a similar name exists in the module: `CargoMetadataProvider`
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_metadata_provider.rs:11:12
+   |
+10 | #[cfg(feature = "nix_generation")]
+   |       -------------------------- the item is gated behind the `nix_generation` feature
+11 | pub struct RealCargoMetadataProvider;
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0432]: unresolved import `sha2`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/git_snapshot.rs:9:5
+  |
+9 | use sha2::{Sha256, Digest};
+  |     ^^^^ use of unresolved module or unlinked crate `sha2`
+  |
+  = help: if you wanted to use a crate named `sha2`, use `cargo add sha2` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `hex`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/git_snapshot.rs:10:5
+   |
+10 | use hex;
+   |     ^^^ no external crate `hex`
+
+error[E0432]: unresolved import `md5`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/real_submodule_stat_provider.rs:10:5
+   |
+10 | use md5;
+   |     ^^^ no external crate `md5`
+
+error[E0432]: unresolved import `walkdir`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/run_submodule_status.rs:9:5
+  |
+9 | use walkdir::WalkDir;
+  |     ^^^^^^^ use of unresolved module or unlinked crate `walkdir`
+  |
+  = help: if you wanted to use a crate named `walkdir`, use `cargo add walkdir` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `crate::executors::GitExecutor`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/run_submodule_status.rs:11:24
+   |
+11 | use crate::executors::{GitExecutor, SystemGhExecutor, PureRustGitExecutor};
+   |                        ^^^^^^^^^^^
+   |                        |
+   |                        no `GitExecutor` in `executors`
+   |                        help: a similar name exists in the module: `GhExecutor`
+
+error[E0432]: unresolved imports `crate::executors::GitExecutor`, `crate::executors::SystemGitExecutor`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:10:24
+   |
+10 | use crate::executors::{GitExecutor, SystemGitExecutor, PureRustGitExecutor}; // Add this import
+   |                        ^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^ no `SystemGitExecutor` in `executors`
+   |                        |
+   |                        no `GitExecutor` in `executors`
+   |
+help: a similar name exists in the module
+   |
+10 - use crate::executors::{GitExecutor, SystemGitExecutor, PureRustGitExecutor}; // Add this import
+10 + use crate::executors::{GhExecutor, SystemGitExecutor, PureRustGitExecutor}; // Add this import
+   |
+help: a similar name exists in the module
+   |
+10 - use crate::executors::{GitExecutor, SystemGitExecutor, PureRustGitExecutor}; // Add this import
+10 + use crate::executors::{GitExecutor, SystemGhExecutor, PureRustGitExecutor}; // Add this import
+   |
+
+error[E0432]: unresolved import `regex`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/workspace_deps_generator.rs:5:5
+  |
+5 | use regex::Regex;
+  |     ^^^^^ use of unresolved module or unlinked crate `regex`
+  |
+  = help: if you wanted to use a crate named `regex`, use `cargo add regex` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `git2`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/workspace_deps_generator.rs:6:5
+  |
+6 | use git2::Repository; // Import git2
+  |     ^^^^ use of unresolved module or unlinked crate `git2`
+  |
+  = help: if you wanted to use a crate named `git2`, use `cargo add git2` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `cargo_metadata`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/workspace_deps_generator.rs:7:5
+  |
+7 | use cargo_metadata::MetadataCommand; // Import cargo_metadata
+  |     ^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `cargo_metadata`
+  |
+  = help: if you wanted to use a crate named `cargo_metadata`, use `cargo add cargo_metadata` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `walkdir`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/workspace_deps_generator.rs:8:5
+  |
+8 | use walkdir::WalkDir; // Import walkdir
+  |     ^^^^^^^ use of unresolved module or unlinked crate `walkdir`
+  |
+  = help: if you wanted to use a crate named `walkdir`, use `cargo add walkdir` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `toml_edit`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/workspace_generator.rs:4:17
+  |
+4 | use toml_edit::{self}; // Added toml_edit::
+  |                 ^^^^ no external crate `toml_edit`
+
+error[E0432]: unresolved import `regex`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:4:5
+  |
+4 | use regex::Regex;
+  |     ^^^^^ use of unresolved module or unlinked crate `regex`
+  |
+  = help: if you wanted to use a crate named `regex`, use `cargo add regex` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `lazy_static`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:6:5
+  |
+6 | use lazy_static::lazy_static;
+  |     ^^^^^^^^^^^ use of unresolved module or unlinked crate `lazy_static`
+  |
+  = help: if you wanted to use a crate named `lazy_static`, use `cargo add lazy_static` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `toml_edit`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:7:5
+  |
+7 | use toml_edit::{Document, DocumentMut, Item, Table, Value};
+  |     ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+  |
+  = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `walkdir`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:8:5
+  |
+8 | use walkdir::WalkDir;
+  |     ^^^^^^^ use of unresolved module or unlinked crate `walkdir`
+  |
+  = help: if you wanted to use a crate named `walkdir`, use `cargo add walkdir` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `super::git_executor`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/executors.rs:11:12
+   |
+11 | use super::git_executor::GitExecutor;
+   |            ^^^^^^^^^^^^ could not find `git_executor` in the crate root
+
+error[E0432]: unresolved import `toml_edit`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/plan_manager.rs:11:5
+   |
+11 | use toml_edit;
+   |     ^^^^^^^^^ no external crate `toml_edit`
+
+error[E0432]: unresolved import `walkdir`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/plan_manager.rs:12:5
+   |
+12 | use walkdir;
+   |     ^^^^^^^ no external crate `walkdir`
+
+error[E0432]: unresolved import `git2`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/plan_manager.rs:13:5
+   |
+13 | use git2;
+   |     ^^^^ no external crate `git2`
+
+error[E0432]: unresolved import `regex`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_discovery.rs:2:5
+  |
+2 | use regex::Regex;
+  |     ^^^^^ use of unresolved module or unlinked crate `regex`
+  |
+  = help: if you wanted to use a crate named `regex`, use `cargo add regex` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `toml_edit`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_discovery.rs:7:5
+  |
+7 | use toml_edit::{Document, Item};
+  |     ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+  |
+  = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `walkdir`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_discovery.rs:8:5
+  |
+8 | use walkdir::WalkDir;
+  |     ^^^^^^^ use of unresolved module or unlinked crate `walkdir`
+  |
+  = help: if you wanted to use a crate named `walkdir`, use `cargo add walkdir` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `clap`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:1:5
+  |
+1 | use clap::error::{Error, ErrorKind};
+  |     ^^^^ use of unresolved module or unlinked crate `clap`
+  |
+  = help: if you wanted to use a crate named `clap`, use `cargo add clap` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `crate::execv::RealExecv`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:11:5
+   |
+11 | use crate::execv::RealExecv; // Add this import
+   |     ^^^^^^^^^^^^^^^^^^^^^^^ no `RealExecv` in `execv`
+
+error[E0432]: unresolved import `clap`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:2:5
+  |
+2 | use clap::{Parser, FromArgMatches, Subcommand, Args as ClapArgs, Command};
+  |     ^^^^ use of unresolved module or unlinked crate `clap`
+  |
+  = help: if you wanted to use a crate named `clap`, use `cargo add clap` to add it to your `Cargo.toml`
+
+error: cannot find attribute `command` in this scope
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:6:3
+  |
+6 | #[command(author, version, about, long_about = None)]
+  |   ^^^^^^^
+
+error: cannot find attribute `command` in this scope
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:8:7
+  |
+8 |     #[command(subcommand)]
+  |       ^^^^^^^
+
+error: cannot find attribute `arg` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:12:7
+   |
+12 |     #[arg(long, global = true)]
+   |       ^^^
+
+error: cannot find attribute `arg` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:16:7
+   |
+16 |     #[arg(long, global = true)]
+   |       ^^^
+
+error: cannot find attribute `arg` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:20:7
+   |
+20 |     #[arg(long, global = true)]
+   |       ^^^
+
+error: cannot find attribute `arg` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:24:7
+   |
+24 |     #[arg(long, global = true)]
+   |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:118:7
+    |
+118 |     #[arg(long, default_value = ".")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:122:7
+    |
+122 |     #[arg(long, default_value = "generated_workspaces")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:126:7
+    |
+126 |     #[arg(long, default_value = "depgraph.dot")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:130:7
+    |
+130 |     #[arg(long, default_value = "tree.txt")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:134:7
+    |
+134 |     #[arg(long)]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:141:7
+    |
+141 |     #[arg(long, default_value = ".")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:148:7
+    |
+148 |     #[arg(long, default_value = ".")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:155:7
+    |
+155 |     #[arg(long, default_value = "depgraph.dot")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:159:7
+    |
+159 |     #[arg(long, default_value = "tree.txt")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:163:7
+    |
+163 |     #[arg(long, default_value = "Cargo.lock")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:167:7
+    |
+167 |     #[arg(long, default_value = ".cargo/config.toml")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:171:7
+    |
+171 |     #[arg(long, default_value = "submodules/members.txt")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:175:7
+    |
+175 |     #[arg(long, default_value = "submodules")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:179:7
+    |
+179 |     #[arg(long, default_value = ".")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:186:7
+    |
+186 |     #[arg(long, default_value = "Cargo.toml")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:190:7
+    |
+190 |     #[arg(long, default_value = ".")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:197:7
+    |
+197 |     #[arg(long, default_value = "tt.txt")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:201:7
+    |
+201 |     #[arg(long, default_value = "submodules")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:208:7
+    |
+208 |     #[arg(long, default_value = ".")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:215:7
+    |
+215 |     #[arg(long, default_value = ".")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:219:7
+    |
+219 |     #[arg(long)]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:223:7
+    |
+223 |     #[arg(long)]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:227:7
+    |
+227 |     #[arg(long, default_value = "submodules.txt")]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:231:7
+    |
+231 |     #[arg(long)]
+    |       ^^^
+
+error: cannot find attribute `arg` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:238:7
+    |
+238 |     #[arg(long, default_value = ".")]
+    |       ^^^
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_toml_patcher.rs:45:63
+   |
+45 |                         *item = toml_edit::Value::InlineTable(toml_edit::InlineTable::new()).into();
+   |                                                               ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+   |
+   = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `walkdir`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/git_snapshot.rs:211:22
+    |
+211 |         for entry in walkdir::WalkDir::new(repo_path)
+    |                      ^^^^^^^ use of unresolved module or unlinked crate `walkdir`
+    |
+    = help: if you wanted to use a crate named `walkdir`, use `cargo add walkdir` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/update_cargo_config.rs:41:37
+   |
+41 |         let mut crate_entry_table = toml_edit::Table::new();
+   |                                     ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+   |
+   = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/update_cargo_config.rs:45:13
+   |
+45 |             toml_edit::Item::Table(crate_entry_table),
+   |             ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+   |
+   = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `walkdir`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:292:18
+    |
+292 |     for entry in walkdir::WalkDir::new(root_dir)
+    |                  ^^^^^^^ use of unresolved module or unlinked crate `walkdir`
+    |
+    = help: if you wanted to use a crate named `walkdir`, use `cargo add walkdir` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:327:53
+    |
+327 | ...                   let mut new_dep_table = toml_edit::Table::new();
+    |                                               ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:330:42
+    |
+330 | ...                   *dep_value = toml_edit::Item::Table(new_dep_table);
+    |                                    ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:640:20
+    |
+640 |         .or_insert(toml_edit::Item::Table(toml_edit::Table::new()))
+    |                    ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:640:43
+    |
+640 |         .or_insert(toml_edit::Item::Table(toml_edit::Table::new()))
+    |                                           ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:647:20
+    |
+647 |         .or_insert(toml_edit::Item::Table(toml_edit::Table::new()))
+    |                    ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:647:43
+    |
+647 |         .or_insert(toml_edit::Item::Table(toml_edit::Table::new()))
+    |                                           ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:654:20
+    |
+654 |         .or_insert(toml_edit::Item::Table(toml_edit::Table::new()))
+    |                    ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:654:43
+    |
+654 |         .or_insert(toml_edit::Item::Table(toml_edit::Table::new()))
+    |                                           ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:658:47
+    |
+658 |     let config_paths_value = toml_edit::value(toml_edit::Array::from_iter(
+    |                                               ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+help: there is an enum variant `serde_json::Value::Array`; try using the variant's enum
+    |
+658 -     let config_paths_value = toml_edit::value(toml_edit::Array::from_iter(
+658 +     let config_paths_value = toml_edit::value(serde_json::Value::from_iter(
+    |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `walkdir`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:718:18
+    |
+718 |     for entry in walkdir::WalkDir::new(&vendor_dir)
+    |                  ^^^^^^^ use of unresolved module or unlinked crate `walkdir`
+    |
+    = help: if you wanted to use a crate named `walkdir`, use `cargo add walkdir` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `walkdir`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/workspace_generator.rs:192:18
+    |
+192 |     for entry in walkdir::WalkDir::new(&submodules_dir)
+    |                  ^^^^^^^ use of unresolved module or unlinked crate `walkdir`
+    |
+    = help: if you wanted to use a crate named `walkdir`, use `cargo add walkdir` to add it to your `Cargo.toml`
+
+error[E0425]: cannot find value `member_line_re` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/submodule_config_patcher.rs:34:37
+   |
+34 |             if let Some(captures) = member_line_re.captures(line) {
+   |                                     ^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find value `member_name_re` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/submodule_config_patcher.rs:51:39
+   |
+51 |                 for member_capture in member_name_re.captures_iter(&members_str) {
+   |                                       ^^^^^^^^^^^^^^ not found in this scope
+
+error[E0412]: cannot find type `DocumentMut` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/workspace_remover.rs:34:43
+   |
+34 |             let mut doc = content.parse::<DocumentMut>()
+   |                                           ^^^^^^^^^^^ not found in this scope
+   |
+help: you might be missing a type parameter
+   |
+16 | impl<DocumentMut> WorkspaceRemover for RealWorkspaceRemover {
+   |     +++++++++++++
+
+error[E0412]: cannot find type `Metadata` in this scope
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_metadata_provider.rs:7:64
+  |
+7 |     fn provide_metadata(&self, manifest_path: &Path) -> Result<Metadata>;
+  |                                                                ^^^^^^^^ not found in this scope
+  |
+help: consider importing this struct
+  |
+1 + use std::fs::Metadata;
+  |
+
+error[E0412]: cannot find type `Metadata` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_metadata_provider.rs:27:64
+   |
+27 |     fn provide_metadata(&self, manifest_path: &Path) -> Result<Metadata> {
+   |                                                                ^^^^^^^^ not found in this scope
+   |
+help: consider importing this struct
+   |
+ 1 + use std::fs::Metadata;
+   |
+
+error[E0405]: cannot find trait `CargoMetadataProvider` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_toml_updater.rs:21:38
+   |
+21 |     cargo_metadata_provider: Box<dyn CargoMetadataProvider + Send + Sync>,
+   |                                      ^^^^^^^^^^^^^^^^^^^^^ not found in this scope
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:13:48
+   |
+12 | #[cfg(feature = "nix_generation")]
+   |       -------------------------- the item is gated behind the `nix_generation` feature
+13 | use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
+   |                                                ^^^^^^^^^^^^^^^^^^^^^
+help: consider importing this trait
+   |
+ 2 + use crate::cargo_metadata_provider::CargoMetadataProvider;
+   |
+
+error[E0405]: cannot find trait `CargoMetadataProvider` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_toml_updater.rs:27:42
+   |
+27 |         cargo_metadata_provider: Box<dyn CargoMetadataProvider + Send + Sync>,
+   |                                          ^^^^^^^^^^^^^^^^^^^^^ not found in this scope
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:13:48
+   |
+12 | #[cfg(feature = "nix_generation")]
+   |       -------------------------- the item is gated behind the `nix_generation` feature
+13 | use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
+   |                                                ^^^^^^^^^^^^^^^^^^^^^
+help: consider importing this trait
+   |
+ 2 + use crate::cargo_metadata_provider::CargoMetadataProvider;
+   |
+
+error[E0412]: cannot find type `DocumentMut` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_toml_updater.rs:93:39
+   |
+93 |         let mut doc = content.parse::<DocumentMut>()
+   |                                       ^^^^^^^^^^^ not found in this scope
+   |
+help: you might be missing a type parameter
+   |
+34 | impl<DocumentMut> CargoTomlUpdater for RealCargoTomlUpdater {
+   |     +++++++++++++
+
+error[E0405]: cannot find trait `GitExecutor` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/repo_state_collector.rs:24:27
+   |
+24 |     git_executor: Arc<dyn GitExecutor + Send + Sync>,
+   |                           ^^^^^^^^^^^ not found in this scope
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:11:37
+   |
+10 | #[cfg(feature = "system_git")]
+   |       ---------------------- the item is gated behind the `system_git` feature
+11 | use crate::executors::git_executor::GitExecutor;
+   |                                     ^^^^^^^^^^^
+
+error[E0405]: cannot find trait `CargoMetadataProvider` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/repo_state_collector.rs:25:38
+   |
+25 |     cargo_metadata_provider: Box<dyn CargoMetadataProvider + Send + Sync>,
+   |                                      ^^^^^^^^^^^^^^^^^^^^^ not found in this scope
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:13:48
+   |
+12 | #[cfg(feature = "nix_generation")]
+   |       -------------------------- the item is gated behind the `nix_generation` feature
+13 | use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
+   |                                                ^^^^^^^^^^^^^^^^^^^^^
+help: consider importing this trait
+   |
+ 1 + use crate::cargo_metadata_provider::CargoMetadataProvider;
+   |
+
+error[E0405]: cannot find trait `GitExecutor` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/repo_state_collector.rs:30:31
+   |
+30 |         git_executor: Arc<dyn GitExecutor + Send + Sync>,
+   |                               ^^^^^^^^^^^ not found in this scope
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:11:37
+   |
+10 | #[cfg(feature = "system_git")]
+   |       ---------------------- the item is gated behind the `system_git` feature
+11 | use crate::executors::git_executor::GitExecutor;
+   |                                     ^^^^^^^^^^^
+
+error[E0405]: cannot find trait `CargoMetadataProvider` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/repo_state_collector.rs:31:42
+   |
+31 |         cargo_metadata_provider: Box<dyn CargoMetadataProvider + Send + Sync>,
+   |                                          ^^^^^^^^^^^^^^^^^^^^^ not found in this scope
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:13:48
+   |
+12 | #[cfg(feature = "nix_generation")]
+   |       -------------------------- the item is gated behind the `nix_generation` feature
+13 | use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
+   |                                                ^^^^^^^^^^^^^^^^^^^^^
+help: consider importing this trait
+   |
+ 1 + use crate::cargo_metadata_provider::CargoMetadataProvider;
+   |
+
+error[E0405]: cannot find trait `GitExecutor` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:39:24
+   |
+39 |     git_executor: &dyn GitExecutor,
+   |                        ^^^^^^^^^^^ not found in this scope
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:11:37
+   |
+10 | #[cfg(feature = "system_git")]
+   |       ---------------------- the item is gated behind the `system_git` feature
+11 | use crate::executors::git_executor::GitExecutor;
+   |                                     ^^^^^^^^^^^
+
+error[E0405]: cannot find trait `CargoMetadataProvider` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:40:35
+   |
+40 |     cargo_metadata_provider: &dyn CargoMetadataProvider,
+   |                                   ^^^^^^^^^^^^^^^^^^^^^ not found in this scope
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:13:48
+   |
+12 | #[cfg(feature = "nix_generation")]
+   |       -------------------------- the item is gated behind the `nix_generation` feature
+13 | use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
+   |                                                ^^^^^^^^^^^^^^^^^^^^^
+help: consider importing this trait
+   |
+ 1 + use crate::cargo_metadata_provider::CargoMetadataProvider;
+   |
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:161:43
+    |
+161 | ...   Item::Value(Value::String(toml_edit::Formatted::new(entry.path.to_str().context("Invalid path")?.to_string()))),
+    |                                 ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_toml_patcher.rs:45:33
+   |
+45 |                         *item = toml_edit::Value::InlineTable(toml_edit::InlineTable::new()).into();
+   |                                 ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+   |
+   = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+help: consider importing this enum
+   |
+ 1 + use serde_json::Value;
+   |
+help: if you import `Value`, refer to it directly
+   |
+45 -                         *item = toml_edit::Value::InlineTable(toml_edit::InlineTable::new()).into();
+45 +                         *item = Value::InlineTable(toml_edit::InlineTable::new()).into();
+   |
+
+error[E0405]: cannot find trait `GitExecutor` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/add_submodules.rs:31:31
+    |
+ 31 |     let git_executor: Arc<dyn GitExecutor + Send + Sync> = {
+    |                               ^^^^^^^^^^^ help: a trait with a similar name exists: `GhExecutor`
+    |
+   ::: /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/executors.rs:335:1
+    |
+335 | pub trait GhExecutor {
+    | -------------------- similarly named trait `GhExecutor` defined here
+    |
+note: found an item that was configured out
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:11:37
+    |
+ 10 | #[cfg(feature = "system_git")]
+    |       ---------------------- the item is gated behind the `system_git` feature
+ 11 | use crate::executors::git_executor::GitExecutor;
+    |                                     ^^^^^^^^^^^
+
+error[E0405]: cannot find trait `Execv` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/executors.rs:342:23
+    |
+342 |     executor: Arc<dyn Execv + Send + Sync>,
+    |                       ^^^^^ not found in this scope
+    |
+help: consider importing this trait
+    |
+  1 + use crate::execv::Execv;
+    |
+
+error[E0405]: cannot find trait `Execv` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/executors.rs:346:63
+    |
+346 |     pub fn new(gh_executable_path: PathBuf, executor: Arc<dyn Execv + Send + Sync>) -> Self {
+    |                                                               ^^^^^ not found in this scope
+    |
+help: consider importing this trait
+    |
+  1 + use crate::execv::Execv;
+    |
+
+error[E0405]: cannot find trait `GitExecutor` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/fs_cache.rs:25:27
+   |
+25 |     git_executor: Arc<dyn GitExecutor + Send + Sync>,
+   |                           ^^^^^^^^^^^ not found in this scope
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:11:37
+   |
+10 | #[cfg(feature = "system_git")]
+   |       ---------------------- the item is gated behind the `system_git` feature
+11 | use crate::executors::git_executor::GitExecutor;
+   |                                     ^^^^^^^^^^^
+
+error[E0405]: cannot find trait `GitExecutor` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/fs_cache.rs:31:38
+   |
+31 |     pub fn new(git_executor: Arc<dyn GitExecutor + Send + Sync>, rollup_lock: Arc<Mutex<RollupLock>>, root_dir: PathBuf) -> ...
+   |                                      ^^^^^^^^^^^ not found in this scope
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:11:37
+   |
+10 | #[cfg(feature = "system_git")]
+   |       ---------------------- the item is gated behind the `system_git` feature
+11 | use crate::executors::git_executor::GitExecutor;
+   |                                     ^^^^^^^^^^^
+
+error[E0405]: cannot find trait `GitExecutor` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/git_operations.rs:27:27
+   |
+27 |     git_executor: Arc<dyn GitExecutor + Send + Sync>,
+   |                           ^^^^^^^^^^^ not found in this scope
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:11:37
+   |
+10 | #[cfg(feature = "system_git")]
+   |       ---------------------- the item is gated behind the `system_git` feature
+11 | use crate::executors::git_executor::GitExecutor;
+   |                                     ^^^^^^^^^^^
+
+error[E0405]: cannot find trait `GitExecutor` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/git_operations.rs:31:38
+   |
+31 |     pub fn new(git_executor: Arc<dyn GitExecutor + Send + Sync>) -> Self {
+   |                                      ^^^^^^^^^^^ not found in this scope
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:11:37
+   |
+10 | #[cfg(feature = "system_git")]
+   |       ---------------------- the item is gated behind the `system_git` feature
+11 | use crate::executors::git_executor::GitExecutor;
+   |                                     ^^^^^^^^^^^
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_discovery.rs:82:33
+   |
+82 | ...   if let Some(Item::Value(toml_edit::Value::String(s))) = doc.get("package").and_then(|item| item.as_table()).and_then(|...
+   |                               ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+   |
+   = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+help: consider importing this enum
+   |
+ 1 + use serde_json::Value;
+   |
+help: if you import `Value`, refer to it directly
+   |
+82 -         if let Some(Item::Value(toml_edit::Value::String(s))) = doc.get("package").and_then(|item| item.as_table()).and_then(|table| table.get("repository")) {
+82 +         if let Some(Item::Value(Value::String(s))) = doc.get("package").and_then(|item| item.as_table()).and_then(|table| table.get("repository")) {
+   |
+
+error[E0405]: cannot find trait `GitExecutor` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/execute_actions_plan.rs:16:28
+   |
+16 |     git_executor: &Box<dyn GitExecutor>,
+   |                            ^^^^^^^^^^^ not found in this scope
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:11:37
+   |
+10 | #[cfg(feature = "system_git")]
+   |       ---------------------- the item is gated behind the `system_git` feature
+11 | use crate::executors::git_executor::GitExecutor;
+   |                                     ^^^^^^^^^^^
+
+error[E0412]: cannot find type `SystemGhExecutor` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/execute_actions_plan.rs:17:19
+   |
+17 |     gh_executor: &SystemGhExecutor,
+   |                   ^^^^^^^^^^^^^^^^ not found in this scope
+   |
+help: consider importing this struct through its public re-export
+   |
+ 1 + use crate::SystemGhExecutor;
+   |
+
+error[E0405]: cannot find trait `GitExecutor` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/git_snapshot.rs:118:101
+    |
+118 | ...Mutex<RollupLock>>, git_executor: Arc<dyn GitExecutor + Send + Sync>) -> Result<()> {
+    |                                              ^^^^^^^^^^^ not found in this scope
+    |
+note: found an item that was configured out
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:11:37
+    |
+ 10 | #[cfg(feature = "system_git")]
+    |       ---------------------- the item is gated behind the `system_git` feature
+ 11 | use crate::executors::git_executor::GitExecutor;
+    |                                     ^^^^^^^^^^^
+
+error[E0405]: cannot find trait `GitExecutor` in this scope
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/real_submodule_stat_provider.rs:15:31
+   |
+15 |     pub git_executor: Arc<dyn GitExecutor + Send + Sync>,
+   |                               ^^^^^^^^^^^ not found in this scope
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:11:37
+   |
+10 | #[cfg(feature = "system_git")]
+   |       ---------------------- the item is gated behind the `system_git` feature
+11 | use crate::executors::git_executor::GitExecutor;
+   |                                     ^^^^^^^^^^^
+
+error[E0433]: failed to resolve: use of undeclared type `OsStr`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:111:15
+    |
+111 |             &[OsStr::new("remote"), OsStr::new("rename"), OsStr::new("origin"), OsStr::new("upstream")],
+    |               ^^^^^ use of undeclared type `OsStr`
+    |
+help: consider importing this struct
+    |
+  1 + use std::ffi::OsStr;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `OsStr`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:111:37
+    |
+111 |             &[OsStr::new("remote"), OsStr::new("rename"), OsStr::new("origin"), OsStr::new("upstream")],
+    |                                     ^^^^^ use of undeclared type `OsStr`
+    |
+help: consider importing this struct
+    |
+  1 + use std::ffi::OsStr;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `OsStr`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:111:59
+    |
+111 |             &[OsStr::new("remote"), OsStr::new("rename"), OsStr::new("origin"), OsStr::new("upstream")],
+    |                                                           ^^^^^ use of undeclared type `OsStr`
+    |
+help: consider importing this struct
+    |
+  1 + use std::ffi::OsStr;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `OsStr`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:111:81
+    |
+111 |             &[OsStr::new("remote"), OsStr::new("rename"), OsStr::new("origin"), OsStr::new("upstream")],
+    |                                                                                 ^^^^^ use of undeclared type `OsStr`
+    |
+help: consider importing this struct
+    |
+  1 + use std::ffi::OsStr;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `OsStr`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:148:15
+    |
+148 |             &[OsStr::new("remote"), OsStr::new("add"), OsStr::new("origin"), OsStr::new(&new_origin_url)],
+    |               ^^^^^ use of undeclared type `OsStr`
+    |
+help: consider importing this struct
+    |
+  1 + use std::ffi::OsStr;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `OsStr`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:148:37
+    |
+148 |             &[OsStr::new("remote"), OsStr::new("add"), OsStr::new("origin"), OsStr::new(&new_origin_url)],
+    |                                     ^^^^^ use of undeclared type `OsStr`
+    |
+help: consider importing this struct
+    |
+  1 + use std::ffi::OsStr;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `OsStr`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:148:56
+    |
+148 |             &[OsStr::new("remote"), OsStr::new("add"), OsStr::new("origin"), OsStr::new(&new_origin_url)],
+    |                                                        ^^^^^ use of undeclared type `OsStr`
+    |
+help: consider importing this struct
+    |
+  1 + use std::ffi::OsStr;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `OsStr`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:148:78
+    |
+148 |             &[OsStr::new("remote"), OsStr::new("add"), OsStr::new("origin"), OsStr::new(&new_origin_url)],
+    |                                                                              ^^^^^ use of undeclared type `OsStr`
+    |
+help: consider importing this struct
+    |
+  1 + use std::ffi::OsStr;
+    |
+
+error[E0425]: cannot find value `submodule_toml_path` in this scope
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:572:91
+    |
+572 |                 .map_err(|e| format!("Failed to parse Cargo.toml for submodule {:?}: {}", submodule_toml_path, e))?;
+    |                                                                                           ^^^^^^^^^^^^^^^^^^^ help: a local variable with a similar name exists: `submodule_config_path`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:659:42
+    |
+659 |         generated_configs.iter().map(|s| toml_edit::Value::from(s.as_str()))
+    |                                          ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+help: consider importing this enum
+    |
+  1 + use serde_json::Value;
+    |
+help: if you import `Value`, refer to it directly
+    |
+659 -         generated_configs.iter().map(|s| toml_edit::Value::from(s.as_str()))
+659 +         generated_configs.iter().map(|s| Value::from(s.as_str()))
+    |
+
+warning: unused import: `Context`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/non_vendored_module_finder.rs:1:22
+  |
+1 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `Context`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_config_patcher.rs:1:22
+  |
+1 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused imports: `HashMap` and `HashSet`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_config_patcher.rs:2:24
+  |
+2 | use std::collections::{HashMap, HashSet};
+  |                        ^^^^^^^  ^^^^^^^
+
+warning: unused import: `PathBuf`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_config_patcher.rs:3:23
+  |
+3 | use std::path::{Path, PathBuf};
+  |                       ^^^^^^^
+
+warning: unexpected `cfg` condition value: `regex`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/submodule_config_patcher.rs:4:7
+  |
+4 | #[cfg(feature = "regex")]
+  |       ^^^^^^^^^^^^^^^^^
+  |
+  = note: expected values for `feature` are: `cargo2nix`, `cargo_metadata`, `clap`, `default`, `dummy-git`, `full`, `git2`, `hex`, `lazy_static`, `lru`, `md5`, `nix_generation`, `pathdiff`, `regex_enabled`, `sha1`, `sha2`, `system_git`, `toml`, `toml_edit`, `toml_edit_enabled`, `url`, and `walkdir`
+  = help: consider adding `regex` as a feature in `Cargo.toml`
+  = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+  = note: `#[warn(unexpected_cfgs)]` on by default
+
+warning: unexpected `cfg` condition value: `regex`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/submodule_config_patcher.rs:28:8
+   |
+28 |     #[cfg(feature = "regex")]
+   |           ^^^^^^^^^^^^^^^^^
+   |
+   = note: expected values for `feature` are: `cargo2nix`, `cargo_metadata`, `clap`, `default`, `dummy-git`, `full`, `git2`, `hex`, `lazy_static`, `lru`, `md5`, `nix_generation`, `pathdiff`, `regex_enabled`, `sha1`, `sha2`, `system_git`, `toml`, `toml_edit`, `toml_edit_enabled`, `url`, and `walkdir`
+   = help: consider adding `regex` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition value: `regex`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/submodule_config_patcher.rs:30:8
+   |
+30 |     #[cfg(feature = "regex")]
+   |           ^^^^^^^^^^^^^^^^^
+   |
+   = note: expected values for `feature` are: `cargo2nix`, `cargo_metadata`, `clap`, `default`, `dummy-git`, `full`, `git2`, `hex`, `lazy_static`, `lru`, `md5`, `nix_generation`, `pathdiff`, `regex_enabled`, `sha1`, `sha2`, `system_git`, `toml`, `toml_edit`, `toml_edit_enabled`, `url`, and `walkdir`
+   = help: consider adding `regex` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unused imports: `DummyCargoEditExecutor` and `RealCargoEditExecutor`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_toml_updater.rs:13:53
+   |
+13 | use crate::cargo_edit_executor::{CargoEditExecutor, RealCargoEditExecutor, DummyCargoEditExecutor};
+   |                                                     ^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/repo_state_collector.rs:1:22
+  |
+1 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused import: `Result`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cargo_config_generator.rs:5:23
+  |
+5 | use anyhow::{Context, Result};
+  |                       ^^^^^^
+
+warning: unused import: `Path`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/add_submodules.rs:3:17
+  |
+3 | use std::path::{Path, PathBuf};
+  |                 ^^^^
+
+warning: unused import: `std::fs`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/add_submodules.rs:4:5
+  |
+4 | use std::fs;
+  |     ^^^^^^^
+
+warning: unused import: `GhExecutor`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/add_submodules.rs:17:24
+   |
+17 | use crate::executors::{GhExecutor, PureRustGitExecutor};
+   |                        ^^^^^^^^^^
+
+warning: unused import: `Path`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/submodule_status.rs:2:17
+  |
+2 | use std::path::{Path, PathBuf};
+  |                 ^^^^
+
+warning: unused import: `GhExecutor`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/submodule_status.rs:6:24
+  |
+6 | use crate::executors::{GhExecutor, PureRustGitExecutor}; // Add this import
+  |                        ^^^^^^^^^^
+
+warning: unused import: `crate::fs_cache::RealFileSystemStat`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/submodule_status.rs:9:5
+  |
+9 | use crate::fs_cache::RealFileSystemStat; // Add this import
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:1:22
+  |
+1 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused imports: `Arc` and `Mutex`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:2:17
+  |
+2 | use std::sync::{Arc, Mutex};
+  |                 ^^^  ^^^^^
+
+warning: unused import: `crate::repo_sync_lib::repo_sync_config::RepoSyncConfig`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:10:5
+   |
+10 | use crate::repo_sync_lib::repo_sync_config::RepoSyncConfig;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::repo_sync_lib::run_submodule_status::run_submodule_status`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:11:5
+   |
+11 | use crate::repo_sync_lib::run_submodule_status::run_submodule_status;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `FileSystemStat` and `RealFileSystemStat`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:12:23
+   |
+12 | use crate::fs_cache::{RealFileSystemStat, FileSystemStat};
+   |                       ^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^
+
+warning: unused imports: `CachedFileSystemWriter`, `FileSystemWriter`, and `RealFileSystemWriter`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:13:24
+   |
+13 | use crate::fs_writer::{FileSystemWriter, CachedFileSystemWriter, RealFileSystemWriter};
+   |                        ^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::analysis::dep_graph_processor::RealDepGraphProcessor`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:14:5
+   |
+14 | use crate::analysis::dep_graph_processor::RealDepGraphProcessor;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::analysis::non_vendored_module_finder::RealNonVendoredModuleFinder`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:15:5
+   |
+15 | use crate::analysis::non_vendored_module_finder::RealNonVendoredModuleFinder;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `MergedCrateInfo` and `RealDepGraphDataMerger`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:16:46
+   |
+16 | use crate::analysis::dep_graph_data_merger::{RealDepGraphDataMerger, MergedCrateInfo};
+   |                                              ^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::analysis::layer0_analyzer::RealLayer0Analyzer`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:17:5
+   |
+17 | use crate::analysis::layer0_analyzer::RealLayer0Analyzer;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::analysis::cargo_config_patcher::RealCargoConfigPatcher`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:18:5
+   |
+18 | use crate::analysis::cargo_config_patcher::RealCargoConfigPatcher;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::analysis::submodule_config_patcher::RealSubmoduleConfigPatcher`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:19:5
+   |
+19 | use crate::analysis::submodule_config_patcher::RealSubmoduleConfigPatcher;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::analysis::workspace_remover::RealWorkspaceRemover`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:20:5
+   |
+20 | use crate::analysis::workspace_remover::RealWorkspaceRemover;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::repo_sync_lib::rollup_lock::RollupLock`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:21:5
+   |
+21 | use crate::repo_sync_lib::rollup_lock::RollupLock;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `generate_patch_entries`, `parse_members_file`, and `update_config_toml`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:22:37
+   |
+22 | use crate::cargo_config_generator::{parse_members_file, generate_patch_entries, update_config_toml};
+   |                                     ^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `DryRunExecv`, `Execv`, `JsonCaptureExecv`, `ReportExecv`, and `SystemExecv`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:23:20
+   |
+23 | use crate::execv::{Execv, SystemExecv, DryRunExecv, JsonCaptureExecv, ReportExecv}; // Removed RealExecv
+   |                    ^^^^^  ^^^^^^^^^^^  ^^^^^^^^^^^  ^^^^^^^^^^^^^^^^  ^^^^^^^^^^^
+
+warning: unused imports: `PureRustGitExecutor` and `SystemGhExecutor`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:24:24
+   |
+24 | use crate::executors::{PureRustGitExecutor, SystemGhExecutor};
+   |                        ^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^
+
+warning: unused import: `CargoMetadataProvider`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_nix.rs:26:48
+   |
+26 | use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
+   |                                                ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `RepoSyncConfig` and `run_submodule_status`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_patches.rs:5:13
+  |
+5 | use crate::{run_submodule_status, RepoSyncConfig};
+  |             ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^
+
+warning: unused imports: `FileSystemStat` and `RealFileSystemStat`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_patches.rs:6:23
+  |
+6 | use crate::fs_cache::{RealFileSystemStat, FileSystemStat};
+  |                       ^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^
+
+warning: unused import: `crate::RollupLock`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_patches.rs:7:5
+  |
+7 | use crate::RollupLock; // Add this import
+  |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_patches.rs:16:22
+   |
+16 | use anyhow::{Result, Context};
+   |                      ^^^^^^^
+
+warning: unused imports: `Arc` and `Mutex`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_patches.rs:17:17
+   |
+17 | use std::sync::{Arc, Mutex};
+   |                 ^^^  ^^^^^
+
+warning: unused imports: `generate_patch_entries`, `parse_members_file`, and `update_config_toml`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_patches.rs:20:37
+   |
+20 | use crate::cargo_config_generator::{parse_members_file, generate_patch_entries, update_config_toml};
+   |                                     ^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::analysis::workspace_remover::RealWorkspaceRemover`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_patches.rs:22:5
+   |
+22 | use crate::analysis::workspace_remover::RealWorkspaceRemover;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::execv::SystemExecv`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_patches.rs:23:5
+   |
+23 | use crate::execv::SystemExecv;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::executors::PureRustGitExecutor`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_patches.rs:25:5
+   |
+25 | use crate::executors::PureRustGitExecutor;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `CargoMetadataProvider`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_patches.rs:26:48
+   |
+26 | use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
+   |                                                ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Path`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/analyze.rs:3:17
+  |
+3 | use std::path::{Path, PathBuf};
+  |                 ^^^^
+
+warning: unused import: `std::fs`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/analyze.rs:4:5
+  |
+4 | use std::fs;
+  |     ^^^^^^^
+
+warning: unused import: `crate::repo_sync_lib::repo_sync_config::RepoSyncConfig`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/analyze.rs:8:5
+  |
+8 | use crate::repo_sync_lib::repo_sync_config::RepoSyncConfig;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::repo_sync_lib::run_submodule_status::run_submodule_status`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/analyze.rs:9:5
+  |
+9 | use crate::repo_sync_lib::run_submodule_status::run_submodule_status;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `FileSystemStat`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/analyze.rs:10:43
+   |
+10 | use crate::fs_cache::{RealFileSystemStat, FileSystemStat};
+   |                                           ^^^^^^^^^^^^^^
+
+warning: unused imports: `CachedFileSystemWriter`, `FileSystemWriter`, and `RealFileSystemWriter`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/analyze.rs:11:24
+   |
+11 | use crate::fs_writer::{FileSystemWriter, CachedFileSystemWriter, RealFileSystemWriter};
+   |                        ^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `DepGraphProcessor`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/analyze.rs:12:44
+   |
+12 | use crate::analysis::dep_graph_processor::{DepGraphProcessor, RealDepGraphProcessor};
+   |                                            ^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `generate_patch_entries`, `parse_members_file`, and `update_config_toml`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/analyze.rs:20:37
+   |
+20 | use crate::cargo_config_generator::{parse_members_file, generate_patch_entries, update_config_toml};
+   |                                     ^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_workspaces.rs:1:22
+  |
+1 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused import: `Path`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_workspaces.rs:4:17
+  |
+4 | use std::path::{Path, PathBuf};
+  |                 ^^^^
+
+warning: unused import: `DepGraphProcessor`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_workspaces.rs:7:44
+  |
+7 | use crate::analysis::dep_graph_processor::{DepGraphProcessor, RealDepGraphProcessor};
+  |                                            ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:1:22
+  |
+1 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused imports: `Arc` and `Mutex`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:2:17
+  |
+2 | use std::sync::{Arc, Mutex};
+  |                 ^^^  ^^^^^
+
+warning: unused imports: `PathBuf` and `Path`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:5:17
+  |
+5 | use std::path::{Path, PathBuf};
+  |                 ^^^^  ^^^^^^^
+
+warning: unused import: `std::fs`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:6:5
+  |
+6 | use std::fs;
+  |     ^^^^^^^
+
+warning: unused imports: `RepoSyncConfig` and `run_submodule_status`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:11:13
+   |
+11 | use crate::{run_submodule_status, RepoSyncConfig};
+   |             ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^
+
+warning: unused imports: `CachedFileSystemWriter`, `FileSystemWriter`, and `RealFileSystemWriter`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:12:24
+   |
+12 | use crate::fs_writer::{CachedFileSystemWriter, RealFileSystemWriter, FileSystemWriter};
+   |                        ^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^
+
+warning: unused imports: `FileSystemStat` and `RealFileSystemStat`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:13:23
+   |
+13 | use crate::fs_cache::{RealFileSystemStat, FileSystemStat};
+   |                       ^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^
+
+warning: unused imports: `DepGraphProcessor` and `RealDepGraphProcessor`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:21:44
+   |
+21 | use crate::analysis::dep_graph_processor::{DepGraphProcessor, RealDepGraphProcessor};
+   |                                            ^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `NonVendoredModuleFinder` and `RealNonVendoredModuleFinder`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:22:51
+   |
+22 | use crate::analysis::non_vendored_module_finder::{NonVendoredModuleFinder, RealNonVendoredModuleFinder};
+   |                                                   ^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `DepGraphDataMerger`, `MergedCrateInfo`, and `RealDepGraphDataMerger`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:23:46
+   |
+23 | use crate::analysis::dep_graph_data_merger::{DepGraphDataMerger, RealDepGraphDataMerger, MergedCrateInfo};
+   |                                              ^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^
+
+warning: unused imports: `Layer0Analyzer` and `RealLayer0Analyzer`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:24:40
+   |
+24 | use crate::analysis::layer0_analyzer::{Layer0Analyzer, RealLayer0Analyzer};
+   |                                        ^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `CargoConfigPatcher` and `RealCargoConfigPatcher`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:25:45
+   |
+25 | use crate::analysis::cargo_config_patcher::{CargoConfigPatcher, RealCargoConfigPatcher};
+   |                                             ^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `RealSubmoduleConfigPatcher` and `SubmoduleConfigPatcher`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:26:49
+   |
+26 | use crate::analysis::submodule_config_patcher::{SubmoduleConfigPatcher, RealSubmoduleConfigPatcher};
+   |                                                 ^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `generate_patch_entries`, `parse_members_file`, and `update_config_toml`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:27:37
+   |
+27 | use crate::cargo_config_generator::{parse_members_file, generate_patch_entries, update_config_toml};
+   |                                     ^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::analysis::workspace_remover::RealWorkspaceRemover`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:29:5
+   |
+29 | use crate::analysis::workspace_remover::RealWorkspaceRemover;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `CargoMetadataProvider`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:30:48
+   |
+30 | use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider};
+   |                                                ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `CargoTomlUpdater` and `RealCargoTomlUpdater`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/update_cargo_toml.rs:31:43
+   |
+31 | use crate::analysis::cargo_toml_updater::{CargoTomlUpdater, RealCargoTomlUpdater};
+   |                                           ^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `DummyCargoMetadataProvider`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/collect_repo_state.rs:11:98
+   |
+11 | use crate::analysis::cargo_metadata_provider::{CargoMetadataProvider, RealCargoMetadataProvider, DummyCargoMetadataProvider};
+   |                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `Context` and `Result`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/run_commands.rs:1:14
+  |
+1 | use anyhow::{Result, Context};
+  |              ^^^^^^  ^^^^^^^
+
+warning: unused import: `Context`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/executors.rs:1:14
+  |
+1 | use anyhow::{Context, Result};
+  |              ^^^^^^^
+
+warning: unused import: `std::collections::HashSet`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/executors.rs:4:5
+  |
+4 | use std::collections::HashSet;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::repo_sync_lib::git_snapshot::create_snapshot`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/executors.rs:9:5
+  |
+9 | use crate::repo_sync_lib::git_snapshot::create_snapshot;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Context`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/fs_cache.rs:1:22
+  |
+1 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused import: `Mutex`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/git_operations.rs:5:22
+  |
+5 | use std::sync::{Arc, Mutex};
+  |                      ^^^^^
+
+warning: unused import: `Context`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/git_snapshot.rs:3:22
+  |
+3 | use anyhow::{Result, Context};
+  |                      ^^^^^^^
+
+warning: unused import: `process::Command`
+ --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/run_submodule_status.rs:5:5
+  |
+5 |     process::Command,
+  |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `PureRustGitExecutor`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:10:56
+   |
+10 | use crate::executors::{GitExecutor, SystemGitExecutor, PureRustGitExecutor}; // Add this import
+   |                                                        ^^^^^^^^^^^^^^^^^^^
+
+warning: ambiguous glob re-exports
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/lib.rs:31:10
+   |
+31 | pub use  git_operations::*;
+   |          ^^^^^^^^^^^^^^^^^ the name `SubmoduleInfo` in the type namespace is first re-exported here
+...
+34 | pub use  repo_state_types::*;
+   |          ------------------- but the name `SubmoduleInfo` in the type namespace is also re-exported here
+   |
+   = note: `#[warn(ambiguous_glob_reexports)]` on by default
+
+warning: unused import: `traits::*`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/lib.rs:37:10
+   |
+37 | pub use  traits::*;
+   |          ^^^^^^^^^
+
+error[E0433]: failed to resolve: use of undeclared type `Regex`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/workspace_remover.rs:21:35
+   |
+21 |         let workspace_header_re = Regex::new(r"(?m)^\[workspace\]\s*(?:\n\s*(?:#.*)?)*")?;
+   |                                   ^^^^^ use of undeclared type `Regex`
+   |
+note: found an item that was configured out
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/dep_graph_processor.rs:4:12
+   |
+ 3 | #[cfg(feature = "nix_generation")] // Conditionally compile regex
+   |       -------------------------- the item is gated behind the `nix_generation` feature
+ 4 | use regex::Regex;
+   |            ^^^^^
+
+error[E0433]: failed to resolve: use of undeclared type `WalkDir`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/workspace_remover.rs:23:22
+   |
+23 |         for entry in WalkDir::new(submodules_dir)
+   |                      ^^^^^^^ use of undeclared type `WalkDir`
+
+error[E0433]: failed to resolve: use of undeclared type `WalkDir`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_toml_updater.rs:39:22
+   |
+39 |         for entry in WalkDir::new(&submodules_dir)
+   |                      ^^^^^^^ use of undeclared type `WalkDir`
+
+error[E0433]: failed to resolve: use of undeclared type `Item`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_toml_updater.rs:99:24
+   |
+99 |             .or_insert(Item::Table(Table::new()))
+   |                        ^^^^ use of undeclared type `Item`
+
+error[E0433]: failed to resolve: use of undeclared type `Table`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_toml_updater.rs:99:36
+   |
+99 |             .or_insert(Item::Table(Table::new()))
+   |                                    ^^^^^ use of undeclared type `Table`
+
+error[E0433]: failed to resolve: use of undeclared type `Item`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_toml_updater.rs:103:24
+    |
+103 |             .or_insert(Item::Table(Table::new()))
+    |                        ^^^^ use of undeclared type `Item`
+
+error[E0433]: failed to resolve: use of undeclared type `Table`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/cargo_toml_updater.rs:103:36
+    |
+103 |             .or_insert(Item::Table(Table::new()))
+    |                                    ^^^^^ use of undeclared type `Table`
+
+error[E0433]: failed to resolve: use of undeclared type `WalkDir`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/repo_state_collector.rs:59:22
+   |
+59 |         for entry in WalkDir::new(project_root)
+   |                      ^^^^^^^ use of undeclared type `WalkDir`
+
+error[E0433]: failed to resolve: use of undeclared type `WalkDir`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/analysis/repo_state_collector.rs:108:22
+    |
+108 |         for entry in WalkDir::new(project_root)
+    |                      ^^^^^^^ use of undeclared type `WalkDir`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `clap`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:51:35
+   |
+51 |     fn from_arg_matches(matches: &clap::ArgMatches) -> Result<Self, Error> {
+   |                                   ^^^^ use of unresolved module or unlinked crate `clap`
+   |
+   = help: if you wanted to use a crate named `clap`, use `cargo add clap` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `clap`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/args.rs:66:53
+   |
+66 |     fn update_from_arg_matches(&mut self, matches: &clap::ArgMatches) -> Result<(), Error> {
+   |                                                     ^^^^ use of unresolved module or unlinked crate `clap`
+   |
+   = help: if you wanted to use a crate named `clap`, use `cargo add clap` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `pathdiff`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_workspaces.rs:105:37
+    |
+105 |                 let relative_path = pathdiff::diff_paths(project_root.join(crate_path), &single_workspace_dir).unwrap();
+    |                                     ^^^^^^^^ use of unresolved module or unlinked crate `pathdiff`
+    |
+    = help: if you wanted to use a crate named `pathdiff`, use `cargo add pathdiff` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `pathdiff`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_workspaces.rs:125:37
+    |
+125 |                 let relative_path = pathdiff::diff_paths(project_root.join(crate_path), &single_workspace_dir).unwrap();
+    |                                     ^^^^^^^^ use of unresolved module or unlinked crate `pathdiff`
+    |
+    = help: if you wanted to use a crate named `pathdiff`, use `cargo add pathdiff` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `pathdiff`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_workspaces.rs:165:37
+    |
+165 |                 let relative_path = pathdiff::diff_paths(project_root.join(crate_path), &layer_dir).unwrap();
+    |                                     ^^^^^^^^ use of unresolved module or unlinked crate `pathdiff`
+    |
+    = help: if you wanted to use a crate named `pathdiff`, use `cargo add pathdiff` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `pathdiff`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_workspaces.rs:180:41
+    |
+180 |                     let relative_path = pathdiff::diff_paths(project_root.join(crate_path), &layer_dir).unwrap();
+    |                                         ^^^^^^^^ use of unresolved module or unlinked crate `pathdiff`
+    |
+    = help: if you wanted to use a crate named `pathdiff`, use `cargo add pathdiff` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `pathdiff`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/cli/commands/generate_workspaces.rs:189:37
+    |
+189 |                 let relative_path = pathdiff::diff_paths(project_root.join(crate_path), &layer_dir).unwrap();
+    |                                     ^^^^^^^^ use of unresolved module or unlinked crate `pathdiff`
+    |
+    = help: if you wanted to use a crate named `pathdiff`, use `cargo add pathdiff` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `md5`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/fs_cache.rs:100:21
+    |
+100 |     format!("{:x}", md5::compute(content))
+    |                     ^^^ use of unresolved module or unlinked crate `md5`
+    |
+    = help: if you wanted to use a crate named `md5`, use `cargo add md5` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/run_submodule_status.rs:38:18
+   |
+38 |         .parse::<toml_edit::DocumentMut>()
+   |                  ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+   |
+   = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/update_cargo_config.rs:18:22
+   |
+18 |             .parse::<toml_edit::DocumentMut>()
+   |                      ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+   |
+   = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/update_cargo_config.rs:21:20
+   |
+21 |         "".parse::<toml_edit::DocumentMut>().context("Failed to create empty Document")?
+   |                    ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+   |
+   = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/update_cargo_config.rs:27:20
+   |
+27 |         .or_insert(toml_edit::table())
+   |                    ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+   |
+   = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/update_cargo_config.rs:31:20
+   |
+31 |         .or_insert(toml_edit::table())
+   |                    ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+   |
+   = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `pathdiff`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/update_cargo_config.rs:36:39
+   |
+36 |         let relative_submodule_path = pathdiff::diff_paths(&action.submodule_path, root_dir)
+   |                                       ^^^^^^^^ use of unresolved module or unlinked crate `pathdiff`
+   |
+   = help: if you wanted to use a crate named `pathdiff`, use `cargo add pathdiff` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+  --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/repo_sync_lib/update_cargo_config.rs:42:42
+   |
+42 |         crate_entry_table.insert("path", toml_edit::value(path_str));
+   |                                          ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+   |
+   = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:302:35
+    |
+302 |         let doc = content.parse::<toml_edit::Document<String>>()
+    |                                   ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:328:57
+    |
+328 | ...                   new_dep_table.insert("git", toml_edit::value(fork_url.clone()));
+    |                                                   ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:329:60
+    |
+329 | ...                   new_dep_table.insert("branch", toml_edit::value(target_branch.to_string()));
+    |                                                      ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:530:65
+    |
+530 |                 let cargo_toml_doc = cargo_toml_content.parse::<toml_edit::Document<String>>()
+    |                                                                 ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:571:61
+    |
+571 |             let cargo_toml_doc = cargo_toml_content.parse::<toml_edit::Document<String>>()
+    |                                                             ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `pathdiff`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:578:45
+    |
+578 |                         let relative_path = pathdiff::diff_paths(matching_submodule_abs_path, &submodule_path)
+    |                                             ^^^^^^^^ use of unresolved module or unlinked crate `pathdiff`
+    |
+    = help: if you wanted to use a crate named `pathdiff`, use `cargo add pathdiff` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:631:63
+    |
+631 |     let main_cargo_toml_doc = main_cargo_toml_content.parse::<toml_edit::Document<String>>()
+    |                                                               ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:658:30
+    |
+658 |     let config_paths_value = toml_edit::value(toml_edit::Array::from_iter(
+    |                              ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `toml_edit`
+   --> /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/tools/cargo-submodule-tool-lib/src/submodule_manager.rs:728:39
+    |
+728 |                 match content.parse::<toml_edit::Document<String>>() {
+    |                                       ^^^^^^^^^ use of unresolved module or unlinked crate `toml_edit`
+    |
+    = help: if you wanted to use a crate named `toml_edit`, use `cargo add toml_edit` to add it to your `Cargo.toml`
+
+Some errors have detailed explanations: E0405, E0412, E0425, E0432, E0433.
+For more information about an error, try `rustc --explain E0405`.
+warning: `cargo-submodule-tool-lib` (lib) generated 84 warnings
+error: could not compile `cargo-submodule-tool-lib` (lib) due to 155 previous errors; 84 warnings emitted
+
+Cargo exited abnormally with code 101 at Fri Nov 21 17:06:54

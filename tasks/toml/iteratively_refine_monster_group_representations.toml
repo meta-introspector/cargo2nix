@@ -1,0 +1,18 @@
+name = "Iteratively Refine Monster Group Representations"
+description = """
+Support the interactive refinement process by building a user interface (or agent tool) that
+allows users (or the agent itself) to review and tweak the constraints iteratively based on
+`BlockAnalyzer` output and MiniZinc feedback.
+"""
+status = "todo"
+priority = "LOWER"
+depends_on = [
+    "verify_monster_group_trait_mapping.toml",
+    "execute_optimal_constraint_solving.toml"
+]
+related_binaries = [
+    "crates/solana-monster-system/src/bin/interactive_constraint_tweaker.rs",
+    "crates/solana-monster-system/src/bin/minizinc_solver_executor.rs",
+    "crates/solana-monster-system/src/minizinc_introspector_integration.rs", # Module, but relevant
+    "crates/solana-monster-system/src/rustc_block_analyzer.rs" # Module, but relevant
+]

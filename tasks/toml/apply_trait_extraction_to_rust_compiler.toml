@@ -1,0 +1,16 @@
+name = "Apply Trait Extraction to Full Rust Compiler"
+description = """
+Apply the existing `BlockAnalyzer` to the complete Rust compiler codebase to scale the
+Monster Group mappings to all `rustc` components. This moves the project from interactive
+matching to full compiler integration. The necessary component is the `rustc_block_analyzer.rs`.
+"""
+status = "todo"
+priority = "HIGH"
+depends_on = [
+    "implement_rust_program_to_modular_form_encoding.toml",
+    "decl_level_resolution.toml"
+]
+components = ["BlockAnalyzer", "rustc", "rustc_block_analyzer.rs"]
+related_binaries = [
+    "crates/solana-monster-system/src/rustc_block_analyzer.rs"
+]

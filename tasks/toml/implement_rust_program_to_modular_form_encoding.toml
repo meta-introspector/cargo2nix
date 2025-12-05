@@ -1,0 +1,30 @@
+name = "Implement Rust Program to Modular Form Encoding"
+description = """
+Develop a Rust module that parses Rust source code into a stable Abstract Syntax Tree (AST) using `syn`. This parsing involves converting code elements into Gödel numbers within a Galois Field, establishing algebraic tractability. It then extracts key geometric properties (depth, branching factors, node types, and complexity metrics derived from the Monster Group's 108 factors and 194 conjugacy classes), and ensures modular equivalence (A₁ ≡_M A₂ if and only if Φ(A₁) and Φ(A₂) lie in the same SL₂(ℤ)-orbit). The decomposition by `syn` allows for the prime number encoding and subsequent algebraic manipulation, forming the basis for compiler optimizations and error-checking.
+"""
+status = "todo"
+depends_on = ["formalize_108_architectural_constraints.toml", "define_core_mathematical_models.toml"]
+rust_crates = ["syn"]
+related_tasks = ["cargo-eigenform.md", "cargo-hecke.md", "decl_level_resolution.md", "nix_compiler_stages.md"]
+related_binaries = [
+    "crates/solana-monster-system/src/modular_form_encoding.rs",
+    "crates/solana-monster-system/src/bin/rustc_monster_polynomial.rs",
+    "crates/solana-monster-system/src/bin/ast_monster_phi_solver.rs",
+    "crates/solana-monster-system/src/trait_extractor.rs", # Module, but relevant
+    "crates/solana-monster-system/src/compiler_analyzer.rs", # Module, but relevant
+    "crates/solana-monster-system/src/rustc_block_analyzer.rs", # Module, but relevant
+    "crates/solana-monster-system/src/bin/ast_decls_cas_db3.rs"
+]
+status = "todo"
+depends_on = ["formalize_108_architectural_constraints.toml", "define_core_mathematical_models.toml"]
+rust_crates = ["syn"]
+related_tasks = ["cargo-eigenform.md", "cargo-hecke.md", "decl_level_resolution.md", "nix_compiler_stages.md"]
+related_binaries = [
+    "crates/solana-monster-system/src/modular_form_encoding.rs",
+    "crates/solana-monster-system/src/bin/rustc_monster_polynomial.rs",
+    "crates/solana-monster-system/src/bin/ast_monster_phi_solver.rs",
+    "crates/solana-monster-system/src/trait_extractor.rs", # Module, but relevant
+    "crates/solana-monster-system/src/compiler_analyzer.rs", # Module, but relevant
+    "crates/solana-monster-system/src/rustc_block_analyzer.rs", # Module, but relevant
+    "crates/solana-monster-system/src/bin/ast_decls_cas_db3.rs"
+]

@@ -1,0 +1,4 @@
+name = "Ensure Non-Vendored Modules are Workspaces"
+description = "Implement a script to iterate through non-vendored modules and add a [workspace] section to their Cargo.toml if it's missing, resolving Cargo workspace errors."
+status = "completed"
+depends_on = []

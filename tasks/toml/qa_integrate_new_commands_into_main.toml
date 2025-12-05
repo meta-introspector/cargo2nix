@@ -1,0 +1,92 @@
+name = "QA Plan for Integrate New Commands into Main"
+description = "Verify that `GitPullCommand`, `NixBuildCommand`, and `GitAddCommitPushCommand` are correctly integrated into the `cargo-git-manage`'s main execution loop, that their `needs_execution` logic is respected, and that they execute in the intended order without regressions."
+status = "draft"
+
+[scope]
+main_function = "main function of `cargo-git-manage`"
+commands_implemented = ["GitPullCommand", "NixBuildCommand", "GitAddCommitPushCommand"]
+logic_verified = "`needs_execution` logic and execution order"
+
+[test_strategy]
+build_verification = "Ensure the project compiles successfully."
+execution_order_verification = "Test scenarios to confirm commands run in the correct sequence."
+needs_execution_logic_verification = "Test scenarios where commands should or should not execute based on their `needs_execution` criteria."
+integration_with_existing_commands = "Ensure new commands don't break existing command execution."
+
+[[test_cases]]
+name = "Basic Execution Flow (All Commands Need Execution)"
+precondition = "Set up a repository state where `GitPullCommand`, `NixBuildCommand`, and `GitAddCommitPushCommand` would all return `true` for `needs_execution`. (e.g., remote is ahead, `Cargo.nix` is outdated, there are uncommitted changes)."
+action = "Run `cargo-git-manage` (or the main entry point that orchestrates these commands)."
+expected_result = [
+    "`GitPullCommand` should execute first.",
+    "`NixBuildCommand` should execute after `GitPullCommand`.",
+    "`GitAddCommitPushCommand` should execute last.",
+    "The overall process should complete successfully, and the repository state should reflect the changes made by all three commands."
+]
+commands = [
+    "cargo run -p cargo-git-manage"
+]
+verification = "Observe console output for execution order, check `git log`, `git status`, and `nix build` output."
+
+[[test_cases]]
+name = "Selective Execution (GitPull only)"
+precondition = "Remote HEAD is ahead of local HEAD (`GitPullCommand::needs_execution` is true), but `Cargo.nix` is up-to-date and there are no uncommitted changes."
+action = "Run `cargo-git-manage`."
+expected_result = "Only `GitPullCommand` should execute. `NixBuildCommand` and `GitAddCommitPushCommand` should be skipped."
+commands = [
+    "cargo run -p cargo-git-manage"
+]
+verification = "Observe console output, check `git log` (only pull changes), `git status` (no changes), `nix build` (no new build)."
+
+[[test_cases]]
+name = "Selective Execution (NixBuild only)"
+precondition = "Local and remote are in sync, no uncommitted changes, but `Cargo.nix` is outdated (e.g., `Cargo.toml` was modified, making `Cargo.nix` stale)."
+action = "Run `cargo-git-manage`."
+expected_result = "Only `NixBuildCommand` should execute. `GitPullCommand` and `GitAddCommitPushCommand` should be skipped."
+commands = [
+    "cargo run -p cargo-git-manage"
+]
+verification = "Observe console output, check `git log` (no new commits), `git status` (no changes), `nix build` output (new build)."
+
+[[test_cases]]
+name = "Selective Execution (GitAddCommitPush only)"
+precondition = "Local and remote are in sync, `Cargo.nix` is up-to-date, but there are uncommitted changes."
+action = "Run `cargo-git-manage`."
+expected_result = "Only `GitAddCommitPushCommand` should execute. `GitPullCommand` and `NixBuildCommand` should be skipped."
+commands = [
+    "cargo run -p cargo-git-manage"
+]
+verification = "Observe console output, check `git log` (new commit), `git status` (clean)."
+
+[[test_cases]]
+name = "No Commands Need Execution"
+precondition = "Repository is clean, up-to-date with remote, and `Cargo.nix` is current."
+action = "Run `cargo-git-manage`."
+expected_result = "All three commands should be skipped, and the tool should report that no actions were needed."
+commands = [
+    "cargo run -p cargo-git-manage"
+]
+verification = "Observe console output for 'no actions needed' message."
+
+[[test_cases]]
+name = "Error Propagation"
+precondition = "A scenario where one of the commands (e.g., `GitPullCommand`) fails during execution."
+action = "Run `cargo-git-manage`."
+expected_result = "The overall `cargo-git-manage` process should terminate with an error, and subsequent commands should not execute. The error message should clearly indicate which command failed."
+commands = [
+    "cargo run -p cargo-git-manage"
+]
+verification = "Observe error message and non-zero exit code. Ensure no subsequent commands execute."
+
+[[test_cases]]
+name = "Order of Execution with other `CargoCommand`s"
+precondition = "If there are other `CargoCommand` implementations (e.g., `CargoUpdateCommand`, `CargoVendorCommand`), ensure their relative order with the new commands is logical and respected. For example, `GitPull` -> `CargoUpdate` -> `NixBuild` -> `GitAddCommitPush`."
+action = "Run `cargo-git-manage` in a state where multiple command types would execute."
+expected_result = "The commands should execute in the predefined logical sequence."
+commands = [
+    "cargo run -p cargo-git-manage"
+]
+verification = "Observe console output for the correct sequence of command executions."
+
+[code_review]
+focus = "Review the `main.rs` (or equivalent orchestration file) of `cargo-git-manage`. Focus on the `commands` vector, the loop that iterates through them, and how `needs_execution` and `execute` are called. Verify the order of commands in the vector."

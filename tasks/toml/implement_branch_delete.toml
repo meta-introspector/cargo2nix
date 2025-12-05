@@ -1,0 +1,4 @@
+name = "Implement branch delete logic"
+description = "Implement the core logic for 'cargo git-manage branch delete' using the git2 crate to delete an existing branch."
+status = "todo"
+depends_on = ["define_cli_structure.toml"]

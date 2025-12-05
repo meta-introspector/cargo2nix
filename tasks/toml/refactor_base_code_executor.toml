@@ -1,0 +1,17 @@
+name = "Refactor BaseCodeExecutor for Configurability"
+description = ""
+The `BaseCodeExecutor` class contains hardcoded values for `error_retry_attempts`, `code_block_delimiters`, and `execution_result_delimiters`. These should be configurable to allow for flexible customization of code execution behavior.
+"
+status = "todo"
+depends_on = []
+steps = [
+    "Introduce a configuration mechanism for `error_retry_attempts` (default `2`).",
+    "Introduce a configuration mechanism for `code_block_delimiters` (default `[('```tool_code\n', '\n```'), ('```python\n', '\n```')]`).",
+    "Introduce a configuration mechanism for `execution_result_delimiters` (default `('```tool_output\n', '\n```')`).",
+    "Replace all hardcoded values with references to the new configuration."
+]
+related_binaries = [
+    "crates/tool-refactorings/src/base_code_executor.rs", # Module, but relevant
+    "crates/tool-refactorings/src/base_code_executor_config.rs" # Module, but relevant
+]
+

@@ -1,0 +1,11 @@
+{
+  "service_name": "symbiotic-compiler",
+  "version": "1.0.0",
+  "service_hash": "1edc59c4b8f64c587485dee4f2f3ff61f2a8a02287e149fb795f56c4cbe603d9",
+  "monster_factor": 71,
+  "proof_hash": "0bdba4c70eeda15bc1fefa2d1b205a291f55b4dd5c2691ce39a4ecef161dcb83",
+  "timestamp": 1764008473,
+  "zkp_commitment": "aef4948569013750e7415132ce3c3f21a909a5d136248609fb7625ae29553191",
+  "zkp_public_key": "8d06709570d673d705fc28ae3a478417b3414e755e9b9e2a89b7c46847d04760",
+  "verified": true
+}

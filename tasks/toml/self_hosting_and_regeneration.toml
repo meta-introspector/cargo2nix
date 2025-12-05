@@ -1,0 +1,13 @@
+[[tasks]]
+id = "05_01"
+name = "Apply prelude-generator to its own source code"
+description = "Apply the `prelude-generator`'s Rust and Cargo parsers to its own source code."
+status = "TODO"
+source = ""
+
+[[tasks]]
+id = "05_03"
+name = "Save AST and use statement info to Hugging Face dataset"
+description = "Save the generated Abstract Syntax Tree (AST) and detailed use statement information into a **Hugging Face dataset**."
+status = "TODO"
+source = ""

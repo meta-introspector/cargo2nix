@@ -1,0 +1,112 @@
+name = "QA Plan for Ensure Non-Vendored Modules are Workspaces"
+description = "Verify that the implemented script correctly identifies non-vendored modules, adds a `[workspace]` section to their `Cargo.toml` files when missing, and resolves Cargo workspace errors without introducing new issues."
+status = "draft"
+
+[scope]
+script_implemented = "The script responsible for adding `[workspace]` sections."
+target_files = "`Cargo.toml` files of non-vendored modules."
+impact_area = "Cargo's workspace resolution mechanism."
+
+[test_strategy]
+functional_verification = "Test with modules having and lacking `[workspace]` sections."
+idempotency = "Ensure repeated runs don't cause issues."
+error_handling = "Test with malformed `Cargo.toml` files."
+negative_testing = "Ensure vendored modules are not affected."
+
+[[test_cases]]
+name = "Module Missing `[workspace]` Section"
+precondition = "Create a non-vendored Rust project (e.g., `my-non-vendored-crate`) with a `Cargo.toml` that *does not* contain a `[workspace]` section."
+action = "Run the script (e.g., `cargo git-manage ensure-workspaces` or similar, depending on how it's exposed)."
+expected_result = [
+    "The script should add a `[workspace]` section to `my-non-vendored-crate/Cargo.toml`.",
+    "`cargo check` or `cargo build` in the main project should now succeed if it was failing due to this."
+]
+commands = [
+    "mkdir my-non-vendored-crate",
+    "echo '[package]\nname = \"my-non-vendored-crate\"\nversion = \"0.1.0\"\nedition = \"2021"' > my-non-vendored-crate/Cargo.toml",
+    "# Run the actual script here, e.g., `cargo run -p cargo-git-manage -- ensure-workspaces`",
+    "cat my-non-vendored-crate/Cargo.toml",
+    "cargo check" # from root
+]
+verification = "Inspect `my-non-vendored-crate/Cargo.toml` for the new section. Run `cargo check` from the root."
+
+[[test_cases]]
+name = "Module Already Has `[workspace]` Section"
+precondition = "Create a non-vendored Rust project with a `Cargo.toml` that *already* contains a `[workspace]` section."
+action = "Run the script."
+expected_result = "The script should detect the existing `[workspace]` section and make no changes to the `Cargo.toml` file."
+commands = [
+    "mkdir my-non-vendored-crate-with-ws",
+    "echo '[package]\nname = \"my-non-vendored-crate-with-ws\"\nversion = \"0.1.0\"\nedition = \"2021\"\n\n[workspace]' > my-non-vendored-crate-with-ws/Cargo.toml",
+    "touch my-non-vendored-crate-with-ws/Cargo.toml", # To get a mod time
+    "ls -l my-non-vendored-crate-with-ws/Cargo.toml",
+    "# Run the actual script here",
+    "ls -l my-non-vendored-crate-with-ws/Cargo.toml" # Check mod time
+]
+verification = "Check `my-non-vendored-crate-with-ws/Cargo.toml`'s modification timestamp or content to ensure no changes."
+
+[[test_cases]]
+name = "Multiple Non-Vendored Modules"
+precondition = "Create several non-vendored Rust projects, some with and some without `[workspace]` sections."
+action = "Run the script."
+expected_result = "The script should correctly process all non-vendored modules, adding `[workspace]` sections only where needed."
+commands = [
+    "# Setup multiple test crates with mixed workspace sections",
+    "# Run the actual script here",
+    "# Verify each Cargo.toml"
+]
+verification = "Inspect each `Cargo.toml` for correct modifications."
+
+[[test_cases]]
+name = "Idempotency"
+precondition = "Run the script once successfully on a set of non-vendored modules."
+action = "Run the script again immediately."
+expected_result = "The second run should make no further changes to any `Cargo.toml` files."
+commands = [
+    "# Setup test crates",
+    "# Run script once",
+    "ls -l # Capture initial mod times",
+    "# Run script again",
+    "ls -l # Compare mod times"
+]
+verification = "Compare modification timestamps of `Cargo.toml` files after both runs."
+
+[[test_cases]]
+name = "Malformed `Cargo.toml` in Non-Vendored Module"
+precondition = "Create a non-vendored module with a syntactically incorrect `Cargo.toml` file."
+action = "Run the script."
+expected_result = "The script should gracefully handle the malformed file, report an error for that specific file, and ideally continue processing other valid `Cargo.toml` files. It should not crash."
+commands = [
+    "mkdir malformed-crate",
+    "echo '[package]\nname = \"malformed-crate\"' > malformed-crate/Cargo.toml", # Invalid TOML
+    "# Run the actual script here"
+]
+verification = "Observe error message for the malformed file and ensure script does not crash."
+
+[[test_cases]]
+name = "Vendored Modules (Negative Test)"
+precondition = "Ensure there are vendored modules (e.g., in `vendor/`) that are *not* intended to be treated as workspaces by this script."
+action = "Run the script."
+expected_result = "The script should *not* add `[workspace]` sections to the `Cargo.toml` files of vendored modules."
+commands = [
+    "# Setup a vendored crate without a workspace section",
+    "# Run the actual script here",
+    "cat vendor/some-crate/Cargo.toml"
+]
+verification = "Inspect `Cargo.toml` files within `vendor/` directories to confirm no `[workspace]` section was added."
+
+[[test_cases]]
+name = "Integration with `cargo check`/`cargo build`"
+precondition = "A project setup where `cargo check` or `cargo build` fails due to missing `[workspace]` sections in non-vendored modules."
+action = "Run the script, then run `cargo check` or `cargo build`."
+expected_result = "`cargo check` or `cargo build` should now succeed."
+commands = [
+    "# Setup a main project with a non-vendored dependency missing workspace",
+    "cargo check # Should fail",
+    "# Run the actual script here",
+    "cargo check # Should succeed"
+]
+verification = "Observe the success/failure of `cargo check` before and after running the script."
+
+[code_review]
+focus = "Review the source code of the script. Focus on how it identifies 'non-vendored' modules, parses `Cargo.toml`, detects the absence of `[workspace]`, and modifies the file. Ensure it uses safe file modification practices (e.g., temporary files, atomic writes)."

@@ -1,0 +1,44 @@
+[package]
+name = "nix-generator-lib"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+syn = { version = "*", optional = true }
+toml_edit = { version = "*" }
+clap = { version = "*", optional = true }
+
+git2 = { version = "*", optional = true }
+hex = { version = "*", optional = true }
+sha1 = { version = "*", optional = true }
+pathdiff = { version = "*", optional = true }
+serde_json = { version = "*", optional = true }
+walkdir = { version = "*", optional = true }
+
+anyhow = { workspace = true }
+cargo_metadata = { workspace = true }
+cargo-edit-lib = { path = "../cargo-edit-lib" }
+#cargo2nix = { path = "../../crates/cargo2nix" }
+serde = { workspace = true, features = ["derive"], optional = true } # Added
+
+git-wrapper-lib = { path = "../git-wrapper-lib" }
+
+[features]
+
+syn_enabled = ["dep:syn"]
+#toml_edit_enabled = ["dep:toml_edit"]
+clap_enabled = ["dep:clap"]
+
+git2_enabled = ["dep:git2"]
+hex_enabled = ["dep:hex"]
+sha1_enabled = ["dep:sha1"]
+pathdiff_enabled = ["dep:pathdiff"]
+serde_json_enabled = ["dep:serde_json"]
+walkdir_enabled = ["dep:walkdir"]
+default = []
+#anyhow_enabled = ["dep:anyhow"]
+#cargo_metadata_enabled = ["dep:cargo_metadata"]
+serde_enabled = ["dep:serde"]
+
+#git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]

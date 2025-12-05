@@ -1,0 +1,44 @@
+[package]
+name = "cargo-workspace-from-tree"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+syn = { version = "*", optional = true }
+
+git2 = { version = "*", optional = true }
+hex = { version = "*", optional = true }
+sha1 = { version = "*", optional = true }
+serde = { version = "*", optional = true }
+serde_json = { version = "*", optional = true }
+git-wrapper-lib = { workspace = true, optional = true }
+anyhow = { version = "*" }
+clap = { workspace = true, optional = true }
+cargo_metadata = { workspace = true, optional = true }
+toml_edit = { workspace = true }
+walkdir = { workspace = true }
+pathdiff = { workspace = true }
+regex = { workspace = true, optional = true }
+lazy_static = { workspace = true, optional = true }
+
+[features]
+
+syn_enabled = ["dep:syn"]
+
+git2_enabled = ["dep:git2"]
+hex_enabled = ["dep:hex"]
+sha1_enabled = ["dep:sha1"]
+serde_enabled = ["dep:serde"]
+serde_json_enabled = ["dep:serde_json"]
+git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
+default = []
+anyhow_enabled = [] # "dep:anyhow"]
+clap_enabled = ["dep:clap"]
+cargo_metadata_enabled = ["dep:cargo_metadata"]
+toml_edit_enabled = [] 
+walkdir_enabled = []
+pathdiff_enabled = []
+regex_enabled = ["dep:regex"]
+lazy_static_enabled = ["dep:lazy_static"]
+real_cargo_metadata = ["dep:cargo_metadata"]

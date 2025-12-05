@@ -1,0 +1,12 @@
+[package]
+name = "monster_protocol-traits"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# No direct dependencies for the traits themselves,
+# but `build.rs` will be needed for `MONSTER_PRIME_POWERS`.
+# `core` is implicitly available with `no_std`.
+
+[build-dependencies]
+# Placeholder for `build.rs` dependencies if needed

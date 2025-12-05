@@ -1,0 +1,26 @@
+%{
+#include "monster_parser.tab.hh"
+#include <string>
+%}
+
+%option noyywrap
+%option prefix="monster_yy"
+
+%%
+
+"trait"     { return TRAIT; }
+"element"   { return ELEMENT; }
+"hecke"     { return HECKE; }
+"hash"      { return HASH; }
+":"         { return COLON; }
+";"         { return SEMICOLON; }
+"\n"        { return NEWLINE; }
+[ \t]+      { /* ignore whitespace */ }
+[0-9]+      { monster_yylval.int_val = strtoull(monster_yytext, nullptr, 10); return INTEGER; }
+[a-zA-Z_][a-zA-Z0-9_]* { 
+    monster_yylval.string_val = strdup(monster_yytext); 
+    return IDENTIFIER; 
+}
+.           { /* ignore other characters */ }
+
+%%

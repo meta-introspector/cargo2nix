@@ -1,0 +1,7 @@
+
+[env]
+RUSTC_BOOTSTRAP = "1"
+# Setting CFLAGS here will apply to build scripts that compile C/C++ code.
+# -O2 for optimization, -g for debug info as requested by user.
+# This should address the _FORTIFY_SOURCE warning for curl-sys.
+CFLAGS = "-O2 -g"

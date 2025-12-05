@@ -1,35 +1,35 @@
-{
-  rustToolchain,
-  lib,
-  pkgs,
-  buildPackages,
-  rustLib,
-  stdenv,
-  writers,
+{ rustToolchain
+, lib
+, pkgs
+, buildPackages
+, rustLib
+, stdenv
+, writers
+,
 }:
-{
-  release, # Compiling in release mode?
-  name,
-  version,
-  registry,
-  src,
-  features ? [ ],
-  dependencies ? { },
-  devDependencies ? { },
-  buildDependencies ? { },
-  compileMode ? "build",
-  profile,
-  profileOpts ? null,
-  codegenOpts ? null,
-  meta ? { },
-  cargoUnstableFlags ? [ ],
-  rustcLinkFlags ? [ ],
-  rustcBuildFlags ? [ ],
-  target ? null,
-  hostPlatformCpu ? null,
-  hostPlatformFeatures ? [],
-  NIX_DEBUG ? 0,
-  cargoConfig ? {}
+{ release
+, # Compiling in release mode?
+  name
+, version
+, registry
+, src
+, features ? [ ]
+, dependencies ? { }
+, devDependencies ? { }
+, buildDependencies ? { }
+, compileMode ? "build"
+, profile
+, profileOpts ? null
+, codegenOpts ? null
+, meta ? { }
+, cargoUnstableFlags ? [ ]
+, rustcLinkFlags ? [ ]
+, rustcBuildFlags ? [ ]
+, target ? null
+, hostPlatformCpu ? null
+, hostPlatformFeatures ? [ ]
+, NIX_DEBUG ? 0
+, cargoConfig ? { }
 }:
 with builtins; with lib;
 let
@@ -56,12 +56,12 @@ let
     exec ${rustToolchain}/bin/${rustpkg} "''${args[@]}"
   '';
 
-  ccForBuild="${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc";
-  cxxForBuild="${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}c++";
-  targetPrefix = stdenv.cc.targetPrefix;
-  cc = stdenv.cc;
-  ccForHost="${cc}/bin/${targetPrefix}cc";
-  cxxForHost="${cc}/bin/${targetPrefix}c++";
+  ccForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc";
+  cxxForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}c++";
+  inherit (stdenv.cc) targetPrefix;
+  inherit (stdenv) cc;
+  ccForHost = "${cc}/bin/${targetPrefix}cc";
+  cxxForHost = "${cc}/bin/${targetPrefix}c++";
   rustBuildTriple = rustTriple stdenv.buildPlatform;
   rustHostTriple = if (target != null) then target else rustTriple stdenv.hostPlatform;
   buildCargoConfig = lib.foldl lib.recursiveUpdate cargoConfig [
@@ -70,7 +70,7 @@ let
       target.${rustBuildTriple}.linker = ccForBuild;
     }
     (lib.optionalAttrs (codegenOpts != null && codegenOpts ? "${rustBuildTriple}") {
-      target.${rustBuildTriple}.rustflags = lib.flatten (map (v: ["-C" v]) codegenOpts."${rustBuildTriple}");
+      target.${rustBuildTriple}.rustflags = lib.flatten (map (v: [ "-C" v ]) codegenOpts."${rustBuildTriple}");
     })
     # HACK: 2019-08-01: wasm32-wasi always uses `wasm-ld`
     # HACK: 2021-12-29: x86_64-fortanix-unknown-sgx always use `ld`
@@ -78,14 +78,14 @@ let
       target.${rustHostTriple}.linker = ccForHost;
     })
     (lib.optionalAttrs ((rustBuildTriple != rustHostTriple && rustHostTriple != "wasm32-wasi" && rustHostTriple != "wasm32-unknown-unknown" && rustHostTriple != "x86_64-fortanix-unknown-sgx") && (codegenOpts != null && codegenOpts ? "${rustHostTriple}")) {
-      rustflags = lib.flatten (map (v: ["-C" v]) codegenOpts."${rustHostTriple}");
+      rustflags = lib.flatten (map (v: [ "-C" v ]) codegenOpts."${rustHostTriple}");
     })
     (lib.optionalAttrs (profileOpts != null && profileOpts."${decideProfile compileMode release}" != null) {
       target.${rustHostTriple}.profile = profileOpts.${decideProfile compileMode release};
     })
   ];
   cargoConfigFile = writers.writeTOML "config.toml" buildCargoConfig;
-  
+
   depMapToList = deps:
     flatten
       (sort (a: b: elemAt a 0 < elemAt b 0)
@@ -93,45 +93,47 @@ let
   buildCmd =
     let
       hasDefaultFeature = elem "default" features;
-      featuresWithoutDefault = if hasDefaultFeature
+      featuresWithoutDefault =
+        if hasDefaultFeature
         then filter (feature: feature != "default") features
         else features;
       buildMode = {
         "test" = "--tests";
         "bench" = "--benches";
       }.${compileMode} or "";
-      featuresArg = if featuresWithoutDefault == [ ]
+      featuresArg =
+        if featuresWithoutDefault == [ ]
         then ""
         else "--features ${concatStringsSep "," featuresWithoutDefault}";
     in
-      if compileMode != "doctest" then ''
-        ${rustToolchain}/bin/cargo build $CARGO_VERBOSE ${optionalString release "--release"} --target ${rustHostTriple} ${buildMode} \
-          ${featuresArg} ${optionalString (!hasDefaultFeature) "--no-default-features"} \
-          ${optionalString (builtins.length cargoUnstableFlags > 0) "-Z ${lib.strings.concatStringsSep "," cargoUnstableFlags}"} \
-          --message-format json-diagnostic-rendered-ansi | tee .cargo-build-output \
-          1> >(jq 'select(.message != null) .message.rendered' -r)
-      ''
-      # Note: Doctest doesn't yet support no-run https://github.com/rust-lang/rust/pull/83857
-      # So instead of persiting the binaries with
-      # RUSTDOCFLAGS="-Zunstable-options --persist-doctests $(pwd)/target/rustdoctest -o $(pwd)/target/rustdoctest" cargo test --doc | tee .cargo-doctest-output
-      # we just introduce a new compile mode
-      #
-      # We also filter -l linkage flags, as rustdoc doesn't support them
-      #
-      # And _also_ detect if there are no lib crates, in which case skip, because thats an error for rustdoc
-      #
-      # This does not abort on failure. The output should be inspected for failures
-      else ''
-        echo "Performing Doctests"
-        export NIX_RUST_LINK_FLAGS=$(echo "$NIX_RUST_LINK_FLAGS" | sed 's/ \-l \w*//g')
-        ${rustToolchain}/bin/cargo read-manifest | jq -e '.targets | .[] | select(.crate_types[] | contains ("lib")) | any' >/dev/null && \
-          ( ${rustToolchain}/bin/cargo test --doc --no-fail-fast \
-              ${featuresArg} ${optionalString (!hasDefaultFeature) "--no-default-features"} \
-              -- -Z unstable-options --format json \
-              | tee results.json \
-          || true) \
-          || echo "No lib crate detected"
-      '';
+    if compileMode != "doctest" then ''
+      ${rustToolchain}/bin/cargo build $CARGO_VERBOSE ${optionalString release "--release"} --target ${rustHostTriple} ${buildMode} \
+        ${featuresArg} ${optionalString (!hasDefaultFeature) "--no-default-features"} \
+        ${optionalString (builtins.length cargoUnstableFlags > 0) "-Z ${lib.strings.concatStringsSep "," cargoUnstableFlags}"} \
+        --message-format json-diagnostic-rendered-ansi | tee .cargo-build-output \
+        1> >(jq 'select(.message != null) .message.rendered' -r)
+    ''
+    # Note: Doctest doesn't yet support no-run https://github.com/rust-lang/rust/pull/83857
+    # So instead of persiting the binaries with
+    # RUSTDOCFLAGS="-Zunstable-options --persist-doctests $(pwd)/target/rustdoctest -o $(pwd)/target/rustdoctest" cargo test --doc | tee .cargo-doctest-output
+    # we just introduce a new compile mode
+    #
+    # We also filter -l linkage flags, as rustdoc doesn't support them
+    #
+    # And _also_ detect if there are no lib crates, in which case skip, because thats an error for rustdoc
+    #
+    # This does not abort on failure. The output should be inspected for failures
+    else ''
+      echo "Performing Doctests"
+      export NIX_RUST_LINK_FLAGS=$(echo "$NIX_RUST_LINK_FLAGS" | sed 's/ \-l \w*//g')
+      ${rustToolchain}/bin/cargo read-manifest | jq -e '.targets | .[] | select(.crate_types[] | contains ("lib")) | any' >/dev/null && \
+        ( ${rustToolchain}/bin/cargo test --doc --no-fail-fast \
+            ${featuresArg} ${optionalString (!hasDefaultFeature) "--no-default-features"} \
+            -- -Z unstable-options --format json \
+            | tee results.json \
+        || true) \
+        || echo "No lib crate detected"
+    '';
 
   inherit
     (({ right, wrong }: { runtimeDependencies = right; buildtimeDependencies = wrong; })
@@ -170,7 +172,7 @@ let
         devDependencies
         buildDependencies
         features;
-      shell = pkgs.mkShell (removeAttrs drvAttrs ["src"]);
+      shell = pkgs.mkShell (removeAttrs drvAttrs [ "src" ]);
     };
 
     dependencies = depMapToList dependencies;
@@ -178,8 +180,8 @@ let
     devDependencies = depMapToList (optionalAttrs (compileMode != "build") devDependencies);
 
     extraRustcLinkFlags =
-      optionals (hostPlatformCpu != null) ([("-Ctarget-cpu=" + hostPlatformCpu)]) ++
-      optionals (hostPlatformFeatures != []) [("-Ctarget-feature=" + (concatMapStringsSep "," (feature: "+" + feature) hostPlatformFeatures))] ++
+      optionals (hostPlatformCpu != null) [ ("-Ctarget-cpu=" + hostPlatformCpu) ] ++
+      optionals (hostPlatformFeatures != [ ]) [ ("-Ctarget-feature=" + (concatMapStringsSep "," (feature: "+" + feature) hostPlatformFeatures)) ] ++
       rustcLinkFlags;
 
     extraRustcBuildFlags = rustcBuildFlags;
@@ -301,7 +303,7 @@ let
       runHook postBuild
     '';
 
-    outputs = ["bin" "out"];
+    outputs = [ "bin" "out" ];
 
     installPhase = ''
       runHook preInstall
@@ -323,4 +325,4 @@ let
     '';
   };
 in
-  stdenv.mkDerivation drvAttrs
+stdenv.mkDerivation drvAttrs

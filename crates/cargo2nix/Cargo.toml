@@ -1,0 +1,37 @@
+[package]
+name = "cargo2nix"
+version = "0.1.0"
+authors = ["Your Name <your.email@example.com>"]
+rust-version = "1.89"
+edition = "2024"
+resolver = "3"
+license = "MIT OR Apache-2.0"
+homepage = "https://github.com/meta-introspector/cargo2nix"
+repository = "https://github.com/meta-introspector/cargo2nix"
+keywords = ["rust"]
+include = [
+  "build.rs",
+  "src/**/*",
+  "Cargo.toml",
+  "Cargo.lock",
+  "LICENSE*",
+  "README.md",
+  "examples/**/*"
+]
+
+[dependencies]
+anyhow = { workspace = true }
+cargo = { workspace = true }
+clap = { workspace = true }
+clap_complete = { workspace = true }
+colorify = { workspace = true }
+semver = { workspace = true }
+sha2 = { workspace = true }
+tera = { workspace = true }
+cargo-platform = { workspace = true }
+walkdir = { workspace = true }
+pathdiff = { workspace = true }
+tempfile = { workspace = true }
+serde = { workspace = true }
+toml = { workspace = true }
+hex = { workspace = true }

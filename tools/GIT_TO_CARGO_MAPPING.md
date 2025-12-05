@@ -1,0 +1,4628 @@
+# Git Module to Cargo Module Mapping Report
+
+## Mapping Relationship Flow
+git module - defined in repo of -> cargo module
+
+## Git Module to Cargo Module Mappings
+
+### minizinc-introspector (753 cargo modules)
+- **Git Module Path**: `minizinc-introspector`
+- **Git URL**: `https://github.com/meta-introspector/minizinc-introspector.git`
+- **Git Object**: `b81e45f700b424a7180fbf265c4a67056a2f62d1`
+- **Defined Cargo Modules**:
+  - **git_diff_analyzer**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/git_diff_analyzer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `git_diff_analyzer`
+  - **minizinc_ffi**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/docs/extracted_content/tools/minizinc_ffi/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `minizinc_ffi`
+  - **rust_lattice_project**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/rust_lattice_project/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rust_lattice_project`
+  - **float_cmp**
+    - Version: `0.2.1`
+    - Description: Floating point approximate comparison traits
+    - Cargo.toml: `minizinc-introspector/vendor/crates/float-cmp/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `float_cmp`
+  - **async-global-executor**
+    - Version: `^0.3`
+    - Description: A global executor built on top of async-executor and async-io
+    - Cargo.toml: `minizinc-introspector/vendor/crates/async-global-executor/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `async-global-executor`
+  - **example**
+    - Version: `2.0.4`
+    - Description: A dynamic allocator example that may be used with the stdlib
+    - Cargo.toml: `minizinc-introspector/vendor/crates/alloc-stdlib/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `example`
+  - **bench**
+    - Version: `1.0.55`
+    - Description: Fast CSV parsing with support for serde.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/csv/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench`
+  - **shootout-pidigits**
+    - Version: `1.0`
+    - Description: Big integer implementation for Rust
+    - Cargo.toml: `minizinc-introspector/vendor/crates/num-bigint/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `shootout-pidigits`
+  - **bench**
+    - Version: `0.5`
+    - Description: Versatile QUIC transport protocol implementation
+    - Cargo.toml: `minizinc-introspector/vendor/crates/quinn/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench`
+  - **block-padding**
+    - Version: `0.14`
+    - Description: Padding and unpadding of messages divided into blocks.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/block-padding/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `block-padding`
+  - **no-terminal**
+    - Version: `0.59`
+    - Description: Read passwords in console applications.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rpassword/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `no-terminal`
+  - **view_types**
+    - Version: `0.8`
+    - Description: Array abstractions for Apache Arrow
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-array/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `view_types`
+  - **http-proxy-no_std**
+    - Version: `0.39.0`
+    - Description: WASI API bindings for Rust
+    - Cargo.toml: `minizinc-introspector/vendor/crates/wasi/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `http-proxy-no_std`
+  - **xid**
+    - Version: `0.2.6`
+    - Description: Determine whether characters have the XID_Start or XID_Continue properties according to Unicode Standard Annex #31
+    - Cargo.toml: `minizinc-introspector/vendor/crates/unicode-ident/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `xid`
+  - **serialize**
+    - Version: `1.0.100`
+    - Description: Path to the element that failed to deserialize
+    - Cargo.toml: `minizinc-introspector/vendor/crates/serde_path_to_error/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `serialize`
+  - **assert-json-diff**
+    - Version: `0.8`
+    - Description: Easily compare two JSON values and get great output
+    - Cargo.toml: `minizinc-introspector/vendor/crates/assert-json-diff/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `assert-json-diff`
+  - **system-configuration-sys**
+    - Version: `0.2.149`
+    - Description: Low level bindings to SystemConfiguration framework for macOS
+    - Cargo.toml: `minizinc-introspector/vendor/crates/system-configuration-sys/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `system-configuration-sys`
+  - **util**
+    - Version: `>=1.5.0`
+    - Description: Efficient parsing of integers from strings.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/lexical-parse-integer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `util`
+  - **zstd-safe**
+    - Version: `2.0.10`
+    - Description: Safe low-level bindings for the zstd compression library.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zstd-safe/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zstd-safe`
+  - **sparkline**
+    - Version: `1.0.109`
+    - Description: A library that's all about cooking up terminal user interfaces
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ratatui/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `sparkline`
+  - **rawpointer**
+    - Version: `0.2.1`
+    - Description: Extra methods for raw pointers and `NonNull<T>`.\n\nFor example `.post_inc()` and `.pre_dec()` (c.f. `ptr++` and `--ptr`),\n`offset` and `add` for `NonNull<T>`, and the function `ptrdistance`.\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rawpointer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rawpointer`
+  - **toml**
+    - Version: `1.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/toml-0.5.11/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `toml`
+  - **natord**
+    - Version: `1.0.9`
+    - Description: Natural ordering for Rust
+    - Cargo.toml: `minizinc-introspector/vendor/crates/natord/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `natord`
+  - **arrow_ipc**
+    - Version: `3.3`
+    - Description: Support for the Arrow IPC format
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-ipc-53.4.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `arrow_ipc`
+  - **hyper**
+    - Version: `0.27.2`
+    - Description: A fast and correct HTTP library.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/hyper-0.14.32/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `hyper`
+  - **case_tree**
+    - Version: `1.0`
+    - Description: An implementation of boolean-valued predicate functions.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/predicates/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `case_tree`
+  - **digest**
+    - Version: `2.4`
+    - Description: Traits for cryptographic hash functions and message authentication codes
+    - Cargo.toml: `minizinc-introspector/vendor/crates/digest/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `digest`
+  - **wasm_bindgen_test**
+    - Version: `0.3`
+    - Description: Internal testing crate for wasm-bindgen
+    - Cargo.toml: `minizinc-introspector/vendor/crates/wasm-bindgen-test/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `wasm_bindgen_test`
+  - **invalid**
+    - Version: `0.4.3`
+    - Description: Yet another format-preserving TOML parser.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/toml_edit-0.19.15/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `invalid`
+  - **option-ext**
+    - Version: `0.2.0`
+    - Description: Extends `Option` with additional operations
+    - Cargo.toml: `minizinc-introspector/vendor/crates/option-ext/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `option-ext`
+  - **issue_97_tests**
+    - Version: `0.5.0`
+    - Description: Lexical, to- and from-string conversion routines.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/lexical-core/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `issue_97_tests`
+  - **rustc_demangle**
+    - Version: `1.0.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rustc-demangle/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rustc_demangle`
+  - **aead**
+    - Version: `0.7`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/aead/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `aead`
+  - **async_fs**
+    - Version: `0.60`
+    - Description: Async filesystem primitives
+    - Cargo.toml: `minizinc-introspector/vendor/crates/async-fs/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `async_fs`
+  - **windows_i686_gnu**
+    - Version: `0.53.0`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_i686_gnu/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_i686_gnu`
+  - **crossterm_winapi**
+    - Version: `0.3.8`
+    - Description: WinAPI wrapper that provides some basic simple abstractions around common WinAPI calls
+    - Cargo.toml: `minizinc-introspector/vendor/crates/crossterm_winapi/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `crossterm_winapi`
+  - **phf**
+    - Version: `1.0`
+    - Description: Runtime support for perfect hash function data structures
+    - Cargo.toml: `minizinc-introspector/vendor/crates/phf/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `phf`
+  - **autocfg**
+    - Version: `1.1.0`
+    - Description: Automatic cfg for Rust compiler features
+    - Cargo.toml: `minizinc-introspector/vendor/crates/autocfg-0.1.8/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `autocfg`
+  - **data_locale_bench**
+    - Version: `0.5.0`
+    - Description: Trait and struct definitions for the ICU data provider
+    - Cargo.toml: `minizinc-introspector/vendor/crates/icu_provider/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `data_locale_bench`
+  - **surround**
+    - Version: `2.8.1`
+    - Description: pest's derive macro
+    - Cargo.toml: `minizinc-introspector/vendor/crates/pest_derive/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `surround`
+  - **phf_codegen**
+    - Version: `0.7.24`
+    - Description: Codegen library for PHF types
+    - Cargo.toml: `minizinc-introspector/vendor/crates/phf_codegen-0.7.24/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `phf_codegen`
+  - **it**
+    - Version: `1.10.6`
+    - Description: Single assignment cells and lazy values.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/once_cell/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `it`
+  - **lock_api**
+    - Version: `1.1.0`
+    - Description: Wrappers to create fully-featured Mutex and RwLock types. Compatible with no_std.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/lock_api/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `lock_api`
+  - **benchmarks**
+    - Version: `1.0.6`
+    - Description: Rustls is a modern TLS library written in Rust.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rustls/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmarks`
+  - **allocator_api2**
+    - Version: `1.0`
+    - Description: Mirror of Rust's allocator API
+    - Cargo.toml: `minizinc-introspector/vendor/crates/allocator-api2/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `allocator_api2`
+  - **file**
+    - Version: `2.1`
+    - Description: Parser for Rust source code
+    - Cargo.toml: `minizinc-introspector/vendor/crates/syn-1.0.109/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `file`
+  - **mod**
+    - Version: `1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand_xorshift/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `mod`
+  - **crypto-common**
+    - Version: `1.14`
+    - Description: Common cryptographic traits
+    - Cargo.toml: `minizinc-introspector/vendor/crates/crypto-common/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `crypto-common`
+  - **serde_derive**
+    - Version: `1`
+    - Description: Macros 1.1 implementation of #[derive(Serialize, Deserialize)]
+    - Cargo.toml: `minizinc-introspector/vendor/crates/serde_derive/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `serde_derive`
+  - **issue_392**
+    - Version: `0.8.3`
+    - Description: More compact and efficient implementations of the standard synchronization primitives.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/parking_lot/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `issue_392`
+  - **rand_chacha**
+    - Version: `1.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand_chacha/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand_chacha`
+  - **atomic_cell**
+    - Version: `0.7.1`
+    - Description: Utilities for concurrent programming
+    - Cargo.toml: `minizinc-introspector/vendor/crates/crossbeam-utils/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `atomic_cell`
+  - **pin_project_internal**
+    - Version: `2.0.1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/pin-project-internal/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `pin_project_internal`
+  - **nohash-hasher**
+    - Version: `0.2.0`
+    - Description: An implementation of `std::hash::Hasher` which does not hash at all.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/nohash-hasher/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `nohash-hasher`
+  - **http**
+    - Version: `1.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/http-0.2.12/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `http`
+  - **specializations**
+    - Version: `0.7`
+    - Description: Extra iterator adaptors, iterator methods, free functions, and macros.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/itertools/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `specializations`
+  - **ffi**
+    - Version: `0.5`
+    - Description: Defines the logical types for arrow arrays
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-schema/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `ffi`
+  - **convert**
+    - Version: `0.2.2`
+    - Description: Half-precision floating point f16 and bf16 types for Rust implementing the IEEE 754-2008 standard binary16 and bfloat16 types.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/half/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `convert`
+  - **steal**
+    - Version: `0.8`
+    - Description: Concurrent work-stealing deque
+    - Cargo.toml: `minizinc-introspector/vendor/crates/crossbeam-deque/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `steal`
+  - **libssh2_sys**
+    - Version: `0.9.35`
+    - Description: Native bindings to the libssh2 library
+    - Cargo.toml: `minizinc-introspector/vendor/crates/libssh2-sys/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `libssh2_sys`
+  - **hermit_abi**
+    - Version: `1.0.0`
+    - Description: Hermit system calls definitions.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/hermit-abi/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `hermit_abi`
+  - **memoffset**
+    - Version: `1`
+    - Description: offset_of functionality for Rust structs.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/memoffset/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `memoffset`
+  - **num-traits**
+    - Version: `1`
+    - Description: Numeric traits for generic mathematics
+    - Cargo.toml: `minizinc-introspector/vendor/crates/num-traits/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `num-traits`
+  - **bench**
+    - Version: `1.0.0`
+    - Description: A simple clean-room implementation of the Adler-32 checksum
+    - Cargo.toml: `minizinc-introspector/vendor/crates/adler2/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench`
+  - **test_writedoc**
+    - Version: `0.2.3`
+    - Description: Indented document literals
+    - Cargo.toml: `minizinc-introspector/vendor/crates/indoc/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test_writedoc`
+  - **winapi_util**
+    - Version: `>=0.48.0, <=0.60.*`
+    - Description: A dumping ground for high level safe wrappers over windows-sys.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/winapi-util/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `winapi_util`
+  - **ordered-float**
+    - Version: `1.0`
+    - Description: Wrappers for total ordering on floats
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ordered-float/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `ordered-float`
+  - **duct**
+    - Version: `0.2.43`
+    - Description: a library for running child processes
+    - Cargo.toml: `minizinc-introspector/vendor/crates/duct/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `duct`
+  - **windows_aarch64_msvc**
+    - Version: `0.48.5`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_aarch64_msvc-0.48.5/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_aarch64_msvc`
+  - **arrow_ord**
+    - Version: `0.9`
+    - Description: Ordering kernels for arrow arrays
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-ord/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `arrow_ord`
+  - **verify**
+    - Version: `0.5.2`
+    - Description: Mozilla's CA root certificates for use with webpki
+    - Cargo.toml: `minizinc-introspector/vendor/crates/webpki-roots-0.26.11/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `verify`
+  - **test**
+    - Version: `1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/pkg-config/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test`
+  - **benchmark**
+    - Version: `0.5`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/unicode-truncate/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmark`
+  - **bench**
+    - Version: `0.5.3`
+    - Description: Fast multiple substring searching with finite state machines.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/aho-corasick-0.5.3/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench`
+  - **integration**
+    - Version: `0.4.1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rstest/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `integration`
+  - **span_repeated**
+    - Version: `0.3.38`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tracing/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `span_repeated`
+  - **petgraph**
+    - Version: `0.5.5`
+    - Description: Graph data structure library. Provides graph types and graph algorithms.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/petgraph/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `petgraph`
+  - **hex**
+    - Version: `0.9`
+    - Description: Encoding and decoding data into/from hexadecimal representation.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/hex/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `hex`
+  - **redox_users**
+    - Version: `1.4`
+    - Description: A Rust library to access Redox users and groups functionality
+    - Cargo.toml: `minizinc-introspector/vendor/crates/redox_users/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `redox_users`
+  - **core-foundation**
+    - Version: `0.5`
+    - Description: Bindings to Core Foundation for macOS
+    - Cargo.toml: `minizinc-introspector/vendor/crates/core-foundation-0.9.4/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `core-foundation`
+  - **unic-segment**
+    - Version: `0.9.0`
+    - Description: UNIC — Unicode Text Segmentation Algorithms
+    - Cargo.toml: `minizinc-introspector/vendor/crates/unic-segment/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unic-segment`
+  - **clap_lex**
+    - Version: `1.0.14`
+    - Description: Minimal, flexible command line parser
+    - Cargo.toml: `minizinc-introspector/vendor/crates/clap_lex/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `clap_lex`
+  - **set_internet_password**
+    - Version: `0.16`
+    - Description: Security.framework bindings for macOS and iOS
+    - Cargo.toml: `minizinc-introspector/vendor/crates/security-framework/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `set_internet_password`
+  - **dirs-sys**
+    - Version: `0.48.0`
+    - Description: System-level helper functions for the dirs and directories crates.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/dirs-sys/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `dirs-sys`
+  - **chrono-tz**
+    - Version: `0.3`
+    - Description: TimeZone implementations for chrono from the IANA database
+    - Cargo.toml: `minizinc-introspector/vendor/crates/chrono-tz/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `chrono-tz`
+  - **is_terminal_polyfill**
+    - Version: `1.70.1`
+    - Description: Polyfill for `is_terminal` stdlib feature for use with older MSRVs
+    - Cargo.toml: `minizinc-introspector/vendor/crates/is_terminal_polyfill/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `is_terminal_polyfill`
+  - **thrift**
+    - Version: `1.7`
+    - Description: Rust bindings for the Apache Thrift RPC system
+    - Cargo.toml: `minizinc-introspector/vendor/crates/thrift/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `thrift`
+  - **unwindsafe**
+    - Version: `0.59`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tokio/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unwindsafe`
+  - **windows_targets**
+    - Version: `0.53.0`
+    - Description: Import libs for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows-targets/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_targets`
+  - **tests**
+    - Version: `0.4.0`
+    - Description: Port of Python's difflib library to Rust.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/difflib/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tests`
+  - **phf_generator**
+    - Version: `0.6`
+    - Description: PHF generation logic
+    - Cargo.toml: `minizinc-introspector/vendor/crates/phf_generator-0.7.24/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `phf_generator`
+  - **untrusted**
+    - Version: `0.9.0`
+    - Description: Safe, fast, zero-panic, zero-crashing, zero-allocation parsing of untrusted inputs in Rust.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/untrusted/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `untrusted`
+  - **quinn_proto**
+    - Version: `1`
+    - Description: State machine for the QUIC transport protocol
+    - Cargo.toml: `minizinc-introspector/vendor/crates/quinn-proto/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `quinn_proto`
+  - **yoke_derive**
+    - Version: `0.13.0`
+    - Description: Custom derive for the yoke crate
+    - Cargo.toml: `minizinc-introspector/vendor/crates/yoke-derive/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `yoke_derive`
+  - **compact_str**
+    - Version: `0.2`
+    - Description: A memory efficient string type that transparently stores strings on the stack, when possible
+    - Cargo.toml: `minizinc-introspector/vendor/crates/compact_str/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `compact_str`
+  - **poly1305**
+    - Version: `0.2`
+    - Description: The Poly1305 universal hash function and message authentication code
+    - Cargo.toml: `minizinc-introspector/vendor/crates/poly1305/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `poly1305`
+  - **rust**
+    - Version: `2.3.2`
+    - Description: Parser for Rust source code
+    - Cargo.toml: `minizinc-introspector/vendor/crates/syn/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rust`
+  - **macros**
+    - Version: `1.0.1`
+    - Description: Overwrite `assert_eq!` and `assert_ne!` with drop-in replacements, adding colorful diffs.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/pretty_assertions/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `macros`
+  - **main**
+    - Version: `1.0`
+    - Description: varint+zigzag and fixedint integer encoding/decoding (https://developers.google.com/protocol-buffers/docs/encoding)
+    - Cargo.toml: `minizinc-introspector/vendor/crates/integer-encoding/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `main`
+  - **query-stream**
+    - Version: `3.0.5`
+    - Description: IO stream adapters for writing colored text that will gracefully degrade according to your terminal's capabilities.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/anstream/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `query-stream`
+  - **integration**
+    - Version: `0.1.0`
+    - Description: Automata construction and matching using regular expressions.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/regex-automata/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `integration`
+  - **tower_http**
+    - Version: `0.13`
+    - Description: Tower middleware and utilities for HTTP clients and servers
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tower-http/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tower_http`
+  - **arrow_data**
+    - Version: `0.4`
+    - Description: Array data abstractions for Apache Arrow
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-data-53.4.1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `arrow_data`
+  - **win_bindings**
+    - Version: `0.61`
+    - Description: Date and time library for Rust
+    - Cargo.toml: `minizinc-introspector/vendor/crates/chrono/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `win_bindings`
+  - **workspace_deps**
+    - Version: `2.0.99`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/proc-macro-crate/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `workspace_deps`
+  - **mio_1_0**
+    - Version: `~0.5`
+    - Description: MIO support for signal-hook
+    - Cargo.toml: `minizinc-introspector/vendor/crates/signal-hook-mio/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `mio_1_0`
+  - **sct**
+    - Version: `0.9.0`
+    - Description: Certificate transparency SCT verification library
+    - Cargo.toml: `minizinc-introspector/vendor/crates/sct/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `sct`
+  - **utf8_iter**
+    - Version: `1.0.4`
+    - Description: Iterator by char over potentially-invalid UTF-8 in &[u8]
+    - Cargo.toml: `minizinc-introspector/vendor/crates/utf8_iter/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `utf8_iter`
+  - **flatbuffers**
+    - Version: `0.4.0`
+    - Description: Official FlatBuffers Rust runtime library.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/flatbuffers-24.12.23/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `flatbuffers`
+  - **serde**
+    - Version: `1.27`
+    - Description: Support for parsing JSON format to and from the Arrow format
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-json/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `serde`
+  - **serde_yaml**
+    - Version: `1.0.195`
+    - Description: YAML data format for Serde
+    - Cargo.toml: `minizinc-introspector/vendor/crates/serde_yaml/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `serde_yaml`
+  - **utf8-ranges**
+    - Version: `0.1.3`
+    - Description: Convert ranges of Unicode codepoints to UTF-8 byte ranges.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/utf8-ranges/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `utf8-ranges`
+  - **phf_shared**
+    - Version: `1.4`
+    - Description: Support code shared by PHF libraries
+    - Cargo.toml: `minizinc-introspector/vendor/crates/phf_shared-0.7.24/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `phf_shared`
+  - **parse**
+    - Version: `1.0.194`
+    - Description: Parser and evaluator for Cargo's flavor of Semantic Versioning
+    - Cargo.toml: `minizinc-introspector/vendor/crates/semver/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `parse`
+  - **dalek_benchmarks**
+    - Version: `0.9`
+    - Description: A pure-Rust implementation of group operations on ristretto255 and Curve25519
+    - Cargo.toml: `minizinc-introspector/vendor/crates/curve25519-dalek/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `dalek_benchmarks`
+  - **num**
+    - Version: `0.2.19`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/num/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `num`
+  - **unbounded**
+    - Version: `0.3.37`
+    - Description: Async multi-producer multi-consumer channel
+    - Cargo.toml: `minizinc-introspector/vendor/crates/async-channel/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unbounded`
+  - **xsalsa20poly1305**
+    - Version: `1`
+    - Description: DEPRECATED: please use the `crypto_secretbox` crate
+    - Cargo.toml: `minizinc-introspector/vendor/crates/xsalsa20poly1305/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `xsalsa20poly1305`
+  - **foreign-types-shared**
+    - Version: `0.1.1`
+    - Description: An internal crate used by foreign-types
+    - Cargo.toml: `minizinc-introspector/vendor/crates/foreign-types-shared/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `foreign-types-shared`
+  - **async_stream_impl**
+    - Version: `1`
+    - Description: proc macros for async-stream crate
+    - Cargo.toml: `minizinc-introspector/vendor/crates/async-stream-impl/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `async_stream_impl`
+  - **test**
+    - Version: `1.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/typenum/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test`
+  - **bench_main**
+    - Version: `~3.5.0`
+    - Description: Statistics-driven micro-benchmarking library
+    - Cargo.toml: `minizinc-introspector/vendor/crates/criterion/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench_main`
+  - **async-recursion**
+    - Version: `1.0`
+    - Description: Recursion for async functions
+    - Cargo.toml: `minizinc-introspector/vendor/crates/async-recursion/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `async-recursion`
+  - **time_core**
+    - Version: `0.1.4`
+    - Description: This crate is an implementation detail and should not be relied upon directly.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/time-core/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `time_core`
+  - **rdrand**
+    - Version: `0.3`
+    - Description: An implementation of random number generator based on rdrand and rdseed instructions
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rdrand/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rdrand`
+  - **getrandom**
+    - Version: `0.2`
+    - Description: A small cross-platform library for retrieving random data from system source
+    - Cargo.toml: `minizinc-introspector/vendor/crates/getrandom-0.1.16/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `getrandom`
+  - **buffer**
+    - Version: `0.2.154`
+    - Description: A small cross-platform library for retrieving random data from system source
+    - Cargo.toml: `minizinc-introspector/vendor/crates/getrandom/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `buffer`
+  - **num-iter**
+    - Version: `1`
+    - Description: External iterators for generic mathematics
+    - Cargo.toml: `minizinc-introspector/vendor/crates/num-iter/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `num-iter`
+  - **plotters_svg**
+    - Version: `0.3.6`
+    - Description: Plotters SVG backend
+    - Cargo.toml: `minizinc-introspector/vendor/crates/plotters-svg/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `plotters_svg`
+  - **take_kernels**
+    - Version: `3`
+    - Description: Rust implementation of Apache Arrow
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-53.4.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `take_kernels`
+  - **windows-sys**
+    - Version: `0.52.0`
+    - Description: Rust for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows-sys-0.52.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows-sys`
+  - **const-random**
+    - Version: `0.1.16`
+    - Description: Provides compile time random number generation.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/const-random/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `const-random`
+  - **rand_core**
+    - Version: `1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand_core/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand_core`
+  - **shlex**
+    - Version: `1.3.0`
+    - Description: Split a string into shell words, like Python's shlex.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/shlex/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `shlex`
+  - **phf_codegen**
+    - Version: `0.11.0`
+    - Description: Codegen library for PHF types
+    - Cargo.toml: `minizinc-introspector/vendor/crates/phf_codegen/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `phf_codegen`
+  - **schannel**
+    - Version: `0.59`
+    - Description: Schannel bindings for rust, allowing SSL/TLS (e.g. https) without openssl
+    - Cargo.toml: `minizinc-introspector/vendor/crates/schannel/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `schannel`
+  - **brotli-decompressor**
+    - Version: `~0.2`
+    - Description: A brotli decompressor that with an interface avoiding the rust stdlib. This makes it suitable for embedded devices and kernels. It is designed with a pluggable allocator so that the standard lib's allocator may be employed. The default build also includes a stdlib allocator and stream interface. Disable this with --features=no-stdlib. Alternatively, --features=unsafe turns off array bounds checks and memory initialization but provides a safe interface for the caller.  Without adding the --features=unsafe argument, all included code is safe. For compression in addition to this library, download https://github.com/dropbox/rust-brotli 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/brotli-decompressor/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `brotli-decompressor`
+  - **make_var**
+    - Version: `1.0.45`
+    - Description: Custom derive for the zerovec crate
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zerovec-derive/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `make_var`
+  - **futures_sink**
+    - Version: `0.3.31`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/futures-sink/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `futures_sink`
+  - **flatbuffers**
+    - Version: `0.4.0`
+    - Description: Official FlatBuffers Rust runtime library.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/flatbuffers/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `flatbuffers`
+  - **rand_hc**
+    - Version: `>=0.2, <0.4`
+    - Description: HC128 random number generator\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand_hc-0.1.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand_hc`
+  - **test_parse**
+    - Version: `1.0.49`
+    - Description: Conditional compilation according to rustc compiler version
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rustversion/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test_parse`
+  - **windows_targets**
+    - Version: `0.52.6`
+    - Description: Import libs for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows-targets-0.52.6/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_targets`
+  - **util**
+    - Version: `>=1.5.0`
+    - Description: Efficient parsing of floats from strings.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/lexical-parse-float/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `util`
+  - **aes**
+    - Version: `1.6.0`
+    - Description: Pure Rust implementation of the Advanced Encryption Standard (a.k.a. Rijndael)
+    - Cargo.toml: `minizinc-introspector/vendor/crates/aes/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `aes`
+  - **mime**
+    - Version: `0.3.17`
+    - Description: Strongly Typed Mimes
+    - Cargo.toml: `minizinc-introspector/vendor/crates/mime/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `mime`
+  - **foldhash**
+    - Version: `1.8`
+    - Description: A fast, non-cryptographic, minimally DoS-resistant hashing algorithm.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/foldhash/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `foldhash`
+  - **status_code**
+    - Version: `1.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/http/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `status_code`
+  - **utils**
+    - Version: `0.26`
+    - Description: Asynchronous TLS/SSL streams for Tokio using Rustls.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tokio-rustls/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `utils`
+  - **event-listener**
+    - Version: `1`
+    - Description: Notify async tasks or threads
+    - Cargo.toml: `minizinc-introspector/vendor/crates/event-listener-2.5.3/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `event-listener`
+  - **semaphore**
+    - Version: `0.3`
+    - Description: Async synchronization primitives
+    - Cargo.toml: `minizinc-introspector/vendor/crates/async-lock/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `semaphore`
+  - **arrow_arith**
+    - Version: `0.4`
+    - Description: Arrow arithmetic kernels
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-arith/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `arrow_arith`
+  - **ordered-stream**
+    - Version: `0.3.25`
+    - Description: Streams that are ordered relative to external events
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ordered-stream/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `ordered-stream`
+  - **stability**
+    - Version: `2`
+    - Description: Rust API stability attributes for the rest of us.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/stability/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `stability`
+  - **benchmarks**
+    - Version: `1.0`
+    - Description: Simple, lightweight template engine
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tinytemplate/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmarks`
+  - **keyctl**
+    - Version: `1.5.7`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/linux-keyutils/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `keyctl`
+  - **windows_link**
+    - Version: `0.1.3`
+    - Description: Linking for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows-link/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_link`
+  - **udp**
+    - Version: `0.4.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tokio-util/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `udp`
+  - **futures_task**
+    - Version: `0.3.31`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/futures-task/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `futures_task`
+  - **all**
+    - Version: `0.9`
+    - Description: IDNA (Internationalizing Domain Names in Applications) and Punycode.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/idna/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `all`
+  - **powerfmt**
+    - Version: `=0.1.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/powerfmt/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `powerfmt`
+  - **windows_i686_msvc**
+    - Version: `0.53.0`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_i686_msvc/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_i686_msvc`
+  - **arraystring**
+    - Version: `1.0`
+    - Description: A vector with fixed capacity, backed by an array (it can be stored on the stack too). Implements fixed capacity ArrayVec and ArrayString.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrayvec/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `arraystring`
+  - **uuid**
+    - Version: `0.9`
+    - Description: A library to generate and parse UUIDs.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/uuid/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `uuid`
+  - **glob-std**
+    - Version: `0.3`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/glob/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `glob-std`
+  - **mk_certs**
+    - Version: `0.4`
+    - Description: OpenSSL bindings
+    - Cargo.toml: `minizinc-introspector/vendor/crates/openssl/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `mk_certs`
+  - **serde_qs**
+    - Version: `1.10`
+    - Description: Querystrings for Serde
+    - Cargo.toml: `minizinc-introspector/vendor/crates/serde_qs/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `serde_qs`
+  - **tower_service**
+    - Version: `0.3`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tower-service/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tower_service`
+  - **seq**
+    - Version: `0.3`
+    - Description: Anonymous structured values
+    - Cargo.toml: `minizinc-introspector/vendor/crates/value-bag/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `seq`
+  - **x86**
+    - Version: `0.2.155`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/cpufeatures/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `x86`
+  - **thiserror_impl**
+    - Version: `2.0.87`
+    - Description: Implementation detail of the `thiserror` crate
+    - Cargo.toml: `minizinc-introspector/vendor/crates/thiserror-impl-1.0.69/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `thiserror_impl`
+  - **example**
+    - Version: `2.0.4`
+    - Description: A dynamic allocator that may be used with or without the stdlib. This allows a package with nostd to allocate memory dynamically and be used either with a custom allocator, items on the stack, or by a package that wishes to simply use Box<>. It also provides options to use calloc or a mutable global variable for pre-zeroed memory
+    - Cargo.toml: `minizinc-introspector/vendor/crates/alloc-no-stdlib/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `example`
+  - **snafu-derive**
+    - Version: `1.0`
+    - Description: An ergonomic error handling library
+    - Cargo.toml: `minizinc-introspector/vendor/crates/snafu-derive/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `snafu-derive`
+  - **arrow_row**
+    - Version: `0.9`
+    - Description: Arrow row format
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-row/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `arrow_row`
+  - **bench**
+    - Version: `0.5`
+    - Description: Bare bones CSV parsing with no_std support.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/csv-core/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench`
+  - **litemap**
+    - Version: `0.5.0`
+    - Description: A key-value Map implementation based on a flat, sorted Vec.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/litemap/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `litemap`
+  - **normalize-line-endings**
+    - Version: `0.3.0`
+    - Description: Takes an iterator over chars and returns a new iterator with all line endings (\\r, \\n, or \\r\\n) as \\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/normalize-line-endings/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `normalize-line-endings`
+  - **use_current_thread**
+    - Version: `0.2`
+    - Description: Core APIs for Rayon
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rayon-core/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `use_current_thread`
+  - **futures_macro**
+    - Version: `2.0.52`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/futures-macro/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `futures_macro`
+  - **crunchy**
+    - Version: `0.2.4`
+    - Description: Crunchy unroller: deterministically unroll constant loops
+    - Cargo.toml: `minizinc-introspector/vendor/crates/crunchy/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `crunchy`
+  - **percent_encoding**
+    - Version: `2.3.2`
+    - Description: Percent encoding and decoding
+    - Cargo.toml: `minizinc-introspector/vendor/crates/percent-encoding/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `percent_encoding`
+  - **windows_i686_msvc**
+    - Version: `0.48.5`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_i686_msvc-0.48.5/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_i686_msvc`
+  - **walkdir**
+    - Version: `0.1.1`
+    - Description: Recursively walk a directory.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/walkdir/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `walkdir`
+  - **mod**
+    - Version: `0.6.1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/sha2/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `mod`
+  - **castaway**
+    - Version: `1`
+    - Description: Safe, zero-cost downcasting for limited compile-time specialization.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/castaway/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `castaway`
+  - **pyo3_build_config**
+    - Version: `0.12.14`
+    - Description: Build configuration for the PyO3 ecosystem
+    - Cargo.toml: `minizinc-introspector/vendor/crates/pyo3-build-config/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `pyo3_build_config`
+  - **stderr**
+    - Version: `0.3.9`
+    - Description: A crossplatform terminal library for manipulating terminals.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/crossterm/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `stderr`
+  - **throughput**
+    - Version: `>=0.52, <=0.59`
+    - Description: UDP sockets with ECN information for the QUIC transport protocol
+    - Cargo.toml: `minizinc-introspector/vendor/crates/quinn-udp/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `throughput`
+  - **either**
+    - Version: `1.0.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/either/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `either`
+  - **json**
+    - Version: `0.2.0`
+    - Description: A byte-oriented, zero-copy, parser combinators library
+    - Cargo.toml: `minizinc-introspector/vendor/crates/winnow-0.5.40/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `json`
+  - **task_local**
+    - Version: `0.3.10`
+    - Description: Deprecated in favor of `smol` - Async version of the Rust standard library
+    - Cargo.toml: `minizinc-introspector/vendor/crates/async-std/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `task_local`
+  - **parse-zoneinfo**
+    - Version: `1.3.1`
+    - Description: Parse zoneinfo files from the IANA database
+    - Cargo.toml: `minizinc-introspector/vendor/crates/parse-zoneinfo/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `parse-zoneinfo`
+  - **miniz_oxide**
+    - Version: `0.3.3`
+    - Description: DEFLATE compression and decompression library rewritten in Rust based on miniz
+    - Cargo.toml: `minizinc-introspector/vendor/crates/miniz_oxide/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `miniz_oxide`
+  - **unic-ucd-segment**
+    - Version: `0.9.0`
+    - Description: UNIC — Unicode Character Database — Segmentation Properties
+    - Cargo.toml: `minizinc-introspector/vendor/crates/unic-ucd-segment/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unic-ucd-segment`
+  - **inv_list**
+    - Version: `0.5.0`
+    - Description: Collection of API for use in ICU libraries.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/icu_collections/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `inv_list`
+  - **rand_os**
+    - Version: `0.2.12`
+    - Description: OS backed Random Number Generator
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand_os/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand_os`
+  - **set_internet_password**
+    - Version: `0.16`
+    - Description: Security.framework bindings for macOS and iOS
+    - Cargo.toml: `minizinc-introspector/vendor/crates/security-framework-2.11.1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `set_internet_password`
+  - **ipnet**
+    - Version: `1`
+    - Description: Provides types and useful methods for working with IPv4 and IPv6 network addresses, commonly called IP prefixes. The new `IpNet`, `Ipv4Net`, and `Ipv6Net` types build on the existing `IpAddr`, `Ipv4Addr`, and `Ipv6Addr` types already provided in Rust's standard library and align to their design to stay consistent. The module also provides useful traits that extend `Ipv4Addr` and `Ipv6Addr` with methods for `Add`, `Sub`, `BitAnd`, and `BitOr` operations. The module only uses stable feature so it is guaranteed to compile using the stable toolchain.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ipnet/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `ipnet`
+  - **integration**
+    - Version: `0.1.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/regex/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `integration`
+  - **simple_asn1**
+    - Version: `0.3`
+    - Description: A simple DER/ASN.1 encoding/decoding library.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/simple_asn1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `simple_asn1`
+  - **salsa20**
+    - Version: `0.3.3`
+    - Description: Salsa20 Stream Cipher
+    - Cargo.toml: `minizinc-introspector/vendor/crates/salsa20/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `salsa20`
+  - **rstest_macros**
+    - Version: `0.4.1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rstest_macros/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rstest_macros`
+  - **endi**
+    - Version: `1.1.0`
+    - Description: A simple endian-handling library
+    - Cargo.toml: `minizinc-introspector/vendor/crates/endi/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `endi`
+  - **arrow_select**
+    - Version: `0.9`
+    - Description: Selection kernels for arrow arrays
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-select/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `arrow_select`
+  - **wasi**
+    - Version: `1.0`
+    - Description: Experimental WASI API bindings for Rust
+    - Cargo.toml: `minizinc-introspector/vendor/crates/wasi-0.11.1+wasi-snapshot-preview1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `wasi`
+  - **windows_x86_64_msvc**
+    - Version: `0.53.0`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_x86_64_msvc/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_x86_64_msvc`
+  - **brotli-decompressor**
+    - Version: `~0.2`
+    - Description: A brotli decompressor that with an interface avoiding the rust stdlib. This makes it suitable for embedded devices and kernels. It is designed with a pluggable allocator so that the standard lib's allocator may be employed. The default build also includes a stdlib allocator and stream interface. Disable this with --features=no-stdlib. Alternatively, --features=unsafe turns off array bounds checks and memory initialization but provides a safe interface for the caller.  Without adding the --features=unsafe argument, all included code is safe. For compression in addition to this library, download https://github.com/dropbox/rust-brotli 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/brotli-decompressor-4.0.3/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `brotli-decompressor`
+  - **xdg_home**
+    - Version: `0.59`
+    - Description: The user's home directory as per XDG Specification
+    - Cargo.toml: `minizinc-introspector/vendor/crates/xdg-home/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `xdg_home`
+  - **libredox**
+    - Version: `0.5.16`
+    - Description: Redox stable ABI
+    - Cargo.toml: `minizinc-introspector/vendor/crates/libredox/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `libredox`
+  - **retain_mut**
+    - Version: `0.1.9`
+    - Description: Provide retain_mut method that has the same functionality as retain but gives mutable borrow to the predicate.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/retain_mut/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `retain_mut`
+  - **strsim**
+    - Version: `0.11.1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/strsim/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `strsim`
+  - **kangaroo**
+    - Version: `0.2.2`
+    - Description: An implementation of Keccak derived functions.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tiny-keccak/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `kangaroo`
+  - **parse**
+    - Version: `0.8.5`
+    - Description: A tiny, safe, speedy, zero-copy HTTP/1.x parser.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/httparse/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `parse`
+  - **twox_hash**
+    - Version: `1.0.117`
+    - Description: A Rust implementation of the XXHash and XXH3 algorithms
+    - Cargo.toml: `minizinc-introspector/vendor/crates/twox-hash/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `twox_hash`
+  - **thread_notify**
+    - Version: `1.8.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/futures-executor/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `thread_notify`
+  - **tokio-rustls**
+    - Version: `0.23.1`
+    - Description: Asynchronous TLS/SSL streams for Tokio using Rustls.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tokio-rustls-0.24.1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tokio-rustls`
+  - **configparser**
+    - Version: `1.0.0`
+    - Description: A simple configuration parsing utility with no dependencies that allows you to parse INI and ini-style syntax. You can use this to write Rust programs which can be customized by end users easily.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/configparser/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `configparser`
+  - **matches**
+    - Version: `0.1.10`
+    - Description: A macro to evaluate, as a boolean, whether an expression matches a pattern.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/matches/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `matches`
+  - **sha1**
+    - Version: `0.5`
+    - Description: SHA-1 hash function
+    - Cargo.toml: `minizinc-introspector/vendor/crates/sha1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `sha1`
+  - **openssl_sys**
+    - Version: `0.2.8`
+    - Description: FFI bindings to OpenSSL
+    - Cargo.toml: `minizinc-introspector/vendor/crates/openssl-sys/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `openssl_sys`
+  - **async-task**
+    - Version: `2`
+    - Description: Task abstraction for building executors
+    - Cargo.toml: `minizinc-introspector/vendor/crates/async-task/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `async-task`
+  - **tinyvec_macros**
+    - Version: `0.1.1`
+    - Description: Some macros for tiny containers
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tinyvec_macros/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tinyvec_macros`
+  - **zvariant_derive**
+    - Version: `0.1.19`
+    - Description: D-Bus & GVariant encoding & decoding
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zvariant_derive/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zvariant_derive`
+  - **zvariant_utils**
+    - Version: `2.0.64`
+    - Description: Various utilities used internally by the zvariant crate.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zvariant_utils/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zvariant_utils`
+  - **want**
+    - Version: `0.2.0-alpha.2`
+    - Description: Detect when another Future wants a result.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/want/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `want`
+  - **bench**
+    - Version: `0.3`
+    - Description: Notify async tasks or threads
+    - Cargo.toml: `minizinc-introspector/vendor/crates/event-listener/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench`
+  - **siphasher**
+    - Version: `0.2.3`
+    - Description: SipHash functions from rust-core < 1.13
+    - Cargo.toml: `minizinc-introspector/vendor/crates/siphasher-0.2.3/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `siphasher`
+  - **kernel32**
+    - Version: `0.2.2`
+    - Description: Contains function definitions for the Windows API library kernel32. See winapi for types and constants.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/kernel32-sys/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `kernel32`
+  - **phf**
+    - Version: `0.7.24`
+    - Description: Runtime support for perfect hash function data structures
+    - Cargo.toml: `minizinc-introspector/vendor/crates/phf-0.7.24/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `phf`
+  - **server**
+    - Version: `0.3.2`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/jobserver/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `server`
+  - **value**
+    - Version: `1.7`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/log/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `value`
+  - **all**
+    - Version: `0.3`
+    - Description: A library for querying the version of a installed rustc compiler
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rustc_version/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `all`
+  - **tcp_echo**
+    - Version: `0.69`
+    - Description: The low-level `io_uring` userspace interface for Rust
+    - Cargo.toml: `minizinc-introspector/vendor/crates/io-uring/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tcp_echo`
+  - **heck**
+    - Version: `1.2.0`
+    - Description: heck is a case conversion library.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/heck-0.4.1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `heck`
+  - **git2**
+    - Version: `0.9.45`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/git2/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `git2`
+  - **colorchoice**
+    - Version: `1.0.4`
+    - Description: Global override of color control
+    - Cargo.toml: `minizinc-introspector/vendor/crates/colorchoice/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `colorchoice`
+  - **plotters_backend**
+    - Version: `0.3.7`
+    - Description: Plotters Backend API
+    - Cargo.toml: `minizinc-introspector/vendor/crates/plotters-backend/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `plotters_backend`
+  - **benches**
+    - Version: `1.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/unicode-width/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benches`
+  - **linux_raw_sys**
+    - Version: `1.1.0`
+    - Description: Generated bindings for Linux's userspace API
+    - Cargo.toml: `minizinc-introspector/vendor/crates/linux-raw-sys/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `linux_raw_sys`
+  - **main**
+    - Version: `1`
+    - Description: An HTTP/2 client and server
+    - Cargo.toml: `minizinc-introspector/vendor/crates/h2/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `main`
+  - **arrow_select**
+    - Version: `0.8`
+    - Description: Selection kernels for arrow arrays
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-select-53.4.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `arrow_select`
+  - **union_array**
+    - Version: `0.8`
+    - Description: Array abstractions for Apache Arrow
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-array-53.4.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `union_array`
+  - **rand_chacha**
+    - Version: `0.1`
+    - Description: ChaCha random number generator\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand_chacha-0.1.1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand_chacha`
+  - **win_status_illegal_instruction**
+    - Version: `1.0.97`
+    - Description: Safe cross-platform linker shenanigans
+    - Cargo.toml: `minizinc-introspector/vendor/crates/linkme/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `win_status_illegal_instruction`
+  - **swap**
+    - Version: `0.59.0`
+    - Description: a cross-platform library for opening OS pipes
+    - Cargo.toml: `minizinc-introspector/vendor/crates/os_pipe/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `swap`
+  - **stress-test**
+    - Version: `0.8.6`
+    - Description: get the IANA time zone for the current system
+    - Cargo.toml: `minizinc-introspector/vendor/crates/iana-time-zone/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `stress-test`
+  - **stack**
+    - Version: `7.2.0`
+    - Description: The Elegant Parser
+    - Cargo.toml: `minizinc-introspector/vendor/crates/pest/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `stack`
+  - **hyper-timeout**
+    - Version: `1.0.0`
+    - Description: A connect, read and write timeout aware connector to be used with hyper Client.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/hyper-timeout/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `hyper-timeout`
+  - **smoke**
+    - Version: `0.2.56`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/wait-timeout/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `smoke`
+  - **ppv_lite86**
+    - Version: `0.8.23`
+    - Description: Cross-platform cryptography-oriented low-level SIMD library.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ppv-lite86/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `ppv_lite86`
+  - **windows_x86_64_gnullvm**
+    - Version: `0.48.5`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_x86_64_gnullvm-0.48.5/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_x86_64_gnullvm`
+  - **digest**
+    - Version: `0.14`
+    - Description: Traits for cryptographic hash functions
+    - Cargo.toml: `minizinc-introspector/vendor/crates/digest-0.9.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `digest`
+  - **socket2**
+    - Version: `0.52`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/socket2-0.5.10/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `socket2`
+  - **zbus_names**
+    - Version: `4.0.0`
+    - Description: A collection of D-Bus bus names types
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zbus_names/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zbus_names`
+  - **windows_sys**
+    - Version: `0.53.2`
+    - Description: Rust for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows-sys/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_sys`
+  - **build**
+    - Version: `0.1.1`
+    - Description: Common code for build.rs in WinAPI -sys crates.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/winapi-build/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `build`
+  - **vec1**
+    - Version: `1.0`
+    - Description: a std Vec wrapper assuring that it has at least 1 element
+    - Cargo.toml: `minizinc-introspector/vendor/crates/vec1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `vec1`
+  - **benchmarks**
+    - Version: `0.3`
+    - Description: encodes and decodes base64 as bytes or utf8
+    - Cargo.toml: `minizinc-introspector/vendor/crates/base64-0.13.1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmarks`
+  - **verify**
+    - Version: `0.5.2`
+    - Description: Mozilla's CA root certificates for use with webpki
+    - Cargo.toml: `minizinc-introspector/vendor/crates/webpki-roots/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `verify`
+  - **form_urlencoded**
+    - Version: `2.3.0`
+    - Description: Parser and serializer for the application/x-www-form-urlencoded syntax, as used by HTML forms.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/form_urlencoded/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `form_urlencoded`
+  - **webpki-roots**
+    - Version: `0.5.2`
+    - Description: Mozilla's CA root certificates for use with webpki
+    - Cargo.toml: `minizinc-introspector/vendor/crates/webpki-roots-0.25.4/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `webpki-roots`
+  - **zerofrom**
+    - Version: `0.1.3`
+    - Description: ZeroFrom trait for constructing
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zerofrom/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zerofrom`
+  - **once_cell_polyfill**
+    - Version: `1.70.1`
+    - Description: Polyfill for `OnceCell` stdlib feature for use with older MSRVs
+    - Cargo.toml: `minizinc-introspector/vendor/crates/once_cell_polyfill/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `once_cell_polyfill`
+  - **row_selector**
+    - Version: `0.17`
+    - Description: Apache Parquet implementation in Rust
+    - Cargo.toml: `minizinc-introspector/vendor/crates/parquet/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `row_selector`
+  - **pyo3_macros**
+    - Version: `2`
+    - Description: Proc macros for PyO3 package
+    - Cargo.toml: `minizinc-introspector/vendor/crates/pyo3-macros/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `pyo3_macros`
+  - **iana-time-zone-haiku**
+    - Version: `1.0.79`
+    - Description: iana-time-zone support crate for Haiku OS
+    - Cargo.toml: `minizinc-introspector/vendor/crates/iana-time-zone-haiku/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `iana-time-zone-haiku`
+  - **test_various**
+    - Version: `1.0`
+    - Description: Bindings to Python interpreter
+    - Cargo.toml: `minizinc-introspector/vendor/crates/pyo3/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test_various`
+  - **pyo3_ffi**
+    - Version: `=0.23.5`
+    - Description: Python-API bindings for the PyO3 ecosystem
+    - Cargo.toml: `minizinc-introspector/vendor/crates/pyo3-ffi/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `pyo3_ffi`
+  - **num-complex**
+    - Version: `1.0`
+    - Description: Complex numbers implementation for Rust
+    - Cargo.toml: `minizinc-introspector/vendor/crates/num-complex/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `num-complex`
+  - **wasi**
+    - Version: `1.0`
+    - Description: Experimental WASI API bindings for Rust
+    - Cargo.toml: `minizinc-introspector/vendor/crates/wasi-0.9.0+wasi-snapshot-preview1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `wasi`
+  - **ring**
+    - Version: `0.3.8`
+    - Description: Safe, fast, small crypto using Rust.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ring-0.16.20/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `ring`
+  - **thread_local**
+    - Version: `0.2.7`
+    - Description: Per-object thread-local storage
+    - Cargo.toml: `minizinc-introspector/vendor/crates/thread_local/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `thread_local`
+  - **utf-8-demo**
+    - Version: `0.2.2`
+    - Description: Table-driven UTF-8 parser
+    - Cargo.toml: `minizinc-introspector/vendor/crates/utf8parse/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `utf-8-demo`
+  - **encoding_rs**
+    - Version: `1.0`
+    - Description: A Gecko-oriented implementation of the Encoding Standard
+    - Cargo.toml: `minizinc-introspector/vendor/crates/encoding_rs/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `encoding_rs`
+  - **memchr**
+    - Version: `1.0.3`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/memchr/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `memchr`
+  - **zeroize**
+    - Version: `1.3`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zeroize/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zeroize`
+  - **zf_derive**
+    - Version: `0.13.0`
+    - Description: Custom derive for the zerofrom crate
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zerofrom-derive/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zf_derive`
+  - **test**
+    - Version: `1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/pin-project-lite/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test`
+  - **quick-error**
+    - Version: `1.2.3`
+    - Description:     A macro which makes error types pleasant to write.\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/quick-error/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `quick-error`
+  - **hkdf**
+    - Version: `0.10`
+    - Description: HMAC-based Extract-and-Expand Key Derivation Function (HKDF)
+    - Cargo.toml: `minizinc-introspector/vendor/crates/hkdf/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `hkdf`
+  - **rand_xorshift**
+    - Version: `1`
+    - Description: Xorshift random number generator\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand_xorshift-0.1.1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand_xorshift`
+  - **security_framework_sys**
+    - Version: `0.2.150`
+    - Description: Apple `Security.framework` low-level FFI bindings
+    - Cargo.toml: `minizinc-introspector/vendor/crates/security-framework-sys/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `security_framework_sys`
+  - **libdbus_sys**
+    - Version: `0.3`
+    - Description: FFI bindings to libdbus.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/libdbus-sys/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `libdbus_sys`
+  - **pem_benchmark**
+    - Version: `1`
+    - Description: Parse and encode PEM-encoded data.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/pem/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `pem_benchmark`
+  - **windows_strings**
+    - Version: `0.1.1`
+    - Description: Windows string types
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows-strings/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_strings`
+  - **zbus**
+    - Version: `0.52`
+    - Description: API for D-Bus communication
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zbus/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zbus`
+  - **bench**
+    - Version: `0.3`
+    - Description: A simple and fast random number generator
+    - Cargo.toml: `minizinc-introspector/vendor/crates/fastrand/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench`
+  - **benches**
+    - Version: `0.3.6`
+    - Description: PHF generation logic
+    - Cargo.toml: `minizinc-introspector/vendor/crates/phf_generator/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benches`
+  - **unindent**
+    - Version: `0.2.4`
+    - Description: Remove a column of leading whitespace from a string
+    - Cargo.toml: `minizinc-introspector/vendor/crates/unindent/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unindent`
+  - **rustls-native-certs**
+    - Version: `0.1.15`
+    - Description: rustls-native-certs allows rustls to use the platform native certificate store
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rustls-native-certs/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rustls-native-certs`
+  - **ecolor**
+    - Version: `1`
+    - Description: Color structs and color conversion utilities
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ecolor/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `ecolor`
+  - **decomposing_normalizer_nfkd**
+    - Version: `0.5.0`
+    - Description: API for normalizing text into Unicode Normalization Forms
+    - Cargo.toml: `minizinc-introspector/vendor/crates/icu_normalizer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `decomposing_normalizer_nfkd`
+  - **rustc_hash**
+    - Version: `0.8`
+    - Description: A speedy, non-cryptographic hashing algorithm used by rustc
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rustc-hash/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rustc_hash`
+  - **tower_layer**
+    - Version: `0.3.3`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tower-layer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tower_layer`
+  - **windows_interface**
+    - Version: `2.0`
+    - Description: The interface macro for the windows crate
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows-interface/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_interface`
+  - **windows_i686_gnullvm**
+    - Version: `0.52.6`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_i686_gnullvm-0.52.6/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_i686_gnullvm`
+  - **unic-ucd-category**
+    - Version: `0.9.0`
+    - Description: UNIC — Unicode Character Database — General Category
+    - Cargo.toml: `minizinc-introspector/vendor/crates/unic-ucd-category/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unic-ucd-category`
+  - **util**
+    - Version: `>=1.5.0`
+    - Description: Shared utilities for lexical creates.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/lexical-util/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `util`
+  - **benchmarks**
+    - Version: `0.7.3`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/backtrace/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmarks`
+  - **idna_adapter**
+    - Version: `2`
+    - Description: Back end adapter for idna
+    - Cargo.toml: `minizinc-introspector/vendor/crates/idna_adapter/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `idna_adapter`
+  - **missed_register_callsite**
+    - Version: `0.1.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tracing-core/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `missed_register_callsite`
+  - **test**
+    - Version: `1.0.66`
+    - Description: Quasi-quoting macro quote!(...)
+    - Cargo.toml: `minizinc-introspector/vendor/crates/quote/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test`
+  - **set_ops**
+    - Version: `1.0`
+    - Description: A Rust port of Google's SwissTable hash map
+    - Cargo.toml: `minizinc-introspector/vendor/crates/hashbrown/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `set_ops`
+  - **arrow_data**
+    - Version: `0.4`
+    - Description: Array data abstractions for Apache Arrow
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-data/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `arrow_data`
+  - **waker**
+    - Version: `1.7.0`
+    - Description: A synchronization primitive for task wakeup
+    - Cargo.toml: `minizinc-introspector/vendor/crates/atomic-waker/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `waker`
+  - **signature_tests**
+    - Version: `0.2.148`
+    - Description: An experiment.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ring/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `signature_tests`
+  - **try-lock**
+    - Version: `0.2.5`
+    - Description: A lightweight atomic lock.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/try-lock/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `try-lock`
+  - **words-std**
+    - Version: `1.2.1`
+    - Description: A string type that is not required to be valid UTF-8.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/bstr/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `words-std`
+  - **strum**
+    - Version: `0.26`
+    - Description: Helpful macros for working with enums and strings
+    - Cargo.toml: `minizinc-introspector/vendor/crates/strum/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `strum`
+  - **test_transparent**
+    - Version: `1.0.81`
+    - Description: derive(Error)
+    - Cargo.toml: `minizinc-introspector/vendor/crates/thiserror/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test_transparent`
+  - **clap_derive**
+    - Version: `2.0.8`
+    - Description: Parse command line argument by defining a struct, derive crate.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/clap_derive/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `clap_derive`
+  - **toml_datetime**
+    - Version: `0.6.21`
+    - Description: A TOML-compatible datetime type
+    - Cargo.toml: `minizinc-introspector/vendor/crates/toml_datetime/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `toml_datetime`
+  - **rand_pcg**
+    - Version: `0.1`
+    - Description: Selected PCG random number generators\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand_pcg/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand_pcg`
+  - **webpki**
+    - Version: `1.0`
+    - Description: Web PKI X.509 Certificate Verification.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rustls-webpki/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `webpki`
+  - **heck**
+    - Version: `0.5.0`
+    - Description: heck is a case conversion library.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/heck/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `heck`
+  - **windows_core**
+    - Version: `0.4.2`
+    - Description: Core type support for COM and Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows-core/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_core`
+  - **same-file**
+    - Version: `0.1.1`
+    - Description: A simple crate for determining whether two file paths point to the same file.\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/same-file/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `same-file`
+  - **buffer**
+    - Version: `0.2.154`
+    - Description: A small cross-platform library for retrieving random data from system source
+    - Cargo.toml: `minizinc-introspector/vendor/crates/getrandom-0.2.16/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `buffer`
+  - **bench**
+    - Version: `0.1.0`
+    - Description: 'Small vector' optimization: store up to a small number of items on the stack
+    - Cargo.toml: `minizinc-introspector/vendor/crates/smallvec/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench`
+  - **equivalent**
+    - Version: `1.0.2`
+    - Description: Traits for key comparison in maps.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/equivalent/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `equivalent`
+  - **asciicast**
+    - Version: `1.0`
+    - Description: A library for the Asciicast file format used by Asciinema.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/asciicast/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `asciicast`
+  - **windows_x86_64_gnu**
+    - Version: `0.48.5`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_x86_64_gnu-0.48.5/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_x86_64_gnu`
+  - **rand_jitter**
+    - Version: `0.3`
+    - Description: Random number generator based on timing jitter
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand_jitter/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand_jitter`
+  - **parse_timestamp**
+    - Version: `0.8`
+    - Description: Cast kernel and utilities for Apache Arrow
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-cast-53.4.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `parse_timestamp`
+  - **phf_macros**
+    - Version: `2.4.0`
+    - Description: Macros to generate types in the phf crate
+    - Cargo.toml: `minizinc-introspector/vendor/crates/phf_macros/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `phf_macros`
+  - **wasm_bindgen_shared**
+    - Version: `1.0.5`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/wasm-bindgen-shared/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `wasm_bindgen_shared`
+  - **probe**
+    - Version: `0.1.6`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/openssl-probe/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `probe`
+  - **deadpool-runtime**
+    - Version: `1.0`
+    - Description: Dead simple async pool utitities for sync managers
+    - Cargo.toml: `minizinc-introspector/vendor/crates/deadpool-runtime/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `deadpool-runtime`
+  - **lru_slab**
+    - Version: `0.1.2`
+    - Description: Pre-allocated storage with constant-time LRU tracking
+    - Cargo.toml: `minizinc-introspector/vendor/crates/lru-slab/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `lru_slab`
+  - **emath**
+    - Version: `1`
+    - Description: Minimal 2D math library for GUI work
+    - Cargo.toml: `minizinc-introspector/vendor/crates/emath/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `emath`
+  - **libz_rs_sys**
+    - Version: `0.5.1`
+    - Description: A memory-safe zlib implementation written in rust
+    - Cargo.toml: `minizinc-introspector/vendor/crates/libz-rs-sys/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `libz_rs_sys`
+  - **visit**
+    - Version: `2.5.0`
+    - Description: Yet another format-preserving TOML parser.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/toml_edit/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `visit`
+  - **serde_urlencoded**
+    - Version: `1`
+    - Description: `x-www-form-urlencoded` meets Serde
+    - Cargo.toml: `minizinc-introspector/vendor/crates/serde_urlencoded/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `serde_urlencoded`
+  - **serde**
+    - Version: `0.3`
+    - Description: Drop-in replacement for std::time for Wasm in browsers
+    - Cargo.toml: `minizinc-introspector/vendor/crates/web-time/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `serde`
+  - **watch_dns**
+    - Version: `0.6`
+    - Description: Bindings to SystemConfiguration framework for macOS
+    - Cargo.toml: `minizinc-introspector/vendor/crates/system-configuration/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `watch_dns`
+  - **row_selector**
+    - Version: `>=2.0.0, <2.0.14`
+    - Description: Apache Parquet implementation in Rust
+    - Cargo.toml: `minizinc-introspector/vendor/crates/parquet-53.4.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `row_selector`
+  - **windows-sys**
+    - Version: `0.48.0`
+    - Description: Rust for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows-sys-0.48.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows-sys`
+  - **cloudabi**
+    - Version: `1.0`
+    - Description: Low level interface to CloudABI. Contains all syscalls and related types.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/cloudabi/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `cloudabi`
+  - **arrow_string**
+    - Version: `0.8.0`
+    - Description: String kernels for arrow arrays
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-string-53.4.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `arrow_string`
+  - **failures**
+    - Version: `3.1`
+    - Description: Render boolean-valued predicate functions results as a tree.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/predicates-tree/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `failures`
+  - **test_size**
+    - Version: `0.4`
+    - Description: A substitute implementation of the compiler's `proc_macro` API to decouple token-based libraries from the procedural macro use case.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/proc-macro2/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test_size`
+  - **bench_main**
+    - Version: `0.2.66`
+    - Description: ANSI Escape Sequences provider & parser
+    - Cargo.toml: `minizinc-introspector/vendor/crates/anes/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench_main`
+  - **wasm_bindgen_futures**
+    - Version: `=0.3.77`
+    - Description: Bridging the gap between Rust Futures and JavaScript Promises
+    - Cargo.toml: `minizinc-introspector/vendor/crates/wasm-bindgen-futures/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `wasm_bindgen_futures`
+  - **secrecy**
+    - Version: `1.4`
+    - Description: Wrapper types and traits for secret management which help ensure\nthey aren't accidentally copied, logged, or otherwise exposed\n(as much as possible), and also ensure secrets are securely wiped\nfrom memory when dropped.\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/secrecy/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `secrecy`
+  - **phf_shared**
+    - Version: `2.4.0`
+    - Description: Support code shared by PHF libraries
+    - Cargo.toml: `minizinc-introspector/vendor/crates/phf_shared/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `phf_shared`
+  - **lru**
+    - Version: `0.1.*`
+    - Description: A LRU cache implementation
+    - Cargo.toml: `minizinc-introspector/vendor/crates/lru/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `lru`
+  - **reqwest**
+    - Version: `0.3`
+    - Description: higher level HTTP client library
+    - Cargo.toml: `minizinc-introspector/vendor/crates/reqwest/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `reqwest`
+  - **ui**
+    - Version: `1.0.64`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tracing-attributes/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `ui`
+  - **smallvec**
+    - Version: `1`
+    - Description: `tinyvec` provides 100% safe vec-like data structures.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tinyvec/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `smallvec`
+  - **humansize**
+    - Version: `0.2.5`
+    - Description: A configurable crate to easily represent sizes in a human-readable format.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/humansize/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `humansize`
+  - **rand_hc**
+    - Version: `0.5`
+    - Description: HC128 random number generator\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand_hc/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand_hc`
+  - **winapi-i686-pc-windows-gnu**
+    - Version: `0.4.0`
+    - Description: Import libraries for the i686-pc-windows-gnu target. Please don't use this crate directly, depend on winapi instead.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/winapi-i686-pc-windows-gnu/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `winapi-i686-pc-windows-gnu`
+  - **util**
+    - Version: `>=1.0.18`
+    - Description: Efficient formatting of integers to strings.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/lexical-write-integer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `util`
+  - **clap_builder**
+    - Version: `0.9.0`
+    - Description: A simple to use, efficient, and full-featured Command Line Argument Parser
+    - Cargo.toml: `minizinc-introspector/vendor/crates/clap_builder/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `clap_builder`
+  - **simple-server-pkcs8**
+    - Version: `2.0.0`
+    - Description: A wrapper over a platform's native TLS implementation
+    - Cargo.toml: `minizinc-introspector/vendor/crates/native-tls/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `simple-server-pkcs8`
+  - **kv-log-macro**
+    - Version: `1.2.0`
+    - Description: Log macro for log's kv-unstable backend.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/kv-log-macro/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `kv-log-macro`
+  - **template**
+    - Version: `1.0.104`
+    - Description: IRI as string types
+    - Cargo.toml: `minizinc-introspector/vendor/crates/iri-string/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `template`
+  - **windows_i686_gnu**
+    - Version: `0.48.5`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_i686_gnu-0.48.5/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_i686_gnu`
+  - **https-agent**
+    - Version: `1`
+    - Description: Simple, safe HTTP client
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ureq/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `https-agent`
+  - **js_sys**
+    - Version: `=0.2.100`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/js-sys/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `js_sys`
+  - **thiserror_impl**
+    - Version: `2.0.87`
+    - Description: Implementation detail of the `thiserror` crate
+    - Cargo.toml: `minizinc-introspector/vendor/crates/thiserror-impl/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `thiserror_impl`
+  - **hello-world**
+    - Version: `1.0.0`
+    - Description: UEFI Reference Specification Protocol Constants and Definitions
+    - Cargo.toml: `minizinc-introspector/vendor/crates/r-efi/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `hello-world`
+  - **windows_implement**
+    - Version: `2.0`
+    - Description: The implement macro for the windows crate
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows-implement/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_implement`
+  - **ab_glyph**
+    - Version: `0.25`
+    - Description: API for loading, scaling, positioning and rasterizing OpenType font glyphs.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ab_glyph/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `ab_glyph`
+  - **rand_core**
+    - Version: `0.4`
+    - Description: Core random number generator traits and tools for implementation.\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand_core-0.3.1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand_core`
+  - **bincode**
+    - Version: `1.0.27`
+    - Description: A binary serialization / deserialization strategy that uses Serde for transforming structs into bytes and vice versa!
+    - Cargo.toml: `minizinc-introspector/vendor/crates/bincode/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bincode`
+  - **waker-fn**
+    - Version: `0.2`
+    - Description: Convert closures into wakers
+    - Cargo.toml: `minizinc-introspector/vendor/crates/waker-fn/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `waker-fn`
+  - **chrono-tz-build**
+    - Version: `0.9`
+    - Description: internal build script for chrono-tz
+    - Cargo.toml: `minizinc-introspector/vendor/crates/chrono-tz-build/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `chrono-tz-build`
+  - **addr2line**
+    - Version: `0.7.2`
+    - Description: A cross-platform symbolication library written in Rust, using `gimli`
+    - Cargo.toml: `minizinc-introspector/vendor/crates/addr2line/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `addr2line`
+  - **time_macros**
+    - Version: `=0.1.4`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/time-macros/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `time_macros`
+  - **gitignore_matched_path_or_any_parents_tests**
+    - Version: `0.1.2`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ignore/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `gitignore_matched_path_or_any_parents_tests`
+  - **bumpalo**
+    - Version: `1.0.115`
+    - Description: A fast bump allocation arena for Rust.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/bumpalo/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bumpalo`
+  - **unmanaged**
+    - Version: `1.5.0`
+    - Description: Dead simple async pool
+    - Cargo.toml: `minizinc-introspector/vendor/crates/deadpool/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unmanaged`
+  - **parking_lot_core**
+    - Version: `0.52.0`
+    - Description: An advanced API for creating custom synchronization primitives.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/parking_lot_core/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `parking_lot_core`
+  - **accesskit**
+    - Version: `1.0`
+    - Description: UI accessibility infrastructure across platforms
+    - Cargo.toml: `minizinc-introspector/vendor/crates/accesskit/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `accesskit`
+  - **tutorial-strategy-play**
+    - Version: `=1.0.90`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/proptest/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tutorial-strategy-play`
+  - **tempfile**
+    - Version: `>=0.52, <0.61`
+    - Description: A library for managing temporary files and directories.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tempfile/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tempfile`
+  - **decompress**
+    - Version: `~0.10`
+    - Description: A brotli compressor and decompressor that with an interface avoiding the rust stdlib. This makes it suitable for embedded devices and kernels. It is designed with a pluggable allocator so that the standard lib's allocator may be employed. The default build also includes a stdlib allocator and stream interface. Disable this with --features=no-stdlib. All included code is safe.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/brotli/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `decompress`
+  - **serde**
+    - Version: `=1.0.219`
+    - Description: A generic serialization/deserialization framework
+    - Cargo.toml: `minizinc-introspector/vendor/crates/serde/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `serde`
+  - **tokio_io_timeout**
+    - Version: `1.0`
+    - Description: Tokio wrappers which apply timeouts to IO operations
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tokio-io-timeout/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tokio_io_timeout`
+  - **tables**
+    - Version: `0.1`
+    - Description: A high-level, safe, zero-allocation font parser for TrueType, OpenType, and AAT.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ttf-parser/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tables`
+  - **serde**
+    - Version: `1.27`
+    - Description: Support for parsing JSON format to and from the Arrow format
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-json-53.4.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `serde`
+  - **unregister_signal**
+    - Version: `~0.3`
+    - Description: Backend crate for signal-hook
+    - Cargo.toml: `minizinc-introspector/vendor/crates/signal-hook-registry/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unregister_signal`
+  - **byteorder**
+    - Version: `0.7`
+    - Description: Library for reading/writing numbers in big-endian and little-endian.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/byteorder/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `byteorder`
+  - **proxy**
+    - Version: `0.5`
+    - Description: hyper utilities
+    - Cargo.toml: `minizinc-introspector/vendor/crates/hyper-util/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `proxy`
+  - **futures_lite**
+    - Version: `1.0.0`
+    - Description: Futures, streams, and async I/O combinators
+    - Cargo.toml: `minizinc-introspector/vendor/crates/futures-lite/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `futures_lite`
+  - **fixedbitset**
+    - Version: `1.0`
+    - Description: FixedBitSet is a simple bitset collection
+    - Cargo.toml: `minizinc-introspector/vendor/crates/fixedbitset/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `fixedbitset`
+  - **specializations**
+    - Version: `0.7`
+    - Description: Extra iterator adaptors, iterator methods, free functions, and macros.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/itertools-0.12.1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `specializations`
+  - **unic-ucd-version**
+    - Version: `0.9.0`
+    - Description: UNIC — Unicode Character Database — Version
+    - Cargo.toml: `minizinc-introspector/vendor/crates/unic-ucd-version/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unic-ucd-version`
+  - **main**
+    - Version: `0.3`
+    - Description: Convert a unicode string to a slug
+    - Cargo.toml: `minizinc-introspector/vendor/crates/slug/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `main`
+  - **values**
+    - Version: `0.5.0`
+    - Description: Get the number of CPUs on a machine.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/num_cpus/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `values`
+  - **util**
+    - Version: `0.3`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tower/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `util`
+  - **udp_server**
+    - Version: `0.48`
+    - Description: Lightweight non-blocking I/O.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/mio-0.8.11/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `udp_server`
+  - **ini**
+    - Version: `1.0.0`
+    - Description: A simple macro built on top of configparser to load and parse ini files. You can use this to write Rust programs which can be customized by end users easily.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ini/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `ini`
+  - **rand**
+    - Version: `0.2.22`
+    - Description: Random number generators and other randomness functionality.\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand-0.8.5/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand`
+  - **test_expr**
+    - Version: `1.0.49`
+    - Description: Macros for all your token pasting needs
+    - Cargo.toml: `minizinc-introspector/vendor/crates/paste/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test_expr`
+  - **whoami**
+    - Version: `0.1.1`
+    - Description: Retrieve the current user and environment.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/whoami/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `whoami`
+  - **benchmarks**
+    - Version: `0.1.19`
+    - Description: D-Bus & GVariant encoding & decoding
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zvariant/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmarks`
+  - **num-integer**
+    - Version: `0.2.11`
+    - Description: Integer traits and functions
+    - Cargo.toml: `minizinc-introspector/vendor/crates/num-integer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `num-integer`
+  - **unic-char-range**
+    - Version: `1.0`
+    - Description: UNIC — Unicode Character Tools — Character Range and Iteration
+    - Cargo.toml: `minizinc-introspector/vendor/crates/unic-char-range/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unic-char-range`
+  - **util**
+    - Version: `>=1.5.0`
+    - Description: Efficient formatting of floats to strings.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/lexical-write-float/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `util`
+  - **arrow_row**
+    - Version: `0.8`
+    - Description: Arrow row format
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-row-53.4.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `arrow_row`
+  - **libz_sys**
+    - Version: `0.2.11`
+    - Description: Low-level bindings to the system libz library (also known as zlib).
+    - Cargo.toml: `minizinc-introspector/vendor/crates/libz-sys/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `libz_sys`
+  - **generic_array**
+    - Version: `0.9`
+    - Description: Generic types implementing functionality of arrays
+    - Cargo.toml: `minizinc-introspector/vendor/crates/generic-array/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `generic_array`
+  - **doc_comment**
+    - Version: `0.3.3`
+    - Description: Macro to generate doc comments
+    - Cargo.toml: `minizinc-introspector/vendor/crates/doc-comment/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `doc_comment`
+  - **openssl_src**
+    - Version: `1.0.79`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/openssl-src/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `openssl_src`
+  - **synstructure**
+    - Version: `0.1`
+    - Description: Helper methods and macros for custom derives
+    - Cargo.toml: `minizinc-introspector/vendor/crates/synstructure/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `synstructure`
+  - **core_foundation_sys**
+    - Version: `0.8.7`
+    - Description: Bindings to Core Foundation for macOS
+    - Cargo.toml: `minizinc-introspector/vendor/crates/core-foundation-sys/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `core_foundation_sys`
+  - **wasm_bindgen_macro**
+    - Version: `1.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/wasm-bindgen-macro/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `wasm_bindgen_macro`
+  - **inout**
+    - Version: `0.14`
+    - Description: Custom reference types for code generic over in-place and buffer-to-buffer modes of operation.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/inout/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `inout`
+  - **tree**
+    - Version: `0.6.10`
+    - Description: Visualize tree-like data on the command-line
+    - Cargo.toml: `minizinc-introspector/vendor/crates/termtree/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tree`
+  - **windows_aarch64_gnullvm**
+    - Version: `0.53.0`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_aarch64_gnullvm/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_aarch64_gnullvm`
+  - **rand_core**
+    - Version: `1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand_core-0.6.4/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand_core`
+  - **puffin_egui**
+    - Version: `0.28.0`
+    - Description: Show puffin profiler flamegraph in-game using egui
+    - Cargo.toml: `minizinc-introspector/vendor/crates/puffin_egui/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `puffin_egui`
+  - **windows_x86_64_msvc**
+    - Version: `0.48.5`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_x86_64_msvc-0.48.5/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_x86_64_msvc`
+  - **get_size**
+    - Version: `0.60.0`
+    - Description: Gets the size of your Linux or Windows terminal
+    - Cargo.toml: `minizinc-introspector/vendor/crates/terminal_size/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `get_size`
+  - **encoder_compliance**
+    - Version: `0.4.3`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/toml-0.7.8/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `encoder_compliance`
+  - **bench**
+    - Version: `1.0`
+    - Description: A vector of bits
+    - Cargo.toml: `minizinc-introspector/vendor/crates/bit-vec/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench`
+  - **test**
+    - Version: `1.0.81`
+    - Description: A JSON serialization file format
+    - Cargo.toml: `minizinc-introspector/vendor/crates/serde_json/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test`
+  - **untrusted**
+    - Version: `0.7.1`
+    - Description: Safe, fast, zero-panic, zero-crashing, zero-allocation parsing of untrusted inputs in Rust.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/untrusted-0.7.1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `untrusted`
+  - **track**
+    - Version: `1.0.130`
+    - Description: Atomically swappable Arc
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arc-swap/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `track`
+  - **test**
+    - Version: `1.0.49`
+    - Description: Macro to repeat sequentially indexed copies of a fragment of code.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/seq-macro/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test`
+  - **server**
+    - Version: `1.0`
+    - Description: Rustls+hyper integration for pure rust HTTPS
+    - Cargo.toml: `minizinc-introspector/vendor/crates/hyper-rustls-0.24.2/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `server`
+  - **issues**
+    - Version: `0.2.1`
+    - Description: Coverage rasterization for lines, quadratic & cubic beziers
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ab_glyph_rasterizer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `issues`
+  - **cfg_aliases**
+    - Version: `0.2.1`
+    - Description: A tiny utility to help save you a lot of effort with long winded `#[cfg()]` checks.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/cfg_aliases/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `cfg_aliases`
+  - **futures-timer**
+    - Version: `0.3.1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/futures-timer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `futures-timer`
+  - **windows_result**
+    - Version: `0.1.1`
+    - Description: Windows error handling
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows-result/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_result`
+  - **tokio_macros**
+    - Version: `1.0.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tokio-macros/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tokio_macros`
+  - **unix_signals**
+    - Version: `0.60`
+    - Description: Async signal handling
+    - Cargo.toml: `minizinc-introspector/vendor/crates/async-signal/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unix_signals`
+  - **num-rational**
+    - Version: `1.0.0`
+    - Description: Rational numbers implementation for Rust
+    - Cargo.toml: `minizinc-introspector/vendor/crates/num-rational/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `num-rational`
+  - **snap**
+    - Version: `0.3.1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/snap/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `snap`
+  - **aho_corasick**
+    - Version: `0.3.3`
+    - Description: Fast multiple substring searching.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/aho-corasick/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `aho_corasick`
+  - **syscall**
+    - Version: `0.7`
+    - Description: A Rust library to access raw Redox system calls
+    - Cargo.toml: `minizinc-introspector/vendor/crates/redox_syscall/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `syscall`
+  - **regex-syntax**
+    - Version: `0.3.9`
+    - Description: A regular expression parser.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/regex-syntax-0.3.9/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `regex-syntax`
+  - **secret-service**
+    - Version: `1`
+    - Description: Library to interface with Secret Service API
+    - Cargo.toml: `minizinc-introspector/vendor/crates/secret-service/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `secret-service`
+  - **test**
+    - Version: `1.0.81`
+    - Description: Derive Serialize and Deserialize that delegates to the underlying repr of a C-like enum.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/serde_repr/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test`
+  - **windows_x86_64_gnu**
+    - Version: `0.52.6`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_x86_64_gnu-0.52.6/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_x86_64_gnu`
+  - **rand**
+    - Version: `0.3`
+    - Description: Random number generators and other randomness functionality.\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand-0.6.5/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand`
+  - **arrow_csv**
+    - Version: `1.27`
+    - Description: Support for parsing CSV format to and from the Arrow format
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-csv-53.4.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `arrow_csv`
+  - **windows_waitable**
+    - Version: `0.60`
+    - Description: Portable interface to epoll, kqueue, event ports, and IOCP
+    - Cargo.toml: `minizinc-introspector/vendor/crates/polling/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_waitable`
+  - **bench**
+    - Version: `1.0.107`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/globset/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench`
+  - **blake2**
+    - Version: `0.2.2`
+    - Description: BLAKE2 hash functions
+    - Cargo.toml: `minizinc-introspector/vendor/crates/blake2/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `blake2`
+  - **windows_aarch64_msvc**
+    - Version: `0.52.6`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_aarch64_msvc-0.52.6/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_aarch64_msvc`
+  - **icu_properties**
+    - Version: `0.11.1`
+    - Description: Definitions for Unicode properties
+    - Cargo.toml: `minizinc-introspector/vendor/crates/icu_properties/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `icu_properties`
+  - **toml_write**
+    - Version: `0.5.10`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/toml_write/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `toml_write`
+  - **writeable**
+    - Version: `0.5.0`
+    - Description: A more efficient alternative to fmt::Display
+    - Cargo.toml: `minizinc-introspector/vendor/crates/writeable/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `writeable`
+  - **thread-id**
+    - Version: `2.0.0`
+    - Description: Get a unique thread ID
+    - Cargo.toml: `minizinc-introspector/vendor/crates/thread-id/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `thread-id`
+  - **http-types**
+    - Version: `0.2.0`
+    - Description: Common types for HTTP operations.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/http-types/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `http-types`
+  - **criterion-plot**
+    - Version: `0.8`
+    - Description: Criterion's plotting library
+    - Cargo.toml: `minizinc-introspector/vendor/crates/criterion-plot/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `criterion-plot`
+  - **zeroize_derive**
+    - Version: `2`
+    - Description: Custom derive support for zeroize
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zeroize_derive/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zeroize_derive`
+  - **winapi**
+    - Version: `0.4`
+    - Description: Raw FFI bindings for all of Windows API.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/winapi/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `winapi`
+  - **str**
+    - Version: `0.4`
+    - Description: Simple work-stealing parallelism for Rust
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rayon/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `str`
+  - **words**
+    - Version: `0.7`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/unicode-segmentation/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `words`
+  - **parking**
+    - Version: `0.7`
+    - Description: Thread parking and unparking
+    - Cargo.toml: `minizinc-introspector/vendor/crates/parking/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `parking`
+  - **rand_chacha**
+    - Version: `1.0`
+    - Description: ChaCha random number generator\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand_chacha-0.3.1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand_chacha`
+  - **select**
+    - Version: `0.1.11`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/futures-util/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `select`
+  - **vte_generate_state_changes**
+    - Version: `1.0.2`
+    - Description: Proc macro for generating VTE state changes
+    - Cargo.toml: `minizinc-introspector/vendor/crates/vte_generate_state_changes/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `vte_generate_state_changes`
+  - **universal-hash**
+    - Version: `2.4`
+    - Description: Traits which describe the functionality of universal hash functions (UHFs)
+    - Cargo.toml: `minizinc-introspector/vendor/crates/universal-hash/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `universal-hash`
+  - **android-tzdata**
+    - Version: `0.6.4`
+    - Description: Parser for the Android-specific tzdata file
+    - Cargo.toml: `minizinc-introspector/vendor/crates/android-tzdata/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `android-tzdata`
+  - **is_end_stream**
+    - Version: `1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/http-body/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `is_end_stream`
+  - **rand_core**
+    - Version: `1`
+    - Description: Core random number generator traits and tools for implementation.\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand_core-0.5.1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand_core`
+  - **dirs**
+    - Version: `0.4.1`
+    - Description: A tiny low-level library that provides platform-specific standard locations of directories for config, cache and other data on Linux, Windows, macOS and Redox by leveraging the mechanisms defined by the XDG base/user directory specifications on Linux, the Known Folder API on Windows, and the Standard Directory guidelines on macOS.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/dirs/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `dirs`
+  - **rand_isaac**
+    - Version: `1`
+    - Description: ISAAC random number generator\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand_isaac/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand_isaac`
+  - **slab**
+    - Version: `1`
+    - Description: Pre-allocated storage for a uniform data type
+    - Cargo.toml: `minizinc-introspector/vendor/crates/slab/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `slab`
+  - **rusty-fork**
+    - Version: `0.2`
+    - Description: Cross-platform library for running Rust tests in sub-processes using a\nfork-like interface.\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rusty-fork/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rusty-fork`
+  - **benchmark**
+    - Version: `1.8.3`
+    - Description: No-dep range header parser
+    - Cargo.toml: `minizinc-introspector/vendor/crates/http-range-header/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmark`
+  - **benchmarks**
+    - Version: `1.0`
+    - Description: Web PKI X.509 Certificate Verification.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rustls-webpki-0.101.7/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmarks`
+  - **sync_wrapper**
+    - Version: `0.2.7`
+    - Description: A tool for enlisting the compiler's help in proving the absence of concurrency
+    - Cargo.toml: `minizinc-introspector/vendor/crates/sync_wrapper/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `sync_wrapper`
+  - **bitflags**
+    - Version: `2.3`
+    - Description: A macro to generate structures which behave like bitflags.\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/bitflags-1.3.2/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bitflags`
+  - **zlib_rs**
+    - Version: `1.0.3`
+    - Description: A memory-safe zlib implementation written in rust
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zlib-rs/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zlib_rs`
+  - **try_join**
+    - Version: `0.1.11`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/futures/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `try_join`
+  - **parse**
+    - Version: `0.8`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/bitflags/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `parse`
+  - **rand**
+    - Version: `0.2.22`
+    - Description: Random number generators and other randomness functionality.\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand-0.7.3/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand`
+  - **udp_server**
+    - Version: `0.59`
+    - Description: Lightweight non-blocking I/O.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/mio/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `udp_server`
+  - **rand_chacha**
+    - Version: `0.5`
+    - Description: ChaCha random number generator\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand_chacha-0.2.2/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand_chacha`
+  - **futures_core**
+    - Version: `1.3`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/futures-core/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `futures_core`
+  - **portable_atomic**
+    - Version: `0.59`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/portable-atomic/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `portable_atomic`
+  - **ciborium-io**
+    - Version: `0.2.2`
+    - Description: Simplified Read/Write traits for no_std usage
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ciborium-io/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `ciborium-io`
+  - **xcrate**
+    - Version: `1.0.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/cfg-if/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `xcrate`
+  - **tmux_interface**
+    - Version: `0.1.0`
+    - Description: Rust language library for communication with TMUX via CLI
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tmux_interface/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tmux_interface`
+  - **backtrack-bytes**
+    - Version: `0.1.80`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/regex-0.1.80/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `backtrack-bytes`
+  - **num-conv**
+    - Version: `0.1.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/num-conv/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `num-conv`
+  - **windows_x86_64_msvc**
+    - Version: `0.52.6`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_x86_64_msvc-0.52.6/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_x86_64_msvc`
+  - **unsafe_cell**
+    - Version: `=1.0.89`
+    - Description: Custom derive for traits from the zerocopy crate
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zerocopy-derive/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unsafe_cell`
+  - **deranged**
+    - Version: `1.0.86`
+    - Description: Ranged integers
+    - Cargo.toml: `minizinc-introspector/vendor/crates/deranged/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `deranged`
+  - **icu_normalizer_data**
+    - Version: `2.0.0`
+    - Description: Data for the icu_normalizer crate
+    - Cargo.toml: `minizinc-introspector/vendor/crates/icu_normalizer_data/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `icu_normalizer_data`
+  - **fuchsia-cprng**
+    - Version: `0.1.1`
+    - Description: Rust crate for the Fuchsia cryptographically secure pseudorandom number generator
+    - Cargo.toml: `minizinc-introspector/vendor/crates/fuchsia-cprng/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `fuchsia-cprng`
+  - **android_system_properties**
+    - Version: `0.2.126`
+    - Description: Minimal Android system properties wrapper
+    - Cargo.toml: `minizinc-introspector/vendor/crates/android_system_properties/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `android_system_properties`
+  - **std**
+    - Version: `0.60`
+    - Description: Async interface for working with processes
+    - Cargo.toml: `minizinc-introspector/vendor/crates/async-process/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `std`
+  - **is_terminal**
+    - Version: `3`
+    - Description: Test whether a given stream is a terminal
+    - Cargo.toml: `minizinc-introspector/vendor/crates/is-terminal/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `is_terminal`
+  - **zbus_macros**
+    - Version: `1.0.93`
+    - Description: proc-macros for zbus
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zbus_macros/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zbus_macros`
+  - **windows_registry**
+    - Version: `0.4.2`
+    - Description: Windows registry
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows-registry/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_registry`
+  - **benchmark**
+    - Version: `0.3`
+    - Description: Minimal 2D graphics library for GUI work
+    - Cargo.toml: `minizinc-introspector/vendor/crates/epaint/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmark`
+  - **futures-lite**
+    - Version: `0.1.0`
+    - Description: Futures, streams, and async I/O combinators
+    - Cargo.toml: `minizinc-introspector/vendor/crates/futures-lite-1.13.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `futures-lite`
+  - **chacha20poly1305**
+    - Version: `0.5`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/chacha20poly1305/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `chacha20poly1305`
+  - **bench**
+    - Version: `0.4`
+    - Description: Fast floating point to string conversion
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ryu/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench`
+  - **test-prctl**
+    - Version: `0.4`
+    - Description: Rust friendly bindings to *nix APIs
+    - Cargo.toml: `minizinc-introspector/vendor/crates/nix/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test-prctl`
+  - **libgit2_sys**
+    - Version: `0.9.45`
+    - Description: Native bindings to the libgit2 library
+    - Cargo.toml: `minizinc-introspector/vendor/crates/libgit2-sys/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `libgit2_sys`
+  - **benchmark**
+    - Version: `0.3.0`
+    - Description: A Rust drawing library focus on data plotting for both WASM and native applications
+    - Cargo.toml: `minizinc-introspector/vendor/crates/plotters/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmark`
+  - **benchmark**
+    - Version: `0.3`
+    - Description: Drop-in replacement for std::time for Wasm in browsers
+    - Cargo.toml: `minizinc-introspector/vendor/crates/web-time-0.2.4/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmark`
+  - **cassowary**
+    - Version: `0.3.0`
+    - Description: A Rust implementation of the Cassowary linear constraint solving algorithm.\n\nThe Cassowary algorithm is designed for naturally laying out user interfaces using linear constraints,\nlike 'this button must line up with this text box'.\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/cassowary/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `cassowary`
+  - **spin**
+    - Version: `0.5.2`
+    - Description: Synchronization primitives based on spinning.\nThey may contain data, are usable without `std`,\nand static initializers are available.\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/spin/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `spin`
+  - **tokio-native-tls**
+    - Version: `0.3`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tokio-native-tls/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tokio-native-tls`
+  - **jwt**
+    - Version: `0.3`
+    - Description: Create and decode JWTs in a strongly typed way.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/jsonwebtoken/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `jwt`
+  - **jiff_static**
+    - Version: `2.0.98`
+    - Description: Create static TimeZone values for Jiff (useful in core-only environments).
+    - Cargo.toml: `minizinc-introspector/vendor/crates/jiff-static/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `jiff_static`
+  - **oorandom**
+    - Version: `3.0.0`
+    - Description: A tiny, robust PRNG implementation.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/oorandom/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `oorandom`
+  - **winapi-x86_64-pc-windows-gnu**
+    - Version: `0.4.0`
+    - Description: Import libraries for the x86_64-pc-windows-gnu target. Please don't use this crate directly, depend on winapi instead.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/winapi-x86_64-pc-windows-gnu/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `winapi-x86_64-pc-windows-gnu`
+  - **benchmark**
+    - Version: `0.2`
+    - Description: Simple instrumentation profiler for games
+    - Cargo.toml: `minizinc-introspector/vendor/crates/puffin/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmark`
+  - **wasm_bindgen**
+    - Version: `1.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/wasm-bindgen/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `wasm_bindgen`
+  - **arrow_ord**
+    - Version: `0.8`
+    - Description: Ordering kernels for arrow arrays
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-ord-53.4.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `arrow_ord`
+  - **enum-map**
+    - Version: `1.0.19`
+    - Description: A map with C-like enum keys represented internally as an array
+    - Cargo.toml: `minizinc-introspector/vendor/crates/enum-map/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `enum-map`
+  - **fastrand**
+    - Version: `0.3`
+    - Description: A simple and fast random number generator
+    - Cargo.toml: `minizinc-introspector/vendor/crates/fastrand-1.9.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `fastrand`
+  - **bench**
+    - Version: `0.3`
+    - Description: Concurrent multi-producer multi-consumer queue
+    - Cargo.toml: `minizinc-introspector/vendor/crates/concurrent-queue/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench`
+  - **offset**
+    - Version: `0.8`
+    - Description: Buffer abstractions for Apache Arrow
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-buffer-53.4.1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `offset`
+  - **sigchld**
+    - Version: `0.9.1`
+    - Description: waiting for SIGCHLD from many threads at once
+    - Cargo.toml: `minizinc-introspector/vendor/crates/sigchld/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `sigchld`
+  - **socket2**
+    - Version: `0.59`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/socket2/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `socket2`
+  - **enumflags2**
+    - Version: `^1.0.0`
+    - Description: Enum-based bit flags
+    - Cargo.toml: `minizinc-introspector/vendor/crates/enumflags2/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `enumflags2`
+  - **unblock**
+    - Version: `2.0.0`
+    - Description: A thread pool for isolating blocking I/O in async programs
+    - Cargo.toml: `minizinc-introspector/vendor/crates/blocking/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unblock`
+  - **miri**
+    - Version: `1.0.110`
+    - Description: Abstraction allowing borrowed data to be carried along with the backing data it borrows from
+    - Cargo.toml: `minizinc-introspector/vendor/crates/yoke/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `miri`
+  - **unic-common**
+    - Version: `0.9.0`
+    - Description: UNIC — Common Utilities
+    - Cargo.toml: `minizinc-introspector/vendor/crates/unic-common/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unic-common`
+  - **windows_x86_64_gnullvm**
+    - Version: `0.52.6`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_x86_64_gnullvm-0.52.6/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_x86_64_gnullvm`
+  - **tera**
+    - Version: `3`
+    - Description: Template engine based on Jinja2/Django templates
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tera/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tera`
+  - **infer**
+    - Version: `0.2.3`
+    - Description: Small crate to infer file types based on its magic number signature
+    - Cargo.toml: `minizinc-introspector/vendor/crates/infer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `infer`
+  - **test**
+    - Version: `2.0.46`
+    - Description: Convert number to enum
+    - Cargo.toml: `minizinc-introspector/vendor/crates/enumn/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test`
+  - **pest_generator**
+    - Version: `2.0`
+    - Description: pest code generator
+    - Cargo.toml: `minizinc-introspector/vendor/crates/pest_generator/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `pest_generator`
+  - **unity_focused_window**
+    - Version: `0.59.0`
+    - Description: Bindings to D-Bus, which is a bus commonly used on Linux for inter-process communication.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/dbus/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unity_focused_window`
+  - **subtags**
+    - Version: `0.5.0`
+    - Description: API for managing Unicode Language and Locale Identifiers
+    - Cargo.toml: `minizinc-introspector/vendor/crates/icu_locale_core/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `subtags`
+  - **predicates_core**
+    - Version: `1.0.9`
+    - Description: An API for boolean-valued predicate functions.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/predicates-core/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `predicates_core`
+  - **zero-write**
+    - Version: `0.8.5`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/flate2/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zero-write`
+  - **windows-targets**
+    - Version: `0.48.5`
+    - Description: Import libs for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows-targets-0.48.5/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows-targets`
+  - **windows_i686_msvc**
+    - Version: `0.52.6`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_i686_msvc-0.52.6/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_i686_msvc`
+  - **windows_aarch64_gnullvm**
+    - Version: `0.48.5`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_aarch64_gnullvm-0.48.5/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_aarch64_gnullvm`
+  - **unsafe_unpin**
+    - Version: `1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/pin-project/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unsafe_unpin`
+  - **rand_core**
+    - Version: `^1.0.38`
+    - Description: Core random number generator traits and tools for implementation.\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand_core-0.4.2/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand_core`
+  - **integration**
+    - Version: `>=0.52.0, <=0.59.*`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/jiff/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `integration`
+  - **ciborium**
+    - Version: `0.11`
+    - Description: serde implementation of CBOR using ciborium-basic
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ciborium/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `ciborium`
+  - **ffi**
+    - Version: `1.0`
+    - Description: Defines the logical types for arrow arrays
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-schema-53.4.1/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `ffi`
+  - **memchr**
+    - Version: `0.1.11`
+    - Description: Safe interface to memchr.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/memchr-0.1.11/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `memchr`
+  - **example**
+    - Version: `0.12`
+    - Description: Library to interface with Secret Service API over DBUS
+    - Cargo.toml: `minizinc-introspector/vendor/crates/dbus-secret-service/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `example`
+  - **potential_utf**
+    - Version: `1.0.45`
+    - Description: Unvalidated string and character types
+    - Cargo.toml: `minizinc-introspector/vendor/crates/potential_utf/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `potential_utf`
+  - **relative-path**
+    - Version: `1.0.160`
+    - Description: Portable, relative paths for Rust.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/relative-path/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `relative-path`
+  - **windows_x86_64_gnu**
+    - Version: `0.53.0`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_x86_64_gnu/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_x86_64_gnu`
+  - **benchmark**
+    - Version: `0.1.5`
+    - Description: Basic .pem file parser for keys and certificates
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rustls-pemfile/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmark`
+  - **http_body_util**
+    - Version: `1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/http-body-util/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `http_body_util`
+  - **uds_windows**
+    - Version: `0.3.9`
+    - Description: Unix Domain Sockets for Windows!
+    - Cargo.toml: `minizinc-introspector/vendor/crates/uds_windows/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `uds_windows`
+  - **vcpkg**
+    - Version: `0.3.7`
+    - Description: A library to find native dependencies in a vcpkg tree at build\ntime in order to be used in Cargo build scripts.\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/vcpkg/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `vcpkg`
+  - **crossbeam-epoch**
+    - Version: `0.7.1`
+    - Description: Epoch-based garbage collection
+    - Cargo.toml: `minizinc-introspector/vendor/crates/crossbeam-epoch/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `crossbeam-epoch`
+  - **benches**
+    - Version: `0.4.0`
+    - Description: Parse integers directly from `[u8]` slices in safe code
+    - Cargo.toml: `minizinc-introspector/vendor/crates/atoi/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benches`
+  - **pipe_comparison**
+    - Version: `2.0.0`
+    - Description: Async pipes, channels, mutexes, and more.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/piper/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `pipe_comparison`
+  - **typed-derive**
+    - Version: `0.15.3`
+    - Description: A simple to use, efficient, and full-featured Command Line Argument Parser
+    - Cargo.toml: `minizinc-introspector/vendor/crates/clap/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `typed-derive`
+  - **hyper-tls**
+    - Version: `1.0.0`
+    - Description: Default TLS implementation for use with hyper
+    - Cargo.toml: `minizinc-introspector/vendor/crates/hyper-tls/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `hyper-tls`
+  - **catbrotli**
+    - Version: `~0.10`
+    - Description: A brotli compressor and decompressor that with an interface avoiding the rust stdlib. This makes it suitable for embedded devices and kernels. It is designed with a pluggable allocator so that the standard lib's allocator may be employed. The default build also includes a stdlib allocator and stream interface. Disable this with --features=no-stdlib. All included code is safe.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/brotli-7.0.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `catbrotli`
+  - **foreign-types**
+    - Version: `0.1`
+    - Description: A framework for Rust wrappers over C APIs
+    - Cargo.toml: `minizinc-introspector/vendor/crates/foreign-types/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `foreign-types`
+  - **strip-ansi-escapes**
+    - Version: `0.10`
+    - Description: Strip ANSI escape sequences from byte streams.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/strip-ansi-escapes/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `strip-ansi-escapes`
+  - **windows_sys**
+    - Version: `0.52.6`
+    - Description: Rust for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows-sys-0.59.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_sys`
+  - **strum_macros**
+    - Version: `0.26`
+    - Description: Helpful macros for working with enums and strings
+    - Cargo.toml: `minizinc-introspector/vendor/crates/strum_macros/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `strum_macros`
+  - **wasm_bindgen_test_macro**
+    - Version: `1.0`
+    - Description: Internal testing macro for wasm-bindgen
+    - Cargo.toml: `minizinc-introspector/vendor/crates/wasm-bindgen-test-macro/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `wasm_bindgen_test_macro`
+  - **x25519**
+    - Version: `0.3.0`
+    - Description: X25519 elliptic curve Diffie-Hellman key exchange in pure-Rust, using curve25519-dalek.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/x25519-dalek/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `x25519`
+  - **bench**
+    - Version: `0.1`
+    - Description: Fast integer primitive to string conversion
+    - Cargo.toml: `minizinc-introspector/vendor/crates/itoa/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench`
+  - **misc**
+    - Version: `1.0`
+    - Description: Targeting utilities for compilers and related tools
+    - Cargo.toml: `minizinc-introspector/vendor/crates/target-lexicon/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `misc`
+  - **rtoolbox**
+    - Version: `0.52`
+    - Description: Utility functions for other crates, no backwards compatibility guarantees.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rtoolbox/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rtoolbox`
+  - **benches**
+    - Version: `0.1.2`
+    - Description: An LCS based slice and string diffing implementation.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/diff/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benches`
+  - **egui_extras**
+    - Version: `5`
+    - Description: Extra functionality and widgets for the egui GUI library
+    - Cargo.toml: `minizinc-introspector/vendor/crates/egui_extras/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `egui_extras`
+  - **owned_ttf_parser**
+    - Version: `0.25.1`
+    - Description: ttf-parser plus support for owned data
+    - Cargo.toml: `minizinc-introspector/vendor/crates/owned_ttf_parser/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `owned_ttf_parser`
+  - **arrow_string**
+    - Version: `0.8.0`
+    - Description: String kernels for arrow arrays
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-string/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `arrow_string`
+  - **linkme_impl**
+    - Version: `2.0.46`
+    - Description: Implementation detail of the linkme crate
+    - Cargo.toml: `minizinc-introspector/vendor/crates/linkme-impl/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `linkme_impl`
+  - **cc**
+    - Version: `0.2.62`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/cc/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `cc`
+  - **parse_timestamp**
+    - Version: `0.9`
+    - Description: Cast kernel and utilities for Apache Arrow
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-cast/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `parse_timestamp`
+  - **regexp_filter**
+    - Version: `0.4.21`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/env_logger/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `regexp_filter`
+  - **zstd-sys**
+    - Version: `0.3`
+    - Description: Low-level bindings for the zstd compression library.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zstd-sys/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zstd-sys`
+  - **twox-hash**
+    - Version: `1.0`
+    - Description: A Rust implementation of the XXHash and XXH3 algorithms
+    - Cargo.toml: `minizinc-introspector/vendor/crates/twox-hash-1.6.3/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `twox-hash`
+  - **faststring**
+    - Version: `1.0`
+    - Description: A hash table with consistent order and fast iteration.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/indexmap/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `faststring`
+  - **benchmarks**
+    - Version: `0.25`
+    - Description: encodes and decodes base64 as bytes or utf8
+    - Cargo.toml: `minizinc-introspector/vendor/crates/base64/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmarks`
+  - **hyper**
+    - Version: `0.7.10`
+    - Description: A protective and efficient HTTP library for all.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/hyper/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `hyper`
+  - **windows_i686_gnu**
+    - Version: `0.52.6`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_i686_gnu-0.52.6/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_i686_gnu`
+  - **wasm_bindgen_macro_support**
+    - Version: `=0.2.100`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/wasm-bindgen-macro-support/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `wasm_bindgen_macro_support`
+  - **toml2json**
+    - Version: `2.5.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/toml/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `toml2json`
+  - **ciborium-ll**
+    - Version: `0.4`
+    - Description: Low-level CBOR codec primitives
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ciborium-ll/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `ciborium-ll`
+  - **version_check**
+    - Version: `0.9.5`
+    - Description: Tiny crate to check the version of the installed/running rustc.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/version_check/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `version_check`
+  - **snafu**
+    - Version: `0.7.5`
+    - Description: An ergonomic error handling library
+    - Cargo.toml: `minizinc-introspector/vendor/crates/snafu/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `snafu`
+  - **cipher**
+    - Version: `1.5`
+    - Description: Traits for describing block ciphers and stream ciphers
+    - Cargo.toml: `minizinc-introspector/vendor/crates/cipher/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `cipher`
+  - **mod**
+    - Version: `0.8`
+    - Description: Pure-Rust traits and utilities for constant-time cryptographic implementations.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/subtle/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `mod`
+  - **wasm_bindgen_backend**
+    - Version: `=0.2.100`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/wasm-bindgen-backend/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `wasm_bindgen_backend`
+  - **stable_deref_trait**
+    - Version: `1.2.0`
+    - Description: An unsafe marker trait for types like Box and Rc that dereference to a stable address even when moved, and hence can be used with libraries such as owning_ref and rental.\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/stable_deref_trait/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `stable_deref_trait`
+  - **test_source**
+    - Version: `1.0.66`
+    - Description: Flexible concrete Error type built on std::error::Error
+    - Cargo.toml: `minizinc-introspector/vendor/crates/anyhow/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test_source`
+  - **pest_meta**
+    - Version: `0.10`
+    - Description: pest meta language parser and validator
+    - Cargo.toml: `minizinc-introspector/vendor/crates/pest_meta/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `pest_meta`
+  - **zerovec_serde**
+    - Version: `0.5.0`
+    - Description: Zero-copy vector backed by a byte array
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zerovec/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zerovec_serde`
+  - **arrow_csv**
+    - Version: `1.27`
+    - Description: Support for parsing CSV format to and from the Arrow format
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-csv/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `arrow_csv`
+  - **ipc_writer**
+    - Version: `1.43.0`
+    - Description: Support for the Arrow IPC format
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-ipc/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `ipc_writer`
+  - **take_kernels**
+    - Version: `1.0`
+    - Description: Rust implementation of Apache Arrow
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `take_kernels`
+  - **offset**
+    - Version: `0.9`
+    - Description: Buffer abstractions for Apache Arrow
+    - Cargo.toml: `minizinc-introspector/vendor/crates/arrow-buffer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `offset`
+  - **serde**
+    - Version: `0.5.0`
+    - Description: A small ASCII-only bounded length string representation.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tinystr/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `serde`
+  - **query**
+    - Version: `0.60.0`
+    - Description: Look up colored console capabilities
+    - Cargo.toml: `minizinc-introspector/vendor/crates/anstyle-query/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `query`
+  - **tower-http**
+    - Version: `0.12`
+    - Description: Tower middleware and utilities for HTTP clients and servers
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tower-http-0.4.4/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tower-http`
+  - **wit_bindgen_rt**
+    - Version: `1.19.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/wit-bindgen-rt/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `wit_bindgen_rt`
+  - **cast**
+    - Version: `1.0.3`
+    - Description: Ergonomic, checked cast functions for primitive types
+    - Cargo.toml: `minizinc-introspector/vendor/crates/cast/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `cast`
+  - **chacha20**
+    - Version: `0.2`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/chacha20/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `chacha20`
+  - **tokio-test**
+    - Version: `1.2.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tokio-test/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tokio-test`
+  - **icu_properties_data**
+    - Version: `2.0.1`
+    - Description: Data for the icu_properties crate
+    - Cargo.toml: `minizinc-introspector/vendor/crates/icu_properties_data/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `icu_properties_data`
+  - **map**
+    - Version: `1.18.0`
+    - Description: A non-cryptographic hash function using AES-NI for high performance
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ahash/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `map`
+  - **rand**
+    - Version: `1.0.140`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rand/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rand`
+  - **test**
+    - Version: `1.0.81`
+    - Description: Type erasure for async trait methods
+    - Cargo.toml: `minizinc-introspector/vendor/crates/async-trait/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test`
+  - **deunicode**
+    - Version: `1.6.2`
+    - Description: Convert Unicode strings to pure ASCII by intelligently transliterating them. Suppors Emoji and Chinese.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/deunicode/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `deunicode`
+  - **scopeguard**
+    - Version: `1.2.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/scopeguard/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `scopeguard`
+  - **web_sys**
+    - Version: `0.3`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/web-sys/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `web_sys`
+  - **benchmarks**
+    - Version: `1.0.6`
+    - Description: Rustls is a modern TLS library written in Rust.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rustls-0.21.12/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmarks`
+  - **yansi**
+    - Version: `0.4.11`
+    - Description: A dead simple ANSI terminal color painting library.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/yansi/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `yansi`
+  - **siphasher**
+    - Version: `1.0`
+    - Description: SipHash-2-4, SipHash-1-3 and 128-bit variants in pure Rust
+    - Cargo.toml: `minizinc-introspector/vendor/crates/siphasher/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `siphasher`
+  - **bytes_mut**
+    - Version: `0.7`
+    - Description: Types and traits for working with bytes
+    - Cargo.toml: `minizinc-introspector/vendor/crates/bytes/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bytes_mut`
+  - **use_macro_outside_crate**
+    - Version: `1`
+    - Description: Bindings to Core Foundation for macOS
+    - Cargo.toml: `minizinc-introspector/vendor/crates/core-foundation/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `use_macro_outside_crate`
+  - **tower-balance**
+    - Version: `0.3`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tower-0.4.13/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tower-balance`
+  - **unic-char-property**
+    - Version: `0.9.0`
+    - Description: UNIC — Unicode Character Tools — Character Property taxonomy, contracts and build macros
+    - Cargo.toml: `minizinc-introspector/vendor/crates/unic-char-property/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unic-char-property`
+  - **trybuild**
+    - Version: `=0.8.26`
+    - Description: unsafe
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zerocopy/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `trybuild`
+  - **arc**
+    - Version: `0.1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/portable-atomic-util/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `arc`
+  - **watch**
+    - Version: `0.4`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/tokio-stream/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `watch`
+  - **windows_aarch64_gnullvm**
+    - Version: `0.52.6`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_aarch64_gnullvm-0.52.6/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_aarch64_gnullvm`
+  - **executor**
+    - Version: `2.0.0`
+    - Description: Async executor
+    - Cargo.toml: `minizinc-introspector/vendor/crates/async-executor/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `executor`
+  - **vte**
+    - Version: `0.1.0`
+    - Description: Parser for implementing terminal emulators
+    - Cargo.toml: `minizinc-introspector/vendor/crates/vte/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `vte`
+  - **protocols**
+    - Version: `0.59`
+    - Description: Rust bindings to libcurl for making HTTP requests
+    - Cargo.toml: `minizinc-introspector/vendor/crates/curl/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `protocols`
+  - **zip**
+    - Version: `0.2.0`
+    - Description: An n-dimensional array for general elements and for numerics. Lightweight array views and slicing; views support chunking and splitting.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ndarray/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zip`
+  - **time**
+    - Version: `0.1.2`
+    - Description: Date and time library. Fully interoperable with the standard library. Mostly compatible with #![no_std].
+    - Cargo.toml: `minizinc-introspector/vendor/crates/time/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `time`
+  - **timer**
+    - Version: `1`
+    - Description: Async I/O and timers
+    - Cargo.toml: `minizinc-introspector/vendor/crates/async-io/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `timer`
+  - **const-random-macro**
+    - Version: `2.0.2`
+    - Description: Provides the procedural macro used by const-random
+    - Cargo.toml: `minizinc-introspector/vendor/crates/const-random-macro/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `const-random-macro`
+  - **enumflags2_derive**
+    - Version: `^2.0`
+    - Description: Do not use directly, use the reexport in the `enumflags2` crate. This allows for better compatibility across versions.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/enumflags2_derive/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `enumflags2_derive`
+  - **opaque-debug**
+    - Version: `0.3.1`
+    - Description: Macro for opaque Debug trait implementation
+    - Cargo.toml: `minizinc-introspector/vendor/crates/opaque-debug/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `opaque-debug`
+  - **env_filter**
+    - Version: `0.6`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/env_filter/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `env_filter`
+  - **benchmarks**
+    - Version: `0.5`
+    - Description: HTTP date parsing and formatting
+    - Cargo.toml: `minizinc-introspector/vendor/crates/httpdate/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmarks`
+  - **sync_mpsc**
+    - Version: `0.3.31`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/futures-channel/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `sync_mpsc`
+  - **tests**
+    - Version: `0.1.5`
+    - Description: SIMD-accelerated UTF-8 validation.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/simdutf8/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tests`
+  - **powerset**
+    - Version: `0.7`
+    - Description: Extra iterator adaptors, iterator methods, free functions, and macros.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/itertools-0.10.5/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `powerset`
+  - **openssl-macros**
+    - Version: `2`
+    - Description: Internal macros used by the openssl crate.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/openssl-macros/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `openssl-macros`
+  - **shared_child**
+    - Version: `0.60.2`
+    - Description: a library for using child processes from multiple threads
+    - Cargo.toml: `minizinc-introspector/vendor/crates/shared_child/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `shared_child`
+  - **block-buffer**
+    - Version: `0.14`
+    - Description: Buffer type for block processing of data
+    - Cargo.toml: `minizinc-introspector/vendor/crates/block-buffer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `block-buffer`
+  - **benchmarks**
+    - Version: `1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/matrixmultiply/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmarks`
+  - **globwalk**
+    - Version: `3`
+    - Description: Glob-matched recursive file system walking.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/globwalk/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `globwalk`
+  - **gimli**
+    - Version: `0.1.3`
+    - Description: A library for reading and writing the DWARF debugging format.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/gimli/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `gimli`
+  - **async-channel**
+    - Version: `1`
+    - Description: Async multi-producer multi-consumer channel
+    - Cargo.toml: `minizinc-introspector/vendor/crates/async-channel-1.9.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `async-channel`
+  - **gloo-timers**
+    - Version: `0.3.4`
+    - Description: Convenience crate for working with JavaScript timers
+    - Cargo.toml: `minizinc-introspector/vendor/crates/gloo-timers/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `gloo-timers`
+  - **lazy_static**
+    - Version: `1`
+    - Description: A macro for declaring lazily evaluated statics in Rust.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/lazy_static/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `lazy_static`
+  - **hmac**
+    - Version: `0.10`
+    - Description: Generic implementation of Hash-based Message Authentication Code (HMAC)
+    - Cargo.toml: `minizinc-introspector/vendor/crates/hmac/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `hmac`
+  - **cbc**
+    - Version: `0.3.3`
+    - Description: Cipher Block Chaining (CBC) block cipher mode of operation
+    - Cargo.toml: `minizinc-introspector/vendor/crates/cbc/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `cbc`
+  - **overview**
+    - Version: `0.5.0`
+    - Description: A data structure that efficiently maps strings to integers
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zerotrie/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `overview`
+  - **bench**
+    - Version: `0.8`
+    - Description: Fast, SIMD-accelerated CRC32 (IEEE) checksum computation
+    - Cargo.toml: `minizinc-introspector/vendor/crates/crc32fast/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench`
+  - **unarray**
+    - Version: `0.2`
+    - Description: Utilities for working with uninitialized arrays
+    - Cargo.toml: `minizinc-introspector/vendor/crates/unarray/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unarray`
+  - **failure**
+    - Version: `0.2.137`
+    - Description: Test CLI Applications.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/assert_cmd/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `failure`
+  - **futures_io**
+    - Version: `0.3.31`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/futures-io/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `futures_io`
+  - **http-body**
+    - Version: `1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/http-body-0.4.6/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `http-body`
+  - **hyper-tls**
+    - Version: `1.0.0`
+    - Description: Default TLS implementation for use with hyper
+    - Cargo.toml: `minizinc-introspector/vendor/crates/hyper-tls-0.5.0/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `hyper-tls`
+  - **test_transparent**
+    - Version: `1.0.81`
+    - Description: derive(Error)
+    - Cargo.toml: `minizinc-introspector/vendor/crates/thiserror-1.0.69/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test_transparent`
+  - **displaydoc**
+    - Version: `1.0`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/displaydoc/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `displaydoc`
+  - **wiremock**
+    - Version: `1.5.0`
+    - Description: HTTP mocking to test Rust applications.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/wiremock/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `wiremock`
+  - **shutdown**
+    - Version: `^1`
+    - Description: Unix signal handling
+    - Cargo.toml: `minizinc-introspector/vendor/crates/signal-hook/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `shutdown`
+  - **pyo3_macros_backend**
+    - Version: `=0.23.5`
+    - Description: Code generation for PyO3 package
+    - Cargo.toml: `minizinc-introspector/vendor/crates/pyo3-macros-backend/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `pyo3_macros_backend`
+  - **url_wpt**
+    - Version: `0.3`
+    - Description: URL library for Rust, based on the WHATWG URL Standard
+    - Cargo.toml: `minizinc-introspector/vendor/crates/url/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `url_wpt`
+  - **wrappers**
+    - Version: `1.5.0`
+    - Description: Automatic cfg for Rust compiler features
+    - Cargo.toml: `minizinc-introspector/vendor/crates/autocfg/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `wrappers`
+  - **unsafe-libyaml**
+    - Version: `1.0`
+    - Description: libyaml transpiled to rust by c2rust
+    - Cargo.toml: `minizinc-introspector/vendor/crates/unsafe-libyaml/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `unsafe-libyaml`
+  - **enum-map-derive**
+    - Version: `2.0.0`
+    - Description: Macros 1.1 implementation of #[derive(Enum)]
+    - Cargo.toml: `minizinc-introspector/vendor/crates/enum-map-derive/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `enum-map-derive`
+  - **instant**
+    - Version: `0.3`
+    - Description: Unmaintained, consider using web-time instead - A partial replacement for std::time::Instant that works on WASM to.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/instant/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `instant`
+  - **tests**
+    - Version: `1.0`
+    - Description: Rustls+hyper integration for pure rust HTTPS
+    - Cargo.toml: `minizinc-introspector/vendor/crates/hyper-rustls/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tests`
+  - **libm**
+    - Version: `0.1.35`
+    - Description: libm in pure Rust
+    - Cargo.toml: `minizinc-introspector/vendor/crates/libm/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `libm`
+  - **rprompt**
+    - Version: `0.59`
+    - Description: Prompt user input in console applications.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rprompt/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `rprompt`
+  - **egui**
+    - Version: `1`
+    - Description: An easy-to-use immediate mode GUI that runs on both web and native
+    - Cargo.toml: `minizinc-introspector/vendor/crates/egui/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `egui`
+  - **curl_sys**
+    - Version: `0.59`
+    - Description: Native bindings to the libcurl library
+    - Cargo.toml: `minizinc-introspector/vendor/crates/curl-sys/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `curl_sys`
+  - **const_fn**
+    - Version: `1.0.1`
+    - Description: Raw FFI bindings to platform libraries like libc.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/libc/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `const_fn`
+  - **parse_self**
+    - Version: `0.222.0`
+    - Description: A unified interface for reading and writing object file formats.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/object/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `parse_self`
+  - **windows_x86_64_gnullvm**
+    - Version: `0.53.0`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_x86_64_gnullvm/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_x86_64_gnullvm`
+  - **bench**
+    - Version: `1.3.0`
+    - Description: A regular expression parser.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/regex-syntax/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench`
+  - **server**
+    - Version: `0.25`
+    - Description: An HTTP/2 client and server
+    - Cargo.toml: `minizinc-introspector/vendor/crates/h2-0.3.27/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `server`
+  - **try_stream**
+    - Version: `1`
+    - Description: Asynchronous streams using async & await notation
+    - Cargo.toml: `minizinc-introspector/vendor/crates/async-stream/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `try_stream`
+  - **json**
+    - Version: `0.2.0`
+    - Description: A byte-oriented, zero-copy, parser combinators library
+    - Cargo.toml: `minizinc-introspector/vendor/crates/winnow/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `json`
+  - **wasite**
+    - Version: `0.1.0`
+    - Description: WASI Terminal Environment API
+    - Cargo.toml: `minizinc-introspector/vendor/crates/wasite/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `wasite`
+  - **pin-utils**
+    - Version: `0.1.0`
+    - Description: Utilities for pinning\n
+    - Cargo.toml: `minizinc-introspector/vendor/crates/pin-utils/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `pin-utils`
+  - **fnv**
+    - Version: `1.0.7`
+    - Description: Fowler–Noll–Vo hash function
+    - Cargo.toml: `minizinc-introspector/vendor/crates/fnv/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `fnv`
+  - **benchmarks**
+    - Version: `0.25`
+    - Description: encodes and decodes base64 as bytes or utf8
+    - Cargo.toml: `minizinc-introspector/vendor/crates/base64-0.21.7/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `benchmarks`
+  - **issue_182**
+    - Version: `2.2`
+    - Description: Binding for the zstd compression library.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/zstd/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `issue_182`
+  - **winapi**
+    - Version: `0.2.8`
+    - Description: Types and constants for WinAPI bindings. See README for list of crates providing function bindings.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/winapi-0.2.8/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `winapi`
+  - **dump-style**
+    - Version: `0.3.0`
+    - Description: ANSI text styling
+    - Cargo.toml: `minizinc-introspector/vendor/crates/anstyle/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `dump-style`
+  - **mod**
+    - Version: `1.20.3`
+    - Description: Safe Rust bindings to POSIX/Unix/Linux/Winsock-like syscalls
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rustix/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `mod`
+  - **broadcast_bench**
+    - Version: `0.3.21`
+    - Description: Async broadcast channels
+    - Cargo.toml: `minizinc-introspector/vendor/crates/async-broadcast/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `broadcast_bench`
+  - **bench**
+    - Version: `1.0`
+    - Description: A set of bits
+    - Cargo.toml: `minizinc-introspector/vendor/crates/bit-set/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench`
+  - **windows_i686_gnullvm**
+    - Version: `0.53.0`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_i686_gnullvm/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_i686_gnullvm`
+  - **parselog**
+    - Version: `0.1.1`
+    - Description: Parse ANSI Style Escapes
+    - Cargo.toml: `minizinc-introspector/vendor/crates/anstyle-parse/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `parselog`
+  - **static_assertions**
+    - Version: `1.1.0`
+    - Description: Compile-time assertions to ensure that invariants are met.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/static_assertions/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `static_assertions`
+  - **crypto_box**
+    - Version: `1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/crypto_box/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `crypto_box`
+  - **easy_wrapper**
+    - Version: `0.3.37`
+    - Description: Block or poll on event_listener easily
+    - Cargo.toml: `minizinc-introspector/vendor/crates/event-listener-strategy/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `easy_wrapper`
+  - **errno**
+    - Version: `>=0.52, <=0.60`
+    - Description: Cross-platform interface to the `errno` variable.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/errno/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `errno`
+  - **server_name**
+    - Version: `=0.1.9`
+    - Description: Shared types for the rustls PKI ecosystem
+    - Cargo.toml: `minizinc-introspector/vendor/crates/rustls-pki-types/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `server_name`
+  - **set-wincon**
+    - Version: `0.60.0`
+    - Description: Styling legacy Windows terminals
+    - Cargo.toml: `minizinc-introspector/vendor/crates/anstyle-wincon/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `set-wincon`
+  - **minicov**
+    - Version: `2.3.2`
+    - Description: Code coverage and profile-guided optimization support for no_std and embedded programs
+    - Cargo.toml: `minizinc-introspector/vendor/crates/minicov/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `minicov`
+  - **lz4_flex**
+    - Version: `1.1.0`
+    - Description: Fastest LZ4 implementation in Rust, no unsafe by default.
+    - Cargo.toml: `minizinc-introspector/vendor/crates/lz4_flex/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `lz4_flex`
+  - **bench**
+    - Version: `1`
+    - Description: 
+    - Cargo.toml: `minizinc-introspector/vendor/crates/ucd-trie/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `bench`
+  - **serde_spanned**
+    - Version: `1`
+    - Description: Serde-compatible spanned Value
+    - Cargo.toml: `minizinc-introspector/vendor/crates/serde_spanned/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `serde_spanned`
+  - **windows_aarch64_msvc**
+    - Version: `0.53.0`
+    - Description: Import lib for Windows
+    - Cargo.toml: `minizinc-introspector/vendor/crates/windows_aarch64_msvc/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `windows_aarch64_msvc`
+  - **arrow_arith**
+    - Version: `0.4`
+    - Description: Arrow arithmetic kernels
+    - Cargo.toml: `minizinc-introspector/vendor/arrow-arith-patched/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `arrow_arith`
+  - **doc_recategorizer**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/doc_recategorizer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `doc_recategorizer`
+  - **doc_organizer**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/doc_organizer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `doc_organizer`
+  - **minizinc_test_runner_rs**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/tools/minizinc_test_runner_rs/minizinc_test_runner_rs/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `minizinc_test_runner_rs`
+  - **minizinc_test_runner_rs**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/tools/minizinc_test_runner_rs/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `minizinc_test_runner_rs`
+  - **minizinc_data_generator_rs**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/tools/minizinc_data_generator_rs/minizinc_data_generator_rs/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `minizinc_data_generator_rs`
+  - **coverage_extractor**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/tools/coverage_extractor/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `coverage_extractor`
+  - **minizinc_ffi**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/tools/minizinc_ffi/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `minizinc_ffi`
+  - **minizinc_model_generator_rs**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/tools/minizinc_model_generator_rs/minizinc_model_generator_rs/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `minizinc_model_generator_rs`
+  - **minizinc_report_generator_rs**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/tools/minizinc_report_generator_rs/minizinc_report_generator_rs/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `minizinc_report_generator_rs`
+  - **doc_to_minizinc_data**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/doc_to_minizinc_data/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `doc_to_minizinc_data`
+  - **meme_site_generator**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/meme_site_generator/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `meme_site_generator`
+  - **gemini_utils**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/gemini_utils/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `gemini_utils`
+  - **minizinc_introspector**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/minizinc_introspector/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `minizinc_introspector`
+  - **launchpad**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/launchpad/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `launchpad`
+  - **zos-stage-github-repo-inspector**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/zos-stage-github-repo-inspector/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zos-stage-github-repo-inspector`
+  - **zos-stage-process-monitor**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/zos-stage-process-monitor/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zos-stage-process-monitor`
+  - **poem_meme_formatter**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/poem_meme_formatter/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `poem_meme_formatter`
+  - **mini-act**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/mini-act/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `mini-act`
+  - **zos-fast-query**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/zos-fast-query/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zos-fast-query`
+  - **kantspel_macros**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/kantspel_macros/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `kantspel_macros`
+  - **solfunmeme-core**
+    - Cargo.toml: `minizinc-introspector/crates/solfunmeme-core/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `solfunmeme-core`
+  - **poem_macro_impl**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/poem_macro_impl/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `poem_macro_impl`
+  - **poem_macro_test_crate**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/poem_macro_test_crate/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `poem_macro_test_crate`
+  - **vocabulary_dfa_lib**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/vocabulary_dfa_lib/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `vocabulary_dfa_lib`
+  - **gemini_cli_manager**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/gemini_cli_manager/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `gemini_cli_manager`
+  - **file_content_analyzer**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/rust_file_finder/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `file_content_analyzer`
+  - **minizinc_macro**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/minizinc_macro/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `minizinc_macro`
+  - **minizinc_output_parser**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/minizinc_output_parser/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `minizinc_output_parser`
+  - **poem_archeologist**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/poem_archeologist/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `poem_archeologist`
+  - **dump_tmux_status**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/dump_tmux_status/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `dump_tmux_status`
+  - **poem_yaml_fixer**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/poem_yaml_fixer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `poem_yaml_fixer`
+  - **gemini_utils_test**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/gemini_utils_test/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `gemini_utils_test`
+  - **poem_formatter**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/poem_formatter/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `poem_formatter`
+  - **regex_generator_tool**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/regex_generator_tool/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `regex_generator_tool`
+  - **constant_analyzer**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/constant_analyzer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `constant_analyzer`
+  - **poem_macros**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/poem_macros/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `poem_macros`
+  - **constant_analyzer_macros**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/constant_analyzer_macros/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `constant_analyzer_macros`
+  - **backpack_tool**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/backpack_tool/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `backpack_tool`
+  - **crq_updater**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/crq_updater/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `crq_updater`
+  - **test_cleaning**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/asciicast_processor/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `test_cleaning`
+  - **zos-bootstrap**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/zos-bootstrap/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zos-bootstrap`
+  - **poem_traits**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/poem_traits/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `poem_traits`
+  - **minizinc_macro_test**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/minizinc_macro_test/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `minizinc_macro_test`
+  - **vocabulary_dfa_generator**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/vocabulary_dfa_generator/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `vocabulary_dfa_generator`
+  - **cm**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/credential_manager/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `cm`
+  - **zos-stage-doh**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/zos-stage-doh/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zos-stage-doh`
+  - **launchpad_status**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/launchpad_status/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `launchpad_status`
+  - **vibe_analyzer**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/vibe_analyzer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `vibe_analyzer`
+  - **ragit-string-utils**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/ragit-string-utils/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `ragit-string-utils`
+  - **code_search_tool**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/code_search_tool/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `code_search_tool`
+  - **dfa_tester**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/dfa_tester/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `dfa_tester`
+  - **kantspel_lib**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/kantspel_lib/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `kantspel_lib`
+  - **tmux_controller**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/tmux_controller/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `tmux_controller`
+  - **zos-stage-session-manager**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/zos-stage-session-manager/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zos-stage-session-manager`
+  - **regex_file_analyzer**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/regex_file_analyzer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `regex_file_analyzer`
+  - **poem_macro_impl_test**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/crates/poem_macro_impl_test/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `poem_macro_impl_test`
+  - **embedding_analyzer**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/embedding_analyzer/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `embedding_analyzer`
+  - **zos-bootstrap-main**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/zos-bootstrap-main/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `zos-bootstrap-main`
+  - **regex_extractor**
+    - Version: `0.1.0`
+    - Cargo.toml: `minizinc-introspector/regex_extractor/Cargo.toml`
+    - **Relationship**: `minizinc-introspector` - **defined in repo of** -> `regex_extractor`
+
+### tor-arti (88 cargo modules)
+- **Git Module Path**: `tor-arti`
+- **Git URL**: `https://gitlab.torproject.org/tpo/core/arti.git`
+- **Git Object**: `6674bf4db8404c6c4ff178789fcfdf75b1b78447`
+- **Defined Cargo Modules**:
+  - **ureq-examples**
+    - Version: `0.1.0`
+    - Description: Examples demonstrating the usage of the arti-ureq crate
+    - Cargo.toml: `tor-arti/examples/ureq-examples/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `ureq-examples`
+  - **hyper-examples**
+    - Version: `0.2.0`
+    - Description: Examples demonstrating the usage of Arti with hyper
+    - Cargo.toml: `tor-arti/examples/hyper-examples/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `hyper-examples`
+  - **download-manager**
+    - Version: `0.1.0`
+    - Description: Download the Tor Browser using multiple tor connections.
+    - Cargo.toml: `tor-arti/examples/download-manager/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `download-manager`
+  - **axum-hello-world**
+    - Version: `0.1.0`
+    - Description: Example of a HTTP server written with axum, running as a hidden service through Tor
+    - Cargo.toml: `tor-arti/examples/axum/axum-hello-world/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `axum-hello-world`
+  - **pt-proxy**
+    - Version: `0.1.0`
+    - Cargo.toml: `tor-arti/examples/gsoc2023/pt-proxy/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `pt-proxy`
+  - **connection-checker**
+    - Version: `0.1.0`
+    - Cargo.toml: `tor-arti/examples/gsoc2023/connection-checker/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `connection-checker`
+  - **obfs4-checker**
+    - Version: `0.1.0`
+    - Cargo.toml: `tor-arti/examples/gsoc2023/obfs4-checker/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `obfs4-checker`
+  - **dns-resolver**
+    - Version: `0.1.0`
+    - Cargo.toml: `tor-arti/examples/gsoc2023/dns-resolver/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `dns-resolver`
+  - **arti-testing**
+    - Version: `0.17.0`
+    - Description: Tools for testing the Arti Tor implementation.
+    - Cargo.toml: `tor-arti/crates/arti-testing/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `arti-testing`
+  - **tor-dircommon**
+    - Version: `0.36.0`
+    - Description: Common primitives for the Tor directory specification
+    - Cargo.toml: `tor-arti/crates/tor-dircommon/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-dircommon`
+  - **tor-log-ratelim**
+    - Version: `0.36.0`
+    - Description: Facility for rate-limiting log messages in Arti
+    - Cargo.toml: `tor-arti/crates/tor-log-ratelim/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-log-ratelim`
+  - **tor-rpcbase**
+    - Version: `0.36.0`
+    - Description: Low level functionality for Arti's RPC service
+    - Cargo.toml: `tor-arti/crates/tor-rpcbase/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-rpcbase`
+  - **tor-units**
+    - Version: `0.36.0`
+    - Description: Provides macros for types which are constrained within a range, ensuring invalid values are unrepresentable.
+    - Cargo.toml: `tor-arti/crates/tor-units/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-units`
+  - **caret**
+    - Version: `0.8.0`
+    - Description: Macros for declaring non-exhaustive C-style enumerations, with named members
+    - Cargo.toml: `tor-arti/crates/caret/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `caret`
+  - **hsdesc**
+    - Version: `0.0.0`
+    - Cargo.toml: `tor-arti/crates/tor-netdoc/fuzz/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `hsdesc`
+  - **tor-netdoc**
+    - Version: `0.36.0`
+    - Description: Network document formats used with the Tor protocols.
+    - Cargo.toml: `tor-arti/crates/tor-netdoc/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-netdoc`
+  - **pow_v1_vectors**
+    - Version: `0.36.0`
+    - Description: Basic onion service cryptography types used by Aerti
+    - Cargo.toml: `tor-arti/crates/tor-hscrypto/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `pow_v1_vectors`
+  - **tor-dirclient**
+    - Version: `0.36.0`
+    - Description: Downloads specific Tor network directory objects over the Tor network
+    - Cargo.toml: `tor-arti/crates/tor-dirclient/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-dirclient`
+  - **tor-geoip**
+    - Version: `0.36.0`
+    - Description: A crate to parse C Tor GeoIP CSV files.
+    - Cargo.toml: `tor-arti/crates/tor-geoip/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-geoip`
+  - **reading**
+    - Version: `0.0.0`
+    - Cargo.toml: `tor-arti/crates/tor-bytes/fuzz/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `reading`
+  - **tor-bytes**
+    - Version: `0.36.0`
+    - Description: Helpers for encoding and decoding byte-orientted data, as used by Tor
+    - Cargo.toml: `tor-arti/crates/tor-bytes/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-bytes`
+  - **compare_diffs**
+    - Version: `0.0.0`
+    - Cargo.toml: `tor-arti/crates/tor-consdiff/fuzz/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `compare_diffs`
+  - **tor-consdiff**
+    - Version: `0.36.0`
+    - Description: Handle the consensus-diff format used in the Tor directory protocol
+    - Cargo.toml: `tor-arti/crates/tor-consdiff/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-consdiff`
+  - **arti-relay**
+    - Version: `0.36.0`
+    - Description: Library for running a relay of the Tor network
+    - Cargo.toml: `tor-arti/crates/arti-relay/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `arti-relay`
+  - **tor-dirmgr**
+    - Version: `0.36.0`
+    - Description: Bootstrap and update an accurate Tor network directory
+    - Cargo.toml: `tor-arti/crates/tor-dirmgr/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-dirmgr`
+  - **arti-rpcserver**
+    - Version: `0.36.0`
+    - Description: Backend functionality for Arti's RPC service
+    - Cargo.toml: `tor-arti/crates/arti-rpcserver/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `arti-rpcserver`
+  - **ptmessage**
+    - Version: `0.0.0`
+    - Cargo.toml: `tor-arti/crates/tor-ptmgr/fuzz/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `ptmessage`
+  - **run-pt**
+    - Version: `0.36.0`
+    - Description: Manage a set of pluggable transports to circumvent censorship
+    - Cargo.toml: `tor-arti/crates/tor-ptmgr/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `run-pt`
+  - **arti-client**
+    - Version: `0.36.0`
+    - Description: Library for connecting to the Tor network as an anonymous client
+    - Cargo.toml: `tor-arti/crates/arti-client/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `arti-client`
+  - **arti-config**
+    - Version: `0.17.0`
+    - Description: Removed crate.  (Tools for configuration management in Arti)
+    - Cargo.toml: `tor-arti/crates/arti-config/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `arti-config`
+  - **oneshot-fused-workaround**
+    - Version: `0.5.0`
+    - Description: Fused wrapper for futures::channel::oneshot
+    - Cargo.toml: `tor-arti/crates/oneshot-fused-workaround/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `oneshot-fused-workaround`
+  - **tor-relay-selection**
+    - Version: `0.36.0`
+    - Description: Logic to select Tor relays for specific purposes
+    - Cargo.toml: `tor-arti/crates/tor-relay-selection/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-relay-selection`
+  - **tor-chanmgr**
+    - Version: `0.36.0`
+    - Description: Manage a set of connections to the Tor network
+    - Cargo.toml: `tor-arti/crates/tor-chanmgr/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-chanmgr`
+  - **chanmsg**
+    - Version: `0.0.0`
+    - Cargo.toml: `tor-arti/crates/tor-cell/fuzz/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `chanmsg`
+  - **tor-cell**
+    - Version: `0.36.0`
+    - Description: Encode and decode Tor cells and messages
+    - Cargo.toml: `tor-arti/crates/tor-cell/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-cell`
+  - **buckets**
+    - Version: `0.0.0`
+    - Cargo.toml: `tor-arti/crates/equix/fuzz/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `buckets`
+  - **equix**
+    - Version: `0.5.0`
+    - Description: Asymmetric function for client puzzle protocols
+    - Cargo.toml: `tor-arti/crates/equix/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `equix`
+  - **equix_bench**
+    - Version: `0.0.0`
+    - Cargo.toml: `tor-arti/crates/equix/bench/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `equix_bench`
+  - **tor-linkspec**
+    - Version: `0.36.0`
+    - Description: Parts of the Tor protocol that indicate specific relays on the network
+    - Cargo.toml: `tor-arti/crates/tor-linkspec/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-linkspec`
+  - **tor-hsservice**
+    - Version: `0.36.0`
+    - Description: Arti's implementation of an onion service provider
+    - Cargo.toml: `tor-arti/crates/tor-hsservice/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-hsservice`
+  - **tor-hsrproxy**
+    - Version: `0.36.0`
+    - Description: Reverse proxy to build an onion service that connects to local servers.
+    - Cargo.toml: `tor-arti/crates/tor-hsrproxy/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-hsrproxy`
+  - **tor-error**
+    - Version: `0.36.0`
+    - Description: Provides the unified type-erased error type returned by many (esp. high-level) Tor APIs.
+    - Cargo.toml: `tor-arti/crates/tor-error/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-error`
+  - **tor-memquota**
+    - Version: `0.36.0`
+    - Description: Memory use tracking and quota utilities, used by Tor software
+    - Cargo.toml: `tor-arti/crates/tor-memquota/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-memquota`
+  - **tor-rtmock**
+    - Version: `0.36.0`
+    - Description: Testing mock support for tor-rtcomapt
+    - Cargo.toml: `tor-arti/crates/tor-rtmock/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-rtmock`
+  - **slotmap-careful**
+    - Version: `0.5.0`
+    - Description: Wrap the slotmap crate and prevent key reuse
+    - Cargo.toml: `tor-arti/crates/slotmap-careful/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `slotmap-careful`
+  - **arti-bench**
+    - Version: `0.17.0`
+    - Description: A simple benchmarking utility for Arti.
+    - Cargo.toml: `tor-arti/crates/arti-bench/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `arti-bench`
+  - **roundtrip_addr**
+    - Version: `0.0.0`
+    - Cargo.toml: `tor-arti/crates/tor-general-addr/fuzz/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `roundtrip_addr`
+  - **tor-general-addr**
+    - Version: `0.36.0`
+    - Description: Generalized socket address type used by Tor
+    - Cargo.toml: `tor-arti/crates/tor-general-addr/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-general-addr`
+  - **futures-copy**
+    - Version: `0.2.0`
+    - Description: Copy data between AsyncRead and AsyncWrite, with bidirectional and flushing support
+    - Cargo.toml: `tor-arti/crates/futures-copy/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `futures-copy`
+  - **tor-basic-utils**
+    - Version: `0.36.0`
+    - Description: General helpers used by Tor
+    - Cargo.toml: `tor-arti/crates/tor-basic-utils/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-basic-utils`
+  - **tor-rtcompat**
+    - Version: `0.36.0`
+    - Description: Compatibility layer for asynchronous runtimes, used by Tor
+    - Cargo.toml: `tor-arti/crates/tor-rtcompat/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-rtcompat`
+  - **tor-keymgr**
+    - Version: `0.36.0`
+    - Description: Key management for the Arti Tor implementation
+    - Cargo.toml: `tor-arti/crates/tor-keymgr/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-keymgr`
+  - **test-temp-dir**
+    - Version: `0.6.0`
+    - Description: Temporary directories for use in tests
+    - Cargo.toml: `tor-arti/crates/test-temp-dir/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `test-temp-dir`
+  - **x509_rsa_kludge**
+    - Version: `0.0.0`
+    - Cargo.toml: `tor-arti/crates/tor-llcrypto/fuzz/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `x509_rsa_kludge`
+  - **tor-llcrypto**
+    - Version: `0.36.0`
+    - Description: Low level cryptography wrappers used by Tor
+    - Cargo.toml: `tor-arti/crates/tor-llcrypto/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-llcrypto`
+  - **tor-config-path**
+    - Version: `0.36.0`
+    - Description: Low-level file path handling for configuration of the Arti Tor implementation
+    - Cargo.toml: `tor-arti/crates/tor-config-path/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-config-path`
+  - **tor-hsclient**
+    - Version: `0.36.0`
+    - Description: Arti's implementation of an onion service client
+    - Cargo.toml: `tor-arti/crates/tor-hsclient/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-hsclient`
+  - **retry-error**
+    - Version: `0.9.0`
+    - Description: An error type for an operation that can fail more than once
+    - Cargo.toml: `tor-arti/crates/retry-error/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `retry-error`
+  - **tor-async-utils**
+    - Version: `0.36.0`
+    - Description: Async/futures helpers for use with Tor
+    - Cargo.toml: `tor-arti/crates/tor-async-utils/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-async-utils`
+  - **tor-config**
+    - Version: `0.36.0`
+    - Description: Low-level configuration for the Arti Tor implementation
+    - Cargo.toml: `tor-arti/crates/tor-config/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-config`
+  - **tor-dirserver**
+    - Version: `0.36.0`
+    - Description: Implements dirserver functionality
+    - Cargo.toml: `tor-arti/crates/tor-dirserver/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-dirserver`
+  - **tor-relay-crypto**
+    - Version: `0.36.0`
+    - Description: Cryptography types and helpers for a Tor relay
+    - Cargo.toml: `tor-arti/crates/tor-relay-crypto/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-relay-crypto`
+  - **tor-circmgr**
+    - Version: `0.36.0`
+    - Description: Manage a set of anonymous circuits over the Tor network
+    - Cargo.toml: `tor-arti/crates/tor-circmgr/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-circmgr`
+  - **rng**
+    - Version: `0.0.0`
+    - Cargo.toml: `tor-arti/crates/hashx/fuzz/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `rng`
+  - **hashx**
+    - Version: `0.6.0`
+    - Description: Hash function family designed for ASIC-resistant client puzzles
+    - Cargo.toml: `tor-arti/crates/hashx/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `hashx`
+  - **hashx_cachegrind**
+    - Version: `0.0.0`
+    - Cargo.toml: `tor-arti/crates/hashx/bench/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `hashx_cachegrind`
+  - **tor-events**
+    - Version: `0.17.0`
+    - Description: A typed event broadcasting framework for Arti.
+    - Cargo.toml: `tor-arti/crates/tor-events/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-events`
+  - **rsacert**
+    - Version: `0.0.0`
+    - Cargo.toml: `tor-arti/crates/tor-cert/fuzz/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `rsacert`
+  - **tor-cert**
+    - Version: `0.36.0`
+    - Description: Non-standard certificate formats used by Tor
+    - Cargo.toml: `tor-arti/crates/tor-cert/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-cert`
+  - **arti-ureq**
+    - Version: `0.36.0`
+    - Description: Library to use Arti in the ureq http client
+    - Cargo.toml: `tor-arti/crates/arti-ureq/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `arti-ureq`
+  - **arti**
+    - Version: `1.7.0`
+    - Description: A rust implementation of the Tor privacy tools.
+    - Cargo.toml: `tor-arti/crates/arti/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `arti`
+  - **fs-mistrust**
+    - Version: `0.13.0`
+    - Description: Ensure that files can only be read or written by trusted users
+    - Cargo.toml: `tor-arti/crates/fs-mistrust/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `fs-mistrust`
+  - **tor1_set_digest**
+    - Version: `0.36.0`
+    - Description: Asynchronous client-side implementation of the central Tor network protocols
+    - Cargo.toml: `tor-arti/crates/tor-proto/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor1_set_digest`
+  - **safelog**
+    - Version: `0.7.0`
+    - Description: Conditionally suppress confidential information from logs
+    - Cargo.toml: `tor-arti/crates/safelog/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `safelog`
+  - **tor-persist**
+    - Version: `0.36.0`
+    - Description: Persistent state for the Arti Tor implementation
+    - Cargo.toml: `tor-arti/crates/tor-persist/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-persist`
+  - **tor-key-forge**
+    - Version: `0.36.0`
+    - Description: Low level cryptography wrappers used by Tor
+    - Cargo.toml: `tor-arti/crates/tor-key-forge/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-key-forge`
+  - **tor-rpc-connect**
+    - Version: `0.36.0`
+    - Description: Common implementation logic for Arti RPC Connect points
+    - Cargo.toml: `tor-arti/crates/tor-rpc-connect/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-rpc-connect`
+  - **tor-protover**
+    - Version: `0.36.0`
+    - Description: Implementation for Tor's subprotocol versioning
+    - Cargo.toml: `tor-arti/crates/tor-protover/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-protover`
+  - **tor-netdir**
+    - Version: `0.36.0`
+    - Description: Types to represent and use a Tor network directory
+    - Cargo.toml: `tor-arti/crates/tor-netdir/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-netdir`
+  - **tor-checkable**
+    - Version: `0.36.0`
+    - Description: Types to ensure that signed or time-bound data is validated before use
+    - Cargo.toml: `tor-arti/crates/tor-checkable/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-checkable`
+  - **fslock-guard**
+    - Version: `^0.3.8`
+    - Description: Wrapper around a lockfile with unlock-on-drop semantics
+    - Cargo.toml: `tor-arti/crates/fslock-guard/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `fslock-guard`
+  - **tor-guardmgr**
+    - Version: `0.36.0`
+    - Description: Manage a set of guard relays for Tor network
+    - Cargo.toml: `tor-arti/crates/tor-guardmgr/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-guardmgr`
+  - **arti-rpc-client-core**
+    - Version: `0.36.0`
+    - Description: Client library for Arti RPC
+    - Cargo.toml: `tor-arti/crates/arti-rpc-client-core/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `arti-rpc-client-core`
+  - **client**
+    - Version: `0.0.0`
+    - Cargo.toml: `tor-arti/crates/tor-socksproto/fuzz/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `client`
+  - **tor-socksproto**
+    - Version: `0.36.0`
+    - Description: Encode and decode the SOCKS protocol, as extended in Tor
+    - Cargo.toml: `tor-arti/crates/tor-socksproto/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `tor-socksproto`
+  - **keygen-openssh-test**
+    - Version: `0.1.0`
+    - Description: Tool used by arti to generate OpenSSH keys for testing
+    - Cargo.toml: `tor-arti/maint/keygen-openssh-test/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `keygen-openssh-test`
+  - **test-project**
+    - Version: `0.1.0`
+    - Cargo.toml: `tor-arti/maint/rust-maint-common/test-project/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `test-project`
+  - **fixup-features**
+    - Version: `0.1.0`
+    - Description: Tool used by arti to enforce certain properties in our Cargo features
+    - Cargo.toml: `tor-arti/maint/fixup-features/Cargo.toml`
+    - **Relationship**: `tor-arti` - **defined in repo of** -> `fixup-features`
+
+### tools/rust-bootstrap-nix (60 cargo modules)
+- **Git Module Path**: `tools/rust-bootstrap-nix`
+- **Git URL**: `/data/data/com.termux.nix/files/home/rust-bootstrap-nix/`
+- **Git Object**: `79cb33d7b62687dc9747af9529d4427e7f2ddcf7`
+- **Defined Cargo Modules**:
+  - **test_cargo_run_env**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/test_cargo_run_env/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `test_cargo_run_env`
+  - **syn-usage-collector**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/syn-usage-collector/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `syn-usage-collector`
+  - **bootstrap-macros**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/standalonex/macros/bootstrap-macros/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `bootstrap-macros`
+  - **bootstrap-config-builder-core**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/standalonex/src/bootstrap-config-builder-core/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `bootstrap-config-builder-core`
+  - **stage0_parser_crate**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/standalonex/src/stage0_parser_crate/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `stage0_parser_crate`
+  - **bootstrap-config**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/standalonex/src/bootstrap-config/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `bootstrap-config`
+  - **bootstrap-config-macros**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/standalonex/src/bootstrap-config/config_macros/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `bootstrap-config-macros`
+  - **bootstrap-config-types**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/standalonex/src/bootstrap-config-types/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `bootstrap-config-types`
+  - **config_tests**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/standalonex/src/config_tests/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `config_tests`
+  - **build_helper**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/standalonex/src/build_helper/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `build_helper`
+  - **config_core**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/standalonex/src/config_core/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `config_core`
+  - **config_macros**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/standalonex/src/config_macros/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `config_macros`
+  - **nix_bootstrap**
+    - Version: `0.52`
+    - Cargo.toml: `tools/rust-bootstrap-nix/standalonex/src/bootstrap/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `nix_bootstrap`
+  - **bootstrap-test-utils**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/standalonex/src/bootstrap/src/core/build_steps/test_utils/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `bootstrap-test-utils`
+  - **bootstrap-config-utils**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/standalonex/src/bootstrap/src/core/config_utils/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `bootstrap-config-utils`
+  - **bootstrap-config-processor**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/standalonex/src/bootstrap/src/core/config_processor/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `bootstrap-config-processor`
+  - **min_test_project**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/standalonex/min_test_project/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `min_test_project`
+  - **monadic-io-traits**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/monadic-io-traits/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `monadic-io-traits`
+  - **FunctionInfo**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/generated_declarations/0/FunctionInfo/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `FunctionInfo`
+  - **UseStatements**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/generated_declarations/0/UseStatements/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `UseStatements`
+  - **ValidatedFile**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/generated_declarations/0/ValidatedFile/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `ValidatedFile`
+  - **ClassifiedUseStatements**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/generated_declarations/0/ClassifiedUseStatements/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `ClassifiedUseStatements`
+  - **unknown_other_item**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/generated_declarations/0/unknown_other_item/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `unknown_other_item`
+  - **ParsedFile**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/generated_declarations/0/ParsedFile/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `ParsedFile`
+  - **PipelineFunctor**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/generated_declarations/0/PipelineFunctor/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `PipelineFunctor`
+  - **AstStatistics**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/generated_declarations/0/AstStatistics/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `AstStatistics`
+  - **VariableInfo**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/generated_declarations/0/VariableInfo/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `VariableInfo`
+  - **UseStatement**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/generated_declarations/0/UseStatement/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `UseStatement`
+  - **RawFile**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/generated_declarations/0/RawFile/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `RawFile`
+  - **ImportInfo**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/generated_declarations/0/ImportInfo/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `ImportInfo`
+  - **use_statement_types**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/generated_declarations/0/use_statement_types/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `use_statement_types`
+  - **_**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/generated_declarations/0/_/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `_`
+  - **split-expanded-bin**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/split-expanded-bin/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `split-expanded-bin`
+  - **test-openssl-sys**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/test-openssl-sys/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `test-openssl-sys`
+  - **metrics-reporter**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/metrics-reporter/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `metrics-reporter`
+  - **test_definitions_test**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/test_definitions_crates/test_definitions_test/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `test_definitions_test`
+  - **test_definitions_lib**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/test_definitions_crates/test_definitions_lib/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `test_definitions_lib`
+  - **test_definitions_macro**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/test_definitions_crates/test_definitions_macro/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `test_definitions_macro`
+  - **cargo-flake-generator**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/tools/cargo-flake-generator/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `cargo-flake-generator`
+  - **task-graph-analyzer**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/tools/task-graph-analyzer/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `task-graph-analyzer`
+  - **workspace-generator**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/tools/workspace-generator/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `workspace-generator`
+  - **dependency-analyzer**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/tools/dependency-analyzer/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `dependency-analyzer`
+  - **flake-orchestrator**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/tools/flake-orchestrator/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `flake-orchestrator`
+  - **rust-system-builder**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/rust-system-builder/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `rust-system-builder`
+  - **flake-template-generator**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/flake-template-generator/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `flake-template-generator`
+  - **code-graph-query-tool**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/crates/code-graph-query-tool/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `code-graph-query-tool`
+  - **git-utils**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/crates/git-utils/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `git-utils`
+  - **flake-orchestrator-lib**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/crates/flake-orchestrator-lib/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `flake-orchestrator-lib`
+  - **expanded-code-collector**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/crates/expanded-code-collector/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `expanded-code-collector`
+  - **code-graph-flattener**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/crates/code-graph-flattener/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `code-graph-flattener`
+  - **configuration-nix**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/configuration-nix/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `configuration-nix`
+  - **generated-test-runner**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/prelude-generator/generated_test_runner/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `generated-test-runner`
+  - **prelude-generator**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/prelude-generator/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `prelude-generator`
+  - **flake-step-manager**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/bootstrap-config-builder/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `flake-step-manager`
+  - **pipeline-traits**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/pipeline-traits/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `pipeline-traits`
+  - **rust-system-composer**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/rust-system-composer/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `rust-system-composer`
+  - **test-bootstrap**
+    - Version: `0.52`
+    - Cargo.toml: `tools/rust-bootstrap-nix/test-bootstrap-flake/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `test-bootstrap`
+  - **split-expanded-lib**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/split-expanded-lib/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `split-expanded-lib`
+  - **ast-decoder**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/ast-decoder/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `ast-decoder`
+  - **temp_test_crate**
+    - Version: `0.1.0`
+    - Cargo.toml: `tools/rust-bootstrap-nix/temp_test_crate/Cargo.toml`
+    - **Relationship**: `tools/rust-bootstrap-nix` - **defined in repo of** -> `temp_test_crate`
+
+### juniper (13 cargo modules)
+- **Git Module Path**: `submodules/juniper`
+- **Git URL**: `https://github.com/meta-introspector/juniper`
+- **Git Object**: `0e14736ad1acbb8a25f142ec426203c8797c4755`
+- **Defined Cargo Modules**:
+  - **benchmark**
+    - Version: `0.0.0`
+    - Cargo.toml: `submodules/juniper/benches/Cargo.toml`
+    - **Relationship**: `juniper` - **defined in repo of** -> `benchmark`
+  - **juniper_integration_tests**
+    - Version: `0.0.0`
+    - Cargo.toml: `submodules/juniper/tests/integration/Cargo.toml`
+    - **Relationship**: `juniper` - **defined in repo of** -> `juniper_integration_tests`
+  - **juniper_codegen_tests**
+    - Version: `0.0.0`
+    - Cargo.toml: `submodules/juniper/tests/codegen/Cargo.toml`
+    - **Relationship**: `juniper` - **defined in repo of** -> `juniper_codegen_tests`
+  - **subscription**
+    - Version: `0.9.0`
+    - Description: `juniper` GraphQL integration with `warp`.
+    - Cargo.toml: `submodules/juniper/juniper_warp/Cargo.toml`
+    - **Relationship**: `juniper` - **defined in repo of** -> `subscription`
+  - **juniper_rocket**
+    - Version: `0.10.0`
+    - Description: `juniper` GraphQL integration with `rocket`.
+    - Cargo.toml: `submodules/juniper/juniper_rocket/Cargo.toml`
+    - **Relationship**: `juniper` - **defined in repo of** -> `juniper_rocket`
+  - **ws_test_suite**
+    - Version: `0.3.0`
+    - Description: `juniper` GraphQL integration with `axum`.
+    - Cargo.toml: `submodules/juniper/juniper_axum/Cargo.toml`
+    - **Relationship**: `juniper` - **defined in repo of** -> `ws_test_suite`
+  - **subscription**
+    - Version: `0.7.0`
+    - Description: `juniper` GraphQL integration with `actix-web`.
+    - Cargo.toml: `submodules/juniper/juniper_actix/Cargo.toml`
+    - **Relationship**: `juniper` - **defined in repo of** -> `subscription`
+  - **juniper_book**
+    - Version: `0.0.0`
+    - Cargo.toml: `submodules/juniper/book/Cargo.toml`
+    - **Relationship**: `juniper` - **defined in repo of** -> `juniper_book`
+  - **juniper_graphql_ws**
+    - Version: `0.5.0`
+    - Description: GraphQL over WebSocket Protocol implementations for `juniper` crate.
+    - Cargo.toml: `submodules/juniper/juniper_graphql_ws/Cargo.toml`
+    - **Relationship**: `juniper` - **defined in repo of** -> `juniper_graphql_ws`
+  - **juniper_codegen**
+    - Version: `0.17.0`
+    - Description: Code generation for `juniper` crate.
+    - Cargo.toml: `submodules/juniper/juniper_codegen/Cargo.toml`
+    - **Relationship**: `juniper` - **defined in repo of** -> `juniper_codegen`
+  - **juniper_hyper**
+    - Version: `0.10.0`
+    - Description: `juniper` GraphQL integration with `hyper`.
+    - Cargo.toml: `submodules/juniper/juniper_hyper/Cargo.toml`
+    - **Relationship**: `juniper` - **defined in repo of** -> `juniper_hyper`
+  - **bench**
+    - Version: `0.17.0`
+    - Description: GraphQL server library.
+    - Cargo.toml: `submodules/juniper/juniper/Cargo.toml`
+    - **Relationship**: `juniper` - **defined in repo of** -> `bench`
+  - **juniper_subscriptions**
+    - Version: `0.18.0`
+    - Description: Juniper `SubscriptionCoordinator` and `SubscriptionConnection` implementations.
+    - Cargo.toml: `submodules/juniper/juniper_subscriptions/Cargo.toml`
+    - **Relationship**: `juniper` - **defined in repo of** -> `juniper_subscriptions`
+
+### lattice-introspector (12 cargo modules)
+- **Git Module Path**: `lattice-introspector`
+- **Git URL**: `https://github.com/meta-introspector/lattice-introspector.git`
+- **Git Object**: `0e6e20769d5c505dc75f25283ca2757e3bfbcdf4`
+- **Defined Cargo Modules**:
+  - **lattice-analyzer**
+    - Version: `0.1.0`
+    - Cargo.toml: `lattice-introspector/lattice/lattice-analyzer/Cargo.toml`
+    - **Relationship**: `lattice-introspector` - **defined in repo of** -> `lattice-analyzer`
+  - **lattice-types**
+    - Version: `0.1.0`
+    - Cargo.toml: `lattice-introspector/lattice/lattice-types/Cargo.toml`
+    - **Relationship**: `lattice-introspector` - **defined in repo of** -> `lattice-types`
+  - **lattice-introspector**
+    - Version: `0.1.0`
+    - Cargo.toml: `lattice-introspector/lattice/lattice-introspector/Cargo.toml`
+    - **Relationship**: `lattice-introspector` - **defined in repo of** -> `lattice-introspector`
+  - **lattice-macros-test**
+    - Version: `0.1.0`
+    - Cargo.toml: `lattice-introspector/lattice/lattice-macros-test/Cargo.toml`
+    - **Relationship**: `lattice-introspector` - **defined in repo of** -> `lattice-macros-test`
+  - **construction-build-utils**
+    - Version: `0.1.0`
+    - Cargo.toml: `lattice-introspector/lattice/construction-build-utils/Cargo.toml`
+    - **Relationship**: `lattice-introspector` - **defined in repo of** -> `construction-build-utils`
+  - **construction**
+    - Version: `0.1.0`
+    - Cargo.toml: `lattice-introspector/lattice/construction/Cargo.toml`
+    - **Relationship**: `lattice-introspector` - **defined in repo of** -> `construction`
+  - **lattice-macros**
+    - Version: `0.1.0`
+    - Cargo.toml: `lattice-introspector/lattice/lattice-macros/Cargo.toml`
+    - **Relationship**: `lattice-introspector` - **defined in repo of** -> `lattice-macros`
+  - **fixed_point_experiments**
+    - Version: `0.1.0`
+    - Cargo.toml: `lattice-introspector/fixed_point_experiments/Cargo.toml`
+    - **Relationship**: `lattice-introspector` - **defined in repo of** -> `fixed_point_experiments`
+  - **ultimate_blinkenlights_simulation**
+    - Version: `0.1.0`
+    - Cargo.toml: `lattice-introspector/crates/ultimate_blinkenlights_simulation/Cargo.toml`
+    - **Relationship**: `lattice-introspector` - **defined in repo of** -> `ultimate_blinkenlights_simulation`
+  - **resonance_core**
+    - Version: `0.1.0`
+    - Cargo.toml: `lattice-introspector/crates/resonance_core/Cargo.toml`
+    - **Relationship**: `lattice-introspector` - **defined in repo of** -> `resonance_core`
+  - **introspector_profiler_macros**
+    - Version: `0.1.0`
+    - Cargo.toml: `lattice-introspector/crates/introspector_profiler_macros/Cargo.toml`
+    - **Relationship**: `lattice-introspector` - **defined in repo of** -> `introspector_profiler_macros`
+  - **resonance_analyzer**
+    - Version: `0.1.0`
+    - Cargo.toml: `lattice-introspector/crates/resonance_analyzer/Cargo.toml`
+    - **Relationship**: `lattice-introspector` - **defined in repo of** -> `resonance_analyzer`
+
+### BLAKE3 (7 cargo modules)
+- **Git Module Path**: `submodules/BLAKE3`
+- **Git URL**: `https://github.com/meta-introspector/BLAKE3.git`
+- **Git Object**: `eae9bf376a1c4797df7be6e49e735c0a5d91dcb0`
+- **Defined Cargo Modules**:
+  - **b3sum**
+    - Version: `1.8.2`
+    - Description: a command line implementation of the BLAKE3 hash function
+    - Cargo.toml: `submodules/BLAKE3/b3sum/Cargo.toml`
+    - **Relationship**: `BLAKE3` - **defined in repo of** -> `b3sum`
+  - **blake3**
+    - Version: `1.8.2`
+    - Description: the BLAKE3 hash function
+    - Cargo.toml: `submodules/BLAKE3/Cargo.toml`
+    - **Relationship**: `BLAKE3` - **defined in repo of** -> `blake3`
+  - **test_vectors**
+    - Version: `0.0.0`
+    - Cargo.toml: `submodules/BLAKE3/test_vectors/Cargo.toml`
+    - **Relationship**: `BLAKE3` - **defined in repo of** -> `test_vectors`
+  - **blake3_c_rust_bindings**
+    - Version: `0.0.0`
+    - Description: TESTING ONLY Rust bindings for the BLAKE3 C implementation
+    - Cargo.toml: `submodules/BLAKE3/c/blake3_c_rust_bindings/Cargo.toml`
+    - **Relationship**: `BLAKE3` - **defined in repo of** -> `blake3_c_rust_bindings`
+  - **compiler_version**
+    - Version: `0.0.0`
+    - Cargo.toml: `submodules/BLAKE3/tools/compiler_version/Cargo.toml`
+    - **Relationship**: `BLAKE3` - **defined in repo of** -> `compiler_version`
+  - **instruction_set_support**
+    - Version: `0.0.0`
+    - Cargo.toml: `submodules/BLAKE3/tools/instruction_set_support/Cargo.toml`
+    - **Relationship**: `BLAKE3` - **defined in repo of** -> `instruction_set_support`
+  - **reference_impl**
+    - Version: `0.0.0`
+    - Cargo.toml: `submodules/BLAKE3/reference_impl/Cargo.toml`
+    - **Relationship**: `BLAKE3` - **defined in repo of** -> `reference_impl`
+
+### filecoin-forest (2 cargo modules)
+- **Git Module Path**: `filecoin-forest`
+- **Git URL**: `https://github.com/ChainSafe/forest.git`
+- **Git Object**: `d1ec2c823751f3c1908d45b63b16048a2a609051`
+- **Defined Cargo Modules**:
+  - **forest-interop-tests**
+    - Version: `0.1.0`
+    - Description: Interop tests for Forest.
+    - Cargo.toml: `filecoin-forest/interop-tests/Cargo.toml`
+    - **Relationship**: `filecoin-forest` - **defined in repo of** -> `forest-interop-tests`
+  - **tipset-validation**
+    - Version: `0.30.4`
+    - Description: Rust Filecoin implementation.
+    - Cargo.toml: `filecoin-forest/Cargo.toml`
+    - **Relationship**: `filecoin-forest` - **defined in repo of** -> `tipset-validation`
+
+### cast (1 cargo modules)
+- **Git Module Path**: `submodules/cast`
+- **Git URL**: `https://github.com/meta-introspector/cast.git`
+- **Git Object**: `052288097de1846b938e854e27845a93a6f4b59d`
+- **Defined Cargo Modules**:
+  - **cast**
+    - Version: `0.3.0`
+    - Description: Ergonomic, checked cast functions for primitive types
+    - Cargo.toml: `submodules/cast/Cargo.toml`
+    - **Relationship**: `cast` - **defined in repo of** -> `cast`
+
+### diff (1 cargo modules)
+- **Git Module Path**: `submodules/diff`
+- **Git URL**: `https://github.com/meta-introspector/diff.git`
+- **Git Object**: `36e19c9527fc66d1d2e9c6ba1615680d818447c4`
+- **Defined Cargo Modules**:
+  - **benches**
+    - Version: `0.1.13`
+    - Description: An LCS based slice and string diffing implementation.
+    - Cargo.toml: `submodules/diff/Cargo.toml`
+    - **Relationship**: `diff` - **defined in repo of** -> `benches`
+
+### tools/eigenvalues (1 cargo modules)
+- **Git Module Path**: `tools/eigenvalues`
+- **Git URL**: `https://github.com/meta-introspector/eigenvalues`
+- **Git Object**: `9adc7603da14c5205a418574e31cdd21d926afa2`
+- **Defined Cargo Modules**:
+  - **eigenvalues**
+    - Version: `0.4.0`
+    - Description: algorithms to compute eigenvalue/eigenvectors of symmetric matrices
+    - Cargo.toml: `tools/eigenvalues/Cargo.toml`
+    - **Relationship**: `tools/eigenvalues` - **defined in repo of** -> `eigenvalues`
+
+## Mapping Statistics
+- Git modules with cargo definitions: 10
+- Total cargo modules defined: 938
+- Average cargo modules per git repo: 93.8
+
+## Most Productive Git Repositories
+1. **minizinc-introspector** - 753 cargo modules
+2. **tor-arti** - 88 cargo modules
+3. **tools/rust-bootstrap-nix** - 60 cargo modules
+4. **juniper** - 13 cargo modules
+5. **lattice-introspector** - 12 cargo modules
+6. **BLAKE3** - 7 cargo modules
+7. **filecoin-forest** - 2 cargo modules
+8. **cast** - 1 cargo modules
+9. **diff** - 1 cargo modules
+10. **tools/eigenvalues** - 1 cargo modules
+
+## RocksDB Git-to-Cargo Schema
+```
+Key: git_module_path:git_object
+Value: {
+  git_url: string,
+  git_object: string,
+  cargo_modules: [{
+    name: string,
+    version: string,
+    description: string,
+    cargo_toml_path: string
+  }],
+  relationship: "defined_in_repo_of"
+}
+```

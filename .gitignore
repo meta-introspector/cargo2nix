@@ -1,5 +1,99 @@
+index
 **/target
 **/*.rs.bk
 **/result*
 
 .direnv/
+logs
+.env
+/build_output.log
+/cargo_build_log.log
+/full_build_log.log
+
+vendor/
+# Temporary files
+#*#
+.#*
+diff.txt
+nixbuild.log
+submodules/#*#
+submodules/.#*
+submodules/*.sh~
+submodules/todo.txt
+# Emacs backup files
+*~
+# Emacs auto-save files
+\#*#
+# Emacs lock files (for some configurations)
+.#*
+vendor-hide
+feature_permutation_cache.json
+feature_permutation_report.jsontools/cargo-llm-bootstrap/compilation_results/
+
+todo.txt
+# Database files - local development only
+tools/rust-71-parts/*.db
+tools/rust-71-parts/*.db/
+tools/rust-71-parts/*_storage/
+tools/rust-71-parts/*.json
+tools/rust-71-parts/*.bin
+tools/monster_protocol/*.db
+tools/monster_protocol/*.db/
+tools/monster_protocol/*_storage/
+
+
+**/rocks.db/
+**/*.rocksdb/
+mcp_db/ # Explicitly ignoring the MCP RocksDB directory
+mcp_db_tycoon/
+
+# Untracked files - identified for ignore
+.crush.json
+Cargo.toml.removed
+*.rcgu.o
+log*.txt
+log*.txt.git
+str.txt
+meme.org
+plan.org.old
+
+# Executables/build artifacts from previous `src/bin` deletion or generation
+actual_rustc_analyzer
+ast_decls_cas_db3
+ast_monster_analyzer
+ast_monster_phi_solver
+cargo_crates_cas_db2
+cargo_phi_sum
+cas_dependency_address
+complete_cargo_resolver_fixed
+comprehensive_symbol_analyzer
+crate_usage_phi_matcher
+decl_phi_sum
+fast_symbol_analyzer
+fixed_dependency_analyzer
+git_modules_cas_db
+lattice_trait_consumer
+meme_pda_storage
+monster_fiber_bundle
+monster_rocksdb_similarity
+monster_tool_merger
+multi_input_solfunmeme
+name_phi_mapper
+phi_import_export_matcher
+phi_rocksdb_storage
+phi_usage_matcher
+real_monster_solver
+rust_minizinc_monster
+rustc_monster_polynomial
+rustc_usage_resolver
+similarity_linker
+solfunmeme_meta_pump
+solfunmeme_real
+solfunmeme_targets
+solfunmeme_transformation
+solfunmeme_zero_ontology
+symbol_usage_counter
+trait_generator
+variable_complexity_analyzer
+temp_commit_message.txtmcp_db/
+mcp_db/

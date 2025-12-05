@@ -1,0 +1,8 @@
+description = "Design and implement a unified runtime that merges `cargo vendor`, `cargo update`, `cargo2nix`, and `cargo-git-manage` into a single, intelligent system with full Git and file system auditing, leveraging Nix for reproducibility and build planning, including Cargo.toml/Cargo.lock discovery and automated Cargo.nix generation."
+steps = [
+    "Centralized Git and File System Auditing: Develop a core component that uses `gitoxide` and file system monitoring (e.g., `inotify`) to track changes in all relevant Git repositories and project files (`Cargo.toml`, `Cargo.lock`, `.rs` files, `Cargo.nix`, `flake.nix`, etc.).",
+    "Intelligent Dependency Resolution and Build Planning: Design a system that understands the entire Rust and Nix dependency graph. This system will determine the minimal set of actions (update, vendor, cargo2nix, Nix build) required based on the audited state and desired output.",
+    "Nix-Native Operations: Explore replacing external calls to `cargo update`, `cargo vendor`, and `cargo2nix` with Nix-native functions or derivations that directly manage `Cargo.lock` and generate `Cargo.nix`, ensuring full reproducibility.",
+    "Self-Hosting Bootstrap Integration: Integrate the 'old version' referencing and self-hosting bootstrap mechanism as a fundamental part of this unified system.",
+    "Phased Implementation Plan: Develop a phased approach for transitioning from the current `cargo-git-manage` orchestration to the unified Nix-native runtime."
+]

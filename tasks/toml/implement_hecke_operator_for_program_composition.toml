@@ -1,0 +1,15 @@
+name = "Implement Hecke Operator for Program Composition"
+description = """
+Develop a Rust module that implements the algebraic structure of the Hecke algebra (T),
+implements operators T_n as transformations on modular forms, and exposes a function
+Φ(P₁ ∘ P₂) = T_complexity(P₁) Φ(P₂) for program composition. This logic must connect to
+system stability criteria, where the final ZK proof represents the eigenvalue
+of the total Hecke operator.
+"""
+status = "todo"
+depends_on = ["specify_geometric_inputs_to_modular_form_mapping.toml"]
+related_tasks = ["cargo-hecke.md", "lattice_path_plan.md", "lattice_plan.md"]
+related_binaries = [
+    "crates/solana-monster-system/src/hecke_operators.rs",
+    "tools/rust-71-parts/src/bin/hecke_demo.rs"
+]

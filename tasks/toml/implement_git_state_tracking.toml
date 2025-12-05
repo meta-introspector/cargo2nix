@@ -1,0 +1,8 @@
+description = "Implement helper functions in `cargo-git-manage` to query the state of a Git repository using the `git2` crate. These functions will determine if a repository has uncommitted changes, unpushed commits, and compare local HEAD with remote HEAD."
+steps = [
+    "Create a new module or section in `main.rs` (or a new file like `git_utils.rs` if the codebase structure allows) for Git utility functions.",
+    "Implement `fn has_uncommitted_changes(repo_path: &Path) -> Result<bool, String>`.",
+    "Implement `fn has_unpushed_commits(repo_path: &Path) -> Result<bool, String>`.",
+    "Implement `fn is_remote_ahead(repo_path: &Path) -> Result<bool, String>`.",
+    "Implement `fn get_head_commit_hash(repo_path: &Path) -> Result<String, String>`."
+]

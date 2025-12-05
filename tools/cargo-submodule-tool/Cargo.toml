@@ -1,0 +1,9 @@
+[package]
+name = "cargo-submodule-tool"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0"
+cargo-submodule-tool-lib = { path = "../cargo-submodule-tool-lib", features = ["cli"] }
+clap = { workspace = true, features = ["derive"] }

@@ -1,0 +1,11 @@
+{
+  "service_name": "hecke-engine",
+  "version": "1.0.0",
+  "service_hash": "621c107cefadefa23006c4673cda0abd37388efa37e3be5816b61defc1a3df61",
+  "monster_factor": 47,
+  "proof_hash": "f5b6f40d254b786c326b719f4806055a20e3e0e0aa893058b178485388a16544",
+  "timestamp": 1764008478,
+  "zkp_commitment": "40d83ec75b1279adf9cf9b7374ed6c2d1d1ed4638f3ee3fb0f04ca66b6fb3ddf",
+  "zkp_public_key": "24e46f815b96ce5b230671362d4708a694a6b2f122c2ac73eb87dfd6e181754f",
+  "verified": true
+}

@@ -1,0 +1,10 @@
+[package]
+name = "rustc-71-pure-trait-compiler"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+monster_protocol-core = { path = "../monster_protocol-core" }
+monster_protocol-minizinc = { path = "../monster_protocol-minizinc" }
+monster_protocol-solver = { path = "../monster_protocol-solver" }
+monster_protocol-traits = { path = "../monster_protocol-traits" }

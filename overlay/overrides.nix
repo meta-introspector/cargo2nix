@@ -1,31 +1,35 @@
 { rustLib, lib, pkgs, buildPackages }:
 let
   inherit (rustLib) makeOverride nullOverride;
-  envize = s: builtins.replaceStrings ["-"] ["_"] (lib.toUpper s);
+  envize = s: builtins.replaceStrings [ "-" ] [ "_" ] (lib.toUpper s);
 
   patchOpenssl = pkgs:
     if pkgs.stdenv.hostPlatform.libc == "musl"
-    then pkgs.openssl.override {
-      static = true;
-    }
+    then
+      pkgs.openssl.override
+        {
+          static = true;
+        }
     else if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform
     then pkgs.openssl
-    else (pkgs.openssl.override {
-      # We only need `perl` at build time. It's also used as the interpreter for one
-      # of the produced binaries (`c_rehash`), but they'll be removed later.
-      perl = pkgs.buildPackages.buildPackages.perl;
-    }).overrideAttrs (drv: {
-      installTargets = "install_sw";
-      outputs = [ "dev" "out" "bin" ];
-      # Remove binaries, we need only libraries.
-      postFixup = ''
-        ${drv.postFixup}
-        rm -rf $bin/*
-      '';
-    });
+    else
+      (pkgs.openssl.override {
+        # We only need `perl` at build time. It's also used as the interpreter for one
+        # of the produced binaries (`c_rehash`), but they'll be removed later.
+        inherit (pkgs.buildPackages.buildPackages) perl;
+      }).overrideAttrs (drv: {
+        installTargets = "install_sw";
+        outputs = [ "dev" "out" "bin" ];
+        # Remove binaries, we need only libraries.
+        postFixup = ''
+          ${drv.postFixup}
+          rm -rf $bin/*
+        '';
+      });
 
   joinOpenssl = openssl: buildPackages.symlinkJoin {
-    name = "openssl"; paths = with openssl; [ out dev ];
+    name = "openssl";
+    paths = with openssl; [ out dev ];
   };
 
   patchPostgresql = pkgs: pkgs.postgresql.override {
@@ -37,7 +41,8 @@ let
   patchCurl = pkgs:
     let
       openssl = patchOpenssl pkgs;
-    in pkgs.curl.override {
+    in
+    pkgs.curl.override {
       inherit openssl;
       nghttp2 = pkgs.nghttp2.override { inherit openssl; };
       libssh2 = pkgs.libssh2.override { inherit openssl; };
@@ -61,7 +66,8 @@ let
     allowSubstitutes = false;
   };
 
-in rec {
+in
+rec {
   patches = { inherit patchOpenssl patchCurl patchPostgresql joinOpenssl propagateEnv; };
 
   # Don't forget to add new overrides here.
@@ -93,15 +99,18 @@ in rec {
     overrideArgs = old: { rustcLinkFlags = old.rustcLinkFlags or [ ] ++ [ "--cap-lints" "warn" ]; };
   };
 
-  cc = if pkgs.stdenv.hostPlatform.isDarwin
-    then makeOverride {
-      name = "cc";
-      overrideAttrs = drv: {
-        propagatedNativeBuildInputs = drv.propagatedNativeBuildInputs or [ ] ++ [
-          pkgs.xcbuild
-        ];
-      };
-    }
+  cc =
+    if pkgs.stdenv.hostPlatform.isDarwin
+    then
+      makeOverride
+        {
+          name = "cc";
+          overrideAttrs = drv: {
+            propagatedNativeBuildInputs = drv.propagatedNativeBuildInputs or [ ] ++ [
+              pkgs.xcbuild
+            ];
+          };
+        }
     else nullOverride;
 
   curl-sys = makeOverride {
@@ -111,27 +120,33 @@ in rec {
     };
   };
 
-  fsevent-sys = if pkgs.stdenv.hostPlatform.isDarwin
-    then makeOverride {
-      name = "fsevent-sys";
-      overrideAttrs = drv: {
-        propagatedBuildInputs = drv.propagatedBuildInputs or [ ] ++ [
-          pkgs.darwin.apple_sdk.frameworks.CoreServices
-        ];
-      };
-    }
-    else  nullOverride;
+  fsevent-sys =
+    if pkgs.stdenv.hostPlatform.isDarwin
+    then
+      makeOverride
+        {
+          name = "fsevent-sys";
+          overrideAttrs = drv: {
+            propagatedBuildInputs = drv.propagatedBuildInputs or [ ] ++ [
+              pkgs.darwin.apple_sdk.frameworks.CoreServices
+            ];
+          };
+        }
+    else nullOverride;
 
-  reqwest = if pkgs.stdenv.hostPlatform.isDarwin
-    then makeOverride {
-      name = "reqwest";
-      overrideAttrs = drv: {
-        propagatedBuildInputs = drv.propagatedBuildInputs or [ ] ++ [
-          pkgs.darwin.apple_sdk.frameworks.Security
-        ];
-      };
-    }
-    else  nullOverride;
+  reqwest =
+    if pkgs.stdenv.hostPlatform.isDarwin
+    then
+      makeOverride
+        {
+          name = "reqwest";
+          overrideAttrs = drv: {
+            propagatedBuildInputs = drv.propagatedBuildInputs or [ ] ++ [
+              pkgs.darwin.apple_sdk.frameworks.Security
+            ];
+          };
+        }
+    else nullOverride;
 
   libdbus-sys = pkgs.rustBuilder.rustLib.makeOverride {
     name = "libdbus-sys";
@@ -157,19 +172,22 @@ in rec {
     };
   };
 
-  libgit2-sys = if pkgs.stdenv.hostPlatform.isDarwin
-    then makeOverride {
-      name = "libgit2-sys";
-      overrideAttrs = drv: {
-        propagatedBuildInputs = drv.propagatedBuildInputs or [ ] ++ [
-          pkgs.darwin.apple_sdk.frameworks.Security
-          pkgs.darwin.apple_sdk.frameworks.CoreFoundation
-          pkgs.libgit2
-        ];
-        preferLocalBuild = true;
-        allowSubstitutes = false;
-      };
-    }
+  libgit2-sys =
+    if pkgs.stdenv.hostPlatform.isDarwin
+    then
+      makeOverride
+        {
+          name = "libgit2-sys";
+          overrideAttrs = drv: {
+            propagatedBuildInputs = drv.propagatedBuildInputs or [ ] ++ [
+              pkgs.darwin.apple_sdk.frameworks.Security
+              pkgs.darwin.apple_sdk.frameworks.CoreFoundation
+              pkgs.libgit2
+            ];
+            preferLocalBuild = true;
+            allowSubstitutes = false;
+          };
+        }
     else nullOverride;
 
   libssh2-sys = makeOverride {
@@ -191,10 +209,10 @@ in rec {
     overrideAttrs = drv: {
       propagatedBuildInputs = drv.propagatedBuildInputs or [ ] ++ [
         (propagateEnv "openssl-sys" [
-          { name = "RUSTFLAGS"; value = "--cfg ossl111 --cfg ossl110 --cfg ossl101";}
+          { name = "RUSTFLAGS"; value = "--cfg ossl111 --cfg ossl110 --cfg ossl101"; }
           { name = "${envize (pkgs.rustBuilder.rustLib.rustTriple pkgs.stdenv.buildPlatform)}_OPENSSL_DIR"; value = joinOpenssl (patchOpenssl pkgs.buildPackages); }
           { name = "${envize (pkgs.rustBuilder.rustLib.rustTriple pkgs.stdenv.hostPlatform)}_OPENSSL_DIR"; value = joinOpenssl (patchOpenssl pkgs); }
-          { name = "OPENSSL_NO_VENDOR"; value = "1";} # fixed 0.9.60
+          { name = "OPENSSL_NO_VENDOR"; value = "1"; } # fixed 0.9.60
         ])
       ];
     };
@@ -216,19 +234,19 @@ in rec {
     let
       binEcho = s: "${pkgs.buildPackages.writeShellScriptBin "bin-echo" "echo ${s}"}/bin/bin-echo";
     in
-      makeOverride {
-        name = "pq-sys";
-        overrideAttrs = drv: {
-          # We can't use the host `pg_config` here, as it might not run on build platform. `pq-sys` only needs
-          # to know the `lib` directory for `libpq`, so just create a fake binary that gives it exactly that.
-          propagatedBuildInputs = drv.propagatedBuildInputs or [ ] ++ [
-            (propagateEnv "pq-sys" [
-              { name = "PG_CONFIG_${envize pkgs.stdenv.buildPlatform.config}"; value = binEcho "${(patchPostgresql pkgs.buildPackages).lib}/lib"; }
-              { name = "PG_CONFIG_${envize pkgs.stdenv.hostPlatform.config}"; value = binEcho "${(patchPostgresql pkgs).lib}/lib"; }
-            ])
-          ];
-        };
+    makeOverride {
+      name = "pq-sys";
+      overrideAttrs = drv: {
+        # We can't use the host `pg_config` here, as it might not run on build platform. `pq-sys` only needs
+        # to know the `lib` directory for `libpq`, so just create a fake binary that gives it exactly that.
+        propagatedBuildInputs = drv.propagatedBuildInputs or [ ] ++ [
+          (propagateEnv "pq-sys" [
+            { name = "PG_CONFIG_${envize pkgs.stdenv.buildPlatform.config}"; value = binEcho "${(patchPostgresql pkgs.buildPackages).lib}/lib"; }
+            { name = "PG_CONFIG_${envize pkgs.stdenv.hostPlatform.config}"; value = binEcho "${(patchPostgresql pkgs).lib}/lib"; }
+          ])
+        ];
       };
+    };
 
   prost-build = makeOverride {
     name = "prost-build";
@@ -248,32 +266,41 @@ in rec {
     };
   };
 
-  rand = if pkgs.stdenv.hostPlatform.isDarwin
-    then makeOverride {
-      name = "rand";
-      overrideAttrs = drv: {
-        propagatedBuildInputs = drv.propagatedBuildInputs or [ ] ++ [ pkgs.darwin.apple_sdk.frameworks.Security ];
-      };
-    }
+  rand =
+    if pkgs.stdenv.hostPlatform.isDarwin
+    then
+      makeOverride
+        {
+          name = "rand";
+          overrideAttrs = drv: {
+            propagatedBuildInputs = drv.propagatedBuildInputs or [ ] ++ [ pkgs.darwin.apple_sdk.frameworks.Security ];
+          };
+        }
     else nullOverride;
 
-  rand_os = if pkgs.stdenv.hostPlatform.isDarwin
-    then makeOverride {
-      name = "rand_os";
-      overrideAttrs = drv: {
-        propagatedBuildInputs = drv.propagatedBuildInputs or [ ] ++ [ pkgs.darwin.apple_sdk.frameworks.Security ];
-      };
-    }
+  rand_os =
+    if pkgs.stdenv.hostPlatform.isDarwin
+    then
+      makeOverride
+        {
+          name = "rand_os";
+          overrideAttrs = drv: {
+            propagatedBuildInputs = drv.propagatedBuildInputs or [ ] ++ [ pkgs.darwin.apple_sdk.frameworks.Security ];
+          };
+        }
     else nullOverride;
 
-  sqlx-macros = if pkgs.stdenv.hostPlatform.isDarwin
-  then makeOverride {
-    name = "sqlx-macros";
-    overrideAttrs = drv: {
-      propagatedBuildInputs = drv.propagatedBuildInputs or [ ] ++ [ pkgs.darwin.apple_sdk.frameworks.SystemConfiguration ];
-    };
-  }
-  else nullOverride;
+  sqlx-macros =
+    if pkgs.stdenv.hostPlatform.isDarwin
+    then
+      makeOverride
+        {
+          name = "sqlx-macros";
+          overrideAttrs = drv: {
+            propagatedBuildInputs = drv.propagatedBuildInputs or [ ] ++ [ pkgs.darwin.apple_sdk.frameworks.SystemConfiguration ];
+          };
+        }
+    else nullOverride;
 
   rdkafka-sys = makeOverride {
     name = "rdkafka-sys";
@@ -285,13 +312,16 @@ in rec {
     };
   };
 
-  ring = if pkgs.stdenv.hostPlatform.isDarwin
-    then makeOverride {
-      name = "ring";
-      overrideAttrs = drv: {
-        propagatedBuildInputs = drv.propagatedBuildInputs or [ ] ++ [ pkgs.darwin.apple_sdk.frameworks.Security ];
-      };
-    }
+  ring =
+    if pkgs.stdenv.hostPlatform.isDarwin
+    then
+      makeOverride
+        {
+          name = "ring";
+          overrideAttrs = drv: {
+            propagatedBuildInputs = drv.propagatedBuildInputs or [ ] ++ [ pkgs.darwin.apple_sdk.frameworks.Security ];
+          };
+        }
     else nullOverride;
 
   zmq-sys = makeOverride {

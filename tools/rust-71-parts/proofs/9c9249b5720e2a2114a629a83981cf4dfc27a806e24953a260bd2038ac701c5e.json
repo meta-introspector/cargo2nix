@@ -1,0 +1,11 @@
+{
+  "service_name": "ast-transport",
+  "version": "1.0.0",
+  "service_hash": "9c9249b5720e2a2114a629a83981cf4dfc27a806e24953a260bd2038ac701c5e",
+  "monster_factor": 59,
+  "proof_hash": "ff29636a77ff05fe10984a6a835f85fd6f02f6efa5743f3b5e6779fa34ee35d4",
+  "timestamp": 1764008476,
+  "zkp_commitment": "b4522fc9f30e51cfb85b77b404e8930a9afb5089dbc38e195524811e42671dad",
+  "zkp_public_key": "d466bd6f6ffa5bc6758d7e1bb3bd1ea8ac8aa7387f6c129b7f48bed124e941a9",
+  "verified": true
+}

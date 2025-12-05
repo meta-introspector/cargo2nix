@@ -1,0 +1,291 @@
+# RocksDB Solana Account Entries
+# One Solana account per Rust cargo crate Cargo.toml file
+
+# Solana Account for dummy_crate v0.1.0
+PUT solana_account:00000000000000000000000000008165cd42fdb89b21 {
+  "account_address": "00000000000000000000000000008165cd42fdb89b21",
+  "cargo_crate_name": "dummy_crate",
+  "cargo_version": "0.1.0",
+  "cargo_toml_path": "../submodules/dummy_crate/Cargo.toml",
+  "content_hash": "c66d3843c73d38a0",
+  "git_object": "unknown",
+  "git_repo": "dummy_crate",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for b3sum v1.8.2
+PUT solana_account:0000000000000000000000000000abdd47e17f121b0a {
+  "account_address": "0000000000000000000000000000abdd47e17f121b0a",
+  "cargo_crate_name": "b3sum",
+  "cargo_version": "1.8.2",
+  "cargo_toml_path": "../submodules/BLAKE3/b3sum/Cargo.toml",
+  "content_hash": "9857d44d77ce2bdf",
+  "git_object": "eae9bf376a1c4797df7be6e49e735c0a5d91dcb0",
+  "git_repo": "BLAKE3",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for blake3 v1.8.2
+PUT solana_account:000000000000000000000000000061ca22e6efddcce0 {
+  "account_address": "000000000000000000000000000061ca22e6efddcce0",
+  "cargo_crate_name": "blake3",
+  "cargo_version": "1.8.2",
+  "cargo_toml_path": "../submodules/BLAKE3/Cargo.toml",
+  "content_hash": "e7266fb9765c5ff2",
+  "git_object": "eae9bf376a1c4797df7be6e49e735c0a5d91dcb0",
+  "git_repo": "BLAKE3",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for test_vectors v0.0.0
+PUT solana_account:0000000000000000000000000000513c29c35343f5d3 {
+  "account_address": "0000000000000000000000000000513c29c35343f5d3",
+  "cargo_crate_name": "test_vectors",
+  "cargo_version": "0.0.0",
+  "cargo_toml_path": "../submodules/BLAKE3/test_vectors/Cargo.toml",
+  "content_hash": "af5becb009e2c55b",
+  "git_object": "eae9bf376a1c4797df7be6e49e735c0a5d91dcb0",
+  "git_repo": "BLAKE3",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for blake3_c_rust_bindings v0.0.0
+PUT solana_account:0000000000000000000000000000cfe82cea5e89f5f6 {
+  "account_address": "0000000000000000000000000000cfe82cea5e89f5f6",
+  "cargo_crate_name": "blake3_c_rust_bindings",
+  "cargo_version": "0.0.0",
+  "cargo_toml_path": "../submodules/BLAKE3/c/blake3_c_rust_bindings/Cargo.toml",
+  "content_hash": "a2999cffbead221d",
+  "git_object": "eae9bf376a1c4797df7be6e49e735c0a5d91dcb0",
+  "git_repo": "BLAKE3",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for compiler_version v0.0.0
+PUT solana_account:0000000000000000000000000000b7a83a6f5f2dbce3 {
+  "account_address": "0000000000000000000000000000b7a83a6f5f2dbce3",
+  "cargo_crate_name": "compiler_version",
+  "cargo_version": "0.0.0",
+  "cargo_toml_path": "../submodules/BLAKE3/tools/compiler_version/Cargo.toml",
+  "content_hash": "3a6e53681ef1c495",
+  "git_object": "eae9bf376a1c4797df7be6e49e735c0a5d91dcb0",
+  "git_repo": "BLAKE3",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for instruction_set_support v0.0.0
+PUT solana_account:00000000000000000000000000000077f023667c039a {
+  "account_address": "00000000000000000000000000000077f023667c039a",
+  "cargo_crate_name": "instruction_set_support",
+  "cargo_version": "0.0.0",
+  "cargo_toml_path": "../submodules/BLAKE3/tools/instruction_set_support/Cargo.toml",
+  "content_hash": "eb257638448bfe45",
+  "git_object": "eae9bf376a1c4797df7be6e49e735c0a5d91dcb0",
+  "git_repo": "BLAKE3",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for reference_impl v0.0.0
+PUT solana_account:00000000000000000000000000009d24a697d42f7f60 {
+  "account_address": "00000000000000000000000000009d24a697d42f7f60",
+  "cargo_crate_name": "reference_impl",
+  "cargo_version": "0.0.0",
+  "cargo_toml_path": "../submodules/BLAKE3/reference_impl/Cargo.toml",
+  "content_hash": "998c3c5b71e38032",
+  "git_object": "eae9bf376a1c4797df7be6e49e735c0a5d91dcb0",
+  "git_repo": "BLAKE3",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for benchmark v0.0.0
+PUT solana_account:00000000000000000000000000007601af007510decf {
+  "account_address": "00000000000000000000000000007601af007510decf",
+  "cargo_crate_name": "benchmark",
+  "cargo_version": "0.0.0",
+  "cargo_toml_path": "../submodules/juniper/benches/Cargo.toml",
+  "content_hash": "35d2564e5254fd46",
+  "git_object": "0e14736ad1acbb8a25f142ec426203c8797c4755",
+  "git_repo": "juniper",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for juniper_integration_tests v0.0.0
+PUT solana_account:0000000000000000000000000000f44a71a5bf9bd2b7 {
+  "account_address": "0000000000000000000000000000f44a71a5bf9bd2b7",
+  "cargo_crate_name": "juniper_integration_tests",
+  "cargo_version": "0.0.0",
+  "cargo_toml_path": "../submodules/juniper/tests/integration/Cargo.toml",
+  "content_hash": "cef00a7879d63e30",
+  "git_object": "0e14736ad1acbb8a25f142ec426203c8797c4755",
+  "git_repo": "juniper",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for juniper_codegen_tests v0.0.0
+PUT solana_account:000000000000000000000000000093dbc414e6e1f3e4 {
+  "account_address": "000000000000000000000000000093dbc414e6e1f3e4",
+  "cargo_crate_name": "juniper_codegen_tests",
+  "cargo_version": "0.0.0",
+  "cargo_toml_path": "../submodules/juniper/tests/codegen/Cargo.toml",
+  "content_hash": "802b5d787e334750",
+  "git_object": "0e14736ad1acbb8a25f142ec426203c8797c4755",
+  "git_repo": "juniper",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for subscription v0.9.0
+PUT solana_account:00000000000000000000000000003375d42b7a7a6e9f {
+  "account_address": "00000000000000000000000000003375d42b7a7a6e9f",
+  "cargo_crate_name": "subscription",
+  "cargo_version": "0.9.0",
+  "cargo_toml_path": "../submodules/juniper/juniper_warp/Cargo.toml",
+  "content_hash": "e04583a446db3eca",
+  "git_object": "0e14736ad1acbb8a25f142ec426203c8797c4755",
+  "git_repo": "juniper",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for juniper_rocket v0.10.0
+PUT solana_account:00000000000000000000000000008ac11a7611bfe5ce {
+  "account_address": "00000000000000000000000000008ac11a7611bfe5ce",
+  "cargo_crate_name": "juniper_rocket",
+  "cargo_version": "0.10.0",
+  "cargo_toml_path": "../submodules/juniper/juniper_rocket/Cargo.toml",
+  "content_hash": "ad05d442ff5f6db8",
+  "git_object": "0e14736ad1acbb8a25f142ec426203c8797c4755",
+  "git_repo": "juniper",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for ws_test_suite v0.3.0
+PUT solana_account:00000000000000000000000000009103174050674a8f {
+  "account_address": "00000000000000000000000000009103174050674a8f",
+  "cargo_crate_name": "ws_test_suite",
+  "cargo_version": "0.3.0",
+  "cargo_toml_path": "../submodules/juniper/juniper_axum/Cargo.toml",
+  "content_hash": "81ebe75cbad2f5f1",
+  "git_object": "0e14736ad1acbb8a25f142ec426203c8797c4755",
+  "git_repo": "juniper",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for unknown vunknown
+PUT solana_account:00000000000000000000000000003609088e6f68a49a {
+  "account_address": "00000000000000000000000000003609088e6f68a49a",
+  "cargo_crate_name": "unknown",
+  "cargo_version": "unknown",
+  "cargo_toml_path": "../submodules/juniper/Cargo.toml",
+  "content_hash": "63e74380f02ff368",
+  "git_object": "0e14736ad1acbb8a25f142ec426203c8797c4755",
+  "git_repo": "juniper",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for subscription v0.7.0
+PUT solana_account:0000000000000000000000000000b00a8b10e3a7a5e6 {
+  "account_address": "0000000000000000000000000000b00a8b10e3a7a5e6",
+  "cargo_crate_name": "subscription",
+  "cargo_version": "0.7.0",
+  "cargo_toml_path": "../submodules/juniper/juniper_actix/Cargo.toml",
+  "content_hash": "77ac56d53ace1a46",
+  "git_object": "0e14736ad1acbb8a25f142ec426203c8797c4755",
+  "git_repo": "juniper",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for juniper_book v0.0.0
+PUT solana_account:0000000000000000000000000000b41b7a625e0eadc0 {
+  "account_address": "0000000000000000000000000000b41b7a625e0eadc0",
+  "cargo_crate_name": "juniper_book",
+  "cargo_version": "0.0.0",
+  "cargo_toml_path": "../submodules/juniper/book/Cargo.toml",
+  "content_hash": "48af1034efb6feff",
+  "git_object": "0e14736ad1acbb8a25f142ec426203c8797c4755",
+  "git_repo": "juniper",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for juniper_graphql_ws v0.5.0
+PUT solana_account:00000000000000000000000000009fd34c5cfef5f049 {
+  "account_address": "00000000000000000000000000009fd34c5cfef5f049",
+  "cargo_crate_name": "juniper_graphql_ws",
+  "cargo_version": "0.5.0",
+  "cargo_toml_path": "../submodules/juniper/juniper_graphql_ws/Cargo.toml",
+  "content_hash": "30db4eb4f18897e4",
+  "git_object": "0e14736ad1acbb8a25f142ec426203c8797c4755",
+  "git_repo": "juniper",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for juniper_codegen v0.17.0
+PUT solana_account:0000000000000000000000000000fbe19a6e7277eead {
+  "account_address": "0000000000000000000000000000fbe19a6e7277eead",
+  "cargo_crate_name": "juniper_codegen",
+  "cargo_version": "0.17.0",
+  "cargo_toml_path": "../submodules/juniper/juniper_codegen/Cargo.toml",
+  "content_hash": "783779a2c2871364",
+  "git_object": "0e14736ad1acbb8a25f142ec426203c8797c4755",
+  "git_repo": "juniper",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for juniper_hyper v0.10.0
+PUT solana_account:0000000000000000000000000000f2205600b033e120 {
+  "account_address": "0000000000000000000000000000f2205600b033e120",
+  "cargo_crate_name": "juniper_hyper",
+  "cargo_version": "0.10.0",
+  "cargo_toml_path": "../submodules/juniper/juniper_hyper/Cargo.toml",
+  "content_hash": "6061e255bf8366d0",
+  "git_object": "0e14736ad1acbb8a25f142ec426203c8797c4755",
+  "git_repo": "juniper",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for bench v0.17.0
+PUT solana_account:00000000000000000000000000009c1bb528c7b3bb07 {
+  "account_address": "00000000000000000000000000009c1bb528c7b3bb07",
+  "cargo_crate_name": "bench",
+  "cargo_version": "0.17.0",
+  "cargo_toml_path": "../submodules/juniper/juniper/Cargo.toml",
+  "content_hash": "169c0f845d0efc7b",
+  "git_object": "0e14736ad1acbb8a25f142ec426203c8797c4755",
+  "git_repo": "juniper",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for juniper_subscriptions v0.18.0
+PUT solana_account:0000000000000000000000000000893021322aaab0a8 {
+  "account_address": "0000000000000000000000000000893021322aaab0a8",
+  "cargo_crate_name": "juniper_subscriptions",
+  "cargo_version": "0.18.0",
+  "cargo_toml_path": "../submodules/juniper/juniper_subscriptions/Cargo.toml",
+  "content_hash": "faae2c09ba78dbd2",
+  "git_object": "0e14736ad1acbb8a25f142ec426203c8797c4755",
+  "git_repo": "juniper",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for benches v0.1.13
+PUT solana_account:00000000000000000000000000009b337baddf02922d {
+  "account_address": "00000000000000000000000000009b337baddf02922d",
+  "cargo_crate_name": "benches",
+  "cargo_version": "0.1.13",
+  "cargo_toml_path": "../submodules/diff/Cargo.toml",
+  "content_hash": "61fabdc946f29e79",
+  "git_object": "36e19c9527fc66d1d2e9c6ba1615680d818447c4",
+  "git_repo": "diff",
+  "account_type": "cargo_crate"
+}
+
+# Solana Account for cast v0.3.0
+PUT solana_account:00000000000000000000000000008865c29ff3b3123f {
+  "account_address": "00000000000000000000000000008865c29ff3b3123f",
+  "cargo_crate_name": "cast",
+  "cargo_version": "0.3.0",
+  "cargo_toml_path": "../submodules/cast/Cargo.toml",
+  "content_hash": "cea53b5ec0f6bbc1",
+  "git_object": "052288097de1846b938e854e27845a93a6f4b59d",
+  "git_repo": "cast",
+  "account_type": "cargo_crate"
+}
+

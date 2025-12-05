@@ -1,0 +1,18 @@
+id = "02"
+description = "Create a new library crate named 'abstract_minizinc_idea' within the 'crates/' directory. This crate will define the 'MiniZincModelGenerator' trait, which outlines the interface for generating MiniZinc models (.mzn) and their corresponding data files (.dzn)."
+status = "pending"
+level = "intermediate"
+weight = "medium"
+preconditions = [
+    "Rust development environment is initialized via 'nix develop' or equivalent.",
+    "Access to the project's 'crates/' directory.",
+]
+requisites = [
+    "Basic knowledge of Rust traits and module structure.",
+    "Understanding of MiniZinc model and data file separation."
+]
+output_artefacts = [
+    "A new directory 'crates/abstract_minizinc_idea' with a standard Rust library crate structure.",
+    "A 'src/lib.rs' file within the new crate containing the 'MiniZincModelGenerator' trait definition."
+]
+notes = "This crate will serve as a foundational abstraction for all MiniZinc model generation within the layered system."

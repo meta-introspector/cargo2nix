@@ -31,14 +31,15 @@
           # packageOverrides = pkgs: pkgs.rustBuilder.overrides.all; # Implied, if not specified
         };
 
-      in rec {
+      in
+      rec {
         # this is the output (recursive) set (expressed for each system)
 
         # the packages in `nix build .#packages.<system>.<name>`
         packages = {
           # nix build .#bigger-project
           # nix build .#packages.x86_64-linux.bigger-project
-          bigger-project = (rustPkgs.workspace.bigger-project {});
+          bigger-project = rustPkgs.workspace.bigger-project { };
           # nix build
           default = packages.bigger-project;
         };

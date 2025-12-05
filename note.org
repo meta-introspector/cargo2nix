@@ -1,0 +1,39 @@
+the amazing thing is
+1. the ai seems to be self motivated.
+2. we can check this.
+3. the ai is producing rust code that we can then compile and compare numerically against other existing structure using the monster number as an index.
+4. relateing the rust structures to the numbers.
+5. we can then apply this analysis against ofther code and check if it is similar or has similar patterns.
+
+   then when we feed that generated tested code and its results back into the scanner it should reach a fixed point.
+ok lets try and code it, my idea is we use a sat solver to search for proofs, we construct a zk circuit of the program.
+
+we need to then read the blocks of the rust compiler from our db, and compare them to the blocks of the tool itself. also we want to apply it to our codebase to augment it, extract traints, replace external code witht traits. hide impls in traits, creeate dummy versions of all externals. define code as the set of traits it consumes and produces as its type. enumeracte all those types. map them into the monster group. use the sat solver to prove it. use minizinc. see minizinc-introspector code. 
+so the input is the venacular embedding of the rust, and the ouput is the monster, and minizinc will solve for a path between.
+it will be easy for the code we generated to describe the monster code,
+but it will partially match the rust compiler itself. we will the review an tweakt he constraints interativly.
+
+rustc -> crate -> cargo metadata -> repo -> forks -> branchs -> submodules -> cargo.tom -> package name, git object, database entry, deps,
+libs, decls, exports, signature.
+git module -> fork of -> git module.
+git module <- upstream of <- git module.
+git module - same name as - git module.
+git module - defined in repo of -> cargo module
+cargo toml - in file in - git module
+cargo module < uses  <- cargo module
+rustc = cargo module in git repos.
+
+git obj -> cargo.toml -> name and version. we can extract all the cargo.toml from the repo and view the git log of it and merge the files systems by content address, we can literally see the same object in different repos.
+we need one rockdb solana acccount per rust cargo crate toml file.
+
+without reinventing the whlee, now using rust, using the code, using the rockdb, without rereeading and scanning all the files unless needed, give me now the minimal order of compileing all cargos to build solana rustc and then solana using rust. it should show each cargo crate, its name and vesion and path and branch and repo upstream an dour version. it should give the topological sort and highest used most critical part first. withou hardcoding the values, using our real data an no mock data. no fakes. with proof. show the submodule or local path where this lib is and its git hash. give me the eacy order, name, branch, repo name, path
+
+not in bash, but in rust.
+without reinventing the whlee, now using rust, using the code, using the rockdb, without rereeading and scanning all the files unless needed, give me now the minimal order of compileing all cargos to build solana rustc and then solana using rust. it should show each cargo crate, its name and vesion and path and branch and repo upstream an dour version. it should give the topological sort and highest used most critical part first. withou hardcoding the values, using our real data an no mock data. no fakes. with proof. show the submodule or local path where this lib is and its git hash. give me the eacy order, name, branch, repo name, path
+good now we will calculate a trait binding between each crate, what it exports and imports as a trait, as a modular form index.
+
+now we can decouple each crate into traits and replace the types and functions as traits, the we can wrap all module boundries to allow dynloading, intropspection, modeling and proof between module boundries. we can replace all functions and types as traits, wrap all usage in feature flags and have ersatz dummy impls for all functions.
+we want to calcualte our own lock, i mean you can ingest it but the goal should be clear, we want a rocksdb based, graphql synctax sugared topological sorted dep graph from our rocksdb as a semanitic web knowledge graph.
+
+ok now the graphql will allow you to read any git status or fetch an object from the git store, and cache that in the rocks db. it will ingest and store all meta data, all readmes and basic cargo.toml and lock files and .gitsubmodules
+

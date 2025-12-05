@@ -1,0 +1,11 @@
+name = "Define Program Correctness via Geometric Equivalence of Modular Forms"
+description = """
+Establish the precise geometric definition of program correctness, asserting semantic
+equivalence of two programs as geometric equivalence (isomorphism) of their corresponding
+modular forms, leveraging the Univalence Principle. The `MonstrouslyVerified` trait
+is responsible for checking this geometric equivalence. Document the concept that
+"meaning is geometric."
+"""
+status = "todo"
+depends_on = ["formalize_modular_form_encoding_phi_map.toml"]
+related_concepts = ["Univalence Principle", "semantic equivalence", "geometric isomorphism", "MonstrouslyVerified trait"]

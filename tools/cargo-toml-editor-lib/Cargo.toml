@@ -1,0 +1,40 @@
+[package]
+name = "cargo-toml-editor-lib"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+syn = { version = "*", optional = true }
+clap = { version = "*", optional = true }
+cargo-repo-sync-lib = { path = "../cargo-repo-sync-lib", optional = true }
+git2 = { version = "*", optional = true }
+hex = { version = "*", optional = true }
+cargo_metadata = { workspace = true, optional = true }
+sha1 = { version = "*", optional = true }
+pathdiff = { version = "*", optional = true }
+walkdir = { version = "*", optional = true }
+git-wrapper-lib = { workspace = true, optional = true }
+anyhow = { workspace = true }
+toml_edit = { workspace = true, optional = true } # Made optional
+serde = { workspace = true, features = ["derive"], optional = true }
+serde_json = { workspace = true, optional = true }
+
+[features]
+
+syn_enabled = ["dep:syn"]
+toml_edit_enabled = ["dep:toml_edit"]
+clap_enabled = ["dep:clap"]
+cargo_repo_sync_lib_enabled = ["dep:cargo-repo-sync-lib"]
+git2_enabled = ["dep:git2"]
+hex_enabled = ["dep:hex"]
+cargo_metadata_enabled = ["dep:cargo_metadata"]
+sha1_enabled = ["dep:sha1"]
+pathdiff_enabled = ["dep:pathdiff"]
+serde_json_enabled = ["dep:serde_json"]
+walkdir_enabled = ["dep:walkdir"]
+git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
+default = [] # No default features, so toml_edit is not enabled by default
+real_toml_edit = ["dep:toml_edit"] # Feature to enable real toml_edit
+anyhow_enabled = []
+serde_enabled = ["dep:serde", "dep:serde_json"]
