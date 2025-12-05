@@ -64,9 +64,7 @@ fi
     # Stage all changes in the current submodule
     git add .
 
-    # Pull latest changes and rebase
-    echo "Pulling latest changes with rebase..."
-    git pull --rebase origin $(git rev-parse --abbrev-ref HEAD)
+
 
     # Check for any staged changes to commit after adds and potential rebase
     if ! git diff --cached --quiet; then
