@@ -142,9 +142,10 @@
                           set -x
                         fi
                         env \
+                          "RUSTFLAGS=-C debuginfo=2 -C overflow-checks=y -Z unstable-options" \
                           "CC_aarch64-unknown-linux-gnu"="${pkgs.gcc}/bin/cc" \
                           "CXX_aarch64-unknown-linux-gnu"="${pkgs.gcc}/bin/c++" \
-                          ${rustToolchain}/bin/cargo build $CARGO_VERBOSE --release --target aarch64-unknown-linux-gnu \
+                          ${rustToolchain}/bin/cargo build --quiet $CARGO_VERBOSE --release --target aarch64-unknown-linux-gnu \
                           ${pkgs.lib.strings.concatStringsSep " " extraCargoBuildFlags} \
                         --message-format json-diagnostic-rendered-ansi | tee .cargo-build-output \
                         1> >(jq 'select(.message != null) .message.rendered' -r)
