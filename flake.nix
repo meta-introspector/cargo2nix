@@ -21,7 +21,7 @@
           };
         };
 
-        myRustc = pkgs.rust-bin.nightly."2025-09-16".default;
+        myRustc = pkgs.rust-bin.nightly."2025-10-05".default;
 
       in
       {
@@ -53,7 +53,8 @@
           shellHook = ''
             export PKG_CONFIG_PATH="${pkgs.openssl_1_1.dev}/lib/pkgconfig''${PKG_CONFIG_PATH:+:}$PKG_CONFIG_PATH";
             export LLVM_CONFIG="${pkgs.llvmPackages_19.llvm}/bin/llvm-config";
-            export LIBCLANG_PATH="/nix/store/10mkp77lmqz8x2awd8hzv6pf7f7rkf6d-clang-19.1.7-lib/lib";
+            export LIBCLANG_PATH="${pkgs.llvmPackages_19.libclang}";
+            export LLVM_CONFIG_PATH="${pkgs.llvmPackages_19.llvm}/lib";
             export REAL_LIBRARY_PATH_VAR="LD_LIBRARY_PATH";
             export REAL_LIBRARY_PATH="$LD_LIBRARY_PATH";
             # Ensure cargo is available in PATH for cargo build inside nix develop
@@ -95,6 +96,7 @@
             export PKG_CONFIG_PATH="${pkgs.openssl_1_1.dev}/lib/pkgconfig''${PKG_CONFIG_PATH:+:}$PKG_CONFIG_PATH";
             export LLVM_CONFIG="${pkgs.llvmPackages_19.llvm}/bin/llvm-config";
             export LIBCLANG_PATH="${pkgs.llvmPackages_19.libclang}";
+            export LLVM_CONFIG_PATH="${pkgs.llvmPackages_19.llvm}/lib";
             export REAL_LIBRARY_PATH_VAR="LD_LIBRARY_PATH";
             export REAL_LIBRARY_PATH="$LD_LIBRARY_PATH";
             # Ensure cargo is available in PATH for cargo build inside nix develop

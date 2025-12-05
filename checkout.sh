@@ -19,7 +19,7 @@ git submodule status | while read -r line ; do
     # Check if the submodule is already on the target branch
     # This is a heuristic based on the description from git submodule status
     if [[ "$description" == "heads/feature/CRQ-016-nixify" ]]; then
-        echo "  Already on feature/CRQ-016-nixify. Skipping."
+        echo "  Already on feature/CRQ-016-nixify. Skipping. ${path}"
         continue
     fi
 
@@ -30,7 +30,8 @@ git submodule status | while read -r line ; do
     fi
     (
         cd "$path" || exit 1
-        
+        git status
+	git reflog
         # Check if the branch exists
         if git show-ref --verify --quiet refs/heads/feature/CRQ-016-nixify; then
             echo "  Branch 'feature/CRQ-016-nixify' exists. Checking out."
@@ -49,7 +50,8 @@ git submodule status | while read -r line ; do
     if [ $? -ne 0 ]; then
         echo "Error: Failed to process submodule $path. Check its output above."
     fi
-    echo ""
+    echo "done"
+ 
 done
 
 echo "--- Finished processing all submodules ---"

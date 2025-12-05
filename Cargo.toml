@@ -63,10 +63,10 @@ cfg = { path = "submodules/rust-analyzer/crates/cfg", features = ["tt"] } # Add 
 cfg-if = { path = "submodules/cfg-if" }
 cfg_aliases = { path = "submodules/cfg_aliases" }
 chrono = { path = "submodules/chrono" }
-clap = { path = "submodules/clap" }
+clap = { path = "submodules/clap", features = ["derive"] }
 clap_builder = { path = "submodules/clap/clap_builder" }
 clap_complete = { path = "submodules/clap/clap_complete" }
-clap_derive = { path = "submodules/clap/clap_derive" }
+#clap_derive = { path = "submodules/clap/clap_derive" }
 clru = { path = "submodules/clru-rs" }
 color-print = { path = "submodules/color-print/color-print" }
 color-print-proc-macro = { path = "submodules/color-print/color-print-proc-macro" }
@@ -302,7 +302,7 @@ parking_lot = { path = "submodules/parking_lot" , version = "0.12.6"}
 #parking_lot = { path = "submodules/parking_lot" , version ="0.9.13"}
 parking_lot_core = { path = "submodules/parking_lot/core" , version = "0.9.13"}
 parser = { path = "submodules/rust-analyzer/crates/parser"}
-pasetors = { path = "submodules/pasetors", features = ["v3"] }
+pasetors = { path = "submodules/pasetors", features = ["v3", "serde"] }
 pathdiff = { path = "submodules/pathdiff" }
 paths = { path = "submodules/rust-analyzer/crates/paths"}
 percent-encoding = "2.3.2"
@@ -349,7 +349,7 @@ reqwest = { path = "submodules/reqwest" }
 rfc6979 = { path = "submodules/signatures/rfc6979" }
 rocksdb = { path = "submodules/rocksdb" }
 rowan = { path = "submodules/rowan" }
-rusqlite = { path = "submodules/rusqlite"}
+rusqlite = { path = "submodules/rusqlite", features = ["fallible_uint"]}
 rustc-demangle = { path = "submodules/rustc-demangle" }
 rustc-hash = { path = "submodules/rustc-hash" }
 rustc-literal-escaper = { path = "submodules/rustc-literal-escaper" }
@@ -381,7 +381,7 @@ schemars = "1.0.5"
 scoped-tls = { path = "submodules/scoped-tls" }
 sec1 = { path = "submodules/formats/sec1" }
 security-framework = "3.5.1"
-semver = { path = "submodules/semver" }
+semver = { path = "submodules/semver", features = ["serde"] }
 serde = { path = "submodules/serde/serde", features = ["derive"] }
 serde-untagged = "0.1.9"
 serde-value = { path = "submodules/serde-value" }
@@ -580,9 +580,10 @@ members = [
     "submodules/rust/compiler/rustc_session",
     "submodules/rust/compiler/rustc_span",
     "submodules/rust/src/tools/clippy/rustc_tools_util",
+    "submodules/rust/compiler/rustc_fluent_macro",
 #    "submodules/static-assertions-rs",
     "submodules/static-assertions-rs/proc",
-    "submodules/cargo",
+
     "submodules/rowan",
     "submodules/expect-test",
     "submodules/dot-parser",
@@ -600,7 +601,7 @@ members = [
         "crates/trait-fixer-core-mock",
         "crates/trait-fixer-hir-info-trait",
         "crates/trait-fixer-hir-info-real",
-        #"crates/trait-fixer-hir-info-mock",
+        "crates/trait-fixer-hir-info-mock",
         "crates/trait-fixer-lang-items-trait",
         "crates/trait-fixer-lang-items-real",
         "crates/trait-fixer-lang-items-mock",
@@ -619,7 +620,6 @@ members = [
 	#"patcher",
     ]
 exclude = [
-    "crates/solana-monster-system/generated_pure_traits.rs",
 ]
 
 [workspace.package]
@@ -664,6 +664,7 @@ warnings = "allow"
 async-stream = { path = "submodules/async-stream-vendored" }
 bstr = { path = "submodules/bstr" }
 clap = { path = "submodules/clap" }
+git2 = { path = "submodules/git2-rs" }
 curl = { path = "submodules/curl-rust", features = ["http2"]  }
 curl-sys = { path = "submodules/curl-rust/curl-sys" }
 dashmap = { path = "submodules/dashmap" , version = "7.0.0-hack"} 
@@ -694,7 +695,7 @@ ra-ap-rustc_parse_format = { path = "./submodules/rust/compiler/rustc_parse_form
 ra-ap-rustc_pattern_analysis = { path = "./submodules/rust/compiler/rustc_pattern_analysis", package="rustc_pattern_analysis" }
 ra-ap-rustc_type_ir = {  path = "./submodules/rust/compiler/rustc_type_ir", package="rustc_type_ir" }
 rayon-core = {  path = "submodules/rayon/rayon-core" }
-rusqlite = { path = "submodules/rusqlite"}
+rusqlite = { path = "submodules/rusqlite", features = ["fallible_uint"]}
 serde = { path = "submodules/serde/serde" }
 serde_core = { path = "submodules/serde/serde_core" }
 serde_derive = { path = "submodules/serde/serde_derive" }
@@ -703,7 +704,7 @@ syn = { path = "submodules/syn" }
 tokio-core = { path = "submodules/tokio-core" }
 tokio-stream = { path = "submodules/tokio/tokio-stream" }
 tracing-subscriber = { path = "submodules/tracing/tracing-subscriber" }
-tracing-tree = { path = "submodules/tracing-tree" }
+tracing-tree = { version = "0.4.1", path = "submodules/tracing-tree" }
 xz2 = { path = "submodules/xz2-rs" }
 tokio = { path = "submodules/tokio/tokio" }
 tokio-test = { path = "submodules/tokio/tokio-test" }
@@ -714,6 +715,7 @@ anstyle-parse = { path = "submodules/anstyle/crates/anstyle-parse" }
 anstyle-query = { path = "submodules/anstyle/crates/anstyle-query" }
 colorchoice = { path = "submodules/anstyle/crates/colorchoice" }
 annotate-snippets = { path = "submodules/annotate-snippets-rs" }
+cargo = { path = "submodules/cargo" }
 
 #lzma-rust2 = { path = "submodules/lzma-rust2" }
 #liblzma = { path = "submodules/liblzma-rs"}

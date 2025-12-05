@@ -5,7 +5,10 @@
 	nix-eval-cargo2nix-attrs-json nix-eval-cargo2nix-raw-json build-submodule-tool build-gix-diff-minimal \
 	process-repolist nix-cargo-build build-tracing-test build-hyper build-addr2line build-gix-merge \
 	build-gix-attributes build-rustc-apfloat build-measureme build-rust-src-scanner \
-	build-cargo-submodule-tool-lib build-addr2line-bin \
+	build-cargo-submodule-tool-lib build-addr2line-bin build-librocksdb-sys-debug
+build-librocksdb-sys-debug:
+	@echo "--- Debugging librocksdb-sys build environment ---"
+	nix develop --command bash -c "echo LIBCLANG_PATH=$$LIBCLANG_PATH; echo LLVM_CONFIG=$$LLVM_CONFIG; echo LLVM_CONFIG_PATH=$$LLVM_CONFIG_PATH; echo PATH=$$PATH; RUSTC_BOOTSTRAP=1 cargo build -p librocksdb-sys --message-format=json 2>&1" \
 	build-all-packages build-package-% report-build-status clean-build-logs main-report
 
 # Default target
@@ -19,7 +22,7 @@ nix-build-with-cargo2nix: generate-cargo-nix
 	cargo build --message-format=json 2>&1
 
 build:
-	nix develop --command bash -c "RUSTC_BOOTSTRAP=1 cargo build --message-format=json 2>&1"
+	bash -c "RUSTC_BOOTSTRAP=1 cargo build --message-format=json 2>&1"
 
 generate-cargo-nix:
 	cargo update
@@ -59,7 +62,7 @@ JQ_ERROR_FILTER = 'select(.reason == "compiler-message" and .message.level == "e
 PACKAGES = cargo2nix submodule-tool gix-diff gix-attributes rustc_apfloat measureme cargo-llm-bootstrap hir-expand cargo-test-support prelude-generator trait-fixer-hir-info-real tracing-test hyper addr2line gix-merge rust-src-scanner cargo-submodule-tool-lib addr2line-bin hir-ty
 
 # New PHONY targets
-.PHONY: build-all-packages build-package-% report-build-status clean-build-logs
+.PHONY: build-all-packages build-package-% report-build-status clean-build-logs build-packages-in-error-from-last-run
 
 # Target to build all defined packages and generate a report
 build-all-packages: clean-build-logs $(foreach P,$(PACKAGES),build-package-$(P)) report-build-status
@@ -106,6 +109,22 @@ report-build-status:
 clean-build-logs:
 	@echo "Cleaning up build logs..."
 	@rm -rf build_logs
+
+# Target to rebuild only packages that failed in the previous build-all-packages run
+build-packages-in-error-from-last-run:
+	@echo "--- Rebuilding packages that failed in the last run ---"
+	@if [ -f build_logs/build_status.log ]; then \
+		FAILED_PACKAGES=$$(cat build_logs/build_status.log | grep "FAILED" | awk '{print $$1}'); \
+		if [ -n "$$FAILED_PACKAGES" ]; then \
+			for P in $$FAILED_PACKAGES; do \
+				$(MAKE) build-package-$$P; \
+			done; \
+		else \
+			echo "No failed packages found in build_logs/build_status.log from last run."; \
+		fi; \
+	else \
+		echo "build_logs/build_status.log not found. Please run 'make build-all-packages' first."; \
+	fi
 
 # Utility targets
 clean:
