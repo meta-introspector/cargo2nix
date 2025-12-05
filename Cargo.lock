@@ -1549,6 +1549,7 @@ dependencies = [
  "cargo-test-support",
  "cargo-util",
  "cargo-util-schemas",
+ "chrono 0.4.42",
  "clap 4.5.53",
  "clap_complete",
  "color-print",
