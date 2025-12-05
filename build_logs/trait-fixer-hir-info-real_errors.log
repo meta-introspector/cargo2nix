@@ -1,0 +1,22 @@
+error[E0658]: use of unstable library feature `new_zeroed_alloc`
+   --> submodules/rust/compiler/rustc_index/src/bit_set.rs:640:37
+    |
+640 |                         let words = Rc::<[Word; CHUNK_WORDS]>::new_zeroed();
+    |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: see issue #129396 <https://github.com/rust-lang/rust/issues/129396> for more information
+    = help: add `#![feature(new_zeroed_alloc)]` to the crate attributes to enable
+    = note: this compiler was built on 2025-09-15; consider upgrading it if it is out of date
+
+
+error[E0658]: use of unstable library feature `new_zeroed_alloc`
+   --> submodules/rust/compiler/rustc_index/src/bit_set.rs:701:37
+    |
+701 |                         let words = Rc::<[Word; CHUNK_WORDS]>::new_zeroed();
+    |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: see issue #129396 <https://github.com/rust-lang/rust/issues/129396> for more information
+    = help: add `#![feature(new_zeroed_alloc)]` to the crate attributes to enable
+    = note: this compiler was built on 2025-09-15; consider upgrading it if it is out of date
+
+
