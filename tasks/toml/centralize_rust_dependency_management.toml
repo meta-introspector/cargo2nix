@@ -4,9 +4,10 @@ Design and implement logic to generate a single, unified `Cargo.nix` and `flake.
 This system will enforce consistent Rust crate versions across submodules and automatically generate
 `packageOverrides` in Nix for patching. This task provides a goal for `generate_root_workspace_dependencies`
 and `integrate_generated_root_workspace_dependencies`, and influences `deduplicate_cargo_toml_mut`
-and `export_to_legacy_cargo`.
+and `export_to_legacy_cargo`. This also incorporates the new structured `rustc` invocation capture
+mechanism, where `rustc` arguments are serialized to TOML to enable more precise and reliable flake generation.
 """
-status = "todo"
+status = "in-progress"
 depends_on = []
 files = ["Cargo.nix", "flake.nix"]
 related_tasks = [
@@ -15,7 +16,8 @@ related_tasks = [
     "generate_cargo_config_patches.toml",
     "generate_root_workspace_dependencies.toml",
     "integrate_generated_root_workspace_dependencies.toml",
-    "implement_old_version_reference.toml"
+    "implement_old_version_reference.toml",
+    "purification_of_cargo_build.md"
 ]
 related_binaries_conceptual = [
     "crates/solana-monster-system/src/bin/cargo_crates_cas_db2.rs",

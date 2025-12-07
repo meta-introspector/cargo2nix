@@ -5,6 +5,10 @@ use rustc_hir::ItemId;
 use rustc_middle::ty::TyCtxt;
 use rustc_span::Span;
 
+// Import the helper traits (but they will be implemented by TyCtxt)
+use trait_fixer_rules_trait::ConfigTrait;
+
+
 #[derive(Debug)]
 pub enum Fix {
     AddDerive { span: Span, trait_name: String },
@@ -12,9 +16,17 @@ pub enum Fix {
     RemoveImpl { item_id: ItemId },
 }
 
-pub trait CoreFixer<'tcx> {
-    fn new(tcx: TyCtxt<'tcx>) -> Self;
+// CoreFixer now only needs ConfigTrait explicitly, others are via TyCtxt
+pub trait CoreFixer<'tcx, C>
+where
+    C: ConfigTrait,
+{
+    fn new(
+        tcx: TyCtxt<'tcx>,
+        config: C,
+    ) -> Self;
     fn add_fix(&mut self, fix: Fix);
     fn get_fixes(&self) -> &Vec<Fix>;
-    fn process_hir(&mut self); // Add this method
+    fn process_hir(&mut self);
+    fn check_item(&mut self, item: &'tcx rustc_hir::Item<'tcx>); // Add check_item to trait
 }

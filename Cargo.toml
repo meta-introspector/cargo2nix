@@ -351,6 +351,7 @@ rocksdb = { path = "submodules/rocksdb" }
 rowan = { path = "submodules/rowan" }
 rusqlite = { path = "submodules/rusqlite", features = ["fallible_uint"]}
 rustc-demangle = { path = "submodules/rustc-demangle" }
+rustc-arg-builder-lib ={ path= "submodules/cargo/crates/rustc-arg-builder-lib/" }
 rustc-hash = { path = "submodules/rustc-hash" }
 rustc-literal-escaper = { path = "submodules/rustc-literal-escaper" }
 rustc-stable-hash = { path = "submodules/rustc-stable-hash" }
@@ -699,7 +700,6 @@ rusqlite = { path = "submodules/rusqlite", features = ["fallible_uint"]}
 serde = { path = "submodules/serde/serde" }
 serde_core = { path = "submodules/serde/serde_core" }
 serde_derive = { path = "submodules/serde/serde_derive" }
-smallvec = { path = "submodules/rust-smallvec", version = "2.0.0-alpha.12" }
 syn = { path = "submodules/syn" }
 tokio-core = { path = "submodules/tokio-core" }
 tokio-stream = { path = "submodules/tokio/tokio-stream" }

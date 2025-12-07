@@ -23,7 +23,11 @@ The primary motivations behind this approach are:
 
 ## Key Components and Approach
 
-1.  **`rustc` as a Library**:
+1.  **Structured `rustc` Invocation Capture:**
+    *   **Description:** The build process now captures `rustc` invocation arguments, environment variables, and current working directory into a structured `RustcInvocation` object. This object is then serialized into a TOML file, replacing the previous method of passing shell-escaped command strings.
+    *   **Role in Vision:** This provides a precise, machine-readable, and unambiguous representation of `rustc` invocations, which is a foundational step towards treating `rustc` as a library. It removes the fragility of shell escaping and offers a structured input for a custom "Nix runner" that will invoke `rustc` programmatically. This structured data is essential for achieving complete control, auditing, and static analysis of the compilation process.
+
+2.  **`rustc` as a Library**:
     *   Investigate the feasibility of integrating `rustc` as a Rust library. This would involve understanding `rustc`'s internal APIs and how to invoke its compilation stages programmatically.
     *   This might require significant upstream work or a custom fork of `rustc` if its APIs are not sufficiently stable or exposed.
 

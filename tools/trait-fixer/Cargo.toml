@@ -55,6 +55,8 @@ trait-fixer-rules-mock = { path = "../../crates/trait-fixer-rules-mock", optiona
 trait-fixer-trait-checker-real = { path = "../../crates/trait-fixer-trait-checker-real", optional = true }
 trait-fixer-trait-checker-mock = { path = "../../crates/trait-fixer-trait-checker-mock", optional = true }
 
+
+
 # Direct dependencies of trait-fixer (non-rustc)
 if_chain = "1.0"
 serde = { version = "1.0", features = ["derive"] }

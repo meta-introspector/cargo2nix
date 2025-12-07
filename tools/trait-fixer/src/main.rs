@@ -73,7 +73,11 @@ impl rustc_driver::Callbacks for TraitFixerCallbacks {
     ) -> Compilation {
         // This Compilation type is now resolved by the feature flag (real/mock)
         // Instantiate the CoreFixerImpl, which uses the correct TyCtxt from the feature flag
-        let mut fixer = CoreFixerImpl::new(tcx);
+
+        // Instantiate the config
+        let config = RulesConfigImpl::load();
+
+        let mut fixer = CoreFixerImpl::new(tcx, config);
 
         // This is where the HIR walking and item checking happens
         // This part needs to be made generic or conditional as well,

@@ -34,6 +34,15 @@ A key abstraction introduced is the `SerdeAdapter` trait, defined in `tool-trait
 *   **`CurrentSerdeAdapter` Type Alias:** A type alias `CurrentSerdeAdapter` is used to conditionally select between `RealSerdeAdapter` and `DummySerdeAdapter` based on feature flags, simplifying usage in client code.
 *   **Usage in Consuming Crates:** Direct `use serde` and `use serde_json` statements are replaced with `use tool_traits_lib::serde_adapter::{SerdeAdapter, CurrentSerdeAdapter};`. Calls to `serde_json::to_string_pretty` are replaced with `CurrentSerdeAdapter.to_string_pretty()`, and `serde_json::from_slice` (or `from_str`) with `CurrentSerdeAdapter.from_slice()` (or `from_str()`). Structs requiring serialization derive `Serialize` and `Deserialize` conditionally using `#[cfg_attr(feature = "serde_enabled", derive(Serialize, Deserialize))]`.
 
+### 4. Structured `rustc` Invocation Capture
+
+A new architecture has been introduced to capture the exact `rustc` invocation arguments in a structured TOML format, bypassing the need for shell-based escaping in generated Nix flakes. This improves the reliability and reproducibility of reproduction flakes.
+
+*   **`RustcInvocation` Struct:** A new struct `RustcInvocation` in `submodules/cargo/src/cargo/util/rustc.rs` (part of the main `cargo` crate) now holds the raw `rustc` program path, its arguments, environment variables, and current working directory in a TOML-serializable format.
+*   **`rustc-arg-builder-lib` Crate:** A new standalone crate (`crates/rustc-arg-builder-lib`) defines traits and implementations for building and capturing `rustc` arguments. It abstracts the process of collecting the `ProcessBuilder` contents into a structured format.
+*   **`flake-repro-lib` Crate:** The `flake-repro-lib` crate (extracted from `repro_script_generator.rs`) now utilizes `rustc-arg-builder-lib` to construct the `RustcInvocation` data, serializes it to a TOML file, and generates Nix flakes that invoke a future "Nix runner" to consume this TOML, rather than directly embedding shell-escaped commands.
+*   **Capture Point in `cargo`:** The `submodules/cargo/src/cargo/core/compiler/invocation_args.rs::prepare_rustc_process` function has been modified to return both the `ProcessBuilder` and the `RustcInvocation` object, which is then passed up the call chain.
+
 ## Implementation Steps (High-Level)
 
 1.  **Initial Analysis:** Identify all direct dependencies and usages of `serde` and `serde_json` across the `tools/` crates.

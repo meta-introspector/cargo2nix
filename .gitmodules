@@ -1732,3 +1732,5 @@
 [submodule "submodules/claude-code-mux"]
 	path = submodules/claude-code-mux
 	url = https://github.com/meta-introspector/claude-code-mux
+[submodule "submodules/rust/"]
+	url = https://github.com/meta-introspector/rust

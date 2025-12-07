@@ -25,8 +25,57 @@ The project build was failing with several errors. The following issues have bee
 *   **`cargo` `unclosed delimiter` errors in `compilation_orchestration.rs`:**
     *   **Problem:** Compilation errors in `submodules/cargo/src/cargo/core/compiler/compilation_orchestration.rs` related to unclosed delimiters within a `with_context` closure. This prevented `cargo` from building.
     *   **Resolution:** Fixed the `format!` macro call, closed the `match` statement, and explicitly returned the `result` variable from the `Work::new` closure, and added the final closing brace for the `rustc_work` function. These changes ensure the correct syntactic structure and allow `cargo` to compile.
+*   **Nix Flake Escaping and Naming:**
+    *   **Problem:** Generated Nix reproduction flakes contained improperly escaped `rustc` commands in their `shellHook`, leading to syntax errors. They also lacked a structured naming convention and output directory.
+    *   **Resolution:** Refactored flake generation logic into a new `flake-repro-lib` crate. The flakes are now generated into a `repro/` directory with SHA256 hashed filenames. This includes correctly escaping shell commands and dynamically determining Nix system architecture.
 
-## II. Remaining Issues (Warnings)
+## II. Ongoing Refactoring and Next Steps
+
+The project is undergoing significant architectural refactoring to enhance reproducibility, modularity, and control over the build process.
+
+*   **Rustc Argument Capture and TOML Serialization:**
+    *   **Goal:** To capture raw `rustc` invocation arguments directly from `cargo` before any shell escaping, and serialize them into a TOML format. This eliminates the need for shell-based escaping in Nix flakes and paves the way for a custom Rust "Nix runner" to execute `rustc`.
+    *   **Progress:**
+        *   Introduced `RustcInvocation` struct in `submodules/cargo/src/cargo/util/rustc.rs` for structured `rustc` invocation data.
+        *   Modified `submodules/cargo/src/cargo/core/compiler/invocation_args.rs::prepare_rustc_process` to capture `ProcessBuilder` data into a `RustcInvocation` instance and return both the `ProcessBuilder` and `RustcInvocation`.
+        *   Added `serde` and `toml` dependencies to `submodules/cargo/Cargo.toml` to support serialization.
+        *   Created `crates/rustc-arg-builder-lib` with a `RustcArgGenerator` trait and `DefaultRustcArgGenerator` implementation to encapsulate `rustc` command generation logic.
+        *   Modified `crates/flake-repro-lib` to use `rustc-arg-builder-lib` and handle the new `RustcInvocation` object.
+        *   Split `mod.rs` into `linker_flavor.rs` for `LinkerFlavor` and related components.
+        *   Split `mod.rs` into `link_self_contained.rs` for `LinkSelfContainedDefault` and `LinkSelfContainedComponents`.
+        *   Split `mod.rs` into `linker_features.rs` for `LinkerFeatures`.
+        *   Split `mod.rs` into `panic_strategy.rs` for `PanicStrategy`.
+        *   Split `mod.rs` into `on_broken_pipe.rs` for `OnBrokenPipe`.
+        *   Split `mod.rs` into `relro_level.rs` for `RelroLevel`.
+        *   Split `mod.rs` into `symbol_visibility.rs` for `SymbolVisibility`.
+        *   Split `mod.rs` into `small_data_threshold_support.rs` for `SmallDataThresholdSupport`.
+        *   Split `mod.rs` into `merge_functions.rs` for `MergeFunctions`.
+        *   Split `mod.rs` into `reloc_model.rs` for `RelocModel`.
+        *   Split `mod.rs` into `code_model.rs` for `CodeModel`.
+        *   Split `mod.rs` into `float_abi.rs` for `FloatAbi`.
+        *   Split `mod.rs` into `rustc_abi.rs` for `RustcAbi`.
+        *   Split `mod.rs` into `tls_model.rs` for `TlsModel`.
+        *   Split `mod.rs` into `link_output_kind.rs` for `LinkOutputKind`.
+        *   Split `mod.rs` into `debuginfo_kind.rs` for `DebuginfoKind`.
+        *   Split `mod.rs` into `split_debuginfo.rs` for `SplitDebuginfo`.
+        *   Split `mod.rs` into `stack_probe_type.rs` for `StackProbeType`.
+        *   Split `mod.rs` into `sanitizer_set.rs` for `SanitizerSet`.
+        *   Split `mod.rs` into `frame_pointer.rs` for `FramePointer`.
+        *   Split `mod.rs` into `stack_protector.rs` for `StackProtector`.
+        *   Split `mod.rs` into `binary_format.rs` for `BinaryFormat`.
+        *   Split `mod.rs` into `target_warnings.rs` for `TargetWarnings`.
+        *   Split `mod.rs` into `arch.rs` for `Arch`.
+        *   Split `mod.rs` into `os.rs` for `Os`.
+    *   **Next Action:** Continue splitting `mod.rs` into additional files as outlined in the internal TODO list.
+
+*   **Refactor `rustc_target/src/spec/mod.rs`:**
+    *   **Goal:** Split the large `mod.rs` file into smaller, logically grouped files to improve maintainability and readability.
+    *   **Progress:**
+        *   Created `linker_flavor.rs` and moved `Cc`, `Lld`, `LinkerFlavor`, `LinkerFlavorCli`, `LldFlavor`, their `impl` blocks, and associated macros/implementations into it.
+        *   Updated `mod.rs` to import and re-export the contents of `linker_flavor.rs`.
+    *   **Next Action:** Continue splitting `mod.rs` into additional files as outlined in the internal TODO list.
+
+## III. Remaining Issues (Warnings)
 
 The following issues are currently present as warnings and do not block the build, but should be addressed in future cleanup:
 
@@ -34,14 +83,14 @@ The following issues are currently present as warnings and do not block the buil
 *   **`rustc_llvm` `llvm_component` `unexpected cfg condition name` Warnings:** Warnings indicating that `llvm_component` `cfg` flags, while set by `build.rs`, are not formally declared to `rustc`.
 *   **General `unused imports`, `unused variables`, and `dead_code` Warnings:** Various warnings across several crates indicating potential code quality issues.
 
-## III. Next Steps
+## IV. Future Work
 
-1.  **Implement `cargo build` flags in Nix for reproducibility and capture:** Configure Nix derivations to use `cargo build --quiet --reproducible=bash` and `--capture=all` flags. This will involve identifying the relevant Nix expressions that invoke `cargo build` and modifying them to include these flags.
-2.  **Full Build Verification:** Execute `make build` to ensure all current fixes have taken effect and that the project now compiles without any blocking errors.
-3.  **Systematic Warning Resolution:** After a clean build, address the remaining warnings by either:
+1.  **Systematic Warning Resolution:** After a clean build, address the remaining warnings by either:
     *   Adding appropriate `check-cfg` entries to `Cargo.toml` files or `build.rs` scripts for unexpected `cfg` conditions.
     *   Removing unused `use` statements or variables.
     *   Refactoring code flagged as `dead_code` if it's indeed unused, or marking it appropriately if it's intentionally retained.
+2.  **Implement `cargo build` flags in Nix for reproducibility and capture:** Configure Nix derivations to use `cargo build --quiet --reproducible=bash` and `--capture=all` flags. This will involve identifying the relevant Nix expressions that invoke `cargo build` and modifying them to include these flags.
+3.  **Full Build Verification:** Execute `make build` to ensure all current fixes have taken effect and that the project now compiles without any blocking errors.
 4.  **Review `ast_parser_impl` dependencies:** Re-verify that `prelude-generator` and `split-expanded-lib` are correctly handled. (This was a lingering task that needs a final check).
 5.  **Final `tracing-tree` conflict check:** Ensure no latent `tracing-tree` version conflicts remain.
 

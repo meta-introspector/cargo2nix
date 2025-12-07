@@ -14,7 +14,7 @@ dependencies = [
  "findshlibs",
  "gimli 0.32.3",
  "libtest-mimic",
- "memmap2 0.9.9",
+ "memmap2 0.9.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "object 0.37.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "rustc-demangle 0.1.26 (registry+https://github.com/rust-lang/crates.io-index)",
  "rustc-std-workspace-alloc",
@@ -1279,7 +1279,7 @@ dependencies = [
  "digest 0.10.7",
  "hex 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "hmac 0.12.1",
- "memmap2 0.9.9",
+ "memmap2 0.9.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "page_size",
  "rand 0.9.2",
  "rand_chacha 0.9.0",
@@ -4218,8 +4218,8 @@ name = "fluent-bundle"
 version = "0.16.0"
 dependencies = [
  "fluent-langneg",
- "fluent-syntax 0.12.0",
- "intl-memoizer 0.5.3",
+ "fluent-syntax",
+ "intl-memoizer",
  "intl_pluralrules",
  "rustc-hash 2.1.1",
  "self_cell",
@@ -4247,16 +4247,6 @@ dependencies = [
  "serde 1.0.228",
  "serde_json 1.0.145",
  "thiserror 2.0.17",
-]
-
-[[package]]
-name = "fluent-syntax"
-version = "0.12.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "54f0d287c53ffd184d04d8677f590f4ac5379785529e5e08b1c8083acdd5c198"
-dependencies = [
- "memchr 2.7.6 (registry+https://github.com/rust-lang/crates.io-index)",
- "thiserror 2.0.17 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -5076,7 +5066,7 @@ dependencies = [
  "gix-date",
  "gix-hash",
  "gix-testtools",
- "memmap2 0.9.9",
+ "memmap2 0.9.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.228",
  "thiserror 2.0.17 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -5346,7 +5336,7 @@ dependencies = [
  "hashbrown 0.16.1",
  "itoa 1.0.15 (registry+https://github.com/rust-lang/crates.io-index)",
  "libc 0.2.178",
- "memmap2 0.9.9",
+ "memmap2 0.9.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "rustix 1.1.2",
  "serde 1.0.228",
  "smallvec 1.15.1",
@@ -5486,7 +5476,7 @@ dependencies = [
  "gix-tempfile",
  "gix-testtools",
  "gix-traverse",
- "memmap2 0.9.9",
+ "memmap2 0.9.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "parking_lot 0.12.6",
  "serde 1.0.228",
  "smallvec 1.15.1",
@@ -5614,7 +5604,7 @@ dependencies = [
  "gix-testtools",
  "gix-utils",
  "gix-validate",
- "memmap2 0.9.9",
+ "memmap2 0.9.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.228",
  "thiserror 2.0.17 (registry+https://github.com/rust-lang/crates.io-index)",
  "winnow 0.7.14",
@@ -6244,7 +6234,7 @@ dependencies = [
  "test-utils",
  "tracing 0.1.41",
  "tracing-subscriber",
- "tracing-tree 0.4.1",
+ "tracing-tree",
  "triomphe",
  "tt",
 ]
@@ -6271,7 +6261,7 @@ dependencies = [
  "query-group-macro",
  "rustc-hash 2.1.1",
  "rustc_abi",
- "rustc_apfloat 0.1.0",
+ "rustc_apfloat",
  "rustc_parse_format",
  "salsa",
  "salsa-macros",
@@ -6340,7 +6330,7 @@ dependencies = [
  "query-group-macro",
  "rustc-hash 2.1.1",
  "rustc_abi",
- "rustc_apfloat 0.1.0",
+ "rustc_apfloat",
  "rustc_ast_ir",
  "rustc_index",
  "rustc_next_trait_solver",
@@ -6357,7 +6347,7 @@ dependencies = [
  "test-utils",
  "tracing 0.1.41",
  "tracing-subscriber",
- "tracing-tree 0.4.1",
+ "tracing-tree",
  "triomphe",
  "typed-arena",
 ]
@@ -7082,18 +7072,10 @@ dependencies = [
 
 [[package]]
 name = "intl-memoizer"
-version = "0.5.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fe22e020fce238ae18a6d5d8c502ee76a52a6e880d99477657e6acc30ec57bda"
-dependencies = [
- "type-map",
- "unic-langid",
-]
-
-[[package]]
-name = "intl-memoizer"
 version = "0.5.3"
 dependencies = [
+ "fluent-langneg",
+ "intl_pluralrules",
  "type-map",
  "unic-langid",
 ]
@@ -8086,16 +8068,14 @@ version = "0.8.0"
 
 [[package]]
 name = "measureme"
-version = "12.0.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6ebd1ebda747ae161a4a377bf93f87e18d46faad2331cc0c7d25b84b1d445f49"
+version = "0.1.0"
 dependencies = [
  "log",
- "memmap2 0.2.3",
+ "memmap2 0.9.9",
  "parking_lot 0.12.6",
  "perf-event-open-sys 3.0.0",
- "rustc-hash 1.1.0",
- "smallvec 1.15.1",
+ "rustc-hash 2.1.1",
+ "smallvec 2.0.0-alpha.12",
 ]
 
 [[package]]
@@ -8133,6 +8113,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "723e3ebdcdc5c023db1df315364573789f8857c11b631a2fdfad7c00f5c046b4"
 dependencies = [
  "libc 0.2.178",
+]
+
+[[package]]
+name = "memmap2"
+version = "0.9.9"
+dependencies = [
+ "libc 0.2.178",
+ "owning_ref",
+ "stable_deref_trait",
+ "tempfile 3.23.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -10980,20 +10970,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_apfloat"
-version = "0.2.3+llvm-462a31f5a5ab"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "486c2179b4796f65bfe2ee33679acf0927ac83ecf583ad6c91c3b4570911b9ad"
-dependencies = [
- "bitflags 2.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "smallvec 1.15.1",
-]
-
-[[package]]
 name = "rustc_arena"
 version = "0.0.0"
 dependencies = [
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
 ]
 
 [[package]]
@@ -11009,7 +10989,7 @@ dependencies = [
  "rustc_macros",
  "rustc_serialize",
  "rustc_span",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "thin-vec",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -11043,7 +11023,7 @@ dependencies = [
  "rustc_session",
  "rustc_span",
  "rustc_target",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "thin-vec",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -11132,7 +11112,7 @@ dependencies = [
  "rustc_span",
  "rustc_trait_selection",
  "rustc_traits",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -11159,7 +11139,7 @@ dependencies = [
  "rustc_session",
  "rustc_span",
  "rustc_target",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "thin-vec",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -11197,7 +11177,7 @@ dependencies = [
  "rustc_target",
  "serde 1.0.228",
  "serde_json 1.0.145 (registry+https://github.com/rust-lang/crates.io-index)",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -11238,7 +11218,7 @@ dependencies = [
  "rustc_target",
  "rustc_trait_selection",
  "serde_json 1.0.145 (registry+https://github.com/rust-lang/crates.io-index)",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "tempfile 3.23.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "thin-vec",
  "thorin-dwp",
@@ -11253,7 +11233,7 @@ version = "0.0.0"
 dependencies = [
  "either 1.13.0",
  "rustc_abi",
- "rustc_apfloat 0.2.3+llvm-462a31f5a5ab",
+ "rustc_apfloat",
  "rustc_ast",
  "rustc_data_structures",
  "rustc_errors",
@@ -11297,7 +11277,7 @@ dependencies = [
  "rustc_macros",
  "rustc_serialize",
  "rustc_thread_pool",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "stacker",
  "tempfile 3.23.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "thin-vec",
@@ -11378,10 +11358,10 @@ name = "rustc_error_messages"
 version = "0.0.0"
 dependencies = [
  "fluent-bundle",
- "fluent-syntax 0.12.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "fluent-syntax",
  "icu_list",
  "icu_locale",
- "intl-memoizer 0.5.2",
+ "intl-memoizer",
  "rustc_ast",
  "rustc_ast_pretty",
  "rustc_baked_icu_data",
@@ -11442,7 +11422,7 @@ dependencies = [
  "rustc_serialize",
  "rustc_session",
  "rustc_span",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "thin-vec",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -11464,7 +11444,7 @@ version = "0.0.0"
 dependencies = [
  "annotate-snippets 0.11.5",
  "fluent-bundle",
- "fluent-syntax 0.12.0",
+ "fluent-syntax",
  "proc-macro2 1.0.103",
  "quote 1.0.42",
  "syn 2.0.110",
@@ -11508,7 +11488,7 @@ dependencies = [
  "rustc_serialize",
  "rustc_span",
  "rustc_target",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "thin-vec",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -11536,7 +11516,7 @@ dependencies = [
  "rustc_span",
  "rustc_target",
  "rustc_trait_selection",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -11585,7 +11565,7 @@ dependencies = [
  "rustc_span",
  "rustc_target",
  "rustc_trait_selection",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -11618,7 +11598,7 @@ dependencies = [
  "rustc_index_macros",
  "rustc_macros",
  "rustc_serialize",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
 ]
 
 [[package]]
@@ -11643,7 +11623,7 @@ dependencies = [
  "rustc_middle",
  "rustc_span",
  "rustc_type_ir",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "thin-vec",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -11730,7 +11710,7 @@ dependencies = [
  "rustc_span",
  "rustc_target",
  "rustc_trait_selection",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
  "unicode-security",
 ]
@@ -11763,7 +11743,7 @@ version = "0.0.0"
 dependencies = [
  "tracing 0.1.41",
  "tracing-subscriber",
- "tracing-tree 0.4.1",
+ "tracing-tree",
 ]
 
 [[package]]
@@ -11817,7 +11797,7 @@ dependencies = [
  "gsgdt",
  "polonius-engine",
  "rustc_abi",
- "rustc_apfloat 0.2.3+llvm-462a31f5a5ab",
+ "rustc_apfloat",
  "rustc_arena",
  "rustc_ast",
  "rustc_ast_ir",
@@ -11840,7 +11820,7 @@ dependencies = [
  "rustc_target",
  "rustc_thread_pool",
  "rustc_type_ir",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "thin-vec",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -11851,7 +11831,7 @@ version = "0.0.0"
 dependencies = [
  "itertools 0.12.1",
  "rustc_abi",
- "rustc_apfloat 0.2.3+llvm-462a31f5a5ab",
+ "rustc_apfloat",
  "rustc_arena",
  "rustc_ast",
  "rustc_data_structures",
@@ -11886,7 +11866,7 @@ dependencies = [
  "rustc_macros",
  "rustc_middle",
  "rustc_span",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -11915,7 +11895,7 @@ dependencies = [
  "rustc_span",
  "rustc_target",
  "rustc_trait_selection",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -12015,7 +11995,7 @@ version = "0.0.0"
 dependencies = [
  "rustc-hash 2.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "rustc_abi",
- "rustc_apfloat 0.2.3+llvm-462a31f5a5ab",
+ "rustc_apfloat",
  "rustc_arena",
  "rustc_data_structures",
  "rustc_errors",
@@ -12026,10 +12006,10 @@ dependencies = [
  "rustc_middle",
  "rustc_session",
  "rustc_span",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
  "tracing-subscriber",
- "tracing-tree 0.3.1",
+ "tracing-tree",
 ]
 
 [[package]]
@@ -12123,7 +12103,7 @@ dependencies = [
  "rustc_session",
  "rustc_span",
  "rustc_thread_pool",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -12152,7 +12132,7 @@ dependencies = [
  "rustc_query_system",
  "rustc_session",
  "rustc_span",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "thin-vec",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -12180,7 +12160,7 @@ dependencies = [
  "indexmap 2.11.4",
  "rustc_hashes",
  "rustc_macros",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "tempfile 3.23.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "thin-vec",
 ]
@@ -12191,7 +12171,7 @@ version = "0.0.0"
 dependencies = [
  "bitflags 2.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "getopts",
- "libc 0.2.178",
+ "libc 0.2.175",
  "rand 0.9.2",
  "rustc_abi",
  "rustc_ast",
@@ -12282,7 +12262,7 @@ dependencies = [
  "rand 0.9.2",
  "rand_xorshift 0.4.0",
  "scoped-tls 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
 ]
 
 [[package]]
@@ -12308,7 +12288,7 @@ dependencies = [
  "rustc_session",
  "rustc_span",
  "rustc_transmute",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "thin-vec",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -12335,7 +12315,7 @@ dependencies = [
  "rustc_hir",
  "rustc_middle",
  "rustc_span",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -12379,7 +12359,7 @@ dependencies = [
  "rustc_serialize",
  "rustc_span",
  "rustc_type_ir_macros",
- "smallvec 1.15.1",
+ "smallvec 2.0.0-alpha.12",
  "thin-vec",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -14215,7 +14195,7 @@ dependencies = [
  "rowan",
  "rustc-hash 2.1.1",
  "rustc-literal-escaper 0.0.5",
- "rustc_apfloat 0.1.0",
+ "rustc_apfloat",
  "smol_str",
  "stdx",
  "test-utils",
@@ -15487,17 +15467,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "tracing-log"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ee855f1f400bd0e5c02d150ae5de3840039a3f54b025156404e34c23c03f47c3"
-dependencies = [
- "log",
- "once_cell",
- "tracing-core 0.1.35",
-]
-
-[[package]]
 name = "tracing-mock"
 version = "0.1.0-beta.1"
 dependencies = [
@@ -15541,7 +15510,7 @@ dependencies = [
  "tracing 0.1.41",
  "tracing-core 0.1.34",
  "tracing-futures",
- "tracing-log 0.2.0",
+ "tracing-log",
  "tracing-mock",
  "tracing-serde",
  "valuable",
@@ -15558,18 +15527,6 @@ dependencies = [
 
 [[package]]
 name = "tracing-tree"
-version = "0.3.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b56c62d2c80033cb36fae448730a2f2ef99410fe3ecbffc916681a32f6807dbe"
-dependencies = [
- "nu-ansi-term",
- "tracing-core 0.1.35",
- "tracing-log 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "tracing-tree"
 version = "0.4.1"
 dependencies = [
  "futures 0.3.31",
@@ -15578,7 +15535,7 @@ dependencies = [
  "time",
  "tracing 0.1.41 (registry+https://github.com/rust-lang/crates.io-index)",
  "tracing-core 0.1.34",
- "tracing-log 0.2.0",
+ "tracing-log",
  "tracing-subscriber",
  "ui_test",
 ]
@@ -17762,10 +17719,6 @@ dependencies = [
  "syn 2.0.110",
  "winnow 0.7.14",
 ]
-
-[[patch.unused]]
-name = "measureme"
-version = "0.1.0"
 
 [[patch.unused]]
 name = "tokio-core"
