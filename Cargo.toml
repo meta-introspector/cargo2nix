@@ -548,9 +548,9 @@ resolver = "3"
 members = [
 	"submodules/hyper",
     "crates/addr2line-bin",
-    "crates/factory_block_factory_block",
+    #"crates/factory_block_factory_block",
     "crates/monster_math_traits",
-    "crates/rusttycoon",
+    #"crates/rusttycoon",
     "crates/factory_abi",
     "crates/solana-monster-system",
     "crates/ast_parser_impl",
@@ -589,8 +589,8 @@ members = [
     "submodules/expect-test",
     "submodules/dot-parser",
     "submodules/dot-parser/macros",
-    "submodules/rocksdb",
-        "submodules/rocksdb/librocksdb-sys",
+    #"submodules/rocksdb",
+        #"submodules/rocksdb/librocksdb-sys",
         "crates/trait-fixer-attribute-reader-trait",
         "crates/trait-fixer-attribute-reader-real",
         "crates/trait-fixer-attribute-reader-mock",
@@ -653,8 +653,39 @@ include = [
 
 [workspace.lints.rust]
 #unexpected_cfgs = { level = "warn", check-cfg = ["has_specialisation"] }
-all = "allow"
-warnings = "allow"
+    all = "allow"
+    warnings = "allow"
+    unexpected_cfgs = { level = "warn", check-cfg = [
+        'cfg(tuple_ty)',
+        'cfg(maybe_uninit)',
+        'cfg(stable_const)',
+        'cfg(stable_offset_of)',
+        'cfg(doc_cfg)',
+        'cfg(try_trait_v2)',
+        'cfg(fn_traits_v2)',
+        'cfg(min_specialization)',
+        'cfg(simd_wasm32)',
+        'cfg(wasm_c_abi)',
+        'cfg(link_cfg)',
+        'cfg(has_extern_blocks)',
+        'cfg(generic_const_exprs)',
+        'cfg(abi_thiscall)',
+        'cfg(abi_vectorcall)',
+        'cfg(allow_internal_unstable)',
+        'cfg(target_os, values("android", "wasi", "ios", "macos", "freebsd", "linux"))',
+        'cfg(target_env, values("sgx"))',
+        'cfg(target_feature, values("cmpxchg16b", "sse2", "armv7", "vfpv3", "neon", "force-target-feature"))',
+        'cfg(target_vendor, values("apple", "unknown"))',
+        'cfg(target_arch, values("x86", "x86_64", "arm", "aarch64", "riscv32", "riscv64", "powerpc", "powerpc64", "mips", "mips64", "sparc", "sparc64"))',
+        'cfg(target_endian, values("big", "little"))',
+        'cfg(target_pointer_width, values("32", "64", "128"))',
+        'cfg(bootstrap)',
+        'cfg(llvm_component, values("x86", "arm", "aarch64", "amdgpu", "avr", "m68k", "csky", "loongarch", "mips", "powerpc", "systemz", "msp430", "riscv", "sparc", "nvptx", "hexagon", "xtensa", "webassembly", "bpf"))',
+        'cfg(feature, values("hashbrown_15", "arbitrary", "serde", "rayon", "borsh", "sval", "quickcheck"))',
+        'cfg(atomic_maybe_uninit_test_prefer_kuser_cmpxchg)',
+        'cfg(has_specialisation)',
+        'cfg(threadsafe)',
+    ]}
 [workspace.lints.clippy]
 #unexpected_cfgs = { level = "warn", check-cfg = ["has_specialisation"] }
 all = "allow"

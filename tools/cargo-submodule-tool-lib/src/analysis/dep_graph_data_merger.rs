@@ -1,8 +1,6 @@
-#[cfg(feature = "anyhow_enabled")]
 use anyhow::Result;
 use std::collections::HashMap;
 
-#[cfg(feature = "tool_traits_lib_enabled")]
 use tool_traits_lib::types::MergedCrateInfo;
 
 pub trait DepGraphDataMerger {

@@ -2,7 +2,7 @@ use anyhow::{Context, Result};
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 
-use super::args::submodule_status::SubmoduleStatusArgs;
+use crate::args::submodule_status::SubmoduleStatusArgs;
 use crate::fs_cache::RealFileSystemStat;
 #[cfg(not(feature = "git_enabled"))]
 use git_wrapper_lib::dummy_git_executor::DummyGitExecutor; // Use our dummy GitExecutor

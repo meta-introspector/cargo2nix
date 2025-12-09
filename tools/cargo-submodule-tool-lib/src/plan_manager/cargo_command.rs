@@ -9,19 +9,19 @@ pub trait CargoCommand {
         &self,
         current_dir: &Path,
         executor: Arc<dyn Execv + Send + Sync>,
-    ) -> Result<bool, String>;
+    ) -> anyhow::Result<bool>;
     fn execute(
         &self,
         current_dir: &Path,
         log_file: &mut File,
         executor: Arc<dyn Execv + Send + Sync>,
-    ) -> Result<Output, String>;
+    ) -> anyhow::Result<Output>;
     fn dry_run(
         &self,
         current_dir: &Path,
         log_file: &mut File,
         executor: Arc<dyn Execv + Send + Sync>,
-    ) -> Result<(), String>; // New method
+    ) -> anyhow::Result<()>; // New method
 }
 
 // Helper function to map command strings to CargoCommand trait objects

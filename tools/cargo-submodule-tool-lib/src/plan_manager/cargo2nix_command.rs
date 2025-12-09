@@ -1,5 +1,6 @@
 use super::cargo_command::CargoCommand;
 use anyhow::Result;
+use anyhow::Context;
 use git_wrapper_lib::Execv;
 use std::{
     ffi::OsStr,
@@ -22,17 +23,17 @@ impl CargoCommand for Cargo2NixCommand {
         &self,
         current_dir: &Path,
         executor: Arc<dyn Execv + Send + Sync>,
-    ) -> Result<bool, String> {
+    ) -> anyhow::Result<bool> {
         let cargo_toml_path = current_dir.join("Cargo.toml");
         let cargo_lock_path = current_dir.join("Cargo.lock");
         let cargo_nix_path = current_dir.join("Cargo.nix");
         let src_dir = current_dir.join("src");
 
         if !cargo_toml_path.exists() {
-            return Err(format!("Cargo.toml not found at {:?}", cargo_toml_path));
+            anyhow::bail!("Cargo.toml not found at {:?}", cargo_toml_path);
         }
         if !cargo_lock_path.exists() {
-            return Err(format!("Cargo.lock not found at {:?}", cargo_lock_path));
+            anyhow::bail!("Cargo.lock not found at {:?}", cargo_lock_path);
         }
 
         if !cargo_nix_path.exists() {
@@ -41,17 +42,17 @@ impl CargoCommand for Cargo2NixCommand {
         }
 
         let cargo_toml_modified = fs::metadata(&cargo_toml_path)
-            .map_err(|e| format!("Failed to get metadata for Cargo.toml: {}", e))?
+            .context("Failed to get metadata for Cargo.toml")?
             .modified()
-            .map_err(|e| format!("Failed to get modified time for Cargo.toml: {}", e))?;
+            .context("Failed to get modified time for Cargo.toml")?;
         let cargo_lock_modified = fs::metadata(&cargo_lock_path)
-            .map_err(|e| format!("Failed to get metadata for Cargo.lock: {}", e))?
+            .context("Failed to get metadata for Cargo.lock")?
             .modified()
-            .map_err(|e| format!("Failed to get modified time for Cargo.lock: {}", e))?;
+            .context("Failed to get modified time for Cargo.lock")?;
         let cargo_nix_modified = fs::metadata(&cargo_nix_path)
-            .map_err(|e| format!("Failed to get metadata for Cargo.nix: {}", e))?
+            .context("Failed to get metadata for Cargo.nix")?
             .modified()
-            .map_err(|e| format!("Failed to get modified time for Cargo.nix: {}", e))?;
+            .context("Failed to get modified time for Cargo.nix")?;
 
         if cargo_toml_modified > cargo_nix_modified || cargo_lock_modified > cargo_nix_modified {
             println!("Cargo.toml or Cargo.lock is newer than Cargo.nix, 'cargo2nix' is needed.");
@@ -62,18 +63,14 @@ impl CargoCommand for Cargo2NixCommand {
         #[cfg(feature = "walkdir_enabled")]
         if src_dir.exists() {
             for entry in walkdir::WalkDir::new(&src_dir) {
-                let entry = entry.map_err(|e| format!("Error walking src directory: {}", e))?;
+                let entry = entry.context("Error walking src directory")?;
                 if entry.file_type().is_file()
                     && entry.path().extension().map_or(false, |ext| ext == "rs")
                 {
                     let src_file_modified = fs::metadata(entry.path())
-                        .map_err(|e| {
-                            format!("Failed to get metadata for {:?}: {}", entry.path(), e)
-                        })?
+                        .context(format!("Failed to get metadata for {:?}", entry.path()))?
                         .modified()
-                        .map_err(|e| {
-                            format!("Failed to get modified time for {:?}: {}", entry.path(), e)
-                        })?;
+                        .context(format!("Failed to get modified time for {:?}", entry.path()))?;
                     if src_file_modified > cargo_nix_modified {
                         println!(
                             "Rust source file {:?} is newer than Cargo.nix, 'cargo2nix' is needed.",
@@ -100,33 +97,30 @@ impl CargoCommand for Cargo2NixCommand {
         current_dir: &Path,
         log_file: &mut File,
         executor: Arc<dyn Execv + Send + Sync>,
-    ) -> Result<Output, String> {
+    ) -> anyhow::Result<Output> {
         #[cfg(feature = "toml_edit_enabled")]
         let cargo_toml_content = fs::read_to_string(current_dir.join("Cargo.toml"))
-            .map_err(|e| format!("Failed to read Cargo.toml: {}", e))?;
+            .context("Failed to read Cargo.toml")?;
         #[cfg(feature = "toml_edit_enabled")]
         let cargo_toml = cargo_toml_content
             .parse::<toml_edit::Document<String>>()
-            .map_err(|e| format!("Failed to parse Cargo.toml with toml_edit: {}", e))?;
+            .context("Failed to parse Cargo.toml with toml_edit")?;
 
         #[cfg(feature = "toml_edit_enabled")]
         let cargo2nix_path_str = cargo_toml
             .get("package")
-            .and_then(|p| p.as_table())
-            .and_then(|p| p.get("metadata"))
-            .and_then(|m| m.as_table())
-            .and_then(|m| m.get("cargo2nix"))
-            .and_then(|c| c.as_table())
-            .and_then(|c| c.get("cargo2nix_path"))
-            .and_then(|p| p.as_str())
-            .ok_or_else(|| "cargo2nix_path not found in Cargo.toml metadata".to_string())?;
+            .and_then(|p: &toml_edit::Item| p.as_table())
+            .and_then(|p: &toml_edit::Table| p.get("metadata"))
+            .and_then(|m: &toml_edit::Item| m.as_table())
+            .and_then(|m: &toml_edit::Table| m.get("cargo2nix"))
+            .and_then(|c: &toml_edit::Item| c.as_table())
+            .and_then(|c: &toml_edit::Table| c.get("cargo2nix_path"))
+            .and_then(|p: &toml_edit::Item| p.as_str())
+            .context("cargo2nix_path not found in Cargo.toml metadata")?;
 
         #[cfg(not(feature = "toml_edit_enabled"))]
         let cargo2nix_path_str = {
-            return Err(
-                "toml_edit_enabled feature is required for cargo2nix command execution."
-                    .to_string(),
-            );
+            anyhow::bail!("toml_edit_enabled feature is required for cargo2nix command execution.");
         };
 
         let cargo2nix_path = PathBuf::from(cargo2nix_path_str);
@@ -136,21 +130,22 @@ impl CargoCommand for Cargo2NixCommand {
             "[COMMAND_START] {} -o Cargo.nix --git-srcs vendor in {:?}",
             cargo2nix_path_str, current_dir
         )
-        .map_err(|e| format!("Failed to write to log file: {}", e))?;
+        .context("Failed to write to log file")?;
 
         // --- Improved error handling starts here ---
         if !cargo2nix_path.exists() {
-            writeln!(log_file, "[COMMAND_STATUS] cargo2nix failed.").map_err(|e| e.to_string())?;
+            writeln!(log_file, "[COMMAND_STATUS] cargo2nix failed.")
+                .context("Failed to write to log file")?;
             writeln!(
                 log_file,
                 "[ERROR] cargo2nix executable not found at the specified path: {:?}",
                 cargo2nix_path
             )
-            .map_err(|e| e.to_string())?;
-            return Err(format!(
+            .context("Failed to write to log file")?;
+            anyhow::bail!(
                 "Error: cargo2nix executable not found at the specified path: {:?}",
                 cargo2nix_path
-            ));
+            );
         }
 
         // Check if it's executable (basic check, might not cover all OS nuances)
@@ -158,22 +153,22 @@ impl CargoCommand for Cargo2NixCommand {
         {
             use std::os::unix::fs::PermissionsExt;
             let metadata = fs::metadata(&cargo2nix_path)
-                .map_err(|e| format!("Failed to get metadata for {:?}: {}", cargo2nix_path, e))?;
+                .context(format!("Failed to get metadata for {:?}", cargo2nix_path))?;
             let permissions = metadata.permissions();
             if permissions.mode() & 0o111 == 0 {
                 // Check for any execute bit
                 writeln!(log_file, "[COMMAND_STATUS] cargo2nix failed.")
-                    .map_err(|e| e.to_string())?;
+                    .context("Failed to write to log file")?;
                 writeln!(
                     log_file,
                     "[ERROR] cargo2nix executable at {:?} does not have execute permissions.",
                     cargo2nix_path
                 )
-                .map_err(|e| e.to_string())?;
-                return Err(format!(
+                .context("Failed to write to log file")?;
+                anyhow::bail!(
                     "Error: cargo2nix executable at {:?} does not have execute permissions.",
                     cargo2nix_path
-                ));
+                );
             }
         }
         // --- Improved error handling ends here ---
@@ -189,27 +184,27 @@ impl CargoCommand for Cargo2NixCommand {
                 ],
                 Some(current_dir),
             )
-            .map_err(|e| format!("Failed to execute cargo2nix at {:?}: {}", cargo2nix_path, e))?;
+            .context(format!("Failed to execute cargo2nix at {:?}", cargo2nix_path))?;
 
         if output.status.success() {
             writeln!(log_file, "[COMMAND_STATUS] cargo2nix succeeded.")
-                .map_err(|e| format!("Failed to write to log file: {}", e))?;
+                .context("Failed to write to log file")?;
             Ok(output)
         } else {
             let stdout_str = String::from_utf8_lossy(&output.stdout);
             let stderr_str = String::from_utf8_lossy(&output.stderr);
             writeln!(log_file, "[COMMAND_STATUS] cargo2nix failed.")
-                .map_err(|e| format!("Failed to write to log file: {}", e))?;
+                .context("Failed to write to log file")?;
             writeln!(
                 log_file,
                 "[ERROR] Stdout: {}\nStderr: {}",
                 stdout_str, stderr_str
             )
-            .map_err(|e| format!("Failed to write to log file: {}", e))?;
-            Err(format!(
+            .context("Failed to write to log file")?;
+            anyhow::bail!(
                 "'cargo2nix' failed:\nStdout: {}\nStderr: {}",
                 stdout_str, stderr_str
-            ))
+            )
         }
     }
 
@@ -218,28 +213,28 @@ impl CargoCommand for Cargo2NixCommand {
         current_dir: &Path,
         log_file: &mut File,
         executor: Arc<dyn Execv + Send + Sync>,
-    ) -> Result<(), String> {
+    ) -> anyhow::Result<()> {
         #[cfg(feature = "toml_edit_enabled")]
         let cargo_toml_content = fs::read_to_string(current_dir.join("Cargo.toml"))
-            .map_err(|e| format!("Failed to read Cargo.toml: {}", e))?;
+            .context("Failed to read Cargo.toml")?;
         #[cfg(feature = "toml_edit_enabled")]
         let cargo_toml = cargo_toml_content
             .parse::<toml_edit::Document<String>>()
-            .map_err(|e| format!("Failed to parse Cargo.toml with toml_edit: {}", e))?;
+            .context("Failed to parse Cargo.toml with toml_edit")?;
         #[cfg(feature = "toml_edit_enabled")]
         let cargo2nix_path_str = cargo_toml
             .get("package")
-            .and_then(|p| p.as_table())
-            .and_then(|p| p.get("metadata"))
-            .and_then(|m| m.as_table())
-            .and_then(|m| m.get("cargo2nix"))
-            .and_then(|c| c.as_table())
-            .and_then(|c| c.get("cargo2nix_path"))
-            .and_then(|p| p.as_str())
-            .ok_or_else(|| "cargo2nix_path not found in Cargo.toml metadata".to_string())?;
+            .and_then(|p: &toml_edit::Item| p.as_table())
+            .and_then(|p: &toml_edit::Table| p.get("metadata"))
+            .and_then(|m: &toml_edit::Item| m.as_table())
+            .and_then(|m: &toml_edit::Table| m.get("cargo2nix"))
+            .and_then(|c: &toml_edit::Item| c.as_table())
+            .and_then(|c: &toml_edit::Table| c.get("cargo2nix_path"))
+            .and_then(|p: &toml_edit::Item| p.as_str())
+            .context("cargo2nix_path not found in Cargo.toml metadata")?;
         #[cfg(not(feature = "toml_edit_enabled"))]
         let cargo2nix_path_str = {
-            return Err("toml_edit_enabled feature is required for cargo2nix dry run.".to_string());
+            anyhow::bail!("toml_edit_enabled feature is required for cargo2nix dry run.");
         };
 
         let command_str = format!("{} -o Cargo.nix --git-srcs vendor", cargo2nix_path_str);
@@ -248,13 +243,13 @@ impl CargoCommand for Cargo2NixCommand {
             "[DRY_RUN_COMMAND] Would execute command: '{}' in directory: {:?}",
             command_str, current_dir
         )
-        .map_err(|e| format!("Failed to write to log file: {}", e))?;
+        .context("Failed to write to log file")?;
         println!(
             "[DRY_RUN_COMMAND] Would execute command: '{}' in directory: {:?}",
             command_str, current_dir
         );
         writeln!(log_file, "[DRY_RUN_STATUS] cargo2nix dry run completed.")
-            .map_err(|e| format!("Failed to write to log file: {}", e))?;
+            .context("Failed to write to log file")?;
         Ok(())
     }
 }

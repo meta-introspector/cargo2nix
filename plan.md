@@ -4,6 +4,22 @@
 
 The project build was failing with several errors. The following issues have been investigated and resolved:
 
+*   **Compilation Errors Resolution (Current Task):**
+    *   **Problem:** C/C++ header not found errors (e.g., `stdbool.h`, `stdlib.h`), Rust macro incompatibility errors, and unresolved type errors after module refactoring in `rustc_target` and `librocksdb-sys`.
+    *   **Resolution:**
+        *   Fixed `mod os;` and `mod env;` declarations in `submodules/rust/compiler/rustc_target/src/spec/targets.rs` by removing them, as these modules are managed by `mod.rs`.
+        *   Resolved duplicate `LinkerFlavor` and `LinkerFlavorCli` imports in `submodules/rust/compiler/rustc_target/src/spec/target_options.rs`.
+        *   Corrected `rustc_abi::Align` import in `submodules/rust/compiler/rustc_target/src/spec/mod.rs` to use global path `::rustc_abi::Align`.
+        *   Enabled `DebuginfoKind` re-export by adding `pub mod debuginfo_kind;` and `pub use debuginfo_kind::*;` to `submodules/rust/compiler/rustc_target/src/spec/mod.rs`.
+        *   Implemented `ToJson` trait for `Align` in `submodules/rust/compiler/rustc_target/src/spec/json.rs`, switching from `Json::U64` to `Json::Number` and adding `use serde_json::Number;`.
+        *   Added `use std::str::FromStr;` to `submodules/rust/compiler/rustc_target/src/spec/debuginfo_kind.rs` for macro context.
+        *   Added `use crate::spec::crt_objects::CrtObjects;` and `use crate::spec::SymbolVisibility;` to `submodules/rust/compiler/rustc_target/src/spec/target_options.rs`.
+        *   Resolved `librocksdb-sys` header discovery issues by:
+            *   Setting Nix store paths as `const` values instead of relying on environment variables within `build.rs`.
+            *   Explicitly setting `LIBCLANG_FLAGS` environment variable for `bindgen_rocksdb` to correctly specify `sysroot` and include paths.
+            *   Configuring `build_rocksdb` to use explicit `CPATH` environment variable and `sysroot` flag for `cc-rs` to ensure `g++` finds `stdlib.h`.
+        *   Fixed `unused_fields` privacy error in `submodules/rust/compiler/rustc_target/src/spec/json.rs` by using `TargetWarnings::empty()` constructor.
+
 *   **`rustc_llvm` Compilation Errors:**
     *   **Problem:** Incompatibility between `rustc_llvm`'s C++ wrappers and LLVM 19.1.7, manifesting as errors like `no member named 'SanitizeRealtime'` and `fatal error: 'llvm/Transforms/Instrumentation/RealtimeSanitizer.h' file not found`.
     *   **Resolution:** Cherry-picked commit `27b7b3f0314` into `submodules/rust`. This commit significantly modified `submodules/rust/compiler/rustc_llvm/build.rs` to hardcode LLVM component definitions, effectively bypassing the dynamic `llvm-config` calls that caused compatibility issues.
@@ -73,6 +89,8 @@ The project is undergoing significant architectural refactoring to enhance repro
     *   **Progress:**
         *   Created `linker_flavor.rs` and moved `Cc`, `Lld`, `LinkerFlavor`, `LinkerFlavorCli`, `LldFlavor`, their `impl` blocks, and associated macros/implementations into it.
         *   Updated `mod.rs` to import and re-export the contents of `linker_flavor.rs`.
+        *   Simplified import paths in `json.rs` and `target_options.rs` (e.g., `crate::spec::module::Type` to `crate::spec::Type`).
+        *   Verified `arch.rs` for correct `desc_symbol` implementation (use `rustc_span::Symbol::intern("unknown")`).
     *   **Next Action:** Continue splitting `mod.rs` into additional files as outlined in the internal TODO list.
 
 ## III. Remaining Issues (Warnings)

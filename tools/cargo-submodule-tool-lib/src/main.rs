@@ -25,15 +25,15 @@ fn main() -> Result<()> {
     let cli = Cli::parse();
 
     match cli.command {
-        Some(Commands::AddSubmodules(ref args)) => run_add_submodules_command(args, &cli),
-        Some(Commands::SubmoduleStatus(ref args)) => run_submodule_status_command(args),
-        //Some(Commands::GenerateNix(ref args)) => run_generate_nix_command(args, &cli),
-        Some(Commands::GeneratePatches(ref args)) => run_generate_patches_command(args, &cli),
-        Some(Commands::Analyze(ref args)) => run_analyze_command(args, &cli),
-        //Some(Commands::UpdateCargoToml(ref args)) => run_update_cargo_toml_command(args, &cli),
-        //Some(Commands::GenerateWorkspaces(ref args)) => run_generate_workspaces_command(args, &cli),
-        Some(Commands::ProcessTtTxt(ref args)) => run_process_tt_txt_command(args, &cli),
-        Some(Commands::CollectRepoState(ref args)) => {
+        Some(Commands::AddSubmodules(args)) => run_add_submodules_command(&args, &cli),
+        Some(Commands::SubmoduleStatus(args)) => run_submodule_status_command(&args),
+        //Some(Commands::GenerateNix(args)) => run_generate_nix_command(&args, &cli),
+        Some(Commands::GeneratePatches(args)) => run_generate_patches_command(&args, &cli),
+        Some(Commands::Analyze(args)) => run_analyze_command(&args, &cli),
+        //Some(Commands::UpdateCargoToml(args)) => run_update_cargo_toml_command(&args, &cli),
+        //Some(Commands::GenerateWorkspaces(args)) => run_generate_workspaces_command(&args, &cli),
+        Some(Commands::ProcessTtTxt(args)) => run_process_tt_txt_command(&args, &cli),
+        Some(Commands::CollectRepoState(args)) => {
             run_collect_repo_state_command(args.project_root.clone())
         }
         None => {

@@ -19,8 +19,9 @@ pub mod run_submodule_status;
 #[cfg(not(feature = "cargo_repo_sync_lib_enabled"))]
 pub mod run_submodule_status {
     use anyhow::Result;
-    use git_wrapper_lib::executors::GitExecutor;
-    use git_wrapper_lib::executors::RollupLock;
+    use git_wrapper_lib::git_traits::GitExecutor;
+    use git_wrapper_lib::git_types::RollupLock;
+    use super::repo_sync_config::RepoSyncConfig;
     use std::collections::HashMap;
     use std::path::Path;
     use std::sync::{Arc, Mutex};

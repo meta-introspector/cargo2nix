@@ -1,4 +1,5 @@
 use anyhow::Result;
+use anyhow::Context;
 use git_wrapper_lib::git_traits::Execv;
 use std::{
     ffi::OsStr,
@@ -11,7 +12,7 @@ pub fn is_git_ignored(
     repo_path: &Path,
     file_path: &Path,
     executor: Arc<dyn Execv + Send + Sync>,
-) -> Result<bool, String> {
+) -> Result<bool> {
     let git_executable_path = PathBuf::from("git"); // Assuming 'git' is in PATH
     let output = executor
         .execv(
@@ -24,7 +25,7 @@ pub fn is_git_ignored(
             ],
             None,
         )
-        .map_err(|e| format!("Failed to execute git check-ignore: {}", e))?;
+        .context("Failed to execute git check-ignore")?;
 
     Ok(output.status.success())
 }

@@ -1,5 +1,6 @@
 use super::cargo_command::CargoCommand;
 use anyhow::Result;
+use anyhow::Context;
 use git_wrapper_lib::git_traits::Execv;
 use std::{
     ffi::OsStr,
@@ -20,7 +21,7 @@ impl CargoCommand for RemoveRustVersionCommand {
         &self,
         current_dir: &Path,
         executor: Arc<dyn Execv + Send + Sync>,
-    ) -> Result<bool, String> {
+    ) -> anyhow::Result<bool> {
         // This command should always run if there are any uncommented rust-version lines
         // We can check this by grepping for uncommented lines.
         let output = executor
@@ -36,7 +37,7 @@ impl CargoCommand for RemoveRustVersionCommand {
                 ],
                 None,
             )
-            .map_err(|e| format!("Failed to execute grep: {}", e))?;
+            .context("Failed to execute grep")?;
 
         Ok(!output.stdout.is_empty())
     }
@@ -46,13 +47,13 @@ impl CargoCommand for RemoveRustVersionCommand {
         current_dir: &Path,
         log_file: &mut File,
         executor: Arc<dyn Execv + Send + Sync>,
-    ) -> Result<Output, String> {
+    ) -> anyhow::Result<Output> {
         writeln!(
             log_file,
             "[COMMAND_START] Removing rust-version constraints in {:?}",
             current_dir
         )
-        .map_err(|e| format!("Failed to write to log file: {}", e))?;
+        .context("Failed to write to log file")?;
 
         // Find all Cargo.toml files
         let mut cargo_tomls_to_process = Vec::new();
@@ -66,9 +67,10 @@ impl CargoCommand for RemoveRustVersionCommand {
 
         let mut changed_files = 0;
         for cargo_toml_path in cargo_tomls_to_process {
-            let content = fs::read_to_string(&cargo_toml_path).map_err(|e| {
-                format!("Failed to read Cargo.toml at {:?}: {}", cargo_toml_path, e)
-            })?;
+            let content = fs::read_to_string(&cargo_toml_path).context(format!(
+                "Failed to read Cargo.toml at {:?}",
+                cargo_toml_path
+            ))?;
 
             let new_content = content
                 .lines()
@@ -85,18 +87,16 @@ impl CargoCommand for RemoveRustVersionCommand {
                 .join("\n");
 
             if new_content != content {
-                fs::write(&cargo_toml_path, new_content).map_err(|e| {
-                    format!(
-                        "Failed to write to Cargo.toml at {:?}: {}",
-                        cargo_toml_path, e
-                    )
-                })?;
+                fs::write(&cargo_toml_path, new_content).context(format!(
+                    "Failed to write to Cargo.toml at {:?}",
+                    cargo_toml_path
+                ))?;
                 writeln!(
                     log_file,
                     "  Commented out rust-version in {:?}",
                     cargo_toml_path
                 )
-                .map_err(|e| format!("Failed to write to log file: {}", e))?;
+                .context("Failed to write to log file")?;
                 changed_files += 1;
             }
         }
@@ -121,14 +121,14 @@ impl CargoCommand for RemoveRustVersionCommand {
         current_dir: &Path,
         log_file: &mut File,
         executor: Arc<dyn Execv + Send + Sync>,
-    ) -> Result<(), String> {
+    ) -> anyhow::Result<()> {
         let command_str = format!("Remove rust-version constraints");
         writeln!(
             log_file,
             "[DRY_RUN_COMMAND] Would execute command: '{}' in directory: {:?}",
             command_str, current_dir
         )
-        .map_err(|e| format!("Failed to write to log file: {}", e))?;
+        .context("Failed to write to log file")?;
         println!(
             "[DRY_RUN_COMMAND] Would execute command: '{}' in directory: {:?}",
             command_str, current_dir
@@ -137,7 +137,7 @@ impl CargoCommand for RemoveRustVersionCommand {
             log_file,
             "[DRY_RUN_STATUS] Remove rust-version constraints dry run completed."
         )
-        .map_err(|e| format!("Failed to write to log file: {}", e))?;
+        .context("Failed to write to log file")?;
         Ok(())
     }
 }

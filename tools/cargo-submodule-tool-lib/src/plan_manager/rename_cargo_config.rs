@@ -1,4 +1,5 @@
 use anyhow::Result;
+use anyhow::Context;
 use git_wrapper_lib::git_traits::Execv;
 use std::{ffi::OsStr, fs::File, io::Write, path::Path, sync::Arc};
 
@@ -7,7 +8,7 @@ pub fn rename_cargo_config(
     current_dir: &Path,
     log_file: &mut File,
     executor: Arc<dyn Execv + Send + Sync>,
-) -> Result<bool, String> {
+) -> anyhow::Result<bool> {
     let config_path = current_dir.join(".cargo/config.toml");
     let config_bak_path = current_dir.join(".cargo/config.toml.bak");
 
@@ -17,7 +18,7 @@ pub fn rename_cargo_config(
             "Renaming {:?} to {:?}...",
             config_path, config_bak_path
         )
-        .map_err(|e| format!("Failed to write to log file: {}", e))?;
+        .context("Failed to write to log file")?;
 
         let output = executor
             .execv(
@@ -25,15 +26,15 @@ pub fn rename_cargo_config(
                 &[config_path.as_os_str(), config_bak_path.as_os_str()],
                 None,
             )
-            .map_err(|e| format!("Failed to execute mv command: {}", e))?;
+            .context("Failed to execute mv command")?;
 
         if !output.status.success() {
-            return Err(format!(
+            anyhow::bail!(
                 "Failed to rename {:?} to {:?}: {}",
                 config_path,
                 config_bak_path,
                 String::from_utf8_lossy(&output.stderr)
-            ));
+            );
         }
         Ok(true)
     } else {

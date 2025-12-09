@@ -1,10 +1,10 @@
-use anyhow::Result; // Added anyhow imports
+use anyhow::{Context, Result}; // Added anyhow imports
 use std::{
     collections::HashMap,
     fs,
     path::{Path, PathBuf},
 };
-use toml_edit::{self}; // Added toml_edit::
+use toml_edit::{self, DocumentMut, Item, Table, value}; // Added toml_edit::
 use walkdir::WalkDir; // Added WalkDir
 
 use git_wrapper_lib::git_traits::Execv; // Import Execv trait
@@ -20,7 +20,7 @@ pub trait WorkspaceGenerator {
         root_dir: &Path,
         dry_run: bool,
         executor: Arc<dyn Execv + Send + Sync>,
-    ) -> Result<(), Box<dyn std::error::Error>>;
+    ) -> anyhow::Result<()>;
 }
 
 pub struct DefaultWorkspaceGenerator;
@@ -31,7 +31,7 @@ impl WorkspaceGenerator for DefaultWorkspaceGenerator {
         root_dir: &Path,
         dry_run: bool,
         executor: Arc<dyn Execv + Send + Sync>,
-    ) -> Result<(), Box<dyn std::error::Error>> {
+    ) -> anyhow::Result<()> {
         println!("Generating comprehensive [workspace.dependencies] section...");
 
         let submodules_dir = root_dir.join("submodules");
@@ -48,15 +48,14 @@ impl WorkspaceGenerator for DefaultWorkspaceGenerator {
                 ],
                 Some(root_dir),
             )
-            .map_err(|e| format!("Failed to execute cargo metadata: {}", e))?;
+            .context("Failed to execute cargo metadata")?;
 
         if !output.status.success() {
-            return Err(format!(
+            anyhow::bail!(
                 "cargo metadata failed:\nStdout: {}\nStderr: {}",
                 String::from_utf8_lossy(&output.stdout),
                 String::from_utf8_lossy(&output.stderr)
-            )
-            .into());
+            );
         }
 
         #[cfg(feature = "tool_traits_lib_enabled")]
@@ -64,7 +63,8 @@ impl WorkspaceGenerator for DefaultWorkspaceGenerator {
         #[cfg(feature = "tool_traits_lib_enabled")]
         let metadata: serde_json::Value = serde_adapter
             .from_str(String::from_utf8_lossy(&output.stdout).as_ref())
-            .map_err(|e| format!("Failed to parse cargo metadata output: {}", e))?;
+            .map_err(anyhow::Error::msg) // Convert String error to anyhow::Error
+            .context("Failed to parse cargo metadata output")?;
         #[cfg(not(feature = "tool_traits_lib_enabled"))]
         let metadata: serde_json::Value = serde_json::Value::Null; // Dummy value
 
@@ -81,7 +81,7 @@ impl WorkspaceGenerator for DefaultWorkspaceGenerator {
                             || (current_version.is_some()
                                 && version > current_version.unwrap().as_str())
                         {
-                            all_dependencies.insert(name.to_string(), version.to_string());
+                            all_dependencies.insert(name.to_string(), version.to_string() as String);
                         }
                     }
                 }
@@ -132,7 +132,7 @@ impl WorkspaceGenerator for DefaultWorkspaceGenerator {
                         "./{}",
                         submodule_path
                             .strip_prefix(root_dir)
-                            .unwrap()
+                            .context("Failed to strip prefix from submodule path")?
                             .to_string_lossy()
                     )),
                 );
@@ -145,7 +145,7 @@ impl WorkspaceGenerator for DefaultWorkspaceGenerator {
         doc.insert("workspace", toml_edit::Item::Table(toml_edit::Table::new()));
         doc["workspace"]
             .as_table_mut()
-            .unwrap()
+            .ok_or_else(|| anyhow::anyhow!("Expected 'workspace' to be a table"))?
             .insert("dependencies", toml_edit::Item::Table(workspace_deps_table));
 
         if dry_run {
@@ -168,7 +168,7 @@ pub fn add_workspace_submodules(
     root_dir: &Path,
     dry_run: bool,
     executor: Arc<dyn Execv + Send + Sync>,
-) -> Result<(), Box<dyn std::error::Error>> {
+) -> anyhow::Result<()> {
     println!("Adding all submodules as path dependencies to [workspace.dependencies]...");
 
     let cargo_toml_path = root_dir.join("Cargo.toml");
@@ -178,10 +178,10 @@ pub fn add_workspace_submodules(
 
     let workspace_deps = doc
         .get_mut("workspace")
-        .and_then(|item| item.as_table_mut())
-        .and_then(|table| table.get_mut("dependencies"))
-        .and_then(|item| item.as_table_mut())
-        .ok_or("Could not find [workspace.dependencies] in Cargo.toml")?;
+        .and_then(|item: &mut Item| item.as_table_mut())
+        .and_then(|table: &mut Table| table.get_mut("dependencies"))
+        .and_then(|item: &mut Item| item.as_table_mut())
+        .ok_or_else(|| anyhow::anyhow!("Could not find [workspace.dependencies] in Cargo.toml"))?;
 
     let mut submodule_names: Vec<String> = fs::read_dir(&submodules_dir)?
         .filter_map(|entry| {
@@ -258,7 +258,7 @@ pub fn comment_submodule_workspaces(
     root_dir: &Path,
     dry_run: bool,
     executor: Arc<dyn Execv + Send + Sync>,
-) -> Result<(), Box<dyn std::error::Error>> {
+) -> anyhow::Result<()> {
     println!("Commenting out [workspace] sections in submodule Cargo.toml files...");
 
     let submodules_dir = root_dir.join("submodules");
@@ -304,3 +304,5 @@ pub fn comment_submodule_workspaces(
     println!("Finished commenting out [workspace] sections.");
     Ok(())
 }
+
+

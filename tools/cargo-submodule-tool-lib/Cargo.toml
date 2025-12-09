@@ -1,7 +1,7 @@
 [package]
 name = "cargo-submodule-tool-lib"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 
 [dependencies]
 anyhow = { workspace = true, optional = true }
@@ -32,7 +32,8 @@ tool-traits-lib = { path = "../tool-traits-lib", optional = true } # Added new d
 url = { workspace = true, optional = true }
 walkdir = { workspace = true, optional = true }
 real-regex-adapter-lib = { path = "../real-regex-adapter-lib", optional = true }
-cargo-repo-sync-lib = { path = "../cargo-repo-sync-lib", optional = true }
+clap = { workspace = true, features = ["derive", "env"], optional = true }
+
 
 [features]
 
@@ -41,7 +42,7 @@ git2_enabled = ["dep:git2"]
 sha1_enabled = ["dep:sha1"]
 serde_json_enabled = ["dep:serde_json"]
 git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
-default = ["dummy_tools", "tool_traits_lib_enabled", "anyhow_enabled", "serde_enabled", "toml_enabled", "walkdir_enabled", "cargo_repo_sync_lib_enabled", "cargo_metadata_enabled", "git_wrapper_lib_enabled", "toml_edit_enabled", "real_regex_adapter_lib_enabled"]
+default = ["anyhow_enabled", "tool_traits_lib_enabled", "git_wrapper_lib_enabled", "real_regex_adapter_lib_enabled", "cargo_metadata_enabled", "toml_edit_enabled", "walkdir_enabled", "serde_enabled"]
 dummy_tools = [] # No optional dependencies enabled by default
 
 
@@ -60,7 +61,7 @@ pathdiff_enabled = ["dep:pathdiff"]
 url_enabled = ["dep:url"]
 lru_enabled = ["dep:lru"]
 
-clap_enabled = [] #FIXME: merge with cli
+clap_enabled = ["dep:clap"]
 cli = []
 
 toml_enabled = ["dep:toml"]
@@ -71,3 +72,14 @@ serde_enabled = ["dep:serde", "dep:serde_json"]
 anyhow_enabled = ["dep:anyhow"]
 tool_traits_lib_enabled = ["dep:tool-traits-lib"]
 cargo_repo_sync_lib_enabled = [] # Declare it as a feature
+
+
+[[bin]]
+name = "add_submodules"
+path = "src/bin/add_submodules.rs"
+required-features = ["clap_enabled"]
+
+[[bin]]
+name = "cargo-submodule-tool" # Assuming main.rs corresponds to this binary name
+path = "src/main.rs"
+required-features = ["clap_enabled"]

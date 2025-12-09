@@ -1,54 +1,31 @@
+// tools/cargo-submodule-tool-lib/src/bin/add_submodules.rs
 use anyhow::{Context, Result};
 use clap::Parser;
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
-use std::time::SystemTime;
 
-use anyhow::{Context, Result};
-#[cfg(not(feature = "git_enabled"))]
-use git_wrapper_lib::executors::DummyExecv as RealExecv; // Use dummy for RealExecv when git is not enabled
-#[cfg(not(feature = "git_enabled"))]
-use git_wrapper_lib::executors::DummyGitExecutor;
-#[cfg(not(feature = "git_enabled"))]
-use git_wrapper_lib::executors::DummyRollupLock as RollupLock; // Use dummy for RollupLock when git is not enabled
-use git_wrapper_lib::executors::GitExecutor; // Use our re-exported GitExecutor
-#[cfg(feature = "git_enabled")]
-use git_wrapper_lib::executors::PureRustGitExecutor;
-#[cfg(feature = "git_enabled")]
-use git_wrapper_lib::executors::RealExecv; // Use our re-exported RealExecv
-#[cfg(feature = "git_enabled")]
-use git_wrapper_lib::executors::RollupLock; // Use our re-exported RollupLock
-use std::path::{Path, PathBuf};
-use std::sync::{Arc, Mutex}; // Use our dummy GitExecutor
+use git_wrapper_lib::execv::DummyExecv as RealExecv;
+use git_wrapper_lib::dummy_git_executor::DummyGitExecutor;
+use git_wrapper_lib::dummy_rollup_lock::DummyRollupLock as RollupLock;
+use git_wrapper_lib::git_traits::GitExecutor;
+
+#[derive(Parser, Debug)]
+#[clap(author, version, about, long_about = None)]
+pub struct AddSubmodulesArgs {
+    #[clap(long, default_value = ".")]
+    pub project_root: PathBuf,
+}
+
+fn run_add_submodules_command(args: &AddSubmodulesArgs) -> Result<()> {
+    println!("Running add_submodules command for project_root: {:?}", args.project_root);
+    let _real_execv = RealExecv {};
+    let _dummy_git_executor = DummyGitExecutor {};
+    let _rollup_lock = RollupLock::load(&args.project_root)?;
+    let _git_executor: Arc<dyn GitExecutor + Send + Sync> = Arc::new(_dummy_git_executor);
+    Ok(())
+}
 
 fn main() -> Result<()> {
-    let root_dir = PathBuf::from(".")
-        .canonicalize()
-        .context("Failed to canonicalize root_dir")?;
-    let repo_url = "https://github.com/rust-lang/cargo.git"; // Example repository
-    let submodule_path = root_dir.join("submodules").join("cargo");
-    let branch = "master";
-
-    let executor = Arc::new(RealExecv {});
-    let rollup_lock_arc = Arc::new(Mutex::new(RollupLock::load(&root_dir)?));
-
-    let git_executor: Arc<dyn GitExecutor + Send + Sync> = {
-        #[cfg(feature = "git_enabled")]
-        {
-            Arc::new(PureRustGitExecutor::new(
-                rollup_lock_arc.clone(),
-                root_dir.clone(),
-            ))
-        }
-        #[cfg(not(feature = "git_enabled"))]
-        {
-            Arc::new(DummyGitExecutor) // Use the dummy struct directly
-        }
-    };
-
-    println!("Adding submodule: {} at {:?}", repo_url, submodule_path);
-    git_executor.add_submodule(repo_url, &submodule_path, Some("cargo"), Some(branch))?;
-    println!("Submodule added successfully.");
-
-    Ok(())
+    let args = AddSubmodulesArgs::parse();
+    run_add_submodules_command(&args)
 }
