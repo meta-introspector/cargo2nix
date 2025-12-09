@@ -1734,3 +1734,6 @@
 	url = https://github.com/meta-introspector/claude-code-mux
 [submodule "submodules/rust/"]
 	url = https://github.com/meta-introspector/rust
+[submodule "submodules/unicode-bom"]
+	path = submodules/unicode-bom
+	url = https://github.com/meta-introspector/unicode-bom
