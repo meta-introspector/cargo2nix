@@ -2,6 +2,9 @@ pub const MONSTER_GROUP_REPRESENTATION_DIMENSION: u32 = 196883;
 pub const MONSTER_GROUP_ORDER_STR: &str = "808017424794512875886459904961710757005754368000000000";
 pub const MONSTER_GROUP_SUPERSINGULAR_PRIME_FACTORS_COUNT: u32 = 108;
 
+pub const HECKE_EIGENVALUES: &[i64] = &[1, -24, 252, -1472, 4830, -6048, -16744]; // Placeholder values
+pub const RAMANUJAN_TAU_COEFFICIENTS: &[i64] = &[1, -24, 252, -1472, 4830, -6048, -16744]; // Placeholder values
+
 // Placeholder functions for constraints and verification
 pub fn verify_ir_transformation_rank(rank: u32) -> bool {
     rank == MONSTER_GROUP_REPRESENTATION_DIMENSION
