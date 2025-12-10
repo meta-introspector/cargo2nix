@@ -589,9 +589,9 @@ members = [
     "submodules/expect-test",
     "submodules/dot-parser",
     "submodules/dot-parser/macros",
-    #"submodules/rocksdb",
-        #"submodules/rocksdb/librocksdb-sys",
-        "crates/trait-fixer-attribute-reader-trait",
+    "submodules/rocksdb",
+    "submodules/rocksdb/librocksdb-sys",
+   "crates/trait-fixer-attribute-reader-trait",
         "crates/trait-fixer-attribute-reader-real",
         "crates/trait-fixer-attribute-reader-mock",
         "crates/trait-fixer-compiler-host-trait",
@@ -618,6 +618,8 @@ members = [
         "crates/trait-fixer-trait-checker-mock",
         "tests/trait_fixer_mocks",
         "tests/real_rules_test",
+	"submodules/rust/crates/cvs-macro-lib",
+    "submodules/rust/crates/cvs-macro-test-crate",
 	#"patcher",
     ]
 exclude = [

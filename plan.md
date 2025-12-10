@@ -19,6 +19,24 @@ The project build was failing with several errors. The following issues have bee
             *   Explicitly setting `LIBCLANG_FLAGS` environment variable for `bindgen_rocksdb` to correctly specify `sysroot` and include paths.
             *   Configuring `build_rocksdb` to use explicit `CPATH` environment variable and `sysroot` flag for `cc-rs` to ensure `g++` finds `stdlib.h`.
         *   Fixed `unused_fields` privacy error in `submodules/rust/compiler/rustc_target/src/spec/json.rs` by using `TargetWarnings::empty()` constructor.
+        *   **Fixed `E0658` (`debug_closure_helpers`) in `rustc_hir`:** Explicitly added `#![feature(debug_closure_helpers)]` to `submodules/rust/compiler/rustc_hir/src/lib.rs`.
+        *   **Resolved API changes in `rustc_target` impacting `rustc_session`:**
+            *   Updated all `desc_symbol()` calls to `desc()` for `PanicStrategy`, `RelocModel`, `Abi`, `Arch`, `Env`, and `Os`.
+            *   Modified `min_atomic_width()` and `max_atomic_width()` to access fields directly (`min_atomic_width.unwrap_or(0)` and `max_atomic_width.unwrap_or(u64::MAX)`).
+            *   Changed `vendor_symbol()` to `vendor.as_str()`.
+            *   Replaced `Target::search()` with `targets::load_builtin()` and `Target::builtins()` with `targets::load_all_builtins()`, adjusting error handling and imports (`use rustc_target::spec::targets;` and `use rustc_target::spec::TargetWarnings;`) as necessary in `rustc_session/src/config/cfg.rs` and `rustc_session/src/session.rs`.
+            *   Converted `&str` to `Symbol` using `Symbol::intern()` for all arguments passed to the `ins_sym!` macro.
+            *   Enabled unstable feature `str_as_str` by adding `#![feature(str_as_str)]` to `submodules/rust/compiler/rustc_session/src/config/cfg.rs`.
+        *   **`crates/trait-fixer-hir-info-trait/src/lib.rs`:**
+            *   Corrected import of `OwnerId` from `rustc_hir_id` to `rustc_hir`.
+            *   Corrected import of `ItemKind` from `rustc_hir::hir` to `rustc_hir`.
+            *   Corrected import of `Span` from `rustc_span::span_encoding` to `rustc_span`.
+        *   **`submodules/rust/compiler/rustc_expand` module refactoring:**
+            *   **Refactored `ast_fragments_defs.rs`:** Moved `ast_fragments!` macro definition, `AstFragment`, `AstFragmentKind` enums, `SupportsMacroExpansion` enum, `impl AstFragmentKind` block, `AddSemicolon` enum, `DummyAstNode` trait and implementations, `InvocationCollectorNode` trait and implementations, `ParserAnyMacro` struct and `impl ParserAnyMacro` block, and `impl MacResult for ParserAnyMacro` (generated within the macro) into a new file `submodules/rust/compiler/rustc_expand/src/ast_fragments_defs.rs`.
+            *   Updated `submodules/rust/compiler/rustc_expand/src/expand.rs` to remove the moved code and import items from `ast_fragments_defs.rs`.
+            *   Updated `submodules/rust/compiler/rustc_expand/src/lib.rs` to declare `mod ast_fragments_defs;`.
+            *   Updated imports in `submodules/rust/compiler/rustc_expand/src/mbe/diagnostics.rs`, `src/mbe/macro_rules.rs`, `src/placeholders.rs`, `src/stats.rs`, `src/base.rs`, and `src/proc_macro_server.rs` to correctly import types from `crate::expand` or `crate::ast_fragments_defs` as appropriate.
+            *   Explicitly qualified `AstFragmentKind` with `self::` in `const KIND: ...` declarations and `AstFragmentKind::...` patterns within `ast_fragments_defs.rs`.
 
 *   **`rustc_llvm` Compilation Errors:**
     *   **Problem:** Incompatibility between `rustc_llvm`'s C++ wrappers and LLVM 19.1.7, manifesting as errors like `no member named 'SanitizeRealtime'` and `fatal error: 'llvm/Transforms/Instrumentation/RealtimeSanitizer.h' file not found`.

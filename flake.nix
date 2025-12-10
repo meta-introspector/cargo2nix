@@ -73,6 +73,7 @@
             export RUSTC_BOOTSTRAP=1;
             export NIX_GLIBC_DEV="${pkgs.glibc.dev}";
             export NIX_GCC_PATH="${pkgs.gcc}";
+            export NIX_GCC_REAL_PATH="${pkgs.gcc.cc}";
 
             # # Ensure cargo is available in PATH for cargo build inside nix develop
             
@@ -137,6 +138,7 @@
             export RUSTC_BOOTSTRAP=1;
             export NIX_GLIBC_DEV="${pkgs.glibc.dev}";
             export NIX_GCC_PATH="${pkgs.gcc}";
+            export NIX_GCC_REAL_PATH="${pkgs.gcc.cc}";
             export CFLAGS="-O2 -g";
             export CXXFLAGS="-O2 -g -isystem ${pkgs.glibc.dev}/include";
             export LIBCLANG_FLAGS="--sysroot=${pkgs.glibc.dev}"; # For bindgen to find stdbool.h

@@ -3559,6 +3559,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "cvs-macro-lib"
+version = "0.1.0"
+
+[[package]]
+name = "cvs-macro-test-crate"
+version = "0.1.0"
+dependencies = [
+ "cvs-macro-lib",
+]
+
+[[package]]
 name = "darling"
 version = "0.20.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -12698,6 +12709,7 @@ name = "rustc_target"
 version = "0.0.0"
 dependencies = [
  "bitflags 2.9.1",
+ "cvs-macro-lib",
  "object 0.37.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "rustc_abi",
  "rustc_data_structures",
