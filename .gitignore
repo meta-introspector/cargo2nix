@@ -23,7 +23,7 @@ nixbuild.log
 submodules/#*#
 submodules/.#*
 submodules/*.sh~
-submodules/todo.txt
+
 # Emacs backup files
 *~
 # Emacs auto-save files
@@ -34,7 +34,7 @@ vendor-hide
 feature_permutation_cache.json
 feature_permutation_report.jsontools/cargo-llm-bootstrap/compilation_results/
 
-todo.txt
+
 # Database files - local development only
 tools/rust-71-parts/*.db
 tools/rust-71-parts/*.db/
@@ -60,6 +60,15 @@ log*.txt.git
 str.txt
 meme.org
 plan.org.old
+
+# Temporary build/log files
+curl_sys_build_rs_changes.rs
+curl_sys_build_rs_changes_v2.rs
+error_output.txt
+error_report.md
+submodules/gitstatus.txt
+submodules/todo.txt
+submodules/todo2.txt
 
 # Executables/build artifacts from previous `src/bin` deletion or generation
 actual_rustc_analyzer
