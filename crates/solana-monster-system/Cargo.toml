@@ -83,6 +83,7 @@ real-toml-adapter-lib = { path = "../../tools/real-toml-adapter-lib", features =
 real-regex-adapter-lib = { path = "../../tools/real-regex-adapter-lib" }
 real-walkdir-adapter-lib = { path = "../../tools/real-walkdir-adapter-lib", features = ["walkdir_enabled"] }
 rocksdb  = { workspace=true } #  = "0.21.0"
+cargo2nix = { path = "../../crates/cargo2nix" }
 
 [build-dependencies]
 
