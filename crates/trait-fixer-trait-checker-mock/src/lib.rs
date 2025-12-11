@@ -1,10 +1,10 @@
 // crates/trait-fixer-trait-checker-mock/src/lib.rs
 
-use trait_fixer_rustc_mock::{DefId, MockTy, MockTyCtxt};
+use trait_fixer_rustc_mock::{DefId, MockTy, TyCtxt};
 use trait_fixer_trait_checker_trait::TraitChecker; // Using MockTy for adt_ty
 
 // Implementation for MockTyCtxt
-impl<'tcx> TraitChecker<'tcx> for MockTyCtxt<'tcx> {
+impl<'tcx> TraitChecker<'tcx> for TyCtxt<'tcx> {
     fn get_trait_def_id(&self, _trait_name: &str) -> Option<DefId> {
         Some(DefId) // Always return a dummy DefId for mock
     }

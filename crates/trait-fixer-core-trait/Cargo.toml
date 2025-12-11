@@ -7,3 +7,4 @@ edition = "2021"
 rustc_span = { workspace = true } # for Span
 rustc_hir = { workspace = true } # for ItemId, DefId
 rustc_middle = { workspace = true } # for TyCtxt
+trait-fixer-rules-trait = { path = "../trait-fixer-rules-trait" }

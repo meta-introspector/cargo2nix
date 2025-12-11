@@ -2,14 +2,13 @@
 
 use rustc_hir::def_id::DefId;
 use rustc_infer::infer::{InferCtxt, TyCtxtInferExt};
-use rustc_middle::ty::subst;
-use rustc_middle::ty::Binder;
+use rustc_middle::ty::{Substs, Binder};
 use rustc_middle::ty::{ParamEnv, Predicate, Ty, TyCtxt, TypingMode};
 use rustc_span::symbol::Symbol;
 use rustc_span::DUMMY_SP;
 use rustc_trait_selection::traits::{
     ObligationCause, ObligationCauseCode, PredicateObligation, TraitEngine,
-}; // For subst::Substs::empty()
+}; // For Substs::empty()
 
 use trait_fixer_trait_checker_trait::TraitChecker; // Import the trait
 
@@ -50,8 +49,8 @@ impl<'tcx> TraitChecker<'tcx> for TyCtxt<'tcx> {
         );
 
         let infcx = tcx.infer_ctxt().build(TypingMode::default());
-        infcx.probe(|_infcx| {
-            _infcx
+        infcx.probe(|| {
+            infcx
                 .at(&obligation.cause, obligation.param_env)
                 .predicate_may_hold(&obligation.predicate)
                 .is_ok()
