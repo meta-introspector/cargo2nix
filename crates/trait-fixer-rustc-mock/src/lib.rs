@@ -28,6 +28,7 @@ impl LocalDefId {
 }
 
 impl OwnerId {
+    pub const DUMMY: Self = Self; // Add DUMMY for OwnerId
     pub fn to_def_id(self) -> DefId {
         DefId
     }
