@@ -13,6 +13,9 @@ pub struct RealHirInfoItem<'tcx>(pub Item<'tcx>);
 
 // Implementation for RealHirInfoItem
 impl<'tcx> HirInfo<'tcx> for RealHirInfoItem<'tcx> {
+    type OwnerId = OwnerId;
+    type ItemKind = ItemKind<'tcx>;
+    type Span = Span;
     fn get_owner_id(&self) -> OwnerId {
         self.0.owner_id
     }
