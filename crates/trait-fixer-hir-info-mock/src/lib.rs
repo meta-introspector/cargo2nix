@@ -14,15 +14,19 @@ pub struct MockItem<'tcx>(pub Item<'tcx>, PhantomData<&'tcx ()>);
 
 // Implementation for Mock Item directly.
 impl<'tcx> HirInfo<'tcx> for MockItem<'tcx> {
-    fn get_owner_id(&self) -> OwnerId {
+    type OwnerId = OwnerId;
+    type ItemKind = ItemKind<'tcx>;
+    type Span = Span;
+
+    fn get_owner_id(&self) -> Self::OwnerId {
         OwnerId::DUMMY
     }
 
-    fn get_item_kind<'a>(&'a self) -> &'a ItemKind<'tcx> {
+    fn get_item_kind<'a>(&'a self) -> &'a Self::ItemKind {
         &ItemKind::Struct(PhantomData)
     }
 
-    fn get_item_span(&self) -> Span {
+    fn get_item_span(&self) -> Self::Span {
         DUMMY_SP
     }
 }
