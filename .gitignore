@@ -11,7 +11,7 @@ logs
 /cargo_build_log.log
 /full_build_log.log
 
-bin/
+# bin/ (Temporarily commented out)
 cargo-repro-script-*.sh
 run3.sh
 

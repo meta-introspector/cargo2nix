@@ -1,4 +1,4 @@
-use cargo2nix::minizinc_data_structures::{
+use crate::minizinc_data_structures::{
     EllipticFiber, MiniZincInput, MiniZincOutput, MiniZincValue, MonsterGroupParameters,
     MonsterStabilizer, TorusPoint,
 };
