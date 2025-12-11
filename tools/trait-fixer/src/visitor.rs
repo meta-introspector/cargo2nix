@@ -22,13 +22,13 @@ impl<'tcx> TraitFixer<'tcx> {
         for rule in &self.config.rule {
             match &rule.kind {
                 rules::RuleKind::AddDerive => {
-                    if let ItemKind::Struct(..) | ItemKind::Enum(..) | ItemKind::Union(..) = item.get_item_kind(&item) {
+                    if let ItemKind::Struct(..) | ItemKind::Enum(..) | ItemKind::Union(..) = item.get_item_kind() {
                         if rule.apply_to.contains(&format!("{:?}", item.get_item_kind(&item)).to_lowercase()) {
                             if rule.condition == "always" {
                                 let trait_name = rule.trait_name[0].clone();
-                                if !self.tcx.has_derive_attr(self.tcx, item.get_owner_id(&item).to_def_id(), &trait_name) {
+                                if !self.tcx.has_derive_attr(self.tcx, item.get_owner_id().to_def_id(), &trait_name) {
                                     self.fixes.push(Fix::AddDerive {
-                                        span: item.get_item_span(&item),
+                                        span: item.get_item_span(),
                                         trait_name,
                                     });
                                 }
@@ -37,7 +37,7 @@ impl<'tcx> TraitFixer<'tcx> {
                     }
                 }
                 rules::RuleKind::AddImpl if rule.trait_name[0] == "Clone" => {
-                    if let ItemKind::Struct(..) = item.get_item_kind(&item) {
+                    if let ItemKind::Struct(..) = item.get_item_kind() {
                         if rule.condition == "all_fields_clone" {
                             // typeck is needed to get the type of the item
                             let _typeck = self.tcx.typeck(item.get_owner_id(&item));
