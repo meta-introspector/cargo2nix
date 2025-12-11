@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 rustc_hir = { workspace = true }
 rustc_span = { workspace = true }
+rustc_hir_id = { workspace = true }

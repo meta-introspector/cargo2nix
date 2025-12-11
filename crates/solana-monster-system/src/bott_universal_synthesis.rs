@@ -1,12 +1,12 @@
 use crate::compiler_correctness_theorem::CompilerCorrectnessTheorem;
 use crate::dual_integrity_synthesis::DualIntegritySynthesis;
-use crate::quasi_fiber_bundle::QuasiFiberBundle;
+// use crate::quasi_fiber_bundle::QuasiFiberBundle;
 use std::collections::HashMap;
 
 /// Bott Universal Architectural Framework - Complete Synthesis
 pub struct BottUniversalSynthesis {
     /// Monster Group quasi fiber bundle foundation
-    fiber_bundle: QuasiFiberBundle,
+    // fiber_bundle: QuasiFiberBundle,
     /// Dual integrity verification system
     dual_integrity: DualIntegritySynthesis,
     /// Compiler correctness theorem prover
@@ -123,7 +123,7 @@ pub struct Complex {
 impl BottUniversalSynthesis {
     pub fn new() -> Self {
         Self {
-            fiber_bundle: QuasiFiberBundle::new(),
+            // fiber_bundle: QuasiFiberBundle::new(),
             dual_integrity: DualIntegritySynthesis::new(),
             correctness_theorem: CompilerCorrectnessTheorem::new(),
             universal_coordinator: UniversalCoordinator::new(),

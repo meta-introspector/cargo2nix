@@ -50,8 +50,8 @@ impl Symbol {
 
 pub mod sym {
     use super::Symbol;
-    pub const derive: Symbol = Symbol;
-    pub const Debug: Symbol = Symbol; // For lang_items().get_diagnostic_item(sym::Debug)
+    pub const DERIVE: Symbol = Symbol;
+    pub const DEBUG: Symbol = Symbol; // For lang_items().get_diagnostic_item(sym::Debug)
 }
 
 // --- Mock TyCtxt ---

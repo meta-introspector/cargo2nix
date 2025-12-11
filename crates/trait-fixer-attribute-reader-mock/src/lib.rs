@@ -20,7 +20,7 @@ impl<'tcx> AttributeReader<'tcx> for MockAttributeReaderTyCtxt<'tcx> {
     }
 
     fn sym_derive() -> Self::Symbol {
-        sym::derive
+        sym::DERIVE
     }
 
     fn sym_intern(s: &str) -> Self::Symbol {
