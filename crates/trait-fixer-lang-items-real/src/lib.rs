@@ -6,13 +6,15 @@ use rustc_span::symbol::sym;
 
 use trait_fixer_lang_items_trait::LangItems; // Import the trait
 
-// Implementation for TyCtxt
-impl<'tcx> LangItems<'tcx> for TyCtxt<'tcx> {
+pub struct RustcTyCtxt<'tcx>(pub TyCtxt<'tcx>);
+
+// Implementation for RustcTyCtxt
+impl<'tcx> LangItems<'tcx> for RustcTyCtxt<'tcx> {
     fn get_clone_trait_def_id(&self) -> Option<DefId> {
-        self.lang_items().clone_trait()
+        self.0.lang_items().clone_trait()
     }
 
     fn get_debug_trait_def_id(&self) -> Option<DefId> {
-        self.get_diagnostic_item(sym::Debug)
+        self.0.get_diagnostic_item(sym::Debug)
     }
 }

@@ -7,11 +7,11 @@ use std::hash::Hash;
 // This allows different implementations (mock or real) to provide their own types
 // for these items, as long as they satisfy the specified bounds.
 pub trait HirInfo<'tcx> {
-    type OwnerId: Debug + Clone + Copy + PartialEq + Eq + Hash;
+    type OwnerId: Debug + Clone + Copy;
     // TODO: [CRQ-016] Remove Hash and Eq bounds due to rustc_hir::ItemKind not implementing them.
     // Re-evaluate if these bounds are necessary for the mocking strategy.
     // type ItemKind: Debug + Clone + Copy + PartialEq + Eq + Hash + 'tcx; // 'tcx lifetime needed for ItemKind
-    type ItemKind: Debug + Clone + Copy + PartialEq + 'tcx;
+    type ItemKind: Debug + Clone + 'tcx;
     type Span: Debug + Clone + Copy + PartialEq + Eq + Hash;
 
     fn get_owner_id(&self) -> Self::OwnerId;

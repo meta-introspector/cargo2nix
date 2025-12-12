@@ -1,0 +1,16 @@
+[package]
+name = "rustc_ast_fragments"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rustc_ast = { workspace = true }
+rustc_span = { workspace = true }
+rustc_errors = { workspace = true }
+rustc_parse = { workspace = true }
+smallvec = { workspace = true }
+rustc_ast_pretty = { workspace = true }
+rustc_attr_parsing = { workspace = true }
+rustc_feature = { workspace = true }
+rustc_hir = { workspace = true }
+rustc_session = { workspace = true }

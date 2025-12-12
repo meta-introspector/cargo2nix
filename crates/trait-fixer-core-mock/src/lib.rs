@@ -1,8 +1,9 @@
 // crates/trait-fixer-core-mock/src/lib.rs
 
 use trait_fixer_core_trait::{CoreFixer, Fix};
-use trait_fixer_rules;
-use trait_fixer_rustc_mock::{Item, MockTyCtxt}; // Need Mock Item // For rules::Config
+use trait_fixer_rules_trait::ConfigTrait;
+use trait_fixer_rules_real as trait_fixer_rules;
+use trait_fixer_rustc_mock::{Item, TyCtxt as MockTyCtxt}; // Need Mock Item // For rules::Config
 
 pub struct MockTraitFixer<'tcx> {
     pub tcx: MockTyCtxt<'tcx>,
@@ -18,11 +19,11 @@ impl<'tcx> MockTraitFixer<'tcx> {
     }
 }
 
-impl<'tcx> CoreFixer<'tcx> for MockTraitFixer<'tcx> {
+impl<'tcx> CoreFixer<'tcx, trait_fixer_rules::Config> for MockTraitFixer<'tcx> {
     fn new(tcx: MockTyCtxt<'tcx>) -> Self {
         Self {
             tcx,
-            config: trait_fixer_rules::Config::load(), // Load real config for now
+            config: <trait_fixer_rules::Config as ConfigTrait>::load(), // Load real config for now
             fixes: Vec::new(),
         }
     }

@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 trait-fixer-trait-checker-trait = { path = "../trait-fixer-trait-checker-trait" }
 trait-fixer-rustc-mock = { path = "../trait-fixer-rustc-mock" }
+rustc_hir = { workspace = true }

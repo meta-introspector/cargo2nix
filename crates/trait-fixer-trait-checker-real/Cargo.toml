@@ -9,4 +9,6 @@ rustc_infer = { workspace = true }
 rustc_trait_selection = { workspace = true }
 rustc_span = { workspace = true }
 rustc_hir = { workspace = true } # for DefId
+rustc_index = { workspace = true }
 trait-fixer-trait-checker-trait = { path = "../trait-fixer-trait-checker-trait" }
+trait-fixer-rustc-mock = { path = "../trait-fixer-rustc-mock" }

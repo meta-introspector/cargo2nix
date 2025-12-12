@@ -1,11 +1,9 @@
 // crates/trait-fixer-core-real/src/lib.rs
 
-use rustc_hir::Item;
-use rustc_hir::ItemKind; // Needed for ItemKind
-use rustc_middle::ty::TyCtxt;
-use rustc_middle::ty::subst; // Needed for subst::Substs::empty()
-use trait_fixer_core_trait::{CoreFixer, Fix};
-use trait_fixer_rules_trait::{ConfigTrait, RuleKind}; // Import RuleKind
+use rustc_hir::{self as hir, ItemKind}; // Needed for ItemKind
+use rustc_middle::ty::{TyCtxt, GenericArgs, GenericArgsRef};
+use trait_fixer_core_trait::{ConfigTrait, CoreFixer, Fix}; // Updated from trait_fixer_rules_trait
+use trait_fixer_rules_trait::RuleKind; // RuleKind is from rules_trait
 use trait_fixer_attribute_reader_trait::AttributeReader; // To use has_derive_attr from TyCtxt
 use trait_fixer_lang_items_trait::LangItems; // To use get_clone_trait_def_id from TyCtxt
 use trait_fixer_trait_checker_trait::TraitChecker; // To use type_implements_trait from TyCtxt
@@ -81,7 +79,7 @@ where
                     if let ItemKind::Struct(..) = real_hir_info.get_item_kind() {
                         if rule.condition == "all_fields_clone" {
                             let _typeck = self.tcx.typeck(real_hir_info.get_owner_id());
-                            let adt_ty = self.tcx.type_of(real_hir_info.get_owner_id()).instantiate(self.tcx, subst::Substs::empty());
+                            let adt_ty = self.tcx.type_of(real_hir_info.get_owner_id()).instantiate(self.tcx, GenericArgs::identity_for_item(self.tcx, real_hir_info.get_owner_id().to_def_id()));
 
                             let trait_def_id = self.tcx.get_clone_trait_def_id();
 

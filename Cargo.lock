@@ -16200,6 +16200,8 @@ version = "0.1.0"
 dependencies = [
  "trait-fixer-core-trait",
  "trait-fixer-rules-mock",
+ "trait-fixer-rules-real",
+ "trait-fixer-rules-trait",
  "trait-fixer-rustc-mock",
 ]
 
@@ -16207,9 +16209,16 @@ dependencies = [
 name = "trait-fixer-core-real"
 version = "0.1.0"
 dependencies = [
+ "rustc_hir",
  "rustc_middle",
+ "trait-fixer-attribute-reader-trait",
  "trait-fixer-core-trait",
+ "trait-fixer-hir-info-real",
+ "trait-fixer-hir-info-trait",
+ "trait-fixer-lang-items-trait",
  "trait-fixer-rules-real",
+ "trait-fixer-rules-trait",
+ "trait-fixer-trait-checker-trait",
 ]
 
 [[package]]
@@ -16219,6 +16228,7 @@ dependencies = [
  "rustc_hir",
  "rustc_middle",
  "rustc_span",
+ "trait-fixer-rules-trait",
 ]
 
 [[package]]
@@ -16251,6 +16261,8 @@ dependencies = [
 name = "trait-fixer-lang-items-mock"
 version = "0.1.0"
 dependencies = [
+ "rustc_hir",
+ "rustc_span",
  "trait-fixer-lang-items-trait",
  "trait-fixer-rustc-mock",
 ]
@@ -16342,6 +16354,7 @@ version = "0.1.0"
 name = "trait-fixer-trait-checker-mock"
 version = "0.1.0"
 dependencies = [
+ "rustc_hir",
  "trait-fixer-rustc-mock",
  "trait-fixer-trait-checker-trait",
 ]
@@ -16351,10 +16364,12 @@ name = "trait-fixer-trait-checker-real"
 version = "0.1.0"
 dependencies = [
  "rustc_hir",
+ "rustc_index",
  "rustc_infer",
  "rustc_middle",
  "rustc_span",
  "rustc_trait_selection",
+ "trait-fixer-rustc-mock",
  "trait-fixer-trait-checker-trait",
 ]
 
