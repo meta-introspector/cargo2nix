@@ -1,0 +1,910 @@
+use rustc_ast::{self as ast, NodeId};
+use rustc_ast::mut_visit::*;
+use rustc_ast::tokenstream::TokenStream;
+use rustc_ast::visit::{self, AssocCtxt, Visitor, VisitorResult, try_visit, walk_list};
+use rustc_ast::{
+    self as ast,
+    AstNodeWrapper,
+    AttrArgs,
+    AttrStyle,
+    AttrVec,
+    DUMMY_NODE_ID,
+    ExprKind,
+    ForeignItemKind,
+    HasAttrs,
+    HasNodeId,
+    Inline,
+    ItemKind,
+    MacStmtStyle,
+    MetaItemInner,
+    MetaItemKind,
+    ModKind,
+    NodeId,
+    PatKind,
+    StmtKind,
+    TyKind,
+    token,
+};
+use rustc_ast_pretty::pprust;
+use rustc_attr_parsing::{AttributeParser, Early, EvalConfigResult, ShouldEmit, validate_attr};
+use rustc_data_structures::flat_map_in_place::FlatMapInPlace;
+use rustc_data_structures::stack::ensure_sufficient_stack;
+use rustc_errors::PResult;
+use rustc_feature::Features;
+use rustc_hir::Target;
+use rustc_hir::def::MacroKinds;
+use rustc_hir::limit::Limit;
+use rustc_parse::parser::{
+    AttemptLocalParseRecovery,
+    CommaRecoveryMode,
+    ForceCollect,
+    Parser,
+    RecoverColon,
+    RecoverComma,
+    token_descr,
+};
+use rustc_session::Session;
+use rustc_session::lint::builtin::{UNUSED_ATTRIBUTES, UNUSED_DOC_COMMENTS};
+use rustc_session::parse::feature_err;
+use rustc_span::hygiene::SyntaxContext;
+use rustc_span::{ErrorGuaranteed, FileName, Ident, LocalExpnId, Span, Symbol, sym};
+use smallvec::SmallVec;
+
+use crate::base::{Annotatable, ExtCtxt, MacResult, SyntaxExtension, ExpandResult, DummyResult};
+use crate::config::{StripUnconfigured, attr_into_trace};
+use crate::errors::{
+    EmptyDelegationMac,
+    GlobDelegationOutsideImpls,
+    GlobDelegationTraitlessQpath,
+    IncompleteParse,
+    RecursionLimitReached,
+    RemoveExprNotSupported,
+    RemoveNodeNotSupported,
+    UnsupportedKeyValue,
+    WrongFragmentKind,
+};
+use crate::fluent_generated;
+use crate::mbe::diagnostics::{self, annotate_err_with_kind};
+use crate::module::{
+    DirOwnership,
+    ParsedExternalMod,
+    mod_dir_path,
+    mod_file_path_from_attr,
+    parse_external_mod,
+};
+use crate::placeholders::{PlaceholderExpander, placeholder};
+use crate::stats;
+use crate::module::pat::{ModuleData, ExpansionData, InvocationKind, Invocation};
+use crate::errors;
+use rustc_lint_defs::builtin::SEMICOLON_IN_EXPRESSIONS_FROM_MACROS;
+use std::rc::Rc;
+use std::{iter, mem, slice, sync::Arc};
+use crate::ast_fragments_enums::{AstFragment, AstFragmentKind};
+// use crate::ast_fragments_node_impls::{InvocationCollectorNode}; // This is problematic, will need to define locally or restructure
+
+
+pub enum SupportsMacroExpansion {
+    No,
+    Yes { supports_inner_attrs: bool },
+}
+
+impl AstFragmentKind {
+    pub fn supports_macro_expansion(self) -> SupportsMacroExpansion {
+        match self {
+            AstFragmentKind::OptExpr
+            | AstFragmentKind::Expr
+            | AstFragmentKind::MethodReceiverExpr
+            | AstFragmentKind::Stmts
+            | AstFragmentKind::Ty
+            | AstFragmentKind::Pat => SupportsMacroExpansion::Yes { supports_inner_attrs: false },
+            AstFragmentKind::Items
+            | AstFragmentKind::TraitItems
+            | AstFragmentKind::ImplItems
+            | AstFragmentKind::TraitImplItems
+            | AstFragmentKind::ForeignItems
+            | AstFragmentKind::Crate => SupportsMacroExpansion::Yes { supports_inner_attrs: true },
+            AstFragmentKind::Arms
+            | AstFragmentKind::ExprFields
+            | AstFragmentKind::PatFields
+            | AstFragmentKind::GenericParams
+            | AstFragmentKind::Params
+            | AstFragmentKind::FieldDefs
+            | AstFragmentKind::Variants
+            | AstFragmentKind::WherePredicates => SupportsMacroExpansion::No,
+        }
+    }
+
+    pub(crate) fn expect_from_annotatables(
+        self,
+        items: impl IntoIterator<Item = Annotatable>,
+    ) -> AstFragment {
+        let mut items = items.into_iter();
+        match self {
+            AstFragmentKind::Arms => {
+                AstFragment::Arms(items.map(Annotatable::expect_arm).collect())
+            }
+            AstFragmentKind::ExprFields => {
+                AstFragment::ExprFields(items.map(Annotatable::expect_expr_field).collect())
+            }
+            AstFragmentKind::PatFields => {
+                AstFragment::PatFields(items.map(Annotatable::expect_pat_field).collect())
+            }
+            AstFragmentKind::GenericParams => {
+                AstFragment::GenericParams(items.map(Annotatable::expect_generic_param).collect())
+            }
+            AstFragmentKind::Params => {
+                AstFragment::Params(items.map(Annotatable::expect_param).collect())
+            }
+            AstFragmentKind::FieldDefs => {
+                AstFragment::FieldDefs(items.map(Annotatable::expect_field_def).collect())
+            }
+            AstFragmentKind::Variants => {
+                AstFragment::Variants(items.map(Annotatable::expect_variant).collect())
+            }
+            AstFragmentKind::WherePredicates => AstFragment::WherePredicates(
+                items.map(Annotatable::expect_where_predicate).collect(),
+            ),
+            AstFragmentKind::Items => {
+                AstFragment::Items(items.map(Annotatable::expect_item).collect())
+            }
+            AstFragmentKind::ImplItems => {
+                AstFragment::ImplItems(items.map(Annotatable::expect_impl_item).collect())
+            }
+            AstFragmentKind::TraitImplItems => {
+                AstFragment::TraitImplItems(items.map(Annotatable::expect_impl_item).collect())
+            }
+            AstFragmentKind::TraitItems => {
+                AstFragment::TraitItems(items.map(Annotatable::expect_trait_item).collect())
+            }
+            AstFragmentKind::ForeignItems => {
+                AstFragment::ForeignItems(items.map(Annotatable::expect_foreign_item).collect())
+            }
+            AstFragmentKind::Stmts => {
+                AstFragment::Stmts(items.map(Annotatable::expect_stmt).collect())
+            }
+            AstFragmentKind::Expr => AstFragment::Expr(
+                items.next().expect("expected exactly one expression").expect_expr(),
+            ),
+            AstFragmentKind::MethodReceiverExpr => AstFragment::MethodReceiverExpr(
+                items.next().expect("expected exactly one expression").expect_expr(),
+            ),
+            AstFragmentKind::OptExpr => {
+                AstFragment::OptExpr(items.next().map(Annotatable::expect_expr))
+            }
+            AstFragmentKind::Crate => {
+                AstFragment::Crate(items.next().expect("expected exactly one crate").expect_crate())
+            }
+            AstFragmentKind::Pat | AstFragmentKind::Ty => {
+                panic!("patterns and types aren't annotatable")
+            }
+        }
+    }
+}
+
+pub enum AddSemicolon {
+    Yes,
+    No,
+}
+
+/// Required for `visit_node` obtained an owned `Node` from `&mut Node`.
+pub trait DummyAstNode {
+    fn dummy() -> Self;
+}
+
+impl DummyAstNode for ast::Crate {
+    fn dummy() -> Self {
+        ast::Crate {
+            attrs: Default::default(),
+            items: Default::default(),
+            spans: Default::default(),
+            id: DUMMY_NODE_ID,
+            is_placeholder: Default::default(),
+        }
+    }
+}
+
+impl DummyAstNode for ast::Ty {
+    fn dummy() -> Self {
+        ast::Ty {
+            id: DUMMY_NODE_ID,
+            kind: TyKind::Dummy,
+            span: Default::default(),
+            tokens: Default::default(),
+        }
+    }
+}
+
+impl DummyAstNode for ast::Pat {
+    fn dummy() -> Self {
+        ast::Pat {
+            id: DUMMY_NODE_ID,
+            kind: PatKind::Wild,
+            span: Default::default(),
+            tokens: Default::default(),
+        }
+    }
+}
+
+impl DummyAstNode for ast::Expr {
+    fn dummy() -> Self {
+        ast::Expr::dummy()
+    }
+}
+
+pub struct MethodReceiverTag;
+impl DummyAstNode for AstNodeWrapper<ast::Expr, MethodReceiverTag> {
+    fn dummy() -> Self {
+        AstNodeWrapper::new(ast::Expr::dummy(), MethodReceiverTag)
+    }
+}
+
+/// A trait implemented for all `AstFragment` nodes and providing all pieces
+/// of functionality used by `InvocationCollector`.
+pub trait InvocationCollectorNode: HasAttrs + HasNodeId + Sized {
+    type OutputTy: Default;
+    type ItemKind = ItemKind;
+    const KIND: AstFragmentKind;
+    fn to_annotatable(self) -> Annotatable;
+    fn fragment_to_output(fragment: AstFragment) -> Self::OutputTy;
+    fn descr() -> &'static str { unreachable!() }
+    fn walk_flat_map(self, _collector: &mut InvocationCollector<'_, '_>) -> Self::OutputTy;
+    fn walk(&mut self, _collector: &mut InvocationCollector<'_, '_>);
+    fn is_mac_call(&self) -> bool { false }
+    fn take_mac_call(self) -> (Box<ast::MacCall>, ast::AttrVec, AddSemicolon) { unreachable!() }
+    fn delegation(&self) -> Option<(&ast::DelegationMac, &ast::Item<Self::ItemKind>)> { None }
+    fn delegation_item_kind(_deleg: Box<ast::Delegation>) -> Self::ItemKind { unreachable!() }
+    fn from_item(_item: ast::Item<Self::ItemKind>) -> Self { unreachable!() }
+    fn flatten_outputs(_outputs: impl Iterator<Item = Self::OutputTy>) -> Self::OutputTy { unreachable!() }
+    fn pre_flat_map_node_collect_attr(_cfg: &StripUnconfigured<'_>, _attr: &ast::Attribute) {}
+    fn post_flat_map_node_collect_bang(_output: &mut Self::OutputTy, _add_semicolon: AddSemicolon) {}
+    fn wrap_flat_map_node_walk_flat_map(
+        node: Self,
+        collector: &mut InvocationCollector<'_, '_>,
+        walk_flat_map: impl FnOnce(Self, &mut InvocationCollector<'_, '_>) -> Self::OutputTy,
+    ) -> Result<Self::OutputTy, Self> {
+        Ok(walk_flat_map(node, collector))
+    }
+    fn expand_cfg_false(
+        &mut self,
+        collector: &mut InvocationCollector<'_, '_>,
+        _pos: usize,
+        span: Span,
+    ) {
+        collector.cx.dcx().emit_err(RemoveNodeNotSupported { span, descr: Self::descr() });
+    }
+
+    /// All of the identifiers (items) declared by this node.
+    /// This is an approximation and should only be used for diagnostics.
+    fn declared_idents(&self) -> Vec<Ident> { vec![] }
+}
+
+pub fn build_single_delegations<'a, Node: InvocationCollectorNode>(
+    ecx: &ExtCtxt<'_>,
+    deleg: &'a ast::DelegationMac,
+    item: &'a ast::Item<Node::ItemKind>,
+    suffixes: &'a [(Ident, Option<Ident>)],
+    item_span: Span,
+    from_glob: bool,
+) -> impl Iterator<Item = ast::Item<Node::ItemKind>> + 'a {
+    if suffixes.is_empty() {
+        // Report an error for now, to avoid keeping stem for resolution and
+        // stability checks.
+        let kind = String::from(if from_glob { "glob" } else { "list" });
+        ecx.dcx().emit_err(EmptyDelegationMac { span: item.span, kind });
+    }
+
+    suffixes.iter().map(move |&(ident, rename)| {
+        let mut path = deleg.prefix.clone();
+        path.segments.push(ast::PathSegment { ident, id: ast::DUMMY_NODE_ID, args: None });
+
+        ast::Item {
+            attrs: item.attrs.clone(),
+            id: ast::DUMMY_NODE_ID,
+            span: if from_glob { item_span } else { ident.span },
+            vis: item.vis.clone(),
+            kind: Node::delegation_item_kind(Box::new(ast::Delegation {
+                id: ast::DUMMY_NODE_ID,
+                qself: deleg.qself.clone(),
+                path,
+                ident: rename.unwrap_or(ident),
+                rename,
+                body: deleg.body.clone(),
+                from_glob,
+            })),
+            tokens: None,
+        }
+    })
+}
+
+pub struct ExpansionConfig<'feat> {
+    pub crate_name: Symbol,
+    pub features: &'feat Features,
+    pub recursion_limit: Limit,
+    pub trace_mac: bool,
+    /// If false, strip `#[test]` nodes
+    pub should_test: bool,
+    /// If true, use verbose debugging for `proc_macro::Span`
+    pub span_debug: bool,
+    /// If true, show backtraces for proc-macro panics
+    pub proc_macro_backtrace: bool,
+}
+
+impl ExpansionConfig<'_> {
+    pub fn default(crate_name: Symbol, features: &Features) -> ExpansionConfig<'_> {
+        ExpansionConfig {
+            crate_name,
+            features,
+            // FIXME should this limit be configurable?
+            recursion_limit: Limit::new(1024),
+            trace_mac: false,
+            should_test: false,
+            span_debug: false,
+            proc_macro_backtrace: false,
+        }
+    }
+}
+
+// These are needed because the macro generates calls to them.
+fn walk_flat_map_item(collector: &mut InvocationCollector<'_, '_>, node: Box<ast::Item>) -> SmallVec<Box<ast::Item>, 1> {
+    ast::mut_visit::walk_flat_map_item(collector, node)
+}
+
+fn walk_flat_map_assoc_item(
+    collector: &mut InvocationCollector<'_, '_>,
+    node: Box<ast::AssocItem>,
+    ctxt: AssocCtxt,
+) -> SmallVec<Box<ast::AssocItem>, 1> {
+    ast::mut_visit::walk_flat_map_assoc_item(collector, node, ctxt)
+}
+
+fn walk_flat_map_foreign_item(
+    collector: &mut InvocationCollector<'_, '_>,
+    node: Box<ast::ForeignItem>,
+) -> SmallVec<Box<ast::ForeignItem>, 1> {
+    ast::mut_visit::walk_flat_map_foreign_item(collector, node)
+}
+
+fn walk_flat_map_variant(collector: &mut InvocationCollector<'_, '_>, node: ast::Variant) -> SmallVec<ast::Variant, 1> {
+    ast::mut_visit::walk_flat_map_variant(collector, node)
+}
+
+fn walk_flat_map_where_predicate(
+    collector: &mut InvocationCollector<'_, '_>,
+    node: ast::WherePredicate,
+) -> SmallVec<ast::WherePredicate, 1> {
+    ast::mut_visit::walk_flat_map_where_predicate(collector, node)
+}
+
+fn walk_flat_map_field_def(collector: &mut InvocationCollector<'_, '_>, node: ast::FieldDef) -> SmallVec<ast::FieldDef, 1> {
+    ast::mut_visit::walk_flat_map_field_def(collector, node)
+}
+
+fn walk_flat_map_pat_field(collector: &mut InvocationCollector<'_, '_>, node: ast::PatField) -> SmallVec<ast::PatField, 1> {
+    ast::mut_visit::walk_flat_map_pat_field(collector, node)
+}
+
+fn walk_flat_map_expr_field(collector: &mut InvocationCollector<'_, '_>, node: ast::ExprField) -> SmallVec<ast::ExprField, 1> {
+    ast::mut_visit::walk_flat_map_expr_field(collector, node)
+}
+
+fn walk_flat_map_param(collector: &mut InvocationCollector<'_, '_>, node: ast::Param) -> SmallVec<ast::Param, 1> {
+    ast::mut_visit::walk_flat_map_param(collector, node)
+}
+
+fn walk_flat_map_generic_param(
+    collector: &mut InvocationCollector<'_, '_>,
+    node: ast::GenericParam,
+) -> SmallVec<ast::GenericParam, 1> {
+    ast::mut_visit::walk_flat_map_generic_param(collector, node)
+}
+
+fn walk_flat_map_arm(collector: &mut InvocationCollector<'_, '_>, node: ast::Arm) -> SmallVec<ast::Arm, 1> {
+    ast::mut_visit::walk_flat_map_arm(collector, node)
+}
+
+fn walk_flat_map_stmt(collector: &mut InvocationCollector<'_, '_>, node: ast::Stmt) -> SmallVec<ast::Stmt, 1> {
+    ast::mut_visit::walk_flat_map_stmt(collector, node)
+}
+
+fn walk_crate(collector: &mut InvocationCollector<'_, '_>, node: &mut ast::Crate) {
+    ast::visit::walk_crate(collector, node)
+}
+
+fn walk_ty(collector: &mut InvocationCollector<'_, '_>, node: &mut ast::Ty) {
+    ast::visit::walk_ty(collector, node)
+}
+
+fn walk_pat(collector: &mut InvocationCollector<'_, '_>, node: &mut ast::Pat) {
+    ast::visit::walk_pat(collector, node)
+}
+
+fn walk_expr(collector: &mut InvocationCollector<'_, '_>, node: &mut ast::Expr) {
+    ast::visit::walk_expr(collector, node)
+}
+
+fn walk_block(collector: &mut InvocationCollector<'_, '_>, node: &mut ast::Block) {
+    ast::visit::walk_block(collector, node)
+}
+
+// InvocationCollector and its impls
+pub struct InvocationCollector<'a, 'b> {
+    pub cx: &'a mut ExtCtxt<'b>, // Made pub for access from ast_fragments_defs
+    pub invocations: Vec<(Invocation, Option<Arc<SyntaxExtension>>)>, // Made pub
+    pub monotonic: bool, // Made pub
+}
+
+impl<'a, 'b> InvocationCollector<'a, 'b> {
+    pub fn cfg(&self) -> StripUnconfigured<'_> { // Made pub
+        StripUnconfigured {
+            sess: self.cx.sess,
+            features: Some(self.cx.ecfg.features),
+            config_tokens: false,
+            lint_node_id: self.cx.current_expansion.lint_node_id,
+        }
+    }
+
+    pub fn collect(&mut self, fragment_kind: AstFragmentKind, kind: InvocationKind) -> AstFragment { // Made pub
+        let expn_id = LocalExpnId::fresh_empty();
+        if matches!(kind, InvocationKind::GlobDelegation { .. }) {
+            // In resolver we need to know which invocation ids are delegations early,
+            // before their `ExpnData` is filled.
+            self.cx.resolver.register_glob_delegation(expn_id);
+        }
+        let vis = kind.placeholder_visibility();
+        self.invocations.push((
+            Invocation {
+                kind,
+                fragment_kind,
+                expansion_data: ExpansionData {
+                    id: expn_id,
+                    depth: self.cx.current_expansion.depth + 1,
+                    ..self.cx.current_expansion.clone()
+                },
+            },
+            None,
+        ));
+        placeholder(fragment_kind, NodeId::placeholder_from_expn_id(expn_id), vis)
+    }
+
+    pub fn collect_bang(&mut self, mac: Box<ast::MacCall>, kind: AstFragmentKind) -> AstFragment { // Made pub
+        // cache the macro call span so that it can be
+        // easily adjusted for incremental compilation
+        let span = mac.span();
+        self.collect(kind, InvocationKind::Bang { mac, span })
+    }
+
+    pub fn collect_attr( // Made pub
+        &mut self,
+        (attr, pos, derives): (ast::Attribute, usize, Vec<ast::Path>),
+        item: Annotatable,
+        kind: AstFragmentKind,
+    ) -> AstFragment {
+        self.collect(kind, InvocationKind::Attr { attr, pos, item, derives })
+    }
+
+    pub fn collect_glob_delegation( // Made pub
+        &mut self,
+        item: Box<ast::AssocItem>,
+        of_trait: bool,
+        kind: AstFragmentKind,
+    ) -> AstFragment {
+        self.collect(kind, InvocationKind::GlobDelegation { item, of_trait })
+    }
+
+    /// If `item` is an attribute invocation, remove the attribute and return it together with
+    /// its position and derives following it. We have to collect the derives in order to resolve
+    /// legacy derive helpers (helpers written before derives that introduce them).
+    pub fn take_first_attr( // Made pub
+        &self,
+        item: &mut impl HasAttrs,
+    ) -> Option<(ast::Attribute, usize, Vec<ast::Path>)> {
+        let mut attr = None;
+
+        let mut cfg_pos = None;
+        let mut attr_pos = None;
+        for (pos, attr) in item.attrs().iter().enumerate() {
+            if !attr.is_doc_comment() && !self.cx.expanded_inert_attrs.is_marked(attr) {
+                let name = attr.ident().map(|ident| ident.name);
+                if name == Some(sym::cfg) || name == Some(sym::cfg_attr) {
+                    cfg_pos = Some(pos); // a cfg attr found, no need to search anymore
+                    break;
+                } else if attr_pos.is_none() 
+                    && !name.is_some_and(rustc_feature::is_builtin_attr_name)
+                {
+                    attr_pos = Some(pos); // a non-cfg attr found, still may find a cfg attr
+                }
+            }
+        }
+
+        item.visit_attrs(|attrs| {
+            attr = Some(match (cfg_pos, attr_pos) {
+                (Some(pos), _) => (attrs.remove(pos), pos, Vec::new()),
+                (_, Some(pos)) => {
+                    let attr = attrs.remove(pos);
+                    let following_derives = attrs[pos..]
+                        .iter()
+                        .filter(|a| a.has_name(sym::derive))
+                        .flat_map(|a| a.meta_item_list().unwrap_or_default())
+                        .filter_map(|meta_item_inner| match meta_item_inner {
+                            MetaItemInner::MetaItem(ast::MetaItem {
+                                kind: MetaItemKind::Word,
+                                path,
+                                ..
+                            }) => Some(path),
+                            _ => None,
+                        })
+                        .collect();
+
+                    (attr, pos, following_derives)
+                }
+                _ => return,
+            });
+        });
+
+        attr
+    }
+
+    // Detect use of feature-gated or invalid attributes on macro invocations
+    // since they will not be detected after macro expansion.
+    pub fn check_attributes(&self, attrs: &[ast::Attribute], call: &ast::MacCall) { // Made pub
+        let features = self.cx.ecfg.features;
+        let mut attrs = attrs.iter().peekable();
+        let mut span: Option<Span> = None;
+        while let Some(attr) = attrs.next() {
+            rustc_ast_passes::feature_gate::check_attribute(attr, self.cx.sess, features);
+            validate_attr.check_attr(
+                &self.cx.sess.psess,
+                attr,
+                self.cx.current_expansion.lint_node_id,
+            );
+            AttributeParser::parse_limited_all(
+                self.cx.sess,
+                slice::from_ref(attr),
+                None,
+                Target::MacroCall,
+                call.span(),
+                self.cx.current_expansion.lint_node_id,
+                Some(self.cx.ecfg.features),
+                ShouldEmit::ErrorsAndLints,
+            );
+
+            let current_span = if let Some(sp) = span { sp.to(attr.span) } else { attr.span };
+            span = Some(current_span);
+
+            if attrs.peek().is_some_and(|next_attr| next_attr.doc_str().is_some()) {
+                continue;
+            }
+
+            if attr.is_doc_comment() {
+                self.cx.sess.psess.buffer_lint(
+                    UNUSED_DOC_COMMENTS,
+                    current_span,
+                    self.cx.current_expansion.lint_node_id,
+                    crate::errors::MacroCallUnusedDocComment { span: attr.span },
+                );
+            } else if rustc_attr_parsing::is_builtin_attr(attr)
+                && !AttributeParser::<Early>::is_parsed_attribute(&attr.path())
+            {
+                let attr_name = attr.ident().unwrap().name;
+                // `#[cfg]` and `#[cfg_attr]` are special - they are
+                // eagerly evaluated.
+                if attr_name != sym::cfg_trace && attr_name != sym::cfg_attr_trace {
+                    self.cx.sess.psess.buffer_lint(
+                        UNUSED_ATTRIBUTES,
+                        attr.span,
+                        self.cx.current_expansion.lint_node_id,
+                        crate::errors::UnusedBuiltinAttribute {
+                            attr_name,
+                            macro_name: pprust::path_to_string(&call.path),
+                            invoc_span: call.path.span,
+                            attr_span: attr.span,
+                        },
+                    );
+                }
+            }
+        }
+    }
+
+    pub fn expand_cfg_true( // Made pub
+        &mut self,
+        node: &mut (impl HasAttrs + HasNodeId), // Changed to NodeId for HasNodeId, as HasNodeId is a trait
+        attr: ast::Attribute,
+        pos: usize,
+    ) -> EvalConfigResult {
+        let res = self.cfg().cfg_true(&attr, node.node_id(), ShouldEmit::ErrorsAndLints);
+        if res.as_bool() {
+            // A trace attribute left in AST in place of the original `cfg` attribute.
+            // It can later be used by lints or other diagnostics.
+            let trace_attr = attr_into_trace(attr, sym::cfg_trace);
+            node.visit_attrs(|attrs| attrs.insert(pos, trace_attr));
+        }
+
+        res
+    }
+
+    pub fn expand_cfg_attr(&self, node: &mut impl HasAttrs, attr: &ast::Attribute, pos: usize) { // Made pub
+        node.visit_attrs(|attrs| {
+            // Repeated `insert` calls is inefficient, but the number of
+            // insertions is almost always 0 or 1 in practice.
+            for cfg in self.cfg().expand_cfg_attr(attr, false).into_iter().rev() {
+                attrs.insert(pos, cfg)
+            }
+        });
+    }
+
+    pub fn flat_map_node<Node: InvocationCollectorNode<OutputTy: Default>>( // Made pub
+        &mut self,
+        mut node: Node,
+    ) -> Node::OutputTy {
+        loop {
+            return match self.take_first_attr(&mut node) {
+                Some((attr, pos, derives)) => match attr.name() {
+                    Some(sym::cfg) => {
+                        let res = self.expand_cfg_true(&mut node, attr, pos);
+                        match res {
+                            EvalConfigResult::True => continue,
+                            EvalConfigResult::False { reason, reason_span } => {
+                                for ident in node.declared_idents() {
+                                    self.cx.resolver.append_stripped_cfg_item(
+                                        self.cx.current_expansion.lint_node_id,
+                                        ident,
+                                        reason.clone(),
+                                        reason_span,
+                                    )
+                                }
+                            }
+                        }
+
+                        Default::default()
+                    }
+                    Some(sym::cfg_attr) => {
+                        self.expand_cfg_attr(&mut node, &attr, pos);
+                        continue;
+                    }
+                    _ => {
+                        Node::pre_flat_map_node_collect_attr(&self.cfg(), &attr);
+                        self.collect_attr((attr, pos, derives), node.to_annotatable(), Node::KIND)
+                            .make_ast::<Node>()
+                    }
+                },
+                None if node.is_mac_call() => {
+                    let (mac, attrs, add_semicolon) = node.take_mac_call();
+                    self.check_attributes(&attrs, &mac);
+                    let mut res = self.collect_bang(mac, Node::KIND).make_ast::<Node>();
+                    Node::post_flat_map_node_collect_bang(&mut res, add_semicolon);
+                    res
+                }
+                None if let Some((deleg, item)) = node.delegation() => {
+                    let Some(suffixes) = &deleg.suffixes else {
+                        let traitless_qself =
+                            matches!(&deleg.qself, Some(qself) if qself.position == 0);
+                        let (item, of_trait) = match node.to_annotatable() {
+                            Annotatable::AssocItem(item, AssocCtxt::Impl { of_trait }) => {
+                                (item, of_trait)
+                            }
+                            ann @ (Annotatable::Item(_) 
+                            | Annotatable::AssocItem(..)
+                            | Annotatable::Stmt(_)) => {
+                                let span = ann.span();
+                                self.cx.dcx().emit_err(GlobDelegationOutsideImpls { span });
+                                return Default::default();
+                            }
+                            _ => unreachable!(),
+                        };
+                        if traitless_qself {
+                            let span = item.span;
+                            self.cx.dcx().emit_err(GlobDelegationTraitlessQpath { span });
+                            return Default::default();
+                        }
+                        return self
+                            .collect_glob_delegation(item, of_trait, Node::KIND)
+                            .make_ast::<Node>();
+                    };
+
+                    let single_delegations = build_single_delegations::<Node>(
+                        self.cx, deleg, item, suffixes, item.span, false,
+                    );
+                    Node::flatten_outputs(single_delegations.map(|item| {
+                        let mut item = Node::from_item(item);
+                        assign_id!(self, item.node_id_mut(), || item.walk_flat_map(self))
+                    }))
+                }
+                None => {
+                    match Node::wrap_flat_map_node_walk_flat_map(node, self, |mut node, this| {
+                        assign_id!(this, node.node_id_mut(), || node.walk_flat_map(this))
+                    }) {
+                        Ok(output) => output,
+                        Err(returned_node) => {
+                            node = returned_node;
+                            continue;
+                        }
+                    }
+                }
+            };
+        }
+    }
+
+    pub fn visit_node<Node: InvocationCollectorNode<OutputTy: Into<Node>> + DummyAstNode>( // Made pub
+        &mut self,
+        node: &mut Node,
+    ) {
+        loop {
+            return match self.take_first_attr(node) {
+                Some((attr, pos, derives)) => match attr.name() {
+                    Some(sym::cfg) => {
+                        let span = attr.span;
+                        if self.expand_cfg_true(node, attr, pos).as_bool() {
+                            continue;
+                        }
+
+                        node.expand_cfg_false(self, pos, span);
+                        continue;
+                    }
+                    Some(sym::cfg_attr) => {
+                        self.expand_cfg_attr(node, &attr, pos);
+                        continue;
+                    }
+                    _ => {
+                        let n = mem::replace(node, Node::dummy());
+                        *node = self
+                            .collect_attr((attr, pos, derives), n.to_annotatable(), Node::KIND)
+                            .make_ast::<Node>()
+                            .into()
+                    }
+                },
+                None if node.is_mac_call() => {
+                    let n = mem::replace(node, Node::dummy());
+                    let (mac, attrs, _) = n.take_mac_call();
+                    self.check_attributes(&attrs, &mac);
+
+                    *node = self.collect_bang(mac, Node::KIND).make_ast::<Node>().into()
+                }
+                None if node.delegation().is_some() => unreachable!(),
+                None => {
+                    assign_id!(self, node.node_id_mut(), || node.walk(self))
+                }
+            };
+        }
+    }
+}
+
+impl<'a, 'b> MutVisitor for InvocationCollector<'a, 'b> {
+    fn flat_map_item(&mut self, node: Box<ast::Item>) -> SmallVec<Box<ast::Item>, 1> {
+        self.flat_map_node(node)
+    }
+
+    fn flat_map_assoc_item(
+        &mut self,
+        node: Box<ast::AssocItem>,
+        ctxt: AssocCtxt,
+    ) -> SmallVec<Box<ast::AssocItem>, 1> {
+        match ctxt {
+            AssocCtxt::Trait => self.flat_map_node(AstNodeWrapper::new(node, TraitItemTag)),
+            AssocCtxt::Impl { of_trait: false, .. } => {
+                self.flat_map_node(AstNodeWrapper::new(node, ImplItemTag))
+            }
+            AssocCtxt::Impl { of_trait: true, .. } => {
+                self.flat_map_node(AstNodeWrapper::new(node, TraitImplItemTag))
+            }
+        }
+    }
+
+    fn flat_map_foreign_item(
+        &mut self,
+        node: Box<ast::ForeignItem>,
+    ) -> SmallVec<Box<ast::ForeignItem>, 1> {
+        self.flat_map_node(node)
+    }
+
+    fn flat_map_variant(&mut self, node: ast::Variant) -> SmallVec<ast::Variant, 1> {
+        self.flat_map_node(node)
+    }
+
+    fn flat_map_where_predicate(
+        &mut self,
+        node: ast::WherePredicate,
+    ) -> SmallVec<ast::WherePredicate, 1> {
+        self.flat_map_node(node)
+    }
+
+    fn flat_map_field_def(&mut self, node: ast::FieldDef) -> SmallVec<ast::FieldDef, 1> {
+        self.flat_map_node(node)
+    }
+
+    fn flat_map_pat_field(&mut self, node: ast::PatField) -> SmallVec<ast::PatField, 1> {
+        self.flat_map_node(node)
+    }
+
+    fn flat_map_expr_field(&mut self, node: ast::ExprField) -> SmallVec<ast::ExprField, 1> {
+        self.flat_map_node(node)
+    }
+
+    fn flat_map_param(&mut self, node: ast::Param) -> SmallVec<ast::Param, 1> {
+        self.flat_map_node(node)
+    }
+
+    fn flat_map_generic_param(
+        &mut self,
+        node: ast::GenericParam,
+    ) -> SmallVec<ast::GenericParam, 1> {
+        self.flat_map_node(node)
+    }
+
+    fn flat_map_arm(&mut self, node: ast::Arm) -> SmallVec<ast::Arm, 1> {
+        self.flat_map_node(node)
+    }
+
+    fn flat_map_stmt(&mut self, node: ast::Stmt) -> SmallVec<ast::Stmt, 1> {
+        // FIXME: invocations in semicolon-less expressions positions are expanded as expressions,
+        // changing that requires some compatibility measures.
+        if node.is_expr() {
+            // The only way that we can end up with a `MacCall` expression statement,
+            // (as opposed to a `StmtKind::MacCall`) is if we have a macro as the
+            // trailing expression in a block (e.g. `fn foo() { my_macro!() }`).
+            // Record this information, so that we can report a more specific
+            // `SEMICOLON_IN_EXPRESSIONS_FROM_MACROS` lint if needed.
+            // See #78991 for an investigation of treating macros in this position
+            // as statements, rather than expressions, during parsing.
+            return match &node.kind {
+                StmtKind::Expr(expr)
+                    if matches!(**expr, ast::Expr { kind: ExprKind::MacCall(..), .. }) =>
+                {
+                    self.cx.current_expansion.is_trailing_mac = true;
+                    // Don't use `assign_id` for this statement - it may get removed
+                    // entirely due to a `#[cfg]` on the contained expression
+                    let res = walk_flat_map_stmt(self, node);
+                    self.cx.current_expansion.is_trailing_mac = false;
+                    res
+                }
+                _ => walk_flat_map_stmt(self, node),
+            };
+        }
+
+        self.flat_map_node(node)
+    }
+
+    fn visit_crate(&mut self, node: &mut ast::Crate) {
+        self.visit_node(node)
+    }
+
+    fn visit_ty(&mut self, node: &mut ast::Ty) {
+        self.visit_node(node)
+    }
+
+    fn visit_pat(&mut self, node: &mut ast::Pat) {
+        self.visit_node(node)
+    }
+
+    fn visit_expr(&mut self, node: &mut ast::Expr) {
+        // FIXME: Feature gating is performed inconsistently between `Expr` and `OptExpr`.
+        if let Some(attr) = node.attrs.first() {
+            self.cfg().maybe_emit_expr_attr_err(attr);
+        }
+        ensure_sufficient_stack(|| self.visit_node(node))
+    }
+
+    fn visit_method_receiver_expr(&mut self, node: &mut ast::Expr) {
+        self.visit_node(AstNodeWrapper::from_mut(node, MethodReceiverTag))
+    }
+
+    fn filter_map_expr(&mut self, node: Box<ast::Expr>) -> Option<Box<ast::Expr>> {
+        self.flat_map_node(AstNodeWrapper::new(node, OptExprTag))
+    }
+
+    fn visit_block(&mut self, node: &mut ast::Block) {
+        let orig_dir_ownership = mem::replace(
+            &mut self.cx.current_expansion.dir_ownership,
+            DirOwnership::UnownedViaBlock,
+        );
+        walk_block(self, node);
+        self.cx.current_expansion.dir_ownership = orig_dir_ownership;
+    }
+
+    fn visit_id(&mut self, id: &mut NodeId) {
+        // We may have already assigned a `NodeId`
+        // by calling `assign_id`
+        if self.monotonic && *id == ast::DUMMY_NODE_ID {
+            *id = self.cx.resolver.next_node_id();
+        }
+    }
+}

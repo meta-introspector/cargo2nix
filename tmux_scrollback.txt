@@ -1,0 +1,280 @@
+
+ ███            █████████  ██████████ ██████   ██████ █████ ██████   █████ █████
+░░░███         ███░░░░░███░░███░░░░░█░░██████ ██████ ░░███ ░░██████ ░░███ ░░███
+  ░░░███      ███     ░░░  ░███  █ ░  ░███░█████░███  ░███  ░███░███ ░███  ░███
+    ░░░███   ░███          ░██████    ░███░░███ ░███  ░███  ░███░░███░███  ░███
+     ███░    ░███    █████ ░███░░█    ░███ ░░░  ░███  ░███  ░███ ░░██████  ░███
+   ███░      ░░███  ░░███  ░███ ░   █ ░███      ░███  ░███  ░███  ░░█████  ░███
+ ███░         ░░█████████  ██████████ █████     █████ █████ █████  ░░█████ █████
+░░░            ░░░░░░░░░  ░░░░░░░░░░ ░░░░░     ░░░░░ ░░░░░ ░░░░░    ░░░░░ ░░░░░
+
+                                              v0.19.0-nightly.20251124.e177314a4
+Tips for getting started:
+1. Ask questions, edit files, or run commands.
+2. Be specific for the best results.
+3. /help for more information.
+✕ Automatic update failed. Please try updating manually
+
+$ git -C submodules/rust status
+╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ ✓  Shell Command git -C submodules/rust status                                                                                     │
+│                                                                                                                                    │
+│ On branch feature/smallvec                                                                                                         │
+│ Your branch is ahead of 'origin/feature/smallvec' by 8 commits.                                                                    │
+│   (use "git push" to publish your local commits)                                                                                   │
+│                                                                                                                                    │
+│ Changes not staged for commit:                                                                                                     │
+│   (use "git add <file>..." to update what will be committed)                                                                       │
+│   (use "git restore <file>..." to discard changes in working directory)                                                            │
+│         modified:   compiler/rustc_expand/src/ast_fragments_defs.rs                                                                │
+│         modified:   compiler/rustc_expand/src/lib.rs                                                                               │
+│                                                                                                                                    │
+│ no changes added to commit (use "git add" and/or "git commit -a")                                                                  │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+$ git status
+
+ℹ A new version of Gemini CLI is available! 0.19.0-nightly.20251124.e177314a4 → 0.21.0-nightly.20251211.8c83e1ea9
+  Installed with npm. Attempting to automatically update now...
+╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ ✓  Shell Command git status                                                                                                        │
+│                                                                                                                                    │
+│ On branch feature/v2-nixify                                                                                                        │
+│ Your branch is ahead of 'origin/feature/v2-nixify' by 20 commits.                                                                  │
+│   (use "git push" to publish your local commits)                                                                                   │
+│                                                                                                                                    │
+│ Changes not staged for commit:                                                                                                     │
+│   (use "git add <file>..." to update what will be committed)                                                                       │
+│   (use "git restore <file>..." to discard changes in working directory)                                                            │
+│   (commit or discard the untracked or modified content in submodules)                                                              │
+│         modified:   Cargo.lock                                                                                                     │
+│         modified:   crates/trait-fixer-trait-checker-real/Cargo.toml                                                               │
+│         modified:   submodules/cargo (untracked content)                                                                           │
+│         modified:   submodules/curl-rust (untracked content)                                                                       │
+│         modified:   submodules/git2-rs (untracked content)                                                                         │
+│         modified:   submodules/hyper (modified content)                                                                            │
+│         modified:   submodules/rusqlite (modified content)                                                                         │
+│         modified:   submodules/rust (new commits, modified content)                                                                │
+│                                                                                                                                    │
+│ Untracked files:                                                                                                                   │
+│   (use "git add <file>..." to include in what will be committed)                                                                   │
+│         build_log.txt                                                                                                              │
+│         crates/rustc_ast_fragments/                                                                                                │
+│         crates/rustc_ast_fragments_dev/                                                                                            │
+│         foo.txt                                                                                                                    │
+│         mockty.txt                                                                                                                 │
+│         repro-trait-fixer-hir-info-real-0.1.0.nix                                                                                  │
+│                                                                                                                                    │
+│ no changes added to commit (use "git add" and/or "git commit -a")                                                                  │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+$ git add crates/rustc_ast_fragments_dev crates/rustc_ast_fragments
+╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ ✓  Shell Command git add crates/rustc_ast_fragments_dev crates/rustc_ast_fragments                                                 │
+│                                                                                                                                    │
+│ (Command produced no output)                                                                                                       │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+$ git -C submodules/rust stash --help
+╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ ✓  Shell Command git -C submodules/rust stash --help                                                                               │
+│                                                                                                                                    │
+│ ...ed via git stash create (which is a dangling merge commit) in the stash ref,                                                    │
+│            updating the stash reflog. This is intended to be useful for scripts. It is probably not the command you                │
+│            want to use; see "push" above.                                                                                          │
+│                                                                                                                                    │
+│ OPTIONS                                                                                                                            │
+│        -a, --all                                                                                                                   │
+│            This option is only valid for push and save commands.                                                                   │
+│                                                                                                                                    │
+│            All ignored and untracked files are also stashed and then cleaned up with git clean.                                    │
+│                                                                                                                                    │
+│        -u, --include-untracked, --no-include-untracked                                                                             │
+│            When used with the push and save commands, all untracked files are also stashed and then cleaned up with                │
+│            git clean.                                                                                                              │
+│                                                                                                                                    │
+│            When used with the show command, show the untracked files in the stash entry as part of the diff.                       │
+│                                                                                                                                    │
+│        --only-untracked                                                                                                            │
+│            This option is only valid for the show command.                                                                         │
+│                                                                                                                                    │
+│            Show only the untracked files in the stash entry as part of the diff.                                                   │
+│                                                                                                                                    │
+│        --index                                                                                                                     │
+│            This option is only valid for pop and apply commands.                                                                   │
+│                                                                                                                                    │
+│            Tries to reinstate not only the working tree’s changes, but also the index’s ones. However, this can                    │
+│            fail, when you have conflicts (which are stored in the index, where you therefore can no longer apply the               │
+│            changes as they were originally).                                                                                       │
+│                                                                                                                                    │
+│        -k, --keep-index, --no-keep-index                                                                                           │
+│            This option is only valid for push and save commands.                                                                   │
+│                                                                                                                                    │
+│            All changes already added to the index are left intact.                                                                 │
+│                                                                                                                                    │
+│        -p, --patch                                                                                                                 │
+│            This option is only valid for push and save commands.                                                                   │
+│                                                                                                                                    │
+│            Interactively select hunks from the diff between HEAD and the working tree to be stashed. The stash entry               │
+│            is constructed such that its index state is the same as the index state of your repository, and its                     │
+│            worktree contains only the changes you selected interactively. The selected changes are then rolled back                │
+│            from your worktree. See the “Interactive Mode” section of git-add(1) to learn how to operate the --patch                │
+│            mode.                                                                                                                   │
+│                                                                                                                                    │
+│            The --patch option implies --keep-index. You can use --no-keep-index to override this.                                  │
+│                                                                                                                                    │
+│        --pathspec-from-file=<file>                                                                                                 │
+│            This option is only valid for push command.                                                                             │
+│                                                                                                                                    │
+│            Pathspec is passed in <file> instead of commandline args. If <file> is exactly - then standard input is                 │
+│            used. Pathspec elements are separated by LF or CR/LF. Pathspec elements can be quoted as explained for                  │
+│            the configuration variable core.quotePath (see git-config(1)). See also --pathspec-file-nul and global                  │
+│            --literal-pathspecs.                                                                                                    │
+│                                                                                                                                    │
+│        --pathspec-file-nul                                                                                                         │
+│            This option is only valid for push command.                                                                             │
+│                                                                                                                                    │
+│            Only meaningful with --pathspec-from-file. Pathspec elements are separated with NUL character and all                   │
+│            other characters are taken literally (including newlines and quotes).                                                   │
+│                                                                                                                                    │
+│        -q, --quiet                                                                                                                 │
+│            This option is only valid for apply, drop, pop, push, save, store commands.                                             │
+│                                                                                                                                    │
+│            Quiet, suppress feedback messages.                                                                                      │
+│                                                                                                                                    │
+│        --                                                                                                                          │
+│            This option is only valid for push command.                                                                             │
+│                                                                                                                                    │
+│            Separates pathspec from options for disambiguation purposes.                                                            │
+│                                                                                                                                    │
+│        <pathspec>...                                                                                                               │
+│            This option is only valid for push command.                                                                             │
+│                                                                                                                                    │
+│            The new stash entry records the modified states only for the files that match the pathspec. The index                   │
+│            entries and working tree files are then rolled back to the state in HEAD only for these files, too,                     │
+│            leaving files that do not match the pathspec intact.                                                                    │
+│                                                                                                                                    │
+│            For more details, see the pathspec entry in gitglossary(7).                                                             │
+│                                                                                                                                    │
+│        <stash>                                                                                                                     │
+│            This option is only valid for apply, branch, drop, pop, show commands.                                                  │
+│                                                                                                                                    │
+│            A reference of the form stash@{<revision>}. When no <stash> is given, the latest stash is assumed (that                 │
+│            is, stash@{0}).                                                                                                         │
+│                                                                                                                                    │
+│ DISCUSSION                                                                                                                         │
+│        A stash entry is represented as a commit whose tree records the state of the working directory, and its first               │
+│        parent is the commit at HEAD when the entry was created. The tree of the second parent records the state of                 │
+│        the index when the entry is made, and it is made a child of the HEAD commit. The ancestry graph looks like                  │
+│        this:                                                                                                                       │
+│                                                                                                                                    │
+│                   .----W                                                                                                           │
+│                  /    /                                                                                                            │
+│            -----H----I                                                                                                             │
+│                                                                                                                                    │
+│        where H is the HEAD commit, I is a commit that records the state of the index, and W is a commit that records               │
+│        the state of the working tree.                                                                                              │
+│                                                                                                                                    │
+│ EXAMPLES                                                                                                                           │
+│        Pulling into a dirty tree                                                                                                   │
+│            When you are in the middle of something, you learn that there are upstream changes that are possibly                    │
+│            relevant to what you are doing. When your local changes do not conflict with the changes in the upstream,               │
+│            a simple git pull will let you move forward.                                                                            │
+│                                                                                                                                    │
+│            However, there are cases in which your local changes do conflict with the upstream changes, and git pull                │
+│            refuses to overwrite your changes. In such a case, you can stash your changes away, perform a pull, and                 │
+│            then unstash, like this:                                                                                                │
+│                                                                                                                                    │
+│                $ git pull                                                                                                          │
+│                 ...                                                                                                                │
+│                file foobar not up to date, cannot merge.                                                                           │
+│                $ git stash                                                                                                         │
+│                $ git pull                                                                                                          │
+│                $ git stash pop                                                                                                     │
+│                                                                                                                                    │
+│        Interrupted workflow                                                                                                        │
+│            When you are in the middle of something, your boss comes in and demands that you fix something                          │
+│            immediately. Traditionally, you would make a commit to a temporary branch to store your changes away, and               │
+│            return to your original branch to make the emergency fix, like this:                                                    │
+│                                                                                                                                    │
+│                # ... hack hack hack ...                                                                                            │
+│                $ git switch -c my_wip                                                                                              │
+│                $ git commit -a -m "WIP"                                                                                            │
+│                $ git switch master                                                                                                 │
+│                $ edit emergency fix                                                                                                │
+│                $ git commit -a -m "Fix in a hurry"                                                                                 │
+│                $ git switch my_wip                                                                                                 │
+│                $ git reset --soft HEAD^                                                                                            │
+│                # ... continue hacking ...                                                                                          │
+│                                                                                                                                    │
+│            You can use git stash to simplify the above, like this:                                                                 │
+│                                                                                                                                    │
+│                # ... hack hack hack ...                                                                                            │
+│                $ git stash                                                                                                         │
+│                $ edit emergency fix                                                                                                │
+│                $ git commit -a -m "Fix in a hurry"                                                                                 │
+│                $ git stash pop                                                                                                     │
+│                # ... continue hacking ...                                                                                          │
+│                                                                                                                                    │
+│        Testing partial commits                                                                                                     │
+│            You can use git stash push --keep-index when you want to make two or more commits out of the changes in                 │
+│            the work tree, and you want to test each change before committing:                                                      │
+│                                                                                                                                    │
+│                # ... hack hack hack ...                                                                                            │
+│                $ git add --patch foo            # add just first part to the index                                                 │
+│                $ git stash push --keep-index    # save all other changes to the stash                                              │
+│                $ edit/build/test first part                                                                                        │
+│                $ git commit -m 'First part'     # commit fully tested change                                                       │
+│                $ git stash pop                  # prepare to work on all other changes                                             │
+│                # ... repeat above five steps until one commit remains ...                                                          │
+│                $ edit/build/test remaining parts                                                                                   │
+│                $ git commit foo -m 'Remaining parts'                                                                               │
+│                                                                                                                                    │
+│        Recovering stash entries that were cleared/dropped erroneously                                                              │
+│            If you mistakenly drop or clear stash entries, they cannot be recovered through the normal safety                       │
+│            mechanisms. However, you can try the following incantation to get a list of stash entries that are still                │
+│            in your repository, but not reachable any more:                                                                         │
+│                                                                                                                                    │
+│                git fsck --unreachable |                                                                                            │
+│                grep commit | cut -d\  -f3 |                                                                                        │
+│                xargs git log --merges --no-walk --grep=WIP                                                                         │
+│                                                                                                                                    │
+│ SEE ALSO                                                                                                                           │
+│        git-checkout(1), git-commit(1), git-reflog(1), git-reset(1), git-switch(1)                                                  │
+│                                                                                                                                    │
+│ GIT                                                                                                                                │
+│        Part of the git(1) suite                                                                                                    │
+│                                                                                                                                    │
+│ Git 2.34.1                                           04/26/2023                                         GIT-STASH(1)               │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+> so you see we are refactooring from rustc to our new crate. if you are missing code, read foo.txt  and the one git stash and diff
+  with changes. first goal is to get the code running outside and standalone.
+
+╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ ✓  ReadFile foo.txt                                                                                                                │
+│                                                                                                                                    │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ -  Shell tmux capture-pane -S - && tmux save-buffer - > foo.txt [current working directory /mnt/data1/nix/vendor/rust/cargo2nix] … │
+│                                                                                                                                    │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+ℹ Request cancelled.
+
+> you can use a new name, foo.txt has good data for sure.
+
+╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ ?  Shell tmux capture-pane -S - && tmux save-buffer - > tmux_scrollback.txt [current working directory /mnt/data1/nix/vendor/ru… ← │
+│                                                                                                                                    │
+│ tmux capture-pane -S - && tmux save-buffer - > tmux_scrollback.txt                                                                 │
+│                                                                                                                                    │
+│ Allow execution of: 'tmux'?                                                                                                        │
+│                                                                                                                                    │
+│ ● 1. Yes, allow once                                                                                                               │
+│   2. Yes, allow always ...                                                                                                         │
+│   3. No, suggest changes (esc)                                                                                                     │
+│                                                                                                                                    │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+⠏ Waiting for user confirmation...
+
+ Using: 2 GEMINI.md files
+ /mnt/.../vendor/rust/cargo2nix (feature/v2-nixify*)                     no sandbox (see /docs)                      gemini-2.5-flash
+

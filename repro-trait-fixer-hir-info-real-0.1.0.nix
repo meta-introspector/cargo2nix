@@ -1,0 +1,54 @@
+{
+  description = "Reproduction flake for trait-fixer-hir-info-real-0.1.0 (Target: x86_64-unknown-linux-gnu)";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  };
+
+  outputs = { self, nixpkgs }:
+    let
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    in
+    {
+      devShell.x86_64-linux = pkgs.mkShell {
+        nativeBuildInputs = [ pkgs.rustc pkgs.cargo ];
+        shellHook = ''
+          echo "Reproducing build failure for trait-fixer-hir-info-real-0.1.0 (Target: x86_64-unknown-linux-gnu)"
+          echo "Rustc command:"
+          echo "'`rustc --crate-name trait_fixer_hir_info_real --edition=2021 crates/trait-fixer-hir-info-real/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --diagnostic-width=133 --crate-type lib --emit=dep-info,metadata,link -C embed-bitcode=no -C debuginfo=2 --check-cfg '\''cfg(docsrs,test)'\'' --check-cfg '\''cfg(feature, values())'\'' -C metadata=af2c0f83fdf594b8 -C extra-filename=-57e211b39d62259b --out-dir /mnt/data1/nix/vendor/rust/cargo2nix/target/debug/deps -C incremental=/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/incremental -L dependency=/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/deps --extern rustc_hir=/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/deps/librustc_hir-f0c9df4e5fe82a37.rmeta --extern rustc_span=/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/deps/librustc_span-d14cfad7414e83fb.rmeta --extern trait_fixer_hir_info_trait=/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/deps/libtrait_fixer_hir_info_trait-d9473d96c138a66f.rmeta -L native=/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/build/psm-8b74ee3c73336b5d/out -L native=/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/build/blake3-1c31f6b8e0ba2eda/out -L native=/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/build/blake3-1c31f6b8e0ba2eda/out`'"
+          echo "Environment variables:"
+                    export CARGO="/home/mdupont/.cargo/bin/cargo"
+          export CARGO_CRATE_NAME="trait_fixer_hir_info_real"
+          export CARGO_MANIFEST_DIR="/mnt/data1/nix/vendor/rust/cargo2nix/crates/trait-fixer-hir-info-real"
+          export CARGO_MANIFEST_PATH="/mnt/data1/nix/vendor/rust/cargo2nix/crates/trait-fixer-hir-info-real/Cargo.toml"
+          export CARGO_PKG_AUTHORS=""
+          export CARGO_PKG_DESCRIPTION=""
+          export CARGO_PKG_HOMEPAGE=""
+          export CARGO_PKG_LICENSE=""
+          export CARGO_PKG_LICENSE_FILE=""
+          export CARGO_PKG_NAME="trait-fixer-hir-info-real"
+          export CARGO_PKG_README=""
+          export CARGO_PKG_REPOSITORY=""
+          export CARGO_PKG_RUST_VERSION=""
+          export CARGO_PKG_VERSION="0.1.0"
+          export CARGO_PKG_VERSION_MAJOR="0"
+          export CARGO_PKG_VERSION_MINOR="1"
+          export CARGO_PKG_VERSION_PATCH="0"
+          export CARGO_PKG_VERSION_PRE=""
+          export CARGO_PRIMARY_PACKAGE="1"
+          export CARGO_SBOM_PATH=""
+          export LD_LIBRARY_PATH="/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/deps"
+          echo "--- STDOUT ---"
+          
+          echo "--- STDERR ---"
+                    '{"$message_type":"artifact","artifact":"/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/deps/trait_fixer_hir_info_real-57e211b39d62259b.d","emit":"dep-info"}'
+          '{"$message_type":"diagnostic","message":"can'\''t compare `ItemKind<'\''tcx>` with `ItemKind<'\''tcx>`","code":{"code":"E0277","explanation":"You tried to use a type which doesn'\''t implement some trait in a place which\nexpected that trait.\n\nErroneous code example:\n\n```compile_fail,E0277\n// here we declare the Foo trait with a bar method\ntrait Foo {\n    fn bar(&self);\n}\n\n// we now declare a function which takes an object implementing the Foo trait\nfn some_func<T: Foo>(foo: T) {\n    foo.bar();\n}\n\nfn main() {\n    // we now call the method with the i32 type, which doesn'\''t implement\n    // the Foo trait\n    some_func(5i32); // error: the trait bound `i32 : Foo` is not satisfied\n}\n```\n\nIn order to fix this error, verify that the type you'\''re using does implement\nthe trait. Example:\n\n```\ntrait Foo {\n    fn bar(&self);\n}\n\n// we implement the trait on the i32 type\nimpl Foo for i32 {\n    fn bar(&self) {}\n}\n\nfn some_func<T: Foo>(foo: T) {\n    foo.bar(); // we can now use this method since i32 implements the\n               // Foo trait\n}\n\nfn main() {\n    some_func(5i32); // ok!\n}\n```\n\nOr in a generic context, an erroneous code example would look like:\n\n```compile_fail,E0277\nfn some_func<T>(foo: T) {\n    println!(\"{:?}\", foo); // error: the trait `core::fmt::Debug` is not\n                           //        implemented for the type `T`\n}\n\nfn main() {\n    // We now call the method with the i32 type,\n    // which *does* implement the Debug trait.\n    some_func(5i32);\n}\n```\n\nNote that the error here is in the definition of the generic function. Although\nwe only call it with a parameter that does implement `Debug`, the compiler\nstill rejects the function. It must work with all possible input types. In\norder to make this example compile, we need to restrict the generic type we'\''re\naccepting:\n\n```\nuse std::fmt;\n\n// Restrict the input type to types that implement Debug.\nfn some_func<T: fmt::Debug>(foo: T) {\n    println!(\"{:?}\", foo);\n}\n\nfn main() {\n    // Calling the method is still fine, as i32 implements Debug.\n    some_func(5i32);\n\n    // This would fail to compile now:\n    // struct WithoutDebug;\n    // some_func(WithoutDebug);\n}\n```\n\nRust only looks at the signature of the called function, as such it must\nalready specify all requirements that will be used for every type parameter.\n"},"level":"error","spans":[{"file_name":"crates/trait-fixer-hir-info-real/src/lib.rs","byte_start":439,"byte_end":453,"line_start":17,"line_end":17,"column_start":21,"column_end":35,"is_primary":true,"text":[{"text":"    type ItemKind = ItemKind<'\''tcx>;","highlight_start":21,"highlight_end":35}],"label":"no implementation for `ItemKind<'\''tcx> == ItemKind<'\''tcx>`","suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[{"message":"the trait `std::cmp::PartialEq` is not implemented for `ItemKind<'\''tcx>`","code":null,"level":"help","spans":[],"children":[],"rendered":null},{"message":"required by a bound in `trait_fixer_hir_info_trait::HirInfo::ItemKind`","code":null,"level":"note","spans":[{"file_name":"/mnt/data1/nix/vendor/rust/cargo2nix/crates/trait-fixer-hir-info-trait/src/lib.rs","byte_start":742,"byte_end":751,"line_start":14,"line_end":14,"column_start":43,"column_end":52,"is_primary":true,"text":[{"text":"    type ItemKind: Debug + Clone + Copy + PartialEq + '\''tcx;","highlight_start":43,"highlight_end":52}],"label":"required by this bound in `HirInfo::ItemKind`","suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":null}],"rendered":"\u001b[0m\u001b[1m\u001b[38;5;9merror[E0277]\u001b[0m\u001b[0m\u001b[1m: can'\''t compare `ItemKind<'\''tcx>` with `ItemKind<'\''tcx>`\u001b[0m\n\u001b[0m  \u001b[0m\u001b[0m\u001b[1m\u001b[38;5;12m--> \u001b[0m\u001b[0mcrates/trait-fixer-hir-info-real/src/lib.rs:17:21\u001b[0m\n\u001b[0m   \u001b[0m\u001b[0m\u001b[1m\u001b[38;5;12m|\u001b[0m\n\u001b[0m\u001b[1m\u001b[38;5;12m17\u001b[0m\u001b[0m \u001b[0m\u001b[0m\u001b[1m\u001b[38;5;12m|\u001b[0m\u001b[0m \u001b[0m\u001b[0m    type ItemKind = ItemKind<'\''tcx>;\u001b[0m\n\u001b[0m   \u001b[0m\u001b[0m\u001b[1m\u001b[38;5;12m|\u001b[0m\u001b[0m                     \u001b[0m\u001b[0m\u001b[1m\u001b[38;5;9m^^^^^^^^^^^^^^\u001b[0m\u001b[0m \u001b[0m\u001b[0m\u001b[1m\u001b[38;5;9mno implementation for `ItemKind<'\''tcx> == ItemKind<'\''tcx>`\u001b[0m\n\u001b[0m   \u001b[0m\u001b[0m\u001b[1m\u001b[38;5;12m|\u001b[0m\n\u001b[0m   \u001b[0m\u001b[0m\u001b[1m\u001b[38;5;12m= \u001b[0m\u001b[0m\u001b[1mhelp\u001b[0m\u001b[0m: the trait `std::cmp::PartialEq` is not implemented for `ItemKind<'\''tcx>`\u001b[0m\n\u001b[0m\u001b[1m\u001b[38;5;10mnote\u001b[0m\u001b[0m: required by a bound in `trait_fixer_hir_info_trait::HirInfo::ItemKind`\u001b[0m\n\u001b[0m  \u001b[0m\u001b[0m\u001b[1m\u001b[38;5;12m--> \u001b[0m\u001b[0m/mnt/data1/nix/vendor/rust/cargo2nix/crates/trait-fixer-hir-info-trait/src/lib.rs:14:43\u001b[0m\n\u001b[0m   \u001b[0m\u001b[0m\u001b[1m\u001b[38;5;12m|\u001b[0m\n\u001b[0m\u001b[1m\u001b[38;5;12m14\u001b[0m\u001b[0m \u001b[0m\u001b[0m\u001b[1m\u001b[38;5;12m|\u001b[0m\u001b[0m \u001b[0m\u001b[0m    type ItemKind: Debug + Clone + Copy + PartialEq + '\''tcx;\u001b[0m\n\u001b[0m   \u001b[0m\u001b[0m\u001b[1m\u001b[38;5;12m|\u001b[0m\u001b[0m                                           \u001b[0m\u001b[0m\u001b[1m\u001b[38;5;10m^^^^^^^^^\u001b[0m\u001b[0m \u001b[0m\u001b[0m\u001b[1m\u001b[38;5;10mrequired by this bound in `HirInfo::ItemKind`\u001b[0m\n\n"}'
+          '{"$message_type":"diagnostic","message":"aborting due to 1 previous error","code":null,"level":"error","spans":[],"children":[],"rendered":"\u001b[0m\u001b[1m\u001b[38;5;9merror\u001b[0m\u001b[0m\u001b[1m: aborting due to 1 previous error\u001b[0m\n\n"}'
+          '{"$message_type":"diagnostic","message":"For more information about this error, try `rustc --explain E0277`.","code":null,"level":"failure-note","spans":[],"children":[],"rendered":"\u001b[0m\u001b[1mFor more information about this error, try `rustc --explain E0277`.\u001b[0m\n"}'
+
+          echo "Attempting to re-run the rustc command..."
+          '`rustc --crate-name trait_fixer_hir_info_real --edition=2021 crates/trait-fixer-hir-info-real/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --diagnostic-width=133 --crate-type lib --emit=dep-info,metadata,link -C embed-bitcode=no -C debuginfo=2 --check-cfg '\''cfg(docsrs,test)'\'' --check-cfg '\''cfg(feature, values())'\'' -C metadata=af2c0f83fdf594b8 -C extra-filename=-57e211b39d62259b --out-dir /mnt/data1/nix/vendor/rust/cargo2nix/target/debug/deps -C incremental=/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/incremental -L dependency=/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/deps --extern rustc_hir=/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/deps/librustc_hir-f0c9df4e5fe82a37.rmeta --extern rustc_span=/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/deps/librustc_span-d14cfad7414e83fb.rmeta --extern trait_fixer_hir_info_trait=/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/deps/libtrait_fixer_hir_info_trait-d9473d96c138a66f.rmeta -L native=/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/build/psm-8b74ee3c73336b5d/out -L native=/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/build/blake3-1c31f6b8e0ba2eda/out -L native=/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/build/blake3-1c31f6b8e0ba2eda/out`'
+        '';
+      };
+    };
+}

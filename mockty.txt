@@ -1,0 +1,1407 @@
+commit 02f0dadccd34b4d89fe9a70e67612f7e8fcfcf36
+Author: mike dupont <mike.dupont@introspector.local>
+Date:   Thu Dec 11 11:50:36 2025 -0500
+
+    Fix multiple compilation errors
+    
+    - Corrected MockTyCtxt to TyCtxt in relevant trait-fixer-mock crates.
+    - Removed redundant 'use super' statement in ast_fragments_defs.rs.
+    - Added missing dependency to trait-fixer-core-trait/Cargo.toml.
+    - Corrected rustc_middle::ty::subst import to rustc_middle::ty::Substs.
+    - Changed 'use' to 'pub use' for AstFragment/AstFragmentKind re-export in expand.rs.
+    - Corrected ExpansionConfig import path in base.rs.
+
+diff --git a/crates/trait-fixer-lang-items-mock/src/lib.rs b/crates/trait-fixer-lang-items-mock/src/lib.rs
+index 92c7ac6..5466905 100644
+--- a/crates/trait-fixer-lang-items-mock/src/lib.rs
++++ b/crates/trait-fixer-lang-items-mock/src/lib.rs
+@@ -1,10 +1,10 @@
+ // crates/trait-fixer-lang-items-mock/src/lib.rs
+ 
+ use trait_fixer_lang_items_trait::LangItems;
+-use trait_fixer_rustc_mock::{sym, DefId, MockTyCtxt};
++use trait_fixer_rustc_mock::{sym, DefId, TyCtxt};
+ 
+ // Implementation for MockTyCtxt
+-impl<'tcx> LangItems<'tcx> for MockTyCtxt<'tcx> {
++impl<'tcx> LangItems<'tcx> for TyCtxt<'tcx> {
+     fn get_clone_trait_def_id(&self) -> Option<DefId> {
+         Some(DefId) // Always return a dummy DefId for mock
+     }
+diff --git a/crates/trait-fixer-query-context-mock/src/lib.rs b/crates/trait-fixer-query-context-mock/src/lib.rs
+index eb3e160..409011f 100644
+--- a/crates/trait-fixer-query-context-mock/src/lib.rs
++++ b/crates/trait-fixer-query-context-mock/src/lib.rs
+@@ -1,10 +1,10 @@
+ // crates/trait-fixer-query-context-mock/src/lib.rs
+ 
+ use trait_fixer_query_context_trait::QueryContext;
+-use trait_fixer_rustc_mock::{Item, MockTyCtxt};
++use trait_fixer_rustc_mock::{Item, TyCtxt};
+ 
+ // Implementation for MockTyCtxt
+-impl<'tcx> QueryContext<'tcx> for MockTyCtxt<'tcx> {
++impl<'tcx> QueryContext<'tcx> for TyCtxt<'tcx> {
+     fn walk_hir_tops(&self, _f: impl FnMut(&'tcx Item<'tcx>)) {
+         println!("Mock MockTyCtxt::walk_hir_tops called");
+     }
+diff --git a/crates/trait-fixer-trait-checker-mock/src/lib.rs b/crates/trait-fixer-trait-checker-mock/src/lib.rs
+index f52f6b3..260b0ee 100644
+--- a/crates/trait-fixer-trait-checker-mock/src/lib.rs
++++ b/crates/trait-fixer-trait-checker-mock/src/lib.rs
+@@ -1,10 +1,10 @@
+ // crates/trait-fixer-trait-checker-mock/src/lib.rs
+ 
+-use trait_fixer_rustc_mock::{DefId, MockTy, MockTyCtxt};
++use trait_fixer_rustc_mock::{DefId, MockTy, TyCtxt};
+ use trait_fixer_trait_checker_trait::TraitChecker; // Using MockTy for adt_ty
+ 
+ // Implementation for MockTyCtxt
+-impl<'tcx> TraitChecker<'tcx> for MockTyCtxt<'tcx> {
++impl<'tcx> TraitChecker<'tcx> for TyCtxt<'tcx> {
+     fn get_trait_def_id(&self, _trait_name: &str) -> Option<DefId> {
+         Some(DefId) // Always return a dummy DefId for mock
+     }
+
+commit 5f44f175934f77e68b636cbc4d0197bb9be6c95f
+Author: mike dupont <mike.dupont@introspector.local>
+Date:   Mon Dec 1 16:17:46 2025 -0500
+
+    feat: Incorporate latest changes from rebase and submodule updates
+    
+    This commit integrates various modifications that appear to stem from a recent rebase or
+    extensive development work. It includes changes across numerous crates and submodules,
+    along with updates to configuration files like Cargo.toml and flake.nix.
+    
+    Specifically, it incorporates the updated state of the 'parking_lot' submodule, which
+    should resolve compilation issues related to missing core functions.
+
+diff --git a/isolated_mock_test_env/crates/trait-fixer-core-mock/src/lib.rs b/isolated_mock_test_env/crates/trait-fixer-core-mock/src/lib.rs
+deleted file mode 100644
+index 36d3087..0000000
+--- a/isolated_mock_test_env/crates/trait-fixer-core-mock/src/lib.rs
++++ /dev/null
+@@ -1,45 +0,0 @@
+-// crates/trait-fixer-core-mock/src/lib.rs
+-
+-use trait_fixer_core_trait::{CoreFixer, Fix};
+-use trait_fixer_rustc_mock::{MockTyCtxt, Item}; // Need Mock Item
+-use trait_fixer_rules; // For rules::Config
+-
+-pub struct MockTraitFixer<'tcx> {
+-    pub tcx: MockTyCtxt<'tcx>,
+-    pub config: trait_fixer_rules::Config, // Using the real config for now, can be mocked later
+-    pub fixes: Vec<Fix>,
+-}
+-
+-impl<'tcx> MockTraitFixer<'tcx> {
+-    // This will encapsulate the logic to check an item against rules
+-    fn check_item(&mut self, item: &'tcx Item<'tcx>) {
+-        // Placeholder for actual checking logic
+-        println!("Mock Checking item: {:?}", item);
+-    }
+-}
+-
+-
+-impl<'tcx> CoreFixer<'tcx> for MockTraitFixer<'tcx> {
+-    fn new(tcx: MockTyCtxt<'tcx>) -> Self {
+-        Self {
+-            tcx,
+-            config: trait_fixer_rules::Config::load(), // Load real config for now
+-            fixes: Vec::new(),
+-        }
+-    }
+-
+-    fn add_fix(&mut self, fix: Fix) {
+-        self.fixes.push(fix);
+-    }
+-
+-    fn get_fixes(&self) -> &Vec<Fix> {
+-        &self.fixes
+-    }
+-
+-    fn process_hir(&mut self) {
+-        // This simulates the original tcx.hir().walk_tops call
+-        self.tcx.hir().walk_tops(|item| {
+-            self.check_item(item);
+-        });
+-    }
+-}
+\ No newline at end of file
+diff --git a/isolated_mock_test_env/crates/trait-fixer-lang-items-trait/src/lib.rs b/isolated_mock_test_env/crates/trait-fixer-lang-items-trait/src/lib.rs
+deleted file mode 100644
+index 6939425..0000000
+--- a/isolated_mock_test_env/crates/trait-fixer-lang-items-trait/src/lib.rs
++++ /dev/null
+@@ -1,11 +0,0 @@
+-// crates/trait-fixer-lang-items-trait/src/lib.rs
+-
+-// No rustc imports here.
+-pub trait LangItems<'tcx> {
+-    type DefId;
+-    type Symbol;
+-
+-    // The implementor of this trait is the context (e.g., TyCtxt or MockTyCtxt)
+-    fn get_clone_trait_def_id(&'tcx self) -> Option<Self::DefId>;
+-    fn get_debug_trait_def_id(&'tcx self, sym_debug: Self::Symbol) -> Option<Self::DefId>;
+-}
+\ No newline at end of file
+diff --git a/isolated_mock_test_env/crates/trait-fixer-query-context-mock/src/lib.rs b/isolated_mock_test_env/crates/trait-fixer-query-context-mock/src/lib.rs
+deleted file mode 100644
+index ad1e19e..0000000
+--- a/isolated_mock_test_env/crates/trait-fixer-query-context-mock/src/lib.rs
++++ /dev/null
+@@ -1,15 +0,0 @@
+-// isolated_mock_test_env/crates/trait-fixer-query-context-mock/src/lib.rs
+-
+-use trait_fixer_query_context_trait::QueryContext;
+-use trait_fixer_rustc_mock::{TyCtxt, Item}; // All from mock crate
+-
+-// Newtype wrapper to implement external trait for external type
+-pub struct MockQueryContextTyCtxt<'tcx>(pub TyCtxt<'tcx>);
+-
+-impl<'tcx> QueryContext<'tcx> for MockQueryContextTyCtxt<'tcx> {
+-    type Item = Item<'tcx>;
+-
+-    fn walk_hir_tops(&'tcx self, _f: impl FnMut(&'tcx Self::Item)) {
+-        println!("Mock MockTyCtxt::walk_hir_tops called");
+-    }
+-}
+diff --git a/isolated_mock_test_env/crates/trait-fixer-rustc-mock/src/lib.rs b/isolated_mock_test_env/crates/trait-fixer-rustc-mock/src/lib.rs
+index 812077b..15c0106 100644
+--- a/isolated_mock_test_env/crates/trait-fixer-rustc-mock/src/lib.rs
++++ b/isolated_mock_test_env/crates/trait-fixer-rustc-mock/src/lib.rs
+@@ -1,4 +1,4 @@
+-// isolated_mock_test_env/crates/trait-fixer-rustc-mock/src/lib.rs
++// crates/trait-fixer-rustc-mock/src/lib.rs
+ 
+ use std::marker::PhantomData;
+ 
+@@ -50,8 +50,8 @@ impl Symbol {
+ 
+ pub mod sym {
+     use super::Symbol;
+-    pub const DERIVE: Symbol = Symbol; // Corrected from derive to DERIVE
+-    pub const DEBUG: Symbol = Symbol; // Corrected from Debug to DEBUG
++    pub const derive: Symbol = Symbol;
++    pub const Debug: Symbol = Symbol; // For lang_items().get_diagnostic_item(sym::Debug)
+ }
+ 
+ 
+@@ -78,7 +78,7 @@ impl<'tcx> TyCtxt<'tcx> {
+     pub fn mk_trait_ref(self, _def_id: DefId, _args: MockGenericArgs) -> MockPredicate {
+         MockPredicate
+     }
+-    pub fn mk_args_trait(self, _ty: Ty<'tcx>, _substs: MockSubsts) -> MockGenericArgs {
++    pub fn mk_args_trait(self, _ty: MockTy<'tcx>, _substs: MockSubsts) -> MockGenericArgs {
+         MockGenericArgs
+     }
+     pub fn typeck(self, _owner_id: OwnerId) -> MockTypeckResults {
+@@ -105,7 +105,7 @@ impl MockHir {
+ pub type ItemId = DefId; // Mock ItemId as DefId
+ 
+ #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+-pub struct Item<'tcx>(pub PhantomData<&'tcx ()>); // Made field public
++pub struct Item<'tcx>(PhantomData<&'tcx ()>);
+ 
+ #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+ pub enum ItemKind<'tcx> {
+@@ -196,13 +196,13 @@ pub struct MockTypeckResults;
+ pub struct MockEarlyBinder<'tcx>(PhantomData<&'tcx ()>);
+ 
+ impl<'tcx> MockEarlyBinder<'tcx> {
+-    pub fn instantiate(self, _tcx: TyCtxt<'tcx>, _substs: MockSubsts) -> Ty<'tcx> {
+-        Ty(PhantomData)
++    pub fn instantiate(self, _tcx: TyCtxt<'tcx>, _substs: MockSubsts) -> MockTy<'tcx> {
++        MockTy(PhantomData)
+     }
+ }
+ 
+ #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+-pub struct Ty<'tcx>(pub PhantomData<&'tcx ()>); // Made field public (was MockTy previously)
++pub struct MockTy<'tcx>(PhantomData<&'tcx ()>);
+ 
+ pub struct MockSubsts;
+ 
+diff --git a/isolated_mock_test_env/crates/trait-fixer-trait-checker-trait/src/lib.rs b/isolated_mock_test_env/crates/trait-fixer-trait-checker-trait/src/lib.rs
+deleted file mode 100644
+index 243d404..0000000
+--- a/isolated_mock_test_env/crates/trait-fixer-trait-checker-trait/src/lib.rs
++++ /dev/null
+@@ -1,17 +0,0 @@
+-// crates/trait-fixer-trait-checker-trait/src/lib.rs
+-
+-// No rustc imports here.
+-pub trait TraitChecker<'tcx> {
+-    type Ty: 'tcx;
+-    type DefId;
+-    type Symbol;
+-
+-    // The implementor of this trait is the context (e.g., TyCtxt or MockTyCtxt)
+-    fn get_trait_def_id(&'tcx self, trait_name: &str, sym_intern: impl FnOnce(&str) -> Self::Symbol) -> Option<Self::DefId>;
+-    fn type_implements_trait(
+-        &'tcx self, // self is the TyCtxt here
+-        adt_ty: Self::Ty,
+-        item_def_id: Self::DefId,
+-        trait_def_id: Self::DefId,
+-    ) -> bool;
+-}
+\ No newline at end of file
+
+commit 7fc268d4aad96c4d7d68ba4141ac285a939ba854
+Author: mike dupont <mike.dupont@introspector.local>
+Date:   Sun Nov 30 13:06:51 2025 -0500
+
+    fix: Resolve mock type initialization and trait method calls in isolated_mock_test_env
+
+diff --git a/isolated_mock_test_env/crates/trait-fixer-rustc-mock/src/lib.rs b/isolated_mock_test_env/crates/trait-fixer-rustc-mock/src/lib.rs
+index 15c0106..f9dd59b 100644
+--- a/isolated_mock_test_env/crates/trait-fixer-rustc-mock/src/lib.rs
++++ b/isolated_mock_test_env/crates/trait-fixer-rustc-mock/src/lib.rs
+@@ -78,7 +78,7 @@ impl<'tcx> TyCtxt<'tcx> {
+     pub fn mk_trait_ref(self, _def_id: DefId, _args: MockGenericArgs) -> MockPredicate {
+         MockPredicate
+     }
+-    pub fn mk_args_trait(self, _ty: MockTy<'tcx>, _substs: MockSubsts) -> MockGenericArgs {
++    pub fn mk_args_trait(self, _ty: Ty<'tcx>, _substs: MockSubsts) -> MockGenericArgs {
+         MockGenericArgs
+     }
+     pub fn typeck(self, _owner_id: OwnerId) -> MockTypeckResults {
+@@ -105,7 +105,7 @@ impl MockHir {
+ pub type ItemId = DefId; // Mock ItemId as DefId
+ 
+ #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+-pub struct Item<'tcx>(PhantomData<&'tcx ()>);
++pub struct Item<'tcx>(pub PhantomData<&'tcx ()>); // Made field public
+ 
+ #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+ pub enum ItemKind<'tcx> {
+@@ -196,13 +196,13 @@ pub struct MockTypeckResults;
+ pub struct MockEarlyBinder<'tcx>(PhantomData<&'tcx ()>);
+ 
+ impl<'tcx> MockEarlyBinder<'tcx> {
+-    pub fn instantiate(self, _tcx: TyCtxt<'tcx>, _substs: MockSubsts) -> MockTy<'tcx> {
+-        MockTy(PhantomData)
++    pub fn instantiate(self, _tcx: TyCtxt<'tcx>, _substs: MockSubsts) -> Ty<'tcx> {
++        Ty(PhantomData)
+     }
+ }
+ 
+ #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+-pub struct MockTy<'tcx>(PhantomData<&'tcx ()>);
++pub struct Ty<'tcx>(pub PhantomData<&'tcx ()>); // Made field public (was MockTy previously)
+ 
+ pub struct MockSubsts;
+ 
+@@ -242,4 +242,4 @@ impl MockBinder {
+     pub fn dummy<T>(_value: T) -> MockBinder {
+         MockBinder
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/isolated_mock_test_env/tests/trait_fixer_mocks/src/main.rs b/isolated_mock_test_env/tests/trait_fixer_mocks/src/main.rs
+index 3e41b99..abdabab 100644
+--- a/isolated_mock_test_env/tests/trait_fixer_mocks/src/main.rs
++++ b/isolated_mock_test_env/tests/trait_fixer_mocks/src/main.rs
+@@ -1,9 +1,7 @@
+ // isolated_mock_test_env/tests/trait_fixer_mocks/src/main.rs
+ 
+ // Common mock types
+-use trait_fixer_rustc_mock::{TyCtxt as MockTyCtxt, DefId as MockDefId, sym as mock_sym, Symbol as MockSymbol,
+-                            Item as MockItem, OwnerId as MockOwnerId, ItemKind as MockItemKind, Span as MockSpan,
+-                            Ty as MockTy};
++use trait_fixer_rustc_mock::{TyCtxt, DefId, sym, Symbol, Item, OwnerId, ItemKind, Span, Ty};
+ 
+ // AttributeReader mocks and trait
+ use trait_fixer_attribute_reader_trait::AttributeReader;
+@@ -34,9 +32,9 @@ impl MockCompilerCallbacks {
+ 
+ fn main() {
+     println!("--- Running mock attribute reader test ---");
+-    let mock_tcx_instance = MockTyCtxt(std::marker::PhantomData);
++    let mock_tcx_instance = TyCtxt(std::marker::PhantomData);
+     let mock_tcx_wrapper = MockAttributeReaderTyCtxt(mock_tcx_instance);
+-    let mock_def_id = MockDefId;
++    let mock_def_id = DefId;
+     let has_derive = mock_tcx_wrapper.has_derive_attr(mock_def_id, "Debug");
+     assert_eq!(has_derive, true, "Mock AttributeReader should always return true for has_derive_attr");
+     println!("Mock attribute reader test passed!\n");
+@@ -50,28 +48,28 @@ fn main() {
+     println!("Mock compiler host test passed!\n");
+ 
+     println!("--- Running mock HirInfo test ---");
+-    let mock_item = MockItem(std::marker::PhantomData);
+-    let owner_id = mock_item.get_owner_id();
+-    let item_kind = mock_item.get_item_kind();
+-    let item_span = mock_item.get_item_span();
+-    assert_eq!(owner_id, MockOwnerId, "Mock HirInfo::get_owner_id failed");
++    let mock_item = Item(std::marker::PhantomData);
++    let owner_id = HirInfo::get_owner_id(&mock_item);
++    let item_kind = HirInfo::get_item_kind(&mock_item);
++    let item_span = HirInfo::get_item_span(&mock_item);
++    assert_eq!(owner_id, OwnerId, "Mock HirInfo::get_owner_id failed"); // Use OwnerId directly
+     println!("Mock HirInfo::get_item_kind returned: {:?}", item_kind);
+     println!("Mock HirInfo::get_item_span returned: {:?}", item_span);
+     println!("Mock HirInfo test passed!\n");
+ 
+     println!("--- Running mock LangItems test ---");
+-    let mock_tcx_instance_lang = MockTyCtxt(std::marker::PhantomData);
+-    let sym_debug_mock = mock_sym::Debug;
+-    let clone_def_id = mock_tcx_instance_lang.get_clone_trait_def_id();
+-    let debug_def_id = mock_tcx_instance_lang.get_debug_trait_def_id(sym_debug_mock);
+-    assert_eq!(clone_def_id, Some(MockDefId), "Mock LangItems::get_clone_trait_def_id failed");
+-    assert_eq!(debug_def_id, Some(MockDefId), "Mock LangItems::get_debug_trait_def_id failed");
++    let mock_tcx_instance_lang = TyCtxt(std::marker::PhantomData);
++    let sym_debug_mock = sym::Debug;
++    let clone_def_id = LangItems::get_clone_trait_def_id(&mock_tcx_instance_lang);
++    let debug_def_id = LangItems::get_debug_trait_def_id(&mock_tcx_instance_lang, sym_debug_mock);
++    assert_eq!(clone_def_id, Some(DefId), "Mock LangItems::get_clone_trait_def_id failed"); // Use DefId directly
++    assert_eq!(debug_def_id, Some(DefId), "Mock LangItems::get_debug_trait_def_id failed"); // Use DefId directly
+     println!("Mock LangItems test passed!\n");
+ 
+     println!("--- Running mock QueryContext test ---");
+-    let mock_tcx_instance_query = MockTyCtxt(std::marker::PhantomData);
++    let mock_tcx_instance_query = TyCtxt(std::marker::PhantomData);
+     let mut call_count = 0;
+-    mock_tcx_instance_query.walk_hir_tops(|_item: &MockItem| {
++    QueryContext::walk_hir_tops(&mock_tcx_instance_query, |_item: &Item| { // Use Item directly
+         call_count += 1;
+         println!("  Mock QueryContext::walk_hir_tops called with an item (call {})", call_count);
+     });
+@@ -79,15 +77,15 @@ fn main() {
+     println!("Mock QueryContext test passed!\n");
+ 
+     println!("--- Running mock TraitChecker test ---");
+-    let mock_tcx_instance_checker = MockTyCtxt(std::marker::PhantomData);
+-    let mock_adt_ty = MockTy(std::marker::PhantomData);
+-    let mock_item_def_id = MockDefId;
+-    let mock_trait_def_id = MockDefId;
+-    let sym_intern_fn = |s: &str| MockSymbol; // Mock sym_intern function
+-
+-    let trait_def_id = mock_tcx_instance_checker.get_trait_def_id("Clone", sym_intern_fn);
+-    let implements_trait = mock_tcx_instance_checker.type_implements_trait(mock_adt_ty, mock_item_def_id, mock_trait_def_id);
+-    assert_eq!(trait_def_id, Some(MockDefId), "Mock TraitChecker::get_trait_def_id failed");
++    let mock_tcx_instance_checker = TyCtxt(std::marker::PhantomData);
++    let mock_adt_ty = Ty(std::marker::PhantomData);
++    let mock_item_def_id = DefId;
++    let mock_trait_def_id = DefId;
++    let sym_intern_fn = |s: &str| Symbol::intern(s); // Corrected: Mock sym_intern function
++
++    let trait_def_id = TraitChecker::get_trait_def_id(&mock_tcx_instance_checker, "Clone", sym_intern_fn);
++    let implements_trait = TraitChecker::type_implements_trait(&mock_tcx_instance_checker, mock_adt_ty, mock_item_def_id, mock_trait_def_id);
++    assert_eq!(trait_def_id, Some(DefId), "Mock TraitChecker::get_trait_def_id failed"); // Use DefId directly
+     assert_eq!(implements_trait, true, "Mock TraitChecker::type_implements_trait failed");
+     println!("Mock TraitChecker test passed!\n");
+-}
+\ No newline at end of file
++}
+
+commit abb11e1063a44def7292ceb8f98c6d17570c5b50
+Author: mike dupont <mike.dupont@introspector.local>
+Date:   Sun Nov 30 13:01:16 2025 -0500
+
+    feat: Add tests for HirInfo, LangItems, QueryContext, TraitChecker mocks in isolated_mock_test_env
+
+diff --git a/isolated_mock_test_env/tests/trait_fixer_mocks/src/main.rs b/isolated_mock_test_env/tests/trait_fixer_mocks/src/main.rs
+new file mode 100644
+index 0000000..3e41b99
+--- /dev/null
++++ b/isolated_mock_test_env/tests/trait_fixer_mocks/src/main.rs
+@@ -0,0 +1,93 @@
++// isolated_mock_test_env/tests/trait_fixer_mocks/src/main.rs
++
++// Common mock types
++use trait_fixer_rustc_mock::{TyCtxt as MockTyCtxt, DefId as MockDefId, sym as mock_sym, Symbol as MockSymbol,
++                            Item as MockItem, OwnerId as MockOwnerId, ItemKind as MockItemKind, Span as MockSpan,
++                            Ty as MockTy};
++
++// AttributeReader mocks and trait
++use trait_fixer_attribute_reader_trait::AttributeReader;
++use trait_fixer_attribute_reader_mock::MockAttributeReaderTyCtxt;
++
++// CompilerHost mocks and trait
++use trait_fixer_compiler_host_trait::CompilerHost;
++use trait_fixer_compiler_host_mock::MockCompilerHost;
++
++// HirInfo mocks and trait
++use trait_fixer_hir_info_trait::HirInfo;
++
++// LangItems mocks and trait
++use trait_fixer_lang_items_trait::LangItems;
++
++// QueryContext mocks and trait
++use trait_fixer_query_context_trait::QueryContext;
++
++// TraitChecker mocks and trait
++use trait_fixer_trait_checker_trait::TraitChecker;
++
++
++// Mock Callbacks for CompilerHost test
++struct MockCompilerCallbacks; // Simple empty struct
++impl MockCompilerCallbacks {
++    pub fn new() -> Self { MockCompilerCallbacks }
++}
++
++fn main() {
++    println!("--- Running mock attribute reader test ---");
++    let mock_tcx_instance = MockTyCtxt(std::marker::PhantomData);
++    let mock_tcx_wrapper = MockAttributeReaderTyCtxt(mock_tcx_instance);
++    let mock_def_id = MockDefId;
++    let has_derive = mock_tcx_wrapper.has_derive_attr(mock_def_id, "Debug");
++    assert_eq!(has_derive, true, "Mock AttributeReader should always return true for has_derive_attr");
++    println!("Mock attribute reader test passed!\n");
++
++    println!("--- Running mock compiler host test ---");
++    let compiler_host_mock = MockCompilerHost;
++    let mut mock_callbacks = MockCompilerCallbacks::new();
++    let args = vec!["arg1".to_string(), "arg2".to_string()];
++    compiler_host_mock.run_compiler_callbacks(args, &mut mock_callbacks);
++    println!("Mock compiler host test finished (output above)");
++    println!("Mock compiler host test passed!\n");
++
++    println!("--- Running mock HirInfo test ---");
++    let mock_item = MockItem(std::marker::PhantomData);
++    let owner_id = mock_item.get_owner_id();
++    let item_kind = mock_item.get_item_kind();
++    let item_span = mock_item.get_item_span();
++    assert_eq!(owner_id, MockOwnerId, "Mock HirInfo::get_owner_id failed");
++    println!("Mock HirInfo::get_item_kind returned: {:?}", item_kind);
++    println!("Mock HirInfo::get_item_span returned: {:?}", item_span);
++    println!("Mock HirInfo test passed!\n");
++
++    println!("--- Running mock LangItems test ---");
++    let mock_tcx_instance_lang = MockTyCtxt(std::marker::PhantomData);
++    let sym_debug_mock = mock_sym::Debug;
++    let clone_def_id = mock_tcx_instance_lang.get_clone_trait_def_id();
++    let debug_def_id = mock_tcx_instance_lang.get_debug_trait_def_id(sym_debug_mock);
++    assert_eq!(clone_def_id, Some(MockDefId), "Mock LangItems::get_clone_trait_def_id failed");
++    assert_eq!(debug_def_id, Some(MockDefId), "Mock LangItems::get_debug_trait_def_id failed");
++    println!("Mock LangItems test passed!\n");
++
++    println!("--- Running mock QueryContext test ---");
++    let mock_tcx_instance_query = MockTyCtxt(std::marker::PhantomData);
++    let mut call_count = 0;
++    mock_tcx_instance_query.walk_hir_tops(|_item: &MockItem| {
++        call_count += 1;
++        println!("  Mock QueryContext::walk_hir_tops called with an item (call {})", call_count);
++    });
++    assert_eq!(call_count, 0, "Mock QueryContext::walk_hir_tops should not call callback in this basic mock");
++    println!("Mock QueryContext test passed!\n");
++
++    println!("--- Running mock TraitChecker test ---");
++    let mock_tcx_instance_checker = MockTyCtxt(std::marker::PhantomData);
++    let mock_adt_ty = MockTy(std::marker::PhantomData);
++    let mock_item_def_id = MockDefId;
++    let mock_trait_def_id = MockDefId;
++    let sym_intern_fn = |s: &str| MockSymbol; // Mock sym_intern function
++
++    let trait_def_id = mock_tcx_instance_checker.get_trait_def_id("Clone", sym_intern_fn);
++    let implements_trait = mock_tcx_instance_checker.type_implements_trait(mock_adt_ty, mock_item_def_id, mock_trait_def_id);
++    assert_eq!(trait_def_id, Some(MockDefId), "Mock TraitChecker::get_trait_def_id failed");
++    assert_eq!(implements_trait, true, "Mock TraitChecker::type_implements_trait failed");
++    println!("Mock TraitChecker test passed!\n");
++}
+\ No newline at end of file
+
+commit f93aaf6ffae24961fb8262dbed8fcbcc29bf98fc
+Author: mike dupont <mike.dupont@introspector.local>
+Date:   Sun Nov 30 13:00:30 2025 -0500
+
+    feat: Refactor traits and mocks in isolated_mock_test_env for HirInfo, LangItems, QueryContext, TraitChecker
+
+diff --git a/isolated_mock_test_env/crates/trait-fixer-core-mock/src/lib.rs b/isolated_mock_test_env/crates/trait-fixer-core-mock/src/lib.rs
+new file mode 100644
+index 0000000..36d3087
+--- /dev/null
++++ b/isolated_mock_test_env/crates/trait-fixer-core-mock/src/lib.rs
+@@ -0,0 +1,45 @@
++// crates/trait-fixer-core-mock/src/lib.rs
++
++use trait_fixer_core_trait::{CoreFixer, Fix};
++use trait_fixer_rustc_mock::{MockTyCtxt, Item}; // Need Mock Item
++use trait_fixer_rules; // For rules::Config
++
++pub struct MockTraitFixer<'tcx> {
++    pub tcx: MockTyCtxt<'tcx>,
++    pub config: trait_fixer_rules::Config, // Using the real config for now, can be mocked later
++    pub fixes: Vec<Fix>,
++}
++
++impl<'tcx> MockTraitFixer<'tcx> {
++    // This will encapsulate the logic to check an item against rules
++    fn check_item(&mut self, item: &'tcx Item<'tcx>) {
++        // Placeholder for actual checking logic
++        println!("Mock Checking item: {:?}", item);
++    }
++}
++
++
++impl<'tcx> CoreFixer<'tcx> for MockTraitFixer<'tcx> {
++    fn new(tcx: MockTyCtxt<'tcx>) -> Self {
++        Self {
++            tcx,
++            config: trait_fixer_rules::Config::load(), // Load real config for now
++            fixes: Vec::new(),
++        }
++    }
++
++    fn add_fix(&mut self, fix: Fix) {
++        self.fixes.push(fix);
++    }
++
++    fn get_fixes(&self) -> &Vec<Fix> {
++        &self.fixes
++    }
++
++    fn process_hir(&mut self) {
++        // This simulates the original tcx.hir().walk_tops call
++        self.tcx.hir().walk_tops(|item| {
++            self.check_item(item);
++        });
++    }
++}
+\ No newline at end of file
+diff --git a/isolated_mock_test_env/crates/trait-fixer-lang-items-trait/src/lib.rs b/isolated_mock_test_env/crates/trait-fixer-lang-items-trait/src/lib.rs
+new file mode 100644
+index 0000000..6939425
+--- /dev/null
++++ b/isolated_mock_test_env/crates/trait-fixer-lang-items-trait/src/lib.rs
+@@ -0,0 +1,11 @@
++// crates/trait-fixer-lang-items-trait/src/lib.rs
++
++// No rustc imports here.
++pub trait LangItems<'tcx> {
++    type DefId;
++    type Symbol;
++
++    // The implementor of this trait is the context (e.g., TyCtxt or MockTyCtxt)
++    fn get_clone_trait_def_id(&'tcx self) -> Option<Self::DefId>;
++    fn get_debug_trait_def_id(&'tcx self, sym_debug: Self::Symbol) -> Option<Self::DefId>;
++}
+\ No newline at end of file
+diff --git a/isolated_mock_test_env/crates/trait-fixer-query-context-mock/src/lib.rs b/isolated_mock_test_env/crates/trait-fixer-query-context-mock/src/lib.rs
+new file mode 100644
+index 0000000..fddb1de
+--- /dev/null
++++ b/isolated_mock_test_env/crates/trait-fixer-query-context-mock/src/lib.rs
+@@ -0,0 +1,12 @@
++// isolated_mock_test_env/crates/trait-fixer-query-context-mock/src/lib.rs
++
++use trait_fixer_query_context_trait::QueryContext;
++use trait_fixer_rustc_mock::{TyCtxt, Item}; // All from mock crate
++
++impl<'tcx> QueryContext<'tcx> for TyCtxt<'tcx> {
++    type Item = Item<'tcx>;
++
++    fn walk_hir_tops(&'tcx self, _f: impl FnMut(&'tcx Self::Item)) {
++        println!("Mock MockTyCtxt::walk_hir_tops called");
++    }
++}
+\ No newline at end of file
+diff --git a/isolated_mock_test_env/crates/trait-fixer-rustc-mock/src/lib.rs b/isolated_mock_test_env/crates/trait-fixer-rustc-mock/src/lib.rs
+new file mode 100644
+index 0000000..15c0106
+--- /dev/null
++++ b/isolated_mock_test_env/crates/trait-fixer-rustc-mock/src/lib.rs
+@@ -0,0 +1,245 @@
++// crates/trait-fixer-rustc-mock/src/lib.rs
++
++use std::marker::PhantomData;
++
++// --- Mock DefId, LocalDefId, OwnerId ---
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct DefId;
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct LocalDefId;
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct OwnerId;
++
++impl DefId {
++    pub fn as_local(self) -> Option<LocalDefId> {
++        Some(LocalDefId)
++    }
++    pub fn to_def_id(self) -> DefId {
++        self
++    }
++}
++
++impl LocalDefId {
++    pub fn to_def_id(self) -> DefId {
++        DefId
++    }
++}
++
++impl OwnerId {
++    pub fn to_def_id(self) -> DefId {
++        DefId
++    }
++}
++
++// --- Mock Span and Symbol ---
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct Span;
++
++pub const DUMMY_SP: Span = Span;
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct Symbol;
++
++impl Symbol {
++    pub fn intern(_s: &str) -> Self {
++        Symbol
++    }
++}
++
++pub mod sym {
++    use super::Symbol;
++    pub const derive: Symbol = Symbol;
++    pub const Debug: Symbol = Symbol; // For lang_items().get_diagnostic_item(sym::Debug)
++}
++
++
++// --- Mock TyCtxt ---
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct TyCtxt<'tcx>(pub PhantomData<&'tcx ()>);
++
++impl<'tcx> TyCtxt<'tcx> {
++    pub fn hir(self) -> MockHir {
++        MockHir
++    }
++    pub fn lang_items(self) -> MockLangItems {
++        MockLangItems
++    }
++    pub fn get_diagnostic_item(self, _symbol: Symbol) -> Option<DefId> {
++        Some(DefId)
++    }
++    pub fn param_env(self, _def_id: DefId) -> MockParamEnv {
++        MockParamEnv
++    }
++    pub fn infer_ctxt(self) -> MockInferCtxtBuilder {
++        MockInferCtxtBuilder
++    }
++    pub fn mk_trait_ref(self, _def_id: DefId, _args: MockGenericArgs) -> MockPredicate {
++        MockPredicate
++    }
++    pub fn mk_args_trait(self, _ty: MockTy<'tcx>, _substs: MockSubsts) -> MockGenericArgs {
++        MockGenericArgs
++    }
++    pub fn typeck(self, _owner_id: OwnerId) -> MockTypeckResults {
++        MockTypeckResults
++    }
++    pub fn type_of(self, _owner_id: OwnerId) -> MockEarlyBinder<'tcx> {
++        MockEarlyBinder(PhantomData)
++    }
++    pub fn get_attrs(self, _def_id: DefId, _sym: Symbol) -> Vec<MockAttribute> {
++        vec![MockAttribute]
++    }
++}
++
++
++// --- Mock Hir and related types ---
++pub struct MockHir;
++
++impl MockHir {
++    pub fn walk_tops(self, _f: impl FnMut(&Item)) {
++        // Do nothing for mock
++    }
++}
++
++pub type ItemId = DefId; // Mock ItemId as DefId
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct Item<'tcx>(PhantomData<&'tcx ()>);
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub enum ItemKind<'tcx> {
++    Struct(PhantomData<&'tcx ()>),
++    Enum(PhantomData<&'tcx ()>),
++    Union(PhantomData<&'tcx ()>),
++    // Add other ItemKind variants as needed
++}
++
++// --- Mock LangItems ---
++pub struct MockLangItems;
++
++impl MockLangItems {
++    pub fn clone_trait(self) -> Option<DefId> {
++        Some(DefId)
++    }
++}
++
++// --- Mock Inference Context ---
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct MockParamEnv;
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct MockPredicate;
++
++pub struct MockInferCtxtBuilder;
++
++impl MockInferCtxtBuilder {
++    pub fn build(self, _typing_mode: MockTypingMode) -> MockInferCtxt {
++        MockInferCtxt
++    }
++}
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub enum MockTypingMode {
++    NonBodyAnalysis,
++    // Add other variants as needed
++}
++
++impl Default for MockTypingMode {
++    fn default() -> Self {
++        MockTypingMode::NonBodyAnalysis
++    }
++}
++
++pub struct MockInferCtxt;
++
++impl MockInferCtxt {
++    pub fn probe(self, f: impl FnOnce(&MockInferCtxt) -> bool) -> bool {
++        f(&self) // Call the closure directly with self
++    }
++    pub fn at(self, _cause: &MockObligationCause, _param_env: MockParamEnv) -> MockInferCtxtAt {
++        MockInferCtxtAt
++    }
++}
++
++pub struct MockInferCtxtAt;
++
++impl MockInferCtxtAt {
++    pub fn predicate_may_hold(self, _predicate: &MockPredicate) -> bool {
++        true // Always succeed for mock
++    }
++}
++
++
++// --- Mock Attributes ---
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct MockAttribute;
++
++impl MockAttribute {
++    pub fn meta_item_list(self) -> Vec<MockMetaItem> {
++        vec![MockMetaItem] // Return a dummy meta item
++    }
++}
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct MockMetaItem;
++
++impl MockMetaItem {
++    pub fn has_name(self, _symbol: Symbol) -> bool {
++        true // Always has name for mock
++    }
++}
++
++// --- Mock Types and Substitutions ---
++pub struct MockTypeckResults;
++
++pub struct MockEarlyBinder<'tcx>(PhantomData<&'tcx ()>);
++
++impl<'tcx> MockEarlyBinder<'tcx> {
++    pub fn instantiate(self, _tcx: TyCtxt<'tcx>, _substs: MockSubsts) -> MockTy<'tcx> {
++        MockTy(PhantomData)
++    }
++}
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct MockTy<'tcx>(PhantomData<&'tcx ()>);
++
++pub struct MockSubsts;
++
++impl MockSubsts {
++    pub fn empty() -> Self {
++        MockSubsts
++    }
++}
++
++pub struct MockGenericArgs; // Placeholder for rustc_middle::ty::GenericArgs
++
++// --- Mock Obligation and Predicates ---
++pub struct MockObligationCause;
++
++pub enum MockObligationCauseCode {
++    Misc,
++    // Add other variants as needed
++}
++
++impl MockObligationCause {
++    pub fn new(_span: Span, _body_id: LocalDefId, _code: MockObligationCauseCode) -> Self {
++        MockObligationCause
++    }
++}
++
++pub struct MockPredicateObligation;
++
++impl MockPredicateObligation {
++    pub fn new(_tcx: TyCtxt, _cause: MockObligationCause, _param_env: MockParamEnv, _predicate: MockPredicate) -> Self {
++        MockPredicateObligation
++    }
++}
++
++pub struct MockBinder; // Placeholder for rustc_middle::ty::Binder
++
++impl MockBinder {
++    pub fn dummy<T>(_value: T) -> MockBinder {
++        MockBinder
++    }
++}
+\ No newline at end of file
+diff --git a/isolated_mock_test_env/crates/trait-fixer-trait-checker-trait/src/lib.rs b/isolated_mock_test_env/crates/trait-fixer-trait-checker-trait/src/lib.rs
+new file mode 100644
+index 0000000..243d404
+--- /dev/null
++++ b/isolated_mock_test_env/crates/trait-fixer-trait-checker-trait/src/lib.rs
+@@ -0,0 +1,17 @@
++// crates/trait-fixer-trait-checker-trait/src/lib.rs
++
++// No rustc imports here.
++pub trait TraitChecker<'tcx> {
++    type Ty: 'tcx;
++    type DefId;
++    type Symbol;
++
++    // The implementor of this trait is the context (e.g., TyCtxt or MockTyCtxt)
++    fn get_trait_def_id(&'tcx self, trait_name: &str, sym_intern: impl FnOnce(&str) -> Self::Symbol) -> Option<Self::DefId>;
++    fn type_implements_trait(
++        &'tcx self, // self is the TyCtxt here
++        adt_ty: Self::Ty,
++        item_def_id: Self::DefId,
++        trait_def_id: Self::DefId,
++    ) -> bool;
++}
+\ No newline at end of file
+
+commit 3f21e6f064204308cb57489987eeb384bef3e510
+Author: mike dupont <mike.dupont@introspector.local>
+Date:   Sun Nov 30 12:36:20 2025 -0500
+
+    feat: Make AttributeReader trait generic and update implementations and test
+
+diff --git a/tests/trait_fixer_mocks/src/main.rs b/tests/trait_fixer_mocks/src/main.rs
+index 1911470..5071b32 100644
+--- a/tests/trait_fixer_mocks/src/main.rs
++++ b/tests/trait_fixer_mocks/src/main.rs
+@@ -1,19 +1,20 @@
+ // tests/trait_fixer_mocks/src/main.rs
+ 
+ use trait_fixer_attribute_reader_trait::AttributeReader;
+-use trait_fixer_rustc_mock::{TyCtxt, DefId, sym, Symbol};
++use trait_fixer_rustc_mock::{TyCtxt as MockTyCtxt, DefId as MockDefId, sym as mock_sym, Symbol as MockSymbol};
+ use trait_fixer_attribute_reader_mock::MockAttributeReaderTyCtxt; // Import the newtype
+ 
+ fn main() {
+     println!("Running mock attribute reader test...");
+ 
+-    let raw_mock_tcx = TyCtxt(std::marker::PhantomData);
+-    let mock_tcx_wrapper = MockAttributeReaderTyCtxt(raw_mock_tcx); // Wrap the mock TyCtxt
+-    let def_id = DefId;
++    let mock_tcx_instance = MockTyCtxt(std::marker::PhantomData);
++    let mock_tcx_wrapper = MockAttributeReaderTyCtxt(mock_tcx_instance); // Wrap the mock TyCtxt
++    let mock_def_id = MockDefId;
+ 
+-    let has_derive = mock_tcx_wrapper.has_derive_attr(raw_mock_tcx, def_id, "Debug"); // Pass the raw mock_tcx
++    // Call has_derive_attr on the wrapper, passing its own DefId and using its Symbol interning
++    let has_derive = mock_tcx_wrapper.has_derive_attr(mock_def_id, "Debug");
+ 
+     assert_eq!(has_derive, true, "Mock AttributeReader should always return true for has_derive_attr");
+ 
+     println!("Mock attribute reader test passed!");
+-}
++}
+\ No newline at end of file
+
+commit c5fc3521b7c23cf7172dc0bba9d3b16634edce59
+Author: mike dupont <mike.dupont@introspector.local>
+Date:   Sun Nov 30 12:32:55 2025 -0500
+
+    fix: Resolve Symbol import and Orphan Rule in trait-fixer-attribute-reader-mock
+
+diff --git a/crates/trait-fixer-attribute-reader-mock/src/lib.rs b/crates/trait-fixer-attribute-reader-mock/src/lib.rs
+index 3b1005a..d1eed83 100644
+--- a/crates/trait-fixer-attribute-reader-mock/src/lib.rs
++++ b/crates/trait-fixer-attribute-reader-mock/src/lib.rs
+@@ -1,14 +1,17 @@
+ // crates/trait-fixer-attribute-reader-mock/src/lib.rs
+ 
+ use trait_fixer_attribute_reader_trait::AttributeReader;
+-use trait_fixer_rustc_mock::{TyCtxt, DefId, sym}; // Corrected: use TyCtxt directly
++use trait_fixer_rustc_mock::{TyCtxt, DefId, sym, Symbol}; // Added Symbol
+ 
+-// Implementation for MockTyCtxt (now aliased as TyCtxt)
+-impl<'tcx> AttributeReader<'tcx> for TyCtxt<'tcx> {
++// Newtype wrapper to implement external trait for external type
++pub struct MockAttributeReaderTyCtxt<'tcx>(pub TyCtxt<'tcx>);
++
++// Implementation for the newtype wrapper
++impl<'tcx> AttributeReader<'tcx> for MockAttributeReaderTyCtxt<'tcx> {
+     fn has_derive_attr(&self, tcx: TyCtxt<'tcx>, def_id: DefId, trait_name: &str) -> bool {
+-        tcx.get_attrs(def_id, sym::derive)
++        self.0.get_attrs(def_id, sym::derive) // Use self.0 to access the inner TyCtxt
+             .into_iter()
+             .flat_map(|attr| attr.meta_item_list().into_iter())
+             .any(|item| item.has_name(Symbol::intern(trait_name)))
+     }
+-}
+\ No newline at end of file
++}
+
+commit b57cf8ece52cf689002ffa7031855c66494e5f94
+Author: mike dupont <mike.dupont@introspector.local>
+Date:   Sun Nov 30 12:32:10 2025 -0500
+
+    fix: Correct import path for TyCtxt in trait-fixer-attribute-reader-mock and test
+
+diff --git a/crates/trait-fixer-attribute-reader-mock/src/lib.rs b/crates/trait-fixer-attribute-reader-mock/src/lib.rs
+index 2d4024e..3b1005a 100644
+--- a/crates/trait-fixer-attribute-reader-mock/src/lib.rs
++++ b/crates/trait-fixer-attribute-reader-mock/src/lib.rs
+@@ -1,14 +1,14 @@
+ // crates/trait-fixer-attribute-reader-mock/src/lib.rs
+ 
+ use trait_fixer_attribute_reader_trait::AttributeReader;
+-use trait_fixer_rustc_mock::{DefId, MockAttribute, MockMetaItem, MockTyCtxt, Symbol, sym};
++use trait_fixer_rustc_mock::{TyCtxt, DefId, sym}; // Corrected: use TyCtxt directly
+ 
+-// Mock implementation for MockTyCtxt
+-impl<'tcx> AttributeReader<'tcx> for MockTyCtxt<'tcx> {
+-    fn has_derive_attr(&self, tcx: MockTyCtxt<'tcx>, def_id: DefId, trait_name: &str) -> bool {
++// Implementation for MockTyCtxt (now aliased as TyCtxt)
++impl<'tcx> AttributeReader<'tcx> for TyCtxt<'tcx> {
++    fn has_derive_attr(&self, tcx: TyCtxt<'tcx>, def_id: DefId, trait_name: &str) -> bool {
+         tcx.get_attrs(def_id, sym::derive)
+-            .into_iter() // Use into_iter() for Vec
++            .into_iter()
+             .flat_map(|attr| attr.meta_item_list().into_iter())
+             .any(|item| item.has_name(Symbol::intern(trait_name)))
+     }
+-}
++}
+\ No newline at end of file
+
+commit 7e0554a3440c20970744901c78b1204165363999
+Author: mike dupont <mike.dupont@introspector.local>
+Date:   Sun Nov 30 12:16:41 2025 -0500
+
+    feat: Refactor trait-fixer crates into -trait, -real, and -mock versions
+
+diff --git a/crates/trait-fixer-attribute-reader-mock/src/lib.rs b/crates/trait-fixer-attribute-reader-mock/src/lib.rs
+new file mode 100644
+index 0000000..2d4024e
+--- /dev/null
++++ b/crates/trait-fixer-attribute-reader-mock/src/lib.rs
+@@ -0,0 +1,14 @@
++// crates/trait-fixer-attribute-reader-mock/src/lib.rs
++
++use trait_fixer_attribute_reader_trait::AttributeReader;
++use trait_fixer_rustc_mock::{DefId, MockAttribute, MockMetaItem, MockTyCtxt, Symbol, sym};
++
++// Mock implementation for MockTyCtxt
++impl<'tcx> AttributeReader<'tcx> for MockTyCtxt<'tcx> {
++    fn has_derive_attr(&self, tcx: MockTyCtxt<'tcx>, def_id: DefId, trait_name: &str) -> bool {
++        tcx.get_attrs(def_id, sym::derive)
++            .into_iter() // Use into_iter() for Vec
++            .flat_map(|attr| attr.meta_item_list().into_iter())
++            .any(|item| item.has_name(Symbol::intern(trait_name)))
++    }
++}
+diff --git a/crates/trait-fixer-core-mock/src/lib.rs b/crates/trait-fixer-core-mock/src/lib.rs
+new file mode 100644
+index 0000000..36d3087
+--- /dev/null
++++ b/crates/trait-fixer-core-mock/src/lib.rs
+@@ -0,0 +1,45 @@
++// crates/trait-fixer-core-mock/src/lib.rs
++
++use trait_fixer_core_trait::{CoreFixer, Fix};
++use trait_fixer_rustc_mock::{MockTyCtxt, Item}; // Need Mock Item
++use trait_fixer_rules; // For rules::Config
++
++pub struct MockTraitFixer<'tcx> {
++    pub tcx: MockTyCtxt<'tcx>,
++    pub config: trait_fixer_rules::Config, // Using the real config for now, can be mocked later
++    pub fixes: Vec<Fix>,
++}
++
++impl<'tcx> MockTraitFixer<'tcx> {
++    // This will encapsulate the logic to check an item against rules
++    fn check_item(&mut self, item: &'tcx Item<'tcx>) {
++        // Placeholder for actual checking logic
++        println!("Mock Checking item: {:?}", item);
++    }
++}
++
++
++impl<'tcx> CoreFixer<'tcx> for MockTraitFixer<'tcx> {
++    fn new(tcx: MockTyCtxt<'tcx>) -> Self {
++        Self {
++            tcx,
++            config: trait_fixer_rules::Config::load(), // Load real config for now
++            fixes: Vec::new(),
++        }
++    }
++
++    fn add_fix(&mut self, fix: Fix) {
++        self.fixes.push(fix);
++    }
++
++    fn get_fixes(&self) -> &Vec<Fix> {
++        &self.fixes
++    }
++
++    fn process_hir(&mut self) {
++        // This simulates the original tcx.hir().walk_tops call
++        self.tcx.hir().walk_tops(|item| {
++            self.check_item(item);
++        });
++    }
++}
+\ No newline at end of file
+diff --git a/crates/trait-fixer-lang-items-mock/src/lib.rs b/crates/trait-fixer-lang-items-mock/src/lib.rs
+new file mode 100644
+index 0000000..ab045b0
+--- /dev/null
++++ b/crates/trait-fixer-lang-items-mock/src/lib.rs
+@@ -0,0 +1,15 @@
++// crates/trait-fixer-lang-items-mock/src/lib.rs
++
++use trait_fixer_lang_items_trait::LangItems;
++use trait_fixer_rustc_mock::{MockTyCtxt, DefId, sym};
++
++// Implementation for MockTyCtxt
++impl<'tcx> LangItems<'tcx> for MockTyCtxt<'tcx> {
++    fn get_clone_trait_def_id(&self) -> Option<DefId> {
++        Some(DefId) // Always return a dummy DefId for mock
++    }
++
++    fn get_debug_trait_def_id(&self) -> Option<DefId> {
++        Some(DefId) // Always return a dummy DefId for mock
++    }
++}
+diff --git a/crates/trait-fixer-query-context-mock/src/lib.rs b/crates/trait-fixer-query-context-mock/src/lib.rs
+new file mode 100644
+index 0000000..1291a6d
+--- /dev/null
++++ b/crates/trait-fixer-query-context-mock/src/lib.rs
+@@ -0,0 +1,11 @@
++// crates/trait-fixer-query-context-mock/src/lib.rs
++
++use trait_fixer_query_context_trait::QueryContext;
++use trait_fixer_rustc_mock::{MockTyCtxt, Item};
++
++// Implementation for MockTyCtxt
++impl<'tcx> QueryContext<'tcx> for MockTyCtxt<'tcx> {
++    fn walk_hir_tops(&self, _f: impl FnMut(&'tcx Item<'tcx>)) {
++        println!("Mock MockTyCtxt::walk_hir_tops called");
++    }
++}
+diff --git a/crates/trait-fixer-rustc-mock/src/lib.rs b/crates/trait-fixer-rustc-mock/src/lib.rs
+new file mode 100644
+index 0000000..472c9b9
+--- /dev/null
++++ b/crates/trait-fixer-rustc-mock/src/lib.rs
+@@ -0,0 +1,272 @@
++// crates/trait-fixer-rustc-mock/src/lib.rs
++
++use std::marker::PhantomData;
++
++// Import rustc_driver for Callbacks trait
++use rustc_driver;
++
++// --- Mock DefId, LocalDefId, OwnerId ---
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct DefId;
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct LocalDefId;
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct OwnerId;
++
++impl DefId {
++    pub fn as_local(self) -> Option<LocalDefId> {
++        Some(LocalDefId)
++    }
++    pub fn to_def_id(self) -> DefId {
++        self
++    }
++}
++
++impl LocalDefId {
++    pub fn to_def_id(self) -> DefId {
++        DefId
++    }
++}
++
++impl OwnerId {
++    pub fn to_def_id(self) -> DefId {
++        DefId
++    }
++}
++
++// --- Mock Span and Symbol ---
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct Span;
++
++pub const DUMMY_SP: Span = Span;
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct Symbol;
++
++impl Symbol {
++    pub fn intern(_s: &str) -> Self {
++        Symbol
++    }
++}
++
++pub mod sym {
++    use super::Symbol;
++    pub const derive: Symbol = Symbol;
++    pub const Debug: Symbol = Symbol; // For lang_items().get_diagnostic_item(sym::Debug)
++}
++
++
++// --- Mock TyCtxt ---
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct TyCtxt<'tcx>(pub PhantomData<&'tcx ()>);
++
++impl<'tcx> TyCtxt<'tcx> {
++    pub fn hir(self) -> MockHir {
++        MockHir
++    }
++    pub fn lang_items(self) -> MockLangItems {
++        MockLangItems
++    }
++    pub fn get_diagnostic_item(self, _symbol: Symbol) -> Option<DefId> {
++        Some(DefId)
++    }
++    pub fn param_env(self, _def_id: DefId) -> MockParamEnv {
++        MockParamEnv
++    }
++    pub fn infer_ctxt(self) -> MockInferCtxtBuilder {
++        MockInferCtxtBuilder
++    }
++    pub fn mk_trait_ref(self, _def_id: DefId, _args: MockGenericArgs) -> MockPredicate {
++        MockPredicate
++    }
++    pub fn mk_args_trait(self, _ty: MockTy<'tcx>, _substs: MockSubsts) -> MockGenericArgs {
++        MockGenericArgs
++    }
++    pub fn typeck(self, _owner_id: OwnerId) -> MockTypeckResults {
++        MockTypeckResults
++    }
++    pub fn type_of(self, _owner_id: OwnerId) -> MockEarlyBinder<'tcx> {
++        MockEarlyBinder(PhantomData)
++    }
++    pub fn get_attrs(self, _def_id: DefId, _sym: Symbol) -> Vec<MockAttribute> {
++        vec![MockAttribute]
++    }
++}
++
++
++// --- Mock Hir and related types ---
++pub struct MockHir;
++
++impl MockHir {
++    pub fn walk_tops(self, _f: impl FnMut(&Item)) {
++        // Do nothing for mock
++    }
++}
++
++pub type ItemId = DefId; // Mock ItemId as DefId
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct Item<'tcx>(PhantomData<&'tcx ()>);
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub enum ItemKind<'tcx> {
++    Struct(PhantomData<&'tcx ()>),
++    Enum(PhantomData<&'tcx ()>),
++    Union(PhantomData<&'tcx ()>),
++    // Add other ItemKind variants as needed
++}
++
++// --- Mock LangItems ---
++pub struct MockLangItems;
++
++impl MockLangItems {
++    pub fn clone_trait(self) -> Option<DefId> {
++        Some(DefId)
++    }
++}
++
++// --- Mock Inference Context ---
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct MockParamEnv;
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct MockPredicate;
++
++pub struct MockInferCtxtBuilder;
++
++impl MockInferCtxtBuilder {
++    pub fn build(self, _typing_mode: MockTypingMode) -> MockInferCtxt {
++        MockInferCtxt
++    }
++}
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub enum MockTypingMode {
++    NonBodyAnalysis,
++    // Add other variants as needed
++}
++
++impl Default for MockTypingMode {
++    fn default() -> Self {
++        MockTypingMode::NonBodyAnalysis
++    }
++}
++
++pub struct MockInferCtxt;
++
++impl MockInferCtxt {
++    pub fn probe(self, f: impl FnOnce(&MockInferCtxt) -> bool) -> bool {
++        f(&self) // Call the closure directly with self
++    }
++    pub fn at(self, _cause: &MockObligationCause, _param_env: MockParamEnv) -> MockInferCtxtAt {
++        MockInferCtxtAt
++    }
++}
++
++pub struct MockInferCtxtAt;
++
++impl MockInferCtxtAt {
++    pub fn predicate_may_hold(self, _predicate: &MockPredicate) -> bool {
++        true // Always succeed for mock
++    }
++}
++
++
++// --- Mock Attributes ---
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct MockAttribute;
++
++impl MockAttribute {
++    pub fn meta_item_list(self) -> Vec<MockMetaItem> {
++        vec![MockMetaItem] // Return a dummy meta item
++    }
++}
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct MockMetaItem;
++
++impl MockMetaItem {
++    pub fn has_name(self, _symbol: Symbol) -> bool {
++        true // Always has name for mock
++    }
++}
++
++// --- Mock Types and Substitutions ---
++pub struct MockTypeckResults;
++
++pub struct MockEarlyBinder<'tcx>(PhantomData<&'tcx ()>);
++
++impl<'tcx> MockEarlyBinder<'tcx> {
++    pub fn instantiate(self, _tcx: TyCtxt<'tcx>, _substs: MockSubsts) -> MockTy<'tcx> {
++        MockTy(PhantomData)
++    }
++}
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
++pub struct MockTy<'tcx>(PhantomData<&'tcx ()>);
++
++pub struct MockSubsts;
++
++impl MockSubsts {
++    pub fn empty() -> Self {
++        MockSubsts
++    }
++}
++
++pub struct MockGenericArgs; // Placeholder for rustc_middle::ty::GenericArgs
++
++// --- Mock Obligation and Predicates ---
++pub struct MockObligationCause;
++
++pub enum MockObligationCauseCode {
++    Misc,
++    // Add other variants as needed
++}
++
++impl MockObligationCause {
++    pub fn new(_span: Span, _body_id: LocalDefId, _code: MockObligationCauseCode) -> Self {
++        MockObligationCause
++    }
++}
++
++pub struct MockPredicateObligation;
++
++impl MockPredicateObligation {
++    pub fn new(_tcx: TyCtxt, _cause: MockObligationCause, _param_env: MockParamEnv, _predicate: MockPredicate) -> Self {
++        MockPredicateObligation
++    }
++}
++
++pub struct MockBinder; // Placeholder for rustc_middle::ty::Binder
++
++impl MockBinder {
++    pub fn dummy<T>(_value: T) -> MockBinder {
++        MockBinder
++    }
++}
++
++
++// --- Mock rustc_driver::Callbacks related types ---
++pub struct MockCompiler;
++
++pub struct MockCompilation;
++
++impl MockCompilation {
++    pub const Continue: Self = MockCompilation;
++    pub const Stop: Self = MockCompilation;
++}
++
++impl rustc_driver::Callbacks for MockCallbacks {
++    fn after_analysis<'tcx>(
++        &mut self,
++        _compiler: &MockCompiler, // Use MockCompiler here for the mock implementation
++        _tcx: TyCtxt<'tcx>,
++    ) -> MockCompilation {
++        MockCompilation::Continue
++    }
++}
++pub struct MockCallbacks; // Needs to implement rustc_driver::Callbacks
++
++// All vernacular trait impls removed.
+diff --git a/crates/trait-fixer-trait-checker-mock/src/lib.rs b/crates/trait-fixer-trait-checker-mock/src/lib.rs
+new file mode 100644
+index 0000000..955bb3b
+--- /dev/null
++++ b/crates/trait-fixer-trait-checker-mock/src/lib.rs
+@@ -0,0 +1,22 @@
++// crates/trait-fixer-trait-checker-mock/src/lib.rs
++
++use trait_fixer_trait_checker_trait::TraitChecker;
++use trait_fixer_rustc_mock::{MockTyCtxt, DefId, MockTy}; // Using MockTy for adt_ty
++
++// Implementation for MockTyCtxt
++impl<'tcx> TraitChecker<'tcx> for MockTyCtxt<'tcx> {
++    fn get_trait_def_id(&self, _trait_name: &str) -> Option<DefId> {
++        Some(DefId) // Always return a dummy DefId for mock
++    }
++
++    fn type_implements_trait(
++        &self,
++        _tcx: MockTyCtxt<'tcx>,
++        _adt_ty: MockTy<'tcx>,
++        _item_def_id: DefId,
++        _trait_def_id: DefId,
++    ) -> bool {
++        // Always return true for mock, indicating it implements the trait
++        true
++    }
++}
