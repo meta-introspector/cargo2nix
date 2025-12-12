@@ -14980,6 +14980,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8f50febec83f5ee1df3015341d8bd429f2d1cc62bcba7ea2076759d315084683"
 
 [[package]]
+name = "test-fnmut-issue"
+version = "0.1.0"
+
+[[package]]
 name = "tester"
 version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -16211,13 +16215,18 @@ version = "0.1.0"
 dependencies = [
  "rustc_hir",
  "rustc_middle",
+ "rustc_span",
+ "trait-fixer-attribute-reader-real",
  "trait-fixer-attribute-reader-trait",
  "trait-fixer-core-trait",
  "trait-fixer-hir-info-real",
  "trait-fixer-hir-info-trait",
+ "trait-fixer-lang-items-real",
  "trait-fixer-lang-items-trait",
+ "trait-fixer-query-context-real",
  "trait-fixer-rules-real",
  "trait-fixer-rules-trait",
+ "trait-fixer-trait-checker-real",
  "trait-fixer-trait-checker-trait",
 ]
 

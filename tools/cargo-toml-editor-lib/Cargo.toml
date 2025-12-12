@@ -36,5 +36,6 @@ walkdir_enabled = ["dep:walkdir"]
 git_wrapper_lib_enabled = ["dep:git-wrapper-lib"]
 default = [] # No default features, so toml_edit is not enabled by default
 real_toml_edit = ["dep:toml_edit"] # Feature to enable real toml_edit
+cargo-toml-editor-lib = [] # Added for cfg(feature = "cargo-toml-editor-lib")
 anyhow_enabled = []
 serde_enabled = ["dep:serde", "dep:serde_json"]

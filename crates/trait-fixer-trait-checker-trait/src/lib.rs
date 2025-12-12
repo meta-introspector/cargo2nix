@@ -1,15 +1,17 @@
 // crates/trait-fixer-trait-checker-trait/src/lib.rs
 
-use rustc_hir::def_id::DefId;
-use rustc_middle::ty::TyCtxt;
-
-pub trait TraitChecker<'tcx> {
-    fn get_trait_def_id(&self, trait_name: &str) -> Option<DefId>;
+pub trait TraitChecker<'tcx, T, D, Y>
+where
+    T: Sized + 'tcx, // Generic for TyCtxt
+    D: Sized + 'tcx, // Generic for DefId
+    Y: Sized + 'tcx, // Generic for Ty
+{
+    fn get_trait_def_id(&self, trait_name: &str) -> Option<D>;
     fn type_implements_trait(
         &self,
-        tcx: TyCtxt<'tcx>,
-        adt_ty: Ty<'tcx>,
-        item_def_id: DefId,
-        trait_def_id: DefId,
+        tcx: T,
+        adt_ty: Y,
+        item_def_id: D,
+        trait_def_id: D,
     ) -> bool;
 }

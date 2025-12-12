@@ -9,7 +9,7 @@ use trait_fixer_lang_items_trait::LangItems; // Import the trait
 pub struct RustcTyCtxt<'tcx>(pub TyCtxt<'tcx>);
 
 // Implementation for RustcTyCtxt
-impl<'tcx> LangItems<'tcx> for RustcTyCtxt<'tcx> {
+impl<'tcx> LangItems<'tcx, TyCtxt<'tcx>, DefId> for RustcTyCtxt<'tcx> {
     fn get_clone_trait_def_id(&self) -> Option<DefId> {
         self.0.lang_items().clone_trait()
     }

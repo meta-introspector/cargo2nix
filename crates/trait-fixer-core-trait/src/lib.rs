@@ -1,32 +1,32 @@
 // crates/trait-fixer-core-trait/src/lib.rs
 
-use rustc_hir::def_id::DefId;
-use rustc_hir::ItemId;
-use rustc_middle::ty::TyCtxt;
-use rustc_span::Span;
-
-// Import the helper traits (but they will be implemented by TyCtxt)
 use trait_fixer_rules_trait::ConfigTrait;
 
-
 #[derive(Debug)]
-pub enum Fix {
-    AddDerive { span: Span, trait_name: String },
-    AddCloneImpl { def_id: DefId },
-    RemoveImpl { item_id: ItemId },
+pub enum Fix<S, D, ID> {
+    AddDerive { span: S, trait_name: String },
+    AddCloneImpl { def_id: D },
+    RemoveImpl { item_id: ID },
 }
 
 // CoreFixer now only needs ConfigTrait explicitly, others are via TyCtxt
-pub trait CoreFixer<'tcx, C>
+pub trait CoreFixer<'tcx, C, T, I, D, ID, S>
 where
     C: ConfigTrait,
+    T: Sized + 'tcx, // Generic for TyCtxt
+    I: Sized + 'tcx, // Generic for Item
+    D: Sized + 'tcx, // Generic for DefId
+    ID: Sized + 'tcx, // Generic for ItemId
+    S: Sized + 'tcx + Copy + Debug, // Generic for Span, adding Copy and Debug for consistency
 {
     fn new(
-        tcx: TyCtxt<'tcx>,
+        tcx: T,
         config: C,
     ) -> Self;
-    fn add_fix(&mut self, fix: Fix);
-    fn get_fixes(&self) -> &Vec<Fix>;
+    fn add_fix(&mut self, fix: Fix<S, D, ID>);
+    fn get_fixes(&self) -> &Vec<Fix<S, D, ID>>;
     fn process_hir(&mut self);
-    fn check_item(&mut self, item: &'tcx rustc_hir::Item<'tcx>); // Add check_item to trait
+    fn check_item(&mut self, item: &'tcx I); // Use generic Item type 'I'
 }
+
+use std::fmt::Debug; // Required for Debug trait bound

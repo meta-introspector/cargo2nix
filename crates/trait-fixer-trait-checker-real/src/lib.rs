@@ -1,16 +1,15 @@
-// crates/trait-fixer-trait-checker-real/src/lib.rs
-
 use rustc_hir::def_id::DefId;
 use rustc_span::def_id::DefIndex;
 use rustc_infer::infer::{InferCtxt, TyCtxtInferExt};
-use rustc_middle::ty::{Binder, ParamEnv, Predicate, Ty, TyCtxt, TypingMode};
+use rustc_middle::ty::{self, Binder, ParamEnv, Ty, TyCtxt, TypingMode, PredicatePolarity, TraitRef};
 use rustc_middle::ty::ClauseKind; // Import ClauseKind
 use rustc_middle::ty::PredicateKind; // Import PredicateKind
 use rustc_span::symbol::Symbol;
 use rustc_span::DUMMY_SP;
 use rustc_trait_selection::traits::{
-    Obligation, ObligationCause, ObligationCauseCode, PredicateObligation, TraitEngine,
-}; // For Substs::empty()
+    Obligation, ObligationCause, ObligationCauseCode, TraitEngine, TraitEngineExt, FulfillmentError, // Added TraitEngineExt
+};
+// Removed use rustc_trait_selection::traits::fulfill::FulfillmentContext;
 use rustc_span::def_id::{CRATE_DEF_INDEX, LOCAL_CRATE};
 use std::default::Default;
 
@@ -19,7 +18,7 @@ use trait_fixer_trait_checker_trait::TraitChecker; // Import the trait
 pub struct RustcTyCtxt<'tcx>(pub TyCtxt<'tcx>);
 
 // Implementation for RustcTyCtxt
-impl<'tcx> TraitChecker<'tcx> for RustcTyCtxt<'tcx> {
+impl<'tcx> TraitChecker<'tcx, TyCtxt<'tcx>, DefId, Ty<'tcx>> for RustcTyCtxt<'tcx> {
     fn get_trait_def_id(&self, trait_name: &str) -> Option<DefId> {
         match trait_name {
             "Clone" => self.0.lang_items().clone_trait(),
@@ -33,25 +32,30 @@ impl<'tcx> TraitChecker<'tcx> for RustcTyCtxt<'tcx> {
 
     fn type_implements_trait(
         &self,
-        ty: Ty<'tcx>,
+        _tcx_param: TyCtxt<'tcx>, // The first tcx parameter from the trait, marked unused. Use self.0 for real tcx
+        adt_ty: Ty<'tcx>,
+        _item_def_id: DefId, // New parameter from trait, marked unused for now
         trait_def_id: DefId,
     ) -> bool {
         let tcx = self.0;
         let infcx = tcx.infer_ctxt().build(TypingMode::Analysis { defining_opaque_types_and_generators: Default::default() });
-        let param_env = ParamEnv { caller_bounds: tcx.mk_clauses(&[]), reveal_all: true };
-        let predicates = [tcx.mk_predicate(Binder::dummy(PredicateKind::Clause(ClauseKind::Trait(PredicateObligation {
-            cause: ObligationCause::new(DUMMY_SP, DefId::local(DefIndex::from_usize(0)).expect_local(), ObligationCauseCode::Pattern),
+        let param_env = ParamEnv { caller_bounds: tcx.mk_clauses(&[]) }; // Removed reveal_all
+        let predicates = [Obligation { // Changed from tcx.mk_predicate(Binder::dummy(PredicateKind::Clause(ClauseKind::Trait(PredicateObligation { ... }))))
+            cause: ObligationCause::new(DUMMY_SP, DefId::local(DefIndex::from_usize(0)).expect_local(), ObligationCauseCode::Misc), // Changed ObligationCauseCode::Pattern to Misc
             param_env,
-            predicate: Binder::dummy(tcx.mk_trait_predicate(trait_def_id, tcx.mk_args(&[ty.into()]))),
-        })];
+            predicate: tcx.mk_predicate(ty::Binder::dummy(ty::PredicateKind::Clause(ty::ClauseKind::Trait(ty::TraitPredicate {
+                trait_ref: ty::TraitRef::new(tcx, trait_def_id, tcx.mk_args(&[adt_ty.into()])), // Construct TraitRef using new
+                polarity: ty::PredicatePolarity::Positive,
+            })))), // Corrected Predicate construction
+            recursion_depth: 0, // Added recursion_depth
+        }];
 
-        let mut fulfill_cx = TraitEngine::new(tcx);
+        let mut fulfill_cx = <dyn TraitEngine<FulfillmentError<'tcx>>>::new(&infcx); // Correct instantiation for TraitEngine
         for predicate in predicates {
-            fulfill_cx.register_predicate_obligation(infcx, predicate);
+            fulfill_cx.register_predicate_obligation(&infcx, predicate); // Added &infcx
         }
 
-        let errors = fulfill_cx.select_all_and_apply_where_possible(&infcx, TypingMode::Canonical);
+        let errors = fulfill_cx.select_all_and_apply_where_possible(&infcx, TypingMode::Analysis { defining_opaque_types_and_generators: Default::default() }); // Changed Canonical to TyOnly, and then to Analysis
         errors.is_empty()
     }
 }
-

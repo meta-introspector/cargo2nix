@@ -617,7 +617,8 @@ members = [
     	        "tests/trait_fixer_mocks",
     	        "tests/real_rules_test",
     		"submodules/rust/crates/cvs-macro-lib",
-    	    "submodules/rust/crates/cvs-macro-test-crate", "crates/rust-nix-bootstrap",	#"patcher",
+    	    "submodules/rust/crates/cvs-macro-test-crate",    "crates/rust-nix-bootstrap",	#"patcher",
+    "crates/test-fnmut-issue",
     ]
 exclude = [
 ]

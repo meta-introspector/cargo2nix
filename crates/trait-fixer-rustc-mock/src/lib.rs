@@ -96,7 +96,7 @@ impl<'tcx> TyCtxt<'tcx> {
 pub struct MockHir;
 
 impl MockHir {
-    pub fn walk_tops(self, _f: impl FnMut(&Item)) {
+    pub fn walk_tops(self, _f: impl FnMut(&Item<'static>)) { // Changed Item to be static here
         // Do nothing for mock
     }
 }
