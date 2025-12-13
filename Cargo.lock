@@ -586,9 +586,9 @@ dependencies = [
 
 [[package]]
 name = "async-compression"
-version = "0.4.35"
+version = "0.4.36"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "07a926debf178f2d355197f9caddb08e54a9329d44748034bba349c5848cb519"
+checksum = "98ec5f6c2f8bc326c994cb9e241cc257ddaba9afa8555a43cffbb5dd86efaa37"
 dependencies = [
  "compression-codecs",
  "compression-core",
@@ -2724,9 +2724,9 @@ dependencies = [
 
 [[package]]
 name = "compression-codecs"
-version = "0.4.34"
+version = "0.4.35"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "34a3cbbb8b6eca96f3a5c4bf6938d5b27ced3675d69f95bb51948722870bc323"
+checksum = "b0f7ac3e5b97fdce45e8922fb05cae2c37f7bbd63d30dd94821dacfd8f3f2bf2"
 dependencies = [
  "brotli",
  "compression-core",
@@ -4401,6 +4401,31 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7d88f747710a968a0a32ce4c4ae90ead21dc36a06aceabbb4367452679a95eb6"
 
 [[package]]
+name = "expand_utils_macros"
+version = "0.1.0"
+dependencies = [
+ "proc-macro2 1.0.103",
+ "quote 1.0.42",
+ "rustc_ast",
+ "rustc_ast_pretty",
+ "rustc_errors",
+ "rustc_expand_base_lib",
+ "rustc_span",
+ "smallvec 2.0.0-alpha.12",
+ "syn 1.0.109",
+]
+
+[[package]]
+name = "expand_utils_test"
+version = "0.1.0"
+dependencies = [
+ "expand_utils_macros",
+ "rustc_ast",
+ "rustc_expand",
+ "rustc_span",
+]
+
+[[package]]
 name = "expect-test"
 version = "1.5.1"
 dependencies = [
@@ -4644,7 +4669,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bfe33edd8e85a12a67454e37f8c75e730830d83e313556ab9ebf9ee7fbeb3bfb"
 dependencies = [
  "crc32fast 1.4.2",
- "libz-rs-sys 0.5.3",
+ "libz-rs-sys 0.5.4",
  "libz-sys",
  "miniz_oxide 0.8.9 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -7743,9 +7768,9 @@ dependencies = [
 
 [[package]]
 name = "jiff-tzdb"
-version = "0.1.4"
+version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c1283705eb0a21404d2bfd6eef2a7593d240bc42a0bdb39db0ad6fa2ec026524"
+checksum = "68971ebff725b9e2ca27a601c5eb38a4c5d64422c4cbab0c535f248087eda5c2"
 
 [[package]]
 name = "jiff-tzdb-platform"
@@ -8166,11 +8191,11 @@ dependencies = [
 
 [[package]]
 name = "libz-rs-sys"
-version = "0.5.3"
+version = "0.5.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8b484ba8d4f775eeca644c452a56650e544bf7e617f1d170fe7298122ead5222"
+checksum = "15413ef615ad868d4d65dce091cb233b229419c7c0c4bcaa746c0901c49ff39c"
 dependencies = [
- "zlib-rs 0.5.3",
+ "zlib-rs 0.5.4",
 ]
 
 [[package]]
@@ -11885,12 +11910,14 @@ dependencies = [
 name = "rustc_expand"
 version = "0.0.0"
 dependencies = [
+ "expand_utils_macros",
  "rustc_ast",
  "rustc_ast_passes",
  "rustc_ast_pretty",
  "rustc_attr_parsing",
  "rustc_data_structures",
  "rustc_errors",
+ "rustc_expand_base_lib",
  "rustc_feature",
  "rustc_fluent_macro",
  "rustc_hir",
@@ -11905,6 +11932,22 @@ dependencies = [
  "smallvec 2.0.0-alpha.12",
  "thin-vec",
  "tracing 0.1.40",
+]
+
+[[package]]
+name = "rustc_expand_base_lib"
+version = "0.0.0"
+dependencies = [
+ "rustc_ast",
+ "rustc_ast_pretty",
+ "rustc_data_structures",
+ "rustc_errors",
+ "rustc_feature",
+ "rustc_hir",
+ "rustc_session",
+ "rustc_span",
+ "smallvec 2.0.0-alpha.12",
+ "thin-vec",
 ]
 
 [[package]]
@@ -13881,9 +13924,9 @@ checksum = "45bb67a18fa91266cc7807181f62f9178a6873bfad7dc788c42e6430db40184f"
 
 [[package]]
 name = "shell-words"
-version = "1.1.0"
+version = "1.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "24188a676b6ae68c3b2cb3a01be17fbf7240ce009799bb56d5b1409051e78fde"
+checksum = "dc6fe69c597f9c37bfeeeeeb33da3530379845f10be461a66d16d03eca2ded77"
 
 [[package]]
 name = "shlex"
@@ -14980,10 +15023,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8f50febec83f5ee1df3015341d8bd429f2d1cc62bcba7ea2076759d315084683"
 
 [[package]]
-name = "test-fnmut-issue"
-version = "0.1.0"
-
-[[package]]
 name = "tester"
 version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -15034,8 +15073,11 @@ checksum = "23d434d3f8967a09480fb04132ebe0a3e088c173e6d0ee7897abbdf4eab0f8b9"
 [[package]]
 name = "thin-vec"
 version = "0.2.14"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "144f754d318415ac792f9d69fc87abbbfc043ce2ef041c60f16ad828f638717d"
+dependencies = [
+ "malloc_size_of",
+ "serde 1.0.228",
+ "serde_test",
+]
 
 [[package]]
 name = "thiserror"
@@ -18321,9 +18363,9 @@ dependencies = [
 
 [[package]]
 name = "zlib-rs"
-version = "0.5.3"
+version = "0.5.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "36134c44663532e6519d7a6dfdbbe06f6f8192bde8ae9ed076e9b213f0e31df7"
+checksum = "51f936044d677be1a1168fae1d03b583a285a5dd9d8cbf7b24c23aa1fc775235"
 
 [[package]]
 name = "zopfli"

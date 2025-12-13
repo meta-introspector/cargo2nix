@@ -1,5 +1,5 @@
 use cargo2nix::minizinc_data::MinizincInput;
-use cargo2nix::{ComplexityGeometricChecker, MiniZincSolver, Monster108Constraints};
+//use cargo2nix::{ComplexityGeometricChecker, MiniZincSolver, Monster108Constraints};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Complexity Bounds (w,ℓ) + Geometric Equivalences (Φ≃) Verification");

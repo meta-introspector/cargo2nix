@@ -31,44 +31,69 @@ workspace: /mnt/data1/nix/vendor/rust/cargo2nix/Cargo.toml
 warning: resolver for the non root package will be ignored, specify resolver at the workspace root:
 package:   /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tracing-tree/Cargo.toml
 workspace: /mnt/data1/nix/vendor/rust/cargo2nix/Cargo.toml
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-packetline/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/signal-hook/signal-hook-registry/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-config-value/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/defmac/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-sec/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-hash/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/ahash/Cargo.toml: file `/mnt/data1/nix/vendor/rust/cargo2nix/submodules/ahash/tests/bench.rs` found to be present in multiple build targets:
-  * `integration-test` target `bench`
-  * `bench` target `ahash`
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/ahash/Cargo.toml: file `/mnt/data1/nix/vendor/rust/cargo2nix/submodules/ahash/tests/map_tests.rs` found to be present in multiple build targets:
-  * `integration-test` target `map_tests`
-  * `bench` target `map`
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-hashtable/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/memoffset/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-worktree-stream/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-ignore/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-refspec/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/once_cell/Cargo.toml: unused manifest key: dependencies.parking_lot_core.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/once_cell/Cargo.toml: unused manifest key: package.members
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/static-assertions-rs/proc/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-worktree/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-config/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-index/Cargo.toml: unused manifest key: package.rust-workspace
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-transport/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/lazy-static/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-fs/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/crossbeam/crossbeam-utils/Cargo.toml: unused manifest key: dependencies.atomic-maybe-uninit.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/regex/Cargo.toml: unused manifest key: package.members
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-sec/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-status/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-config-value/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-pathspec/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/bstr/Cargo.toml: unused manifest key: package.members
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/zstd-rs/ruzstd/Cargo.toml: `default-features` is ignored for twox-hash, since `default-features` was not specified for `workspace.dependencies.twox-hash`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/zstd-rs/ruzstd/Cargo.toml: unused manifest key: dependencies.fastrand.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/zstd-rs/ruzstd/Cargo.toml: unused manifest key: dependencies.twox-hash.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/zstd-rs/ruzstd/Cargo.toml: unused manifest key: dev-dependencies.rand.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/im-rs/rc/Cargo.toml: unused manifest key: package.metadata.docs.rs
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-mailmap/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/camino/Cargo.toml: unused manifest key: members
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-traverse/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-url/Cargo.toml: unused manifest key: package.rust-workspace
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/indexmap/Cargo.toml: unused manifest key: dependencies.serde.version
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/indexmap/Cargo.toml: unused manifest key: dependencies.serde_core.version
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-worktree-state/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-refspec/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-discover/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-pathspec/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-lock/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-blame/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-traverse/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-tempfile/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-revwalk/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-features/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-attributes/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.anstream.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.anstyle.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.backtrace.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.strsim.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.terminal_size.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.unicase.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dev-dependencies.snapbox.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-shallow/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/curl-rust/Cargo.toml: `default-features` is ignored for curl-sys, since `default-features` was not specified for `workspace.dependencies.curl-sys`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/rustc-demangle/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/rustc-demangle/Cargo.toml: unused manifest key: package.members
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/equivalent/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-credentials/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-prompt/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-index/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-merge/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-filter/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/tests/tools/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/crossbeam/crossbeam-utils/Cargo.toml: unused manifest key: dependencies.atomic-maybe-uninit.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-lock/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/pin-project-lite/Cargo.toml: unused manifest key: dev-dependencies.macrotest.branch
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/pin-project-lite/Cargo.toml: unused manifest key: dev-dependencies.trybuild.branch
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-revision/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/chrono/Cargo.toml: `default-features` is ignored for serde_derive, since `default-features` was not specified for `workspace.dependencies.serde_derive`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-actor/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/colorify/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/io-uring/Cargo.toml: unused manifest key: package.members
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/scoped-tls/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/zip2/Cargo.toml: `default-features` is ignored for lzma-rust2, since `default-features` was not specified for `workspace.dependencies.lzma-rust2`, this could become a hard error in the future
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-path/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/glob/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-object/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-fs/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/lazy-static/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-command/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/rust-url/url/Cargo.toml: `default-features` is ignored for serde_derive, since `default-features` was not specified for `workspace.dependencies.serde_derive`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-pack/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-commitgraph/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/itertools/Cargo.toml: `default-features` is ignored for either, since `default-features` was not specified for `workspace.dependencies.either`, this could become a hard error in the future
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: unused manifest key: dependencies.dot-parser.version
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: unused manifest key: dependencies.dot-parser-macros.version
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: unused manifest key: dependencies.fixedbitset.version
@@ -80,62 +105,58 @@ warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: un
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: unused manifest key: dependencies.serde_derive.version
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: unused manifest key: dev-dependencies.itertools.version
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: unused manifest key: dev-dependencies.odds.version
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-features/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/quickcheck/Cargo.toml: unused manifest key: package.members
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/colorify/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/unicode-ident/Cargo.toml: unused manifest key: bench.0.members
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/static-assertions-rs/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/scoped-tls/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.anstream.version
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.anstyle.version
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.backtrace.version
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.strsim.version
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.terminal_size.version
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.unicase.version
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dev-dependencies.snapbox.version
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/chrono/Cargo.toml: `default-features` is ignored for serde_derive, since `default-features` was not specified for `workspace.dependencies.serde_derive`, this could become a hard error in the future
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/curl-rust/Cargo.toml: `default-features` is ignored for curl-sys, since `default-features` was not specified for `workspace.dependencies.curl-sys`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/text-size/Cargo.toml: `default_features` is deprecated in favor of `default-features` and will not work in the 2024 edition
+(in the `serde` dependency)
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-worktree-stream/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-blame/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/defmac/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-negotiate/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-submodule/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-ignore/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-odb/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/static-assertions-rs/proc/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-pack/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/im-rs/rc/Cargo.toml: unused manifest key: package.metadata.docs.rs
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-status/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/odds/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-discover/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-worktree-state/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/git2-rs/Cargo.toml: unused manifest key: examples
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tracing-tree/Cargo.toml: `default-features` is ignored for tracing-log, since `default-features` was not specified for `workspace.dependencies.tracing-log`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tracing-tree/Cargo.toml: `default-features` is ignored for tracing-subscriber, since `default-features` was not specified for `workspace.dependencies.tracing-subscriber`, this could become a hard error in the future
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/faster-hex/Cargo.toml: Found `feature = ...` in `target.'cfg(...)'.dependencies`. This key is not supported for selecting dependencies and will not work as expected. Use the [features] section instead: https://doc.rust-lang.org/cargo/reference/features.html
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/faster-hex/Cargo.toml: unused manifest key: target.cfg(not(feature = "alloc")).features
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/once_cell/Cargo.toml: unused manifest key: dependencies.parking_lot_core.version
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/once_cell/Cargo.toml: unused manifest key: package.members
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/rust-url/url/Cargo.toml: `default-features` is ignored for serde_derive, since `default-features` was not specified for `workspace.dependencies.serde_derive`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-revwalk/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/nix/Cargo.toml: unused manifest key: dependencies.memoffset.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/nix/Cargo.toml: unused manifest key: dependencies.pin-utils.version
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/backtrace-rs/Cargo.toml: unused manifest key: dependencies.cpp_demangle.version
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/backtrace-rs/Cargo.toml: unused manifest key: dependencies.serde.version
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/backtrace-rs/Cargo.toml: unused manifest key: target.cfg(not(all(windows, target_env = "msvc", not(target_vendor = "uwp")))).dependencies.addr2line.version
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/backtrace-rs/Cargo.toml: unused manifest key: target.cfg(not(all(windows, target_env = "msvc", not(target_vendor = "uwp")))).dependencies.libc.version
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/backtrace-rs/Cargo.toml: unused manifest key: target.cfg(not(all(windows, target_env = "msvc", not(target_vendor = "uwp")))).dependencies.miniz_oxide.version
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/backtrace-rs/Cargo.toml: unused manifest key: target.cfg(not(all(windows, target_env = "msvc", not(target_vendor = "uwp")))).dependencies.ruzstd.version
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/zstd-rs/ruzstd/Cargo.toml: `default-features` is ignored for twox-hash, since `default-features` was not specified for `workspace.dependencies.twox-hash`, this could become a hard error in the future
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/zstd-rs/ruzstd/Cargo.toml: unused manifest key: dependencies.fastrand.version
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/zstd-rs/ruzstd/Cargo.toml: unused manifest key: dependencies.twox-hash.version
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/zstd-rs/ruzstd/Cargo.toml: unused manifest key: dev-dependencies.rand.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-tempfile/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/odds/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-submodule/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/assert-impl/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-filter/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/static-assertions-rs/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-hashtable/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-prompt/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-glob/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/memoffset/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-odb/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/ahash/Cargo.toml: file `/mnt/data1/nix/vendor/rust/cargo2nix/submodules/ahash/tests/map_tests.rs` found to be present in multiple build targets:
+  * `integration-test` target `map_tests`
+  * `bench` target `map`
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/ahash/Cargo.toml: file `/mnt/data1/nix/vendor/rust/cargo2nix/submodules/ahash/tests/bench.rs` found to be present in multiple build targets:
+  * `integration-test` target `bench`
+  * `bench` target `ahash`
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-quote/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-revision/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-archive/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-config/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-ref/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/itertools/Cargo.toml: `default-features` is ignored for either, since `default-features` was not specified for `workspace.dependencies.either`, this could become a hard error in the future
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-commitgraph/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/zip2/Cargo.toml: `default-features` is ignored for lzma-rust2, since `default-features` was not specified for `workspace.dependencies.lzma-rust2`, this could become a hard error in the future
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-worktree/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-url/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/io-uring/Cargo.toml: unused manifest key: package.members
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-dir/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-attributes/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/unicode-ident/Cargo.toml: unused manifest key: bench.0.members
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-packetline/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/version_check/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-protocol/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/bstr/Cargo.toml: unused manifest key: package.members
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-shallow/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/git2-rs/Cargo.toml: unused manifest key: examples
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/quickcheck/Cargo.toml: unused manifest key: package.members
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-dir/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-merge/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/arbitrary/Cargo.toml: unused manifest key: test.0.members
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-archive/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-ref/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-hash/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-credentials/Cargo.toml: unused manifest key: package.rust-workspace
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: `default-features` is ignored for mio, since `default-features` was not specified for `workspace.dependencies.mio`, this could become a hard error in the future
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: `default-features` is ignored for io-uring, since `default-features` was not specified for `workspace.dependencies.io-uring`, this could become a hard error in the future
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: `default-features` is ignored for mio, since `default-features` was not specified for `workspace.dependencies.mio`, this could become a hard error in the future
@@ -162,30 +183,9 @@ warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml:
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: target.cfg(unix).dev-dependencies.nix.version
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: target.cfg(windows).dependencies.windows-sys.version
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: target.cfg(windows).dev-dependencies.windows-sys.version
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-mailmap/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/pin-project-lite/Cargo.toml: unused manifest key: dev-dependencies.macrotest.branch
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/pin-project-lite/Cargo.toml: unused manifest key: dev-dependencies.trybuild.branch
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/rustc-demangle/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/rustc-demangle/Cargo.toml: unused manifest key: package.members
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/camino/Cargo.toml: unused manifest key: members
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-diff/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/assert-impl/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-object/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/tests/tools/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/nix/Cargo.toml: unused manifest key: dependencies.memoffset.version
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/nix/Cargo.toml: unused manifest key: dependencies.pin-utils.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/signal-hook/signal-hook-registry/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
 warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/fxhash/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/glob/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/text-size/Cargo.toml: `default_features` is deprecated in favor of `default-features` and will not work in the 2024 edition
-(in the `serde` dependency)
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-command/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/regex/Cargo.toml: unused manifest key: package.members
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/arbitrary/Cargo.toml: unused manifest key: test.0.members
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-actor/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tracing-tree/Cargo.toml: `default-features` is ignored for tracing-log, since `default-features` was not specified for `workspace.dependencies.tracing-log`, this could become a hard error in the future
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tracing-tree/Cargo.toml: `default-features` is ignored for tracing-subscriber, since `default-features` was not specified for `workspace.dependencies.tracing-subscriber`, this could become a hard error in the future
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-glob/Cargo.toml: unused manifest key: package.rust-workspace
-warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/version_check/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
 warning: patch for `curl` uses the features mechanism. default-features and features will not take effect because the patch dependency does not support this mechanism
 warning: patch for `libc` uses the features mechanism. default-features and features will not take effect because the patch dependency does not support this mechanism
 warning: patch for `rusqlite` uses the features mechanism. default-features and features will not take effect because the patch dependency does not support this mechanism
@@ -209,2662 +209,234 @@ note: but type `word_lock::ThreadData` is only usable at visibility `pub(self)`
    | ^^^^^^^^^^^^^^^^^
    = note: `#[warn(private_bounds)]` on by default
 
+   Compiling rustc_macros v0.0.0 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/rust/compiler/rustc_macros)
 warning: `parking_lot_core` (lib) generated 1 warning
-warning: the feature `const_pin` has been stable since 1.84.0 and no longer requires an attribute to enable
- --> submodules/rust/compiler/rustc_index/src/lib.rs:5:12
-  |
-5 | #![feature(const_pin)]
-  |            ^^^^^^^^^
-  |
-  = note: `#[warn(stable_features)]` on by default
+error: `match` arm body without braces
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/subdiagnostic.rs:288:18
+    |
+288 |             _ => crate::diagnostics::error::throw_invalid_attr!(attr);
+    |               -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ this statement is not surrounded by a body
+    |               |
+    |               while parsing the `match` arm starting here
+    |
+help: replace `;` with `,` to end a `match` arm expression
+    |
+288 -             _ => crate::diagnostics::error::throw_invalid_attr!(attr);
+288 +             _ => crate::diagnostics::error::throw_invalid_attr!(attr),
+    |
 
-warning: `rustc_index` (lib) generated 1 warning
-warning: unused import: `smallvec::SmallVec`
- --> submodules/rust/compiler/rustc_data_structures/src/flat_map_in_place.rs:3:5
-  |
-3 | use smallvec::SmallVec;
-  |     ^^^^^^^^^^^^^^^^^^
-  |
-  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
-
-warning: `rustc_data_structures` (lib) generated 1 warning (run `cargo fix --lib -p rustc_data_structures` to apply 1 suggestion)
-warning: unexpected `cfg` condition name: `bootstrap`
-    --> submodules/rust/compiler/rustc_lint_defs/src/builtin.rs:2345:16
-     |
-2345 |     #[cfg_attr(bootstrap, doc = "```ignore")]
-     |                ^^^^^^^^^
-     |
-     = help: expected names are: `docsrs`, `feature`, and `test` and 31 more
-     = help: consider using a Cargo feature instead
-     = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
-              [lints.rust]
-              unexpected_cfgs = { level = "warn", check-cfg = ['cfg(bootstrap)'] }
-     = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(bootstrap)");` to the top of the `build.rs`
-     = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
-     = note: `#[warn(unexpected_cfgs)]` on by default
-
-warning: unexpected `cfg` condition name: `bootstrap`
-    --> submodules/rust/compiler/rustc_lint_defs/src/builtin.rs:2346:20
-     |
-2346 |     #[cfg_attr(not(bootstrap), doc = "```rust,no_run")]
-     |                    ^^^^^^^^^
-     |
-     = help: consider using a Cargo feature instead
-     = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
-              [lints.rust]
-              unexpected_cfgs = { level = "warn", check-cfg = ['cfg(bootstrap)'] }
-     = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(bootstrap)");` to the top of the `build.rs`
-     = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
-
-warning: unexpected `cfg` condition name: `bootstrap`
-    --> submodules/rust/compiler/rustc_lint_defs/src/builtin.rs:2355:16
-     |
-2355 |     #[cfg_attr(bootstrap, doc = "```")]
-     |                ^^^^^^^^^
-     |
-     = help: consider using a Cargo feature instead
-     = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
-              [lints.rust]
-              unexpected_cfgs = { level = "warn", check-cfg = ['cfg(bootstrap)'] }
-     = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(bootstrap)");` to the top of the `build.rs`
-     = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
-
-warning: unexpected `cfg` condition name: `bootstrap`
-    --> submodules/rust/compiler/rustc_lint_defs/src/builtin.rs:2356:20
-     |
-2356 |     #[cfg_attr(not(bootstrap), doc = "```")]
-     |                    ^^^^^^^^^
-     |
-     = help: consider using a Cargo feature instead
-     = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
-              [lints.rust]
-              unexpected_cfgs = { level = "warn", check-cfg = ['cfg(bootstrap)'] }
-     = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(bootstrap)");` to the top of the `build.rs`
-     = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
-
-warning: `rustc_lint_defs` (lib) generated 4 warnings
-warning: unused import: `std::borrow::Cow`
-  --> submodules/rust/compiler/rustc_target/src/spec/mod.rs:42:5
+error[E0252]: the name `invalid_attr` is defined multiple times
+  --> submodules/rust/compiler/rustc_macros/src/diagnostics/utils.rs:16:56
    |
-42 | use std::borrow::Cow; // For StaticCow
-   |     ^^^^^^^^^^^^^^^^
+15 | use super::error::invalid_attr;
+   |     -------------------------- previous import of the value `invalid_attr` here
+16 | use crate::diagnostics::error::{DiagnosticDeriveError, invalid_attr, span_err};
+   |                                                        ^^^^^^^^^^^^--
+   |                                                        |
+   |                                                        `invalid_attr` reimported here
+   |                                                        help: remove unnecessary import
+   |
+   = note: `invalid_attr` must be defined only once in the value namespace of this module
+
+error[E0433]: failed to resolve: could not find `throw_span_err` in `error`
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/subdiagnostic.rs:206:44
+    |
+206 |                 crate::diagnostics::error::throw_span_err!(
+    |                                            ^^^^^^^^^^^^^^ could not find `throw_span_err` in `error`
+
+error[E0433]: failed to resolve: could not find `throw_invalid_attr` in `error`
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/subdiagnostic.rs:322:52
+    |
+322 |                         crate::diagnostics::error::throw_invalid_attr!(attr, |diag| {
+    |                                                    ^^^^^^^^^^^^^^^^^^ could not find `throw_invalid_attr` in `error`
+
+error[E0433]: failed to resolve: could not find `throw_invalid_attr` in `error`
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/subdiagnostic.rs:425:48
+    |
+425 |                     crate::diagnostics::error::throw_invalid_attr!(attr, |diag| {
+    |                                                ^^^^^^^^^^^^^^^^^^ could not find `throw_invalid_attr` in `error`
+
+error[E0433]: failed to resolve: could not find `throw_span_err` in `error`
+  --> submodules/rust/compiler/rustc_macros/src/diagnostics/utils.rs:67:32
+   |
+67 |     crate::diagnostics::error::throw_span_err!(
+   |                                ^^^^^^^^^^^^^^ could not find `throw_span_err` in `error`
+
+error[E0433]: failed to resolve: could not find `throw_invalid_attr` in `error`
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/utils.rs:670:48
+    |
+670 |                     crate::diagnostics::error::throw_invalid_attr!(attr);
+    |                                                ^^^^^^^^^^^^^^^^^^ could not find `throw_invalid_attr` in `error`
+
+error[E0433]: failed to resolve: could not find `throw_span_err` in `error`
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/utils.rs:698:48
+    |
+698 |                     crate::diagnostics::error::throw_span_err!(span, "suggestion without `code = \"...\"`")
+    |                                                ^^^^^^^^^^^^^^ could not find `throw_span_err` in `error`
+
+error[E0433]: failed to resolve: could not find `throw_invalid_attr` in `error`
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/utils.rs:703:64
+    |
+703 | ...                   crate::diagnostics::error::throw_invalid_attr!(attr)            }
+    |                                                  ^^^^^^^^^^^^^^^^^^ could not find `throw_invalid_attr` in `error`
+
+error[E0433]: failed to resolve: could not find `throw_span_err` in `error`
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/diagnostic_builder.rs:496:45
+    |
+496 |             _ => crate::diagnostics::error::throw_span_err!(info.span.unwrap(), "wrong field type for suggestion", |diag| {
+    |                                             ^^^^^^^^^^^^^^ could not find `throw_span_err` in `error`
+
+error[E0433]: failed to resolve: could not find `throw_invalid_attr` in `error`
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/diagnostic_builder.rs:389:48
+    |
+389 |                     crate::diagnostics::error::throw_invalid_attr!(attr, |diag| {
+    |                                                ^^^^^^^^^^^^^^^^^^ could not find `throw_invalid_attr` in `error`
+
+error[E0433]: failed to resolve: could not find `throw_invalid_attr` in `error`
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/diagnostic_builder.rs:341:40
+    |
+341 |             crate::diagnostics::error::throw_invalid_attr!(attr, |diag| {
+    |                                        ^^^^^^^^^^^^^^^^^^ could not find `throw_invalid_attr` in `error`
+
+error[E0433]: failed to resolve: could not find `throw_invalid_attr` in `error`
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/diagnostic_builder.rs:242:44
+    |
+242 |                 crate::diagnostics::error::throw_invalid_attr!(attr, |diag| diag
+    |                                            ^^^^^^^^^^^^^^^^^^ could not find `throw_invalid_attr` in `error`
+
+error[E0433]: failed to resolve: could not find `throw_invalid_attr` in `error`
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/diagnostic_builder.rs:152:40
+    |
+152 |             crate::diagnostics::error::throw_invalid_attr!(attr, |diag| diag)
+    |                                        ^^^^^^^^^^^^^^^^^^ could not find `throw_invalid_attr` in `error`
+
+error: cannot find macro `throw_invalid_attr` in this scope
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/subdiagnostic.rs:474:18
+    |
+474 |             _ => throw_invalid_attr!(attr, |diag| {
+    |                  ^^^^^^^^^^^^^^^^^^
+    |
+    = help: have you added the `#[macro_use]` on the module/import?
+
+error: cannot find macro `throw_span_err` in this scope
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/subdiagnostic.rs:516:17
+    |
+516 |                 throw_span_err!(
+    |                 ^^^^^^^^^^^^^^
+    |
+    = help: have you added the `#[macro_use]` on the module/import?
+
+warning: unused import: `invalid_attr`
+  --> submodules/rust/compiler/rustc_macros/src/diagnostics/diagnostic_builder.rs:10:56
+   |
+10 | use crate::diagnostics::error::{DiagnosticDeriveError, invalid_attr, span_err};
+   |                                                        ^^^^^^^^^^^^
    |
    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
 
-warning: unused import: `std::collections::BTreeMap`
-  --> submodules/rust/compiler/rustc_target/src/spec/mod.rs:43:5
+warning: unused macro definition: `throw_span_err`
+  --> submodules/rust/compiler/rustc_macros/src/diagnostics/error.rs:66:14
    |
-43 | use std::collections::BTreeMap; // For LinkArgs
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `::rustc_abi::Align`
-  --> submodules/rust/compiler/rustc_target/src/spec/mod.rs:47:5
-   |
-47 | use ::rustc_abi::Align; // For ToJson for Align
-   |     ^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `tracing::debug`
-  --> submodules/rust/compiler/rustc_target/src/spec/mod.rs:48:5
-   |
-48 | use tracing::debug; // For the debug! macro in supported_targets!
-   |     ^^^^^^^^^^^^^^
-
-warning: unused import: `Json`
-  --> submodules/rust/compiler/rustc_target/src/spec/mod.rs:49:19
-   |
-49 | use crate::json::{Json, ToJson}; // For ToJson for Align
-   |                   ^^^^
-
-warning: unused import: `std::borrow::Cow`
- --> submodules/rust/compiler/rustc_target/src/spec/target.rs:2:5
-  |
-2 | use std::borrow::Cow;
-  |     ^^^^^^^^^^^^^^^^
-
-warning: unused import: `std::collections::BTreeMap`
- --> submodules/rust/compiler/rustc_target/src/spec/target.rs:3:5
-  |
-3 | use std::collections::BTreeMap;
-  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `Align`, `CanonAbi`, and `Endian`
- --> submodules/rust/compiler/rustc_target/src/spec/target.rs:7:5
-  |
-7 |     Align, CanonAbi, Endian, Integer, Size, TargetDataLayout, TargetDataLayoutErrors,
-  |     ^^^^^  ^^^^^^^^  ^^^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/target.rs:9:20
-  |
-9 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `Decodable`, `Decoder`, `Encodable`, and `Encoder`
-  --> submodules/rust/compiler/rustc_target/src/spec/target.rs:10:23
-   |
-10 | use rustc_serialize::{Decodable, Decoder, Encodable, Encoder};
-   |                       ^^^^^^^^^  ^^^^^^^  ^^^^^^^^^  ^^^^^^^
-
-warning: unused imports: `Symbol`, `kw`, and `sym`
-  --> submodules/rust/compiler/rustc_target/src/spec/target.rs:11:18
-   |
-11 | use rustc_span::{Symbol, kw, sym};
-   |                  ^^^^^^  ^^  ^^^
-
-warning: unused import: `Json`
-  --> submodules/rust/compiler/rustc_target/src/spec/target.rs:13:19
-   |
-13 | use crate::json::{Json, ToJson};
-   |                   ^^^^
-
-warning: unused imports: `LinkerFlavor` and `Lld`
-  --> submodules/rust/compiler/rustc_target/src/spec/target.rs:14:34
-   |
-14 | use crate::spec::linker_flavor::{LinkerFlavor, Lld};
-   |                                  ^^^^^^^^^^^^  ^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
- --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:2:9
-  |
-2 | pub use aix::*;
-  |         ^^^^^^
-  |
-note: the most public imported item is `pub(crate)`
- --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:2:9
-  |
-2 | pub use aix::*;
-  |         ^^^^^^
-  = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `aix::*`
- --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:2:9
-  |
-2 | pub use aix::*;
-  |         ^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
- --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:4:9
-  |
-4 | pub use android::*;
-  |         ^^^^^^^^^^
-  |
-note: the most public imported item is `pub(crate)`
- --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:4:9
-  |
-4 | pub use android::*;
-  |         ^^^^^^^^^^
-  = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `android::*`
- --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:4:9
-  |
-4 | pub use android::*;
-  |         ^^^^^^^^^^
-
-warning: unused import: `rustc_abi::CanonAbi`
- --> submodules/rust/compiler/rustc_target/src/spec/base/apple/mod.rs:8:5
-  |
-8 | use rustc_abi::CanonAbi;
-  |     ^^^^^^^^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:10:9
-   |
-10 | pub use bpf::*;
-   |         ^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:10:9
-   |
-10 | pub use bpf::*;
-   |         ^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `bpf::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:10:9
-   |
-10 | pub use bpf::*;
-   |         ^^^^^^
-
-warning: unused import: `rustc_abi::CanonAbi`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/cygwin.rs:11:5
-   |
-11 | use rustc_abi::CanonAbi;
-   |     ^^^^^^^^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:12:9
-   |
-12 | pub use cygwin::*;
-   |         ^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:12:9
-   |
-12 | pub use cygwin::*;
-   |         ^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `cygwin::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:12:9
-   |
-12 | pub use cygwin::*;
-   |         ^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:14:9
-   |
-14 | pub use dragonfly::*;
-   |         ^^^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:14:9
-   |
-14 | pub use dragonfly::*;
-   |         ^^^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `dragonfly::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:14:9
-   |
-14 | pub use dragonfly::*;
-   |         ^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:16:9
-   |
-16 | pub use freebsd::*;
-   |         ^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:16:9
-   |
-16 | pub use freebsd::*;
-   |         ^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `freebsd::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:16:9
-   |
-16 | pub use freebsd::*;
-   |         ^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:18:9
-   |
-18 | pub use fuchsia::*;
-   |         ^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:18:9
-   |
-18 | pub use fuchsia::*;
-   |         ^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `fuchsia::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:18:9
-   |
-18 | pub use fuchsia::*;
-   |         ^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:20:9
-   |
-20 | pub use haiku::*;
-   |         ^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:20:9
-   |
-20 | pub use haiku::*;
-   |         ^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `haiku::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:20:9
-   |
-20 | pub use haiku::*;
-   |         ^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:22:9
-   |
-22 | pub use helenos::*;
-   |         ^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:22:9
-   |
-22 | pub use helenos::*;
-   |         ^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `helenos::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:22:9
-   |
-22 | pub use helenos::*;
-   |         ^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:24:9
-   |
-24 | pub use hermit::*;
-   |         ^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:24:9
-   |
-24 | pub use hermit::*;
-   |         ^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `hermit::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:24:9
-   |
-24 | pub use hermit::*;
-   |         ^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:26:9
-   |
-26 | pub use hurd::*;
-   |         ^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:26:9
-   |
-26 | pub use hurd::*;
-   |         ^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `hurd::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:26:9
-   |
-26 | pub use hurd::*;
-   |         ^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:28:9
-   |
-28 | pub use hurd_gnu::*;
-   |         ^^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:28:9
-   |
-28 | pub use hurd_gnu::*;
-   |         ^^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `hurd_gnu::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:28:9
-   |
-28 | pub use hurd_gnu::*;
-   |         ^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:30:9
-   |
-30 | pub use illumos::*;
-   |         ^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:30:9
-   |
-30 | pub use illumos::*;
-   |         ^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `illumos::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:30:9
-   |
-30 | pub use illumos::*;
-   |         ^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:32:9
-   |
-32 | pub use l4re::*;
-   |         ^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:32:9
-   |
-32 | pub use l4re::*;
-   |         ^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `l4re::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:32:9
-   |
-32 | pub use l4re::*;
-   |         ^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:34:9
-   |
-34 | pub use linux::*;
-   |         ^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:34:9
-   |
-34 | pub use linux::*;
-   |         ^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `linux::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:34:9
-   |
-34 | pub use linux::*;
-   |         ^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:36:9
-   |
-36 | pub use linux_gnu::*;
-   |         ^^^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:36:9
-   |
-36 | pub use linux_gnu::*;
-   |         ^^^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `linux_gnu::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:36:9
-   |
-36 | pub use linux_gnu::*;
-   |         ^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:38:9
-   |
-38 | pub use linux_musl::*;
-   |         ^^^^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:38:9
-   |
-38 | pub use linux_musl::*;
-   |         ^^^^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `linux_musl::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:38:9
-   |
-38 | pub use linux_musl::*;
-   |         ^^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:40:9
-   |
-40 | pub use linux_ohos::*;
-   |         ^^^^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:40:9
-   |
-40 | pub use linux_ohos::*;
-   |         ^^^^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `linux_ohos::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:40:9
-   |
-40 | pub use linux_ohos::*;
-   |         ^^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:42:9
-   |
-42 | pub use linux_uclibc::*;
-   |         ^^^^^^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:42:9
-   |
-42 | pub use linux_uclibc::*;
-   |         ^^^^^^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `linux_uclibc::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:42:9
-   |
-42 | pub use linux_uclibc::*;
-   |         ^^^^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:44:9
-   |
-44 | pub use linux_wasm::*;
-   |         ^^^^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:44:9
-   |
-44 | pub use linux_wasm::*;
-   |         ^^^^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `linux_wasm::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:44:9
-   |
-44 | pub use linux_wasm::*;
-   |         ^^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:46:9
-   |
-46 | pub use lynxos178::*;
-   |         ^^^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:46:9
-   |
-46 | pub use lynxos178::*;
-   |         ^^^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `lynxos178::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:46:9
-   |
-46 | pub use lynxos178::*;
-   |         ^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:48:9
-   |
-48 | pub use managarm_mlibc::*;
-   |         ^^^^^^^^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:48:9
-   |
-48 | pub use managarm_mlibc::*;
-   |         ^^^^^^^^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `managarm_mlibc::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:48:9
-   |
-48 | pub use managarm_mlibc::*;
-   |         ^^^^^^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:50:9
-   |
-50 | pub use motor::*;
-   |         ^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:50:9
-   |
-50 | pub use motor::*;
-   |         ^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `motor::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:50:9
-   |
-50 | pub use motor::*;
-   |         ^^^^^^^^
-
-warning: unused import: `rustc_abi::CanonAbi`
- --> submodules/rust/compiler/rustc_target/src/spec/base/msvc.rs:8:5
-  |
-8 | use rustc_abi::CanonAbi;
-  |     ^^^^^^^^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:52:9
-   |
-52 | pub use msvc::*;
-   |         ^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:52:9
-   |
-52 | pub use msvc::*;
-   |         ^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `msvc::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:52:9
-   |
-52 | pub use msvc::*;
-   |         ^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:54:9
-   |
-54 | pub use netbsd::*;
-   |         ^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:54:9
-   |
-54 | pub use netbsd::*;
-   |         ^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `netbsd::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:54:9
-   |
-54 | pub use netbsd::*;
-   |         ^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:56:9
-   |
-56 | pub use nto_qnx::*;
-   |         ^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:56:9
-   |
-56 | pub use nto_qnx::*;
-   |         ^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `nto_qnx::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:56:9
-   |
-56 | pub use nto_qnx::*;
-   |         ^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:58:9
-   |
-58 | pub use openbsd::*;
-   |         ^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:58:9
-   |
-58 | pub use openbsd::*;
-   |         ^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `openbsd::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:58:9
-   |
-58 | pub use openbsd::*;
-   |         ^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:60:9
-   |
-60 | pub use redox::*;
-   |         ^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:60:9
-   |
-60 | pub use redox::*;
-   |         ^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `redox::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:60:9
-   |
-60 | pub use redox::*;
-   |         ^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:62:9
-   |
-62 | pub use solaris::*;
-   |         ^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:62:9
-   |
-62 | pub use solaris::*;
-   |         ^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `solaris::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:62:9
-   |
-62 | pub use solaris::*;
-   |         ^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:64:9
-   |
-64 | pub use solid::*;
-   |         ^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:64:9
-   |
-64 | pub use solid::*;
-   |         ^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `solid::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:64:9
-   |
-64 | pub use solid::*;
-   |         ^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:66:9
-   |
-66 | pub use teeos::*;
-   |         ^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:66:9
-   |
-66 | pub use teeos::*;
-   |         ^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `teeos::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:66:9
-   |
-66 | pub use teeos::*;
-   |         ^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:68:9
-   |
-68 | pub use thumb::*;
-   |         ^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:68:9
-   |
-68 | pub use thumb::*;
-   |         ^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `thumb::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:68:9
-   |
-68 | pub use thumb::*;
-   |         ^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:70:9
-   |
-70 | pub use uefi_msvc::*;
-   |         ^^^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:70:9
-   |
-70 | pub use uefi_msvc::*;
-   |         ^^^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `uefi_msvc::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:70:9
-   |
-70 | pub use uefi_msvc::*;
-   |         ^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:72:9
-   |
-72 | pub use unikraft_linux_musl::*;
-   |         ^^^^^^^^^^^^^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:72:9
-   |
-72 | pub use unikraft_linux_musl::*;
-   |         ^^^^^^^^^^^^^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `unikraft_linux_musl::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:72:9
-   |
-72 | pub use unikraft_linux_musl::*;
-   |         ^^^^^^^^^^^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:74:9
-   |
-74 | pub use vxworks::*;
-   |         ^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:74:9
-   |
-74 | pub use vxworks::*;
-   |         ^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `vxworks::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:74:9
-   |
-74 | pub use vxworks::*;
-   |         ^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:76:9
-   |
-76 | pub use wasm::*;
-   |         ^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:76:9
-   |
-76 | pub use wasm::*;
-   |         ^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `wasm::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:76:9
-   |
-76 | pub use wasm::*;
-   |         ^^^^^^^
-
-warning: unused import: `rustc_abi::CanonAbi`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/windows_gnu.rs:14:5
-   |
-14 | use rustc_abi::CanonAbi;
-   |     ^^^^^^^^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:78:9
-   |
-78 | pub use windows_gnu::*;
-   |         ^^^^^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:78:9
-   |
-78 | pub use windows_gnu::*;
-   |         ^^^^^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `windows_gnu::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:78:9
-   |
-78 | pub use windows_gnu::*;
-   |         ^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_abi::CanonAbi`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/windows_gnullvm.rs:15:5
-   |
-15 | use rustc_abi::CanonAbi;
-   |     ^^^^^^^^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:80:9
-   |
-80 | pub use windows_gnullvm::*;
-   |         ^^^^^^^^^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:80:9
-   |
-80 | pub use windows_gnullvm::*;
-   |         ^^^^^^^^^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `windows_gnullvm::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:80:9
-   |
-80 | pub use windows_gnullvm::*;
-   |         ^^^^^^^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:82:9
-   |
-82 | pub use windows_msvc::*;
-   |         ^^^^^^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:82:9
-   |
-82 | pub use windows_msvc::*;
-   |         ^^^^^^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `windows_msvc::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:82:9
-   |
-82 | pub use windows_msvc::*;
-   |         ^^^^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:84:9
-   |
-84 | pub use windows_uwp_gnu::*;
-   |         ^^^^^^^^^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:84:9
-   |
-84 | pub use windows_uwp_gnu::*;
-   |         ^^^^^^^^^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `windows_uwp_gnu::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:84:9
-   |
-84 | pub use windows_uwp_gnu::*;
-   |         ^^^^^^^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:86:9
-   |
-86 | pub use windows_uwp_msvc::*;
-   |         ^^^^^^^^^^^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:86:9
-   |
-86 | pub use windows_uwp_msvc::*;
-   |         ^^^^^^^^^^^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `windows_uwp_msvc::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:86:9
-   |
-86 | pub use windows_uwp_msvc::*;
-   |         ^^^^^^^^^^^^^^^^^^^
-
-warning: glob import doesn't reexport anything with visibility `pub` because no imported item is public enough
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:88:9
-   |
-88 | pub use xtensa::*;
-   |         ^^^^^^^^^
-   |
-note: the most public imported item is `pub(crate)`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:88:9
-   |
-88 | pub use xtensa::*;
-   |         ^^^^^^^^^
-   = help: reduce the glob import's visibility or increase visibility of imported items
-
-warning: unused import: `xtensa::*`
-  --> submodules/rust/compiler/rustc_target/src/spec/base/mod.rs:88:9
-   |
-88 | pub use xtensa::*;
-   |         ^^^^^^^^^
-
-warning: unused imports: `Symbol`, `kw`, and `sym`
- --> submodules/rust/compiler/rustc_target/src/spec/linker_flavor.rs:6:18
-  |
-6 | use rustc_span::{Symbol, kw, sym}; // Add kw and sym here
-  |                  ^^^^^^  ^^  ^^^
-
-warning: unused import: `crate::target_spec_enum`
- --> submodules/rust/compiler/rustc_target/src/spec/linker_flavor.rs:8:5
-  |
-8 | use crate::target_spec_enum;
-  |     ^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `std::borrow::Cow`
- --> submodules/rust/compiler/rustc_target/src/spec/link_self_contained.rs:4:5
-  |
-4 | use std::borrow::Cow;
-  |     ^^^^^^^^^^^^^^^^
-
-warning: unused import: `schemars::JsonSchema`
- --> submodules/rust/compiler/rustc_target/src/spec/link_self_contained.rs:5:5
-  |
-5 | use schemars::JsonSchema;
-  |     ^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `serde_derive`
- --> submodules/rust/compiler/rustc_target/src/spec/link_self_contained.rs:6:5
-  |
-6 | use serde_derive;
-  |     ^^^^^^^^^^^^
-
-warning: unused import: `std::borrow::Cow`
- --> submodules/rust/compiler/rustc_target/src/spec/linker_features.rs:1:5
-  |
-1 | use std::borrow::Cow;
-  |     ^^^^^^^^^^^^^^^^
-
-warning: unused import: `schemars::JsonSchema`
- --> submodules/rust/compiler/rustc_target/src/spec/linker_features.rs:2:5
-  |
-2 | use schemars::JsonSchema;
-  |     ^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `serde_derive`
- --> submodules/rust/compiler/rustc_target/src/spec/linker_features.rs:3:5
-  |
-3 | use serde_derive;
-  |     ^^^^^^^^^^^^
-
-warning: unused import: `into_diag_arg_using_display`
- --> submodules/rust/compiler/rustc_target/src/spec/panic_strategy.rs:6:55
-  |
-6 | use rustc_error_messages::{DiagArgValue, IntoDiagArg, into_diag_arg_using_display};
-  |                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `std::fmt`
- --> submodules/rust/compiler/rustc_target/src/spec/on_broken_pipe.rs:2:5
-  |
-2 | use std::fmt;
-  |     ^^^^^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/relro_level.rs:3:20
-  |
-3 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/symbol_visibility.rs:3:20
-  |
-3 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `Json`
- --> submodules/rust/compiler/rustc_target/src/spec/small_data_threshold_support.rs:1:19
-  |
-1 | use crate::json::{Json, ToJson};
-  |                   ^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/small_data_threshold_support.rs:2:20
-  |
-2 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `serde_derive`
- --> submodules/rust/compiler/rustc_target/src/spec/small_data_threshold_support.rs:5:5
-  |
-5 | use serde_derive;
-  |     ^^^^^^^^^^^^
-
-warning: unused import: `schemars::JsonSchema`
- --> submodules/rust/compiler/rustc_target/src/spec/small_data_threshold_support.rs:7:5
-  |
-7 | use schemars::JsonSchema;
-  |     ^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/merge_functions.rs:3:20
-  |
-3 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/reloc_model.rs:3:20
-  |
-3 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/code_model.rs:3:20
-  |
-3 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_span::Symbol`
- --> submodules/rust/compiler/rustc_target/src/spec/code_model.rs:4:5
-  |
-4 | use rustc_span::Symbol; // Assuming Symbol is needed for `desc_symbol` if it existed.
-  |     ^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/float_abi.rs:3:20
-  |
-3 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/rustc_abi.rs:3:20
-  |
-3 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_span::Symbol`
- --> submodules/rust/compiler/rustc_target/src/spec/rustc_abi.rs:4:5
-  |
-4 | use rustc_span::Symbol; // Assuming Symbol is needed if desc_symbol was used
-  |     ^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/tls_model.rs:3:20
-  |
-3 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `crate::json::ToJson`
- --> submodules/rust/compiler/rustc_target/src/spec/link_output_kind.rs:2:5
-  |
-2 | use crate::json::ToJson;
-  |     ^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/link_output_kind.rs:3:20
-  |
-3 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/debuginfo_kind.rs:2:20
-  |
-2 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `std::collections::BTreeMap`
- --> submodules/rust/compiler/rustc_target/src/spec/target_options.rs:2:5
-  |
-2 | use std::collections::BTreeMap;
-  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_abi::AddressSpace`
-  --> submodules/rust/compiler/rustc_target/src/spec/target_options.rs:10:5
-   |
-10 | use rustc_abi::AddressSpace;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_span::Symbol`
-  --> submodules/rust/compiler/rustc_target/src/spec/target_options.rs:11:5
-   |
-11 | use rustc_span::Symbol;
-   |     ^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `std::borrow::Cow`
- --> submodules/rust/compiler/rustc_target/src/spec/target_tuple.rs:2:5
-  |
-2 | use std::borrow::Cow;
-  |     ^^^^^^^^^^^^^^^^
-
-warning: unused import: `DefaultHasher`
- --> submodules/rust/compiler/rustc_target/src/spec/target_tuple.rs:3:31
-  |
-3 | use std::hash::{Hash, Hasher, DefaultHasher};
-  |                               ^^^^^^^^^^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/split_debuginfo.rs:3:20
-  |
-3 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `into_diag_arg_using_display`
- --> submodules/rust/compiler/rustc_target/src/spec/split_debuginfo.rs:4:55
-  |
-4 | use rustc_error_messages::{DiagArgValue, IntoDiagArg, into_diag_arg_using_display};
-  |                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/stack_probe_type.rs:2:20
-  |
-2 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `serde_json::Value`
- --> submodules/rust/compiler/rustc_target/src/spec/stack_probe_type.rs:4:5
-  |
-4 | use serde_json::Value;
-  |     ^^^^^^^^^^^^^^^^^
-
-warning: unused import: `schemars::JsonSchema`
- --> submodules/rust/compiler/rustc_target/src/spec/stack_probe_type.rs:5:5
-  |
-5 | use schemars::JsonSchema;
-  |     ^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `std::borrow::Cow`
- --> submodules/rust/compiler/rustc_target/src/spec/sanitizer_set.rs:3:5
-  |
-3 | use std::borrow::Cow;
-  |     ^^^^^^^^^^^^^^^^
-
-warning: unused import: `schemars::JsonSchema`
- --> submodules/rust/compiler/rustc_target/src/spec/sanitizer_set.rs:5:5
-  |
-5 | use schemars::JsonSchema;
-  |     ^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/frame_pointer.rs:2:20
-  |
-2 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `crate::json::ToJson`
- --> submodules/rust/compiler/rustc_target/src/spec/stack_protector.rs:1:5
-  |
-1 | use crate::json::ToJson;
-  |     ^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/stack_protector.rs:2:20
-  |
-2 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `into_diag_arg_using_display`
- --> submodules/rust/compiler/rustc_target/src/spec/stack_protector.rs:3:55
-  |
-3 | use rustc_error_messages::{DiagArgValue, IntoDiagArg, into_diag_arg_using_display};
-  |                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/binary_format.rs:2:20
-  |
-2 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `Decodable`, `Encodable`, and `HashStable_Generic`
- --> submodules/rust/compiler/rustc_target/src/spec/target_warnings.rs:1:20
-  |
-1 | use rustc_macros::{Decodable, Encodable, HashStable_Generic};
-  |                    ^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `sym`
- --> submodules/rust/compiler/rustc_target/src/spec/os.rs:2:26
-  |
-2 | use rustc_span::{Symbol, sym};
-  |                          ^^^
-
-warning: unused imports: `Symbol` and `sym`
- --> submodules/rust/compiler/rustc_target/src/spec/env.rs:2:18
-  |
-2 | use rustc_span::{Symbol, sym};
-  |                  ^^^^^^  ^^^
-
-warning: variant `other_variant` should have an upper camel case name
-  --> submodules/rust/compiler/rustc_target/src/spec/env.rs:22:9
-   |
-22 |         other_variant = "Other",
-   |         ^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `OtherVariant`
-   |
-   = note: `#[warn(non_camel_case_types)]` (part of `#[warn(nonstandard_style)]`) on by default
-
-warning: unused imports: `apple` and `base`
-  --> submodules/rust/compiler/rustc_target/src/spec/supported_targets.rs:18:13
-   |
-18 | use super::{base, apple};
-   |             ^^^^  ^^^^^
-
-warning: `#[macro_export]` only has an effect on macro definitions
-   --> submodules/rust/compiler/rustc_target/src/spec/mod.rs:123:1
-    |
-123 | #[macro_export]
-    | ^^^^^^^^^^^^^^^
-    |
-    = note: `#[warn(unused_attributes)]` (part of `#[warn(unused)]`) on by default
-
-warning: unused import: `crate::json::ToJson`
- --> submodules/rust/compiler/rustc_target/src/spec/binary_format.rs:1:5
-  |
-1 | use crate::json::ToJson;
-  |     ^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `crate::json::ToJson`
- --> submodules/rust/compiler/rustc_target/src/spec/frame_pointer.rs:1:5
-  |
-1 | use crate::json::ToJson;
-  |     ^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `ToJson`
-  --> submodules/rust/compiler/rustc_target/src/spec/mod.rs:49:25
-   |
-49 | use crate::json::{Json, ToJson}; // For ToJson for Align
-   |                         ^^^^^^
-
-warning: unused import: `crate::json::ToJson`
- --> submodules/rust/compiler/rustc_target/src/spec/split_debuginfo.rs:2:5
-  |
-2 | use crate::json::ToJson;
-  |     ^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `ToJson`
-  --> submodules/rust/compiler/rustc_target/src/spec/target.rs:13:25
-   |
-13 | use crate::json::{Json, ToJson};
-   |                         ^^^^^^
-
-warning: unused import: `DerefMut`
- --> submodules/rust/compiler/rustc_target/src/spec/target_options.rs:3:23
-  |
-3 | use std::ops::{Deref, DerefMut};
-  |                       ^^^^^^^^
-
-warning: unused import: `crate::json::ToJson`
- --> submodules/rust/compiler/rustc_target/src/spec/debuginfo_kind.rs:1:5
-  |
-1 | use crate::json::ToJson;
-  |     ^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `crate::json::ToJson`
- --> submodules/rust/compiler/rustc_target/src/spec/tls_model.rs:2:5
-  |
-2 | use crate::json::ToJson;
-  |     ^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `Deref`
- --> submodules/rust/compiler/rustc_target/src/spec/target_options.rs:3:16
-  |
-3 | use std::ops::{Deref, DerefMut};
-  |                ^^^^^
-
-warning: unused import: `crate::json::ToJson`
- --> submodules/rust/compiler/rustc_target/src/spec/rustc_abi.rs:2:5
-  |
-2 | use crate::json::ToJson;
-  |     ^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `crate::json::ToJson`
- --> submodules/rust/compiler/rustc_target/src/spec/float_abi.rs:2:5
-  |
-2 | use crate::json::ToJson;
-  |     ^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `crate::json::ToJson`
- --> submodules/rust/compiler/rustc_target/src/spec/code_model.rs:2:5
-  |
-2 | use crate::json::ToJson;
-  |     ^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `crate::json::ToJson`
- --> submodules/rust/compiler/rustc_target/src/spec/reloc_model.rs:2:5
-  |
-2 | use crate::json::ToJson;
-  |     ^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `crate::json::ToJson`
- --> submodules/rust/compiler/rustc_target/src/spec/merge_functions.rs:2:5
-  |
-2 | use crate::json::ToJson;
-  |     ^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `crate::json::ToJson`
- --> submodules/rust/compiler/rustc_target/src/spec/relro_level.rs:2:5
-  |
-2 | use crate::json::ToJson;
-  |     ^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `crate::json::ToJson`
- --> submodules/rust/compiler/rustc_target/src/spec/symbol_visibility.rs:2:5
-  |
-2 | use crate::json::ToJson;
-  |     ^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `crate::json::ToJson`
- --> submodules/rust/compiler/rustc_target/src/spec/panic_strategy.rs:4:5
-  |
-4 | use crate::json::ToJson;
-  |     ^^^^^^^^^^^^^^^^^^^
-
-warning: unreachable pattern
-   --> submodules/rust/compiler/rustc_target/src/asm/mod.rs:921:9
-    |
-921 |         _ => FxHashMap::default(), // Handle other/unknown architectures
-    |         ^ no value can reach this
-    |
-note: multiple earlier patterns match some of the same values
-   --> submodules/rust/compiler/rustc_target/src/asm/mod.rs:921:9
-    |
-831 |         InlineAsmArch::X86 | InlineAsmArch::X86_64 => {
-    |         ------------------------------------------ matches some of the same values
-...
-836 |         InlineAsmArch::Arm => {
-    |         ------------------ matches some of the same values
-...
-841 |         InlineAsmArch::AArch64 | InlineAsmArch::Arm64EC => {
-    |         ----------------------------------------------- matches some of the same values
-...
-846 |         InlineAsmArch::RiscV32 | InlineAsmArch::RiscV64 => {
-    |         ----------------------------------------------- matches some of the same values
-...
-921 |         _ => FxHashMap::default(), // Handle other/unknown architectures
-    |         ^ ...and 14 other patterns collectively make this unreachable
-    = note: `#[warn(unreachable_patterns)]` (part of `#[warn(unused)]`) on by default
-
-warning: unused variable: `kind`
-   --> submodules/rust/compiler/rustc_target/src/spec/target.rs:113:37
-    |
-113 |     pub fn check_consistency(&self, kind: crate::spec::targets::TargetKind) -> Result<(), String> {
-    |                                     ^^^^ help: if this is intentional, prefix it with an underscore: `_kind`
-    |
-    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
-
-warning: function `new` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/crt_objects.rs:50:15
-   |
-50 | pub(super) fn new(obj_table: &[(LinkOutputKind, &[&'static str])]) -> CrtObjects {
-   |               ^^^
-   |
-   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
-
-warning: function `all` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/crt_objects.rs:54:15
-   |
-54 | pub(super) fn all(obj: &'static str) -> CrtObjects {
-   |               ^^^
-
-warning: function `pre_musl_self_contained` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/crt_objects.rs:65:15
-   |
-65 | pub(super) fn pre_musl_self_contained() -> CrtObjects {
-   |               ^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: function `post_musl_self_contained` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/crt_objects.rs:76:15
-   |
-76 | pub(super) fn post_musl_self_contained() -> CrtObjects {
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: function `pre_mingw_self_contained` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/crt_objects.rs:87:15
-   |
-87 | pub(super) fn pre_mingw_self_contained() -> CrtObjects {
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: function `pre_i686_mingw_self_contained` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/crt_objects.rs:98:15
-   |
-98 | pub(super) fn pre_i686_mingw_self_contained() -> CrtObjects {
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: function `post_i686_mingw_self_contained` is never used
-   --> submodules/rust/compiler/rustc_target/src/spec/crt_objects.rs:109:15
-    |
-109 | pub(super) fn post_i686_mingw_self_contained() -> CrtObjects {
-    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: function `pre_i686_mingw` is never used
-   --> submodules/rust/compiler/rustc_target/src/spec/crt_objects.rs:113:15
-    |
-113 | pub(super) fn pre_i686_mingw() -> CrtObjects {
-    |               ^^^^^^^^^^^^^^
-
-warning: function `post_i686_mingw` is never used
-   --> submodules/rust/compiler/rustc_target/src/spec/crt_objects.rs:117:15
-    |
-117 | pub(super) fn post_i686_mingw() -> CrtObjects {
-    |               ^^^^^^^^^^^^^^^
-
-warning: function `pre_wasi_self_contained` is never used
-   --> submodules/rust/compiler/rustc_target/src/spec/crt_objects.rs:121:15
-    |
-121 | pub(super) fn pre_wasi_self_contained() -> CrtObjects {
-    |               ^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: function `post_wasi_self_contained` is never used
-   --> submodules/rust/compiler/rustc_target/src/spec/crt_objects.rs:133:15
-    |
-133 | pub(super) fn post_wasi_self_contained() -> CrtObjects {
-    |               ^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/aix.rs:8:15
-  |
-8 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/android.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: enum `Arch` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/base/apple/mod.rs:28:17
-   |
-28 | pub(crate) enum Arch {
-   |                 ^^^^
-
-warning: methods `target_name`, `target_arch`, `target_cpu`, and `stack_probes` are never used
-  --> submodules/rust/compiler/rustc_target/src/spec/base/apple/mod.rs:41:8
-   |
-40 | impl Arch {
-   | --------- methods in this implementation
-41 |     fn target_name(self) -> &'static str {
-   |        ^^^^^^^^^^^
-...
-55 |     pub(crate) fn target_arch(self) -> crate::spec::Arch {
-   |                   ^^^^^^^^^^^
-...
-64 |     fn target_cpu(self, env: TargetEnv) -> &'static str {
-   |        ^^^^^^^^^^
-...
-87 |     fn stack_probes(self) -> StackProbeType {
-   |        ^^^^^^^^^^^^
-
-warning: enum `TargetEnv` is never used
-   --> submodules/rust/compiler/rustc_target/src/spec/base/apple/mod.rs:102:17
-    |
-102 | pub(crate) enum TargetEnv {
-    |                 ^^^^^^^^^
-
-warning: methods `target_env` and `target_abi` are never used
-   --> submodules/rust/compiler/rustc_target/src/spec/base/apple/mod.rs:109:8
-    |
-108 | impl TargetEnv {
-    | -------------- methods in this implementation
-109 |     fn target_env(self) -> Env {
-    |        ^^^^^^^^^^
-...
-123 |     fn target_abi(self) -> Abi {
-    |        ^^^^^^^^^^
-
-warning: function `base` is never used
-   --> submodules/rust/compiler/rustc_target/src/spec/base/apple/mod.rs:134:15
-    |
-134 | pub(crate) fn base(
-    |               ^^^^
-
-warning: function `unversioned_llvm_target` is never used
-   --> submodules/rust/compiler/rustc_target/src/spec/base/apple/mod.rs:221:4
-    |
-221 | fn unversioned_llvm_target(os: &Os, arch: Arch, env: TargetEnv) -> StaticCow<str> {
-    |    ^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: function `link_env_remove` is never used
-   --> submodules/rust/compiler/rustc_target/src/spec/base/apple/mod.rs:241:4
-    |
-241 | fn link_env_remove(os: &Os) -> StaticCow<[StaticCow<str>]> {
-    |    ^^^^^^^^^^^^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/bpf.rs:5:15
-  |
-5 | pub(crate) fn opts(endian: Endian) -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/base/cygwin.rs:13:15
-   |
-13 | pub(crate) fn opts() -> TargetOptions {
-   |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/dragonfly.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/freebsd.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/fuchsia.rs:5:15
-  |
-5 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/haiku.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/helenos.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/hermit.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/hurd.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/hurd_gnu.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/illumos.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/l4re.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/linux.rs:5:15
-  |
-5 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/linux_gnu.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/linux_musl.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/linux_ohos.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/linux_uclibc.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/linux_wasm.rs:9:15
-  |
-9 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/lynxos178.rs:7:15
-  |
-7 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/managarm_mlibc.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/motor.rs:5:15
-  |
-5 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/base/msvc.rs:10:15
-   |
-10 | pub(crate) fn opts() -> TargetOptions {
-   |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/netbsd.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/nto_qnx.rs:5:15
-  |
-5 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `meta` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/base/nto_qnx.rs:25:15
-   |
-25 | pub(crate) fn meta() -> TargetMetadata {
-   |               ^^^^
-
-warning: function `aarch64` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/base/nto_qnx.rs:29:15
-   |
-29 | pub(crate) fn aarch64() -> Target {
-   |               ^^^^^^^
-
-warning: function `x86_64` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/base/nto_qnx.rs:53:15
-   |
-53 | pub(crate) fn x86_64() -> Target {
-   |               ^^^^^^
-
-warning: function `pre_link_args` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/base/nto_qnx.rs:71:15
-   |
-71 | pub(crate) fn pre_link_args(api_var: ApiVariant, arch: Arch) -> LinkArgs {
-   |               ^^^^^^^^^^^^^
-
-warning: enum `ApiVariant` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/base/nto_qnx.rs:90:17
-   |
-90 | pub(crate) enum ApiVariant {
-   |                 ^^^^^^^^^^
-
-warning: enum `Arch` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/base/nto_qnx.rs:95:17
-   |
-95 | pub(crate) enum Arch {
-   |                 ^^^^
-
-warning: function `get_iosock_param` is never used
-   --> submodules/rust/compiler/rustc_target/src/spec/base/nto_qnx.rs:108:4
-    |
-108 | fn get_iosock_param(arch_lib_dir: &str) -> &'static str {
-    |    ^^^^^^^^^^^^^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/openbsd.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/redox.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/solaris.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/solid.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/teeos.rs:5:15
-  |
-5 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/base/thumb.rs:32:15
-   |
-32 | pub(crate) fn opts() -> TargetOptions {
-   |               ^^^^
-
-warning: function `opts` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/base/uefi_msvc.rs:14:15
-   |
-14 | pub(crate) fn opts() -> TargetOptions {
-   |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/unikraft_linux_musl.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/vxworks.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `options` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/wasm.rs:6:15
-  |
-6 | pub(crate) fn options() -> TargetOptions {
-  |               ^^^^^^^
-
-warning: function `opts` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/base/windows_gnu.rs:16:15
-   |
-16 | pub(crate) fn opts() -> TargetOptions {
-   |               ^^^^
-
-warning: function `opts` is never used
-  --> submodules/rust/compiler/rustc_target/src/spec/base/windows_gnullvm.rs:17:15
-   |
-17 | pub(crate) fn opts() -> TargetOptions {
-   |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/windows_msvc.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/windows_uwp_gnu.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/windows_uwp_msvc.rs:3:15
-  |
-3 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: function `opts` is never used
- --> submodules/rust/compiler/rustc_target/src/spec/base/xtensa.rs:5:15
-  |
-5 | pub(crate) fn opts() -> TargetOptions {
-  |               ^^^^
-
-warning: `rustc_target` (lib) generated 238 warnings (run `cargo fix --lib -p rustc_target` to apply 108 suggestions)
-warning: unexpected `cfg` condition name: `bootstrap`
- --> submodules/rust/compiler/rustc_hir/src/lib.rs:6:13
-  |
-6 | #![cfg_attr(bootstrap, feature(debug_closure_helpers))]
-  |             ^^^^^^^^^
-  |
-  = help: expected names are: `docsrs`, `feature`, and `test` and 31 more
-  = help: consider using a Cargo feature instead
-  = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
-           [lints.rust]
-           unexpected_cfgs = { level = "warn", check-cfg = ['cfg(bootstrap)'] }
-  = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(bootstrap)");` to the top of the `build.rs`
-  = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
-  = note: `#[warn(unexpected_cfgs)]` on by default
-
-warning: `rustc_hir` (lib) generated 1 warning
-warning: unused variable: `sysroot`
-    --> submodules/rust/compiler/rustc_session/src/config.rs:1607:5
-     |
-1607 |     sysroot: &Path,
-     |     ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_sysroot`
-     |
-     = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
-
-warning: `rustc_session` (lib) generated 1 warning
-   Compiling rustc_expand v0.0.0 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/rust/compiler/rustc_expand)
-error: expected one of: `*`, `+`, or `?`
-   --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_macro.rs:171:24
-    |
-171 |                       $($(AstFragment::$Kind(ast) => {
-    |  ________________________^
-172 | |                         let new_elements: SmallVec<_> = ast.drain( ..)
-173 | |                                                            .flat_map(|elt| vis.$flat_map_ast_elt(elt, $($args)*))
-174 | |                                                            .collect();
-175 | |                         *ast = new_elements;
-176 | |                     }))*
-    | |______________________^
-
-error: attempted to repeat an expression containing no syntax variables matched as repeating at this depth
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_macro.rs:25:24
-   |
-25 |                       $($(AstFragment::$Kind(ast) => ast.extend(placeholders.iter().flat_map(|id| {
-   |  ________________________^
-26 | |
-27 | |                         placeholder(AstFragmentKind::$Kind, *id, None).$make_ast()
-28 | |                     })),)?)*
-   | |_________________________^
-
-warning: unused import: `std::rc::Rc`
- --> submodules/rust/compiler/rustc_expand/src/ast_fragments_defs.rs:3:5
-  |
-3 | use std::rc::Rc;
-  |     ^^^^^^^^^^^
-  |
-  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
-
-warning: unused import: `rustc_ast_pretty::pprust`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_defs.rs:12:5
-   |
-12 | use rustc_ast_pretty::pprust;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `DummyResult`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_defs.rs:26:39
-   |
-26 | use crate::base::{ExtCtxt, MacResult, DummyResult};
-   |                                       ^^^^^^^^^^^
-
-warning: unused import: `WrongFragmentKind`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_defs.rs:29:5
-   |
-29 |     WrongFragmentKind,
-   |     ^^^^^^^^^^^^^^^^^
-
-warning: unused import: `Recovery`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_defs.rs:33:27
-   |
-33 | use rustc_parse::parser::{Recovery};
-   |                           ^^^^^^^^
-
-warning: unused import: `std::rc::Rc`
- --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:1:5
-  |
-1 | use std::rc::Rc;
-  |     ^^^^^^^^^^^
-
-warning: unused imports: `iter`, `mem`, `slice`, and `sync::Arc`
- --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:2:11
-  |
-2 | use std::{iter, mem, slice, sync::Arc};
-  |           ^^^^  ^^^  ^^^^^  ^^^^^^^^^
-
-warning: unused import: `rustc_ast::tokenstream::TokenStream`
- --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:7:5
-  |
-7 | use rustc_ast::tokenstream::TokenStream;
-  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `VisitorResult`, `self`, `try_visit`, and `walk_list`
- --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:8:24
-  |
-8 | use rustc_ast::visit::{self, AssocCtxt, Visitor, VisitorResult, try_visit, walk_list};
-  |                        ^^^^                      ^^^^^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^
-
-warning: unused imports: `AssocItemKind`, `AstNodeWrapper`, `AttrArgs`, `AttrStyle`, `AttrVec`, `DUMMY_NODE_ID`, `ExprKind`, `ForeignItemKind`, `HasAttrs`, `HasNodeId`, `Inline`, `ItemKind`, `MacStmtStyle`, `MetaItemInner`, `MetaItemKind`, `ModKind`, `PatKind`, `StmtKind`, `TyKind`, and `token`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:11:5
-   |
-11 |     AssocItemKind,
-   |     ^^^^^^^^^^^^^
-12 |     AstNodeWrapper,
-   |     ^^^^^^^^^^^^^^
-13 |     AttrArgs,
-   |     ^^^^^^^^
-14 |     AttrStyle,
-   |     ^^^^^^^^^
-15 |     AttrVec,
-   |     ^^^^^^^
-16 |     DUMMY_NODE_ID,
-   |     ^^^^^^^^^^^^^
-17 |     ExprKind,
-   |     ^^^^^^^^
-18 |     ForeignItemKind,
-   |     ^^^^^^^^^^^^^^^
-19 |     HasAttrs,
-   |     ^^^^^^^^
-20 |     HasNodeId,
-   |     ^^^^^^^^^
-21 |     Inline,
-   |     ^^^^^^
-22 |     ItemKind,
-   |     ^^^^^^^^
-23 |     MacStmtStyle,
-   |     ^^^^^^^^^^^^
-24 |     MetaItemInner,
-   |     ^^^^^^^^^^^^^
-25 |     MetaItemKind,
-   |     ^^^^^^^^^^^^
-26 |     ModKind,
-   |     ^^^^^^^
-27 |     NodeId,
-28 |     PatKind,
-   |     ^^^^^^^
-29 |     StmtKind,
-   |     ^^^^^^^^
-30 |     TyKind,
-   |     ^^^^^^
-31 |     token,
-   |     ^^^^^
-
-warning: unused import: `rustc_ast_pretty::pprust`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:33:5
-   |
-33 | use rustc_ast_pretty::pprust;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `AttributeParser`, `Early`, `EvalConfigResult`, `ShouldEmit`, and `validate_attr`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:34:26
-   |
-34 | use rustc_attr_parsing::{AttributeParser, Early, EvalConfigResult, ShouldEmit, validate_attr};
-   |                          ^^^^^^^^^^^^^^^  ^^^^^  ^^^^^^^^^^^^^^^^  ^^^^^^^^^^  ^^^^^^^^^^^^^
-
-warning: unused import: `rustc_data_structures::flat_map_in_place::FlatMapInPlace`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:35:5
-   |
-35 | use rustc_data_structures::flat_map_in_place::FlatMapInPlace;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_data_structures::stack::ensure_sufficient_stack`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:36:5
-   |
-36 | use rustc_data_structures::stack::ensure_sufficient_stack;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_errors::PResult`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:37:5
-   |
-37 | use rustc_errors::PResult;
-   |     ^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_feature::Features`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:38:5
-   |
-38 | use rustc_feature::Features;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_hir::Target`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:39:5
-   |
-39 | use rustc_hir::Target;
-   |     ^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_hir::def::MacroKinds`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:40:5
-   |
-40 | use rustc_hir::def::MacroKinds;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_hir::limit::Limit`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:41:5
+66 | macro_rules! throw_span_err {
+   |              ^^^^^^^^^^^^^^
    |
-41 | use rustc_hir::limit::Limit;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
+   = note: `#[warn(unused_macros)]` (part of `#[warn(unused)]`) on by default
 
-warning: unused imports: `AttemptLocalParseRecovery`, `CommaRecoveryMode`, `ForceCollect`, `Parser`, `RecoverColon`, `RecoverComma`, and `token_descr`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:43:5
+warning: unused macro definition: `throw_invalid_attr`
+  --> submodules/rust/compiler/rustc_macros/src/diagnostics/error.rs:91:14
    |
-43 |     AttemptLocalParseRecovery,
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
-44 |     CommaRecoveryMode,
-   |     ^^^^^^^^^^^^^^^^^
-45 |     ForceCollect,
-   |     ^^^^^^^^^^^^
-46 |     Parser,
-   |     ^^^^^^
-47 |     RecoverColon,
-   |     ^^^^^^^^^^^^
-48 |     RecoverComma,
-   |     ^^^^^^^^^^^^
-49 |     token_descr,
-   |     ^^^^^^^^^^^
+91 | macro_rules! throw_invalid_attr {
+   |              ^^^^^^^^^^^^^^^^^^
 
-warning: unused import: `rustc_session::Session`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:51:5
+warning: unused import: `invalid_attr`
+  --> submodules/rust/compiler/rustc_macros/src/diagnostics/utils.rs:16:56
    |
-51 | use rustc_session::Session;
-   |     ^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `UNUSED_ATTRIBUTES` and `UNUSED_DOC_COMMENTS`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:52:36
-   |
-52 | use rustc_session::lint::builtin::{UNUSED_ATTRIBUTES, UNUSED_DOC_COMMENTS};
-   |                                    ^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_session::parse::feature_err`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:53:5
-   |
-53 | use rustc_session::parse::feature_err;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_span::hygiene::SyntaxContext`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:54:5
-   |
-54 | use rustc_span::hygiene::SyntaxContext;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `FileName`, `Ident`, `LocalExpnId`, `Symbol`, and `sym`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:55:35
-   |
-55 | use rustc_span::{ErrorGuaranteed, FileName, Ident, LocalExpnId, Span, Symbol, sym};
-   |                                   ^^^^^^^^  ^^^^^  ^^^^^^^^^^^        ^^^^^^  ^^^
-
-warning: unused imports: `Annotatable`, `ExpandResult`, `ExtCtxt`, and `SyntaxExtension`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:65:19
-   |
-65 | use crate::base::{Annotatable, ExtCtxt, MacResult, SyntaxExtension, ExpandResult, DummyResult};
-   |                   ^^^^^^^^^^^  ^^^^^^^             ^^^^^^^^^^^^^^^  ^^^^^^^^^^^^
-
-warning: unused imports: `StripUnconfigured` and `attr_into_trace`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:66:21
-   |
-66 | use crate::config::{StripUnconfigured, attr_into_trace};
-   |                     ^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^
-
-warning: unused imports: `EmptyDelegationMac`, `GlobDelegationOutsideImpls`, `GlobDelegationTraitlessQpath`, `IncompleteParse`, `RecursionLimitReached`, `RemoveExprNotSupported`, `RemoveNodeNotSupported`, `UnsupportedKeyValue`, and `WrongFragmentKind`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:68:5
-   |
-68 |     EmptyDelegationMac,
-   |     ^^^^^^^^^^^^^^^^^^
-69 |     GlobDelegationOutsideImpls,
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
-70 |     GlobDelegationTraitlessQpath,
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-71 |     IncompleteParse,
-   |     ^^^^^^^^^^^^^^^
-72 |     RecursionLimitReached,
-   |     ^^^^^^^^^^^^^^^^^^^^^
-73 |     RemoveExprNotSupported,
-   |     ^^^^^^^^^^^^^^^^^^^^^^
-74 |     RemoveNodeNotSupported,
-   |     ^^^^^^^^^^^^^^^^^^^^^^
-75 |     UnsupportedKeyValue,
-   |     ^^^^^^^^^^^^^^^^^^^
-76 |     WrongFragmentKind,
-   |     ^^^^^^^^^^^^^^^^^
-
-warning: unused import: `crate::fluent_generated`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:78:5
-   |
-78 | use crate::fluent_generated;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `annotate_err_with_kind` and `self`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:79:31
-   |
-79 | use crate::mbe::diagnostics::{self, annotate_err_with_kind};
-   |                               ^^^^  ^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `DirOwnership`, `ParsedExternalMod`, `mod_dir_path`, `mod_file_path_from_attr`, and `parse_external_mod`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:81:5
-   |
-81 |     DirOwnership,
-   |     ^^^^^^^^^^^^
-82 |     ParsedExternalMod,
-   |     ^^^^^^^^^^^^^^^^^
-83 |     mod_dir_path,
-   |     ^^^^^^^^^^^^
-84 |     mod_file_path_from_attr,
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
-85 |     parse_external_mod,
-   |     ^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `PlaceholderExpander`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:87:27
-   |
-87 | use crate::placeholders::{PlaceholderExpander, placeholder};
-   |                           ^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `crate::stats`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:88:5
-   |
-88 | use crate::stats;
-   |     ^^^^^^^^^^^^
-
-warning: unused imports: `ExpansionData` and `ModuleData`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:89:19
-   |
-89 | use crate::base::{ModuleData, ExpansionData};
-   |                   ^^^^^^^^^^  ^^^^^^^^^^^^^
-
-warning: unused imports: `InvocationKind` and `Invocation`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:90:21
-   |
-90 | use crate::expand::{InvocationKind, Invocation};
-   |                     ^^^^^^^^^^^^^^  ^^^^^^^^^^
-
-warning: unused import: `crate::errors`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:91:5
-   |
-91 | use crate::errors;
-   |     ^^^^^^^^^^^^^
-
-warning: unused import: `rustc_lint_defs::builtin::SEMICOLON_IN_EXPRESSIONS_FROM_MACROS`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:92:5
-   |
-92 | use rustc_lint_defs::builtin::SEMICOLON_IN_EXPRESSIONS_FROM_MACROS;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `Recovery`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:94:27
-   |
-94 | use rustc_parse::parser::{Recovery};
-   |                           ^^^^^^^^
-
-warning: unused import: `rustc_ast::tokenstream::TokenStream`
- --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:3:5
-  |
-3 | use rustc_ast::tokenstream::TokenStream;
-  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `VisitorResult`, `Visitor`, `self`, `try_visit`, and `walk_list`
- --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:4:24
-  |
-4 | use rustc_ast::visit::{self, AssocCtxt, Visitor, VisitorResult, try_visit, walk_list};
-  |                        ^^^^             ^^^^^^^  ^^^^^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^
-
-warning: unused imports: `AttrArgs`, `AttrStyle`, `AttrVec`, `ForeignItemKind`, `Inline`, `MacStmtStyle`, `ModKind`, and `token`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:7:5
-   |
- 7 |     AttrArgs,
-   |     ^^^^^^^^
- 8 |     AttrStyle,
-   |     ^^^^^^^^^
- 9 |     AttrVec,
-   |     ^^^^^^^
-...
-12 |     ForeignItemKind,
-   |     ^^^^^^^^^^^^^^^
-...
-15 |     Inline,
-   |     ^^^^^^
-16 |     ItemKind,
-17 |     MacStmtStyle,
-   |     ^^^^^^^^^^^^
-...
-20 |     ModKind,
-   |     ^^^^^^^
-...
-24 |     token,
-   |     ^^^^^
-
-warning: unused import: `rustc_data_structures::flat_map_in_place::FlatMapInPlace`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:28:5
-   |
-28 | use rustc_data_structures::flat_map_in_place::FlatMapInPlace;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_errors::PResult`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:30:5
-   |
-30 | use rustc_errors::PResult;
-   |     ^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_hir::def::MacroKinds`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:33:5
-   |
-33 | use rustc_hir::def::MacroKinds;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `AttemptLocalParseRecovery`, `CommaRecoveryMode`, `ForceCollect`, `Parser`, `RecoverColon`, `RecoverComma`, and `token_descr`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:36:5
-   |
-36 |     AttemptLocalParseRecovery,
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
-37 |     CommaRecoveryMode,
-   |     ^^^^^^^^^^^^^^^^^
-38 |     ForceCollect,
-   |     ^^^^^^^^^^^^
-39 |     Parser,
-   |     ^^^^^^
-40 |     RecoverColon,
-   |     ^^^^^^^^^^^^
-41 |     RecoverComma,
-   |     ^^^^^^^^^^^^
-42 |     token_descr,
-   |     ^^^^^^^^^^^
-
-warning: unused import: `rustc_session::Session`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:44:5
-   |
-44 | use rustc_session::Session;
-   |     ^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_session::parse::feature_err`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:46:5
-   |
-46 | use rustc_session::parse::feature_err;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_span::hygiene::SyntaxContext`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:47:5
-   |
-47 | use rustc_span::hygiene::SyntaxContext;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `ErrorGuaranteed` and `FileName`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:48:18
-   |
-48 | use rustc_span::{ErrorGuaranteed, FileName, Ident, LocalExpnId, Span, Symbol, sym};
-   |                  ^^^^^^^^^^^^^^^  ^^^^^^^^
-
-warning: unused imports: `DummyResult`, `ExpandResult`, and `MacResult`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:51:41
-   |
-51 | use crate::base::{Annotatable, ExtCtxt, MacResult, SyntaxExtension, ExpandResult, DummyResult};
-   |                                         ^^^^^^^^^                   ^^^^^^^^^^^^  ^^^^^^^^^^^
-
-warning: unused imports: `IncompleteParse`, `RecursionLimitReached`, `RemoveExprNotSupported`, `UnsupportedKeyValue`, and `WrongFragmentKind`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:57:5
-   |
-57 |     IncompleteParse,
-   |     ^^^^^^^^^^^^^^^
-58 |     RecursionLimitReached,
-   |     ^^^^^^^^^^^^^^^^^^^^^
-59 |     RemoveExprNotSupported,
-   |     ^^^^^^^^^^^^^^^^^^^^^^
-60 |     RemoveNodeNotSupported,
-61 |     UnsupportedKeyValue,
-   |     ^^^^^^^^^^^^^^^^^^^
-62 |     WrongFragmentKind,
-   |     ^^^^^^^^^^^^^^^^^
-
-warning: unused import: `crate::fluent_generated`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:64:5
-   |
-64 | use crate::fluent_generated;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `annotate_err_with_kind` and `self`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:65:31
-   |
-65 | use crate::mbe::diagnostics::{self, annotate_err_with_kind};
-   |                               ^^^^  ^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `ParsedExternalMod`, `mod_dir_path`, `mod_file_path_from_attr`, and `parse_external_mod`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:68:5
-   |
-68 |     ParsedExternalMod,
-   |     ^^^^^^^^^^^^^^^^^
-69 |     mod_dir_path,
-   |     ^^^^^^^^^^^^
-70 |     mod_file_path_from_attr,
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
-71 |     parse_external_mod,
-   |     ^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `PlaceholderExpander`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:73:27
-   |
-73 | use crate::placeholders::{PlaceholderExpander, placeholder};
-   |                           ^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `crate::stats`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:74:5
-   |
-74 | use crate::stats;
-   |     ^^^^^^^^^^^^
-
-warning: unused import: `ModuleData`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:75:19
-   |
-75 | use crate::base::{ModuleData, ExpansionData};
-   |                   ^^^^^^^^^^
-
-warning: unused import: `crate::errors`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:78:5
-   |
-78 | use crate::errors;
-   |     ^^^^^^^^^^^^^
-
-warning: unused import: `rustc_lint_defs::builtin::SEMICOLON_IN_EXPRESSIONS_FROM_MACROS`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:79:5
-   |
-79 | use rustc_lint_defs::builtin::SEMICOLON_IN_EXPRESSIONS_FROM_MACROS;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `std::rc::Rc`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:80:5
-   |
-80 | use std::rc::Rc;
-   |     ^^^^^^^^^^^
-
-warning: unused import: `iter`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:81:11
-   |
-81 | use std::{iter, mem, slice, sync::Arc};
-   |           ^^^^
-
-warning: unused import: `ast_fragments_helpers::InvocationCollectorNode`
- --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/mod.rs:3:9
-  |
-3 | pub use ast_fragments_helpers::InvocationCollectorNode; // Explicitly re-export
-  |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `walk_assoc_item`, `walk_crate`, `walk_expr_field`, `walk_expr`, `walk_field_def`, `walk_foreign_mod`, `walk_generic_param`, `walk_item`, `walk_param`, `walk_pat_field`, `walk_pat`, `walk_ty`, `walk_variant`, and `walk_where_predicate`
- --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_node_impls.rs:2:28
-  |
-2 | ...::{walk_expr, walk_crate, walk_ty, walk_pat, walk_assoc_item, walk_foreign_mod, walk_variant, walk_where_predicate, walk_field_def, walk_pat_field, walk_expr_field, walk_param, walk_generic_param, MutVisitor, walk_item};
-  |       ^^^^^^^^^  ^^^^^^^^^^  ^^^^^^^  ^^^^^^^^  ^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^  ^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^              ^^^^^^^^^
-
-warning: unused import: `rustc_ast::tokenstream::TokenStream`
- --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_node_impls.rs:5:5
-  |
-5 | use rustc_ast::tokenstream::TokenStream;
-  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `DUMMY_SP`
- --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_node_impls.rs:6:32
-  |
-6 | use rustc_span::{Span, Symbol, DUMMY_SP, Ident}; // Added Ident
-  |                                ^^^^^^^^
-
-warning: unused imports: `DummyResult`, `ExpandResult`, `ExtCtxt`, `ModuleData`, and `SyntaxExtension`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_node_impls.rs:10:32
-   |
-10 | use crate::base::{Annotatable, ExtCtxt, MacResult, SyntaxExtension, ExpandResult, DummyResult, ModuleData};
-   |                                ^^^^^^^             ^^^^^^^^^^^^^^^  ^^^^^^^^^^^^  ^^^^^^^^^^^  ^^^^^^^^^^
-
-warning: unused import: `DirOwnership`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_node_impls.rs:12:80
-   |
-12 | use crate::module::{mod_dir_path, mod_file_path_from_attr, parse_external_mod, DirOwnership, ParsedExternalMod};
-   |                                                                                ^^^^^^^^^^^^
-
-warning: unused imports: `update_attr_macro_stats`, `update_bang_macro_stats`, and `update_derive_macro_stats`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_node_impls.rs:15:20
-   |
-15 | use crate::stats::{update_bang_macro_stats, update_attr_macro_stats, update_derive_macro_stats};
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `SEMICOLON_IN_EXPRESSIONS_FROM_MACROS`
-  --> submodules/rust/compiler/rustc_expand/src/mbe/macro_rules.rs:21:41
-   |
-21 |     RUST_2021_INCOMPATIBLE_OR_PATTERNS, SEMICOLON_IN_EXPRESSIONS_FROM_MACROS,
-   |                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `diagnostics`
-  --> submodules/rust/compiler/rustc_expand/src/mbe/macro_rules.rs:34:33
-   |
-34 | use super::{SequenceRepetition, diagnostics};
-   |                                 ^^^^^^^^^^^
-
-warning: unused imports: `ensure_complete_parse` and `parse_ast_fragment`
-  --> submodules/rust/compiler/rustc_expand/src/mbe/macro_rules.rs:40:21
-   |
-40 | use crate::expand::{ensure_complete_parse, parse_ast_fragment};
-   |                     ^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `AstFragmentKind` and `AstFragment`
-  --> submodules/rust/compiler/rustc_expand/src/mbe/macro_rules.rs:41:55
-   |
-41 | use crate::ast_fragments_split::ast_fragments_enums::{AstFragment, AstFragmentKind};
-   |                                                       ^^^^^^^^^^^  ^^^^^^^^^^^^^^^
-
-warning: unused import: `ExpansionConfig`
-  --> submodules/rust/compiler/rustc_expand/src/base.rs:39:52
-   |
-39 | use crate::expand::{self, AstFragment, Invocation, ExpansionConfig};
-   |                                                    ^^^^^^^^^^^^^^^
-
-warning: unused import: `slice`
- --> submodules/rust/compiler/rustc_expand/src/expand.rs:4:22
-  |
-4 | use std::{iter, mem, slice};
-  |                      ^^^^^
-
-warning: unused import: `rustc_ast::mut_visit::*`
- --> submodules/rust/compiler/rustc_expand/src/expand.rs:6:5
-  |
-6 | use rustc_ast::mut_visit::*;
-  |     ^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `VisitorResult`, `try_visit`, and `walk_list`
- --> submodules/rust/compiler/rustc_expand/src/expand.rs:8:50
-  |
-8 | use rustc_ast::visit::{self, AssocCtxt, Visitor, VisitorResult, try_visit, walk_list};
-  |                                                  ^^^^^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^
-
-warning: unused imports: `AttrVec`, `DUMMY_NODE_ID`, `ExprKind`, `ForeignItemKind`, `HasNodeId`, `MacStmtStyle`, `MetaItemInner`, `PatKind`, `StmtKind`, and `TyKind`
-  --> submodules/rust/compiler/rustc_expand/src/expand.rs:10:70
-   |
-10 |     self as ast, AssocItemKind, AstNodeWrapper, AttrArgs, AttrStyle, AttrVec, DUMMY_NODE_ID,
-   |                                                                      ^^^^^^^  ^^^^^^^^^^^^^
-11 |     ExprKind, ForeignItemKind, HasAttrs, HasNodeId, Inline, ItemKind, MacStmtStyle, MetaItemInner,
-   |     ^^^^^^^^  ^^^^^^^^^^^^^^^            ^^^^^^^^^                    ^^^^^^^^^^^^  ^^^^^^^^^^^^^
-12 |     MetaItemKind, ModKind, NodeId, PatKind, StmtKind, TyKind, token,
-   |                                    ^^^^^^^  ^^^^^^^^  ^^^^^^
-
-warning: unused import: `rustc_ast_pretty::pprust`
-  --> submodules/rust/compiler/rustc_expand/src/expand.rs:14:5
-   |
-14 | use rustc_ast_pretty::pprust;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `AttributeParser`, `Early`, `EvalConfigResult`, and `ShouldEmit`
-  --> submodules/rust/compiler/rustc_expand/src/expand.rs:15:26
-   |
-15 | use rustc_attr_parsing::{AttributeParser, Early, EvalConfigResult, ShouldEmit, validate_attr};
-   |                          ^^^^^^^^^^^^^^^  ^^^^^  ^^^^^^^^^^^^^^^^  ^^^^^^^^^^
-
-warning: unused import: `rustc_data_structures::flat_map_in_place::FlatMapInPlace`
-  --> submodules/rust/compiler/rustc_expand/src/expand.rs:16:5
-   |
-16 | use rustc_data_structures::flat_map_in_place::FlatMapInPlace;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_data_structures::stack::ensure_sufficient_stack`
-  --> submodules/rust/compiler/rustc_expand/src/expand.rs:17:5
-   |
-17 | use rustc_data_structures::stack::ensure_sufficient_stack;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_feature::Features`
-  --> submodules/rust/compiler/rustc_expand/src/expand.rs:19:5
-   |
-19 | use rustc_feature::Features;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `rustc_hir::Target`
-  --> submodules/rust/compiler/rustc_expand/src/expand.rs:20:5
-   |
-20 | use rustc_hir::Target;
-   |     ^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `UNUSED_ATTRIBUTES` and `UNUSED_DOC_COMMENTS`
-  --> submodules/rust/compiler/rustc_expand/src/expand.rs:28:36
-   |
-28 | use rustc_session::lint::builtin::{UNUSED_ATTRIBUTES, UNUSED_DOC_COMMENTS};
-   |                                    ^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `Symbol`
-  --> submodules/rust/compiler/rustc_expand/src/expand.rs:31:71
-   |
-31 | use rustc_span::{ErrorGuaranteed, FileName, Ident, LocalExpnId, Span, Symbol, sym};
-   |                                                                       ^^^^^^
-
-warning: unused imports: `StripUnconfigured` and `attr_into_trace`
-  --> submodules/rust/compiler/rustc_expand/src/expand.rs:39:21
-   |
-39 | use crate::config::{StripUnconfigured, attr_into_trace};
-   |                     ^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^
-
-warning: unused imports: `EmptyDelegationMac`, `GlobDelegationOutsideImpls`, `GlobDelegationTraitlessQpath`, and `RemoveNodeNotSupported`
-  --> submodules/rust/compiler/rustc_expand/src/expand.rs:41:5
-   |
-41 |     EmptyDelegationMac, GlobDelegationOutsideImpls, GlobDelegationTraitlessQpath, IncompleteParse,
-   |     ^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-42 |     RecursionLimitReached, RemoveExprNotSupported, RemoveNodeNotSupported, UnsupportedKeyValue,
-   |                                                    ^^^^^^^^^^^^^^^^^^^^^^
-
-warning: unused imports: `DirOwnership`, `ParsedExternalMod`, `mod_dir_path`, `mod_file_path_from_attr`, and `parse_external_mod`
-  --> submodules/rust/compiler/rustc_expand/src/expand.rs:48:5
-   |
-48 |     DirOwnership, ParsedExternalMod, mod_dir_path, mod_file_path_from_attr, parse_external_mod,
-   |     ^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
-
-warning: unused import: `placeholder`
-  --> submodules/rust/compiler/rustc_expand/src/expand.rs:50:48
-   |
-50 | use crate::placeholders::{PlaceholderExpander, placeholder};
-   |                                                ^^^^^^^^^^^
-
-warning: unreachable expression
-   --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:746:13
-    |
-746 |                return match self.take_first_attr(node) {
-    |  ______________^      -
-    | | ____________________|
-747 | ||                 Some((attr, pos, derives)) => {
-748 | ||                     // Explains: If an attribute is found, it's processed based on its kind.
-749 | ||                     match attr.name() {
-...   ||
-809 | ||             };
-    | ||             ^
-    | ||_____________|
-    |  |_____________unreachable expression
-    |                any code following this `match` expression is unreachable, as all arms diverge
-    |
-    = note: `#[warn(unreachable_code)]` (part of `#[warn(unused)]`) on by default
-
-error[E0277]: the trait bound `AstNodeWrapper<Expr, MethodReceiverTag>: InvocationCollectorNode` is not satisfied
-   --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:930:25
-    |
-930 |         self.visit_node(AstNodeWrapper::from_mut(node, MethodReceiverTag))
-    |              ---------- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `InvocationCollectorNode` is not implemented for `AstNodeWrapper<rustc_ast::Expr, ast_fragments_helpers::MethodReceiverTag>`
-    |              |
-    |              required by a bound introduced by this call
-    |
-    = help: the following other types implement trait `InvocationCollectorNode`:
-              AstNodeWrapper<std::boxed::Box<rustc_ast::Expr>, OptExprTag>
-              AstNodeWrapper<std::boxed::Box<rustc_ast::Expr>, ast_fragments_node_impls::MethodReceiverTag>
-              AstNodeWrapper<std::boxed::Box<rustc_ast::Item<AssocItemKind>>, ImplItemTag>
-              AstNodeWrapper<std::boxed::Box<rustc_ast::Item<AssocItemKind>>, TraitImplItemTag>
-              AstNodeWrapper<std::boxed::Box<rustc_ast::Item<AssocItemKind>>, TraitItemTag>
-note: required by a bound in `InvocationCollector::<'a, 'b>::visit_node`
-   --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs:739:29
-    |
-739 |     pub fn visit_node<Node: InvocationCollectorNode<VisitOutputTy = Option<Node>> + DummyAstNode>(
-    |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ required by this bound in `InvocationCollector::<'a, 'b>::visit_node`
-    = note: the full name for the type has been written to '/mnt/data1/nix/vendor/rust/cargo2nix/target/debug/deps/rustc_expand-e690b6101d84ecf9.long-type-783630454047272023.txt'
-    = note: consider using `--verbose` to print the full type name to the console
+16 | use crate::diagnostics::error::{DiagnosticDeriveError, invalid_attr, span_err};
+   |                                                        ^^^^^^^^^^^^
 
 error[E0308]: mismatched types
-    --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_node_impls.rs:1077:9
-     |
-1075 |     fn fragment_to_visit_output(fragment: AstFragment) -> Self::VisitOutputTy {
-     |                                                           ------------------- expected `std::option::Option<rustc_ast::Ty>` because of return type
-1076 |         // Explains: Extracts the 'Ty' (type) variant from an AstFragment.
-1077 |         fragment.make_ty()
-     |         ^^^^^^^^^^^^^^^^^^ expected `Option<Ty>`, found `Option<Box<Ty>>`
-     |
-     = note: expected enum `std::option::Option<rustc_ast::Ty>`
-                found enum `std::option::Option<std::boxed::Box<rustc_ast::Ty>>`
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/diagnostic_builder.rs:241:80
+    |
+241 |               SubdiagnosticKind::Label | SubdiagnosticKind::Suggestion { .. } => {
+    |  ________________________________________________________________________________^
+242 | |                 crate::diagnostics::error::throw_invalid_attr!(attr, |diag| diag
+243 | |                     .help("`#[label]` and `#[suggestion]` can only be applied to fields"));
+244 | |             }
+    | |_____________^ expected `Result<TokenStream, ...>`, found `()`
+    |
+    = note:   expected enum `Result<TokenStream2, DiagnosticDeriveError>`
+            found unit type `()`
+
+error[E0308]: `else` clause of `let...else` does not diverge
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/subdiagnostic.rs:202:40
+    |
+202 |               let Some(slug) = slug else {
+    |  ________________________________________^
+203 | |                 let name = attr.path().segments.last().unwrap().ident.to_string();
+204 | |                 let name = name.as_str();
+...   |
+211 | |                 );
+212 | |             };
+    | |_____________^ expected `!`, found `()`
+    |
+    = note:   expected type `!`
+            found unit type `()`
+    = help: try adding a diverging expression, such as `return` or `panic!(..)`
+    = help: ...or use `match` instead of `let...else`
 
 error[E0308]: mismatched types
-    --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_node_impls.rs:1137:9
-     |
-1135 |     fn fragment_to_visit_output(fragment: AstFragment) -> Self::VisitOutputTy {
-     |                                                           ------------------- expected `std::option::Option<rustc_ast::Pat>` because of return type
-1136 |         // Explains: Extracts the 'Pat' (pattern) variant from an AstFragment.
-1137 |         fragment.make_pat()
-     |         ^^^^^^^^^^^^^^^^^^^ expected `Option<Pat>`, found `Option<Box<Pat>>`
-     |
-     = note: expected enum `std::option::Option<rustc_ast::Pat>`
-                found enum `std::option::Option<std::boxed::Box<rustc_ast::Pat>>`
+  --> submodules/rust/compiler/rustc_macros/src/diagnostics/utils.rs:63:6
+   |
+60 | pub fn report_type_error(
+   |        ----------------- implicitly returns `()` as its body has no tail or `return` expression
+...
+63 | ) -> Result<!, DiagnosticDeriveError> {
+   |      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `Result<!, DiagnosticDeriveError>`, found `()`
+   |
+   = note:   expected enum `Result<!, DiagnosticDeriveError>`
+           found unit type `()`
+
+error[E0308]: `if` and `else` have incompatible types
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/utils.rs:670:21
+    |
+654 |                    } else if let Some(suggestion_kind) =
+    |  _________________________-
+655 | |                      name.strip_prefix("multipart_suggestion").and_then(SuggestionKind::from_suffix)
+656 | |                  {
+657 | |                      if suggestion_kind != SuggestionKind::Normal {
+...   |
+665 | |/                     SubdiagnosticKind::MultipartSuggestion {
+666 | ||                         suggestion_kind: SuggestionKind::Normal,
+667 | ||                         applicability: None,
+668 | ||                     }
+    | ||_____________________- expected because of this
+669 | |                  } else {
+670 | |                      crate::diagnostics::error::throw_invalid_attr!(attr);
+    | |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `SubdiagnosticKind`, found `()`
+671 | |                  }
+    | |__________________- `if` and `else` have incompatible types
 
 error[E0308]: mismatched types
-    --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_node_impls.rs:1189:9
-     |
-1187 |     fn fragment_to_visit_output(fragment: AstFragment) -> Self::VisitOutputTy {
-     |                                                           ------------------- expected `std::option::Option<rustc_ast::Expr>` because of return type
-1188 |         // Explains: Extracts the 'Expr' (expression) variant from an AstFragment.
-1189 |         fragment.make_expr()
-     |         ^^^^^^^^^^^^^^^^^^^^ expected `Option<Expr>`, found `Option<Box<Expr>>`
-     |
-     = note: expected enum `std::option::Option<rustc_ast::Expr>`
-                found enum `std::option::Option<std::boxed::Box<rustc_ast::Expr>>`
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/utils.rs:751:25
+    |
+750 |                     let code_init = build_suggestion_code(
+    |                                     --------------------- arguments to this function are incorrect
+751 |                         code_field,
+    |                         ^^^^^^^^^^ expected `&Ident`, found `Ident`
+    |
+note: function defined here
+   --> submodules/rust/compiler/rustc_macros/src/diagnostics/utils.rs:475:15
+    |
+475 | pub(super) fn build_suggestion_code(
+    |               ^^^^^^^^^^^^^^^^^^^^^
+476 |     code_field: &Ident,
+    |     ------------------
+help: consider borrowing here
+    |
+751 |                         &code_field,
+    |                         +
 
-warning: unused import: `HasAttrs`
-  --> submodules/rust/compiler/rustc_expand/src/expand.rs:11:32
-   |
-11 |     ExprKind, ForeignItemKind, HasAttrs, HasNodeId, Inline, ItemKind, MacStmtStyle, MetaItemInner,
-   |                                ^^^^^^^^
-
-warning: unused import: `Visitor`
- --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs:8:41
-  |
-8 | use rustc_ast::visit::{self, AssocCtxt, Visitor, VisitorResult, try_visit, walk_list};
-  |                                         ^^^^^^^
-
-warning: unused import: `MacResult`
-  --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_node_impls.rs:10:41
-   |
-10 | use crate::base::{Annotatable, ExtCtxt, MacResult, SyntaxExtension, ExpandResult, DummyResult, ModuleData};
-   |                                         ^^^^^^^^^
-
-warning: unused variable: `span`
-    --> submodules/rust/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_node_impls.rs:1053:9
-     |
-1053 |         span: Span,
-     |         ^^^^ help: if this is intentional, prefix it with an underscore: `_span`
-     |
-     = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
-
-Some errors have detailed explanations: E0277, E0308.
-For more information about an error, try `rustc --explain E0277`.
-warning: `rustc_expand` (lib) generated 94 warnings
-error: could not compile `rustc_expand` (lib) due to 6 previous errors; 94 warnings emitted
+Some errors have detailed explanations: E0252, E0308, E0433.
+For more information about an error, try `rustc --explain E0252`.
+warning: `rustc_macros` (lib) generated 4 warnings
+error: could not compile `rustc_macros` (lib) due to 21 previous errors; 4 warnings emitted
