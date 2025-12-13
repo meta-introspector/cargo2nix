@@ -349,6 +349,7 @@ quickcheck = { path = "submodules/quickcheck" }
 quote = { path = "submodules/quote" }
 ra-ap-rustc_abi = {  path = "./submodules/rust/compiler/rustc_abi", package="rustc_abi" }
 ra-ap-rustc_ast_ir = { path = "./submodules/rust/compiler/rustc_ast_ir", package="rustc_ast_ir" }
+rustc_ast_pretty = { path = "./submodules/rust/compiler/rustc_ast_pretty" }
 ra-ap-rustc_index = { path = "./submodules/rust/compiler/rustc_index", package="rustc_index" }
 ra-ap-rustc_lexer = { path = "./submodules/rust/compiler/rustc_lexer" , package="rustc_lexer" }
 ra-ap-rustc_next_trait_solver = { path = "./submodules/rust/compiler/rustc_next_trait_solver", package= "rustc_next_trait_solver" }
@@ -386,9 +387,14 @@ rustc_lint = { path = "submodules/rust/compiler/rustc_lint" }
 rustc_middle = { path = "submodules/rust/compiler/rustc_middle" }
 rustc_session = { path = "submodules/rust/compiler/rustc_session" }
 rustc_span = { path = "submodules/rust/compiler/rustc_span" }
+rustc_serialize = { path = "submodules/rust/compiler/rustc_serialize" }
+rustc_expand_base_lib = { path = "submodules/rust/compiler/rustc_expand_base_lib" }
+expand_utils_lib = { path = "submodules/rust/compiler/expand_utils_lib" }
 rustc_tools_util = { path = "submodules/rust/src/tools/clippy/rustc_tools_util" }
 rustc_trait_selection = { path = "submodules/rust/compiler/rustc_trait_selection" }
 rustc_transmute = { path = "submodules/rust/compiler/rustc_transmute" }
+rustc_errors = { path = "submodules/rust/compiler/rustc_errors" }
+rustc_feature = { path = "submodules/rust/compiler/rustc_feature" }
 rustfix = { path = "submodules/cargo/crates/rustfix" }
 rustix = { path = "submodules/rustix" }
 rustversion = { path = "submodules/rustversion" }
@@ -427,6 +433,7 @@ similar = "2.7.0"
 sized-chunks = { path = "submodules/sized-chunks" }
 slab = { path = "submodules/slab" }
 smallvec = { path = "submodules/rust-smallvec" }
+thin-vec = { version = "0.2.14", path = "submodules/thin-vec" }
 smol_str = { path = "submodules/rust-analyzer/lib/smol_str" }
 snapbox = { path = "submodules/snapbox/crates/snapbox", features = ["dir", "json"] }
 socket2 = { path = "submodules/socket2" }
@@ -618,8 +625,10 @@ members = [
     	        "tests/real_rules_test",
     		"submodules/rust/crates/cvs-macro-lib",
     	    "submodules/rust/crates/cvs-macro-test-crate",    "crates/rust-nix-bootstrap",	#"patcher",
-    "crates/test-fnmut-issue",
-    ]
+        "submodules/rust/compiler/expand_utils_test",
+                "submodules/rust/compiler/rustc_expand",
+                "submodules/rust/compiler/rustc_expand_base_lib",
+                "submodules/rust/compiler/rustc_serialize",    ]
 exclude = [
 ]
 
@@ -693,10 +702,20 @@ warnings = "allow"
 
 [patch.crates-io]
 
+
+#liblzma = { path = "submodules/liblzma-rs"}
+#lzma-rust2 = { path = "submodules/lzma-rust2" }
+#lzma-rust2 = { path = "submodules/lzma-rust2" }
+annotate-snippets = { path = "submodules/annotate-snippets-rs" }
+anstream = { path = "submodules/anstyle/crates/anstream" }
+anstyle = { path = "submodules/anstyle/crates/anstyle" }
+anstyle-parse = { path = "submodules/anstyle/crates/anstyle-parse" }
+anstyle-query = { path = "submodules/anstyle/crates/anstyle-query" }
 async-stream = { path = "submodules/async-stream-vendored" }
 bstr = { path = "submodules/bstr" }
+cargo = { path = "submodules/cargo" }
 clap = { path = "submodules/clap" }
-git2 = { path = "submodules/git2-rs" }
+colorchoice = { path = "submodules/anstyle/crates/colorchoice" }
 curl = { path = "submodules/curl-rust", features = ["http2"]  }
 curl-sys = { path = "submodules/curl-rust/curl-sys" }
 dashmap = { path = "submodules/dashmap" , version = "7.0.0-hack"} 
@@ -708,11 +727,11 @@ futures-io = { path = "submodules/futures-rs/futures-io" }
 futures-sink = { path = "submodules/futures-rs/futures-sink" }
 futures-task = { path = "submodules/futures-rs/futures-task" }
 futures-util = { path = "submodules/futures-rs/futures-util" }
+git2 = { path = "submodules/git2-rs" }
 hyper = { path = "submodules/hyper" }
 idna = {path = "submodules/rust-url/idna/" }
 libc = { path = "submodules/libc", features = ["extra_traits"] }
 libgit2-sys = { path = "submodules/git2-rs/libgit2-sys" }
-#lzma-rust2 = { path = "submodules/lzma-rust2" }
 lzma-sys = { path = "submodules/xz2-rs/lzma-sys" }
 measureme  = { path= "submodules/measureme/measureme" }
 parking_lot = { path = "submodules/parking_lot" , version = "0.12.6"}
@@ -732,21 +751,12 @@ serde = { path = "submodules/serde/serde" }
 serde_core = { path = "submodules/serde/serde_core" }
 serde_derive = { path = "submodules/serde/serde_derive" }
 syn = { path = "submodules/syn" }
+tokio = { path = "submodules/tokio/tokio" }
 tokio-core = { path = "submodules/tokio-core" }
 tokio-stream = { path = "submodules/tokio/tokio-stream" }
+tokio-test = { path = "submodules/tokio/tokio-test" }
+tokio-util = { path = "submodules/tokio/tokio-util" }
 tracing-subscriber = { path = "submodules/tracing/tracing-subscriber" }
 tracing-tree = { version = "0.4.1", path = "submodules/tracing-tree" }
 xz2 = { path = "submodules/xz2-rs" }
-tokio = { path = "submodules/tokio/tokio" }
-tokio-test = { path = "submodules/tokio/tokio-test" }
-tokio-util = { path = "submodules/tokio/tokio-util" }
-anstyle = { path = "submodules/anstyle/crates/anstyle" }
-anstream = { path = "submodules/anstyle/crates/anstream" }
-anstyle-parse = { path = "submodules/anstyle/crates/anstyle-parse" }
-anstyle-query = { path = "submodules/anstyle/crates/anstyle-query" }
-colorchoice = { path = "submodules/anstyle/crates/colorchoice" }
-annotate-snippets = { path = "submodules/annotate-snippets-rs" }
-cargo = { path = "submodules/cargo" }
-
-#lzma-rust2 = { path = "submodules/lzma-rust2" }
-#liblzma = { path = "submodules/liblzma-rs"}
+thin-vec = { version = "0.2.14", path = "submodules/thin-vec" }

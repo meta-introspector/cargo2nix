@@ -1737,3 +1737,6 @@
 [submodule "submodules/unicode-bom"]
 	path = submodules/unicode-bom
 	url = https://github.com/meta-introspector/unicode-bom
+[submodule "submodules/thin=vec"]
+	path = submodules/thin-vec
+	url = https://github.com/meta-introspector/thin-vec-rs
