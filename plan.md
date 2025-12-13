@@ -1,115 +1,45 @@
-# Current Build Debugging Plan
+# Current Build Debugging Plan - REBOOTED
 
-## I. Current Status and Resolved Issues
+## I. Current Status and Resolved Issues (Recap)
 
-The project build was failing with several errors. The following issues have been investigated and resolved:
+The project build has undergone significant debugging and refactoring. The following issues have been investigated and largely resolved, as previously documented:
 
-*   **Compilation Errors Resolution (Current Task):**
-    *   **Problem:** C/C++ header not found errors (e.g., `stdbool.h`, `stdlib.h`), Rust macro incompatibility errors, and unresolved type errors after module refactoring in `rustc_target` and `librocksdb-sys`.
-    *   **Resolution:**
-        *   Fixed `mod os;` and `mod env;` declarations in `submodules/rust/compiler/rustc_target/src/spec/targets.rs` by removing them, as these modules are managed by `mod.rs`.
-        *   Resolved duplicate `LinkerFlavor` and `LinkerFlavorCli` imports in `submodules/rust/compiler/rustc_target/src/spec/target_options.rs`.
-        *   Corrected `rustc_abi::Align` import in `submodules/rust/compiler/rustc_target/src/spec/mod.rs` to use global path `::rustc_abi::Align`.
-        *   Enabled `DebuginfoKind` re-export by adding `pub mod debuginfo_kind;` and `pub use debuginfo_kind::*;` to `submodules/rust/compiler/rustc_target/src/spec/mod.rs`.
-        *   Implemented `ToJson` trait for `Align` in `submodules/rust/compiler/rustc_target/src/spec/json.rs`, switching from `Json::U64` to `Json::Number` and adding `use serde_json::Number;`.
-        *   Added `use std::str::FromStr;` to `submodules/rust/compiler/rustc_target/src/spec/debuginfo_kind.rs` for macro context.
-        *   Added `use crate::spec::crt_objects::CrtObjects;` and `use crate::spec::SymbolVisibility;` to `submodules/rust/compiler/rustc_target/src/spec/target_options.rs`.
-        *   Resolved `librocksdb-sys` header discovery issues by:
-            *   Setting Nix store paths as `const` values instead of relying on environment variables within `build.rs`.
-            *   Explicitly setting `LIBCLANG_FLAGS` environment variable for `bindgen_rocksdb` to correctly specify `sysroot` and include paths.
-            *   Configuring `build_rocksdb` to use explicit `CPATH` environment variable and `sysroot` flag for `cc-rs` to ensure `g++` finds `stdlib.h`.
-        *   Fixed `unused_fields` privacy error in `submodules/rust/compiler/rustc_target/src/spec/json.rs` by using `TargetWarnings::empty()` constructor.
-        *   **Fixed `E0658` (`debug_closure_helpers`) in `rustc_hir`:** Explicitly added `#![feature(debug_closure_helpers)]` to `submodules/rust/compiler/rustc_hir/src/lib.rs`.
-        *   **Resolved API changes in `rustc_target` impacting `rustc_session`:**
-            *   Updated all `desc_symbol()` calls to `desc()` for `PanicStrategy`, `RelocModel`, `Abi`, `Arch`, `Env`, and `Os`.
-            *   Modified `min_atomic_width()` and `max_atomic_width()` to access fields directly (`min_atomic_width.unwrap_or(0)` and `max_atomic_width.unwrap_or(u64::MAX)`).
-            *   Changed `vendor_symbol()` to `vendor.as_str()`.
-            *   Replaced `Target::search()` with `targets::load_builtin()` and `Target::builtins()` with `targets::load_all_builtins()`, adjusting error handling and imports (`use rustc_target::spec::targets;` and `use rustc_target::spec::TargetWarnings;`) as necessary in `rustc_session/src/config/cfg.rs` and `rustc_session/src/session.rs`.
-            *   Converted `&str` to `Symbol` using `Symbol::intern()` for all arguments passed to the `ins_sym!` macro.
-            *   Enabled unstable feature `str_as_str` by adding `#![feature(str_as_str)]` to `submodules/rust/compiler/rustc_session/src/config/cfg.rs`.
-        *   **`crates/trait-fixer-hir-info-trait/src/lib.rs`:**
-            *   Corrected import of `OwnerId` from `rustc_hir_id` to `rustc_hir`.
-            *   Corrected import of `ItemKind` from `rustc_hir::hir` to `rustc_hir`.
-            *   Corrected import of `Span` from `rustc_span::span_encoding` to `rustc_span`.
-        *   **`submodules/rust/compiler/rustc_expand` module refactoring:**
-            *   **Refactored `ast_fragments_defs.rs`:** Moved `ast_fragments!` macro definition, `AstFragment`, `AstFragmentKind` enums, `SupportsMacroExpansion` enum, `impl AstFragmentKind` block, `AddSemicolon` enum, `DummyAstNode` trait and implementations, `InvocationCollectorNode` trait and implementations, `ParserAnyMacro` struct and `impl ParserAnyMacro` block, and `impl MacResult for ParserAnyMacro` (generated within the macro) into a new file `submodules/rust/compiler/rustc_expand/src/ast_fragments_defs.rs`.
-            *   Updated `submodules/rust/compiler/rustc_expand/src/expand.rs` to remove the moved code and import items from `ast_fragments_defs.rs`.
-            *   Updated `submodules/rust/compiler/rustc_expand/src/lib.rs` to declare `mod ast_fragments_defs;`.
-            *   Updated imports in `submodules/rust/compiler/rustc_expand/src/mbe/diagnostics.rs`, `src/mbe/macro_rules.rs`, `src/placeholders.rs`, `src/stats.rs`, `src/base.rs`, and `src/proc_macro_server.rs` to correctly import types from `crate::expand` or `crate::ast_fragments_defs` as appropriate.
-            *   Explicitly qualified `AstFragmentKind` with `self::` in `const KIND: ...` declarations and `AstFragmentKind::...` patterns within `ast_fragments_defs.rs`.
-
-*   **`rustc_llvm` Compilation Errors:**
-    *   **Problem:** Incompatibility between `rustc_llvm`'s C++ wrappers and LLVM 19.1.7, manifesting as errors like `no member named 'SanitizeRealtime'` and `fatal error: 'llvm/Transforms/Instrumentation/RealtimeSanitizer.h' file not found`.
-    *   **Resolution:** Cherry-picked commit `27b7b3f0314` into `submodules/rust`. This commit significantly modified `submodules/rust/compiler/rustc_llvm/build.rs` to hardcode LLVM component definitions, effectively bypassing the dynamic `llvm-config` calls that caused compatibility issues.
-*   **`rustc_fluent_macro` Type Inference Error (`E0282`):**
-    *   **Problem:** A type inference error in `submodules/rust/compiler/rustc_fluent_macro/src/fluent.rs` where `Ident::new` received a temporary `&String` from a `format!` macro, leading to a lifetime issue.
-    *   **Resolution:** Modified the problematic line to explicitly create a `String` variable (`formatted_name`) and then pass a stable reference (`&formatted_name`) to `Ident::new`, resolving the lifetime and type inference issue.
-*   **`rustc_log` Unresolved Import (`tracing_core`):**
-    *   **Problem:** `submodules/rust/compiler/rustc_log/src/lib.rs` attempted to `pub use tracing_core`, but `tracing_core` was not a direct dependency declared in `rustc_log/Cargo.toml`.
-    *   **Resolution:** Removed `tracing_core` from the `pub use` statement in `submodules/rust/compiler/rustc_log/src/lib.rs`.
-*   **`rustc_index` Unstable Feature Errors (`E0658` & `E0635`):**
-    *   **Problem:** Initial errors about `const_pin` and `new_zeroed` being unstable features, followed by `unknown feature new_zeroed` and `new_zeroed_alloc` being stable warnings after updating the Rust toolchain.
-    *   **Resolution:** Enabled `#![feature(const_pin)]` and `#![feature(new_zeroed_alloc)]` in `submodules/rust/compiler/rustc_index/src/lib.rs`. Subsequently, removed `#![feature(new_zeroed)]` as it was an unknown/deprecated feature for the updated nightly Rust compiler.
-*   **`librocksdb-sys` `Unable to find libclang` Error:**
-    *   **Problem:** The `librocksdb-sys` build script, which uses `bindgen`, could not find `libclang.so` because `LIBCLANG_PATH` in `flake.nix` was incorrectly pointing to `pkgs.clang/lib` instead of the actual `libclang` package.
-    *   **Resolution:** Corrected `LIBCLANG_PATH` in `devShells.default` and `devShells.build` sections of `flake.nix` to `"${pkgs.llvmPackages_19.libclang}"`.
-*   **Nix `rust-bin.nightly` Attribute Missing Error:**
-    *   **Problem:** Attempting to use a non-existent `rust-bin.nightly` date (`2025-12-05`) in `flake.nix`.
-    *   **Resolution:** Updated `myRustc` in `flake.nix` to use the available nightly build `2025-10-05`.
-*   **`cargo` `unclosed delimiter` errors in `compilation_orchestration.rs`:**
-    *   **Problem:** Compilation errors in `submodules/cargo/src/cargo/core/compiler/compilation_orchestration.rs` related to unclosed delimiters within a `with_context` closure. This prevented `cargo` from building.
-    *   **Resolution:** Fixed the `format!` macro call, closed the `match` statement, and explicitly returned the `result` variable from the `Work::new` closure, and added the final closing brace for the `rustc_work` function. These changes ensure the correct syntactic structure and allow `cargo` to compile.
-*   **Nix Flake Escaping and Naming:**
-    *   **Problem:** Generated Nix reproduction flakes contained improperly escaped `rustc` commands in their `shellHook`, leading to syntax errors. They also lacked a structured naming convention and output directory.
-    *   **Resolution:** Refactored flake generation logic into a new `flake-repro-lib` crate. The flakes are now generated into a `repro/` directory with SHA256 hashed filenames. This includes correctly escaping shell commands and dynamically determining Nix system architecture.
+*   **Compilation Errors Resolution:** Various C/C++ header issues, Rust macro incompatibilities, and type errors related to `rustc_target` and `librocksdb-sys` have been addressed. This included extensive modifications to `mod.rs` files across several modules, correcting imports, and enabling necessary Rust features.
+*   **`rustc_llvm` Compilation Errors:** Incompatibilities with LLVM 19.1.7 were resolved by cherry-picking a specific commit into `submodules/rust`.
+*   **`rustc_fluent_macro` Type Inference Error (`E0282`):** A lifetime issue with `Ident::new` was fixed by explicitly managing `String` ownership.
+*   **`rustc_log` Unresolved Import (`tracing_core`):** An incorrect `pub use` statement was removed.
+*   **`rustc_index` Unstable Feature Errors (`E0658` & `E0635`):** Unstable features were enabled and deprecated ones removed.
+*   **`librocksdb-sys` `Unable to find libclang` Error:** `LIBCLANG_PATH` in `flake.nix` was corrected.
+*   **Nix `rust-bin.nightly` Attribute Missing Error:** The nightly build date in `flake.nix` was updated.
+*   **`cargo` `unclosed delimiter` errors:** Syntax errors in `compilation_orchestration.rs` were corrected.
+*   **Nix Flake Escaping and Naming:** Flake generation logic was refactored into a `flake-repro-lib` crate for improved structure and escaping.
 
 ## II. Ongoing Refactoring and Next Steps
 
 The project is undergoing significant architectural refactoring to enhance reproducibility, modularity, and control over the build process.
 
-*   **Rustc Argument Capture and TOML Serialization:**
-    *   **Goal:** To capture raw `rustc` invocation arguments directly from `cargo` before any shell escaping, and serialize them into a TOML format. This eliminates the need for shell-based escaping in Nix flakes and paves the way for a custom Rust "Nix runner" to execute `rustc`.
-    *   **Progress:**
-        *   Introduced `RustcInvocation` struct in `submodules/cargo/src/cargo/util/rustc.rs` for structured `rustc` invocation data.
-        *   Modified `submodules/cargo/src/cargo/core/compiler/invocation_args.rs::prepare_rustc_process` to capture `ProcessBuilder` data into a `RustcInvocation` instance and return both the `ProcessBuilder` and `RustcInvocation`.
-        *   Added `serde` and `toml` dependencies to `submodules/cargo/Cargo.toml` to support serialization.
-        *   Created `crates/rustc-arg-builder-lib` with a `RustcArgGenerator` trait and `DefaultRustcArgGenerator` implementation to encapsulate `rustc` command generation logic.
-        *   Modified `crates/flake-repro-lib` to use `rustc-arg-builder-lib` and handle the new `RustcInvocation` object.
-        *   Split `mod.rs` into `linker_flavor.rs` for `LinkerFlavor` and related components.
-        *   Split `mod.rs` into `link_self_contained.rs` for `LinkSelfContainedDefault` and `LinkSelfContainedComponents`.
-        *   Split `mod.rs` into `linker_features.rs` for `LinkerFeatures`.
-        *   Split `mod.rs` into `panic_strategy.rs` for `PanicStrategy`.
-        *   Split `mod.rs` into `on_broken_pipe.rs` for `OnBrokenPipe`.
-        *   Split `mod.rs` into `relro_level.rs` for `RelroLevel`.
-        *   Split `mod.rs` into `symbol_visibility.rs` for `SymbolVisibility`.
-        *   Split `mod.rs` into `small_data_threshold_support.rs` for `SmallDataThresholdSupport`.
-        *   Split `mod.rs` into `merge_functions.rs` for `MergeFunctions`.
-        *   Split `mod.rs` into `reloc_model.rs` for `RelocModel`.
-        *   Split `mod.rs` into `code_model.rs` for `CodeModel`.
-        *   Split `mod.rs` into `float_abi.rs` for `FloatAbi`.
-        *   Split `mod.rs` into `rustc_abi.rs` for `RustcAbi`.
-        *   Split `mod.rs` into `tls_model.rs` for `TlsModel`.
-        *   Split `mod.rs` into `link_output_kind.rs` for `LinkOutputKind`.
-        *   Split `mod.rs` into `debuginfo_kind.rs` for `DebuginfoKind`.
-        *   Split `mod.rs` into `split_debuginfo.rs` for `SplitDebuginfo`.
-        *   Split `mod.rs` into `stack_probe_type.rs` for `StackProbeType`.
-        *   Split `mod.rs` into `sanitizer_set.rs` for `SanitizerSet`.
-        *   Split `mod.rs` into `frame_pointer.rs` for `FramePointer`.
-        *   Split `mod.rs` into `stack_protector.rs` for `StackProtector`.
-        *   Split `mod.rs` into `binary_format.rs` for `BinaryFormat`.
-        *   Split `mod.rs` into `target_warnings.rs` for `TargetWarnings`.
-        *   Split `mod.rs` into `arch.rs` for `Arch`.
-        *   Split `mod.rs` into `os.rs` for `Os`.
-    *   **Next Action:** Continue splitting `mod.rs` into additional files as outlined in the internal TODO list.
+*   **Rustc Argument Capture and TOML Serialization (Completed Splitting of `rustc_target/src/spec/mod.rs`)**
+    *   The previous goal was to split the large `rustc_target/src/spec/mod.rs` file into smaller, logically grouped files.
+    *   **Status:** This splitting has been successfully completed. The `mod.rs` file now primarily serves as a re-export hub for the individual modules, ensuring better maintainability and readability. All previously identified components now reside in their dedicated files within `submodules/rust/compiler/rustc_target/src/spec/`.
 
-*   **Refactor `rustc_target/src/spec/mod.rs`:**
-    *   **Goal:** Split the large `mod.rs` file into smaller, logically grouped files to improve maintainability and readability.
+*   **Rustc Expand Refactoring (`InvocationCollectorNode` Type Unification)**
+    *   **Goal:** Resolve type mismatch errors related to the `InvocationCollectorNode` trait in `submodules/rust/compiler/rustc_expand`. The trait's `OutputTy` associated type was being used in conflicting ways (for single optional nodes and for multiple nodes).
     *   **Progress:**
-        *   Created `linker_flavor.rs` and moved `Cc`, `Lld`, `LinkerFlavor`, `LinkerFlavorCli`, `LldFlavor`, their `impl` blocks, and associated macros/implementations into it.
-        *   Updated `mod.rs` to import and re-export the contents of `linker_flavor.rs`.
-        *   Simplified import paths in `json.rs` and `target_options.rs` (e.g., `crate::spec::module::Type` to `crate::spec::Type`).
-        *   Verified `arch.rs` for correct `desc_symbol` implementation (use `rustc_span::Symbol::intern("unknown")`).
-    *   **Next Action:** Continue splitting `mod.rs` into additional files as outlined in the internal TODO list.
+        *   The `InvocationCollectorNode` trait definition in `src/ast_fragments_split/ast_fragments_helpers.rs` has been refactored to introduce two distinct associated types: `VisitOutputTy` (for single optional node results) and `FlatMapOutputTy` (for zero, one, or many node results).
+        *   The `fragment_to_output` method has been split into `fragment_to_visit_output` and `fragment_to_flat_map_output` within the `InvocationCollectorNode` trait.
+        *   The `InvocationCollector::visit_node` function in `src/ast_fragments_split/ast_fragments_helpers.rs` has been updated to use `Node::VisitOutputTy` and `Node::fragment_to_visit_output`.
+        *   The `signature of InvocationCollector::flat_map_node` in `src/ast_fragments_split/ast_fragments_helpers.rs` has been updated to use `Node::FlatMapOutputTy`.
+        *   The `walk` method for `ast::Stmt` in `src/ast_fragments_split/ast_fragments_node_impls.rs` has been corrected to handle the `StmtKind::Let` variant (API change) and to manually visit `MacCallStmt` components (due to `visit_mac_call_stmt` not being found/available).
+        *   The `post_flat_map_node_collect_bang` function in `src/ast_fragments_split/ast_fragments_node_impls.rs` has been fixed to correctly handle `Option<SmallVec<Stmt, 1>>` when calling `pop()` and `push()`.
+        *   All instances of `Node::fragment_to_output` within the `flat_map_node` function in `src/ast_fragments_split/ast_fragments_helpers.rs` have been replaced with `Node::fragment_to_flat_map_output`.
+    *   **Next Action:**
+        1.  **Update all `impl InvocationCollectorNode for ...` blocks:** Go through every implementation of `InvocationCollectorNode` in `src/ast_fragments_split/ast_fragments_node_impls.rs` and update:
+            *   `type OutputTy = ...` to `type VisitOutputTy = ...` and `type FlatMapOutputTy = ...`.
+            *   `fn fragment_to_output` to `fn fragment_to_visit_output` and `fn fragment_to_flat_map_output`.
+            *   Update all other trait methods to use the new `VisitOutputTy` or `FlatMapOutputTy` as appropriate.
+        2.  **Address `Option<T>` dereferencing/field access errors:** Fix explicit unwrapping or handling of `Option<T>` where errors like `type Option<T> cannot be dereferenced` or `no field 'kind' on type Option<T>` occur.
+        3.  **Implement `MutVisitor` for `AstFragment`:** Provide a concrete implementation for the `MutVisitor` trait for the `AstFragment` enum.
+        4.  **Implement `std::fmt::Display` for `AstFragment`:** Provide a `Display` trait implementation for `AstFragment`.
 
 ## III. Remaining Issues (Warnings)
 
@@ -124,7 +54,7 @@ The following issues are currently present as warnings and do not block the buil
 1.  **Systematic Warning Resolution:** After a clean build, address the remaining warnings by either:
     *   Adding appropriate `check-cfg` entries to `Cargo.toml` files or `build.rs` scripts for unexpected `cfg` conditions.
     *   Removing unused `use` statements or variables.
-    *   Refactoring code flagged as `dead_code` if it's indeed unused, or marking it appropriately if it's intentionally retained.
+    *   Refactoring code flagged as `dead_code` if it's indeed unused, or marking it appropriately if it's retained.
 2.  **Implement `cargo build` flags in Nix for reproducibility and capture:** Configure Nix derivations to use `cargo build --quiet --reproducible=bash` and `--capture=all` flags. This will involve identifying the relevant Nix expressions that invoke `cargo build` and modifying them to include these flags.
 3.  **Full Build Verification:** Execute `make build` to ensure all current fixes have taken effect and that the project now compiles without any blocking errors.
 4.  **Review `ast_parser_impl` dependencies:** Re-verify that `prelude-generator` and `split-expanded-lib` are correctly handled. (This was a lingering task that needs a final check).

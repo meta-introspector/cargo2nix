@@ -31,7 +31,7 @@ export RUSTC_BOOTSTRAP=1 # Needed for some compiler features, ensure it's set.
 
 # Wrap cargo build in nix develop command
 # Capture both stdout and stderr of the inner command to the LOG_FILE
-nix develop --command bash -c "RUSTC_BOOTSTRAP=1 cargo build --message-format=json --warnings=none 2>&1" > "$LOG_FILE" 2>&1
+nix develop --command bash -c "RUSTC_BOOTSTRAP=1 cargo build --message-format=json 2>&1" > "$LOG_FILE" 2>&1
 
 # Check the exit code of the nix develop command
 if [ $? -eq 0 ]; then
@@ -46,6 +46,6 @@ else
     sed 's/\\n/\n/g; s/\\t/\t/g; s/\\"/"/g; s/\\r//g; s/\\//g'
 
     echo "Full log available in $LOG_FILE"
-    echo "For advanced debugging, you can use: nix develop --command bash -c \"RUSTC_BOOTSTRAP=1 cargo build --message-format=json --warnings=none\""
+    echo "For advanced debugging, you can use: nix develop --command bash -c \"RUSTC_BOOTSTRAP=1 cargo build --message-format=json\""
     echo "To inspect a compiler error interactively, consider setting RUST_BACKTRACE=1 or using a debugger."
 fi
