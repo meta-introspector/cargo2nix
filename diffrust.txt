@@ -1,0 +1,1486 @@
+diff --git a/compiler/rustc_expand/src/ast_fragments_defs.rs b/compiler/rustc_expand/src/ast_fragments_defs.rs
+index a563b64678c..34de3579721 100644
+--- a/compiler/rustc_expand/src/ast_fragments_defs.rs
++++ b/compiler/rustc_expand/src/ast_fragments_defs.rs
+@@ -31,14 +31,14 @@
+ use crate::mbe::diagnostics;
+ use crate::errors;
+ use rustc_parse::parser::{Recovery};
+-
++use rustc_expand_base_lib::resolver_traits::OpaqueDeriveResolution;
+ 
+ // Import the generated types and structs from the new module
+ use crate::ast_fragments_split::ast_fragments_enums::{AstFragment, AstFragmentKind};
+ use smallvec::SmallVec;
+ 
+ 
+-pub struct ParserAnyMacro<'a> {
++pub struct ParserAnyMacro<'a, DRT: OpaqueDeriveResolution + 'static> {
+     parser: Parser<'a>,
+ 
+     /// Span of the expansion site of the macro this parser is for
+@@ -52,8 +52,8 @@ pub struct ParserAnyMacro<'a> {
+     is_local: bool,
+ }
+ 
+-impl<'a> ParserAnyMacro<'a> {
+-    pub fn make(mut self: Box<ParserAnyMacro<'a>>, kind: AstFragmentKind) -> AstFragment {
++impl<'a, DRT: OpaqueDeriveResolution + 'static> ParserAnyMacro<'a, DRT> {
++    pub fn make(self: Box<ParserAnyMacro<'a, DRT>>, kind: AstFragmentKind) -> AstFragment {
+         let ParserAnyMacro {
+             site_span,
+             macro_ident,
+@@ -97,7 +97,7 @@ pub fn make(mut self: Box<ParserAnyMacro<'a>>, kind: AstFragmentKind) -> AstFrag
+ 
+     #[tracing::instrument(skip(cx, tts))]
+     pub fn from_tts<'cx>(
+-        cx: &'cx mut ExtCtxt<'a>,
++        cx: &'cx mut ExtCtxt<'a, DRT>,
+         tts: TokenStream,
+         site_span: Span,
+         arm_span: Span,
+@@ -123,7 +123,7 @@ pub fn from_tts<'cx>(
+ // Explains: This block defines how `ParserAnyMacro` behaves when asked to produce different types of AST fragments
+ // (like expressions, patterns, types, statements, etc.). It's essentially an adapter between the raw parsed tokens
+ // and the expected output of a macro expansion.
+-impl<'a> MacResult for ParserAnyMacro<'a> {
++impl<'a, DRT: OpaqueDeriveResolution + 'static> MacResult for ParserAnyMacro<'a, DRT> {
+     fn make_expr(self: Box<Self>) -> Option<Box<ast::Expr>> {
+         self.make(AstFragmentKind::Expr).make_expr()
+     }
+diff --git a/compiler/rustc_expand/src/ast_fragments_split/dummy_visitor_support.rs b/compiler/rustc_expand/src/ast_fragments_split/dummy_visitor_support.rs
+index 6454b8547c5..e9c4ab64bcc 100644
+--- a/compiler/rustc_expand/src/ast_fragments_split/dummy_visitor_support.rs
++++ b/compiler/rustc_expand/src/ast_fragments_split/dummy_visitor_support.rs
+@@ -2,11 +2,11 @@
+ use crate::prelude::ExtCtxt;
+ use rustc_ast::{Attribute, AttrVec}; // Added missing imports
+ // DummyVisitor for debugging
+-pub struct DummyVisitor<'a, 'b> {
+-    pub cx: &'a mut ExtCtxt<'b>,
++pub struct DummyVisitor<'a, 'b, DRT: OpaqueDeriveResolution + 'static> {
++    pub cx: &'a mut ExtCtxt<'b, DRT>,
+ }
+ 
+-impl<'a, 'b> MutVisitor for DummyVisitor<'a, 'b> {
++impl<'a, 'b, DRT: OpaqueDeriveResolution + 'static> MutVisitor for DummyVisitor<'a, 'b, DRT> {
+     fn flat_map_item(&mut self, node: Box<ast::Item>) -> SmallVec<Box<ast::Item>, 1> { unimplemented!() }
+     fn flat_map_assoc_item(&mut self, node: Box<ast::AssocItem>, ctxt: AssocCtxt) -> SmallVec<Box<ast::AssocItem>, 1> { unimplemented!() }
+     fn flat_map_foreign_item(&mut self, node: Box<ast::ForeignItem>) -> SmallVec<Box<ast::ForeignItem>, 1> { unimplemented!() }
+@@ -29,7 +29,7 @@ fn visit_block(&mut self, node: &mut ast::Block) { unimplemented!() }
+     fn visit_id(&mut self, id: &mut NodeId) { unimplemented!() }
+ }
+ 
+-impl<'a, 'b> HasNodeId for DummyVisitor<'a, 'b> {
++impl<'a, 'b, DRT: OpaqueDeriveResolution + 'static> HasNodeId for DummyVisitor<'a, 'b, DRT> {
+     fn node_id(&self) -> NodeId {
+         ast::DUMMY_NODE_ID
+     }
+@@ -38,7 +38,7 @@ fn node_id_mut(&mut self) -> &mut NodeId {
+     }
+ }
+ 
+-impl<'a, 'b> HasAttrs for DummyVisitor<'a, 'b> {
++impl<'a, 'b, DRT: OpaqueDeriveResolution + 'static> HasAttrs for DummyVisitor<'a, 'b, DRT> {
+     const SUPPORTS_CUSTOM_INNER_ATTRS: bool = false;
+ 
+     fn attrs(&self) -> &[Attribute] {
+diff --git a/compiler/rustc_expand/src/ast_fragments_split/invocation_collector.rs b/compiler/rustc_expand/src/ast_fragments_split/invocation_collector.rs
+index c2dd32d3f1a..6547207b1cc 100644
+--- a/compiler/rustc_expand/src/ast_fragments_split/invocation_collector.rs
++++ b/compiler/rustc_expand/src/ast_fragments_split/invocation_collector.rs
+@@ -14,17 +14,17 @@ pub trait InvocationMutVisitor {
+ 
+ 
+ // InvocationCollector and its impls
+-pub struct InvocationCollector<'a, 'b> {
+-    pub cx: &'a mut ExtCtxt<'b>, // Made pub for access from ast_fragments_defs
++pub struct InvocationCollector<'a, 'b, DRT: OpaqueDeriveResolution + 'static> {
++    pub cx: &'a mut ExtCtxt<'b, DRT>, // Made pub for access from ast_fragments_defs
+     pub invocations: Vec<(Invocation, Option<Arc<dyn SyntaxExtensionTrait>>)>, // Made pub
+     pub monotonic: bool, // Made pub
+ }
+ 
+-pub trait InvocationCollectorCfgExt<'a, 'b> {
++pub trait InvocationCollectorCfgExt<'a, 'b, DRT: OpaqueDeriveResolution + 'static> {
+     fn cfg(&self) -> StripUnconfigured<'_>;
+ }
+ 
+-impl<'a, 'b> InvocationCollectorCfgExt<'a, 'b> for InvocationCollector<'a, 'b> {
++impl<'a, 'b, DRT: OpaqueDeriveResolution + 'static> InvocationCollectorCfgExt<'a, 'b, DRT> for InvocationCollector<'a, 'b, DRT> {
+     fn cfg(&self) -> StripUnconfigured<'_> { // Made pub
+         StripUnconfigured {
+             sess: self.cx.sess,
+@@ -52,7 +52,7 @@ fn visit_ty_box(&mut self, ty: &mut Box<ast::Ty>) {
+ }
+ 
+ // Implement MutVisitor for InvocationCollector (adapter for rustc_ast::mut_visit::MutVisitor)
+-impl<'a, 'b> MutVisitor for InvocationCollector<'a, 'b> {
++impl<'a, 'b, DRT: OpaqueDeriveResolution + 'static> MutVisitor for InvocationCollector<'a, 'b, DRT> {
+     // For flat_map methods, if we just want to pass the item through,
+     // we return it wrapped in a SmallVec.
+ 
+diff --git a/compiler/rustc_expand/src/base.rs b/compiler/rustc_expand/src/base.rs
+index b79eb80196b..762d6093680 100644
+--- a/compiler/rustc_expand/src/base.rs
++++ b/compiler/rustc_expand/src/base.rs
+@@ -21,21 +21,21 @@
+ 
+ // Dummy structs for trait implementations
+ struct DummyBang(ErrorGuaranteed);
+-impl BangProcMacro for DummyBang {
+-    fn expand<'cx>(&self, _ecx: &'cx mut ExtCtxt<'_>, _span: Span, _ts: TokenStream) -> Result<TokenStream, ErrorGuaranteed> { Err(self.0) }
++impl<DRT: OpaqueDeriveResolution + 'static> BangProcMacro<DRT> for DummyBang {
++    fn expand<'cx>(&self, _ecx: &'cx mut ExtCtxt<'_, DRT>, _span: Span, _ts: TokenStream) -> Result<TokenStream, ErrorGuaranteed> { Err(self.0) }
+ }
+ struct DummyMultiItemModifier(ErrorGuaranteed);
+-impl MultiItemModifier for DummyMultiItemModifier {
+-    fn expand(&self, _ecx: &mut ExtCtxt<'_>, _span: Span, _meta_item: &ast::MetaItem, _item: Annotatable, _is_derive_const: bool) -> ExpandResult<Vec<Annotatable>, Annotatable> { ExpandResult::Ready(vec![]) }
++impl<DRT: OpaqueDeriveResolution + 'static> MultiItemModifier<DRT> for DummyMultiItemModifier {
++    fn expand(&self, _ecx: &mut ExtCtxt<'_, DRT>, _span: Span, _meta_item: &ast::MetaItem, _item: Annotatable, _is_derive_const: bool) -> ExpandResult<Vec<Annotatable>, Annotatable> { ExpandResult::Ready(vec![]) }
+ }
+ struct DummyGlobDelegation(ErrorGuaranteed);
+-impl GlobDelegationExpander for DummyGlobDelegation {
+-    fn expand(&self, _ecx: &mut ExtCtxt<'_>) -> ExpandResult<Vec<(Ident, Option<Ident>)>, ()> { ExpandResult::Ready(vec![]) }
++impl<DRT: OpaqueDeriveResolution + 'static> GlobDelegationExpander<DRT> for DummyGlobDelegation {
++    fn expand(&self, _ecx: &mut ExtCtxt<'_, DRT>) -> ExpandResult<Vec<(Ident, Option<Ident>)>, ()> { ExpandResult::Ready(vec![]) }
+ }
+ 
+ 
+-pub struct SyntaxExtension {
+-    pub kind: SyntaxExtensionKind,
++pub struct SyntaxExtension<DRT: OpaqueDeriveResolution + 'static> {
++    pub kind: SyntaxExtensionKind<DRT>,
+     pub allow_internal_unstable: bool,
+     pub allow_internal_unsafe: bool,
+     pub local_inner_macros: bool,
+@@ -44,10 +44,10 @@ pub struct SyntaxExtension {
+     pub attrs: ThinVec<Attribute>,
+ }
+ 
+-impl SyntaxExtensionTrait for SyntaxExtension {
++impl<DRT: OpaqueDeriveResolution + 'static> SyntaxExtensionTrait<DRT> for SyntaxExtension<DRT> {
+     fn new_macro_extension(
+         sess: &Session,
+-        kind: Arc<dyn MacroKindTrait>,
++        kind: Arc<dyn MacroKindTrait<DRT>>,
+         span: Span,
+         allow_internal_attrs: Vec<Attribute>,
+         edition: Edition,
+@@ -60,7 +60,7 @@ fn new_macro_extension(
+         // A proper implementation would involve a downcast or a more structured enum.
+         SyntaxExtension::new(
+             sess,
+-            kind, // Pass the Arc<dyn MacroKindTrait> directly
++            kind, // Pass the Arc<dyn MacroKindTrait<DRT>> directly
+             span,
+             allow_internal_attrs,
+             edition,
+@@ -86,42 +86,42 @@ fn glob_delegation_extension(def_id: DefId, impl_def_id: Option<DefId>, edition:
+         Self::glob_delegation(def_id, impl_def_id, edition)
+     }
+ 
+-    fn get_macro_kind(&self) -> &dyn MacroKindTrait {
++    fn get_macro_kind(&self) -> &dyn MacroKindTrait<DRT> {
+         &*self.kind
+     }
+ 
+     fn as_bang(&self) -> Option<&dyn Any> {
+-        match &*self.kind {
++        match &self.kind {
+             SyntaxExtensionKind::Bang(expander) => Some(&**expander as &dyn Any),
+             _ => None,
+         }
+     }
+     fn as_attr(&self) -> Option<&dyn Any> {
+-        match &*self.kind {
++        match &self.kind {
+             SyntaxExtensionKind::Attr(expander) => Some(&**expander as &dyn Any),
+             _ => None,
+         }
+     }
+     fn as_legacy_bang(&self) -> Option<&dyn Any> {
+-        match &*self.kind {
++        match &self.kind {
+             SyntaxExtensionKind::LegacyBang(expander) => Some(&**expander as &dyn Any),
+             _ => None,
+         }
+     }
+     fn as_derive(&self) -> Option<&dyn Any> {
+-        match &*self.kind {
++        match &self.kind {
+             SyntaxExtensionKind::Derive(expander) => Some(&**expander as &dyn Any),
+             _ => None,
+         }
+     }
+     fn as_legacy_derive(&self) -> Option<&dyn Any> {
+-        match &*self.kind {
++        match &self.kind {
+             SyntaxExtensionKind::LegacyDerive(expander) => Some(&**expander as &dyn Any),
+             _ => None,
+         }
+     }
+     fn as_glob_delegation(&self) -> Option<&dyn Any> {
+-        match &*self.kind {
++        match &self.kind {
+             SyntaxExtensionKind::GlobDelegation(expander) => Some(&**expander as &dyn Any),
+             _ => None,
+         }
+@@ -132,10 +132,10 @@ fn as_glob_delegation(&self) -> Option<&dyn Any> {
+ 
+ 
+ 
+-impl SyntaxExtension {
++impl<DRT: OpaqueDeriveResolution + 'static> SyntaxExtension<DRT> {
+     pub fn new(
+         _sess: &Session,
+-        kind: Arc<dyn MacroKindTrait>,
++        kind: SyntaxExtensionKind<DRT>,
+         _span: Span,
+         _allow_internal_attrs: Vec<Attribute>, // This argument is Vec::new() in macro_rules.rs
+         edition: Edition,
+@@ -156,7 +156,7 @@ pub fn new(
+ 
+     pub fn dummy_bang(edition: Edition) -> Self {
+         SyntaxExtension {
+-            kind: Arc::new(SyntaxExtensionKind::Bang(Arc::new(DummyBang(ErrorGuaranteed::dummy())))),
++            kind: SyntaxExtensionKind::Bang(Arc::new(DummyBang(ErrorGuaranteed::dummy()))),
+             allow_internal_unstable: false,
+             allow_internal_unsafe: false,
+             local_inner_macros: false,
+@@ -167,7 +167,7 @@ pub fn dummy_bang(edition: Edition) -> Self {
+     }
+     pub fn dummy_derive(edition: Edition) -> Self {
+         SyntaxExtension {
+-            kind: Arc::new(SyntaxExtensionKind::Derive(Arc::new(DummyMultiItemModifier(ErrorGuaranteed::dummy())))),
++            kind: SyntaxExtensionKind::Derive(Arc::new(DummyMultiItemModifier(ErrorGuaranteed::dummy()))),
+             allow_internal_unstable: false,
+             allow_internal_unsafe: false,
+             local_inner_macros: false,
+@@ -178,7 +178,7 @@ pub fn dummy_derive(edition: Edition) -> Self {
+     }
+     pub fn non_macro_attr(edition: Edition) -> Self {
+         SyntaxExtension {
+-            kind: Arc::new(SyntaxExtensionKind::NonMacroAttr),
++            kind: SyntaxExtensionKind::NonMacroAttr,
+             allow_internal_unstable: false,
+             allow_internal_unsafe: false,
+             local_inner_macros: false,
+@@ -189,7 +189,7 @@ pub fn non_macro_attr(edition: Edition) -> Self {
+     }
+     pub fn glob_delegation(def_id: DefId, impl_def_id: Option<DefId>, edition: Edition) -> Self {
+         SyntaxExtension {
+-            kind: Arc::new(SyntaxExtensionKind::GlobDelegation(Arc::new(DummyGlobDelegation(ErrorGuaranteed::dummy())))),
++            kind: SyntaxExtensionKind::GlobDelegation(Arc::new(DummyGlobDelegation(ErrorGuaranteed::dummy()))),
+             allow_internal_unstable: false,
+             allow_internal_unsafe: false,
+             local_inner_macros: false,
+@@ -198,6 +198,10 @@ pub fn glob_delegation(def_id: DefId, impl_def_id: Option<DefId>, edition: Editi
+             attrs: ThinVec::new(),
+         }
+     }
++
++    pub fn into_arc_trait_object(self) -> Arc<dyn SyntaxExtensionTrait<DRT>> {
++        Arc::new(self)
++    }
+ }
+ 
+ use crate::expand;
+@@ -237,26 +241,26 @@ pub fn glob_delegation(def_id: DefId, impl_def_id: Option<DefId>, edition: Editi
+ 
+ 
+ 
+-pub enum SyntaxExtensionKind {
++pub enum SyntaxExtensionKind<DRT: OpaqueDeriveResolution + 'static> {
+     /// `macro_rules!` items
+     MacroRules(Arc<crate::mbe::macro_rules::MacroRulesMacroExpander>),
+     /// proc macros
+-    Bang(Arc<dyn BangProcMacro + Send + Sync>),
++    Bang(Arc<dyn BangProcMacro<DRT> + Send + Sync>),
+     /// proc macro attributes
+-    Attr(Arc<dyn AttrProcMacro + Send + Sync>),
++    Attr(Arc<dyn AttrProcMacro<DRT> + Send + Sync>),
+     /// proc macros like `#[derive]`
+-    Derive(Arc<dyn MultiItemModifier + Send + Sync>),
++    Derive(Arc<dyn MultiItemModifier<DRT> + Send + Sync>),
+     /// Legacy `macro_rules!` type, can be macro or derive. This is for compatibility with older definitions.
+     LegacyBang(Arc<MacroExpanderFn>),
+-    LegacyAttr(Arc<dyn MultiItemModifier + Send + Sync>),
+-    LegacyDerive(Arc<dyn MultiItemModifier + Send + Sync>),
++    LegacyAttr(Arc<dyn MultiItemModifier<DRT> + Send + Sync>),
++    LegacyDerive(Arc<dyn MultiItemModifier<DRT> + Send + Sync>),
+     /// Dummy/inert attributes, for `#[macro_export]` etc.
+     NonMacroAttr,
+     /// Trait/impl glob delegation (RFC 1645)
+-    GlobDelegation(Arc<dyn GlobDelegationExpander + Send + Sync>),
++    GlobDelegation(Arc<dyn GlobDelegationExpander<DRT> + Send + Sync>),
+ }
+ 
+-impl MacroKindTrait for SyntaxExtensionKind {
++impl<DRT: OpaqueDeriveResolution + 'static> MacroKindTrait for SyntaxExtensionKind<DRT> {
+     fn get_name(&self) -> String {
+         match self {
+             SyntaxExtensionKind::MacroRules(_) => "macro_rules".to_string(),
+@@ -273,7 +277,7 @@ fn get_name(&self) -> String {
+ }
+ 
+ 
+-pub trait BuiltinDerive: MultiItemModifier + Send + Sync {}
++pub trait BuiltinDerive<DRT: OpaqueDeriveResolution + 'static>: MultiItemModifier<DRT> + Send + Sync {}
+ 
+ 
+ /// Result of an expansion that may need to be retried.
+@@ -294,12 +298,12 @@ pub fn map<E, F: FnOnce(T) -> E>(self, f: F) -> ExpandResult<E, U> {
+     }
+ }
+ 
+-impl<'cx> MacroExpanderResult<'cx> {
++impl<'cx, DRT: OpaqueDeriveResolution + 'static> MacroExpanderResult<'cx, DRT> {
+     /// Creates a [`MacroExpanderResult::Ready`] from a [`TokenStream`].
+     ///
+     /// The `TokenStream` is forwarded without any expansion.
+     pub fn from_tts(
+-        cx: &'cx mut ExtCtxt<'_>,
++        cx: &'cx mut ExtCtxt<'_, DRT>,
+         tts: TokenStream,
+         site_span: Span,
+         arm_span: Span,
+@@ -313,11 +317,11 @@ pub fn from_tts(
+     }
+ }
+ 
+-pub trait MultiItemModifier {
++pub trait MultiItemModifier<DRT: OpaqueDeriveResolution + 'static> {
+     /// `meta_item` is the attribute, and `item` is the item being modified.
+     fn expand(
+         &self,
+-        ecx: &mut ExtCtxt<'_>,
++        ecx: &mut ExtCtxt<'_, DRT>,
+         span: Span,
+         meta_item: &ast::MetaItem,
+         item: Annotatable,
+@@ -325,13 +329,13 @@ fn expand(
+     ) -> ExpandResult<Vec<Annotatable>, Annotatable>;
+ }
+ 
+-impl<F> MultiItemModifier for F
++impl<F, DRT: OpaqueDeriveResolution + 'static> MultiItemModifier<DRT> for F
+ where
+-    F: Fn(&mut ExtCtxt<'_>, Span, &ast::MetaItem, Annotatable) -> Vec<Annotatable>,
++    F: Fn(&mut ExtCtxt<'_, DRT>, Span, &ast::MetaItem, Annotatable) -> Vec<Annotatable>,
+ {
+     fn expand(
+         &self,
+-        ecx: &mut ExtCtxt<'_>,
++        ecx: &mut ExtCtxt<'_, DRT>,
+         span: Span,
+         meta_item: &ast::MetaItem,
+         item: Annotatable,
+@@ -341,22 +345,22 @@ fn expand(
+     }
+ }
+ 
+-pub trait BangProcMacro {
++pub trait BangProcMacro<DRT: OpaqueDeriveResolution + 'static> {
+     fn expand<'cx>(
+         &self,
+-        ecx: &'cx mut ExtCtxt<'_>,
++        ecx: &'cx mut ExtCtxt<'_, DRT>,
+         span: Span,
+         ts: TokenStream,
+     ) -> Result<TokenStream, ErrorGuaranteed>;
+ }
+ 
+-impl<F> BangProcMacro for F
++impl<F, DRT: OpaqueDeriveResolution + 'static> BangProcMacro<DRT> for F
+ where
+-    F: Fn(&mut ExtCtxt<'_>, Span, TokenStream) -> Result<TokenStream, ErrorGuaranteed>,
++    F: Fn(&mut ExtCtxt<'_, DRT>, Span, TokenStream) -> Result<TokenStream, ErrorGuaranteed>,
+ {
+     fn expand<'cx>(
+         &self,
+-        ecx: &'cx mut ExtCtxt<'_>,
++        ecx: &'cx mut ExtCtxt<'_, DRT>,
+         span: Span,
+         ts: TokenStream,
+     ) -> Result<TokenStream, ErrorGuaranteed> {
+@@ -365,10 +369,10 @@ fn expand<'cx>(
+     }
+ }
+ 
+-pub trait AttrProcMacro {
++pub trait AttrProcMacro<DRT: OpaqueDeriveResolution + 'static> {
+     fn expand<'cx>(
+         &self,
+-        ecx: &'cx mut ExtCtxt<'_>,
++        ecx: &'cx mut ExtCtxt<'_, DRT>,
+         span: Span,
+         annotation: TokenStream,
+         annotated: TokenStream,
+@@ -377,7 +381,7 @@ fn expand<'cx>(
+     // Default implementation for safe attributes; override if the attribute can be unsafe.
+     fn expand_with_safety<'cx>(
+         &self,
+-        ecx: &'cx mut ExtCtxt<'_>,
++        ecx: &'cx mut ExtCtxt<'_, DRT>,
+         safety: Safety,
+         span: Span,
+         annotation: TokenStream,
+@@ -390,13 +394,13 @@ fn expand_with_safety<'cx>(
+     }
+ }
+ 
+-impl<F> AttrProcMacro for F
++impl<F, DRT: OpaqueDeriveResolution + 'static> AttrProcMacro<DRT> for F
+ where
+     F: Fn(TokenStream, TokenStream) -> TokenStream,
+ {
+     fn expand<'cx>(
+         &self,
+-        _ecx: &'cx mut ExtCtxt<'_>,
++        _ecx: &'cx mut ExtCtxt<'_, DRT>,
+         _span: Span,
+         annotation: TokenStream,
+         annotated: TokenStream,
+@@ -407,36 +411,36 @@ fn expand<'cx>(
+ }
+ 
+ /// Represents a thing that maps token trees to Macro Results
+-pub trait TTMacroExpander: Any {
++pub trait TTMacroExpander<DRT: OpaqueDeriveResolution + 'static>: Any {
+     fn expand<'cx>(
+         &self,
+-        ecx: &'cx mut ExtCtxt<'_>,
++        ecx: &'cx mut ExtCtxt<'_, DRT>,
+         span: Span,
+         input: TokenStream,
+-    ) -> MacroExpanderResult<'cx>;
++    ) -> MacroExpanderResult<'cx, DRT>;
+ }
+ 
+-pub type MacroExpanderResult<'cx> = ExpandResult<Box<dyn MacResult + 'cx>, ()>;
++pub type MacroExpanderResult<'cx, DRT> = ExpandResult<Box<dyn MacResult<DRT> + 'cx>, ()>;
+ 
+ pub type MacroExpanderFn =
+-    for<'cx> fn(&'cx mut ExtCtxt<'_>, Span, TokenStream) -> MacroExpanderResult<'cx>;
++    for<'cx, DRT: OpaqueDeriveResolution + 'static> fn(&'cx mut ExtCtxt<'_, DRT>, Span, TokenStream) -> MacroExpanderResult<'cx, DRT>;
+ 
+-impl<F: 'static> TTMacroExpander for F
++impl<F: 'static, DRT: OpaqueDeriveResolution + 'static> TTMacroExpander<DRT> for F
+ where
+-    F: for<'cx> Fn(&'cx mut ExtCtxt<'_>, Span, TokenStream) -> MacroExpanderResult<'cx>,
++    F: for<'cx> Fn(&'cx mut ExtCtxt<'_, DRT>, Span, TokenStream) -> MacroExpanderResult<'cx, DRT>,
+ {
+     fn expand<'cx>(
+         &self,
+-        ecx: &'cx mut ExtCtxt<'_>,
++        ecx: &'cx mut ExtCtxt<'_, DRT>,
+         span: Span,
+         input: TokenStream,
+-    ) -> MacroExpanderResult<'cx> {
++    ) -> MacroExpanderResult<'cx, DRT> {
+         self(ecx, span, input)
+     }
+ }
+ 
+-pub trait GlobDelegationExpander {
+-    fn expand(&self, ecx: &mut ExtCtxt<'_>) -> ExpandResult<Vec<(Ident, Option<Ident>)>, ()>;
++pub trait GlobDelegationExpander<DRT: OpaqueDeriveResolution + 'static> {
++    fn expand(&self, ecx: &mut ExtCtxt<'_, DRT>) -> ExpandResult<Vec<(Ident, Option<Ident>)>, ()>;
+ }
+ 
+ 
+@@ -470,13 +474,13 @@ fn pre_expansion_lint(
+ /// One of these is made during expansion and incrementally updated as we go;
+ /// when a macro expansion occurs, the resulting nodes have the `backtrace()
+ /// -> expn_data` of their expansion context stored into their span.
+-pub struct ExtCtxt<'a> {
++pub struct ExtCtxt<'a, DRT: OpaqueDeriveResolution + 'static> {
+     pub sess: &'a Session,
+     pub ecfg: ExpansionConfig<'a>,
+     pub num_standard_library_imports: usize,
+     pub reduced_recursion_limit: Option<(Limit, ErrorGuaranteed)>,
+     pub root_path: PathBuf,
+-    pub resolver: &'a mut dyn ResolverExpand,
++    pub resolver: &'a mut (dyn ResolverExpand<DRT> + 'static),
+     pub current_expansion: ExpansionData,
+     /// Error recovery mode entered when expansion is stuck
+     /// (or during eager expansion, but that's a hack).
+@@ -495,13 +499,13 @@ pub struct ExtCtxt<'a> {
+     pub nb_macro_errors: usize,
+ }
+ 
+-impl<'a> ExtCtxt<'a> {
++impl<'a, DRT: OpaqueDeriveResolution + 'static> ExtCtxt<'a, DRT> {
+     pub fn new(
+         sess: &'a Session,
+         ecfg: ExpansionConfig<'a>,
+-        resolver: &'a mut dyn ResolverExpand,
++        resolver: &'a mut (dyn ResolverExpand<DRT> + 'static),
+         lint_store: LintStoreExpandDyn<'a>,
+-    ) -> ExtCtxt<'a> {
++    ) -> ExtCtxt<'a, DRT> {
+         ExtCtxt {
+             sess,
+             ecfg,
+@@ -736,7 +740,7 @@ pub fn stream_pretty_printing_compatibility_hack(
+ }
+ 
+ // Implement the BaseExpansionContext trait for ExtCtxt
+-impl<'a> BaseExpansionContext for ExtCtxt<'a> {
++impl<'a, DRT: OpaqueDeriveResolution + 'static> BaseExpansionContext<DRT> for ExtCtxt<'a, DRT> {
+     fn dcx(&self) -> DiagCtxtHandle {
+         self.sess.dcx()
+     }
+@@ -755,7 +759,7 @@ fn ecfg(&self) -> &ExpansionConfig {
+         &self.ecfg
+     }
+ 
+-    fn resolver(&mut self) -> &mut dyn ResolverExpand {
++    fn resolver(&mut self) -> &mut (dyn ResolverExpand<DRT> + 'static) {
+         self.resolver
+     }
+ 
+diff --git a/compiler/rustc_expand/src/expand.rs b/compiler/rustc_expand/src/expand.rs
+index e8fb8e96259..08c65f10f1e 100644
+--- a/compiler/rustc_expand/src/expand.rs
++++ b/compiler/rustc_expand/src/expand.rs
+@@ -55,13 +55,13 @@
+ use crate::ast_fragments_defs::ParserAnyMacro; // Used by MacroExpanderResult
+ 
+ 
+-pub struct MacroExpander<'a, 'b> {
+-    cx: &'a mut crate::base::ExtCtxt<'b>,
++pub struct MacroExpander<'a, 'b, DRT: OpaqueDeriveResolution + 'static> {
++    cx: &'a mut crate::base::ExtCtxt<'b, DRT>,
+     monotonic: bool,
+ }
+ 
+-impl<'a, 'b> MacroExpander<'a, 'b> {
+-    pub fn new(cx: &'a mut crate::base::ExtCtxt<'b>, monotonic: bool) -> Self {
++impl<'a, 'b, DRT: OpaqueDeriveResolution + 'static> MacroExpander<'a, 'b, DRT> {
++    pub fn new(cx: &'a mut crate::base::ExtCtxt<'b, DRT>, monotonic: bool) -> Self {
+         MacroExpander { cx, monotonic }
+     }
+ 
+diff --git a/compiler/rustc_expand/src/lib.rs b/compiler/rustc_expand/src/lib.rs
+index 1a8551ff5fd..cf13165ee52 100644
+--- a/compiler/rustc_expand/src/lib.rs
++++ b/compiler/rustc_expand/src/lib.rs
+@@ -1,6 +1,7 @@
+ // tidy-alphabetical-start
+ #![allow(internal_features)]
+ #![allow(rustc::diagnostic_outside_of_impl)]
++#![feature(non_lifetime_binders)]
+ // #![feature(array_windows)]
+ // #![feature(associated_type_defaults)]
+ #![feature(if_let_guard)]
+diff --git a/compiler/rustc_expand/src/mbe.rs b/compiler/rustc_expand/src/mbe.rs
+deleted file mode 100644
+index bd9b9ad76d3..00000000000
+--- a/compiler/rustc_expand/src/mbe.rs
++++ /dev/null
+@@ -1,121 +0,0 @@
+-//! This module implements declarative macros: old `macro_rules` and the newer
+-//! `macro`. Declarative macros are also known as "macro by example", and that's
+-//! why we call this module `mbe`. For external documentation, prefer the
+-//! official terminology: "declarative macros".
+-
+-pub mod diagnostics;
+-pub mod macro_rules;
+-
+-mod macro_check;
+-mod macro_parser;
+-mod metavar_expr;
+-mod quoted;
+-mod transcribe;
+-
+-use metavar_expr::MetaVarExpr;
+-use rustc_ast::token::{Delimiter, NonterminalKind, Token, TokenKind};
+-use rustc_ast::tokenstream::{DelimSpacing, DelimSpan};
+-use rustc_macros::{Decodable, Encodable};
+-use rustc_span::{Ident, Span};
+-
+-/// Contains the sub-token-trees of a "delimited" token tree such as `(a b c)`.
+-/// The delimiters are not represented explicitly in the `tts` vector.
+-#[derive(PartialEq, Encodable, Decodable, Debug)]
+-struct Delimited {
+-    delim: Delimiter,
+-    /// FIXME: #67062 has details about why this is sub-optimal.
+-    tts: Vec<TokenTree>,
+-}
+-
+-#[derive(PartialEq, Encodable, Decodable, Debug)]
+-struct SequenceRepetition {
+-    /// The sequence of token trees
+-    tts: Vec<TokenTree>,
+-    /// The optional separator
+-    separator: Option<Token>,
+-    /// Whether the sequence can be repeated zero (*), or one or more times (+)
+-    kleene: KleeneToken,
+-    /// The number of `Match`s that appear in the sequence (and subsequences)
+-    num_captures: usize,
+-}
+-
+-#[derive(Clone, PartialEq, Encodable, Decodable, Debug, Copy)]
+-struct KleeneToken {
+-    span: Span,
+-    op: KleeneOp,
+-}
+-
+-impl KleeneToken {
+-    fn new(op: KleeneOp, span: Span) -> KleeneToken {
+-        KleeneToken { span, op }
+-    }
+-}
+-
+-/// A Kleene-style [repetition operator](https://en.wikipedia.org/wiki/Kleene_star)
+-/// for token sequences.
+-#[derive(Clone, PartialEq, Encodable, Decodable, Debug, Copy)]
+-pub enum KleeneOp {
+-    /// Kleene star (`*`) for zero or more repetitions
+-    ZeroOrMore,
+-    /// Kleene plus (`+`) for one or more repetitions
+-    OneOrMore,
+-    /// Kleene optional (`?`) for zero or one repetitions
+-    ZeroOrOne,
+-}
+-
+-/// Similar to `tokenstream::TokenTree`, except that `Sequence`, `MetaVar`, `MetaVarDecl`, and
+-/// `MetaVarExpr` are "first-class" token trees. Useful for parsing macros.
+-#[derive(Debug, PartialEq, Encodable, Decodable)]
+-enum TokenTree {
+-    /// A token. Unlike `tokenstream::TokenTree::Token` this lacks a `Spacing`.
+-    /// See the comments about `Spacing` in the `transcribe` function.
+-    Token(Token),
+-    /// A delimited sequence, e.g. `($e:expr)` (RHS) or `{ $e }` (LHS).
+-    Delimited(DelimSpan, DelimSpacing, Delimited),
+-    /// A kleene-style repetition sequence, e.g. `$($e:expr)*` (RHS) or `$($e),*` (LHS).
+-    Sequence(DelimSpan, SequenceRepetition),
+-    /// e.g., `$var`. The span covers the leading dollar and the ident. (The span within the ident
+-    /// only covers the ident, e.g. `var`.)
+-    MetaVar(Span, Ident),
+-    /// e.g., `$var:expr`. Only appears on the LHS.
+-    MetaVarDecl {
+-        span: Span,
+-        /// Name to bind.
+-        name: Ident,
+-        /// The fragment specifier.
+-        kind: NonterminalKind,
+-    },
+-    /// A meta-variable expression inside `${...}`.
+-    MetaVarExpr(DelimSpan, MetaVarExpr),
+-}
+-
+-impl TokenTree {
+-    /// Returns `true` if the given token tree is delimited.
+-    fn is_delimited(&self) -> bool {
+-        matches!(*self, TokenTree::Delimited(..))
+-    }
+-
+-    /// Returns `true` if the given token tree is a token of the given kind.
+-    fn is_token(&self, expected_kind: &TokenKind) -> bool {
+-        match self {
+-            TokenTree::Token(Token { kind: actual_kind, .. }) => actual_kind == expected_kind,
+-            _ => false,
+-        }
+-    }
+-
+-    /// Retrieves the `TokenTree`'s span.
+-    fn span(&self) -> Span {
+-        match *self {
+-            TokenTree::Token(Token { span, .. })
+-            | TokenTree::MetaVar(span, _)
+-            | TokenTree::MetaVarDecl { span, .. } => span,
+-            TokenTree::Delimited(span, ..)
+-            | TokenTree::MetaVarExpr(span, _)
+-            | TokenTree::Sequence(span, _) => span.entire(),
+-        }
+-    }
+-
+-    fn token(kind: TokenKind, span: Span) -> TokenTree {
+-        TokenTree::Token(Token::new(kind, span))
+-    }
+-}
+diff --git a/compiler/rustc_expand/src/mbe/macro_rules.rs b/compiler/rustc_expand/src/mbe/macro_rules.rs
+index 37d00df7570..31e3af8d58a 100644
+--- a/compiler/rustc_expand/src/mbe/macro_rules.rs
++++ b/compiler/rustc_expand/src/mbe/macro_rules.rs
+@@ -1,3 +1,7 @@
++use crate::mbe::macro_rule_enums::MacroRule;
++use crate::mbe::macro_rules_expander::MacroRulesMacroExpander;
++use crate::mbe::macro_matching::{CanRetry, Tracker, NoopTracker, expand_macro, expand_macro_attr, try_match_macro, try_match_macro_attr, try_match_macro_derive};
++
+ #![feature(array_windows)]
+ 
+ use crate::base::{self};
+@@ -62,166 +66,9 @@
+ 
+ 
+ 
+-pub(super) enum MacroRule {
+-    /// A function-style rule, for use with `m!()`
+-    Func { lhs: Vec<MatcherLoc>, lhs_span: Span, rhs: mbe::TokenTree },
+-    /// An attr rule, for use with `#[m]`
+-    Attr {
+-        unsafe_rule: bool,
+-        args: Vec<MatcherLoc>,
+-        args_span: Span,
+-        body: Vec<MatcherLoc>,
+-        body_span: Span,
+-        rhs: mbe::TokenTree,
+-    },
+-    /// A derive rule, for use with `#[m]`
+-    Derive { body: Vec<MatcherLoc>, body_span: Span, rhs: mbe::TokenTree },
+-}
+-
+-pub struct MacroRulesMacroExpander {
+-    node_id: NodeId,
+-    name: Ident,
+-    span: Span,
+-    transparency: Transparency,
+-    kinds: MacroKinds,
+-    rules: Vec<MacroRule>,
+-}
+-
+-impl MacroKindTrait for MacroRulesMacroExpander {
+-    fn get_name(&self) -> String {
+-        "macro_rules".to_string()
+-    }
+-}
+-
+-
+-impl MacroRulesMacroExpander {
+-    pub fn get_unused_rule(&self, rule_i: usize) -> Option<(&Ident, MultiSpan)> {
+-        // If the rhs contains an invocation like `compile_error!`, don't report it as unused.
+-        let (span, rhs) = match self.rules[rule_i] {
+-            MacroRule::Func { lhs_span, ref rhs, .. } => (MultiSpan::from_span(lhs_span), rhs),
+-            MacroRule::Attr { args_span, body_span, ref rhs, .. } => {
+-                (MultiSpan::from_spans(vec![args_span, body_span]), rhs)
+-            }
+-            MacroRule::Derive { body_span, ref rhs, .. } => (MultiSpan::from_span(body_span), rhs),
+-        };
+-        if has_compile_error_macro(rhs) { None } else { Some((&self.name, span)) }
+-    }
+-
+-    pub fn kinds(&self) -> MacroKinds {
+-        self.kinds
+-    }
+-
+-    pub fn expand_derive(
+-        &self,
+-        cx: &mut ExtCtxt<'_>,
+-        sp: Span,
+-        body: &TokenStream,
+-    ) -> Result<TokenStream, ErrorGuaranteed> {
+-        // This is similar to `expand_macro`, but they have very different signatures, and will
+-        // diverge further once derives support arguments.
+-        let Self { name, ref rules, node_id, .. } = *self;
+-        let psess = &cx.sess.psess;
+-
+-        if cx.trace_macros() {
+-            let msg = format!("expanding `#[derive({name})] {}`", pprust::tts_to_string(body));
+-            trace_macros_note(&mut cx.expansions, sp, msg);
+-        }
+-
+-        match try_match_macro_derive(psess, name, body, rules, &mut NoopTracker) {
+-            Ok((rule_index, rule, named_matches)) => {
+-                let MacroRule::Derive { rhs, .. } = rule else {
+-                    panic!("try_match_macro_derive returned non-derive rule");
+-                };
+-                let mbe::TokenTree::Delimited(rhs_span, _, rhs) = rhs else {
+-                    cx.dcx().span_bug(sp, "malformed macro derive rhs");
+-                };
+-
+-                let id = cx.current_expansion.id;
+-                let tts = transcribe(psess, &named_matches, rhs, *rhs_span, self.transparency, id)
+-                    .map_err(|e| e.emit())?;
+-
+-                if cx.trace_macros() {
+-                    let msg = format!("to `{}`", pprust::tts_to_string(&tts));
+-                    trace_macros_note(&mut cx.expansions, sp, msg);
+-                }
+-
+-                if is_defined_in_current_crate(node_id) {
+-                    // `record_macro_rule_usage` is no longer available.
+-                }
+-
+-                Ok(tts)
+-            }
+-            Err(CanRetry::No(guar)) => Err(guar),
+-            Err(CanRetry::Yes) => {
+-                let (_, guar) = failed_to_match_macro(
+-                    cx.psess(),
+-                    sp,
+-                    self.span,
+-                    name,
+-                    FailedMacro::Derive,
+-                    body,
+-                    rules,
+-                );
+-                cx.macro_error_and_trace_macros_diag();
+-                Err(guar)
+-            }
+-        }
+-    }
+-}
+ 
+-impl TTMacroExpander for MacroRulesMacroExpander {
+-    fn expand<'cx>(
+-        &self,
+-        cx: &'cx mut ExtCtxt<'_>,
+-        sp: Span,
+-        input: TokenStream,
+-    ) -> MacroExpanderResult<'cx> {
+-        ExpandResult::Ready(expand_macro(
+-            cx,
+-            sp,
+-            self.span,
+-            self.node_id,
+-            self.name,
+-            self.transparency,
+-            input,
+-            &self.rules,
+-        ))
+-    }
+-}
+ 
+-impl AttrProcMacro for MacroRulesMacroExpander {
+-    fn expand(
+-        &self,
+-        _cx: &mut ExtCtxt<'_>,
+-        _sp: Span,
+-        _args: TokenStream,
+-        _body: TokenStream,
+-    ) -> Result<TokenStream, ErrorGuaranteed> {
+-        unreachable!("`expand` called on `MacroRulesMacroExpander`, expected `expand_with_safety`")
+-    }
+ 
+-    fn expand_with_safety(
+-        &self,
+-        cx: &mut ExtCtxt<'_>,
+-        safety: Safety,
+-        sp: Span,
+-        args: TokenStream,
+-        body: TokenStream,
+-    ) -> Result<TokenStream, ErrorGuaranteed> {
+-        expand_macro_attr(
+-            cx,
+-            sp,
+-            self.span,
+-            self.node_id,
+-            self.name,
+-            self.transparency,
+-            safety,
+-            args,
+-            body,
+-            &self.rules,
+-        )
+-    }
+-}
+ 
+ struct DummyBang(ErrorGuaranteed);
+ 
+@@ -381,287 +228,6 @@ fn expand_macro_attr(
+             pprust::tts_to_string(&body),
+         );
+         trace_macros_note(&mut cx.expansions, sp, msg);
+-    }
+-
+-    // Track nothing for the best performance.
+-    match try_match_macro_attr(psess, name, &args, &body, rules, &mut NoopTracker) {
+-        Ok((i, rule, named_matches)) => {
+-            let MacroRule::Attr { rhs, unsafe_rule, .. } = rule else {
+-                panic!("try_macro_match_attr returned non-attr rule");
+-            };
+-            let mbe::TokenTree::Delimited(rhs_span, _, rhs) = rhs else {
+-                cx.dcx().span_bug(sp, "malformed macro rhs");
+-            };
+-
+-            match (safety, unsafe_rule) {
+-                (Safety::Default, false) | (Safety::Unsafe(_), true) => {}
+-                (Safety::Default, true) => {
+-                    cx.dcx().span_err(sp, "unsafe attribute invocation requires `unsafe`");
+-                }
+-                (Safety::Unsafe(span), false) => {
+-                    cx.dcx().span_err(span, "unnecessary `unsafe` on safe attribute invocation");
+-                }
+-                (Safety::Safe(span), _) => {
+-                    cx.dcx().span_bug(span, "unexpected `safe` keyword");
+-                }
+-            }
+-
+-            let id = cx.current_expansion.id;
+-            let tts = transcribe(psess, &named_matches, rhs, *rhs_span, transparency, id)
+-                .map_err(|e| e.emit())?;
+-
+-            if cx.trace_macros() {
+-                let msg = format!("to `{}`", pprust::tts_to_string(&tts));
+-                trace_macros_note(&mut cx.expansions, sp, msg);
+-            }
+-
+-            if is_local {
+-                // `record_macro_rule_usage` is no longer available.
+-            }
+-
+-            Ok(tts)
+-        }
+-        Err(CanRetry::No(guar)) => Err(guar),
+-        Err(CanRetry::Yes) => {
+-            // Retry and emit a better error.
+-            let (_, guar) = failed_to_match_macro(
+-                cx.psess(),
+-                sp,
+-                def_span,
+-                name,
+-                FailedMacro::Attr(&args),
+-                &body,
+-                rules,
+-            );
+-            cx.trace_macros_diag();
+-            Err(guar)
+-        }
+-    }
+-}
+-
+-pub(super) enum CanRetry {
+-    Yes,
+-    /// We are not allowed to retry macro expansion as a fatal error has been emitted already.
+-    No(ErrorGuaranteed),
+-}
+-
+-/// Try expanding the macro. Returns the index of the successful arm and its named_matches if it was successful,
+-/// and nothing if it failed. On failure, it's the callers job to use `track` accordingly to record all errors
+-/// correctly.
+-#[instrument(level = "debug", skip(psess, arg, rules, track), fields(tracking = %T::description()))]
+-pub(super) fn try_match_macro<'matcher, T: Tracker<'matcher>>(
+-    psess: &ParseSess,
+-    name: Ident,
+-    arg: &TokenStream,
+-    rules: &'matcher [MacroRule],
+-    track: &mut T,
+-) -> Result<(usize, &'matcher MacroRule, NamedMatches), CanRetry> {
+-    // We create a base parser that can be used for the "black box" parts.
+-    // Every iteration needs a fresh copy of that parser. However, the parser
+-    // is not mutated on many of the iterations, particularly when dealing with
+-    // macros like this:
+-    //
+-    // macro_rules! foo {
+-    //     ("a") => (A);
+-    //     ("b") => (B);
+-    //     ("c") => (C);
+-    //     // ... etc. (maybe hundreds more)
+-    // }
+-    //
+-    // as seen in the `html5ever` benchmark. We use a `Cow` so that the base
+-    // parser is only cloned when necessary (upon mutation). Furthermore, we
+-    // reinitialize the `Cow` with the base parser at the start of every
+-    // iteration, so that any mutated parsers are not reused. This is all quite
+-    // hacky, but speeds up the `html5ever` benchmark significantly. (Issue
+-    // 68836 suggests a more comprehensive but more complex change to deal with
+-    // this situation.)
+-    let parser = parser_from_cx(psess, arg.clone(), T::recovery());
+-    // Try each arm's matchers.
+-    let mut tt_parser = TtParser::new(name);
+-    for (i, rule) in rules.iter().enumerate() {
+-        let MacroRule::Func { lhs, .. } = rule else { continue };
+-        let _tracing_span = trace_span!("Matching arm", %i);
+-
+-        // Take a snapshot of the state of pre-expansion gating at this point.
+-        // This is used so that if a matcher is not `Success(..)`ful,
+-        // then the spans which became gated when parsing the unsuccessful matcher
+-        // are not recorded. On the first `Success(..)`ful matcher, the spans are merged.
+-        let mut gated_spans_snapshot = mem::take(&mut *psess.gated_spans.spans.borrow_mut());
+-
+-        let result = tt_parser.parse_tt(&mut Cow::Borrowed(&parser), lhs, track);
+-
+-        track.after_arm(true, &result);
+-
+-        match result {
+-            Success(named_matches) => {
+-                debug!("Parsed arm successfully");
+-                // The matcher was `Success(..)`ful.
+-                // Merge the gated spans from parsing the matcher with the preexisting ones.
+-                psess.gated_spans.merge(gated_spans_snapshot);
+-
+-                return Ok((i, rule, named_matches));
+-            }
+-            Failure(_) => {
+-                trace!("Failed to match arm, trying the next one");
+-                // Try the next arm.
+-            }
+-            ParseResult::Error(_, _) => {
+-                debug!("Fatal error occurred during matching");
+-                // We haven't emitted an error yet, so we can retry.
+-                return Err(CanRetry::Yes);
+-            }
+-            ErrorReported(guarantee) => {
+-                debug!("Fatal error occurred and was reported during matching");
+-                // An error has been reported already, we cannot retry as that would cause duplicate errors.
+-                return Err(CanRetry::No(guarantee));
+-            }
+-        }
+-
+-        // The matcher was not `Success(..)`ful.
+-        // Restore to the state before snapshotting and maybe try again.
+-        mem::swap(&mut gated_spans_snapshot, &mut psess.gated_spans.spans.borrow_mut());
+-    }
+-
+-    Err(CanRetry::Yes)
+-}
+-
+-/// Try expanding the macro attribute. Returns the index of the successful arm and its
+-/// named_matches if it was successful, and nothing if it failed. On failure, it's the caller's job
+-/// to use `track` accordingly to record all errors correctly.
+-#[instrument(level = "debug", skip(psess, attr_args, attr_body, rules, track), fields(tracking = %T::description()))]
+-pub(super) fn try_match_macro_attr<'matcher, T: Tracker<'matcher>>(
+-    psess: &ParseSess,
+-    name: Ident,
+-    attr_args: &TokenStream,
+-    attr_body: &TokenStream,
+-    rules: &'matcher [MacroRule],
+-    track: &mut T,
+-) -> Result<(usize, &'matcher MacroRule, NamedMatches), CanRetry> {
+-    // This uses the same strategy as `try_match_macro`
+-    let args_parser = parser_from_cx(psess, attr_args.clone(), T::recovery());
+-    let body_parser = parser_from_cx(psess, attr_body.clone(), T::recovery());
+-    let mut tt_parser = TtParser::new(name);
+-    for (i, rule) in rules.iter().enumerate() {
+-        let MacroRule::Attr { args, body, .. } = rule else { continue };
+-
+-        let mut gated_spans_snapshot = mem::take(&mut *psess.gated_spans.spans.borrow_mut());
+-
+-        let result = tt_parser.parse_tt(&mut Cow::Borrowed(&args_parser), args, track);
+-        track.after_arm(false, &result);
+-
+-        let mut named_matches = match result {
+-            Success(named_matches) => named_matches,
+-            Failure(_) => {
+-                mem::swap(&mut gated_spans_snapshot, &mut psess.gated_spans.spans.borrow_mut());
+-                continue;
+-            }
+-            ParseResult::Error(_, _) => return Err(CanRetry::Yes),
+-            ErrorReported(guar) => return Err(CanRetry::No(guar)),
+-        };
+-
+-        let result = tt_parser.parse_tt(&mut Cow::Borrowed(&body_parser), body, track);
+-        track.after_arm(true, &result);
+-
+-        match result {
+-            Success(body_named_matches) => {
+-                psess.gated_spans.merge(gated_spans_snapshot);
+-                #[allow(rustc::potential_query_instability)]
+-                named_matches.extend(body_named_matches);
+-                return Ok((i, rule, named_matches));
+-            }
+-            Failure(_) => {
+-                mem::swap(&mut gated_spans_snapshot, &mut psess.gated_spans.spans.borrow_mut())
+-            }
+-            ParseResult::Error(_, _) => return Err(CanRetry::Yes),
+-            ErrorReported(guar) => return Err(CanRetry::No(guar)),
+-        }
+-    }
+-
+-    Err(CanRetry::Yes)
+-}
+-
+-/// Try expanding the macro derive. Returns the index of the successful arm and its
+-/// named_matches if it was successful, and nothing if it failed. On failure, it's the caller's job
+-/// to use `track` accordingly to record all errors correctly.
+-#[instrument(level = "debug", skip(psess, body, rules, track), fields(tracking = %T::description()))]
+-pub(super) fn try_match_macro_derive<'matcher, T: Tracker<'matcher>>(
+-    psess: &ParseSess,
+-    name: Ident,
+-    body: &TokenStream,
+-    rules: &'matcher [MacroRule],
+-    track: &mut T,
+-) -> Result<(usize, &'matcher MacroRule, NamedMatches), CanRetry> {
+-    // This uses the same strategy as `try_match_macro`
+-    let body_parser = parser_from_cx(psess, body.clone(), T::recovery());
+-    let mut tt_parser = TtParser::new(name);
+-    for (i, rule) in rules.iter().enumerate() {
+-        let MacroRule::Derive { body, .. } = rule else { continue };
+-
+-        let mut gated_spans_snapshot = mem::take(&mut *psess.gated_spans.spans.borrow_mut());
+-
+-        let result = tt_parser.parse_tt(&mut Cow::Borrowed(&body_parser), body, track);
+-        track.after_arm(true, &result);
+-
+-        match result {
+-            Success(named_matches) => {
+-                psess.gated_spans.merge(gated_spans_snapshot);
+-                return Ok((i, rule, named_matches));
+-            }
+-            Failure(_) => {
+-                mem::swap(&mut gated_spans_snapshot, &mut psess.gated_spans.spans.borrow_mut())
+-            }
+-            ParseResult::Error(_, _) => return Err(CanRetry::Yes),
+-            ErrorReported(guar) => return Err(CanRetry::No(guar)),
+-        }
+-    }
+-
+-    Err(CanRetry::Yes)
+-}
+-
+-/// Converts a macro item into a syntax extension.
+-pub fn compile_declarative_macro(
+-    sess: &Session,
+-    features: &Features,
+-    macro_def: &ast::MacroDef,
+-    ident: Ident,
+-    attrs: &[hir::Attribute],
+-    span: Span,
+-    node_id: NodeId,
+-    edition: Edition,
+-) -> (Arc<dyn SyntaxExtensionTrait>, usize) {
+-    let mk_syn_ext = |kind: Arc<dyn MacroKindTrait>| {
+-        let is_local = is_defined_in_current_crate(node_id);
+-        Arc::new(SyntaxExtension::new(sess, kind, span, Vec::new(), edition, ident.name, attrs, is_local))
+-    };
+-    let dummy_syn_ext =
+-        |guar| (Arc::new(SyntaxExtension::dummy_bang(edition)), 0);
+-
+-    let macro_rules = macro_def.macro_rules;
+-    let exp_sep = if macro_rules { exp!(Semi) } else { exp!(Comma) };
+-
+-    let body = macro_def.body.tokens.clone();
+-    let mut p = Parser::new(&sess.psess, body, rustc_parse::MACRO_ARGUMENTS);
+-
+-    // Don't abort iteration early, so that multiple errors can be reported. We only abort early on
+-    // parse failures we can't recover from.
+-    let mut guar = None;
+-    let mut check_emission = |ret: Result<(), ErrorGuaranteed>| guar = guar.or(ret.err());
+-
+-    let mut kinds = MacroKinds::empty();
+-    let mut rules = Vec::new();
+-
+-    while p.token != token::Eof {
+-        let unsafe_rule = p.eat_keyword_noexpect(kw::Unsafe);
+-        let unsafe_keyword_span = p.prev_token.span;
+-        if unsafe_rule && let Some(guar) = check_no_eof(sess, &p, "expected `attr`") {
+-            return dummy_syn_ext(guar);
+-        }
+-        let (args, is_derive) = if p.eat_keyword_noexpect(sym::attr) {
+-            kinds |= MacroKinds::ATTR;
+-            if !features.macro_attr() {
+-                feature_err(sess, sym::macro_attr, span, "`macro_rules!` attributes are unstable")
+-                    .emit();
+-            }
+             if let Some(guar) = check_no_eof(sess, &p, "expected macro attr args") {
+                 return dummy_syn_ext(guar);
+             }
+@@ -943,22 +509,6 @@ fn check_matcher(
+     Ok(())
+ }
+ 
+-fn has_compile_error_macro(rhs: &mbe::TokenTree) -> bool {
+-    match rhs {
+-        mbe::TokenTree::Delimited(.., d) => {
+-            let has_compile_error = d.tts.array_windows::<3>().any(|[ident, bang, args]| {
+-                if let mbe::TokenTree::Token(ident) = ident
+-                    && let TokenKind::Ident(ident, _) = ident.kind
+-                    && ident == sym::compile_error
+-                    && let mbe::TokenTree::Token(bang) = bang
+-                    && let TokenKind::Bang = bang.kind
+-                    && let mbe::TokenTree::Delimited(.., del) = args
+-                    && !del.delim.skip()
+-                {
+-                    true
+-                } else {
+-                    false
+-                }
+             });
+             if has_compile_error { true } else { d.tts.iter().any(has_compile_error_macro) }
+         }
+@@ -1650,17 +1200,6 @@ fn quoted_tt_to_string(tt: &mbe::TokenTree) -> String {
+     }
+ }
+ 
+-fn is_defined_in_current_crate(node_id: NodeId) -> bool {
+-    // Macros defined in the current crate have a real node id,
+-    // whereas macros from an external crate have a dummy id.
+-    node_id != DUMMY_NODE_ID
+-}
+ 
+-pub(super) fn parser_from_cx(
+-    psess: &ParseSess,
+-    mut tts: TokenStream,
+-    recovery: Recovery,
+-) -> Parser<'_> {
+-    tts.desugar_doc_comments();
+     Parser::new(psess, tts, rustc_parse::MACRO_ARGUMENTS).recovery(recovery)
+ }
+diff --git a/compiler/rustc_expand/src/proc_macro.rs b/compiler/rustc_expand/src/proc_macro.rs
+index c2aab6e29d4..2fc8d897131 100644
+--- a/compiler/rustc_expand/src/proc_macro.rs
++++ b/compiler/rustc_expand/src/proc_macro.rs
+@@ -31,7 +31,7 @@ fn recv(&mut self) -> Option<T> {
+     }
+ }
+ 
+-fn exec_strategy(ecx: &ExtCtxt<'_>) -> impl pm::bridge::server::ExecutionStrategy + 'static {
++fn exec_strategy<DRT: OpaqueDeriveResolution + 'static>(ecx: &ExtCtxt<'_, DRT>) -> impl pm::bridge::server::ExecutionStrategy + 'static {
+     pm::bridge::server::MaybeCrossThread::<MessagePipe<_>>::new(
+         ecx.sess.opts.unstable_opts.proc_macro_execution_strategy
+             == ProcMacroExecutionStrategy::CrossThread,
+@@ -42,10 +42,10 @@ pub struct BangProcMacro {
+     pub client: pm::bridge::client::Client<pm::TokenStream, pm::TokenStream>,
+ }
+ 
+-impl base::BangProcMacro for BangProcMacro {
++impl<DRT: OpaqueDeriveResolution + 'static> base::BangProcMacro<DRT> for BangProcMacro {
+     fn expand(
+         &self,
+-        ecx: &mut ExtCtxt<'_>,
++        ecx: &mut ExtCtxt<'_, DRT>,
+         span: Span,
+         input: TokenStream,
+     ) -> Result<TokenStream, ErrorGuaranteed> {
+@@ -72,10 +72,10 @@ pub struct AttrProcMacro {
+     pub client: pm::bridge::client::Client<(pm::TokenStream, pm::TokenStream), pm::TokenStream>,
+ }
+ 
+-impl base::AttrProcMacro for AttrProcMacro {
++impl<DRT: OpaqueDeriveResolution + 'static> base::AttrProcMacro<DRT> for AttrProcMacro {
+     fn expand(
+         &self,
+-        ecx: &mut ExtCtxt<'_>,
++        ecx: &mut ExtCtxt<'_, DRT>,
+         span: Span,
+         annotation: TokenStream,
+         annotated: TokenStream,
+@@ -105,10 +105,10 @@ pub struct DeriveProcMacro {
+     pub client: pm::bridge::client::Client<pm::TokenStream, pm::TokenStream>,
+ }
+ 
+-impl MultiItemModifier for DeriveProcMacro {
++impl<DRT: OpaqueDeriveResolution + 'static> MultiItemModifier<DRT> for DeriveProcMacro {
+     fn expand(
+         &self,
+-        ecx: &mut ExtCtxt<'_>,
++        ecx: &mut ExtCtxt<'_, DRT>,
+         span: Span,
+         _meta_item: &ast::MetaItem,
+         item: Annotatable,
+diff --git a/compiler/rustc_expand/src/stats.rs b/compiler/rustc_expand/src/stats.rs
+index 4d27b0b50e6..a003dfcec1d 100644
+--- a/compiler/rustc_expand/src/stats.rs
++++ b/compiler/rustc_expand/src/stats.rs
+@@ -37,8 +37,8 @@ pub fn unreachable_to_string<T>(_: &T) -> String {
+     unreachable!()
+ }
+ 
+-pub fn update_bang_macro_stats(
+-    ecx: &mut ExtCtxt<'_>,
++pub fn update_bang_macro_stats<DRT: OpaqueDeriveResolution + 'static>(
++    ecx: &mut ExtCtxt<'_, DRT>,
+     fragment_kind: AstFragmentKind,
+     span: Span,
+     mac: Box<ast::MacCall>,
+@@ -75,8 +75,8 @@ pub fn update_bang_macro_stats(
+     update_macro_stats(ecx, MacroKind::Bang, fragment_kind, span, &mac.path, &input, fragment);
+ }
+ 
+-pub fn update_attr_macro_stats(
+-    ecx: &mut ExtCtxt<'_>,
++pub fn update_attr_macro_stats<DRT: OpaqueDeriveResolution + 'static>(
++    ecx: &mut ExtCtxt<'_, DRT>,
+     fragment_kind: AstFragmentKind,
+     span: Span,
+     path: &ast::Path,
+@@ -104,8 +104,8 @@ pub fn update_attr_macro_stats(
+     update_macro_stats(ecx, MacroKind::Attr, fragment_kind, span, path, &input, fragment);
+ }
+ 
+-pub fn update_derive_macro_stats(
+-    ecx: &mut ExtCtxt<'_>,
++pub fn update_derive_macro_stats<DRT: OpaqueDeriveResolution + 'static>(
++    ecx: &mut ExtCtxt<'_, DRT>,
+     fragment_kind: AstFragmentKind,
+     span: Span,
+     path: &ast::Path,
+@@ -118,8 +118,8 @@ pub fn update_derive_macro_stats(
+     update_macro_stats(ecx, MacroKind::Derive, fragment_kind, span, path, &input, fragment);
+ }
+ 
+-pub fn update_macro_stats(
+-    ecx: &mut ExtCtxt<'_>,
++pub fn update_macro_stats<DRT: OpaqueDeriveResolution + 'static>(
++    ecx: &mut ExtCtxt<'_, DRT>,
+     macro_kind: MacroKind,
+     fragment_kind: AstFragmentKind,
+     span: Span,
+diff --git a/compiler/rustc_expand_base_lib/src/ast_fragment.rs b/compiler/rustc_expand_base_lib/src/ast_fragment.rs
+index c36b70e9059..f7842c07372 100644
+--- a/compiler/rustc_expand_base_lib/src/ast_fragment.rs
++++ b/compiler/rustc_expand_base_lib/src/ast_fragment.rs
+@@ -7,6 +7,7 @@
+ use rustc_ast::visit::{self, Visitor, try_visit, VisitorResult};
+ use rustc_ast_pretty::pprust;
+ use crate::prelude::Annotatable; // Added
++use crate::resolver_traits::OpaqueDeriveResolution;
+ 
+ // ADDED: AstFragment and AstFragmentKind definitions from expand_utils_lib
+ /// A fragment of AST that can be produced by a single macro expansion.
+@@ -76,7 +77,7 @@ pub fn name(self) -> &'static str {
+         }
+     }
+ 
+-    pub fn make_from(self, result: Box<dyn MacResult + '_>) -> Option<AstFragment> {
++    pub fn make_from<DRT: OpaqueDeriveResolution + 'static>(self, result: Box<dyn MacResult<DRT> + '_>) -> Option<AstFragment> {
+         match self {
+ 	        AstFragmentKind::Expr => result.make_expr().map(AstFragment::Expr),
+             AstFragmentKind::Pat => result.make_pat().map(AstFragment::Pat),
+@@ -116,11 +117,11 @@ pub fn expect_from_annotatables(self, items: impl Iterator<Item = Annotatable>)
+     // This is used as a fallback when a macro expansion fails, to allow compilation to continue
+     // and report more errors later.
+     #[allow(unused_variables)]
+-    pub fn dummy(self, span: Span, guar: ErrorGuaranteed) -> AstFragment {
++    pub fn dummy<DRT: OpaqueDeriveResolution + 'static>(self, span: Span, guar: ErrorGuaranteed) -> AstFragment {
+         // We use `self.make_from` (the current `AstFragmentKind`) with a `DummyResult`
+         // which provides "empty" or "default" results for each `make_*` method.
+         // `.unwrap()` is used because `DummyResult` is guaranteed to always produce a `Some` value.
+-        self.make_from(DummyResult::any(span, guar)).unwrap()
++        self.make_from(DummyResult::any::<DRT>(span, guar)).unwrap()
+     }
+ }
+ 
+diff --git a/compiler/rustc_expand_base_lib/src/base_expansion_context.rs b/compiler/rustc_expand_base_lib/src/base_expansion_context.rs
+index 7f27bac49a7..e4276d27f7a 100644
+--- a/compiler/rustc_expand_base_lib/src/base_expansion_context.rs
++++ b/compiler/rustc_expand_base_lib/src/base_expansion_context.rs
+@@ -38,7 +38,7 @@
+ ///
+ /// Any full expansion context (like `ExtCtxt` in `rustc_expand`) must implement this trait
+ /// to interact with `rustc_expand_base_lib`'s functionalities.
+-pub trait BaseExpansionContext {
++pub trait BaseExpansionContext<DRT: OpaqueDeriveResolution + 'static> {
+     /// Returns a diagnostic context handle for emitting errors and warnings.
+     fn dcx(&self) -> DiagCtxtHandle;
+ 
+@@ -52,9 +52,7 @@ pub trait BaseExpansionContext {
+     fn ecfg(&self) -> &ExpansionConfig;
+ 
+     /// Returns a mutable reference to the resolver.
+-    /// This needs to be a generic type or another trait to avoid direct ExtCtxt dependency.
+-    // TODO: Refine ResolverExpand to be a trait defined in base_lib or passed generically
+-    fn resolver(&mut self) -> &mut (impl ResolverExpand<DeriveResolutionType = impl OpaqueDeriveResolution + 'static> + 'static);
++    fn resolver(&mut self) -> &mut (dyn ResolverExpand<DRT> + 'static);
+ 
+     /// Returns the compiler session's features.
+     fn features(&self) -> &Features;
+@@ -115,8 +113,7 @@ pub fn default(crate_name: Symbol, features: &'a Features) -> ExpansionConfig<'a
+ 
+ // Placeholder for ResolverExpand. This trait will also need to be defined
+ // either here or its required methods moved here.
+-pub trait ResolverExpand: DeriveResolutionProvider<Self::DeriveResolutionType> + ImportResolver {
+-    type DeriveResolutionType: OpaqueDeriveResolution + 'static;
++pub trait ResolverExpand<DRT: OpaqueDeriveResolution + 'static>: DeriveResolutionProvider<DRT> + ImportResolver {
+     fn next_node_id(&mut self) -> NodeId;
+     fn invocation_parent(&self, id: LocalExpnId) -> LocalDefId; // Corrected return type to LocalDefId
+     fn resolve_dollar_crates(&mut self);
+@@ -132,3 +129,4 @@ fn resolve_macro_invocation(
+     fn insert_impl_trait_name(&mut self, id: NodeId, name: Symbol);
+     fn register_glob_delegation(&mut self, invoc_id: LocalExpnId);
+ }
++
+diff --git a/compiler/rustc_expand_base_lib/src/mac_result.rs b/compiler/rustc_expand_base_lib/src/mac_result.rs
+index b721808003d..72ea003e495 100644
+--- a/compiler/rustc_expand_base_lib/src/mac_result.rs
++++ b/compiler/rustc_expand_base_lib/src/mac_result.rs
+@@ -3,11 +3,12 @@
+ use rustc_span::{Span, DUMMY_SP};
+ use thin_vec::ThinVec;
+ use smallvec::{SmallVec, smallvec};
++use crate::resolver_traits::OpaqueDeriveResolution;
+ 
+ // Use a macro because forwarding to a simple function has type system issues
+ macro_rules! make_stmts_default {
+-    ($me:expr) => {
+-        $me.make_expr().map(|e| {
++    ($me:expr, $TypeParam:ty) => {
++        <dyn MacResult<$TypeParam>>::make_expr($me).map(|e| {
+             smallvec![ast::Stmt {
+                 id: ast::DUMMY_NODE_ID,
+                 span: e.span,
+@@ -19,7 +20,7 @@ macro_rules! make_stmts_default {
+ 
+ /// The result of a macro expansion. The return values of the various
+ /// methods are spliced into the AST at the callsite of the macro.
+-pub trait MacResult {
++pub trait MacResult<DRT: OpaqueDeriveResolution + 'static> {
+     /// Creates an expression.
+     fn make_expr(self: Box<Self>) -> Option<Box<ast::Expr>> {
+         None
+@@ -55,12 +56,8 @@ fn make_pat(self: Box<Self>) -> Option<Box<ast::Pat>> {
+         None
+     }
+ 
+-    /// Creates zero or more statements.
+-    ///
+-    /// By default this attempts to create an expression statement,
+-    /// returning None if that fails.
+     fn make_stmts(self: Box<Self>) -> Option<SmallVec<ast::Stmt, 1>> {
+-        make_stmts_default!(self)
++        None
+     }
+ 
+     fn make_ty(self: Box<Self>) -> Option<Box<ast::Ty>> {
+@@ -118,7 +115,7 @@ pub struct MacEager {
+ 
+         impl MacEager {
+             $(
+-                pub fn $fld(v: $t) -> Box<dyn MacResult> {
++                pub fn $fld<DRT: OpaqueDeriveResolution + 'static>(v: $t) -> Box<dyn MacResult<DRT>> {
+                     Box::new(MacEager {
+                         $fld: Some(v),
+                         ..Default::default()
+@@ -141,7 +138,7 @@ pub fn $fld(v: $t) -> Box<dyn MacResult> {
+     where_predicates: SmallVec<ast::WherePredicate, 1>, // Re-added
+ }
+ 
+-impl MacResult for MacEager {
++impl<DRT: OpaqueDeriveResolution + 'static> MacResult<DRT> for MacEager {
+     fn make_expr(self: Box<Self>) -> Option<Box<ast::Expr>> {
+         self.expr
+     }
+@@ -168,7 +165,7 @@ fn make_foreign_items(self: Box<Self>) -> Option<SmallVec<Box<ast::ForeignItem>,
+ 
+     fn make_stmts(self: Box<Self>) -> Option<SmallVec<ast::Stmt, 1>> {
+         match self.stmts.as_ref().map_or(0, |s| s.len()) {
+-            0 => make_stmts_default!(self),
++            0 => make_stmts_default!(self,DRT),
+             _ => self.stmts,
+         }
+     }
+@@ -208,12 +205,12 @@ impl DummyResult {
+     ///
+     /// Use this as a return value after hitting any errors and
+     /// calling `span_err`.
+-    pub fn any(span: Span, guar: ErrorGuaranteed) -> Box<dyn MacResult + 'static> {
++    pub fn any<DRT: OpaqueDeriveResolution + 'static>(span: Span, guar: ErrorGuaranteed) -> Box<dyn MacResult<DRT> + 'static> {
+         Box::new(DummyResult { guar: Some(guar), span })
+     }
+ 
+     /// Same as `any`, but must be a valid fragment, not error.
+-    pub fn any_valid(span: Span) -> Box<dyn MacResult + 'static> {
++    pub fn any_valid<DRT: OpaqueDeriveResolution + 'static>(span: Span) -> Box<dyn MacResult<DRT> + 'static> {
+         Box::new(DummyResult { guar: None, span })
+     }
+ 
+@@ -233,7 +230,7 @@ pub fn raw_expr(sp: Span, guar: Option<ErrorGuaranteed>) -> Box<ast::Expr> {
+     }
+ }
+ 
+-impl MacResult for DummyResult {
++impl<DRT: OpaqueDeriveResolution + 'static> MacResult<DRT> for DummyResult {
+     fn make_expr(self: Box<DummyResult>) -> Option<Box<ast::Expr>> {
+         Some(DummyResult::raw_expr(self.span, self.guar))
+     }
+@@ -328,4 +325,4 @@ fn make_crate(self: Box<DummyResult>) -> Option<ast::Crate> {
+             is_placeholder: false,
+ 	})
+     }
+-}
+\ No newline at end of file
++}

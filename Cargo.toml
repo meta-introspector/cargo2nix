@@ -16,6 +16,7 @@
 # serde = { version = "1.0", features = ["derive"] }
 # serde_json = "1.0"
 # smallvec = "1.0"
+rustc_macros = { path = "submodules/rust/compiler/rustc_macros" }
 #clap_derive = { path = "submodules/clap/clap_derive" }
 #futures-task = { path = "submodules/futures-rs/futures-task" }
 #parking_lot = { path = "submodules/parking_lot" , version ="0.9.13"}
@@ -49,6 +50,7 @@ async-stream = { path = "submodules/async-stream-vendored" }
 async-trait = "0.1.79"
 atomic-maybe-uninit = { path = "submodules/atomic-maybe-uninit" }
 autocfg = { path = "submodules/autocfg" }
+axum = { version = "0.7.5" }
 backtrace = { path = "submodules/backtrace-rs" }
 base-db = { path = "submodules/rust-analyzer/crates/base-db"}
 base64 = { path = "submodules/rust-base64" }
@@ -255,6 +257,7 @@ ignore = "0.4.25"
 im-rc = { path = "submodules/im-rs/rc" }
 imara-diff = { path = "submodules/imara-diff" }
 indexmap = { path = "submodules/indexmap" }
+introspector_core = { path = "submodules/rust/compiler/introspector/core" }
 intern = { path = "./submodules/rust-analyzer/crates/intern"} # Add this line
 intl-memoizer = { path= "submodules/fluent-rs/intl-memoizer" }
 intl_pluralrules = "7.0"
@@ -304,6 +307,7 @@ mockall = { path = "submodules/mockall/mockall" }
 nix.path = "submodules/nix"
 nohash-hasher = { path = "submodules/nohash-hasher" }
 nom = { path = "submodules/nom" }
+notify = "6.1.1"
 nu-ansi-term = { path = "submodules/nu-ansi-term" }
 num-conv = { path = "submodules/num-conv" }
 object = { path = "submodules/object", features = ['read_core', 'elf', 'macho', 'pe', 'xcoff', 'unaligned', 'archive'] }
@@ -376,8 +380,12 @@ rustc-literal-escaper = { path = "submodules/rustc-literal-escaper" }
 rustc-stable-hash = { path = "submodules/rustc-stable-hash" }
 rustc_apfloat = { path = "submodules/rustc_apfloat" }
 rustc_ast = { path = "submodules/rust/compiler/rustc_ast" }
+rustc_attr_parsing = { path = "submodules/rust/compiler/rustc_attr_parsing" }
+rustc_lint_defs = { path = "submodules/rust/compiler/rustc_lint_defs" }
 rustc_data_structures = { path = "submodules/rust/compiler/rustc_data_structures" }
 rustc_driver = { path = "submodules/rust/compiler/rustc_driver" }
+rustc_driver_impl = { path = "submodules/rust/compiler/rustc_driver_impl" }
+rustc_builtin_macros = { path = "submodules/rust/compiler/rustc_builtin_macros" }
 rustc_hir = { path = "submodules/rust/compiler/rustc_hir" }
 rustc_hir_id = { path = "submodules/rust/compiler/rustc_hir_id" }
 rustc_index = { path = "submodules/rust/compiler/rustc_index" }
@@ -386,9 +394,11 @@ rustc_interface = { path = "submodules/rust/compiler/rustc_interface" }
 rustc_lint = { path = "submodules/rust/compiler/rustc_lint" }
 rustc_middle = { path = "submodules/rust/compiler/rustc_middle" }
 rustc_session = { path = "submodules/rust/compiler/rustc_session" }
+rustc_parse = { path = "submodules/rust/compiler/rustc_parse" }
 rustc_span = { path = "submodules/rust/compiler/rustc_span" }
 rustc_serialize = { path = "submodules/rust/compiler/rustc_serialize" }
 rustc_expand_base_lib = { path = "submodules/rust/compiler/rustc_expand_base_lib" }
+rustc_expand = { path = "submodules/rust/compiler/rustc_expand" }
 expand_utils_lib = { path = "submodules/rust/compiler/expand_utils_lib" }
 rustc_tools_util = { path = "submodules/rust/src/tools/clippy/rustc_tools_util" }
 rustc_trait_selection = { path = "submodules/rust/compiler/rustc_trait_selection" }
@@ -396,6 +406,7 @@ rustc_transmute = { path = "submodules/rust/compiler/rustc_transmute" }
 rustc_errors = { path = "submodules/rust/compiler/rustc_errors" }
 rustc_feature = { path = "submodules/rust/compiler/rustc_feature" }
 rustfix = { path = "submodules/cargo/crates/rustfix" }
+rustyline = "14.0.0"
 rustix = { path = "submodules/rustix" }
 rustversion = { path = "submodules/rustversion" }
 ruzstd = { path = "submodules/zstd-rs/ruzstd" }
@@ -479,6 +490,8 @@ toml_writer = { path = "submodules/toml/crates/toml_writer" }
 tool-traits-lib = { path = "./tools/tool-traits-lib" }
 toolchain = { path = "submodules/rust-analyzer/crates/toolchain"}
 tracing = { path = "submodules/tracing/tracing" }
+include-dir-macro = { path = "submodules/include-dir-macro-rs/" } # Used to embed directories into the binary at compile time.
+
 tracing-attributes = { path = "submodules/tracing/tracing-attributes" }
 tracing-chrome = { path = "submodules/tracing-chrome" }
 tracing-core = { path = "submodules/tracing/tracing-core" }
@@ -494,6 +507,7 @@ twox-hash = { path = "submodules/twox-hash" }
 typenum = { path = "submodules/typenum" }
 typesize = { path = "submodules/typesize" }
 typesize-derive = { path = "submodules/typesize/typesize-derive" }
+uuid = { path = "submodules/uuid" }
 ucd-trie = { path = "submodules/ucd-generate/ucd-trie" }
 uluru = { path = "submodules/uluru" }
 unic-langid = "0.9"
@@ -545,7 +559,11 @@ zerofrom-derive = { path = "submodules/icu4x/utils/zerofrom/derive" }
 zerovec-derive = { path = "submodules/icu4x/utils/zerovec/derive" }
 zip = { path = "submodules/zip2" }
 zlib-rs = { path = "submodules/zlib-rs/zlib-rs" }
-
+lib-kleene-op.path="submodules/rust/compiler/lib-kleene-op"
+lib-macro-rule.path= "submodules/rust/compiler/lib-macro-rule"
+lib-matcher-loc.path= "submodules/rust/compiler/lib-matcher-loc"
+lib-metavar-expr.path= "submodules/rust/compiler/lib-metavar-expr"
+lib-token-tree.path="submodules/rust/compiler/lib-token-tree"
 
 
 [workspace]
@@ -575,6 +593,11 @@ members = [
     "tools/graph-petal-generator",
     "tools/monster-grouper",
     "tools/trait-fixer",
+    "submodules/rust/compiler/lib-kleene-op",
+    "submodules/rust/compiler/lib-macro-rule",
+    "submodules/rust/compiler/lib-matcher-loc",
+    "submodules/rust/compiler/lib-metavar-expr",
+    "submodules/rust/compiler/lib-token-tree",
     "submodules/rust/compiler/rustc_ast",
     "submodules/rust/compiler/rustc_data_structures",
     "submodules/rust/compiler/rustc_driver",
@@ -628,9 +651,19 @@ members = [
         "submodules/rust/compiler/expand_utils_test",
                 "submodules/rust/compiler/rustc_expand",
                 "submodules/rust/compiler/rustc_expand_base_lib",
-                "submodules/rust/compiler/rustc_serialize",    ]
-exclude = [
-]
+                "submodules/rust/compiler/rustc_serialize",
+                "submodules/rust/compiler/introspector/core",
+                "repl_server",
+		"submodules/rust/compiler/lib-kleene-op",
+                "submodules/rust/compiler/lib-macro-rule",
+                "submodules/rust/compiler/lib-matcher-loc",
+                "submodules/rust/compiler/lib-metavar-expr",
+		"submodules/rust/compiler/lib-token-tree"
+, "tools/type-reporter",
+"submodules/rust/compiler/rustc_expand_base_lib_errors",
+"submodules/rust/compiler/rustc_expand_base_lib_macros",
+"submodules/rust/compiler/rustc_expand_base_lib_test_driver"]
+
 
 [workspace.package]
 publish=false
@@ -760,3 +793,5 @@ tracing-subscriber = { path = "submodules/tracing/tracing-subscriber" }
 tracing-tree = { version = "0.4.1", path = "submodules/tracing-tree" }
 xz2 = { path = "submodules/xz2-rs" }
 thin-vec = { version = "0.2.14", path = "submodules/thin-vec" }
+serde_json = { path = "submodules/json" }
+#serde = { path = "submodules/serde/serde" }

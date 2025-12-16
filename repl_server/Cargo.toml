@@ -1,0 +1,13 @@
+[package]
+name = "repl_server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+introspector_core = { workspace = true }
+axum = { workspace = true }
+tokio = { workspace = true, features = ["full"] }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+rustyline = { workspace = true }
+notify = { workspace = true }

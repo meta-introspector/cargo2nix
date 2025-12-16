@@ -1,0 +1,167 @@
+[
+  {
+    "original_name": "",
+    "labeled_name": "_INVOCATION_COLLECTOR_ALIAS_",
+    "file_path": "submodules/rust/compiler/rustc_expand/src/expand.rs",
+    "line_number": 36,
+    "context": "/// CollectorABDRT<'a,'b,DRT> = InvocationCollector<'a,'b,DRT> (collects macro invocations)",
+    "lifetime_a": "'a",
+    "lifetime_b": "'b",
+    "drt_type": "DRT",
+    "destructuring_pattern": null
+  },
+  {
+    "original_name": "pub",
+    "labeled_name": "_INVOCATION_COLLECTOR_ALIAS_",
+    "file_path": "submodules/rust/compiler/rustc_expand/src/expand.rs",
+    "line_number": 37,
+    "context": "pub type CollectorABDRT<'a, 'b, DRT> = InvocationCollector<'a, 'b, DRT>;",
+    "lifetime_a": "'a",
+    "lifetime_b": "'b",
+    "drt_type": "DRT",
+    "destructuring_pattern": null
+  },
+  {
+    "original_name": "",
+    "labeled_name": "_DERIVE_RESOLUTION_ALIAS_",
+    "file_path": "submodules/rust/compiler/rustc_expand/src/expand.rs",
+    "line_number": 38,
+    "context": "/// ResolverBound = DeriveResolution (trait bound for derive resolution)",
+    "lifetime_a": null,
+    "lifetime_b": null,
+    "drt_type": null,
+    "destructuring_pattern": null
+  },
+  {
+    "original_name": "pub",
+    "labeled_name": "_DERIVE_RESOLUTION_ALIAS_",
+    "file_path": "submodules/rust/compiler/rustc_expand/src/expand.rs",
+    "line_number": 39,
+    "context": "pub type ResolverBound = DeriveResolution;",
+    "lifetime_a": null,
+    "lifetime_b": null,
+    "drt_type": null,
+    "destructuring_pattern": null
+  },
+  {
+    "original_name": "",
+    "labeled_name": "_EXT_CTXT_ALIAS_",
+    "file_path": "submodules/rust/compiler/rustc_expand/src/expand.rs",
+    "line_number": 40,
+    "context": "/// ExpandContext<'b, DRT> = ExtCtxt<'b, DRT> (Expansion Context)",
+    "lifetime_a": null,
+    "lifetime_b": null,
+    "drt_type": null,
+    "destructuring_pattern": null
+  },
+  {
+    "original_name": "pub",
+    "labeled_name": "_EXT_CTXT_ALIAS_",
+    "file_path": "submodules/rust/compiler/rustc_expand/src/expand.rs",
+    "line_number": 41,
+    "context": "pub type ExpandContext<'b, DRT> = ExtCtxt<'b, DRT>;",
+    "lifetime_a": null,
+    "lifetime_b": "'b",
+    "drt_type": "DRT",
+    "destructuring_pattern": null
+  },
+  {
+    "original_name": "",
+    "labeled_name": "_DRT_GENERIC_PARAM_",
+    "file_path": "submodules/rust/compiler/rustc_expand/src/expand.rs",
+    "line_number": 42,
+    "context": "/// RefAMutExpandContext_B_DRT<'a,'b,DRT> = &'a mut crate::base::ExpandContext<'b, DRT> (Mutable reference to Expansion Context)",
+    "lifetime_a": null,
+    "lifetime_b": null,
+    "drt_type": null,
+    "destructuring_pattern": null
+  },
+  {
+    "original_name": "pub",
+    "labeled_name": "_DRT_GENERIC_PARAM_",
+    "file_path": "submodules/rust/compiler/rustc_expand/src/expand.rs",
+    "line_number": 43,
+    "context": "pub type RefAMutExpandContext_B_DRT<'a, 'b, DRT> = &'a mut crate::base::ExpandContext<'b, DRT>;",
+    "lifetime_a": "'a",
+    "lifetime_b": "'b",
+    "drt_type": "DRT",
+    "destructuring_pattern": null
+  },
+  {
+    "original_name": "use",
+    "labeled_name": "_EXT_CTXT_ALIAS_",
+    "file_path": "submodules/rust/compiler/rustc_expand/src/expand.rs",
+    "line_number": 51,
+    "context": "use crate::base::{ExtCtxt, ExpandResult, DeriveResolution, SyntaxExtensionKind, BangProcMacro, AttrProcMacro, MultiItemModifier, MacroExpanderFn, GlobDelegationExpander};",
+    "lifetime_a": null,
+    "lifetime_b": null,
+    "drt_type": null,
+    "destructuring_pattern": null
+  },
+  {
+    "original_name": "use",
+    "labeled_name": "_INVOCATION_COLLECTOR_ALIAS_",
+    "file_path": "submodules/rust/compiler/rustc_expand/src/expand.rs",
+    "line_number": 54,
+    "context": "use crate::ast_fragments_split::InvocationCollector;",
+    "lifetime_a": null,
+    "lifetime_b": null,
+    "drt_type": null,
+    "destructuring_pattern": null
+  },
+  {
+    "original_name": "impl<'a",
+    "labeled_name": "_DRT_GENERIC_PARAM_",
+    "file_path": "submodules/rust/compiler/rustc_expand/src/expand.rs",
+    "line_number": 72,
+    "context": "impl<'a, 'b, DRT: OpaqueDeriveResolution + 'static> MacroExpander<'a, 'b, DRT> {",
+    "lifetime_a": "'a",
+    "lifetime_b": "'b",
+    "drt_type": "DRT",
+    "destructuring_pattern": null
+  },
+  {
+    "original_name": "pub",
+    "labeled_name": "_EXT_CTXT_ALIAS_",
+    "file_path": "submodules/rust/compiler/rustc_expand/src/expand.rs",
+    "line_number": 73,
+    "context": "pub fn new(cx: &'a mut crate::base::ExtCtxt<'b, DRT>, monotonic: bool) -> Self {",
+    "lifetime_a": "a",
+    "lifetime_b": "b",
+    "drt_type": "DRT",
+    "destructuring_pattern": null
+  },
+  {
+    "original_name": "map(|DeriveResolution",
+    "labeled_name": "_DERIVE_RESOLUTION_ALIAS_",
+    "file_path": "submodules/rust/compiler/rustc_expand/src/expand.rs",
+    "line_number": 180,
+    "context": ".map(|DeriveResolution { path, item, exts: _, is_const }| {",
+    "lifetime_a": null,
+    "lifetime_b": null,
+    "drt_type": null,
+    "destructuring_pattern": null
+  },
+  {
+    "original_name": "let",
+    "labeled_name": "_INVOCATION_COLLECTOR_ALIAS_",
+    "file_path": "submodules/rust/compiler/rustc_expand/src/expand.rs",
+    "line_number": 264,
+    "context": "let mut collector = InvocationCollector {",
+    "lifetime_a": null,
+    "lifetime_b": null,
+    "drt_type": null,
+    "destructuring_pattern": null
+  },
+  {
+    "original_name": "let",
+    "labeled_name": "_DRT_GENERIC_PARAM_",
+    "file_path": "submodules/rust/compiler/rustc_expand/src/expand.rs",
+    "line_number": 551,
+    "context": "let expander = ext.get_macro_kind().downcast_ref::<Arc<crate::mbe::macro_rules_expander::MacroRulesMacroExpander<DRT>>>().expect(\"expected MacroRulesExpander\");",
+    "lifetime_a": null,
+    "lifetime_b": null,
+    "drt_type": "DRT",
+    "destructuring_pattern": null
+  }
+]

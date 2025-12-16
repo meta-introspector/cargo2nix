@@ -1,0 +1,23 @@
+# Type System Report
+
+This report details the identified type usages and their labeled equivalents,
+focusing on the abstraction of complex generics like `DRT`.
+
+{% if type_usages %}
+## Detected Type Usages:
+
+{% for usage in type_usages %}
+### Original: {{ usage.original_name }}
+- **Labeled:** {{ usage.labeled_name }}
+- **File:** {{ usage.file_path }}
+- **Line:** {{ usage.line_number }}
+- **Context:**
+  ```rust
+  {{ usage.context }}
+  ```
+---
+{% endfor %}
+
+{% else %}
+No specific type usages detected for this report.
+{% endif %}

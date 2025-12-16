@@ -7,9 +7,9 @@ use rustc_middle::ty::PredicateKind; // Import PredicateKind
 use rustc_span::symbol::Symbol;
 use rustc_span::DUMMY_SP;
 use rustc_trait_selection::traits::{
-    Obligation, ObligationCause, ObligationCauseCode, TraitEngine, TraitEngineExt, FulfillmentError, // Added TraitEngineExt
+    Obligation, ObligationCause, ObligationCauseCode, TraitEngine, TraitEngineExt, FulfillmentError,
 };
-// Removed use rustc_trait_selection::traits::fulfill::FulfillmentContext;
+use rustc_trait_selection::traits::fulfill::FulfillmentContext; // Uncommented and added
 use rustc_span::def_id::{CRATE_DEF_INDEX, LOCAL_CRATE};
 use std::default::Default;
 
@@ -39,7 +39,7 @@ impl<'tcx> TraitChecker<'tcx, TyCtxt<'tcx>, DefId, Ty<'tcx>> for RustcTyCtxt<'tc
     ) -> bool {
         let tcx = self.0;
         let infcx = tcx.infer_ctxt().build(TypingMode::Analysis { defining_opaque_types_and_generators: Default::default() });
-        let param_env = ParamEnv { caller_bounds: tcx.mk_clauses(&[]) }; // Removed reveal_all
+        let param_env = ParamEnv::empty(); // Removed reveal_all
         let predicates = [Obligation { // Changed from tcx.mk_predicate(Binder::dummy(PredicateKind::Clause(ClauseKind::Trait(PredicateObligation { ... }))))
             cause: ObligationCause::new(DUMMY_SP, DefId::local(DefIndex::from_usize(0)).expect_local(), ObligationCauseCode::Misc), // Changed ObligationCauseCode::Pattern to Misc
             param_env,
@@ -50,12 +50,13 @@ impl<'tcx> TraitChecker<'tcx, TyCtxt<'tcx>, DefId, Ty<'tcx>> for RustcTyCtxt<'tc
             recursion_depth: 0, // Added recursion_depth
         }];
 
-        let mut fulfill_cx = <dyn TraitEngine<FulfillmentError<'tcx>>>::new(&infcx); // Correct instantiation for TraitEngine
+        let mut fulfill_cx: FulfillmentContext<'_, FulfillmentError<'tcx>> = FulfillmentContext::new(&infcx); // Correct instantiation
+
         for predicate in predicates {
             fulfill_cx.register_predicate_obligation(&infcx, predicate); // Added &infcx
         }
 
-        let errors = fulfill_cx.select_all_and_apply_where_possible(&infcx, TypingMode::Analysis { defining_opaque_types_and_generators: Default::default() }); // Changed Canonical to TyOnly, and then to Analysis
+        let errors = fulfill_cx.try_evaluate_obligations(&infcx); // Changed Canonical to TyOnly, and then to Analysis
         errors.is_empty()
     }
 }

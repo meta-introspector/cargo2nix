@@ -1,0 +1,595 @@
++use crate::mbe::macro_rules_utils::{parser_from_cx, trace_macros_note_expander, is_defined_in_current_crate, has_compile_error_macro};
++    // macro_rules! foo {
+diff --git a/compiler/rustc_expand/src/mbe/macro_rules.rs b/compiler/rustc_expand/src/mbe/macro_rules.rs
+--- a/compiler/rustc_expand/src/mbe/macro_rules.rs
++++ b/compiler/rustc_expand/src/mbe/macro_rules.rs
++use crate::mbe::macro_rules_expander::MacroRulesMacroExpander;
+-        "macro_rules".to_string()
+-    // macro_rules! foo {
+-    let macro_rules = macro_def.macro_rules;
+-    let exp_sep = if macro_rules { exp!(Semi) } else { exp!(Comma) };
+-                feature_err(sess, sym::macro_attr, span, "`macro_rules!` attributes are unstable")
+diff --git a/compiler/rustc_expand/src/mbe/macro_rules_expander.rs b/compiler/rustc_expand/src/mbe/macro_rules_expander.rs
++++ b/compiler/rustc_expand/src/mbe/macro_rules_expander.rs
++use crate::mbe::macro_rules_utils::{trace_macros_note_expander, is_defined_in_current_crate, has_compile_error_macro};
++        "macro_rules".to_string()
++        _allow_internal_attrs: Vec<Attribute>, // This argument is Vec::new() in macro_rules.rs
+     /// `macro_rules!` items
++    MacroRules(Arc<crate::mbe::macro_rules::MacroRulesMacroExpander>),
++            SyntaxExtensionKind::MacroRules(_) => "macro_rules".to_string(),
++                "macro_rules" => { // Handling MacroRules as derive
++                    let expander = ext.get_macro_kind().downcast_ref::<Arc<crate::mbe::macro_rules::MacroRulesMacroExpander>>().expect("expected MacroRulesExpander");
+diff --git a/compiler/rustc_expand/src/mbe/macro_rules.rs b/compiler/rustc_expand/src/mbe/macro_rules.rs
+--- a/compiler/rustc_expand/src/mbe/macro_rules.rs
++++ b/compiler/rustc_expand/src/mbe/macro_rules.rs
++        "macro_rules".to_string()
+     let macro_rules = macro_def.macro_rules;
+     let exp_sep = if macro_rules { exp!(Semi) } else { exp!(Comma) };
++use crate::mbe::macro_rules::MacroRulesMacroExpander;
++    /// `macro_rules!` items
++    /// Legacy `macro_rules!` type, can be macro or derive. This is for compatibility with older definitions.
++macro_rules! throw_span_err {
++macro_rules! throw_invalid_attr {
+-macro_rules! throw_span_err {
+-macro_rules! throw_invalid_attr {
++// macro_rules! throw_span_err {
++// macro_rules! throw_invalid_attr {
++macro_rules! throw_span_err {
++macro_rules! throw_invalid_attr {
++macro_rules! throw_span_err {
++macro_rules! throw_invalid_attr {
+-+#[macro_use] // Required for macro_rules! to be available within other macros
+- macro_rules! generate_walk_flat_map_fns {
+-@@ -53,15 +53,6 @@ macro_rules! require_simd {
+--    macro_rules! require_simd2 {
+-@@ -473,8 +464,9 @@ macro_rules! require_simd2 {
+-@@ -1462,184 +1454,6 @@ macro_rules! bitwise_red {
+- macro_rules! impls_dyn_send_neg {
+-@@ -24,13 +37,16 @@ macro_rules! impls_dyn_send_neg {
+-@@ -57,7 +73,8 @@ macro_rules! already_send {
+-@@ -70,6 +87,9 @@ macro_rules! impl_dyn_send {
+-@@ -88,16 +108,36 @@ macro_rules! impl_dyn_send {
+- macro_rules! impls_dyn_sync_neg {
+-@@ -106,7 +146,6 @@ macro_rules! impls_dyn_sync_neg {
+-@@ -131,7 +170,8 @@ macro_rules! already_sync {
+-@@ -152,6 +192,9 @@ macro_rules! impl_dyn_sync {
+-@@ -172,7 +215,7 @@ macro_rules! impl_dyn_sync {
+-+        // `macro_rules! m { () => { panic!(); } }` isn't parsed by `.parse_expr()`,
+-+macro_rules! ast_fragments {
+-+// FIXME(Nilstrieb) Translate macro_rules diagnostics
+-+pub use mbe::macro_rules::{MacroRulesMacroExpander, compile_declarative_macro};
+--use crate::mbe::macro_rules::ParserAnyMacro;
+--macro_rules! make_stmts_default {
+--macro_rules! make_MacEager {
+--macro_rules! configure {
+--macro_rules! ast_fragments {
+--        impl<'a> MacResult for crate::mbe::macro_rules::ParserAnyMacro<'a> {
+--            $(fn $make_ast(self: Box<crate::mbe::macro_rules::ParserAnyMacro<'a>>)
+- macro_rules! assign_id {
+-@@ -1237,1308 +837,4 @@ macro_rules! assign_id {
+- // FIXME(Nilstrieb) Translate macro_rules diagnostics
+- pub use mbe::macro_rules::{MacroRulesMacroExpander, compile_declarative_macro};
+-+// FIXME(Nilstrieb) Translate macro_rules diagnostics
+-+pub use mbe::macro_rules::{MacroRulesMacroExpander, compile_declarative_macro};
+-diff --git a/compiler/rustc_expand/src/mbe/macro_rules.rs b/compiler/rustc_expand/src/mbe/macro_rules.rs
+---- a/compiler/rustc_expand/src/mbe/macro_rules.rs
+-+++ b/compiler/rustc_expand/src/mbe/macro_rules.rs
+--        // `macro_rules! m { () => { panic!(); } }` isn't parsed by `.parse_expr()`,
+-+macro_rules! make_stmts_default {
+-+macro_rules! make_MacEager {
+-@@ -60,8 +60,6 @@ macro_rules! declare_features {
+-@@ -189,8 +189,6 @@ macro_rules! declare_features {
+--macro_rules! defaulted_enum {
+- macro_rules! const_macro_kinds {
+-@@ -215,7 +196,14 @@ macro_rules! const_macro_kinds {
+-@@ -223,27 +211,20 @@ macro_rules! const_macro_kinds {
+-@@ -209,9 +209,9 @@ macro_rules! ins_sym {
+-@@ -221,7 +221,7 @@ macro_rules! ins_sym {
+-@@ -239,10 +239,10 @@ macro_rules! ins_sym {
+-@@ -265,7 +265,7 @@ macro_rules! ins_sym {
+-@@ -291,14 +291,14 @@ macro_rules! ins_sym {
+-@@ -446,17 +446,17 @@ macro_rules! ins {
+- // with macro_rules, it is necessary to use recursive mechanic ("Incremental TT Munchers").
+-@@ -236,7 +257,7 @@ macro_rules! forward_opt {
+-+macro_rules! linker_flavor_cli_impls {
+--macro_rules! linker_flavor_cli_impls {
+--macro_rules! supported_targets {
+--macro_rules! cvs {
+--        macro_rules! check {
+--        macro_rules! check_eq {
+--        macro_rules! check_ne {
+--        macro_rules! check_matches {
+-+        macro_rules! check {
+-+        macro_rules! check_eq {
+-+        macro_rules! check_ne {
+-+        macro_rules! check_matches {
+-+macro_rules! supported_targets {
+-+macro_rules! supported_targets {
+-+macro_rules! cvs {
+-@@ -550,12 +549,9 @@ macro_rules! array_impl_default {
+-@@ -591,19 +587,11 @@ macro_rules! array_impl_default {
+-+             LoadedMacro::MacroDef { def, .. } if !def.macro_rules
+-+-                let macro_rules = self.root.tables.is_macro_rules.get(self, id);
+-++                let macro_rules = self.root.tables.is_macro_rules.get((self, tcx), id);
+-+                 ast::MacroDef { macro_rules, body: Box::new(body) }
+-+@@ -99,7 +99,7 @@ macro_rules! provide_one {
+-+@@ -108,7 +108,7 @@ macro_rules! provide_one {
+-+@@ -126,7 +126,7 @@ macro_rules! provide_one {
+-+@@ -75,7 +75,7 @@ macro_rules! language_item_table {
+-+@@ -248,7 +248,7 @@ macro_rules! top_level_tmod_enum {
+-+@@ -520,7 +520,7 @@ macro_rules! tmod_enum {
+-+-                                    && !this.disambiguate_macro_rules_vs_modularized(
+-+-                                    // we visit all macro_rules scopes (e.g. textual scope macros)
+-++            && !self.disambiguate_macro_rules_vs_modularized(innermost_binding, binding)
+-++            // we visit all macro_rules scopes (e.g. textual scope macros)
+-+-                    Scope::MacroRules(macro_rules_scope) => match macro_rules_scope.get() {
+-+-                        MacroRulesScope::Binding(macro_rules_binding)
+-+-                            if ident == macro_rules_binding.ident =>
+-+-                            Ok((macro_rules_binding.binding, Flags::MACRO_RULES))
+-++            Scope::MacroRules(macro_rules_scope) => match macro_rules_scope.get() {
+-++                MacroRulesScope::Binding(macro_rules_binding)
+-++                    if ident == macro_rules_binding.ident =>
+-++                    Ok((macro_rules_binding.binding, Flags::MACRO_RULES))
+-+ macro_rules! ping {
+-+ macro_rules! deep {
+-+ macro_rules! foo {
+-+ macro_rules! bar {
+-+ LL | / macro_rules! pong {
+-+ LL | / macro_rules! pong {
+-+ LL | / macro_rules! pong {
+-+ macro_rules! pong {
+- macro_rules! clean_crate_tree {
+-@@ -404,7 +398,7 @@ macro_rules! lint_any {
+-@@ -1747,7 +1721,7 @@ macro_rules! add_component {
+-             // FIXME: Also print `#[doc(hidden)]` for `macro_rules!` if it `is_doc_hidden`.
+-             if !t.macro_rules {
+-@@ -128,6 +124,37 @@ macro_rules! map {
+-+macro_rules! note_prev_span_then_ret {
+--            Pat::Str(if def.macro_rules { "macro_rules" } else { "macro" }),
+- macro_rules! extract_msrv_attr {
+--LL | macro_rules! mac_rules_crate {
+--LL | macro_rules! mac_rules_crate {
+--LL | macro_rules! mac_rules_crate {
+--macro_rules! mac_rules_pub {
+--macro_rules! mac_rules_crate {
+--macro_rules! mac_rules_crate_doc {
+--macro_rules! mac_rules_crate_hidden {
+--macro_rules! mac_rules_crate_expect {
+--    macro_rules! mac_rules_pm {
+--    macro_rules! mac_rules_external {
+--    macro_rules! m2 {
+- macro_rules! m {
+-@@ -43,71 +43,90 @@ macro_rules! checks_some {
+--    macro_rules! m1 {
+--    macro_rules! m2 {
+--    macro_rules! m3 {
+--    macro_rules! m4 {
+--    macro_rules! m5 {
+--    macro_rules! m1 {
+--    macro_rules! m2 {
+--    macro_rules! m3 {
+--    macro_rules! m4 {
+--    macro_rules! m5 {
+--    macro_rules! times_ten {
+--    macro_rules! times_ten {
+--    macro_rules! take_ref {
+--    macro_rules! call {
+--    macro_rules! take_ref {
+--    macro_rules! repro {
+--    macro_rules! in_macro {
+--    macro_rules! from_macro {
+--    macro_rules! from_macro_repeat {
+--    macro_rules! this_macro_needs_vec {
+--    macro_rules! this_macro_doesnt_need_vec {
+--    macro_rules! m {
+-+    macro_rules! repro {
+-+    macro_rules! in_macro {
+-+    macro_rules! from_macro {
+-+    macro_rules! from_macro_repeat {
+-+    macro_rules! this_macro_needs_vec {
+-+    macro_rules! this_macro_doesnt_need_vec {
+-+    macro_rules! m {
+- macro_rules! t {
+-@@ -2300,10 +2300,7 @@ fn collect_macro_rules(&mut self, ast_id: ItemTreeAstId<MacroRules>, module: Mod
+-             // Case 2: normal `macro_rules!` macro
+-@@ -23,14 +23,12 @@ macro_rules! structs {
+-@@ -99,14 +92,14 @@ macro_rules! structs {
+-@@ -132,14 +125,14 @@ macro_rules! structs {
+-@@ -171,14 +164,14 @@ macro_rules! inner {
+-@@ -213,10 +206,9 @@ macro_rules! bar {
+-@@ -260,13 +252,13 @@ macro_rules! structs_priv {
+-@@ -378,13 +370,13 @@ macro_rules! structs_outside {
+-@@ -406,10 +398,9 @@ macro_rules! declare_mod {
+-@@ -428,8 +419,7 @@ macro_rules! m {
+-@@ -509,55 +499,40 @@ macro_rules! baz {
+-@@ -611,9 +585,9 @@ macro_rules! foo {
+-@@ -649,22 +623,19 @@ macro_rules! bar {
+-@@ -715,16 +686,14 @@ macro_rules! not_current2 {
+-@@ -760,7 +729,7 @@ macro_rules! foo {
+-@@ -914,8 +883,7 @@ macro_rules! m {
+-@@ -1007,8 +975,6 @@ macro_rules! b {
+-@@ -1029,9 +995,7 @@ macro_rules! indirect_macro { () => { struct S {} } }
+-@@ -1111,9 +1075,9 @@ macro_rules! mbe {
+-@@ -1197,7 +1161,6 @@ macro_rules! m {
+-@@ -1230,15 +1193,12 @@ macro_rules! inner_b {
+-@@ -1267,11 +1227,8 @@ macro_rules! m {
+-@@ -1299,11 +1256,8 @@ macro_rules! n {
+-@@ -1554,11 +1500,11 @@ macro_rules! bar {
+-@@ -1587,13 +1533,11 @@ macro_rules! foo {
+--fn macro_rules_mixed_style() {
+--macro_rules! foo {
+--fn macro_rules_attr() {
+--macro_rules! my_attr {
+--fn macro_rules_derive() {
+--macro_rules! MyDerive {
+-+macro_rules! has_interner {
+-+macro_rules! check_that {
+- macro_rules! not_supported {
+- macro_rules! impl_from {
+--macro_rules! my_macro {
+- macro_rules! attrs {
+-@@ -395,7 +395,6 @@ macro_rules! attrs {
+-@@ -257,7 +252,6 @@ fn attr_on_macro_rules() {
+--            ma makro!(…) macro_rules! makro
+--            sn macro_rules
+--macro_rules! allow_unused {
+--macro_rules! allow_unused {
+--<span class="keyword">macro_rules</span><span class="macro_bang">!</span> <span class="macro declaration deprecated public">macro_</span> <span class="brace">{</span>
+--macro_rules! macro_ {
+-@@ -52,8 +52,7 @@ fn benchmark_expand_macro_rules() {
+--            // list-of-rules syntax, similar to `macro_rules!`.
+--macro_rules ! T_ {
+--    [macro_rules] => { $ crate :: SyntaxKind :: MACRO_RULES_KW };
+-+macro_rules ! T_ { [$] => { $ crate :: SyntaxKind :: DOLLAR } ; [;] => { $ crate :: SyntaxKind :: SEMICOLON } ; [,] => { $ crate :: SyntaxKind :: COMMA } ; ['('] => { $ crate :: SyntaxKind :: L_PAREN } ; [')'] => { $ crate :: SyntaxKind :: R_PAREN } ; ['{'] => { $ crate :: SyntaxKind :: L_CURLY } ; ['}'] => { $ crate :: SyntaxKind :: R_CURLY } ; ['['] => { $ crate :: SyntaxKind :: L_BRACK } ; [']'] => { $ crate :: SyntaxKind :: R_BRACK } ; [<] => { $ crate :: SyntaxKind :: L_ANGLE } ; [>] => { $ crate :: SyntaxKind :: R_ANGLE } ; [@] => { $ crate :: SyntaxKind :: AT } ; [#] => { $ crate :: SyntaxKind :: POUND } ; [~] => { $ crate :: SyntaxKind :: TILDE } ; [?] => { $ crate :: SyntaxKind :: QUESTION } ; [&] => { $ crate :: SyntaxKind :: AMP } ; [|] => { $ crate :: SyntaxKind :: PIPE } ; [+] => { $ crate :: SyntaxKind :: PLUS } ; [*] => { $ crate :: SyntaxKind :: STAR } ; [/] => { $ crate :: SyntaxKind :: SLASH } ; [^] => { $ crate :: SyntaxKind :: CARET } ; [%] => { $ crate :: SyntaxKind :: PERCENT } ; [_] => { $ crate :: SyntaxKind :: UNDERSCORE } ; [.] => { $ crate :: SyntaxKind :: DOT } ; [..] => { $ crate :: SyntaxKind :: DOT2 } ; [...] => { $ crate :: SyntaxKind :: DOT3 } ; [..=] => { $ crate :: SyntaxKind :: DOT2EQ } ; [:] => { $ crate :: SyntaxKind :: COLON } ; [::] => { $ crate :: SyntaxKind :: COLON2 } ; [=] => { $ crate :: SyntaxKind :: EQ } ; [==] => { $ crate :: SyntaxKind :: EQ2 } ; [=>] => { $ crate :: SyntaxKind :: FAT_ARROW } ; [!] => { $ crate :: SyntaxKind :: BANG } ; [!=] => { $ crate :: SyntaxKind :: NEQ } ; [-] => { $ crate :: SyntaxKind :: MINUS } ; [->] => { $ crate :: SyntaxKind :: THIN_ARROW } ; [<=] => { $ crate :: SyntaxKind :: LTEQ } ; [>=] => { $ crate :: SyntaxKind :: GTEQ } ; [+=] => { $ crate :: SyntaxKind :: PLUSEQ } ; [-=] => { $ crate :: SyntaxKind :: MINUSEQ } ; [|=] => { $ crate :: SyntaxKind :: PIPEEQ } ; [&=] => { $ crate :: SyntaxKind :: AMPEQ } ; [^=] => { $ crate :: SyntaxKind :: CARETEQ } ; [/=] => { $ crate :: SyntaxKind :: SLASHEQ } ; [*=] => { $ crate :: SyntaxKind :: STAREQ } ; [%=] => { $ crate :: SyntaxKind :: PERCENTEQ } ; [&&] => { $ crate :: SyntaxKind :: AMP2 } ; [||] => { $ crate :: SyntaxKind :: PIPE2 } ; [<<] => { $ crate :: SyntaxKind :: SHL } ; [>>] => { $ crate :: SyntaxKind :: SHR } ; [<<=] => { $ crate :: SyntaxKind :: SHLEQ } ; [>>=] => { $ crate :: SyntaxKind :: SHREQ } ; [Self] => { $ crate :: SyntaxKind :: SELF_TYPE_KW } ; [abstract] => { $ crate :: SyntaxKind :: ABSTRACT_KW } ; [as] => { $ crate :: SyntaxKind :: AS_KW } ; [become] => { $ crate :: SyntaxKind :: BECOME_KW } ; [box] => { $ crate :: SyntaxKind :: BOX_KW } ; [break] => { $ crate :: SyntaxKind :: BREAK_KW } ; [const] => { $ crate :: SyntaxKind :: CONST_KW } ; [continue] => { $ crate :: SyntaxKind :: CONTINUE_KW } ; [crate] => { $ crate :: SyntaxKind :: CRATE_KW } ; [do] => { $ crate :: SyntaxKind :: DO_KW } ; [else] => { $ crate :: SyntaxKind :: ELSE_KW } ; [enum] => { $ crate :: SyntaxKind :: ENUM_KW } ; [extern] => { $ crate :: SyntaxKind :: EXTERN_KW } ; [false] => { $ crate :: SyntaxKind :: FALSE_KW } ; [final] => { $ crate :: SyntaxKind :: FINAL_KW } ; [fn] => { $ crate :: SyntaxKind :: FN_KW } ; [for] => { $ crate :: SyntaxKind :: FOR_KW } ; [if] => { $ crate :: SyntaxKind :: IF_KW } ; [impl] => { $ crate :: SyntaxKind :: IMPL_KW } ; [in] => { $ crate :: SyntaxKind :: IN_KW } ; [let] => { $ crate :: SyntaxKind :: LET_KW } ; [loop] => { $ crate :: SyntaxKind :: LOOP_KW } ; [macro] => { $ crate :: SyntaxKind :: MACRO_KW } ; [match] => { $ crate :: SyntaxKind :: MATCH_KW } ; [mod] => { $ crate :: SyntaxKind :: MOD_KW } ; [move] => { $ crate :: SyntaxKind :: MOVE_KW } ; [mut] => { $ crate :: SyntaxKind :: MUT_KW } ; [override] => { $ crate :: SyntaxKind :: OVERRIDE_KW } ; [priv] => { $ crate :: SyntaxKind :: PRIV_KW } ; [pub] => { $ crate :: SyntaxKind :: PUB_KW } ; [ref] => { $ crate :: SyntaxKind :: REF_KW } ; [return] => { $ crate :: SyntaxKind :: RETURN_KW } ; [self] => { $ crate :: SyntaxKind :: SELF_KW } ; [static] => { $ crate :: SyntaxKind :: STATIC_KW } ; [struct] => { $ crate :: SyntaxKind :: STRUCT_KW } ; [super] => { $ crate :: SyntaxKind :: SUPER_KW } ; [trait] => { $ crate :: SyntaxKind :: TRAIT_KW } ; [true] => { $ crate :: SyntaxKind :: TRUE_KW } ; [type] => { $ crate :: SyntaxKind :: TYPE_KW } ; [typeof] => { $ crate :: SyntaxKind :: TYPEOF_KW } ; [unsafe] => { $ crate :: SyntaxKind :: UNSAFE_KW } ; [unsized] => { $ crate :: SyntaxKind :: UNSIZED_KW } ; [use] => { $ crate :: SyntaxKind :: USE_KW } ; [virtual] => { $ crate :: SyntaxKind :: VIRTUAL_KW } ; [where] => { $ crate :: SyntaxKind :: WHERE_KW } ; [while] => { $ crate :: SyntaxKind :: WHILE_KW } ; [yield] => { $ crate :: SyntaxKind :: YIELD_KW } ; [asm] => { $ crate :: SyntaxKind :: ASM_KW } ; [att_syntax] => { $ crate :: SyntaxKind :: ATT_SYNTAX_KW } ; [auto] => { $ crate :: SyntaxKind :: AUTO_KW } ; [builtin] => { $ crate :: SyntaxKind :: BUILTIN_KW } ; [clobber_abi] => { $ crate :: SyntaxKind :: CLOBBER_ABI_KW } ; [default] => { $ crate :: SyntaxKind :: DEFAULT_KW } ; [dyn] => { $ crate :: SyntaxKind :: DYN_KW } ; [format_args] => { $ crate :: SyntaxKind :: FORMAT_ARGS_KW } ; [global_asm] => { $ crate :: SyntaxKind :: GLOBAL_ASM_KW } ; [inlateout] => { $ crate :: SyntaxKind :: INLATEOUT_KW } ; [inout] => { $ crate :: SyntaxKind :: INOUT_KW } ; [label] => { $ crate :: SyntaxKind :: LABEL_KW } ; [lateout] => { $ crate :: SyntaxKind :: LATEOUT_KW } ; [macro_rules] => { $ crate :: SyntaxKind :: MACRO_RULES_KW } ; [may_unwind] => { $ crate :: SyntaxKind :: MAY_UNWIND_KW } ; [naked_asm] => { $ crate :: SyntaxKind :: NAKED_ASM_KW } ; [nomem] => { $ crate :: SyntaxKind :: NOMEM_KW } ; [noreturn] => { $ crate :: SyntaxKind :: NORETURN_KW } ; [nostack] => { $ crate :: SyntaxKind :: NOSTACK_KW } ; [offset_of] => { $ crate :: SyntaxKind :: OFFSET_OF_KW } ; [options] => { $ crate :: SyntaxKind :: OPTIONS_KW } ; [out] => { $ crate :: SyntaxKind :: OUT_KW } ; [preserves_flags] => { $ crate :: SyntaxKind :: PRESERVES_FLAGS_KW } ; [pure] => { $ crate :: SyntaxKind :: PURE_KW } ; [raw] => { $ crate :: SyntaxKind :: RAW_KW } ; [readonly] => { $ crate :: SyntaxKind :: READONLY_KW } ; [safe] => { $ crate :: SyntaxKind :: SAFE_KW } ; [sym] => { $ crate :: SyntaxKind :: SYM_KW } ; [union] => { $ crate :: SyntaxKind :: UNION_KW } ; [yeet] => { $ crate :: SyntaxKind :: YEET_KW } ; [async] => { $ crate :: SyntaxKind :: ASYNC_KW } ; [await] => { $ crate :: SyntaxKind :: AWAIT_KW } ; [dyn] => { $ crate :: SyntaxKind :: DYN_KW } ; [gen] => { $ crate :: SyntaxKind :: GEN_KW } ; [try] => { $ crate :: SyntaxKind :: TRY_KW } ; [lifetime_ident] => { $ crate :: SyntaxKind :: LIFETIME_IDENT } ; [int_number] => { $ crate :: SyntaxKind :: INT_NUMBER } ; [ident] => { $ crate :: SyntaxKind :: IDENT } ; [string] => { $ crate :: SyntaxKind :: STRING } ; [shebang] => { $ crate :: SyntaxKind :: SHEBANG } ; [frontmatter] => { $ crate :: SyntaxKind :: FRONTMATTER } ; }
+- macro_rules! assert_eq_text {
+--    if let Some(start) = result.find("macro_rules ! T_")
+- macro_rules! outer {
+- macro_rules! decl_foo {
+- macro_rules! decl_foo {
+- macro_rules! trivial {
+- macro_rules! foo {
+- macro_rules! construct { ($x:ident) => { $x"str" } }
+- LL | macro_rules! construct { ($x:ident) => { $x"str" } }
+- LL | macro_rules! contain { () => { c"str" } }
+- macro_rules! define_vec {
+- // Ambiguity between a `macro_rules` macro and a non-existent import recovered as `Res::Err`
+- macro_rules! mac { () => () }
+-    = note: ambiguous because of a conflict between a `macro_rules` name and a non-`macro_rules` name from another module
+- LL | macro_rules! mac { () => () }
+-@@ -13,5 +13,5 @@ macro_rules! evil {
+- macro_rules! ping {
+- macro_rules! deep {
+- macro_rules! foo {
+- macro_rules! bar {
+- LL | / macro_rules! pong {
+- LL | / macro_rules! pong {
+- LL | / macro_rules! pong {
+- macro_rules! pong {
+- macro_rules! ice {
+- macro_rules! fancy_panic {
+-     macro_rules! mac {
+- macro_rules! errors_everywhere {
+- LL | macro_rules! foo { ($x:pat | $y:pat) => {} }
+-@@ -7,13 +7,13 @@ LL | macro_rules! foo { ($x:pat | $y:pat) => {} }
+- LL | macro_rules! bar { ($($x:pat)+ | $($y:pat)+) => {} }
+-@@ -22,7 +22,7 @@ LL | macro_rules! bar { ($($x:pat)+ | $($y:pat)+) => {} }
+- LL | macro_rules! ogg { ($x:pat | $y:pat_param) => {} }
+-@@ -31,7 +31,7 @@ LL | macro_rules! ogg { ($x:pat | $y:pat_param) => {} }
+- macro_rules! test { ($nm:ident,
+- macro_rules! foo { ($x:pat | $y:pat) => {} } // should be ok
+-    = note: `#[warn(unused_macro_rules)]` implied by `#[warn(unused)]`
+- macro_rules! assert_empty {
+- // Proc macros using `mixed_site` spans exhibit usual properties of `macro_rules` hygiene.
+-    |                            ^^^^^^       --------------- help: a similar name exists in the module: `proc_macro_rules`
+-    |                     ^^^^^^       --------------- help: a similar name exists in the module: `proc_macro_rules`
+- LL |         proc_macro_rules!();
+-@@ -577,7 +577,7 @@ LL |         proc_macro_rules!();
+-    = note: this error originates in the macro `proc_macro_rules` (in Nightly builds, run with -Z macro-backtrace for more info)
+- LL |         proc_macro_rules!();
+- LL |         proc_macro_rules!();
+-    = note: this error originates in the macro `proc_macro_rules` (in Nightly builds, run with -Z macro-backtrace for more info)
++macro_rules! __generate_add_placeholders_arm {
++macro_rules! __generate_mut_visit_with_many_arm {
++macro_rules! __generate_mut_visit_with_one_arm {
++macro_rules! __generate_to_string_many_arm {
++macro_rules! __generate_to_string_one_arm {
++macro_rules! __generate_visit_with_many_arm {
++macro_rules! __generate_visit_with_one_arm {
+++#[macro_use] // Required for macro_rules! to be available within other macros
++ macro_rules! generate_walk_flat_map_fns {
++@@ -53,15 +53,6 @@ macro_rules! require_simd {
++-    macro_rules! require_simd2 {
++@@ -473,8 +464,9 @@ macro_rules! require_simd2 {
++@@ -1462,184 +1454,6 @@ macro_rules! bitwise_red {
++ macro_rules! impls_dyn_send_neg {
++@@ -24,13 +37,16 @@ macro_rules! impls_dyn_send_neg {
++@@ -57,7 +73,8 @@ macro_rules! already_send {
++@@ -70,6 +87,9 @@ macro_rules! impl_dyn_send {
++@@ -88,16 +108,36 @@ macro_rules! impl_dyn_send {
++ macro_rules! impls_dyn_sync_neg {
++@@ -106,7 +146,6 @@ macro_rules! impls_dyn_sync_neg {
++@@ -131,7 +170,8 @@ macro_rules! already_sync {
++@@ -152,6 +192,9 @@ macro_rules! impl_dyn_sync {
++@@ -172,7 +215,7 @@ macro_rules! impl_dyn_sync {
+++        // `macro_rules! m { () => { panic!(); } }` isn't parsed by `.parse_expr()`,
+++macro_rules! ast_fragments {
+++// FIXME(Nilstrieb) Translate macro_rules diagnostics
+++pub use mbe::macro_rules::{MacroRulesMacroExpander, compile_declarative_macro};
++-use crate::mbe::macro_rules::ParserAnyMacro;
++-macro_rules! make_stmts_default {
++-macro_rules! make_MacEager {
++-macro_rules! configure {
++-macro_rules! ast_fragments {
++-        impl<'a> MacResult for crate::mbe::macro_rules::ParserAnyMacro<'a> {
++-            $(fn $make_ast(self: Box<crate::mbe::macro_rules::ParserAnyMacro<'a>>)
++ macro_rules! assign_id {
++@@ -1237,1308 +837,4 @@ macro_rules! assign_id {
++ // FIXME(Nilstrieb) Translate macro_rules diagnostics
++ pub use mbe::macro_rules::{MacroRulesMacroExpander, compile_declarative_macro};
+++// FIXME(Nilstrieb) Translate macro_rules diagnostics
+++pub use mbe::macro_rules::{MacroRulesMacroExpander, compile_declarative_macro};
++diff --git a/compiler/rustc_expand/src/mbe/macro_rules.rs b/compiler/rustc_expand/src/mbe/macro_rules.rs
++--- a/compiler/rustc_expand/src/mbe/macro_rules.rs
+++++ b/compiler/rustc_expand/src/mbe/macro_rules.rs
++-        // `macro_rules! m { () => { panic!(); } }` isn't parsed by `.parse_expr()`,
+++macro_rules! make_stmts_default {
+++macro_rules! make_MacEager {
++@@ -60,8 +60,6 @@ macro_rules! declare_features {
++@@ -189,8 +189,6 @@ macro_rules! declare_features {
++-macro_rules! defaulted_enum {
++ macro_rules! const_macro_kinds {
++@@ -215,7 +196,14 @@ macro_rules! const_macro_kinds {
++@@ -223,27 +211,20 @@ macro_rules! const_macro_kinds {
++@@ -209,9 +209,9 @@ macro_rules! ins_sym {
++@@ -221,7 +221,7 @@ macro_rules! ins_sym {
++@@ -239,10 +239,10 @@ macro_rules! ins_sym {
++@@ -265,7 +265,7 @@ macro_rules! ins_sym {
++@@ -291,14 +291,14 @@ macro_rules! ins_sym {
++@@ -446,17 +446,17 @@ macro_rules! ins {
++ // with macro_rules, it is necessary to use recursive mechanic ("Incremental TT Munchers").
++@@ -236,7 +257,7 @@ macro_rules! forward_opt {
+++macro_rules! linker_flavor_cli_impls {
++-macro_rules! linker_flavor_cli_impls {
++-macro_rules! supported_targets {
++-macro_rules! cvs {
++-        macro_rules! check {
++-        macro_rules! check_eq {
++-        macro_rules! check_ne {
++-        macro_rules! check_matches {
+++        macro_rules! check {
+++        macro_rules! check_eq {
+++        macro_rules! check_ne {
+++        macro_rules! check_matches {
+++macro_rules! supported_targets {
+++macro_rules! supported_targets {
+++macro_rules! cvs {
++@@ -550,12 +549,9 @@ macro_rules! array_impl_default {
++@@ -591,19 +587,11 @@ macro_rules! array_impl_default {
+++             LoadedMacro::MacroDef { def, .. } if !def.macro_rules
+++-                let macro_rules = self.root.tables.is_macro_rules.get(self, id);
++++                let macro_rules = self.root.tables.is_macro_rules.get((self, tcx), id);
+++                 ast::MacroDef { macro_rules, body: Box::new(body) }
+++@@ -99,7 +99,7 @@ macro_rules! provide_one {
+++@@ -108,7 +108,7 @@ macro_rules! provide_one {
+++@@ -126,7 +126,7 @@ macro_rules! provide_one {
+++@@ -75,7 +75,7 @@ macro_rules! language_item_table {
+++@@ -248,7 +248,7 @@ macro_rules! top_level_tmod_enum {
+++@@ -520,7 +520,7 @@ macro_rules! tmod_enum {
+++-                                    && !this.disambiguate_macro_rules_vs_modularized(
+++-                                    // we visit all macro_rules scopes (e.g. textual scope macros)
++++            && !self.disambiguate_macro_rules_vs_modularized(innermost_binding, binding)
++++            // we visit all macro_rules scopes (e.g. textual scope macros)
+++-                    Scope::MacroRules(macro_rules_scope) => match macro_rules_scope.get() {
+++-                        MacroRulesScope::Binding(macro_rules_binding)
+++-                            if ident == macro_rules_binding.ident =>
+++-                            Ok((macro_rules_binding.binding, Flags::MACRO_RULES))
++++            Scope::MacroRules(macro_rules_scope) => match macro_rules_scope.get() {
++++                MacroRulesScope::Binding(macro_rules_binding)
++++                    if ident == macro_rules_binding.ident =>
++++                    Ok((macro_rules_binding.binding, Flags::MACRO_RULES))
+++ macro_rules! ping {
+++ macro_rules! deep {
+++ macro_rules! foo {
+++ macro_rules! bar {
+++ LL | / macro_rules! pong {
+++ LL | / macro_rules! pong {
+++ LL | / macro_rules! pong {
+++ macro_rules! pong {
++ macro_rules! clean_crate_tree {
++@@ -404,7 +398,7 @@ macro_rules! lint_any {
++@@ -1747,7 +1721,7 @@ macro_rules! add_component {
++             // FIXME: Also print `#[doc(hidden)]` for `macro_rules!` if it `is_doc_hidden`.
++             if !t.macro_rules {
++@@ -128,6 +124,37 @@ macro_rules! map {
+++macro_rules! note_prev_span_then_ret {
++-            Pat::Str(if def.macro_rules { "macro_rules" } else { "macro" }),
++ macro_rules! extract_msrv_attr {
++-LL | macro_rules! mac_rules_crate {
++-LL | macro_rules! mac_rules_crate {
++-LL | macro_rules! mac_rules_crate {
++-macro_rules! mac_rules_pub {
++-macro_rules! mac_rules_crate {
++-macro_rules! mac_rules_crate_doc {
++-macro_rules! mac_rules_crate_hidden {
++-macro_rules! mac_rules_crate_expect {
++-    macro_rules! mac_rules_pm {
++-    macro_rules! mac_rules_external {
++-    macro_rules! m2 {
++ macro_rules! m {
++@@ -43,71 +43,90 @@ macro_rules! checks_some {
++-    macro_rules! m1 {
++-    macro_rules! m2 {
++-    macro_rules! m3 {
++-    macro_rules! m4 {
++-    macro_rules! m5 {
++-    macro_rules! m1 {
++-    macro_rules! m2 {
++-    macro_rules! m3 {
++-    macro_rules! m4 {
++-    macro_rules! m5 {
++-    macro_rules! times_ten {
++-    macro_rules! times_ten {
++-    macro_rules! take_ref {
++-    macro_rules! call {
++-    macro_rules! take_ref {
++-    macro_rules! repro {
++-    macro_rules! in_macro {
++-    macro_rules! from_macro {
++-    macro_rules! from_macro_repeat {
++-    macro_rules! this_macro_needs_vec {
++-    macro_rules! this_macro_doesnt_need_vec {
++-    macro_rules! m {
+++    macro_rules! repro {
+++    macro_rules! in_macro {
+++    macro_rules! from_macro {
+++    macro_rules! from_macro_repeat {
+++    macro_rules! this_macro_needs_vec {
+++    macro_rules! this_macro_doesnt_need_vec {
+++    macro_rules! m {
++ macro_rules! t {
++@@ -2300,10 +2300,7 @@ fn collect_macro_rules(&mut self, ast_id: ItemTreeAstId<MacroRules>, module: Mod
++             // Case 2: normal `macro_rules!` macro
++@@ -23,14 +23,12 @@ macro_rules! structs {
++@@ -99,14 +92,14 @@ macro_rules! structs {
++@@ -132,14 +125,14 @@ macro_rules! structs {
++@@ -171,14 +164,14 @@ macro_rules! inner {
++@@ -213,10 +206,9 @@ macro_rules! bar {
++@@ -260,13 +252,13 @@ macro_rules! structs_priv {
++@@ -378,13 +370,13 @@ macro_rules! structs_outside {
++@@ -406,10 +398,9 @@ macro_rules! declare_mod {
++@@ -428,8 +419,7 @@ macro_rules! m {
++@@ -509,55 +499,40 @@ macro_rules! baz {
++@@ -611,9 +585,9 @@ macro_rules! foo {
++@@ -649,22 +623,19 @@ macro_rules! bar {
++@@ -715,16 +686,14 @@ macro_rules! not_current2 {
++@@ -760,7 +729,7 @@ macro_rules! foo {
++@@ -914,8 +883,7 @@ macro_rules! m {
++@@ -1007,8 +975,6 @@ macro_rules! b {
++@@ -1029,9 +995,7 @@ macro_rules! indirect_macro { () => { struct S {} } }
++@@ -1111,9 +1075,9 @@ macro_rules! mbe {
++@@ -1197,7 +1161,6 @@ macro_rules! m {
++@@ -1230,15 +1193,12 @@ macro_rules! inner_b {
++@@ -1267,11 +1227,8 @@ macro_rules! m {
++@@ -1299,11 +1256,8 @@ macro_rules! n {
++@@ -1554,11 +1500,11 @@ macro_rules! bar {
++@@ -1587,13 +1533,11 @@ macro_rules! foo {
++-fn macro_rules_mixed_style() {
++-macro_rules! foo {
++-fn macro_rules_attr() {
++-macro_rules! my_attr {
++-fn macro_rules_derive() {
++-macro_rules! MyDerive {
+++macro_rules! has_interner {
+++macro_rules! check_that {
++ macro_rules! not_supported {
++ macro_rules! impl_from {
++-macro_rules! my_macro {
++ macro_rules! attrs {
++@@ -395,7 +395,6 @@ macro_rules! attrs {
++@@ -257,7 +252,6 @@ fn attr_on_macro_rules() {
++-            ma makro!(…) macro_rules! makro
++-            sn macro_rules
++-macro_rules! allow_unused {
++-macro_rules! allow_unused {
++-<span class="keyword">macro_rules</span><span class="macro_bang">!</span> <span class="macro declaration deprecated public">macro_</span> <span class="brace">{</span>
++-macro_rules! macro_ {
++@@ -52,8 +52,7 @@ fn benchmark_expand_macro_rules() {
++-            // list-of-rules syntax, similar to `macro_rules!`.
++-macro_rules ! T_ {
++-    [macro_rules] => { $ crate :: SyntaxKind :: MACRO_RULES_KW };
+++macro_rules ! T_ { [$] => { $ crate :: SyntaxKind :: DOLLAR } ; [;] => { $ crate :: SyntaxKind :: SEMICOLON } ; [,] => { $ crate :: SyntaxKind :: COMMA } ; ['('] => { $ crate :: SyntaxKind :: L_PAREN } ; [')'] => { $ crate :: SyntaxKind :: R_PAREN } ; ['{'] => { $ crate :: SyntaxKind :: L_CURLY } ; ['}'] => { $ crate :: SyntaxKind :: R_CURLY } ; ['['] => { $ crate :: SyntaxKind :: L_BRACK } ; [']'] => { $ crate :: SyntaxKind :: R_BRACK } ; [<] => { $ crate :: SyntaxKind :: L_ANGLE } ; [>] => { $ crate :: SyntaxKind :: R_ANGLE } ; [@] => { $ crate :: SyntaxKind :: AT } ; [#] => { $ crate :: SyntaxKind :: POUND } ; [~] => { $ crate :: SyntaxKind :: TILDE } ; [?] => { $ crate :: SyntaxKind :: QUESTION } ; [&] => { $ crate :: SyntaxKind :: AMP } ; [|] => { $ crate :: SyntaxKind :: PIPE } ; [+] => { $ crate :: SyntaxKind :: PLUS } ; [*] => { $ crate :: SyntaxKind :: STAR } ; [/] => { $ crate :: SyntaxKind :: SLASH } ; [^] => { $ crate :: SyntaxKind :: CARET } ; [%] => { $ crate :: SyntaxKind :: PERCENT } ; [_] => { $ crate :: SyntaxKind :: UNDERSCORE } ; [.] => { $ crate :: SyntaxKind :: DOT } ; [..] => { $ crate :: SyntaxKind :: DOT2 } ; [...] => { $ crate :: SyntaxKind :: DOT3 } ; [..=] => { $ crate :: SyntaxKind :: DOT2EQ } ; [:] => { $ crate :: SyntaxKind :: COLON } ; [::] => { $ crate :: SyntaxKind :: COLON2 } ; [=] => { $ crate :: SyntaxKind :: EQ } ; [==] => { $ crate :: SyntaxKind :: EQ2 } ; [=>] => { $ crate :: SyntaxKind :: FAT_ARROW } ; [!] => { $ crate :: SyntaxKind :: BANG } ; [!=] => { $ crate :: SyntaxKind :: NEQ } ; [-] => { $ crate :: SyntaxKind :: MINUS } ; [->] => { $ crate :: SyntaxKind :: THIN_ARROW } ; [<=] => { $ crate :: SyntaxKind :: LTEQ } ; [>=] => { $ crate :: SyntaxKind :: GTEQ } ; [+=] => { $ crate :: SyntaxKind :: PLUSEQ } ; [-=] => { $ crate :: SyntaxKind :: MINUSEQ } ; [|=] => { $ crate :: SyntaxKind :: PIPEEQ } ; [&=] => { $ crate :: SyntaxKind :: AMPEQ } ; [^=] => { $ crate :: SyntaxKind :: CARETEQ } ; [/=] => { $ crate :: SyntaxKind :: SLASHEQ } ; [*=] => { $ crate :: SyntaxKind :: STAREQ } ; [%=] => { $ crate :: SyntaxKind :: PERCENTEQ } ; [&&] => { $ crate :: SyntaxKind :: AMP2 } ; [||] => { $ crate :: SyntaxKind :: PIPE2 } ; [<<] => { $ crate :: SyntaxKind :: SHL } ; [>>] => { $ crate :: SyntaxKind :: SHR } ; [<<=] => { $ crate :: SyntaxKind :: SHLEQ } ; [>>=] => { $ crate :: SyntaxKind :: SHREQ } ; [Self] => { $ crate :: SyntaxKind :: SELF_TYPE_KW } ; [abstract] => { $ crate :: SyntaxKind :: ABSTRACT_KW } ; [as] => { $ crate :: SyntaxKind :: AS_KW } ; [become] => { $ crate :: SyntaxKind :: BECOME_KW } ; [box] => { $ crate :: SyntaxKind :: BOX_KW } ; [break] => { $ crate :: SyntaxKind :: BREAK_KW } ; [const] => { $ crate :: SyntaxKind :: CONST_KW } ; [continue] => { $ crate :: SyntaxKind :: CONTINUE_KW } ; [crate] => { $ crate :: SyntaxKind :: CRATE_KW } ; [do] => { $ crate :: SyntaxKind :: DO_KW } ; [else] => { $ crate :: SyntaxKind :: ELSE_KW } ; [enum] => { $ crate :: SyntaxKind :: ENUM_KW } ; [extern] => { $ crate :: SyntaxKind :: EXTERN_KW } ; [false] => { $ crate :: SyntaxKind :: FALSE_KW } ; [final] => { $ crate :: SyntaxKind :: FINAL_KW } ; [fn] => { $ crate :: SyntaxKind :: FN_KW } ; [for] => { $ crate :: SyntaxKind :: FOR_KW } ; [if] => { $ crate :: SyntaxKind :: IF_KW } ; [impl] => { $ crate :: SyntaxKind :: IMPL_KW } ; [in] => { $ crate :: SyntaxKind :: IN_KW } ; [let] => { $ crate :: SyntaxKind :: LET_KW } ; [loop] => { $ crate :: SyntaxKind :: LOOP_KW } ; [macro] => { $ crate :: SyntaxKind :: MACRO_KW } ; [match] => { $ crate :: SyntaxKind :: MATCH_KW } ; [mod] => { $ crate :: SyntaxKind :: MOD_KW } ; [move] => { $ crate :: SyntaxKind :: MOVE_KW } ; [mut] => { $ crate :: SyntaxKind :: MUT_KW } ; [override] => { $ crate :: SyntaxKind :: OVERRIDE_KW } ; [priv] => { $ crate :: SyntaxKind :: PRIV_KW } ; [pub] => { $ crate :: SyntaxKind :: PUB_KW } ; [ref] => { $ crate :: SyntaxKind :: REF_KW } ; [return] => { $ crate :: SyntaxKind :: RETURN_KW } ; [self] => { $ crate :: SyntaxKind :: SELF_KW } ; [static] => { $ crate :: SyntaxKind :: STATIC_KW } ; [struct] => { $ crate :: SyntaxKind :: STRUCT_KW } ; [super] => { $ crate :: SyntaxKind :: SUPER_KW } ; [trait] => { $ crate :: SyntaxKind :: TRAIT_KW } ; [true] => { $ crate :: SyntaxKind :: TRUE_KW } ; [type] => { $ crate :: SyntaxKind :: TYPE_KW } ; [typeof] => { $ crate :: SyntaxKind :: TYPEOF_KW } ; [unsafe] => { $ crate :: SyntaxKind :: UNSAFE_KW } ; [unsized] => { $ crate :: SyntaxKind :: UNSIZED_KW } ; [use] => { $ crate :: SyntaxKind :: USE_KW } ; [virtual] => { $ crate :: SyntaxKind :: VIRTUAL_KW } ; [where] => { $ crate :: SyntaxKind :: WHERE_KW } ; [while] => { $ crate :: SyntaxKind :: WHILE_KW } ; [yield] => { $ crate :: SyntaxKind :: YIELD_KW } ; [asm] => { $ crate :: SyntaxKind :: ASM_KW } ; [att_syntax] => { $ crate :: SyntaxKind :: ATT_SYNTAX_KW } ; [auto] => { $ crate :: SyntaxKind :: AUTO_KW } ; [builtin] => { $ crate :: SyntaxKind :: BUILTIN_KW } ; [clobber_abi] => { $ crate :: SyntaxKind :: CLOBBER_ABI_KW } ; [default] => { $ crate :: SyntaxKind :: DEFAULT_KW } ; [dyn] => { $ crate :: SyntaxKind :: DYN_KW } ; [format_args] => { $ crate :: SyntaxKind :: FORMAT_ARGS_KW } ; [global_asm] => { $ crate :: SyntaxKind :: GLOBAL_ASM_KW } ; [inlateout] => { $ crate :: SyntaxKind :: INLATEOUT_KW } ; [inout] => { $ crate :: SyntaxKind :: INOUT_KW } ; [label] => { $ crate :: SyntaxKind :: LABEL_KW } ; [lateout] => { $ crate :: SyntaxKind :: LATEOUT_KW } ; [macro_rules] => { $ crate :: SyntaxKind :: MACRO_RULES_KW } ; [may_unwind] => { $ crate :: SyntaxKind :: MAY_UNWIND_KW } ; [naked_asm] => { $ crate :: SyntaxKind :: NAKED_ASM_KW } ; [nomem] => { $ crate :: SyntaxKind :: NOMEM_KW } ; [noreturn] => { $ crate :: SyntaxKind :: NORETURN_KW } ; [nostack] => { $ crate :: SyntaxKind :: NOSTACK_KW } ; [offset_of] => { $ crate :: SyntaxKind :: OFFSET_OF_KW } ; [options] => { $ crate :: SyntaxKind :: OPTIONS_KW } ; [out] => { $ crate :: SyntaxKind :: OUT_KW } ; [preserves_flags] => { $ crate :: SyntaxKind :: PRESERVES_FLAGS_KW } ; [pure] => { $ crate :: SyntaxKind :: PURE_KW } ; [raw] => { $ crate :: SyntaxKind :: RAW_KW } ; [readonly] => { $ crate :: SyntaxKind :: READONLY_KW } ; [safe] => { $ crate :: SyntaxKind :: SAFE_KW } ; [sym] => { $ crate :: SyntaxKind :: SYM_KW } ; [union] => { $ crate :: SyntaxKind :: UNION_KW } ; [yeet] => { $ crate :: SyntaxKind :: YEET_KW } ; [async] => { $ crate :: SyntaxKind :: ASYNC_KW } ; [await] => { $ crate :: SyntaxKind :: AWAIT_KW } ; [dyn] => { $ crate :: SyntaxKind :: DYN_KW } ; [gen] => { $ crate :: SyntaxKind :: GEN_KW } ; [try] => { $ crate :: SyntaxKind :: TRY_KW } ; [lifetime_ident] => { $ crate :: SyntaxKind :: LIFETIME_IDENT } ; [int_number] => { $ crate :: SyntaxKind :: INT_NUMBER } ; [ident] => { $ crate :: SyntaxKind :: IDENT } ; [string] => { $ crate :: SyntaxKind :: STRING } ; [shebang] => { $ crate :: SyntaxKind :: SHEBANG } ; [frontmatter] => { $ crate :: SyntaxKind :: FRONTMATTER } ; }
++ macro_rules! assert_eq_text {
++-    if let Some(start) = result.find("macro_rules ! T_")
++ macro_rules! outer {
++ macro_rules! decl_foo {
++ macro_rules! decl_foo {
++ macro_rules! trivial {
++ macro_rules! foo {
++ macro_rules! construct { ($x:ident) => { $x"str" } }
++ LL | macro_rules! construct { ($x:ident) => { $x"str" } }
++ LL | macro_rules! contain { () => { c"str" } }
++ macro_rules! define_vec {
++ // Ambiguity between a `macro_rules` macro and a non-existent import recovered as `Res::Err`
++ macro_rules! mac { () => () }
++    = note: ambiguous because of a conflict between a `macro_rules` name and a non-`macro_rules` name from another module
++ LL | macro_rules! mac { () => () }
++@@ -13,5 +13,5 @@ macro_rules! evil {
++ macro_rules! ping {
++ macro_rules! deep {
++ macro_rules! foo {
++ macro_rules! bar {
++ LL | / macro_rules! pong {
++ LL | / macro_rules! pong {
++ LL | / macro_rules! pong {
++ macro_rules! pong {
++ macro_rules! ice {
++ macro_rules! fancy_panic {
++     macro_rules! mac {
++ macro_rules! errors_everywhere {
++ LL | macro_rules! foo { ($x:pat | $y:pat) => {} }
++@@ -7,13 +7,13 @@ LL | macro_rules! foo { ($x:pat | $y:pat) => {} }
++ LL | macro_rules! bar { ($($x:pat)+ | $($y:pat)+) => {} }
++@@ -22,7 +22,7 @@ LL | macro_rules! bar { ($($x:pat)+ | $($y:pat)+) => {} }
++ LL | macro_rules! ogg { ($x:pat | $y:pat_param) => {} }
++@@ -31,7 +31,7 @@ LL | macro_rules! ogg { ($x:pat | $y:pat_param) => {} }
++ macro_rules! test { ($nm:ident,
++ macro_rules! foo { ($x:pat | $y:pat) => {} } // should be ok
++    = note: `#[warn(unused_macro_rules)]` implied by `#[warn(unused)]`
++ macro_rules! assert_empty {
++ // Proc macros using `mixed_site` spans exhibit usual properties of `macro_rules` hygiene.
++    |                            ^^^^^^       --------------- help: a similar name exists in the module: `proc_macro_rules`
++    |                     ^^^^^^       --------------- help: a similar name exists in the module: `proc_macro_rules`
++ LL |         proc_macro_rules!();
++@@ -577,7 +577,7 @@ LL |         proc_macro_rules!();
++    = note: this error originates in the macro `proc_macro_rules` (in Nightly builds, run with -Z macro-backtrace for more info)
++ LL |         proc_macro_rules!();
++ LL |         proc_macro_rules!();
++    = note: this error originates in the macro `proc_macro_rules` (in Nightly builds, run with -Z macro-backtrace for more info)
+-macro_rules! make_stmts_default {
+-macro_rules! make_MacEager {
+-    /// A `macro_rules!` macro that can work as any `MacroKind`
+-macro_rules! configure {
++macro_rules! ast_fragments {
++        macro_rules! __dispatch_fragment_to_arm_generator {
+-macro_rules! make_stmts_default {
+-macro_rules! make_MacEager {
++macro_rules! make_stmts_default {
++macro_rules! make_MacEager {
++macro_rules! make_stmts_default {
++macro_rules! make_MacEager {
+-macro_rules! ast_fragments {
+-        macro_rules! __generate_mut_visit_with_one_arm {
++#[macro_use] // Required for macro_rules! to be available within other macros
+-        macro_rules! __generate_mut_visit_with_many_arm {
+-        macro_rules! __generate_add_placeholders_arm {
+-        macro_rules! __generate_visit_with_one_arm {
+-        macro_rules! __generate_visit_with_many_arm {
+-        macro_rules! __generate_to_string_one_arm {
+-        macro_rules! __generate_to_string_many_arm {
++macro_rules! ast_fragments {
++        macro_rules! __generate_mut_visit_with_one_arm {
++        macro_rules! __generate_mut_visit_with_many_arm {
++        macro_rules! __generate_add_placeholders_arm {
++        macro_rules! __generate_visit_with_one_arm {
++        macro_rules! __generate_visit_with_many_arm {
++        macro_rules! __generate_to_string_one_arm {
++        macro_rules! __generate_to_string_many_arm {
+-macro_rules! ast_fragments {
++macro_rules! ast_fragments {
++macro_rules! ast_fragments {
++// FIXME(Nilstrieb) Translate macro_rules diagnostics
++pub use mbe::macro_rules::{MacroRulesMacroExpander, compile_declarative_macro};
++// FIXME(Nilstrieb) Translate macro_rules diagnostics
++pub use mbe::macro_rules::{MacroRulesMacroExpander, compile_declarative_macro};
+-macro_rules! ast_fragments {
++macro_rules! ast_fragments {
+-macro_rules! ast_fragments {
++        // `macro_rules! m { () => { panic!(); } }` isn't parsed by `.parse_expr()`,
+-// This is a bit of a circular dependency, but given how `macro_rules!` work,
+-use crate::mbe::macro_rules::ParserAnyMacro;
+-    macro_rules! ins_none {
+-    macro_rules! ins_str {
+-    macro_rules! ins_sym {
+-        macro_rules! ins {
+-macro_rules! cvs {
++macro_rules! cvs {

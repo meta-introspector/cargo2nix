@@ -1,0 +1,64 @@
+// This file demonstrates how `type_usage_data.json` could be used to generate
+// Rust macro invocations for refactoring.
+//
+// Generated on: {{ now() | date(format="%Y-%m-%d %H:%M:%S") }}
+
+{% for usage in type_usages %}
+// Original context (line {{ usage.line_number }}): `{{ usage.context }}`
+
+{% if usage.original_name == "ExtCtxt" and usage.lifetime_b and usage.drt_type %}
+// Proposed replacement for `ExtCtxt` in type alias context:
+// ExpandContext!('{{ usage.lifetime_b }}', {{ usage.drt_type }})
+// NOTE: This assumes it's being used in a type alias like `ExpandContext<'b, DRT> = ExtCtxt<'b, DRT>;`
+// For actual usage sites like `pub fn new(cx: &'a mut crate::base::ExtCtxt<'b, DRT>, ...)`
+// the `CtxSpecial!` macro is more appropriate.
+
+{% elif usage.original_name == "InvocationCollector" and usage.lifetime_a and usage.lifetime_b and usage.drt_type %}
+// Proposed replacement for `InvocationCollector` in type alias context:
+// CollectorABDRT!('{{ usage.lifetime_a }}', '{{ usage.lifetime_b }}', {{ usage.drt_type }})
+// NOTE: This assumes it's being used in a type alias like `CollectorABDRT<'a, 'b, DRT> = InvocationCollector<'a, 'b, DRT>;`
+// For actual usage sites like `let mut collector = InvocationCollector { ... }`
+// the `CollectorSpecial!` macro is more appropriate.
+
+{% elif usage.original_name == "pub" and usage.labeled_name == "_EXT_CTXT_ALIAS_" and usage.lifetime_a and usage.lifetime_b and usage.drt_type %}
+// Proposed replacement for `ExtCtxt` usage in `pub fn new`:
+// CtxSpecial!('{{ usage.lifetime_a }}', '{{ usage.lifetime_b }}', {{ usage.drt_type }})
+pub fn new(cx: CtxSpecial!('{{ usage.lifetime_a }}', '{{ usage.lifetime_b }}', {{ usage.drt_type }}), monotonic: bool) -> Self { /* ... */ }
+
+{% elif usage.original_name == "let" and usage.labeled_name == "_INVOCATION_COLLECTOR_ALIAS_" %}
+// Proposed replacement for `InvocationCollector` initialization:
+// let mut collector = CollectorSpecial!();
+// NOTE: Lifetimes and DRT for CollectorSpecial! need to be inferred from the context of `impl MacroExpander`
+// For now, using a simplified call.
+let mut collector = CollectorSpecial!();
+
+{% elif usage.original_name == "map(|DeriveResolution" and usage.labeled_name == "_DERIVE_RESOLUTION_ALIAS_" %}
+// Proposed replacement for `DeriveResolution` in `.map()` closure:
+// .map(|ResolverBound { path, item, exts: _, is_const }| {
+// This requires a manual `sed` replacement due to the destructuring pattern.
+// Manual fix: `.map(|ResolverBound { path, item, exts: _, is_const }| {`
+
+{% elif usage.original_name == "impl<'a" and usage.lifetime_a and usage.lifetime_b and usage.drt_type %}
+// Proposed replacement for the `impl MacroExpander` block header:
+// impl_for_macro_expander! {
+//     lifetimes: ('{{ usage.lifetime_a }}', '{{ usage.lifetime_b }}'),
+//     drt: {{ usage.drt_type }},
+//     // The refactored content of the original impl MacroExpander block will go here.
+//     // This would involve applying the macro calls generated above.
+// }
+
+{% elif usage.original_name == "let" and usage.labeled_name == "_DRT_GENERIC_PARAM_" and usage.drt_type %}
+// Proposed replacement for `MacroRulesMacroExpander<DRT>`:
+// MacroRulesMacroExpander<{{ usage.drt_type }}>
+// (This is already using the DRT name, so it's more about confirming correct propagation)
+
+{% endif %}
+// ---
+{% endfor %}
+
+// Overall structure for the 'impl MacroExpander' block, including its content:
+// This part needs to be generated with the *full content* of the impl block,
+// with all the above replacements already applied internally.
+// This is best handled by extracting the impl block, applying text replacements,
+// and then wrapping it with `impl_for_macro_expander!`.
+// A shell script or dedicated Rust code would be more suitable for this multi-step process.

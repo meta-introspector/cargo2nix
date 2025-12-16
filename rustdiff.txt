@@ -1,0 +1,473 @@
+diff --git a/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs b/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs
+index 409ea05c4c1..a267be5e2cc 100644
+--- a/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs
++++ b/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_enums.rs
+@@ -63,10 +63,9 @@
+ 
+ // All other use statements and content remain the same, as they are specific to rustc_expand.
+ 
+-pub use rustc_expand_base_lib::{MacResult, DummyResult};
+-pub use crate::base::{Annotatable, ExtCtxt, SyntaxExtension, ExpandResult}; // Changed to pub use
+-pub use crate::config::{StripUnconfigured, attr_into_trace}; // Changed to pub use
+-pub use crate::errors::{ // Changed to pub use
++pub use rustc_expand_base_lib::{MacResult, DummyResult, Annotatable, StripUnconfigured, attr_into_trace, ModuleData, ExpansionData, PlaceholderExpander, placeholder, SyntaxExtension};
++pub use crate::base::{ExtCtxt, ExpandResult};
++pub use crate::errors::{
+     EmptyDelegationMac,
+     GlobDelegationOutsideImpls,
+     GlobDelegationTraitlessQpath,
+@@ -77,20 +76,17 @@
+     UnsupportedKeyValue,
+     WrongFragmentKind,
+ };
+-pub use crate::fluent_generated; // Changed to pub use
+-//pub use crate::mbe::diagnostics::{self, annotate_err_with_kind}; // Changed to pub use
+-pub use crate::module::{ // Changed to pub use
++pub use crate::fluent_generated;
++pub use crate::module::{
+     DirOwnership,
+     ParsedExternalMod,
+     mod_dir_path,
+     mod_file_path_from_attr,
+     parse_external_mod,
+ };
+-pub use crate::placeholders::{PlaceholderExpander, placeholder}; // Changed to pub use
+-pub use crate::stats; // Changed to pub use
+-pub use crate::base::{ModuleData, ExpansionData}; // Changed to pub use
+-pub use crate::expand::{InvocationKind, Invocation}; // Changed to pub use
+-pub use crate::errors; // Changed to pub use
++pub use crate::stats;
++pub use crate::expand::{InvocationKind, Invocation};
++pub use crate::errors;
+ pub use rustc_lint_defs::builtin::SEMICOLON_IN_EXPRESSIONS_FROM_MACROS; // Changed to pub use
+ 
+ pub use rustc_parse::parser::{Recovery}; // Changed to pub use
+diff --git a/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs b/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs
+index 16ff6b90ac7..72c009213c5 100644
+--- a/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs
++++ b/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_helpers.rs
+@@ -51,15 +51,8 @@
+ use rustc_span::hygiene::SyntaxContext;
+ use rustc_span::{ErrorGuaranteed, FileName, Ident, LocalExpnId, Span, Symbol, sym};
+ use smallvec::SmallVec;
+-use rustc_expand_base_lib::add_semicolon::AddSemicolon;
+-use rustc_expand_base_lib::invocation_collector_node::InvocationCollectorNode;
+-use rustc_expand_base_lib::dummy_ast_node::DummyAstNode;
+-use rustc_expand_base_lib::annotatable::Annotatable;
+-use rustc_expand_base_lib::ast_fragment::{AstFragment, AstFragmentKind};
+-use rustc_expand_base_lib::strip_unconfigured::StripUnconfigured;
+-use rustc_expand_base_lib::config::attr_into_trace;
+-use rustc_expand_base_lib::base_expansion_context::{ExtCtxt, SyntaxExtension, MacResult, ExpandResult};
+-use rustc_expand_base_lib::dummy_result::DummyResult;
++use rustc_expand_base_lib::{AddSemicolon, InvocationCollectorNode, DummyAstNode, Annotatable, AstFragment, AstFragmentKind, StripUnconfigured, attr_into_trace, DummyResult, ModuleData, ExpansionData, SyntaxExtension, placeholder};
++use crate::base::{ExtCtxt, MacResult, ExpandResult};
+ use crate::errors::{
+     GlobDelegationOutsideImpls,
+     IncompleteParse,
+@@ -78,9 +71,8 @@
+     mod_dir_path,
+     mod_file_path_from_attr,
+     parse_external_mod,
+-}; // Removed PlaceholderExpander, as the module itself might not exist.
++};
+ use crate::stats;
+-use crate::base::{ModuleData, ExpansionData};
+ use crate::assign_id;
+ use crate::expand::{InvocationKind, Invocation};
+ use crate::errors;
+diff --git a/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_node_impls.rs b/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_node_impls.rs
+index 5cef8dddf89..a3adf7b3de8 100644
+--- a/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_node_impls.rs
++++ b/compiler/rustc_expand/src/ast_fragments_split/ast_fragments_node_impls.rs
+@@ -7,11 +7,9 @@
+ use smallvec::SmallVec;
+ use std::mem;
+ use std::rc::Rc;
+-use rustc_expand_base_lib::Annotatable;
+-use rustc_expand_base_lib::base_expansion_context::{ExtCtxt, SyntaxExtension};
+-use rustc_expand_base_lib::{MacResult, DummyResult, ExpandResult}; // These are pub use in lib.rs
+-use rustc_expand_base_lib::invocation_data::ModuleData;
+-use rustc_expand_base_lib::strip_unconfigured::StripUnconfigured;
++use rustc_expand_base_lib::{Annotatable, MacResult, DummyResult, ModuleData, StripUnconfigured};
++use crate::base::{ExtCtxt, ExpandResult};
++use rustc_expand_base_lib::SyntaxExtension;
+ use crate::module::{mod_dir_path, mod_file_path_from_attr, parse_external_mod, DirOwnership, ParsedExternalMod};
+ use crate::ast_fragments_split::ast_fragments_enums::{AstFragment, AstFragmentKind};
+ use crate::ast_fragments_split::ast_fragments_helpers::InvocationCollector; // InvocationCollector is from ast_fragments_helpers
+@@ -21,5 +19,114 @@
+ use rustc_ast_pretty::pprust;
+ use rustc_ast::visit::AssocCtxt; // Added AssocCtxt
+ 
++pub struct TraitItemTag;
++pub struct ImplItemTag;
++pub struct TraitImplItemTag;
++use rustc_ast::{self as ast, AstNodeWrapper, ExprKind, AttrVec, ItemKind, StmtKind, PatKind, ForeignItemKind, AssocItemKind, MacStmtStyle, TyKind, ModKind, Inline, HasAttrs, HasNodeId}; // Added ModKind, Inline, HasAttrs, HasNodeId
++use rustc_ast::mut_visit::{walk_expr, walk_crate, walk_ty, walk_pat, walk_assoc_item, walk_foreign_mod, walk_variant, walk_where_predicate, walk_field_def, walk_pat_field, walk_expr_field, walk_param, walk_generic_param, MutVisitor, walk_item};
++
++
++use rustc_ast::tokenstream::TokenStream;
++use rustc_span::{Span, Symbol, DUMMY_SP, Ident}; // Added Ident
++use smallvec::SmallVec;
++use std::mem;
++use std::rc::Rc;
++use rustc_expand_base_lib::{Annotatable, MacResult, DummyResult, ModuleData, StripUnconfigured};
++use crate::base::{ExtCtxt, ExpandResult};
++use rustc_expand_base_lib::SyntaxExtension;
++use crate::module::{mod_dir_path, mod_file_path_from_attr, parse_external_mod, DirOwnership, ParsedExternalMod};
++use crate::ast_fragments_split::ast_fragments_enums::{AstFragment, AstFragmentKind};
++use crate::ast_fragments_split::ast_fragments_helpers::InvocationCollector; // InvocationCollector is from ast_fragments_helpers
++use rustc_expand_base_lib::add_semicolon::AddSemicolon;
++use rustc_expand_base_lib::invocation_collector_node::InvocationCollectorNode;
++use crate::stats::{update_bang_macro_stats, update_attr_macro_stats, update_derive_macro_stats};
++use rustc_ast_pretty::pprust;
++use rustc_ast::visit::AssocCtxt; // Added AssocCtxt
++use rustc_expand_base_lib::{ExpandedStmt, ExpandedItem, ExpandedAssocItem, ExpandedForeignItem, ExpandedVariant, ExpandedWherePredicate, ExpandedFieldDef, ExpandedPatField, ExpandedExprField, ExpandedParam, ExpandedGenericParam, ExpandedArm, ExpandedCrate, ExpandedTy, ExpandedPat, ExpandedExpr};
++use rustc_ast::mut_visit::walk_flat_map_stmt; // Added missing import
++use crate::errors; // Import the errors module
++
++pub struct TraitItemTag;
++pub struct ImplItemTag;
++pub struct TraitImplItemTag;
++pub struct OptExprTag;
++
++
++
++
++
++impl InvocationCollectorNode for ExpandedStmt {
++    type FlatMapOutputTy = SmallVec<Self, 1>;
++    type VisitOutputTy = Option<Self>;
++
++    const KIND: AstFragmentKind = AstFragmentKind::Stmts;
++
++    fn is_mac_call(&self) -> bool {
++        matches!(self.0.kind, StmtKind::MacCall(..))
++    }
++
++    fn take_mac_call(self) -> (ast::MacCall, AttrVec, AddSemicolon) {
++        let (mac, attrs, add_semicolon) = match self.0.kind {
++            StmtKind::MacCall(mac) => (mac, self.0.attrs, AddSemicolon::from_bool(true)),
++            _ => panic!("called take_mac_call on non-macro statement"),
++        };
++        (mac.macro_id, attrs, add_semicolon)
++    }
++
++    fn delegation(&self) -> Option<(&ast::MacCall, &ast::AssocItem)> {
++        None
++    }
++
++    fn declared_idents(&self) -> SmallVec<Ident, 1> {
++        SmallVec::new()
++    }
++
++    fn to_annotatable(self) -> Annotatable {
++        Annotatable::Stmt(Box::new(self.0))
++    }
++
++    fn walk<V: MutVisitor>(mut self, visitor: &mut V) -> Self {
++        walk_flat_map_stmt(visitor, self.0);
++        self
++    }
++
++    fn walk_flat_map<V: MutVisitor>(self, visitor: &mut V) -> SmallVec<Self, 1> {
++        walk_flat_map_stmt(visitor, self.0).into_iter().map(ExpandedStmt).collect()
++    }
++
++    fn fragment_to_flat_map_output(fragment: AstFragment) -> SmallVec<Self, 1> {
++        match fragment {
++            AstFragment::Stmts(stmts) => stmts.into_iter().map(ExpandedStmt).collect(),
++            _ => panic!("unexpected fragment kind"),
++        }
++    }
++
++    fn fragment_to_visit_output(fragment: AstFragment) -> Option<Self> {
++        match fragment {
++            AstFragment::Stmts(mut stmts) if stmts.len() == 1 => Some(ExpandedStmt(stmts.remove(0))),
++            AstFragment::Stmts(stmts) if stmts.is_empty() => None,
++            _ => panic!("unexpected fragment kind for visit output"),
++        }
++    }
++
++    fn from_item(item: Box<ast::Item>) -> Self {
++        panic!("ExpandedStmt cannot be created from an item directly")
++    }
++
++    fn expand_cfg_false(&mut self, collector: &mut InvocationCollector<'_, '_>, pos: usize, span: Span) {
++        // Handle cfg_false logic for statement
++        collector.cx.sess.psess.buffer_lint(
++            StripUnconfigured::get_unused_attribute_lint(true),
++            span,
++            collector.cx.current_expansion.lint_node_id,
++            errors::CfgFalseRemoved { span },
++        );
++        self.0.attrs.remove(pos);
++    }
++}
++
++
++
++
+ 
+ 
+diff --git a/compiler/rustc_expand/src/base.rs b/compiler/rustc_expand/src/base.rs
+index 01d839db937..46ea89deff0 100644
+--- a/compiler/rustc_expand/src/base.rs
++++ b/compiler/rustc_expand/src/base.rs
+@@ -50,6 +50,7 @@
+ use rustc_expand_base_lib::{BaseExpansionContext, ResolverExpand}; // Only import BaseExpansionContext and ResolverExpand
+ use crate::errors; // Import the errors module
+ use crate::stats::MacroStat; // Import MacroStat
++use rustc_expand_base_lib::ExpansionConfig; // Import ExpansionConfig
+ 
+ 
+ pub enum SyntaxExtensionKind {
+@@ -64,14 +65,14 @@ pub enum SyntaxExtensionKind {
+     /// Legacy `macro_rules!` type, can be macro or derive. This is for compatibility with older definitions.
+     LegacyBang(Arc<MacroExpanderFn>),
+     LegacyAttr(Arc<dyn MultiItemModifier + Send + Sync>),
+-    LegacyDerive(Arc<BuiltinDerive + Send + Sync>), // BuiltinDerive is used in rustc_builtin_macros
++    LegacyDerive(Arc<dyn MultiItemModifier + Send + Sync>),
+     /// Dummy/inert attributes, for `#[macro_export]` etc.
+     NonMacroAttr,
+     /// Trait/impl glob delegation (RFC 1645)
+     GlobDelegation(Arc<dyn GlobDelegationExpander + Send + Sync>),
+ }
+ 
+-pub struct BuiltinDerive; // Placeholder struct for now.
++pub trait BuiltinDerive: MultiItemModifier + Send + Sync {}
+ 
+ 
+ /// Result of an expansion that may need to be retried.
+diff --git a/compiler/rustc_expand/src/config.rs b/compiler/rustc_expand/src/config.rs
+index 2bd641c47d5..88c4d21279d 100644
+--- a/compiler/rustc_expand/src/config.rs
++++ b/compiler/rustc_expand/src/config.rs
+@@ -10,6 +10,11 @@
+     self as ast, AttrKind, AttrStyle, Attribute, HasAttrs, HasTokens, MetaItem, MetaItemInner,
+     NodeId, NormalAttr,
+ };
++use rustc_session::Session; // Added
++use rustc_span::{Symbol, sym, STDLIB_STABLE_CRATES}; // Added
++use rustc_feature::{Features, REMOVED_LANG_FEATURES, ACCEPTED_LANG_FEATURES, UNSTABLE_LANG_FEATURES, EnabledLangFeature, EnabledLibFeature}; // Added
++use thin_vec::ThinVec; // Added
++use crate::errors::{MalformedFeatureAttribute, MalformedFeatureAttributeHelp, FeatureRemoved, FeatureRemovedReason, FeatureNotAllowed}; // Added
+ use rustc_expand_base_lib::{configure, is_cfg, parse_cfg_old};
+ use rustc_expand_base_lib::strip_unconfigured::StripUnconfigured;
+ use rustc_expand_base_lib::config::attr_into_trace;
+@@ -17,6 +22,7 @@
+ 
+ 
+ 
++
+ pub fn features(sess: &Session, krate_attrs: &[Attribute], crate_name: Symbol) -> Features {
+     fn feature_list(attr: &Attribute) -> ThinVec<ast::MetaItemInner> {
+         if attr.has_name(sym::feature)
+diff --git a/compiler/rustc_expand/src/expand.rs b/compiler/rustc_expand/src/expand.rs
+index 142db3663f5..93013182ae7 100644
+--- a/compiler/rustc_expand/src/expand.rs
++++ b/compiler/rustc_expand/src/expand.rs
+@@ -36,13 +36,16 @@
+ pub use rustc_expand_base_lib::{
+     Annotatable, AstFragment, AstFragmentKind, AddSemicolon, InvocationCollectorNode,
+     DummyAstNode, Invocation, InvocationKind, ExpansionData, ModuleData, DirOwnership,
+-    PlaceholderExpander, placeholder, StripUnconfigured, attr_into_trace, ExpansionConfig,
+-    BaseExpansionContext, ResolverExpand, Indeterminate, SyntaxExtension, SyntaxExtensionKind,
+-    build_single_delegations, // Added build_single_delegations
++    PlaceholderExpander, placeholder, StripUnconfigured, attr_into_trace,
++    BaseExpansionContext, ResolverExpand,
+ };
+ 
+ // --- Local crate imports ---
+-use crate::base::{ExtCtxt, ExpnData, SyntaxExtensionKind as CrateSyntaxExtensionKind, ExpandResult}; // Use explicit ExtCtxt, ExpnData, and rename SyntaxExtensionKind
++use crate::base::{ExtCtxt, ExpandResult, DeriveResolution, SyntaxExtensionKind};
++use rustc_expand_base_lib::SyntaxExtension;
++use rustc_span::hygiene::ExpnData;
++use crate::ast_fragments_split::ast_fragments_helpers::InvocationCollector;
++use crate::ast_fragments_split::ast_fragments_node_impls::ImplItemTag;
+ use crate::errors::{
+     EmptyDelegationMac, GlobDelegationOutsideImpls, GlobDelegationTraitlessQpath, IncompleteParse,
+     RecursionLimitReached, RemoveExprNotSupported, RemoveNodeNotSupported, UnsupportedKeyValue,
+@@ -57,6 +60,11 @@
+ use crate::ast_fragments_defs::ParserAnyMacro; // Used by MacroExpanderResult
+ 
+ 
++pub struct MacroExpander<'a, 'b> {
++    cx: &'a mut crate::base::ExtCtxt<'b>,
++    monotonic: bool,
++}
++
+ impl<'a, 'b> MacroExpander<'a, 'b> {
+     pub fn new(cx: &'a mut crate::base::ExtCtxt<'b>, monotonic: bool) -> Self {
+         MacroExpander { cx, monotonic }
+diff --git a/compiler/rustc_expand/src/mbe/macro_rules.rs b/compiler/rustc_expand/src/mbe/macro_rules.rs
+index 4b5fde82fc7..35c76c8ef30 100644
+--- a/compiler/rustc_expand/src/mbe/macro_rules.rs
++++ b/compiler/rustc_expand/src/mbe/macro_rules.rs
+@@ -36,7 +36,8 @@
+     AttrProcMacro, BangProcMacro, DummyResult, ExpandResult, ExtCtxt, MacResult,
+     MacroExpanderResult, TTMacroExpander,
+ };
+-use rustc_expand_base_lib::base_expansion_context::{SyntaxExtension, SyntaxExtensionKind};
++use crate::base::SyntaxExtensionKind;
++use rustc_expand_base_lib::SyntaxExtension;
+ use crate::errors;
+ use crate::expand::{ensure_complete_parse, parse_ast_fragment};
+ use crate::ast_fragments_split::ast_fragments_enums::{AstFragment, AstFragmentKind};
+diff --git a/compiler/rustc_expand/src/module.rs b/compiler/rustc_expand/src/module.rs
+index aa17f1b85c5..831fefa875f 100644
+--- a/compiler/rustc_expand/src/module.rs
++++ b/compiler/rustc_expand/src/module.rs
+@@ -12,7 +12,7 @@
+ use rustc_span::{Ident, Span, sym};
+ use thin_vec::ThinVec;
+ 
+-use crate::base::ModuleData;
++use rustc_expand_base_lib::ModuleData;
+ use crate::errors::{
+     ModuleCircular, ModuleFileNotFound, ModuleInBlock, ModuleInBlockName, ModuleMultipleCandidates,
+ };
+diff --git a/compiler/rustc_expand/src/proc_macro.rs b/compiler/rustc_expand/src/proc_macro.rs
+index 9bfda8764f5..85b09691328 100644
+--- a/compiler/rustc_expand/src/proc_macro.rs
++++ b/compiler/rustc_expand/src/proc_macro.rs
+@@ -6,7 +6,8 @@
+ use rustc_span::profiling::SpannedEventArgRecorder;
+ use {rustc_ast as ast, rustc_proc_macro as pm};
+ 
+-use crate::base::{self, *};
++use crate::base::{self, ExtCtxt, MultiItemModifier, ExpandResult}; // Explicitly import used types from crate::base
++use rustc_expand_base_lib::Annotatable; // Import Annotatable
+ use crate::{errors, proc_macro_server};
+ 
+ struct MessagePipe<T> {
+diff --git a/compiler/rustc_expand/src/stats.rs b/compiler/rustc_expand/src/stats.rs
+index da4e59e0fcf..a5b9d0d6300 100644
+--- a/compiler/rustc_expand/src/stats.rs
++++ b/compiler/rustc_expand/src/stats.rs
+@@ -6,7 +6,8 @@
+ use rustc_span::{Span, Symbol, kw, sym};
+ use smallvec::SmallVec;
+ 
+-use crate::base::{Annotatable, ExtCtxt};
++use crate::base::ExtCtxt;
++use rustc_expand_base_lib::Annotatable;
+ use crate::expand::{AstFragment, AstFragmentKind};
+ 
+ #[derive(Default)]
+diff --git a/compiler/rustc_expand_base_lib/src/base_expansion_context.rs b/compiler/rustc_expand_base_lib/src/base_expansion_context.rs
+index 65d6daf3074..17f2539b70d 100644
+--- a/compiler/rustc_expand_base_lib/src/base_expansion_context.rs
++++ b/compiler/rustc_expand_base_lib/src/base_expansion_context.rs
+@@ -20,6 +20,7 @@
+ use std::rc::Rc;
+ use std::path::PathBuf;
+ use std::sync::Arc;
++use std::any::Any; // Added
+ use rustc_span::{Ident, LocalExpnId, Span, Symbol, DUMMY_SP};
+ use rustc_span::def_id::LocalDefId;
+ use rustc_errors::{DiagCtxtHandle, ErrorGuaranteed};
+@@ -81,17 +82,43 @@ pub trait BaseExpansionContext {
+     fn register_glob_delegation(&mut self, invoc_id: LocalExpnId);
+ 
+     /// Returns the parent `LocalDefId` for an invocation.
+-    fn invocation_parent(&self, id: LocalExpnId) -> LocalDefId;
++    fn invocation_parent(&self, id: LocalExpnId) -> LocalDefId; // Reverted to LocalDefId
+ 
+     /// Returns span for the macro which originally caused the current expansion to happen.
+     fn expansion_cause(&self) -> Option<Span>;
+ }
+ 
++pub struct ExpansionConfig<'a> { // Re-added ExpansionConfig
++    pub crate_name: Symbol,
++    pub features: &'a Features,
++    pub recursion_limit: Limit,
++    pub trace_mac: bool,
++    pub should_test: bool,
++    pub span_debug: bool,
++    pub proc_macro_backtrace: bool,
++}
++
++impl<'a> ExpansionConfig<'a> {
++    pub fn default(crate_name: Symbol, features: &'a Features) -> ExpansionConfig<'a> {
++        ExpansionConfig {
++            crate_name,
++            features,
++            recursion_limit: Limit::new(1024),
++            trace_mac: false,
++            should_test: false,
++            span_debug: false,
++            proc_macro_backtrace: false,
++        }
++    }
++}
++
++pub struct SyntaxExtension; // Re-added
++
+ // Placeholder for ResolverExpand. This trait will also need to be defined
+ // either here or its required methods moved here.
+ pub trait ResolverExpand {
+     fn next_node_id(&mut self) -> NodeId;
+-    fn invocation_parent(&self, id: LocalExpnId) -> LocalExpnId; // Corrected return type to LocalExpnId
++    fn invocation_parent(&self, id: LocalExpnId) -> LocalDefId; // Corrected return type to LocalDefId
+     fn resolve_dollar_crates(&mut self);
+     // This is still tied to AstFragment, so AstFragment must be accessible.
+     fn visit_ast_fragment_with_placeholders(&mut self, expn_id: LocalExpnId, fragment: &AstFragment);
+diff --git a/compiler/rustc_expand_base_lib/src/invocation_collector_node.rs b/compiler/rustc_expand_base_lib/src/invocation_collector_node.rs
+index 1a206edc4f3..2db8d438f62 100644
+--- a/compiler/rustc_expand_base_lib/src/invocation_collector_node.rs
++++ b/compiler/rustc_expand_base_lib/src/invocation_collector_node.rs
+@@ -39,6 +39,40 @@
+ pub struct ExpandedPat(pub Box<ast::Pat>);
+ pub struct ExpandedExpr(pub Box<ast::Expr>);
+ 
++impl HasNodeId for ExpandedStmt {
++    fn node_id(&self) -> NodeId {
++        self.0.id
++    }
++
++    fn node_id_mut(&mut self) -> &mut NodeId {
++        &mut self.0.id
++    }
++}
++
++impl HasAttrs for ExpandedStmt {
++    const SUPPORTS_CUSTOM_INNER_ATTRS: bool = false;
++
++    fn attrs(&self) -> &[Attribute] {
++        match &self.0.kind {
++            ast::StmtKind::Let(local) => local.attrs.as_slice(), // Changed from Local to Let
++            ast::StmtKind::Item(item) => item.attrs.as_slice(),
++            ast::StmtKind::Expr(expr) | ast::StmtKind::Semi(expr) => expr.attrs.as_slice(),
++            ast::StmtKind::MacCall(mac) => mac.attrs.as_slice(),
++            ast::StmtKind::Empty => &[],
++        }
++    }
++
++    fn visit_attrs(&mut self, f: impl FnOnce(&mut AttrVec)) {
++        match &mut self.0.kind {
++            ast::StmtKind::Let(local) => f(&mut local.attrs), // Changed from Local to Let
++            ast::StmtKind::Item(item) => f(&mut item.attrs),
++            ast::StmtKind::Expr(expr) | ast::StmtKind::Semi(expr) => f(&mut expr.attrs),
++            ast::StmtKind::MacCall(mac) => f(&mut mac.attrs),
++            ast::StmtKind::Empty => {}, // No attributes for empty statements
++        }
++    }
++}
++
+ pub struct ExpandedAstNodeWrapper<T, Tag>(pub ast::AstNodeWrapper<T, Tag>);
+ 
+ // Use types now residing in rustc_expand_base_lib
+diff --git a/compiler/rustc_expand_base_lib/src/lib.rs b/compiler/rustc_expand_base_lib/src/lib.rs
+index 488e007f1c0..08181533348 100644
+--- a/compiler/rustc_expand_base_lib/src/lib.rs
++++ b/compiler/rustc_expand_base_lib/src/lib.rs
+@@ -30,4 +30,6 @@
+ pub use strip_unconfigured::*;
+ pub use invocation_data::*;
+ pub use base_expansion_context::*;
+-pub use invocation_data::{ModuleData, DirOwnership};
+\ No newline at end of file
++pub use base_expansion_context::SyntaxExtension; // Re-exported SyntaxExtension
++pub use invocation_data::{ModuleData, DirOwnership};
++pub use placeholders::PlaceholderExpander;
+\ No newline at end of file

@@ -1,0 +1,15 @@
+36:/// CollectorABDRT<'a,'b,_DRT_GENERIC_PARAM_> = _INVOCATION_COLLECTOR_ALIAS_<'a,'b,_DRT_GENERIC_PARAM_> (collects macro invocations)
+37:pub type CollectorABDRT<'a, 'b, _DRT_GENERIC_PARAM_> = _INVOCATION_COLLECTOR_ALIAS_<'a, 'b, _DRT_GENERIC_PARAM_>;
+38:/// ResolverBound = _DERIVE_RESOLUTION_ALIAS_ (trait bound for derive resolution)
+39:pub type ResolverBound = _DERIVE_RESOLUTION_ALIAS_;
+40:/// ExpandContext<'b, _DRT_GENERIC_PARAM_> = _EXT_CTXT_ALIAS_<'b, _DRT_GENERIC_PARAM_> (Expansion Context)
+41:pub type ExpandContext<'b, _DRT_GENERIC_PARAM_> = _EXT_CTXT_ALIAS_<'b, _DRT_GENERIC_PARAM_>;
+42:/// RefAMutExpandContext_B_DRT<'a,'b,_DRT_GENERIC_PARAM_> = &'a mut crate::base::ExpandContext<'b, _DRT_GENERIC_PARAM_> (Mutable reference to Expansion Context)
+43:pub type RefAMutExpandContext_B_DRT<'a, 'b, _DRT_GENERIC_PARAM_> = &'a mut crate::base::ExpandContext<'b, _DRT_GENERIC_PARAM_>;
+51:use crate::base::{_EXT_CTXT_ALIAS_, ExpandResult, _DERIVE_RESOLUTION_ALIAS_, SyntaxExtensionKind, BangProcMacro, AttrProcMacro, MultiItemModifier, MacroExpanderFn, GlobDelegationExpander};
+54:use crate::ast_fragments_split::_INVOCATION_COLLECTOR_ALIAS_;
+72:impl<'a, 'b, _DRT_GENERIC_PARAM_: OpaqueDeriveResolution + 'static> MacroExpander<'a, 'b, _DRT_GENERIC_PARAM_> {
+73:    pub fn new(cx: &'a mut crate::base::_EXT_CTXT_ALIAS_<'b, _DRT_GENERIC_PARAM_>, monotonic: bool) -> Self {
+180:                                .map(|_DERIVE_RESOLUTION_ALIAS_ { path, item, exts: _, is_const }| {
+264:            let mut collector = _INVOCATION_COLLECTOR_ALIAS_ {
+551:                    let expander = ext.get_macro_kind().downcast_ref::<Arc<crate::mbe::macro_rules_expander::MacroRulesMacroExpander<_DRT_GENERIC_PARAM_>>>().expect("expected MacroRulesExpander");

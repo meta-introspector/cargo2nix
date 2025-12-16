@@ -1740,3 +1740,9 @@
 [submodule "submodules/thin=vec"]
 	path = submodules/thin-vec
 	url = https://github.com/meta-introspector/thin-vec-rs
+[submodule "submodules/uuid"]
+	path = submodules/uuid
+	url = https://github.com/meta-introspector/uuid
+[submodule "submodules/include-dir-macro-rs"]
+	path = submodules/include-dir-macro-rs
+	url = https://github.com/meta-introspector/include-dir-macro-rs

@@ -1,0 +1,23 @@
+[package]
+name = "type-reporter"
+publish.workspace = true
+description.workspace = true
+categories.workspace = true
+version.workspace = true
+authors.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+homepage.workspace = true
+repository.workspace = true
+keywords.workspace = true
+include.workspace = true
+
+[dependencies]
+tera = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+regex = { workspace = true }
+
+[lints]
+workspace = true

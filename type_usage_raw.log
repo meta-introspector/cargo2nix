@@ -1,0 +1,15 @@
+36:/// CollectorABDRT<'a,'b,DRT> = InvocationCollector<'a,'b,DRT> (collects macro invocations)
+37:pub type CollectorABDRT<'a, 'b, DRT> = InvocationCollector<'a, 'b, DRT>;
+38:/// ResolverBound = DeriveResolution (trait bound for derive resolution)
+39:pub type ResolverBound = DeriveResolution;
+40:/// ExpandContext<'b, DRT> = ExtCtxt<'b, DRT> (Expansion Context)
+41:pub type ExpandContext<'b, DRT> = ExtCtxt<'b, DRT>;
+42:/// RefAMutExpandContext_B_DRT<'a,'b,DRT> = &'a mut crate::base::ExpandContext<'b, DRT> (Mutable reference to Expansion Context)
+43:pub type RefAMutExpandContext_B_DRT<'a, 'b, DRT> = &'a mut crate::base::ExpandContext<'b, DRT>;
+51:use crate::base::{ExtCtxt, ExpandResult, DeriveResolution, SyntaxExtensionKind, BangProcMacro, AttrProcMacro, MultiItemModifier, MacroExpanderFn, GlobDelegationExpander};
+54:use crate::ast_fragments_split::InvocationCollector;
+72:impl<'a, 'b, DRT: OpaqueDeriveResolution + 'static> MacroExpander<'a, 'b, DRT> {
+73:    pub fn new(cx: &'a mut crate::base::ExtCtxt<'b, DRT>, monotonic: bool) -> Self {
+180:                                .map(|DeriveResolution { path, item, exts: _, is_const }| {
+264:            let mut collector = InvocationCollector {
+551:                    let expander = ext.get_macro_kind().downcast_ref::<Arc<crate::mbe::macro_rules_expander::MacroRulesMacroExpander<DRT>>>().expect("expected MacroRulesExpander");

@@ -1,0 +1,32 @@
+error: failed to load manifest for workspace member `/mnt/data1/nix/vendor/rust/cargo2nix/tools/trait-fixer`
+referenced by workspace at `/mnt/data1/nix/vendor/rust/cargo2nix/Cargo.toml`
+
+Caused by:
+  failed to load manifest for dependency `trait-fixer-compiler-host-mock`
+
+Caused by:
+  failed to load manifest for dependency `rustc_driver`
+
+Caused by:
+  failed to load manifest for dependency `rustc_driver_impl`
+
+Caused by:
+  failed to load manifest for dependency `rustc_builtin_macros`
+
+Caused by:
+  failed to load manifest for dependency `rustc_expand`
+
+Caused by:
+  failed to load manifest for dependency `expand_utils_macros`
+
+Caused by:
+  failed to load manifest for dependency `rustc_expand_base_lib`
+
+Caused by:
+  failed to parse manifest at `/mnt/data1/nix/vendor/rust/cargo2nix/submodules/rust/compiler/rustc_expand_base_lib/Cargo.toml`
+
+Caused by:
+  error inheriting `uuid` from workspace root manifest's `workspace.dependencies.uuid`
+
+Caused by:
+  `dependency.uuid` was not found in `workspace.dependencies`
