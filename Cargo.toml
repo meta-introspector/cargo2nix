@@ -1,4 +1,9 @@
 [workspace.dependencies]
+rustc_expand_meta_macros = { path = "submodules/rust/compiler/rustc_expand_meta_macros" }
+rustc_error_codes = { path = "submodules/rust/compiler/rustc_error_codes" }
+rustc_expand_base_lib_errors = { path = "submodules/rust/compiler/rustc_expand_base_lib_errors" }
+#borsh = { path = "submodules/borsh" }
+#solana-sdk = { path = "submodules/solana-sdk" }
 # analyzeme = { version = "12.0.3", path = "analyzeme" }
 # clap = { version = "4.5.0", features = ["derive"] }
 # decodeme = { version = "12.0.3", path = "decodeme" }
@@ -383,6 +388,7 @@ rustc_ast = { path = "submodules/rust/compiler/rustc_ast" }
 rustc_attr_parsing = { path = "submodules/rust/compiler/rustc_attr_parsing" }
 rustc_lint_defs = { path = "submodules/rust/compiler/rustc_lint_defs" }
 rustc_data_structures = { path = "submodules/rust/compiler/rustc_data_structures" }
+gemini_rustc_data_structures = { path = "submodules/rust/crates/gemini_rustc_data_structures/" }
 rustc_driver = { path = "submodules/rust/compiler/rustc_driver" }
 rustc_driver_impl = { path = "submodules/rust/compiler/rustc_driver_impl" }
 rustc_builtin_macros = { path = "submodules/rust/compiler/rustc_builtin_macros" }
@@ -565,7 +571,7 @@ lib-matcher-loc.path= "submodules/rust/compiler/lib-matcher-loc"
 lib-metavar-expr.path= "submodules/rust/compiler/lib-metavar-expr"
 lib-token-tree.path="submodules/rust/compiler/lib-token-tree"
 
-
+macro_wrapper_lib.path= "submodules/rust/compiler/macro_wrapper_lib"
 [workspace]
 resolver = "3"
 members = [
@@ -575,7 +581,7 @@ members = [
     "crates/monster_math_traits",
     #"crates/rusttycoon",
     "crates/factory_abi",
-    "crates/solana-monster-system",
+#    "crates/solana-monster-system",
     "crates/ast_parser_impl",
     "tools/cargo-repo-sync", # Add this line
     #"tools/cargo-submodule-tool",
@@ -596,6 +602,7 @@ members = [
     "submodules/rust/compiler/lib-kleene-op",
     "submodules/rust/compiler/lib-macro-rule",
     "submodules/rust/compiler/lib-matcher-loc",
+    "submodules/rust/compiler/macro_wrapper_lib",
     "submodules/rust/compiler/lib-metavar-expr",
     "submodules/rust/compiler/lib-token-tree",
     "submodules/rust/compiler/rustc_ast",
@@ -659,6 +666,7 @@ members = [
                 "submodules/rust/compiler/lib-matcher-loc",
                 "submodules/rust/compiler/lib-metavar-expr",
 		"submodules/rust/compiler/lib-token-tree"
+, "submodules/rust/compiler/rustc_expand_patches"
 , "tools/type-reporter",
 "submodules/rust/compiler/rustc_expand_base_lib_errors",
 "submodules/rust/compiler/rustc_expand_base_lib_macros",
@@ -761,6 +769,7 @@ futures-sink = { path = "submodules/futures-rs/futures-sink" }
 futures-task = { path = "submodules/futures-rs/futures-task" }
 futures-util = { path = "submodules/futures-rs/futures-util" }
 git2 = { path = "submodules/git2-rs" }
+#borsh = { path = "submodules/borsh" }
 hyper = { path = "submodules/hyper" }
 idna = {path = "submodules/rust-url/idna/" }
 libc = { path = "submodules/libc", features = ["extra_traits"] }

@@ -311,7 +311,106 @@ Derivations are evaluated in Nix with global information available. During the b
 
 [DAG]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
 
+### How it works
+
+The `cargo2nix` ecosystem works by combining several powerful mechanisms to provide robust and reproducible Rust dependency management within Nix:
+
+- **Cargo.toml/Cargo.lock Discovery and Metadata Caching:** The `cargo-repo-sync` tool automatically discovers `Cargo.toml` and `Cargo.lock` files across your project and its submodules. It then calculates and caches their metadata (e.g., hash, modification time) in a `rollup.lock` file. This cache is crucial for the "Super Fast Resolution System."
+
+- **Super Fast Resolution System (CRQ-016 Related):** Before generating a `Cargo.nix` file for a Rust project, `cargo-repo-sync` compares the current metadata of `Cargo.toml` and `Cargo.lock` against the stored metadata in `rollup.lock`. If no changes are detected, the `Cargo.nix` generation is skipped, significantly speeding up subsequent builds and ensuring that only necessary updates are processed. If changes are found, `Cargo.nix` is regenerated, and `rollup.lock` is updated with the new metadata. This system is a core component of the broader project's CRQ-016 initiative for Submodule Nixification and Flake Refactoring, enabling efficient dependency management across submodules.
+
+- **Automated Cargo.nix Generation:** The `cargo2nix` utility reads the Rust workspace configuration and `Cargo.lock` and generates Nix expressions that encode feature, platform, and target logic into a `Cargo.nix` file for each Rust project.
+
+- **Nixpkgs Overlay Consumption:** The `cargo2nix` [Nixpkgs](https://github.com/NixOS/nixpkgs) [overlay](./overlay) consumes these generated `Cargo.nix` files, feeding them to `makePackageSet` to provide workspace outputs that can be exposed in your Nix flake.
+
+- **Unified Dependency Management (Ultimate Vision - CRQ-016 & `github:meta-introspector` Alignment):** The long-term goal is to centralize the management of all Rust dependencies across submodules. This involves generating a single, unified `Cargo.nix` and `flake.nix` that enforce a single version of each crate, automatically generating overrides as needed, and fully automating the Git submodule lifecycle (adding, committing, branching, pushing) for a seamless and highly efficient vendored Git repository management system. This vision directly supports the CRQ-016 objectives for Submodule Nixification and Flake Refactoring, and leverages the `github:meta-introspector` policy for integrating external dependencies in a controlled and consistent manner.
+
+- **Development Shell:** Because we know all of the dependencies, it's easy to create a shell from those dependencies as environment setup using the `workspaceShell` function and exposing the result in the `devShell` flake output.
+
+- **Building Crates Isolated from Each Other:** Just like regular `cargo` builds, the Nix dependencies form a [DAG][DAG]. Purity means we only expose essential information to dependencies and manually invoke `cargo`. Communication from dependencies to dependents is handled by writing some extra outputs and then reading those outputs inside the next dependent build.
+
+There's two broad categories of information that need to be transmitted when hand-building crates in isolation:
+
+- **Global information**
+  - target such as `x86_64-unknown-linux-gnu`
+  - cargo actions such as `build` or `test`
+  - features which turn on optional dependencies & downstream features via logic in the [`Cargo.nix`](./Cargo.nix) expressions
+
+  This information is known before any of the crates are built. It's used at evaluation time to decide what will be built. See `nix show-derivation` results.
+
+- **Propagated information**
+  Each dependency writes information such as linker flags alongside its rlib and other outputs. When the dependent is going to consume the dependency, it reads this information back.
+
+Derivations are evaluated in Nix with global information available. During the build, rlibs and dependency information are propagated back up the DAG. Each derivation's build shell combines the linking, features, target, and other information. You can see how it's used in [`mkcrate.nix`](./overlay/mkcrate.nix)
+
+[DAG]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
+
+## Declarative/Symbolic Macro Preprocessing System
+
+This project introduces a novel macro preprocessing system designed to analyze Rust code at a fine-grained level (individual declarations), extract symbolic information, and make it available for external tooling, such as SAT solvers, at runtime. This system allows for central modification and dynamic analysis of code structure.
+
+### Core Architecture
+
+The system operates through a two-tiered procedural macro approach:
+
+1.  **`macro_wrapper_lib` (Meta-Procedural Macro Crate):**
+    This crate provides a set of attribute procedural macros (e.g., `#[macro_wrapper_lib::wrap_fn]`, `#[macro_wrapper_lib::wrap_struct]`, `#[macro_wrapper_lib::wrap_use]`, `#[macro_wrapper_lib::wrap_impl]`, etc.) that are applied to individual Rust declarations (functions, structs, enums, traits, `impl` blocks, `use` statements, modules, statics, and consts).
+
+    When applied:
+    *   It re-emits the original item, preserving code functionality.
+    *   It *generates a new, unique procedural macro definition* (a "nested proc macro") specific to that declaration. This generated macro is named uniquely (e.g., `__generated_macro_hook_fn_my_function_123456789`).
+    *   This generated nested proc macro encapsulates extracted symbolic information about the original declaration (e.g., its kind, name, stringified definition, visibility, etc.).
+
+2.  **`declaration_aggregator` (User-Defined Proc-Macro Hook):**
+    This crate defines the `#[proc_macro] pub fn user_proc_macro_hook(...)` function. The nested procedural macros generated by `macro_wrapper_lib` are designed to call this `user_proc_macro_hook`, passing it the symbolic information they've extracted.
+
+    This `user_proc_macro_hook` is the central point for user-defined logic. Here, you can:
+    *   Process the incoming symbolic data.
+    *   Transform it into a format suitable for a SAT solver (e.g., logical clauses).
+    *   Aggregate information across multiple declarations.
+    *   Inject custom code or runtime logic based on the analyzed code structure.
+
+### How to Use
+
+To apply this preprocessing system to your Rust code:
+
+1.  **Integrate `macro_wrapper_lib` via a `build.rs` script:**
+    In the `Cargo.toml` of the crate you wish to preprocess (e.g., `rustc_expand_base_lib`), ensure `macro_wrapper_lib` is a dependency and configure a `build.rs` script. The `build.rs` will be responsible for:
+    *   Reading your crate's source files.
+    *   Parsing the code using `syn`.
+    *   Programmatically prepending the appropriate `#[macro_wrapper_lib::wrap_...]` attributes to each relevant declaration (public functions, structs, enums, traits, modules, statics, consts; and all `impl` blocks and `use` statements).
+    *   Adding `macro_wrapper_lib::MODULE_HEADER!()` and `macro_wrapper_lib::MODULE_FOOTER!()` calls at the beginning and end of each transformed source file, respectively.
+    *   Writing the modified code to files in the `OUT_DIR`.
+    *   Generating a `lib.rs` (or equivalent) in `OUT_DIR` that `include!`s these transformed files.
+
+    An example of this integration can be found in `submodules/rust/compiler/rustc_expand_base_lib/build.rs`.
+
+2.  **Provide the `user_proc_macro_hook` implementation:**
+    Your project must include a `proc-macro` crate (like `crates/declaration_aggregator`) that defines the `#[proc_macro] pub fn user_proc_macro_hook(input: proc_macro::TokenStream) -> proc_macro::TokenStream`. This is where you implement the custom logic to handle the symbolic data.
+
+    Example `user_proc_macro_hook` (from `crates/declaration_aggregator/src/lib.rs`):
+    ```rust
+    extern crate proc_macro;
+    use proc_macro::TokenStream;
+    use quote::quote;
+
+    #[proc_macro]
+    pub fn user_proc_macro_hook(input: TokenStream) -> TokenStream {
+        eprintln!("user_proc_macro_hook called with input: {:?}", input);
+        // Process symbolic data here, e.g., convert to SAT solver clauses
+        // For now, it just re-emits the input.
+        input
+    }
+    ```
+
+### Example (Test Driver)
+
+The `submodules/rust/compiler/macro_wrapper_test_driver` crate demonstrates this entire pipeline. It takes a sample code string, applies the `macro_wrapper_lib` attributes programmatically, and prints the resulting `TokenStream`. When this test driver is built and run, you will see `eprintln!` messages from the `user_proc_macro_hook` in `declaration_aggregator`, indicating that the generated nested macros are being invoked.
+
+This system facilitates dynamic, compile-time analysis and transformation of your codebase, opening avenues for advanced static analysis, metaprogramming, and integration with formal verification tools like SAT solvers.
+
 ### Limitations implied by purity
+
 
 Evaluation of nix derivations doesn't require building anything.  If you want to
 build a specific variant of a crate in a workspace with Nix, we would have to

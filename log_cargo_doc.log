@@ -1,0 +1,206 @@
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /mnt/data1/nix/vendor/rust/cargo2nix/submodules/addr2line/Cargo.toml
+workspace: /mnt/data1/nix/vendor/rust/cargo2nix/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/Cargo.toml
+workspace: /mnt/data1/nix/vendor/rust/cargo2nix/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /mnt/data1/nix/vendor/rust/cargo2nix/submodules/annotate-snippets-rs/Cargo.toml
+workspace: /mnt/data1/nix/vendor/rust/cargo2nix/Cargo.toml
+warning: resolver for the non root package will be ignored, specify resolver at the workspace root:
+package:   /mnt/data1/nix/vendor/rust/cargo2nix/submodules/bstr/Cargo.toml
+workspace: /mnt/data1/nix/vendor/rust/cargo2nix/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /mnt/data1/nix/vendor/rust/cargo2nix/submodules/imara-diff/Cargo.toml
+workspace: /mnt/data1/nix/vendor/rust/cargo2nix/Cargo.toml
+warning: resolver for the non root package will be ignored, specify resolver at the workspace root:
+package:   /mnt/data1/nix/vendor/rust/cargo2nix/submodules/http-auth/Cargo.toml
+workspace: /mnt/data1/nix/vendor/rust/cargo2nix/Cargo.toml
+warning: patch for the non root package will be ignored, specify patch at the workspace root:
+package:   /mnt/data1/nix/vendor/rust/cargo2nix/tools/cargo-repo-sync/Cargo.toml
+workspace: /mnt/data1/nix/vendor/rust/cargo2nix/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /mnt/data1/nix/vendor/rust/cargo2nix/submodules/ahash/Cargo.toml
+workspace: /mnt/data1/nix/vendor/rust/cargo2nix/Cargo.toml
+warning: resolver for the non root package will be ignored, specify resolver at the workspace root:
+package:   /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tracing-tree/Cargo.toml
+workspace: /mnt/data1/nix/vendor/rust/cargo2nix/Cargo.toml
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-refspec/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/curl-rust/Cargo.toml: `default-features` is ignored for curl-sys, since `default-features` was not specified for `workspace.dependencies.curl-sys`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/unicode-ident/Cargo.toml: unused manifest key: bench.0.members
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/git2-rs/Cargo.toml: unused manifest key: examples
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/ahash/Cargo.toml: file `/mnt/data1/nix/vendor/rust/cargo2nix/submodules/ahash/tests/bench.rs` found to be present in multiple build targets:
+  * `integration-test` target `bench`
+  * `bench` target `ahash`
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/ahash/Cargo.toml: file `/mnt/data1/nix/vendor/rust/cargo2nix/submodules/ahash/tests/map_tests.rs` found to be present in multiple build targets:
+  * `integration-test` target `map_tests`
+  * `bench` target `map`
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-lock/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-mailmap/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-command/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.anstream.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.anstyle.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.backtrace.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.strsim.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.terminal_size.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dependencies.unicase.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/clap/clap_builder/Cargo.toml: unused manifest key: dev-dependencies.snapbox.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-actor/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-sec/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/lazy-static/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-glob/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-merge/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/indexmap/Cargo.toml: unused manifest key: dependencies.serde.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/indexmap/Cargo.toml: unused manifest key: dependencies.serde_core.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-blame/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-tempfile/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/io-uring/Cargo.toml: unused manifest key: package.members
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/text-size/Cargo.toml: `default_features` is deprecated in favor of `default-features` and will not work in the 2024 edition
+(in the `serde` dependency)
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-config/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-url/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/quickcheck/Cargo.toml: unused manifest key: package.members
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-discover/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-quote/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-worktree/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/faster-hex/Cargo.toml: Found `feature = ...` in `target.'cfg(...)'.dependencies`. This key is not supported for selecting dependencies and will not work as expected. Use the [features] section instead: https://doc.rust-lang.org/cargo/reference/features.html
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/faster-hex/Cargo.toml: unused manifest key: target.cfg(not(feature = "alloc")).features
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-commitgraph/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-odb/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/im-rs/rc/Cargo.toml: unused manifest key: package.metadata.docs.rs
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-ref/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/memoffset/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/fxhash/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/chrono/Cargo.toml: `default-features` is ignored for serde_derive, since `default-features` was not specified for `workspace.dependencies.serde_derive`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/static-assertions-rs/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/glob/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/assert-impl/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-status/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/scoped-tls/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-ignore/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tracing-tree/Cargo.toml: `default-features` is ignored for tracing-log, since `default-features` was not specified for `workspace.dependencies.tracing-log`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tracing-tree/Cargo.toml: `default-features` is ignored for tracing-subscriber, since `default-features` was not specified for `workspace.dependencies.tracing-subscriber`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-hash/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-attributes/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-packetline/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-pack/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-config-value/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/defmac/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-pathspec/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/colorify/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/rust-url/url/Cargo.toml: `default-features` is ignored for serde_derive, since `default-features` was not specified for `workspace.dependencies.serde_derive`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-protocol/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/bstr/Cargo.toml: unused manifest key: package.members
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-worktree-state/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-hashtable/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/once_cell/Cargo.toml: unused manifest key: dependencies.parking_lot_core.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/once_cell/Cargo.toml: unused manifest key: package.members
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-credentials/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-features/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-diff/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/equivalent/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-prompt/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/include-dir-macro-rs/Cargo.toml: `edition` is set on example `poems` which is deprecated
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/include-dir-macro-rs/Cargo.toml: `edition` is set on example `web` which is deprecated
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: `default-features` is ignored for mio, since `default-features` was not specified for `workspace.dependencies.mio`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: `default-features` is ignored for io-uring, since `default-features` was not specified for `workspace.dependencies.io-uring`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: `default-features` is ignored for mio, since `default-features` was not specified for `workspace.dependencies.mio`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: `default-features` is ignored for tracing, since `default-features` was not specified for `workspace.dependencies.tracing`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: `default-features` is ignored for nix, since `default-features` was not specified for `workspace.dependencies.nix`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: dependencies.bytes.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: dependencies.mio.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: dev-dependencies.futures.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: dev-dependencies.tokio-stream.path
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: dev-dependencies.tokio-stream.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: dev-dependencies.tokio-test.path
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: dev-dependencies.tokio-test.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: dev-dependencies.tokio-util.path
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: dev-dependencies.tokio-util.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: target.cfg(all(tokio_unstable, target_os = "linux")).dependencies.io-uring.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: target.cfg(all(tokio_unstable, target_os = "linux")).dependencies.libc.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: target.cfg(all(tokio_unstable, target_os = "linux")).dependencies.mio.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: target.cfg(all(tokio_unstable, target_os = "linux")).dependencies.slab.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: target.cfg(not(target_family = "wasm")).dependencies.socket2.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: target.cfg(tokio_unstable).dependencies.tracing.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: target.cfg(unix).dependencies.libc.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: target.cfg(unix).dependencies.signal-hook-registry.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: target.cfg(unix).dev-dependencies.libc.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: target.cfg(unix).dev-dependencies.nix.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: target.cfg(windows).dependencies.windows-sys.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio/tokio/Cargo.toml: unused manifest key: target.cfg(windows).dev-dependencies.windows-sys.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-object/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-path/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/tests/tools/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/signal-hook/signal-hook-registry/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/pin-project-lite/Cargo.toml: unused manifest key: dev-dependencies.macrotest.branch
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/pin-project-lite/Cargo.toml: unused manifest key: dev-dependencies.trybuild.branch
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-negotiate/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/static-assertions-rs/proc/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-filter/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-revision/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-shallow/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-index/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-traverse/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-archive/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-submodule/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/regex/Cargo.toml: unused manifest key: package.members
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/crossbeam/crossbeam-utils/Cargo.toml: unused manifest key: dependencies.atomic-maybe-uninit.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-dir/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: unused manifest key: dependencies.dot-parser.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: unused manifest key: dependencies.dot-parser-macros.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: unused manifest key: dependencies.fixedbitset.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: unused manifest key: dependencies.hashbrown.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: unused manifest key: dependencies.indexmap.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: unused manifest key: dependencies.quickcheck.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: unused manifest key: dependencies.rayon.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: unused manifest key: dependencies.serde.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: unused manifest key: dependencies.serde_derive.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: unused manifest key: dev-dependencies.itertools.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/petgraph/Cargo.toml: unused manifest key: dev-dependencies.odds.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/odds/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/rustc-demangle/Cargo.toml: no edition set: defaulting to the 2015 edition while the latest is 2024
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/rustc-demangle/Cargo.toml: unused manifest key: package.members
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-fs/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-transport/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/itertools/Cargo.toml: `default-features` is ignored for either, since `default-features` was not specified for `workspace.dependencies.either`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/zip2/Cargo.toml: `default-features` is ignored for lzma-rust2, since `default-features` was not specified for `workspace.dependencies.lzma-rust2`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-revwalk/Cargo.toml: unused manifest key: package.rust-workspace
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/camino/Cargo.toml: unused manifest key: members
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/arbitrary/Cargo.toml: unused manifest key: test.0.members
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/nix/Cargo.toml: unused manifest key: dependencies.memoffset.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/nix/Cargo.toml: unused manifest key: dependencies.pin-utils.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/backtrace-rs/Cargo.toml: unused manifest key: dependencies.cpp_demangle.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/backtrace-rs/Cargo.toml: unused manifest key: dependencies.serde.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/backtrace-rs/Cargo.toml: unused manifest key: target.cfg(not(all(windows, target_env = "msvc", not(target_vendor = "uwp")))).dependencies.addr2line.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/backtrace-rs/Cargo.toml: unused manifest key: target.cfg(not(all(windows, target_env = "msvc", not(target_vendor = "uwp")))).dependencies.libc.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/backtrace-rs/Cargo.toml: unused manifest key: target.cfg(not(all(windows, target_env = "msvc", not(target_vendor = "uwp")))).dependencies.miniz_oxide.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/backtrace-rs/Cargo.toml: unused manifest key: target.cfg(not(all(windows, target_env = "msvc", not(target_vendor = "uwp")))).dependencies.ruzstd.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/zstd-rs/ruzstd/Cargo.toml: `default-features` is ignored for twox-hash, since `default-features` was not specified for `workspace.dependencies.twox-hash`, this could become a hard error in the future
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/zstd-rs/ruzstd/Cargo.toml: unused manifest key: dependencies.fastrand.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/zstd-rs/ruzstd/Cargo.toml: unused manifest key: dependencies.twox-hash.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/zstd-rs/ruzstd/Cargo.toml: unused manifest key: dev-dependencies.rand.version
+warning: /mnt/data1/nix/vendor/rust/cargo2nix/submodules/gitoxide/gix-worktree-stream/Cargo.toml: unused manifest key: package.rust-workspace
+warning: patch for `curl` uses the features mechanism. default-features and features will not take effect because the patch dependency does not support this mechanism
+warning: patch for `libc` uses the features mechanism. default-features and features will not take effect because the patch dependency does not support this mechanism
+warning: patch for `rusqlite` uses the features mechanism. default-features and features will not take effect because the patch dependency does not support this mechanism
+warning: Patch `lzma-sys v0.1.20 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/xz2-rs/lzma-sys)` was not used in the crate graph.
+Patch `tokio-core v0.1.18 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/tokio-core)` was not used in the crate graph.
+Patch `xz2 v0.1.7 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/xz2-rs)` was not used in the crate graph.
+Check that the patched package version and available features are compatible
+with the dependency requirements. If the patch has a different version from
+what is locked in the Cargo.lock file, run `cargo update` to use the new
+version. This may also occur with an optional dependency that is not enabled.
+    Checking unicode-ident v1.0.22
+ Documenting unicode-ident v1.0.22
+    Checking proc-macro2 v1.0.103 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/proc-macro2)
+ Documenting proc-macro2 v1.0.103 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/proc-macro2)
+    Checking quote v1.0.42 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/quote)
+    Checking syn v2.0.110 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/syn)
+ Documenting quote v1.0.42 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/quote)
+ Documenting syn v2.0.110 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/syn)
+ Documenting synstructure v0.13.2
+    Checking synstructure v0.13.2
+ Documenting rustc_macros v0.0.0 (/mnt/data1/nix/vendor/rust/cargo2nix/submodules/rust/compiler/rustc_macros)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.31s
+   Generated /mnt/data1/nix/vendor/rust/cargo2nix/target/doc/rustc_macros/index.html

@@ -6,7 +6,8 @@ edition = "2021"
 [dependencies]
 aho-corasick = { workspace=true } #  "1.1.4"
 anyhow = { workspace=true } #  "1.0.100"
-block-buffer = { workspace=true } #  "0.10.4"
+async-graphql = { workspace=true } # "7.0"
+tokio  = { workspace=true } #  { version = "1.0", features = ["full"] }
 camino = { workspace=true } #  "1.2.1"
 cargo-platform = { workspace=true } #  "0.3.1"
 cargo  = { workspace=true } #  { workspace = { workspace=true } # true } # "0.92.0" # 94
@@ -65,8 +66,9 @@ unicode-ident = { workspace=true } #  "1.0.22"
 url = { workspace=true } # "2.5.7"
 version_check = { workspace=true } #  "0.9.5"
 walkdir = { workspace=true } #  "2.5.0"
-# async-graphql  = { workspace=true } #  "7.0"
-tokio  = { workspace=true } #  { version = "1.0", features = ["full"] }
+solana-sdk = { workspace = true }
+borsh = { workspace = true }
+
 tool-traits-lib = { path = "../../tools/tool-traits-lib", features = [
 #    "anyhow_enabled",
     "serde_json_enabled",

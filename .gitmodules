@@ -1746,3 +1746,7 @@
 [submodule "submodules/include-dir-macro-rs"]
 	path = submodules/include-dir-macro-rs
 	url = https://github.com/meta-introspector/include-dir-macro-rs
+[submodule "submodules/solana-sdk"]
+	path = submodules/solana-sdk
+	url = https://github.com/meta-introspector/solana-sdk
+	branch = master
