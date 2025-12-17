@@ -1,0 +1,9 @@
+[workspace]
+
+[package]
+name = "cfg_warning_fix"
+version = "0.1.0"
+edition = "2021"
+
+[build-dependencies]
+patch-build-rs-macros = { path = "../../submodules/patch-build-rs/patch-build-rs-macros" }
