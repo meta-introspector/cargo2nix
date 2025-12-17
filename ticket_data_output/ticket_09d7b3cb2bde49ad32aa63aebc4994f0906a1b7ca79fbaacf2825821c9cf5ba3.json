@@ -1,0 +1,86 @@
+{
+  "ticket_id": "09d7b3cb2bde49ad32aa63aebc4994f0906a1b7ca79fbaacf2825821c9cf5ba3",
+  "target_name": "tool_traits_lib",
+  "error_reason": "compiler-message",
+  "summary_message": "Compiler messages for target: tool_traits_lib",
+  "occurrences": [
+    {
+      "rendered_message": "warning: unexpected `cfg` condition value: `serde_enabled`\n --> tools/tool-traits-lib/src/types.rs:7:5\n  |\n7 |     feature = \"serde_enabled\",\n  |     ^^^^^^^^^^---------------\n  |               |\n  |               help: there is a expected value with a similar name: `\"regex_enabled\"`\n  |\n  = note: expected values for `feature` are: `cargo_metadata_enabled`, `clap_enabled`, `default`, `git2_enabled`, `hex_enabled`, `pathdiff_enabled`, `regex_enabled`, `serde_json_enabled`, `sha1_enabled`, `syn_enabled`, and `walkdir_enabled`\n  = help: consider adding `serde_enabled` as a feature in `Cargo.toml`\n  = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n  = note: `#[warn(unexpected_cfgs)]` on by default\n\n",
+      "file_path": "tools/tool-traits-lib/src/types.rs",
+      "line_start": 7,
+      "line_end": 7,
+      "code_snippet": "#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]\n#[cfg_attr(\n    feature = \"serde_enabled\",\n    derive(serde::Serialize, serde::Deserialize)\n)]\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition value: `serde_enabled`\n  --> tools/tool-traits-lib/src/types.rs:20:5\n   |\n20 |     feature = \"serde_enabled\",\n   |     ^^^^^^^^^^---------------\n   |               |\n   |               help: there is a expected value with a similar name: `\"regex_enabled\"`\n   |\n   = note: expected values for `feature` are: `cargo_metadata_enabled`, `clap_enabled`, `default`, `git2_enabled`, `hex_enabled`, `pathdiff_enabled`, `regex_enabled`, `serde_json_enabled`, `sha1_enabled`, `syn_enabled`, and `walkdir_enabled`\n   = help: consider adding `serde_enabled` as a feature in `Cargo.toml`\n   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "tools/tool-traits-lib/src/types.rs",
+      "line_start": 20,
+      "line_end": 20,
+      "code_snippet": "#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]\n#[cfg_attr(\n    feature = \"serde_enabled\",\n    derive(serde::Serialize, serde::Deserialize)\n)]\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition value: `serde_enabled`\n  --> tools/tool-traits-lib/src/types.rs:32:5\n   |\n32 |     feature = \"serde_enabled\",\n   |     ^^^^^^^^^^---------------\n   |               |\n   |               help: there is a expected value with a similar name: `\"regex_enabled\"`\n   |\n   = note: expected values for `feature` are: `cargo_metadata_enabled`, `clap_enabled`, `default`, `git2_enabled`, `hex_enabled`, `pathdiff_enabled`, `regex_enabled`, `serde_json_enabled`, `sha1_enabled`, `syn_enabled`, and `walkdir_enabled`\n   = help: consider adding `serde_enabled` as a feature in `Cargo.toml`\n   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "tools/tool-traits-lib/src/types.rs",
+      "line_start": 32,
+      "line_end": 32,
+      "code_snippet": "#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]\n#[cfg_attr(\n    feature = \"serde_enabled\",\n    derive(serde::Serialize, serde::Deserialize)\n)]\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition value: `serde_enabled`\n  --> tools/tool-traits-lib/src/types.rs:43:5\n   |\n43 |     feature = \"serde_enabled\",\n   |     ^^^^^^^^^^---------------\n   |               |\n   |               help: there is a expected value with a similar name: `\"regex_enabled\"`\n   |\n   = note: expected values for `feature` are: `cargo_metadata_enabled`, `clap_enabled`, `default`, `git2_enabled`, `hex_enabled`, `pathdiff_enabled`, `regex_enabled`, `serde_json_enabled`, `sha1_enabled`, `syn_enabled`, and `walkdir_enabled`\n   = help: consider adding `serde_enabled` as a feature in `Cargo.toml`\n   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "tools/tool-traits-lib/src/types.rs",
+      "line_start": 43,
+      "line_end": 43,
+      "code_snippet": "#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]\n#[cfg_attr(\n    feature = \"serde_enabled\",\n    derive(serde::Serialize, serde::Deserialize)\n)]\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition value: `serde_enabled`\n  --> tools/tool-traits-lib/src/types.rs:53:5\n   |\n53 |     feature = \"serde_enabled\",\n   |     ^^^^^^^^^^---------------\n   |               |\n   |               help: there is a expected value with a similar name: `\"regex_enabled\"`\n   |\n   = note: expected values for `feature` are: `cargo_metadata_enabled`, `clap_enabled`, `default`, `git2_enabled`, `hex_enabled`, `pathdiff_enabled`, `regex_enabled`, `serde_json_enabled`, `sha1_enabled`, `syn_enabled`, and `walkdir_enabled`\n   = help: consider adding `serde_enabled` as a feature in `Cargo.toml`\n   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "tools/tool-traits-lib/src/types.rs",
+      "line_start": 53,
+      "line_end": 53,
+      "code_snippet": "#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]\n#[cfg_attr(\n    feature = \"serde_enabled\",\n    derive(serde::Serialize, serde::Deserialize)\n)]\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition value: `serde_enabled`\n  --> tools/tool-traits-lib/src/types.rs:64:5\n   |\n64 |     feature = \"serde_enabled\",\n   |     ^^^^^^^^^^---------------\n   |               |\n   |               help: there is a expected value with a similar name: `\"regex_enabled\"`\n   |\n   = note: expected values for `feature` are: `cargo_metadata_enabled`, `clap_enabled`, `default`, `git2_enabled`, `hex_enabled`, `pathdiff_enabled`, `regex_enabled`, `serde_json_enabled`, `sha1_enabled`, `syn_enabled`, and `walkdir_enabled`\n   = help: consider adding `serde_enabled` as a feature in `Cargo.toml`\n   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "tools/tool-traits-lib/src/types.rs",
+      "line_start": 64,
+      "line_end": 64,
+      "code_snippet": "#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]\n#[cfg_attr(\n    feature = \"serde_enabled\",\n    derive(serde::Serialize, serde::Deserialize)\n)]\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition value: `serde_enabled`\n  --> tools/tool-traits-lib/src/types.rs:80:5\n   |\n80 |     feature = \"serde_enabled\",\n   |     ^^^^^^^^^^---------------\n   |               |\n   |               help: there is a expected value with a similar name: `\"regex_enabled\"`\n   |\n   = note: expected values for `feature` are: `cargo_metadata_enabled`, `clap_enabled`, `default`, `git2_enabled`, `hex_enabled`, `pathdiff_enabled`, `regex_enabled`, `serde_json_enabled`, `sha1_enabled`, `syn_enabled`, and `walkdir_enabled`\n   = help: consider adding `serde_enabled` as a feature in `Cargo.toml`\n   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "tools/tool-traits-lib/src/types.rs",
+      "line_start": 80,
+      "line_end": 80,
+      "code_snippet": "#[derive(Debug, PartialEq, Eq, Clone)]\n#[cfg_attr(\n    feature = \"serde_enabled\",\n    derive(serde::Serialize, serde::Deserialize)\n)]\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition value: `serde_enabled`\n   --> tools/tool-traits-lib/src/types.rs:105:5\n    |\n105 |     feature = \"serde_enabled\",\n    |     ^^^^^^^^^^---------------\n    |               |\n    |               help: there is a expected value with a similar name: `\"regex_enabled\"`\n    |\n    = note: expected values for `feature` are: `cargo_metadata_enabled`, `clap_enabled`, `default`, `git2_enabled`, `hex_enabled`, `pathdiff_enabled`, `regex_enabled`, `serde_json_enabled`, `sha1_enabled`, `syn_enabled`, and `walkdir_enabled`\n    = help: consider adding `serde_enabled` as a feature in `Cargo.toml`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "tools/tool-traits-lib/src/types.rs",
+      "line_start": 105,
+      "line_end": 105,
+      "code_snippet": "#[derive(Debug, PartialEq, Eq, Clone)]\n#[cfg_attr(\n    feature = \"serde_enabled\",\n    derive(serde::Serialize, serde::Deserialize)\n)]\n"
+    }
+  ],
+  "search_commands": [
+    "rg --context 5 \"unexpected `cfg` condition value: `serde_enabled`\" tools/tool-traits-lib/src/types.rs",
+    "rg --context 5 \"unexpected `cfg` condition value: `serde_enabled`\" tools/tool-traits-lib/src/types.rs",
+    "rg --context 5 \"unexpected `cfg` condition value: `serde_enabled`\" tools/tool-traits-lib/src/types.rs",
+    "rg --context 5 \"unexpected `cfg` condition value: `serde_enabled`\" tools/tool-traits-lib/src/types.rs",
+    "rg --context 5 \"unexpected `cfg` condition value: `serde_enabled`\" tools/tool-traits-lib/src/types.rs",
+    "rg --context 5 \"unexpected `cfg` condition value: `serde_enabled`\" tools/tool-traits-lib/src/types.rs",
+    "rg --context 5 \"unexpected `cfg` condition value: `serde_enabled`\" tools/tool-traits-lib/src/types.rs",
+    "rg --context 5 \"unexpected `cfg` condition value: `serde_enabled`\" tools/tool-traits-lib/src/types.rs"
+  ],
+  "referenced_files": [
+    {
+      "file_path": "tools/tool-traits-lib/src/types.rs",
+      "content": "use std::collections::BTreeMap;\nuse std::path::PathBuf;\nuse std::time::{SystemTime, UNIX_EPOCH};\n\n#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]\n#[cfg_attr(\n    feature = \"serde_enabled\",\n    derive(serde::Serialize, serde::Deserialize)\n)]\npub struct SubmoduleInfo {\n    pub name: String,\n    pub path: PathBuf,\n    pub url: String,\n    pub branch: Option<String>,\n    pub commit_id: String,\n}\n\n#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]\n#[cfg_attr(\n    feature = \"serde_enabled\",\n    derive(serde::Serialize, serde::Deserialize)\n)]\npub struct PackageInfo {\n    pub name: String,\n    pub version: String,\n    pub manifest_path: PathBuf,\n    pub dependencies: Vec<DependencyInfo>,\n}\n\n#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]\n#[cfg_attr(\n    feature = \"serde_enabled\",\n    derive(serde::Serialize, serde::Deserialize)\n)]\npub struct DependencyInfo {\n    pub name: String,\n    pub source: String,\n    pub req: String,\n}\n\n#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]\n#[cfg_attr(\n    feature = \"serde_enabled\",\n    derive(serde::Serialize, serde::Deserialize)\n)]\npub struct CargoWorkspaceInfo {\n    pub manifest_path: PathBuf,\n    pub packages: Vec<PackageInfo>,\n}\n\n#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]\n#[cfg_attr(\n    feature = \"serde_enabled\",\n    derive(serde::Serialize, serde::Deserialize)\n)]\npub struct NixFlakeInfo {\n    pub flake_path: PathBuf,\n    pub inputs: BTreeMap<String, String>,\n    pub outputs: Vec<String>,\n}\n\n#[derive(Debug, Default, PartialEq, Eq, Clone, Hash)]\n#[cfg_attr(\n    feature = \"serde_enabled\",\n    derive(serde::Serialize, serde::Deserialize)\n)]\npub struct RepoState {\n    pub repo_url: String,      // Added\n    pub owner: String,         // Added\n    pub repo_name: String,     // Added\n    pub target_org: String,    // Added\n    pub target_branch: String, // Added\n    pub submodules: Vec<SubmoduleInfo>,\n    pub cargo_workspaces: Vec<CargoWorkspaceInfo>,\n    pub nix_flakes: Vec<NixFlakeInfo>,\n}\n\n#[derive(Debug, PartialEq, Eq, Clone)]\n#[cfg_attr(\n    feature = \"serde_enabled\",\n    derive(serde::Serialize, serde::Deserialize)\n)]\npub struct FileMetadata {\n    pub modified: SystemTime,\n    pub len: u64,\n    pub hash: String,\n    pub git_object_hash: Option<String>,\n    pub is_git_tracked: bool,\n}\n\nimpl Default for FileMetadata {\n    fn default() -> Self {\n        FileMetadata {\n            modified: UNIX_EPOCH,\n            len: 0,\n            hash: String::new(),\n            git_object_hash: None,\n            is_git_tracked: false,\n        }\n    }\n}\n\n#[derive(Debug, PartialEq, Eq, Clone)]\n#[cfg_attr(\n    feature = \"serde_enabled\",\n    derive(serde::Serialize, serde::Deserialize)\n)]\npub struct MergedCrateInfo {\n    pub layer: i32,\n    pub usage_count: u32,\n}\n"
+    }
+  ],
+  "project_documentation": [],
+  "macro_expanded_code_paths": [],
+  "external_documentation_links": [
+    "https://docs.rs/tool_traits_lib/latest",
+    "https://doc.rust-lang.org/book/"
+  ]
+}

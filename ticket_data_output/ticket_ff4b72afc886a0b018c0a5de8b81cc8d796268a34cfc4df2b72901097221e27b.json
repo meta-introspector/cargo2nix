@@ -1,0 +1,30 @@
+{
+  "ticket_id": "ff4b72afc886a0b018c0a5de8b81cc8d796268a34cfc4df2b72901097221e27b",
+  "target_name": "typesize",
+  "error_reason": "compiler-message",
+  "summary_message": "Compiler messages for target: typesize",
+  "occurrences": [
+    {
+      "rendered_message": "warning: unexpected `cfg` condition value: `hashbrown_15`\n  --> submodules/typesize/src/libs/mod.rs:15:7\n   |\n15 | #[cfg(feature = \"hashbrown_15\")]\n   |       ^^^^^^^^^^--------------\n   |                 |\n   |                 help: there is a expected value with a similar name: `\"hashbrown\"`\n   |\n   = note: expected values for `feature` are: `arrayvec`, `bitvec`, `chrono`, `dashmap`, `default`, `details`, `extract_map_01`, `halfbrown`, `hashbrown`, `mini_moka`, `nonmax`, `parking_lot`, `saturating_impls`, `secrecy`, `serde_json`, `simd_json`, `std`, `time`, `url`, and `web-time`\n   = help: consider adding `hashbrown_15` as a feature in `Cargo.toml`\n   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n   = note: `#[warn(unexpected_cfgs)]` on by default\n\n",
+      "file_path": "submodules/typesize/src/libs/mod.rs",
+      "line_start": 15,
+      "line_end": 15,
+      "code_snippet": "#[cfg(feature = \"hashbrown\")]\nmod hashbrown_14;\n#[cfg(feature = \"hashbrown_15\")]\nmod hashbrown_15;\n#[cfg(feature = \"mini_moka\")]\n"
+    }
+  ],
+  "search_commands": [
+    "rg --context 5 \"unexpected `cfg` condition value: `hashbrown_15`\" submodules/typesize/src/libs/mod.rs"
+  ],
+  "referenced_files": [
+    {
+      "file_path": "submodules/typesize/src/libs/mod.rs",
+      "content": "#[cfg(feature = \"arrayvec\")]\nmod arrayvec;\n#[cfg(feature = \"bitvec\")]\nmod bitvec;\n#[cfg(feature = \"chrono\")]\nmod chrono;\n#[cfg(feature = \"dashmap\")]\nmod dashmap;\n#[cfg(feature = \"extract_map_01\")]\nmod extract_map;\n#[cfg(feature = \"halfbrown\")]\nmod halfbrown;\n#[cfg(feature = \"hashbrown\")]\nmod hashbrown_14;\n#[cfg(feature = \"hashbrown_15\")]\nmod hashbrown_15;\n#[cfg(feature = \"mini_moka\")]\nmod mini_moka;\n#[cfg(feature = \"nonmax\")]\nmod nonmax;\n#[cfg(feature = \"parking_lot\")]\nmod parking_lot;\n#[cfg(feature = \"secrecy\")]\nmod secrecy;\n#[cfg(feature = \"serde_json\")]\nmod serde_json;\n#[cfg(feature = \"simd_json\")]\nmod simd_json;\n#[cfg(feature = \"time\")]\nmod time;\n#[cfg(feature = \"url\")]\nmod url;\n#[cfg(feature = \"web-time\")]\nmod web_time;\n"
+    }
+  ],
+  "project_documentation": [],
+  "macro_expanded_code_paths": [],
+  "external_documentation_links": [
+    "https://docs.rs/typesize/latest",
+    "https://doc.rust-lang.org/book/"
+  ]
+}

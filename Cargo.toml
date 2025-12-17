@@ -670,7 +670,7 @@ members = [
 , "tools/type-reporter",
 "submodules/rust/compiler/rustc_expand_base_lib_errors",
 "submodules/rust/compiler/rustc_expand_base_lib_macros",
-"submodules/rust/compiler/rustc_expand_base_lib_test_driver"]
+"submodules/rust/compiler/rustc_expand_base_lib_test_driver", "ticket_data_generator"]
 
 
 [workspace.package]

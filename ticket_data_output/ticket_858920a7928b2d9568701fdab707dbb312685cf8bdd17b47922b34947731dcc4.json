@@ -1,0 +1,30 @@
+{
+  "ticket_id": "858920a7928b2d9568701fdab707dbb312685cf8bdd17b47922b34947731dcc4",
+  "target_name": "rustc_index",
+  "error_reason": "compiler-message",
+  "summary_message": "Compiler messages for target: rustc_index",
+  "occurrences": [
+    {
+      "rendered_message": "warning: the feature `const_pin` has been stable since 1.84.0 and no longer requires an attribute to enable\n --> submodules/rust/compiler/rustc_index/src/lib.rs:5:12\n  |\n5 | #![feature(const_pin)]\n  |            ^^^^^^^^^\n  |\n  = note: `#[warn(stable_features)]` on by default\n\n",
+      "file_path": "submodules/rust/compiler/rustc_index/src/lib.rs",
+      "line_start": 5,
+      "line_end": 5,
+      "code_snippet": "#![cfg_attr(feature = \"nightly\", feature(extend_one, step_trait, test))]\n#![cfg_attr(feature = \"nightly\", feature(new_range_api))]\n#![feature(const_pin)]\n#![feature(new_zeroed_alloc)]\n// tidy-alphabetical-end\n"
+    }
+  ],
+  "search_commands": [
+    "rg --context 5 \"the feature `const_pin` has been stable since 1\\.84\\.0 and no longer requires an attribute to enable\" submodules/rust/compiler/rustc_index/src/lib.rs"
+  ],
+  "referenced_files": [
+    {
+      "file_path": "submodules/rust/compiler/rustc_index/src/lib.rs",
+      "content": "// tidy-alphabetical-start\n#![cfg_attr(all(feature = \"nightly\", test), feature(stmt_expr_attributes))]\n#![cfg_attr(feature = \"nightly\", feature(extend_one, step_trait, test))]\n#![cfg_attr(feature = \"nightly\", feature(new_range_api))]\n#![feature(const_pin)]\n#![feature(new_zeroed_alloc)]\n// tidy-alphabetical-end\n\npub mod bit_set;\n#[cfg(feature = \"nightly\")]\npub mod interval;\n\nmod idx;\nmod slice;\nmod vec;\n\npub use idx::{Idx, IntoSliceIdx};\npub use rustc_index_macros::newtype_index;\npub use slice::IndexSlice;\n#[doc(no_inline)]\npub use vec::IndexVec;\n\n/// Type size assertion. The first argument is a type and the second argument is its expected size.\n///\n/// <div class=\"warning\">\n///\n/// Emitting hard errors from size assertions like this is generally not\n/// recommended, especially in libraries, because they can cause build failures if the layout\n/// algorithm or dependencies change. Here in rustc we control the toolchain and layout algorithm,\n/// so the former is not a problem. For the latter we have a lockfile as rustc is an application and\n/// precompiled library.\n///\n/// Short version: Don't copy this macro into your own code. Use a `#[test]` instead.\n///\n/// </div>\n#[macro_export]\n#[cfg(not(feature = \"rustc_randomized_layouts\"))]\nmacro_rules! static_assert_size {\n    ($ty:ty, $size:expr) => {\n        const _: [(); $size] = [(); ::std::mem::size_of::<$ty>()];\n    };\n}\n\n#[macro_export]\n#[cfg(feature = \"rustc_randomized_layouts\")]\nmacro_rules! static_assert_size {\n    ($ty:ty, $size:expr) => {\n        // no effect other than using the statements.\n        // struct sizes are not deterministic under randomized layouts\n        const _: (usize, usize) = ($size, ::std::mem::size_of::<$ty>());\n    };\n}\n\n#[macro_export]\nmacro_rules! indexvec {\n    ($expr:expr; $n:expr) => {\n        IndexVec::from_raw(vec![$expr; $n])\n    };\n    ($($expr:expr),* $(,)?) => {\n        IndexVec::from_raw(vec![$($expr),*])\n    };\n}\n"
+    }
+  ],
+  "project_documentation": [],
+  "macro_expanded_code_paths": [],
+  "external_documentation_links": [
+    "https://docs.rs/rustc_index/latest",
+    "https://doc.rust-lang.org/book/"
+  ]
+}

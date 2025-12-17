@@ -1,0 +1,634 @@
+commit 06cee8d828eea18c4e6da9e390120f521e70a684
+Author: mike dupont <mike.dupont@introspector.local>
+Date:   Tue Dec 16 22:39:57 2025 -0500
+
+    docs: Add explanation for build.rs in rustc_expand_patches
+
+diff --git a/compiler/rustc_expand_patches/build.rs b/compiler/rustc_expand_patches/build.rs
+index 2fb8e29adeb..f90e3079936 100644
+--- a/compiler/rustc_expand_patches/build.rs
++++ b/compiler/rustc_expand_patches/build.rs
+@@ -2,21 +2,21 @@
+ use quote::quote;
+ use serde::Deserialize;
+ use std::collections::HashMap;
+-use std::env; // Added missing import
++use std::env;
+ use std::fs;
+-use std::io::{Read, Write};
++use std::io::Write; // Only Write is used
+ use std::path::{Path, PathBuf};
+ use std::process::Command;
+ use syn::{
+     visit_mut::{visit_item_fn_mut, VisitMut},
+-    File,
++    File, // This is syn::File
+     Item,
+     ItemFn,
+     ItemUse,
+ };
+ use toml;
+ use proc_macro2;
+-use toml_edit; // Added missing import
++use toml_edit::{self, Document}; // Import Document from toml_edit
+ 
+ /// --- Configuration Structures for Edit Jobs ---
+ 
+@@ -145,7 +145,7 @@ fn get_config_paths(path: &Path) -> Result<Vec<PathBuf>> {
+ 
+ fn apply_add_use(ast: &mut syn::File, details: &AddUseDetails) -> Result<()> {
+     let new_use_item: ItemUse = syn::parse_str(&details.path)
+-        .with_context(|| format!("Invalid use statement syntax: {}", details.path))?;
++        .with_context(|| format!("Invalid use statement syntax: {}", details.path)?);
+ 
+     let new_use_str = quote! { #new_use_item }.to_string();
+ 
+@@ -421,29 +421,35 @@ fn apply_remove_cargo_dependency(details: &RemoveCargoDependencyDetails) -> Resu
+     let content = fs::read_to_string(&details.target_file)
+         .with_context(|| format!("Failed to read Cargo.toml: {:?}", details.target_file))?;
+ 
+-    let mut doc = content.parse::<toml_edit::Document>()
++    let mut doc = content.parse::<Document>() // Use toml_edit::Document
+         .with_context(|| format!("Failed to parse Cargo.toml: {:?}", details.target_file))?;
+ 
+     let mut changed = false;
+ 
+     // Helper to remove dependency from a section
+-    let mut remove_from_section = |section_name: &str| {
+-        if let Some(table) = doc.get_table_mut(section_name) {
++    let mut remove_from_section = |section_name: &str, doc_ref: &mut Document| { // Take doc_ref as mutable
++        if let Some(table) = doc_ref.get_mut(section_name).and_then(|item| item.as_table_mut()) { // Fixed API usage
+             if table.contains_key(&details.package_name) {
+                 table.remove(&details.package_name);
+                 eprintln!("    Removed '{}' from [{}]", details.package_name, section_name);
+-                changed = true;
++                true // Return true if changed
++            } else {
++                false
+             }
++        } else {
++            false
+         }
+     };
+ 
+-    remove_from_section("dependencies");
+-    remove_from_section("dev-dependencies");
+-    remove_from_section("build-dependencies");
++
++    changed |= remove_from_section("dependencies", &mut doc);
++    changed |= remove_from_section("dev-dependencies", &mut doc);
++    changed |= remove_from_section("build-dependencies", &mut doc);
++    
+     // Handle workspace.dependencies specially as it's at the root but keys are package names
+-    if let Some(ws_deps) = doc.get_table_mut("workspace.dependencies") {
+-        if ws_deps.contains_key(&details.package_name) {
+-            ws_deps.remove(&details.package_name);
++    if let Some(ws_deps_table) = doc.get_mut("workspace.dependencies").and_then(|item| item.as_table_mut()) {
++        if ws_deps_table.contains_key(&details.package_name) {
++            ws_deps_table.remove(&details.package_name);
+             eprintln!("    Removed '{}' from [workspace.dependencies]", details.package_name);
+             changed = true;
+         }
+@@ -451,16 +457,16 @@ fn apply_remove_cargo_dependency(details: &RemoveCargoDependencyDetails) -> Resu
+ 
+ 
+     // Also handle patch section
+-    if let Some(table) = doc.get_table_mut("patch.crates-io") {
+-        if table.contains_key(&details.package_name) {
+-            table.remove(&details.package_name);
++    if let Some(patch_table) = doc.get_mut("patch.crates-io").and_then(|item| item.as_table_mut()) {
++        if patch_table.contains_key(&details.package_name) {
++            patch_table.remove(&details.package_name);
+             eprintln!("    Removed '{}' from [patch.crates-io]", details.package_name);
+             changed = true;
+         }
+     }
+ 
+     // Handle workspace.members array
+-    if let Some(workspace_table) = doc.get_table_mut("workspace") {
++    if let Some(workspace_table) = doc.get_mut("workspace").and_then(|item| item.as_table_mut()) {
+         if let Some(members_item) = workspace_table.get_mut("members") {
+             if let Some(members_array) = members_item.as_array_mut() {
+                 let initial_len = members_array.len();
+@@ -533,7 +539,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
+                         EditJob::AddItem(details) => &details.target_file,
+                         EditJob::ReplaceFileContent(details) => &details.target_file,
+                         EditJob::ReplaceFileContentFromFile(details) => &details.target_file,
+-                        EditJob::RemoveCargoDependency(details) => &details.target_file, // Handle new variant
++                        EditJob::RemoveCargoDependency(details) => &details.target_file,
+                         EditJob::RemoveUse(details) => &details.target_file, // Handle new variant
+                         EditJob::RunSearch(_) => unreachable!(), // Handled above
+                     };
+@@ -548,12 +554,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
+             apply_run_search(search_job_details)?;
+         }
+ 
+-        for (file_path, edits) in edits_by_file {
++        for (file_path, edits) in &mut edits_by_file { // Changed to iterate over mutable reference
+             eprintln!("\nDebug: Processing file: {:?}", file_path);
+ 
+             // Special handling for Cargo.toml files for dependency removal
+             if file_path.file_name().map_or(false, |name| name == "Cargo.toml") {
+-                for edit in edits {
++                for edit in edits.drain(..) { // Use drain to consume edits from the Vec
+                     if let EditJob::RemoveCargoDependency(details) = edit {
+                         apply_remove_cargo_dependency(details)?;
+                     } else {
+@@ -582,7 +588,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
+             let mut new_file_content_from_string: Option<String> = None;
+             let mut new_file_content_from_file: Option<PathBuf> = None;
+ 
+-            for edit in &edits {
++            for edit in edits.iter() { // Iterate over reference here
+                 match edit {
+                     EditJob::ReplaceFileContent(details) => {
+                         replace_entire_file = true;
+@@ -615,7 +621,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
+                 let mut ast: syn::File = syn::parse_file(&file_content)
+                     .with_context(|| format!("Failed to parse Rust file: {:?}", file_path))?;
+ 
+-                for edit in &edits {
++                for edit in edits.drain(..) { // Use drain again for Rust edits
+                     match edit {
+                         EditJob::AddUse(details) => apply_add_use(&mut ast, details)?,
+                         EditJob::RemoveFunction(details) => apply_remove_function(&mut ast, details)?,
+@@ -633,16 +639,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
+                 let formatted_code = prettyplease::unparse(&ast);
+                 eprintln!("Debug: Formatted code after AST modification for {:?}:\n{}", file_path, formatted_code);
+ 
+-                let write_result = fs::write(&file_path, &formatted_code);
+-                match write_result {
+-                    Ok(_) => eprintln!("Successfully wrote modified file: {:?}", file_path),
+-                    Err(e) => eprintln!("Error writing modified file {:?}: {}", file_path, e),
+-                }
+-                write_result.with_context(|| format!("Failed to write modified file: {:?}", file_path))?;
++                fs::write(&file_path, &formatted_code)
++                    .with_context(|| format!("Failed to write modified file: {:?}", file_path))?;
+             }
+         }
+     }
+ 
+     eprintln!("\nAll specified edits applied successfully!");
+     Ok(())
+-}
++}
+\ No newline at end of file
+
+commit f4e35f3429cfc7be75e60061ad8f1f9a5517dced
+Author: mike dupont <mike.dupont@introspector.local>
+Date:   Tue Dec 16 19:53:25 2025 -0500
+
+    first patchrocksdb
+
+diff --git a/compiler/rustc_expand_patches/Cargo.toml b/compiler/rustc_expand_patches/Cargo.toml
+index e91fa820697..12bb915561b 100644
+--- a/compiler/rustc_expand_patches/Cargo.toml
++++ b/compiler/rustc_expand_patches/Cargo.toml
+@@ -9,7 +9,7 @@ proc-macro = true
+ [dependencies]
+ proc-macro2 = "1.0"
+ quote = "1.0"
+-syn = { version = "1.0", features = ["full"] }
++syn = { version = "2.0", features = ["full"] }
+ toml = "0.8"
+ serde = { version = "1.0", features = ["derive"] }
+ introspector_core = { workspace = true }
+@@ -17,8 +17,9 @@ introspector_core = { workspace = true }
+ [build-dependencies]
+ anyhow = "1.0"
+ quote = "1.0"
+-syn = { version = "1.0", features = ["full", "visit-mut"] }
++syn = { version = "2.0", features = ["full", "visit-mut"] }
+ toml = "0.8"
+ serde = { version = "1.0", features = ["derive"] }
+ prettyplease = "0.2"
+-proc-macro2 = "1.0"
+\ No newline at end of file
++proc-macro2 = "1.0"
++toml_edit = "0.2"
+diff --git a/compiler/rustc_expand_patches/build.rs b/compiler/rustc_expand_patches/build.rs
+index e71b817131f..2fb8e29adeb 100644
+--- a/compiler/rustc_expand_patches/build.rs
++++ b/compiler/rustc_expand_patches/build.rs
+@@ -1,10 +1,12 @@
+ use anyhow::{Context, Result};
+-// Removed clap::Parser since we are not using CLI args
+ use quote::quote;
+ use serde::Deserialize;
+ use std::collections::HashMap;
++use std::env; // Added missing import
+ use std::fs;
++use std::io::{Read, Write};
+ use std::path::{Path, PathBuf};
++use std::process::Command;
+ use syn::{
+     visit_mut::{visit_item_fn_mut, VisitMut},
+     File,
+@@ -13,9 +15,10 @@
+     ItemUse,
+ };
+ use toml;
+-use proc_macro2; // Keep proc_macro2 because quote! uses it
++use proc_macro2;
++use toml_edit; // Added missing import
+ 
+-/// --- Configuration Structures for Edit Jobs (Copied from code_editor/src/main.rs) ---
++/// --- Configuration Structures for Edit Jobs ---
+ 
+ #[derive(Debug, Deserialize)]
+ pub struct EditJobConfig {
+@@ -32,7 +35,9 @@ pub enum EditJob {
+     AddItem(AddItemDetails),
+     ReplaceFileContent(ReplaceFileContentDetails),
+     ReplaceFileContentFromFile(ReplaceFileContentFromFileDetails),
+-    // Add other edit types as needed
++    RunSearch(RunSearchDetails), // New variant for running search commands
++    RemoveCargoDependency(RemoveCargoDependencyDetails), // New variant for removing Cargo dependencies
++    RemoveUse(RemoveUseDetails), // New variant for removing use statements
+ }
+ 
+ #[derive(Debug, Deserialize)]
+@@ -91,7 +96,25 @@ pub struct ReplaceFileContentFromFileDetails {
+     pub source_file: PathBuf,
+ }
+ 
+-// --- Helper Functions (Copied from code_editor/src/main.rs) ---
++#[derive(Debug, Deserialize)]
++pub struct RunSearchDetails {
++    pub command: String, // The shell command to execute, e.g., "rg rocksdb Cargo.toml"
++    pub output_file: Option<PathBuf>, // Optional file to save the output to
++}
++
++#[derive(Debug, Deserialize)]
++pub struct RemoveCargoDependencyDetails {
++    pub target_file: PathBuf, // Path to the Cargo.toml file
++    pub package_name: String, // Name of the dependency package to remove or member path from workspace.members
++}
++
++#[derive(Debug, Deserialize)]
++pub struct RemoveUseDetails {
++    pub target_file: PathBuf,
++    pub use_path: String, // The path inside the use statement, e.g., "rocksdb::{Options, DB}"
++}
++
++// --- Helper Functions ---
+ 
+ /// Helper function to get a list of config files.
+ /// If path is a file, returns a vector containing just that path.
+@@ -118,9 +141,9 @@ fn get_config_paths(path: &Path) -> Result<Vec<PathBuf>> {
+     Ok(paths)
+ }
+ 
+-/// --- Edit Application Functions (Copied from code_editor/src/main.rs) ---
++/// --- Edit Application Functions ---
+ 
+-fn apply_add_use(ast: &mut File, details: &AddUseDetails) -> Result<()> {
++fn apply_add_use(ast: &mut syn::File, details: &AddUseDetails) -> Result<()> {
+     let new_use_item: ItemUse = syn::parse_str(&details.path)
+         .with_context(|| format!("Invalid use statement syntax: {}", details.path))?;
+ 
+@@ -178,7 +201,33 @@ fn apply_add_use(ast: &mut File, details: &AddUseDetails) -> Result<()> {
+     Ok(())
+ }
+ 
+-fn apply_remove_function(ast: &mut File, details: &RemoveFunctionDetails) -> Result<()> {
++fn apply_remove_use(ast: &mut syn::File, details: &RemoveUseDetails) -> Result<()> {
++    let use_to_remove: ItemUse = syn::parse_str(&format!("use {};", details.use_path))
++        .with_context(|| format!("Invalid use statement path: {}", details.use_path))?;
++
++    let use_to_remove_str = quote! { #use_to_remove }.to_string();
++    let mut removed = false;
++
++    ast.items.retain(|item| {
++        if let Item::Use(existing_use) = item {
++            if quote! { #existing_use }.to_string() == use_to_remove_str {
++                removed = true;
++                return false; // Remove this use statement
++            }
++        }
++        true // Keep other items
++    });
++
++    if removed {
++        eprintln!("  Removed use statement: {}", details.use_path);
++    } else {
++        eprintln!("  Warning: Use statement '{}' not found for removal.", details.use_path);
++    }
++    Ok(())
++}
++
++
++fn apply_remove_function(ast: &mut syn::File, details: &RemoveFunctionDetails) -> Result<()> {
+     let mut removed = false;
+     ast.items.retain(|item| {
+         if let Item::Fn(item_fn) = item {
+@@ -197,7 +246,7 @@ fn apply_remove_function(ast: &mut File, details: &RemoveFunctionDetails) -> Res
+     Ok(())
+ }
+ 
+-fn apply_replace_expression(ast: &mut File, details: &ReplaceExpressionDetails) -> Result<()> {
++fn apply_replace_expression(ast: &mut syn::File, details: &ReplaceExpressionDetails) -> Result<()> {
+     let mut visitor = ExpressionReplacer {
+         function_name: &details.function_name,
+         old_snippet: syn::parse_str(&details.old_code_snippet)
+@@ -255,7 +304,7 @@ fn visit_expr_mut(&mut self, i: &mut syn::Expr) {
+     }
+ }
+ 
+-fn apply_add_function(ast: &mut File, details: &AddFunctionDetails) -> Result<()> {
++fn apply_add_function(ast: &mut syn::File, details: &AddFunctionDetails) -> Result<()> {
+     let new_fn: ItemFn = syn::parse_str(&details.function_code)
+         .with_context(|| format!("Invalid function code syntax: {}", details.function_code))?;
+ 
+@@ -275,7 +324,7 @@ fn apply_add_function(ast: &mut File, details: &AddFunctionDetails) -> Result<()
+     Ok(())
+ }
+ 
+-fn apply_add_item(ast: &mut File, details: &AddItemDetails) -> Result<()> {
++fn apply_add_item(ast: &mut syn::File, details: &AddItemDetails) -> Result<()> {
+     let new_item: Item = syn::parse_str(&details.item_code)
+         .with_context(|| format!("Invalid item code syntax: {}", details.item_code))?;
+ 
+@@ -337,6 +386,106 @@ fn apply_replace_file_content_from_file(target_file: &PathBuf, source_file: &Pat
+     Ok(())
+ }
+ 
++fn apply_run_search(details: &RunSearchDetails) -> Result<()> {
++    eprintln!("  Running search command: '{}'", details.command);
++    let output = Command::new("sh")
++        .arg("-c")
++        .arg(&details.command)
++        .output()
++        .with_context(|| format!("Failed to execute command: {}", details.command))?;
++
++    let stdout = String::from_utf8_lossy(&output.stdout);
++    let stderr = String::from_utf8_lossy(&output.stderr);
++
++    eprintln!("  Search stdout:\n{}", stdout);
++    eprintln!("  Search stderr:\n{}", stderr);
++
++    if let Some(output_file) = &details.output_file {
++        let mut file = fs::File::create(output_file)
++            .with_context(|| format!("Failed to create output file: {:?}", output_file))?;
++        file.write_all(stdout.as_bytes())
++            .with_context(|| format!("Failed to write stdout to file: {:?}", output_file))?;
++        file.write_all(stderr.as_bytes())
++            .with_context(|| format!("Failed to write stderr to file: {:?}", output_file))?;
++        eprintln!("  Search output saved to {:?}", output_file);
++    }
++    Ok(())
++}
++
++fn apply_remove_cargo_dependency(details: &RemoveCargoDependencyDetails) -> Result<()> {
++    eprintln!(
++        "  Removing dependency '{}' from Cargo.toml: {:?}",
++        details.package_name, details.target_file
++    );
++
++    let content = fs::read_to_string(&details.target_file)
++        .with_context(|| format!("Failed to read Cargo.toml: {:?}", details.target_file))?;
++
++    let mut doc = content.parse::<toml_edit::Document>()
++        .with_context(|| format!("Failed to parse Cargo.toml: {:?}", details.target_file))?;
++
++    let mut changed = false;
++
++    // Helper to remove dependency from a section
++    let mut remove_from_section = |section_name: &str| {
++        if let Some(table) = doc.get_table_mut(section_name) {
++            if table.contains_key(&details.package_name) {
++                table.remove(&details.package_name);
++                eprintln!("    Removed '{}' from [{}]", details.package_name, section_name);
++                changed = true;
++            }
++        }
++    };
++
++    remove_from_section("dependencies");
++    remove_from_section("dev-dependencies");
++    remove_from_section("build-dependencies");
++    // Handle workspace.dependencies specially as it's at the root but keys are package names
++    if let Some(ws_deps) = doc.get_table_mut("workspace.dependencies") {
++        if ws_deps.contains_key(&details.package_name) {
++            ws_deps.remove(&details.package_name);
++            eprintln!("    Removed '{}' from [workspace.dependencies]", details.package_name);
++            changed = true;
++        }
++    }
++
++
++    // Also handle patch section
++    if let Some(table) = doc.get_table_mut("patch.crates-io") {
++        if table.contains_key(&details.package_name) {
++            table.remove(&details.package_name);
++            eprintln!("    Removed '{}' from [patch.crates-io]", details.package_name);
++            changed = true;
++        }
++    }
++
++    // Handle workspace.members array
++    if let Some(workspace_table) = doc.get_table_mut("workspace") {
++        if let Some(members_item) = workspace_table.get_mut("members") {
++            if let Some(members_array) = members_item.as_array_mut() {
++                let initial_len = members_array.len();
++                members_array.retain(|item| {
++                    item.as_str().map_or(true, |s| s != details.package_name)
++                });
++                if members_array.len() < initial_len {
++                    eprintln!("    Removed '{}' from [workspace.members]", details.package_name);
++                    changed = true;
++                }
++            }
++        }
++    }
++
++    if changed {
++        fs::write(&details.target_file, doc.to_string().as_bytes())
++            .with_context(|| format!("Failed to write modified Cargo.toml: {:?}", details.target_file))?;
++        eprintln!("  Successfully removed dependency '{}' from {:?}", details.package_name, details.target_file);
++    } else {
++        eprintln!("  Dependency '{}' not found in any relevant section of {:?}", details.package_name, details.target_file);
++    }
++
++    Ok(())
++}
++
+ fn main() -> Result<(), Box<dyn std::error::Error>> {
+     println!("cargo:rerun-if-changed=patches"); // Rerun if the patches directory changes
+ 
+@@ -367,25 +516,68 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
+         let edit_job_config: EditJobConfig = toml::from_str(&config_content)
+             .with_context(|| format!("Failed to parse {:?}", config_path))?;
+ 
+-        // Group edits by target file to process each file once
++        // Separate search jobs as they don't target a specific file for AST modification
++        let mut search_jobs: Vec<&RunSearchDetails> = Vec::new();
+         let mut edits_by_file: HashMap<PathBuf, Vec<&EditJob>> = HashMap::new();
++
++
+         for edit in &edit_job_config.edits {
+-            let target_file = match edit {
+-                EditJob::AddUse(details) => &details.target_file,
+-                EditJob::RemoveFunction(details) => &details.target_file,
+-                EditJob::ReplaceExpression(details) => &details.target_file,
+-                EditJob::AddFunction(details) => &details.target_file,
+-                EditJob::AddItem(details) => &details.target_file,
+-                EditJob::ReplaceFileContent(details) => &details.target_file,
+-                EditJob::ReplaceFileContentFromFile(details) => &details.target_file,
+-            };
+-            eprintln!("Debug: Adding edit for target_file: {:?}", target_file);
+-            edits_by_file.entry(target_file.clone()).or_default().push(edit);
++            match edit {
++                EditJob::RunSearch(details) => search_jobs.push(details),
++                _ => {
++                    let target_file = match edit {
++                        EditJob::AddUse(details) => &details.target_file,
++                        EditJob::RemoveFunction(details) => &details.target_file,
++                        EditJob::ReplaceExpression(details) => &details.target_file,
++                        EditJob::AddFunction(details) => &details.target_file,
++                        EditJob::AddItem(details) => &details.target_file,
++                        EditJob::ReplaceFileContent(details) => &details.target_file,
++                        EditJob::ReplaceFileContentFromFile(details) => &details.target_file,
++                        EditJob::RemoveCargoDependency(details) => &details.target_file, // Handle new variant
++                        EditJob::RemoveUse(details) => &details.target_file, // Handle new variant
++                        EditJob::RunSearch(_) => unreachable!(), // Handled above
++                    };
++                    eprintln!("Debug: Adding edit for target_file: {:?}", target_file);
++                    edits_by_file.entry(target_file.clone()).or_default().push(edit);
++                }
++            }
++        }
++
++        // Execute search jobs first
++        for search_job_details in search_jobs {
++            apply_run_search(search_job_details)?;
+         }
+ 
+         for (file_path, edits) in edits_by_file {
+             eprintln!("\nDebug: Processing file: {:?}", file_path);
+ 
++            // Special handling for Cargo.toml files for dependency removal
++            if file_path.file_name().map_or(false, |name| name == "Cargo.toml") {
++                for edit in edits {
++                    if let EditJob::RemoveCargoDependency(details) = edit {
++                        apply_remove_cargo_dependency(details)?;
++                    } else {
++                        eprintln!("  Warning: Ignoring non-RemoveCargoDependency edit for Cargo.toml: {:?}", edit);
++                    }
++                }
++                // Check if any Rust code edits are also present for this Cargo.toml file.
++                // If yes, process them. Otherwise, continue.
++                let has_rust_edits = edits.iter().any(|edit| match edit {
++                    EditJob::AddUse(_) 
++                    | EditJob::RemoveFunction(_) 
++                    | EditJob::ReplaceExpression(_) 
++                    | EditJob::AddFunction(_) 
++                    | EditJob::AddItem(_) 
++                    | EditJob::RemoveUse(_) => true, // Include RemoveUse for Rust files
++                    _ => false,
++                });
++
++                if !has_rust_edits {
++                    continue; // Move to the next file if only Cargo.toml specific edits were processed
++                }
++            }
++
++
+             let mut replace_entire_file = false;
+             let mut new_file_content_from_string: Option<String> = None;
+             let mut new_file_content_from_file: Option<PathBuf> = None;
+@@ -420,7 +612,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
+                 let file_content = fs::read_to_string(&file_path)
+                     .with_context(|| format!("Failed to read file: {:?}", file_path))?;
+                 eprintln!("Debug: Original file content for {:?}:\n{}", file_path, file_content);
+-                let mut ast: File = syn::parse_file(&file_content)
++                let mut ast: syn::File = syn::parse_file(&file_content)
+                     .with_context(|| format!("Failed to parse Rust file: {:?}", file_path))?;
+ 
+                 for edit in &edits {
+@@ -430,8 +622,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
+                         EditJob::ReplaceExpression(details) => apply_replace_expression(&mut ast, details)?,
+                         EditJob::AddFunction(details) => apply_add_function(&mut ast, details)?,
+                         EditJob::AddItem(details) => apply_add_item(&mut ast, details)?,
++                        EditJob::RemoveUse(details) => apply_remove_use(&mut ast, details)?, // New dispatch
+                         EditJob::ReplaceFileContent(_) => {{ /* Already handled */ }}
+                         EditJob::ReplaceFileContentFromFile(_) => {{ /* Already handled */ }}
++                        EditJob::RunSearch(_) => unreachable!(), // Handled above
++                        EditJob::RemoveCargoDependency(_) => unreachable!(), // Handled above
+                     }
+                 }
+ 
+@@ -450,4 +645,4 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
+ 
+     eprintln!("\nAll specified edits applied successfully!");
+     Ok(())
+-}
+\ No newline at end of file
++}
+diff --git a/compiler/rustc_expand_patches/patches/fix_rustc_expand_base_lib_test_driver.toml b/compiler/rustc_expand_patches/patches/fix_rustc_expand_base_lib_test_driver.toml
+new file mode 100644
+index 00000000000..b99cd8d6955
+--- /dev/null
++++ b/compiler/rustc_expand_patches/patches/fix_rustc_expand_base_lib_test_driver.toml
+@@ -0,0 +1,14 @@
++# Patch to fix imports in rustc_expand_base_lib_test_driver/src/main.rs
++
++# Remove problematic imports
++[[edits]]
++type = "RemoveUse"
++target_file = "../../../../submodules/rust/compiler/rustc_expand_base_lib_test_driver/src/main.rs"
++use_path = "rustc_expand_base_lib_errors::{TraceMacroBase, TraceMacroNote, Diagnostic, Subdiagnostic}"
++
++# Add back the non-problematic imports
++[[edits]]
++type = "AddUse"
++target_file = "../../../../submodules/rust/compiler/rustc_expand_base_lib_test_driver/src/main.rs"
++path = "rustc_expand_base_lib_errors::{TraceMacroBase, TraceMacroNote}"
++position = "start"
+diff --git a/compiler/rustc_expand_patches/patches/search_rocksdb_and_disable.toml b/compiler/rustc_expand_patches/patches/search_rocksdb_and_disable.toml
+new file mode 100644
+index 00000000000..63260826a68
+--- /dev/null
++++ b/compiler/rustc_expand_patches/patches/search_rocksdb_and_disable.toml
+@@ -0,0 +1,41 @@
++[[edits]]
++type = "RunSearch"
++command = "rg -l \"rocksdb\" --glob \"*.toml\" --glob \"!target/*\""
++
++# This patch file defines actions to disable rocksdb and librocksdb-sys.
++
++# Remove librocksdb-sys dependency from the 'rocksdb' crate's Cargo.toml
++[[edits]]
++type = "RemoveCargoDependency"
++target_file = "../../../../submodules/rocksdb/Cargo.toml"
++package_name = "librocksdb-sys"
++
++# Remove rocksdb dependency from the root Cargo.toml
++[[edits]]
++type = "RemoveCargoDependency"
++target_file = "../../../../Cargo.toml"
++package_name = "rocksdb"
++
++# Remove librocksdb-sys dependency from the root Cargo.toml
++[[edits]]
++type = "RemoveCargoDependency"
++target_file = "../../../../Cargo.toml"
++package_name = "librocksdb-sys"
++
++# Remove "submodules/rocksdb" from workspace members in root Cargo.toml
++[[edits]]
++type = "RemoveCargoDependency"
++target_file = "../../../../Cargo.toml"
++package_name = "submodules/rocksdb"
++
++# Remove "submodules/rocksdb/librocksdb-sys" from workspace members in root Cargo.toml
++[[edits]]
++type = "RemoveCargoDependency"
++target_file = "../../../../Cargo.toml"
++package_name = "submodules/rocksdb/librocksdb-sys"
++
++# Remove use rocksdb::{Options, DB}; from tools/rust-src-scanner/src/main.rs
++[[edits]]
++type = "RemoveUse"
++target_file = "./tools/rust-src-scanner/src/main.rs"
++use_path = "rocksdb::{Options, DB}"

@@ -1,0 +1,232 @@
+commit 134169b4b7ef4627b0a3d972198633f40d33eda2
+Author: mike dupont <mike.dupont@introspector.local>
+Date:   Tue Dec 16 22:40:54 2025 -0500
+
+    docs: Add explanation for rustc_expand_patches build.rs and update submodule reference
+
+diff --git a/docs/compiler_rustc_expand_patches_build_rs_explanation.md b/docs/compiler_rustc_expand_patches_build_rs_explanation.md
+new file mode 100644
+index 0000000..354081b
+--- /dev/null
++++ b/docs/compiler_rustc_expand_patches_build_rs_explanation.md
+@@ -0,0 +1,93 @@
++# `compiler/rustc_expand_patches/build.rs` Explanation
++
++This `build.rs` script is responsible for automating various code modifications within the project, primarily targeting Rust source files and `Cargo.toml` manifests. It operates by reading configuration files (TOML format) from a `patches` directory (relative to `CARGO_MANIFEST_DIR`) and applying a series of defined "edit jobs" to specified target files.
++
++## Functionality Overview
++
++The script processes `.toml` files found in its `patches` directory. Each TOML file can define one or more `EditJob`s, which are then applied sequentially. It uses `syn` for robust Abstract Syntax Tree (AST) manipulation of Rust code and `toml_edit` for precise, formatted modifications to `Cargo.toml` files.
++
++## Supported Edit Job Types
++
++The `EditJob` enum defines the various types of modifications the script can perform:
++
++1.  **`AddUse`**:
++    *   **Purpose**: Inserts a `use` statement into a Rust file.
++    *   **Details**: Prevents duplicate `use` statements. Can insert at the start, end, or after a specified existing `use` path.
++    *   **Configuration Fields**:
++        *   `target_file`: Path to the Rust file.
++        *   `path`: The `use` statement string (e.g., `"use super::error::AppError;"`).
++        *   `position`: Optional. `"start"`, `"end"`, or `{"AfterUsePath": "some::path"}`.
++
++2.  **`RemoveUse`**:
++    *   **Purpose**: Removes a specific `use` statement from a Rust file.
++    *   **Configuration Fields**:
++        *   `target_file`: Path to the Rust file.
++        *   `use_path`: The path within the `use` statement (e.g., `"rocksdb::{Options, DB}"`).
++
++3.  **`RemoveFunction`**:
++    *   **Purpose**: Deletes a function from a Rust file by its name.
++    *   **Configuration Fields**:
++        *   `target_file`: Path to the Rust file.
++        *   `function_name`: The identifier of the function to remove.
++
++4.  **`ReplaceExpression`**:
++    *   **Purpose**: Replaces a specific code snippet (expression) within a named function in a Rust file.
++    *   **Details**: The replacement is performed on the AST level.
++    *   **Configuration Fields**:
++        *   `target_file`: Path to the Rust file.
++        *   `function_name`: The function containing the expression to be replaced.
++        *   `old_code_snippet`: The exact code snippet to find and replace.
++        *   `new_code_snippet`: The code snippet to insert as a replacement.
++
++5.  **`AddFunction`**:
++    *   **Purpose**: Adds an entirely new function to a Rust file.
++    *   **Details**: Checks if a function with the same name already exists to prevent duplicates.
++    *   **Configuration Fields**:
++        *   `target_file`: Path to the Rust file.
++        *   `function_code`: The full source code of the function to add.
++
++6.  **`AddItem`**:
++    *   **Purpose**: Adds any arbitrary Rust item (e.g., `struct`, `enum`, `const`, `impl` block, `mod`) to a Rust file.
++    *   **Details**: Attempts to detect and prevent adding duplicate items based on their names where applicable.
++    *   **Configuration Fields**:
++        *   `target_file`: Path to the Rust file.
++        *   `item_code`: The full source code of the item to add.
++
++7.  **`ReplaceFileContent`**:
++    *   **Purpose**: Overwrites the entire content of a target file with a provided string.
++    *   **Configuration Fields**:
++        *   `target_file`: Path to any file.
++        *   `new_content`: The string content to write to the file.
++
++8.  **`ReplaceFileContentFromFile`**:
++    *   **Purpose**: Overwrites the entire content of a target file with the content from another source file.
++    *   **Configuration Fields**:
++        *   `target_file`: Path to any file to be overwritten.
++        *   `source_file`: Path to the file whose content will be used.
++
++9.  **`RunSearch`**:
++    *   **Purpose**: Executes a specified shell command (e.g., a `ripgrep` command) and optionally captures its output.
++    *   **Details**: This job type does not modify source code directly but is useful for diagnostic or reporting purposes during the build process.
++    *   **Configuration Fields**:
++        *   `command`: The shell command string to execute.
++        *   `output_file`: Optional path to a file where `stdout` and `stderr` of the command will be saved.
++
++10. **`RemoveCargoDependency`**:
++    *   **Purpose**: Removes a specified dependency entry from a `Cargo.toml` file.
++    *   **Details**: Can remove dependencies from `[dependencies]`, `[dev-dependencies]`, `[build-dependencies]`, `[workspace.dependencies]`, `[patch.crates-io]`, and entries from `[workspace.members]`.
++    *   **Configuration Fields**:
++        *   `target_file`: Path to the `Cargo.toml` file.
++        *   `package_name`: The name of the dependency package or workspace member to remove.
++
++## Workflow
++
++1.  The script starts by looking for a `patches` directory in `CARGO_MANIFEST_DIR`.
++2.  It then scans this `patches` directory for all `.toml` files, sorting them by name.
++3.  For each TOML configuration file, it parses the `EditJobConfig` which contains a list of `EditJob`s.
++4.  `RunSearch` jobs are executed first.
++5.  Other `EditJob`s are grouped by their `target_file`.
++6.  For each `target_file`, if it's a `Cargo.toml`, `RemoveCargoDependency` jobs are processed using `toml_edit`.
++7.  For Rust files, the script reads the file, parses it into a `syn::File` AST, applies the relevant `EditJob`s (e.g., `AddUse`, `RemoveFunction`, `ReplaceExpression`, `AddFunction`, `AddItem`, `RemoveUse`), and then unparses and pretty-prints the modified AST back to the file.
++8.  `ReplaceFileContent` and `ReplaceFileContentFromFile` jobs directly overwrite the target file's content.
++
++This build script provides a powerful and flexible mechanism for applying programmatic patches and transformations to the codebase, ensuring consistency and enabling complex refactoring operations.
+\ No newline at end of file
+diff --git a/submodules/rust b/submodules/rust
+index f4e35f3..06cee8d 160000
+--- a/submodules/rust
++++ b/submodules/rust
+@@ -1 +1 @@
+-Subproject commit f4e35f3429cfc7be75e60061ad8f1f9a5517dced
++Subproject commit 06cee8d828eea18c4e6da9e390120f521e70a684
+
+commit 1e0c3a7d22d698bcf36970717c38232bc4062e1c
+Author: mike dupont <mike.dupont@introspector.local>
+Date:   Tue Dec 16 22:30:26 2025 -0500
+
+    docs: Add SOP for AI-Assisted Error Resolution
+
+diff --git a/docs/sops/ai_assisted_error_resolution.md b/docs/sops/ai_assisted_error_resolution.md
+new file mode 100644
+index 0000000..de569fe
+--- /dev/null
++++ b/docs/sops/ai_assisted_error_resolution.md
+@@ -0,0 +1,106 @@
++# SOP: AI-Assisted Error Resolution using Structured Build Output
++
++## 1. Purpose
++
++This Standard Operating Procedure (SOP) outlines the methodology for utilizing AI agents, such as Gemini CLI, to automate or assist in the resolution of compiler errors and warnings. By leveraging structured build output, AI agents can intelligently analyze detected issues, generate targeted semantic patches, and verify their effectiveness, thereby streamlining the software development and maintenance process.
++
++## 2. Key Concepts
++
++### 2.1 Structured Build Output (`cargo build --message-format=json`)
++As detailed in "3.4 Leveraging Structured Build Output" of the [SOP: Structured Editing and Change Management](structured_editing_and_change_management.md), the `cargo build --message-format=json` command provides a machine-readable stream of build events, including detailed compiler messages (warnings and errors). This output is the primary source of information for AI-assisted analysis.
++
++### 2.2 Ticket Data Files
++For each identified error or warning group (a "ticket"), the `ticket_data_generator` tool creates two files:
++-   **`ticket_<id>.json`**: A comprehensive JSON file containing structured information about the error group, including its summary, all occurrences, code snippets, heuristically identified referenced files, and relevant project documentation. This file serves as the rich context for the AI.
++-   **`task_<id>.md`**: A Markdown file derived from the JSON data, providing a human-readable summary of the error and a list of `ripgrep` commands to aid in manual investigation.
++
++### 2.3 Semantic Patches (`rustc_expand_patches` crate)
++Semantic patches, defined in TOML files and processed by the `rustc_expand_patches` `build.rs` script, are the mechanism for applying structured code modifications. AI agents will formulate specific `EditJob` types (e.g., `RemoveUse`, `ReplaceExpression`) to address the errors identified in the ticket data.
++
++## 3. Workflow for AI Agent (e.g., Gemini CLI)
++
++This section describes the step-by-step process an AI agent would follow to resolve an error using the generated ticket data.
++
++### 3.1 Ticket Selection and Initialization
++
++The AI agent is initialized with a specific task: to resolve an error associated with a given `ticket_id`. It has access to the generated `ticket_<id>.json` and `task_<id>.md` files.
++
++**Agent's Initial Actions:**
++1.  **Load Ticket Data:** Read the `ticket_<id>.json` file to ingest all available structured information about the error.
++    *   **Tool Call (Simulated):** `read_file("ticket_data_output/ticket_<id>.json")`
++
++### 3.2 Contextual Analysis
++
++The AI agent parses the loaded `TicketData` to understand the nature and location of the error. It focuses on:
++-   `target_name`: The crate or target where the error occurred.
++-   `summary_message`: A high-level description of the error group.
++-   `occurrences`: Detailed information about each instance of the error, including:
++    -   `rendered_message`: The exact compiler message.
++    -   `file_path`: The source file where the error is located.
++    -   `line_start`, `line_end`: The lines affected.
++    -   `code_snippet`: The relevant code context.
++-   `search_commands`: Pre-generated `ripgrep` commands for investigation.
++
++### 3.3 Investigation and Confirmation
++
++To deepen its understanding and confirm the context, the AI agent executes the provided `search_commands` or generates new ones based on its analysis. This helps to pinpoint the exact code causing the issue and its surrounding environment.
++
++**Agent's Actions:**
++1.  **Execute Search Commands:** Run one or more `ripgrep` commands.
++    *   **Tool Call (Simulated Example):** `run_shell_command("rg --context 5 \"use std::str::FromStr;\" submodules/rust/compiler/rustc_target/src/lib.rs", "Confirm the presence and context of the unused import.")`
++2.  **Analyze Search Output:** Interpret the output to gather further insights.
++
++### 3.4 Semantic Patch Formulation
++
++Based on the error type and contextual information, the AI agent determines the most appropriate `EditJob` to resolve the issue.
++
++**Agent's Actions (Example for "unused import: `std::str::FromStr`"):**
++1.  **Identify Error Type:** Recognize it as an "unused import" warning.
++2.  **Select `EditJob` Type:** Choose `RemoveUse`.
++3.  **Extract Parameters:**
++    *   `target_file`: From `ticket.occurrences[0].file_path`.
++    *   `use_path`: From the parsed error message (`std::str::FromStr;`).
++
++### 3.5 Patch Application
++
++The AI agent constructs the TOML snippet for the chosen `EditJob` and integrates it into a semantic patch file. For a new error, a new patch file (e.g., `patches/fix_<ticket_id>.toml`) would be created. If the issue is related to an existing patch (e.g., adding another `RemoveUse` to an existing patch that cleans up imports), it would append to that file.
++
++**Agent's Actions:**
++1.  **Construct TOML Snippet:**
++    ```toml
++    [[edits]]
++    type = "RemoveUse"
++    target_file = "../../..../submodules/rust/compiler/rustc_target/src/lib.rs" # Relative path as per SOP
++    use_path = "std::str::FromStr;"
++    ```
++2.  **Create/Append Patch File:** Write or append the snippet to the designated patch file in `submodules/rust/compiler/rustc_expand_patches/patches/`.
++    *   **Tool Call (Simulated Example):** `write_file("submodules/rust/compiler/rustc_expand_patches/patches/fix_ac3c99c721bf086f4eb48d162d33498c988d2a3f3781f6be5e37e8f1772e025b.toml", <TOML_CONTENT>)
++
++### 3.6 Verification
++
++After applying the patch, the AI agent triggers a build to confirm that the error is resolved and no new issues are introduced.
++
++**Agent's Actions:**
++1.  **Trigger Build:** Execute `cargo check` (or `cargo build`).
++    *   **Tool Call (Simulated):** `run_shell_command("cargo check", "Verify the semantic patch is applied and resolves the issue.")`
++2.  **Analyze Build Output:** Inspect the output for the disappearance of the target warning/error and the absence of new issues. This would involve re-running `cargo build --message-format=json` and analyzing its output, or checking the `err.txt` for plain text warnings.
++
++### 3.7 Iteration and Completion
++
++-   **Success:** If the error is resolved and no new issues arise, the AI marks the ticket as resolved.
++-   **Failure/New Issues:** If the error persists or new issues appear, the AI would re-evaluate the problem, potentially generate new search commands, or modify the existing semantic patch in an iterative loop until a resolution is found or human intervention is required.
++
++## 4. Example Scenario: Resolving "Unused Import" in `rustc_target`
++
++Consider ticket `ac3c99c721bf086f4eb48d162d33498c988d2a3f3781f6be5e37e8f1772e025b`, which highlights an "unused import: `std::str::FromStr`" warning in `submodules/rust/compiler/rustc_target/src/lib.rs`.
++
++**AI Agent's Simulated Steps:**
++1.  **Loads `ticket_ac3c99c721bf086f4eb48d162d33498c988d2a3f3781f6be5e37e8f1772e025b.json`**.
++2.  **Identifies** the `target_name` as "rustc_target", the `file_path` as "submodules/rust/compiler/rustc_target/src/lib.rs", and the `rendered_message` as "warning: unused import: `std::str::FromStr`".
++3.  **Executes** `rg --context 5 "use std::str::FromStr;" submodules/rust/compiler/rustc_target/src/lib.rs` to confirm the import statement's presence.
++4.  **Formulates** an `EditJob` of type `RemoveUse` with `target_file = "../../..../submodules/rust/compiler/rustc_target/src/lib.rs"` and `use_path = "std::str::FromStr;"`.
++5.  **Creates** a new patch file `submodules/rust/compiler/rustc_expand_patches/patches/fix_ac3c99c721bf086f4eb48d162d33498c988d2a3f3781f6be5e37e8f1772e025b.toml` with the generated TOML content.
++6.  **Runs `cargo check`**.
++7.  **Analyzes the output of `cargo check`**. If the warning is gone, the task is considered complete for this ticket.
++
++This SOP provides a structured approach for AI agents to participate in the automated maintenance and quality assurance of Rust projects.

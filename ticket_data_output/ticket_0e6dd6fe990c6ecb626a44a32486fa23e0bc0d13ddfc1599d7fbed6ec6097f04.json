@@ -1,0 +1,30 @@
+{
+  "ticket_id": "0e6dd6fe990c6ecb626a44a32486fa23e0bc0d13ddfc1599d7fbed6ec6097f04",
+  "target_name": "rustc_expand_base_lib_custom_macros",
+  "error_reason": "compiler-message",
+  "summary_message": "Compiler messages for target: rustc_expand_base_lib_custom_macros",
+  "occurrences": [
+    {
+      "rendered_message": "warning: unused variable: `s`\n  --> submodules/rust/compiler/rustc_expand_base_lib_custom_macros/src/lib.rs:24:39\n   |\n24 | fn custom_lint_diagnostic_derive_impl(s: Structure) -> TokenStream {\n   |                                       ^ help: if this is intentional, prefix it with an underscore: `_s`\n   |\n   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default\n\n",
+      "file_path": "submodules/rust/compiler/rustc_expand_base_lib_custom_macros/src/lib.rs",
+      "line_start": 24,
+      "line_end": 24,
+      "code_snippet": "}\n\nfn custom_lint_diagnostic_derive_impl(s: Structure) -> TokenStream {\n    TokenStream::new() // Return empty TokenStream for dummy implementation\n}\n"
+    }
+  ],
+  "search_commands": [
+    "rg --context 5 \"unused variable: `s`\" submodules/rust/compiler/rustc_expand_base_lib_custom_macros/src/lib.rs"
+  ],
+  "referenced_files": [
+    {
+      "file_path": "submodules/rust/compiler/rustc_expand_base_lib_custom_macros/src/lib.rs",
+      "content": "extern crate proc_macro;\n\nuse proc_macro::TokenStream;\nuse quote::quote;\nuse synstructure::decl_derive;\nuse synstructure::Structure;\n\nfn custom_diagnostic_derive_impl(s: Structure) -> TokenStream {\n    let name = &s.ast().ident; // The name of the struct (e.g., TraceMacroBase)\n\n    let expanded = quote! {\n        impl<'a> rustc_errors::Diagnostic<'a, ()> for #name {\n            fn into_diag(self, dcx: rustc_errors::DiagCtxtHandle<'a>, level: rustc_errors::Level) -> rustc_errors::Diag<'a, ()> {\n                let msg = format!(\"Dummy diagnostic for {}\", stringify!(#name));\n                let mut diag = rustc_errors::Diag::new(dcx, level, msg);\n                diag.span(self.span); // Call the `span` method which takes `&mut self`\n                diag\n            }\n        }\n    };\n    expanded.into()\n}\n\nfn custom_lint_diagnostic_derive_impl(s: Structure) -> TokenStream {\n    TokenStream::new() // Return empty TokenStream for dummy implementation\n}\n\nfn custom_subdiagnostic_derive_impl(s: Structure) -> TokenStream {\n    let name = &s.ast().ident; // The name of the struct (e.g., TraceMacroNote)\n\n    let expanded = quote! {\n        impl rustc_errors::Subdiagnostic for #name {\n            fn add_to_diag<G: rustc_errors::EmissionGuarantee>(self, diag: &mut rustc_errors::Diag<'_, G>) {\n                let msg = format!(\"Dummy subdiagnostic for {}\", stringify!(#name));\n                diag.sub(rustc_errors::Level::Note, msg, self.span.into()); // Assuming 'self.span' exists and is of type Span or MultiSpan\n            }\n        }\n    };\n    expanded.into()\n}\n\ndecl_derive!([CustomDiagnostic] => custom_diagnostic_derive_impl);\ndecl_derive!([CustomLintDiagnostic] => custom_lint_diagnostic_derive_impl);\ndecl_derive!([CustomSubdiagnostic] => custom_subdiagnostic_derive_impl);"
+    }
+  ],
+  "project_documentation": [],
+  "macro_expanded_code_paths": [],
+  "external_documentation_links": [
+    "https://docs.rs/rustc_expand_base_lib_custom_macros/latest",
+    "https://doc.rust-lang.org/book/"
+  ]
+}

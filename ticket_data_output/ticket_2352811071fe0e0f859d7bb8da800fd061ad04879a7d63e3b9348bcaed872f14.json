@@ -1,0 +1,32 @@
+{
+  "ticket_id": "2352811071fe0e0f859d7bb8da800fd061ad04879a7d63e3b9348bcaed872f14",
+  "target_name": "find_non_vendored",
+  "error_reason": "compiler-message",
+  "summary_message": "Compiler messages for target: find_non_vendored",
+  "occurrences": [
+    {
+      "rendered_message": "warning: unused import: `Path`\n --> tools/cargo-repo-sync/src/commands/find_non_vendored.rs:4:17\n  |\n4 | use std::path::{Path, PathBuf};\n  |                 ^^^^\n  |\n  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default\n\n",
+      "file_path": "tools/cargo-repo-sync/src/commands/find_non_vendored.rs",
+      "line_start": 4,
+      "line_end": 4,
+      "code_snippet": "use clap::Parser;\nuse regex::Regex;\nuse std::path::{Path, PathBuf};\nuse tokio::fs;\nuse tokio::io::{AsyncBufReadExt, BufReader};\n"
+    }
+  ],
+  "search_commands": [
+    "rg --context 5 \"unused import: `Path`\" tools/cargo-repo-sync/src/commands/find_non_vendored.rs",
+    "rg --context 5 \"use Path\" tools/cargo-repo-sync/src/commands/find_non_vendored.rs",
+    "rg \"Path\" tools/cargo-repo-sync/src/commands/find_non_vendored.rs"
+  ],
+  "referenced_files": [
+    {
+      "file_path": "tools/cargo-repo-sync/src/commands/find_non_vendored.rs",
+      "content": "use anyhow::{Context, Result};\nuse clap::Parser;\nuse regex::Regex;\nuse std::path::{Path, PathBuf};\nuse tokio::fs;\nuse tokio::io::{AsyncBufReadExt, BufReader};\n\nenum InputReader {\n    File(BufReader<fs::File>),\n    Stdin(BufReader<tokio::io::Stdin>),\n}\n\nimpl InputReader {\n    async fn read_line(&mut self, buf: &mut String) -> Result<usize> {\n        match self {\n            InputReader::File(reader) => reader.read_line(buf).await.map_err(anyhow::Error::new),\n            InputReader::Stdin(reader) => reader.read_line(buf).await.map_err(anyhow::Error::new),\n        }\n    }\n}\n\n#[derive(Parser, Debug)]\n#[command(author, version, about, long_about = None)]\nstruct CliArgs {\n    /// Path to the cargo tree output file (e.g., tree.txt). If not provided, reads from stdin.\n    #[arg(long)]\n    input_file: Option<PathBuf>,\n    /// Path to the project root directory.\n    #[arg(long)]\n    project_root: PathBuf,\n}\n\n#[tokio::main]\nasync fn main() -> Result<()> {\n    let args = CliArgs::parse();\n\n    let mut reader = if let Some(input_file) = args.input_file {\n        InputReader::File(BufReader::new(fs::File::open(&input_file).await?))\n    } else {\n        InputReader::Stdin(BufReader::new(tokio::io::stdin()))\n    };\n\n    let re = Regex::new(r\"^(?P<name>[a-zA-Z0-9_-]+)\\s+.*?\\s+\\((?P<path>[^)]+)\\)$\")?;\n\n    println!(\"Identifying non-vendored modules...\");\n\n    let project_root_str = args\n        .project_root\n        .to_str()\n        .context(\"Project root is not valid UTF-8\")?\n        .to_string();\n    let submodules_prefix = format!(\"{}/submodules/\", project_root_str);\n    let vendor_prefix = format!(\"{}/vendor/\", project_root_str);\n\n    let mut line_buffer = String::new(); // Buffer to read lines into\n    loop {\n        line_buffer.clear(); // Clear the buffer for the new line\n        let bytes_read = reader.read_line(&mut line_buffer).await?;\n\n        if bytes_read == 0 {\n            // EOF\n            break;\n        }\n\n        let line = line_buffer.trim();\n        if line.is_empty() {\n            continue;\n        }\n\n        if let Some(captures) = re.captures(line) {\n            let name = captures.name(\"name\").unwrap().as_str();\n            let path_str = captures.name(\"path\").unwrap().as_str();\n\n            eprintln!(\"DEBUG: Name: '{}'\", name);\n            eprintln!(\"DEBUG: Path: '{}'\", path_str);\n            eprintln!(\"DEBUG: Submodules Prefix: '{}'\", submodules_prefix);\n            eprintln!(\"DEBUG: Vendor Prefix: '{}'\", vendor_prefix);\n            eprintln!(\n                \"DEBUG: path_str starts with submodules_prefix: {}\",\n                path_str.starts_with(&submodules_prefix)\n            );\n            eprintln!(\n                \"DEBUG: path_str starts with vendor_prefix: {}\",\n                path_str.starts_with(&vendor_prefix)\n            );\n\n            if !(path_str.starts_with(&submodules_prefix) || path_str.starts_with(&vendor_prefix)) {\n                eprintln!(\"DEBUG: Printing non-vendored module: '{}'\", name);\n                println!(\"{}\", name); // Output only the module name for non-vendored modules\n            } else {\n                eprintln!(\"DEBUG: NOT printing vendored module: '{}'\", name);\n            }\n        } else {\n            eprintln!(\"DEBUG: Regex did NOT match line: '{}'\", line); // Keep this for now\n        }\n    }\n\n    println!(\"Finished identifying non-vendored modules.\");\n    Ok(())\n}\n"
+    }
+  ],
+  "project_documentation": [],
+  "macro_expanded_code_paths": [],
+  "external_documentation_links": [
+    "https://docs.rs/find_non_vendored/latest",
+    "https://doc.rust-lang.org/book/"
+  ]
+}

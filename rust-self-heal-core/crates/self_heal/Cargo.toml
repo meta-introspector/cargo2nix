@@ -1,0 +1,15 @@
+[package]
+name = "self_heal"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Core types and functions for the self-healing system."
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+log.workspace = true
+self_heal_macros = { path = "../self_heal_macros", version = "0.1.0" }

@@ -1,0 +1,12 @@
+# Example patch for the error in errors.jsonl
+
+[[patches]]
+file = "src/lib.rs"
+range = "1:1-1:1" # Insert at the beginning of the file
+before = ""
+after = """
+fn hello() {
+    println!("Hello, world!");
+}
+"""
+rationale = "The function `hello` was not found. This patch adds the function definition."

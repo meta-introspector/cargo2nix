@@ -2,7 +2,13 @@
 name = "trait-fixer-compiler-host-real"
 version = "0.1.0"
 edition = "2021"
+build = "build.rs"
 
 [dependencies]
 rustc_driver = { workspace = true }
 trait-fixer-compiler-host-trait = { path = "../trait-fixer-compiler-host-trait" }
+gemini_rustc_data_structures = { workspace = true }
+rustc_interface = { workspace = true }
+rustc_errors = { workspace = true }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"

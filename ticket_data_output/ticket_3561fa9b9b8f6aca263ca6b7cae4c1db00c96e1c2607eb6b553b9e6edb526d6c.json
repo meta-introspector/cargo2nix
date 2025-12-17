@@ -1,0 +1,40 @@
+{
+  "ticket_id": "3561fa9b9b8f6aca263ca6b7cae4c1db00c96e1c2607eb6b553b9e6edb526d6c",
+  "target_name": "generate_workspace_deps",
+  "error_reason": "compiler-message",
+  "summary_message": "Compiler messages for target: generate_workspace_deps",
+  "occurrences": [
+    {
+      "rendered_message": "warning: unused import: `Path`\n --> tools/generate_workspace_deps/src/main.rs:4:17\n  |\n4 | use std::path::{Path, PathBuf};\n  |                 ^^^^\n  |\n  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default\n\n",
+      "file_path": "tools/generate_workspace_deps/src/main.rs",
+      "line_start": 4,
+      "line_end": 4,
+      "code_snippet": "use anyhow::{Context, Result};\nuse std::collections::HashMap;\nuse std::path::{Path, PathBuf};\nuse walkdir::WalkDir;\n\n"
+    },
+    {
+      "rendered_message": "warning: fields `id`, `version`, and `manifest_path` are never read\n  --> tools/generate_workspace_deps/src/main.rs:19:13\n   |\n18 |     pub struct Package {\n   |                ------- fields in this struct\n19 |         pub id: PackageId,\n   |             ^^\n20 |         pub name: String,\n21 |         pub version: String,\n   |             ^^^^^^^\n22 |         pub manifest_path: PathBuf,\n   |             ^^^^^^^^^^^^^\n   |\n   = note: `Package` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis\n   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default\n\n",
+      "file_path": "tools/generate_workspace_deps/src/main.rs",
+      "line_start": 19,
+      "line_end": 19,
+      "code_snippet": "    #[derive(Debug, Clone)]\n    pub struct Package {\n        pub id: PackageId,\n        pub name: String,\n        pub version: String,\n"
+    }
+  ],
+  "search_commands": [
+    "rg --context 5 \"unused import: `Path`\" tools/generate_workspace_deps/src/main.rs",
+    "rg --context 5 \"use Path\" tools/generate_workspace_deps/src/main.rs",
+    "rg \"Path\" tools/generate_workspace_deps/src/main.rs",
+    "rg --context 5 \"fields `id`, `version`, and `manifest_path` are never read\" tools/generate_workspace_deps/src/main.rs"
+  ],
+  "referenced_files": [
+    {
+      "file_path": "tools/generate_workspace_deps/src/main.rs",
+      "content": "use crate::metadata_provider::CargoMetadataProvider;\nuse anyhow::{Context, Result};\nuse std::collections::HashMap;\nuse std::path::{Path, PathBuf};\nuse walkdir::WalkDir;\n\n// Mini metadata provider for local Cargo.toml files within submodules\nmod metadata_provider {\n    use anyhow::Result;\n    use std::path::{Path, PathBuf};\n\n    #[derive(Debug, Clone, PartialEq, Eq, Hash)]\n    pub struct PackageId {\n        pub repr: String,\n    }\n\n    #[derive(Debug, Clone)]\n    pub struct Package {\n        pub id: PackageId,\n        pub name: String,\n        pub version: String,\n        pub manifest_path: PathBuf,\n        // No dependencies or source needed for this specific use case\n    }\n\n    #[derive(Debug)]\n    pub struct Metadata {\n        pub packages: Vec<Package>,\n    }\n\n    pub trait CargoMetadataProvider: Send + Sync {\n        fn provide_metadata(&self, project_root: &Path) -> Result<Metadata>;\n    }\n\n    pub struct RealCargoMetadataProvider;\n\n    impl CargoMetadataProvider for RealCargoMetadataProvider {\n        fn provide_metadata(&self, project_root: &Path) -> Result<Metadata> {\n            let metadata = cargo_metadata::MetadataCommand::new()\n                .current_dir(project_root)\n                .no_deps() // We only need package info, not the full dependency graph\n                .exec()?;\n\n            let packages: Vec<Package> = metadata\n                .packages\n                .into_iter()\n                .map(|p| Package {\n                    id: PackageId { repr: p.id.repr },\n                    name: p.name.to_string(),\n                    version: p.version.to_string(),\n                    manifest_path: p.manifest_path.into(),\n                })\n                .collect();\n\n            Ok(Metadata { packages })\n        }\n    }\n}\n\nfn main() -> Result<()> {\n    // This root_dir needs to be correct for the context where this binary is run.\n    // In Nix flakes, this usually means the flake root.\n    // For local development, it might be the project root of cargo2nix.\n    // For now, hardcode to the current working directory, assuming it's run from the project root.\n    let root_dir = std::env::current_dir().context(\"Failed to get current directory\")?;\n    let submodules_dir = root_dir.join(\"submodules\");\n\n    println!(\"[workspace.dependencies]\");\n\n    let mut submodule_path_map: HashMap<String, PathBuf> = HashMap::new();\n    let metadata_provider = metadata_provider::RealCargoMetadataProvider;\n\n    for entry in WalkDir::new(&submodules_dir)\n        .into_iter()\n        .filter_map(|e| e.ok())\n        .filter(|e| e.file_type().is_file() && e.file_name() == \"Cargo.toml\")\n    {\n        let cargo_toml_path = entry.path();\n\n        let submodule_package_metadata = metadata_provider\n            .provide_metadata(cargo_toml_path.parent().unwrap())\n            .context(format!(\n                \"Failed to get metadata for submodule Cargo.toml: {:?}\",\n                cargo_toml_path\n            ))?;\n\n        if let Some(pkg) = submodule_package_metadata.packages.first() {\n            let relative_path = pathdiff::diff_paths(cargo_toml_path.parent().unwrap(), &root_dir)\n                .context(format!(\n                    \"Failed to get relative path for submodule: {:?}\",\n                    cargo_toml_path\n                ))?;\n            submodule_path_map.insert(pkg.name.clone(), relative_path);\n        }\n    }\n\n    // Sort the keys for consistent output\n    let mut sorted_keys: Vec<&String> = submodule_path_map.keys().collect();\n    sorted_keys.sort();\n\n    for crate_name in sorted_keys {\n        if let Some(relative_path) = submodule_path_map.get(crate_name) {\n            let path_str = format!(\"./{}\", relative_path.display());\n            println!(\"{} = {{ path = \\\"{}\\\" }}\", crate_name, path_str);\n        }\n    }\n\n    Ok(())\n}\n"
+    }
+  ],
+  "project_documentation": [],
+  "macro_expanded_code_paths": [],
+  "external_documentation_links": [
+    "https://docs.rs/generate_workspace_deps/latest",
+    "https://doc.rust-lang.org/book/"
+  ]
+}

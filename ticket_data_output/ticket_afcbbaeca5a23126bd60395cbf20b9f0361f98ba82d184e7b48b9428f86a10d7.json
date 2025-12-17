@@ -1,0 +1,50 @@
+{
+  "ticket_id": "afcbbaeca5a23126bd60395cbf20b9f0361f98ba82d184e7b48b9428f86a10d7",
+  "target_name": "rustc_errors",
+  "error_reason": "compiler-message",
+  "summary_message": "Compiler messages for target: rustc_errors",
+  "occurrences": [
+    {
+      "rendered_message": "warning: unused imports: `Level` and `TerminalUrl`\n --> submodules/rust/compiler/rustc_errors/src/collected_emitter.rs:8:31\n  |\n8 | use rustc_errors::{DiagInner, Level, TerminalUrl};\n  |                               ^^^^^  ^^^^^^^^^^^\n  |\n  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default\n\n",
+      "file_path": "submodules/rust/compiler/rustc_errors/src/collected_emitter.rs",
+      "line_start": 8,
+      "line_end": 8,
+      "code_snippet": "use rustc_errors::timings::TimingRecord;\nuse rustc_errors::translation::Translator;\nuse rustc_errors::{DiagInner, Level, TerminalUrl};\nuse rustc_lint_defs::Level as LintLevel;\nuse rustc_span::source_map::SourceMap;\n"
+    },
+    {
+      "rendered_message": "warning: unused import: `rustc_span::FileNameDisplayPreference`\n  --> submodules/rust/compiler/rustc_errors/src/collected_emitter.rs:11:5\n   |\n11 | use rustc_span::FileNameDisplayPreference;\n   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+      "file_path": "submodules/rust/compiler/rustc_errors/src/collected_emitter.rs",
+      "line_start": 11,
+      "line_end": 11,
+      "code_snippet": "use rustc_lint_defs::Level as LintLevel;\nuse rustc_span::source_map::SourceMap;\nuse rustc_span::FileNameDisplayPreference;\nuse gemini_rustc_data_structures::{SerializableDiagnostic, SerializableSpan, add_diagnostic, clear_diagnostics};\n\n"
+    },
+    {
+      "rendered_message": "warning: unused import: `clear_diagnostics`\n  --> submodules/rust/compiler/rustc_errors/src/collected_emitter.rs:12:94\n   |\n12 | use gemini_rustc_data_structures::{SerializableDiagnostic, SerializableSpan, add_diagnostic, clear_diagnostics};\n   |                                                                                              ^^^^^^^^^^^^^^^^^\n\n",
+      "file_path": "submodules/rust/compiler/rustc_errors/src/collected_emitter.rs",
+      "line_start": 12,
+      "line_end": 12,
+      "code_snippet": "use rustc_span::source_map::SourceMap;\nuse rustc_span::FileNameDisplayPreference;\nuse gemini_rustc_data_structures::{SerializableDiagnostic, SerializableSpan, add_diagnostic, clear_diagnostics};\n\npub struct CollectedEmitter {\n"
+    }
+  ],
+  "search_commands": [
+    "rg --context 5 \"unused imports: `Level` and `TerminalUrl`\" submodules/rust/compiler/rustc_errors/src/collected_emitter.rs",
+    "rg --context 5 \"unused import: `rustc_span::FileNameDisplayPreference`\" submodules/rust/compiler/rustc_errors/src/collected_emitter.rs",
+    "rg --context 5 \"use rustc_span::FileNameDisplayPreference\" submodules/rust/compiler/rustc_errors/src/collected_emitter.rs",
+    "rg \"rustc_span::FileNameDisplayPreference\" submodules/rust/compiler/rustc_errors/src/collected_emitter.rs",
+    "rg --context 5 \"unused import: `clear_diagnostics`\" submodules/rust/compiler/rustc_errors/src/collected_emitter.rs",
+    "rg --context 5 \"use clear_diagnostics\" submodules/rust/compiler/rustc_errors/src/collected_emitter.rs",
+    "rg \"clear_diagnostics\" submodules/rust/compiler/rustc_errors/src/collected_emitter.rs"
+  ],
+  "referenced_files": [
+    {
+      "file_path": "submodules/rust/compiler/rustc_errors/src/collected_emitter.rs",
+      "content": "use std::path::Path;\nuse std::sync::Arc;\n\nuse rustc_errors::emitter::Emitter;\nuse rustc_errors::registry::Registry;\nuse rustc_errors::timings::TimingRecord;\nuse rustc_errors::translation::Translator;\nuse rustc_errors::{DiagInner, Level, TerminalUrl};\nuse rustc_lint_defs::Level as LintLevel;\nuse rustc_span::source_map::SourceMap;\nuse rustc_span::FileNameDisplayPreference;\nuse gemini_rustc_data_structures::{SerializableDiagnostic, SerializableSpan, add_diagnostic, clear_diagnostics};\n\npub struct CollectedEmitter {\n    pub diagnostics: Vec<DiagInner>,\n    pub translator: Translator, // Store a translator if needed for sub-emitters\n    pub sm: Option<Arc<SourceMap>>,\n}\n\nimpl CollectedEmitter {\n    pub fn new(translator: Translator, sm: Option<Arc<SourceMap>>) -> Self {\n        gemini_rustc_data_structures::clear_diagnostics(); // Clear diagnostics for a new emitter instance\n        CollectedEmitter {\n            diagnostics: Vec::new(),\n            translator,\n            sm,\n        }\n    }\n}\n\nimpl Emitter for CollectedEmitter {\n    fn emit_diagnostic(&mut self, diag: DiagInner, _registry: &Registry) {\n        // Store the DiagInner internally (existing behavior)\n        self.diagnostics.push(diag.clone());\n\n        // Convert to SerializableDiagnostic and add to thread-local storage\n        let serializable_diag = if let Some(sm) = &self.sm {\n            let serializable_span = if let Some(primary_span) = diag.span.primary_span() {\n                let span_data = primary_span.data();\n                let lo = sm.lookup_char_pos(span_data.lo);\n                let hi = sm.lookup_char_pos(span_data.hi);\n\n                Some(SerializableSpan {\n                    file_name: sm.span_to_filename(primary_span).display(rustc_span::FileNameDisplayPreference::Local).to_string(), // Convert FileName to String\n                    line_start: lo.line,\n                    col_start: lo.col.0,\n                    line_end: hi.line,\n                    col_end: hi.col.0,\n                })\n            } else {\n                None\n            };\n\n            SerializableDiagnostic {\n                message: diag.messages.get(0).and_then(|(dm, _)| dm.as_str()).map_or(\"\".to_string(), |s| s.to_string()), // Extract String from DiagMessage tuple\n                level: diag.level.to_string(),\n                span: serializable_span,\n            }\n        } else {\n            SerializableDiagnostic {\n                message: diag.messages.get(0).and_then(|(dm, _)| dm.as_str()).map_or(\"\".to_string(), |s| s.to_string()), // Extract String from DiagMessage tuple\n                level: diag.level.to_string(),\n                span: None,\n            }\n        };\n        add_diagnostic(serializable_diag);\n    }\n\n    fn emit_artifact_notification(&mut self, _path: &Path, _artifact_type: &str) {\n        // No-op for a collecting emitter\n    }\n\n    fn emit_timing_section(&mut self, _record: TimingRecord, _event: rustc_errors::emitter::TimingEvent) {\n        // No-op for a collecting emitter\n    }\n\n    fn emit_future_breakage_report(&mut self, _diags: Vec<DiagInner>, _registry: &Registry) {\n        // No-op for a collecting emitter\n    }\n\n    fn emit_unused_externs(&mut self, _lint_level: LintLevel, _unused_externs: &[&str]) {\n        // No-op for a collecting emitter\n    }\n\n    fn should_show_explain(&self) -> bool {\n        false // We are collecting, not displaying explanations\n    }\n\n    fn supports_color(&self) -> bool {\n        false // No color support needed for collection\n    }\n\n    fn source_map(&self) -> Option<&SourceMap> {\n        self.sm.as_deref()\n    }\n\n    fn translator(&self) -> &Translator {\n        &self.translator\n    }\n}\n"
+    }
+  ],
+  "project_documentation": [],
+  "macro_expanded_code_paths": [],
+  "external_documentation_links": [
+    "https://docs.rs/rustc_errors/latest",
+    "https://doc.rust-lang.org/book/"
+  ]
+}

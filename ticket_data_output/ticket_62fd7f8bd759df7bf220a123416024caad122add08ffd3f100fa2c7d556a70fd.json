@@ -1,0 +1,32 @@
+{
+  "ticket_id": "62fd7f8bd759df7bf220a123416024caad122add08ffd3f100fa2c7d556a70fd",
+  "target_name": "cargo-feature-adapter",
+  "error_reason": "compiler-message",
+  "summary_message": "Compiler messages for target: cargo-feature-adapter",
+  "occurrences": [
+    {
+      "rendered_message": "warning: unused import: `Document`\n --> tools/cargo-feature-adapter/src/cargo_toml_adapter.rs:6:24\n  |\n6 | use toml_edit::{Array, Document, DocumentMut, Item, Table, Value};\n  |                        ^^^^^^^^\n  |\n  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default\n\n",
+      "file_path": "tools/cargo-feature-adapter/src/cargo_toml_adapter.rs",
+      "line_start": 6,
+      "line_end": 6,
+      "code_snippet": "use std::fs;\nuse std::path::Path;\nuse toml_edit::{Array, Document, DocumentMut, Item, Table, Value};\n\npub fn adapt_cargo_toml(input_path: &Path, output_path: &Path) -> Result<()> {\n"
+    }
+  ],
+  "search_commands": [
+    "rg --context 5 \"unused import: `Document`\" tools/cargo-feature-adapter/src/cargo_toml_adapter.rs",
+    "rg --context 5 \"use Document\" tools/cargo-feature-adapter/src/cargo_toml_adapter.rs",
+    "rg \"Document\" tools/cargo-feature-adapter/src/cargo_toml_adapter.rs"
+  ],
+  "referenced_files": [
+    {
+      "file_path": "tools/cargo-feature-adapter/src/cargo_toml_adapter.rs",
+      "content": "// tools/cargo-feature-adapter/src/cargo_toml_adapter.rs\nuse anyhow::{Context, Result};\nuse std::collections::BTreeMap;\nuse std::fs;\nuse std::path::Path;\nuse toml_edit::{Array, Document, DocumentMut, Item, Table, Value};\n\npub fn adapt_cargo_toml(input_path: &Path, output_path: &Path) -> Result<()> {\n    let original_cargo_toml_path = input_path.join(\"Cargo.toml\");\n    let adapted_cargo_toml_path = output_path.join(\"Cargo.toml\");\n\n    // 1. Read Original Cargo.toml\n    let original_content = fs::read_to_string(&original_cargo_toml_path).context(format!(\n        \"Failed to read original Cargo.toml from {:?}\",\n        original_cargo_toml_path\n    ))?;\n    let mut doc = original_content\n        .parse::<DocumentMut>()\n        .context(\"Failed to parse original Cargo.toml\")?;\n\n    // Ensure output directory exists\n    fs::create_dir_all(output_path).context(format!(\n        \"Failed to create output directory {:?}\",\n        output_path\n    ))?;\n\n    // 2. Identify Dependencies and Generate New Features\n    let mut new_features = BTreeMap::new();\n    let mut default_features_list = Vec::new();\n\n    // Process [dependencies]\n    if let Some(Item::Table(dependencies)) = doc.get_mut(\"dependencies\") {\n        let mut deps_to_modify = Vec::new();\n        for (key, value) in dependencies.iter() {\n            deps_to_modify.push((key.to_string(), value.clone()));\n        }\n\n        for (key, value) in deps_to_modify {\n            let feature_name = format!(\"with-{}\", key.replace('-', \"_\"));\n            let mut dep_table = Table::new();\n            dep_table.insert(\"optional\", Item::Value(Value::from(true)));\n\n            match value {\n                Item::Value(v) => {\n                    if let Some(s) = v.as_str() {\n                        dep_table.insert(\"version\", Item::Value(Value::from(s)));\n                    } else if let Some(inline_table) = v.as_inline_table() {\n                        for (inline_key, inline_value) in inline_table.iter() {\n                            dep_table.insert(inline_key, Item::Value(inline_value.clone()));\n                        }\n                    }\n                }\n                Item::Table(t) => {\n                    for (inline_key, inline_value) in t.iter() {\n                        dep_table.insert(inline_key, inline_value.clone());\n                    }\n                }\n                _ => {} // Should not happen for dependencies\n            }\n\n            // Ensure optional is true\n            dep_table.insert(\"optional\", Item::Value(Value::from(true)));\n\n            dependencies.insert(&key, Item::Table(dep_table));\n            new_features.insert(\n                feature_name.clone(),\n                Item::Value(Value::Array(Array::from_iter(vec![Value::from(format!(\n                    \"dep:{}\",\n                    key\n                ))]))),\n            );\n            default_features_list.push(feature_name);\n        }\n    }\n\n    // Add [features] section if it doesn't exist\n    if doc.get(\"features\").is_none() {\n        doc.insert(\"features\", Item::Table(Table::new()));\n    }\n\n    if let Some(Item::Table(features_table)) = doc.get_mut(\"features\") {\n        for (feature_name, feature_deps) in new_features {\n            features_table.insert(&feature_name, feature_deps);\n        }\n        // Set default features\n        features_table.insert(\n            \"default\",\n            Item::Value(Value::Array(Array::from_iter(\n                default_features_list.into_iter().map(Value::from),\n            ))),\n        );\n    }\n\n    // 3. Update package name\n    if let Some(Item::Table(package_table)) = doc.get_mut(\"package\") {\n        if let Some(Item::Value(name_value)) = package_table.get_mut(\"name\") {\n            if let Some(s) = name_value.as_str() {\n                let new_name = format!(\"{}-adaptive\", s);\n                *name_value = Value::from(new_name);\n            }\n        }\n    }\n\n    // 4. Write the new Cargo.toml\n    fs::write(&adapted_cargo_toml_path, doc.to_string()).context(format!(\n        \"Failed to write adapted Cargo.toml to {:?}\",\n        adapted_cargo_toml_path\n    ))?;\n\n    println!(\n        \"Adapted Cargo.toml written to {:?}\",\n        adapted_cargo_toml_path\n    );\n    Ok(())\n}\n"
+    }
+  ],
+  "project_documentation": [],
+  "macro_expanded_code_paths": [],
+  "external_documentation_links": [
+    "https://docs.rs/cargo-feature-adapter/latest",
+    "https://doc.rust-lang.org/book/"
+  ]
+}

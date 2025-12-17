@@ -15647,6 +15647,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "ticket_data_generator"
+version = "0.1.0"
+dependencies = [
+ "hex 0.4.3",
+ "regex 1.12.2",
+ "serde",
+ "serde_json",
+ "sha2 0.11.0-rc.3",
+]
+
+[[package]]
 name = "time"
 version = "0.1.45"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -16739,7 +16750,12 @@ dependencies = [
 name = "trait-fixer-compiler-host-real"
 version = "0.1.0"
 dependencies = [
+ "gemini_rustc_data_structures",
  "rustc_driver",
+ "rustc_errors",
+ "rustc_interface",
+ "serde",
+ "serde_json",
  "trait-fixer-compiler-host-trait",
 ]
 

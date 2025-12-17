@@ -1,0 +1,231 @@
+{
+  "ticket_id": "ac34079e989289d43abc2815e839b38c876bebaacb767dbbb802897328602ee7",
+  "target_name": "rustc_llvm",
+  "error_reason": "compiler-message",
+  "summary_message": "Compiler messages for target: rustc_llvm",
+  "occurrences": [
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n  --> submodules/rust/compiler/rustc_llvm/src/lib.rs:91:9\n   |\n91 |         llvm_component = \"x86\",\n   |         ^^^^^^^^^^^^^^^^^^^^^^\n   |\n   = help: expected names are: `docsrs`, `feature`, and `test` and 31 more\n   = help: consider using a Cargo feature instead\n   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n            [lints.rust]\n            unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"x86\"))'] }\n   = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"x86\\\"))\");` to the top of the `build.rs`\n   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n   = note: `#[warn(unexpected_cfgs)]` on by default\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 91,
+      "line_end": 91,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"x86\",\n        LLVMInitializeX86TargetInfo,\n        LLVMInitializeX86Target,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n  --> submodules/rust/compiler/rustc_llvm/src/lib.rs:99:9\n   |\n99 |         llvm_component = \"arm\",\n   |         ^^^^^^^^^^^^^^^^^^^^^^\n   |\n   = help: consider using a Cargo feature instead\n   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n            [lints.rust]\n            unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"arm\"))'] }\n   = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"arm\\\"))\");` to the top of the `build.rs`\n   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 99,
+      "line_end": 99,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"arm\",\n        LLVMInitializeARMTargetInfo,\n        LLVMInitializeARMTarget,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n   --> submodules/rust/compiler/rustc_llvm/src/lib.rs:107:9\n    |\n107 |         llvm_component = \"aarch64\",\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\n    = help: consider using a Cargo feature instead\n    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n             [lints.rust]\n             unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"aarch64\"))'] }\n    = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"aarch64\\\"))\");` to the top of the `build.rs`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 107,
+      "line_end": 107,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"aarch64\",\n        LLVMInitializeAArch64TargetInfo,\n        LLVMInitializeAArch64Target,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n   --> submodules/rust/compiler/rustc_llvm/src/lib.rs:115:9\n    |\n115 |         llvm_component = \"amdgpu\",\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\n    = help: consider using a Cargo feature instead\n    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n             [lints.rust]\n             unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"amdgpu\"))'] }\n    = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"amdgpu\\\"))\");` to the top of the `build.rs`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 115,
+      "line_end": 115,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"amdgpu\",\n        LLVMInitializeAMDGPUTargetInfo,\n        LLVMInitializeAMDGPUTarget,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n   --> submodules/rust/compiler/rustc_llvm/src/lib.rs:123:9\n    |\n123 |         llvm_component = \"avr\",\n    |         ^^^^^^^^^^^^^^^^^^^^^^\n    |\n    = help: consider using a Cargo feature instead\n    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n             [lints.rust]\n             unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"avr\"))'] }\n    = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"avr\\\"))\");` to the top of the `build.rs`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 123,
+      "line_end": 123,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"avr\",\n        LLVMInitializeAVRTargetInfo,\n        LLVMInitializeAVRTarget,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n   --> submodules/rust/compiler/rustc_llvm/src/lib.rs:131:9\n    |\n131 |         llvm_component = \"m68k\",\n    |         ^^^^^^^^^^^^^^^^^^^^^^^\n    |\n    = help: consider using a Cargo feature instead\n    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n             [lints.rust]\n             unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"m68k\"))'] }\n    = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"m68k\\\"))\");` to the top of the `build.rs`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 131,
+      "line_end": 131,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"m68k\",\n        LLVMInitializeM68kTargetInfo,\n        LLVMInitializeM68kTarget,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n   --> submodules/rust/compiler/rustc_llvm/src/lib.rs:139:9\n    |\n139 |         llvm_component = \"csky\",\n    |         ^^^^^^^^^^^^^^^^^^^^^^^\n    |\n    = help: consider using a Cargo feature instead\n    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n             [lints.rust]\n             unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"csky\"))'] }\n    = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"csky\\\"))\");` to the top of the `build.rs`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 139,
+      "line_end": 139,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"csky\",\n        LLVMInitializeCSKYTargetInfo,\n        LLVMInitializeCSKYTarget,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n   --> submodules/rust/compiler/rustc_llvm/src/lib.rs:147:9\n    |\n147 |         llvm_component = \"loongarch\",\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\n    = help: consider using a Cargo feature instead\n    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n             [lints.rust]\n             unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"loongarch\"))'] }\n    = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"loongarch\\\"))\");` to the top of the `build.rs`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 147,
+      "line_end": 147,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"loongarch\",\n        LLVMInitializeLoongArchTargetInfo,\n        LLVMInitializeLoongArchTarget,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n   --> submodules/rust/compiler/rustc_llvm/src/lib.rs:155:9\n    |\n155 |         llvm_component = \"mips\",\n    |         ^^^^^^^^^^^^^^^^^^^^^^^\n    |\n    = help: consider using a Cargo feature instead\n    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n             [lints.rust]\n             unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"mips\"))'] }\n    = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"mips\\\"))\");` to the top of the `build.rs`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 155,
+      "line_end": 155,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"mips\",\n        LLVMInitializeMipsTargetInfo,\n        LLVMInitializeMipsTarget,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n   --> submodules/rust/compiler/rustc_llvm/src/lib.rs:163:9\n    |\n163 |         llvm_component = \"powerpc\",\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\n    = help: consider using a Cargo feature instead\n    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n             [lints.rust]\n             unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"powerpc\"))'] }\n    = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"powerpc\\\"))\");` to the top of the `build.rs`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 163,
+      "line_end": 163,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"powerpc\",\n        LLVMInitializePowerPCTargetInfo,\n        LLVMInitializePowerPCTarget,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n   --> submodules/rust/compiler/rustc_llvm/src/lib.rs:171:9\n    |\n171 |         llvm_component = \"systemz\",\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\n    = help: consider using a Cargo feature instead\n    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n             [lints.rust]\n             unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"systemz\"))'] }\n    = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"systemz\\\"))\");` to the top of the `build.rs`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 171,
+      "line_end": 171,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"systemz\",\n        LLVMInitializeSystemZTargetInfo,\n        LLVMInitializeSystemZTarget,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n   --> submodules/rust/compiler/rustc_llvm/src/lib.rs:179:9\n    |\n179 |         llvm_component = \"msp430\",\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\n    = help: consider using a Cargo feature instead\n    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n             [lints.rust]\n             unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"msp430\"))'] }\n    = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"msp430\\\"))\");` to the top of the `build.rs`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 179,
+      "line_end": 179,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"msp430\",\n        LLVMInitializeMSP430TargetInfo,\n        LLVMInitializeMSP430Target,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n   --> submodules/rust/compiler/rustc_llvm/src/lib.rs:187:9\n    |\n187 |         llvm_component = \"riscv\",\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^\n    |\n    = help: consider using a Cargo feature instead\n    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n             [lints.rust]\n             unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"riscv\"))'] }\n    = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"riscv\\\"))\");` to the top of the `build.rs`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 187,
+      "line_end": 187,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"riscv\",\n        LLVMInitializeRISCVTargetInfo,\n        LLVMInitializeRISCVTarget,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n   --> submodules/rust/compiler/rustc_llvm/src/lib.rs:195:9\n    |\n195 |         llvm_component = \"sparc\",\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^\n    |\n    = help: consider using a Cargo feature instead\n    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n             [lints.rust]\n             unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"sparc\"))'] }\n    = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"sparc\\\"))\");` to the top of the `build.rs`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 195,
+      "line_end": 195,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"sparc\",\n        LLVMInitializeSparcTargetInfo,\n        LLVMInitializeSparcTarget,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n   --> submodules/rust/compiler/rustc_llvm/src/lib.rs:203:9\n    |\n203 |         llvm_component = \"nvptx\",\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^\n    |\n    = help: consider using a Cargo feature instead\n    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n             [lints.rust]\n             unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"nvptx\"))'] }\n    = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"nvptx\\\"))\");` to the top of the `build.rs`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 203,
+      "line_end": 203,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"nvptx\",\n        LLVMInitializeNVPTXTargetInfo,\n        LLVMInitializeNVPTXTarget,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n   --> submodules/rust/compiler/rustc_llvm/src/lib.rs:210:9\n    |\n210 |         llvm_component = \"hexagon\",\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\n    = help: consider using a Cargo feature instead\n    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n             [lints.rust]\n             unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"hexagon\"))'] }\n    = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"hexagon\\\"))\");` to the top of the `build.rs`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 210,
+      "line_end": 210,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"hexagon\",\n        LLVMInitializeHexagonTargetInfo,\n        LLVMInitializeHexagonTarget,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n   --> submodules/rust/compiler/rustc_llvm/src/lib.rs:218:9\n    |\n218 |         llvm_component = \"xtensa\",\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\n    = help: consider using a Cargo feature instead\n    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n             [lints.rust]\n             unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"xtensa\"))'] }\n    = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"xtensa\\\"))\");` to the top of the `build.rs`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 218,
+      "line_end": 218,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"xtensa\",\n        LLVMInitializeXtensaTargetInfo,\n        LLVMInitializeXtensaTarget,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n   --> submodules/rust/compiler/rustc_llvm/src/lib.rs:226:9\n    |\n226 |         llvm_component = \"webassembly\",\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\n    = help: consider using a Cargo feature instead\n    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n             [lints.rust]\n             unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"webassembly\"))'] }\n    = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"webassembly\\\"))\");` to the top of the `build.rs`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 226,
+      "line_end": 226,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"webassembly\",\n        LLVMInitializeWebAssemblyTargetInfo,\n        LLVMInitializeWebAssemblyTarget,\n"
+    },
+    {
+      "rendered_message": "warning: unexpected `cfg` condition name: `llvm_component`\n   --> submodules/rust/compiler/rustc_llvm/src/lib.rs:234:9\n    |\n234 |         llvm_component = \"bpf\",\n    |         ^^^^^^^^^^^^^^^^^^^^^^\n    |\n    = help: consider using a Cargo feature instead\n    = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:\n             [lints.rust]\n             unexpected_cfgs = { level = \"warn\", check-cfg = ['cfg(llvm_component, values(\"bpf\"))'] }\n    = help: or consider adding `println!(\"cargo::rustc-check-cfg=cfg(llvm_component, values(\\\"bpf\\\"))\");` to the top of the `build.rs`\n    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration\n\n",
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "line_start": 234,
+      "line_end": 234,
+      "code_snippet": "    );\n    init_target!(\n        llvm_component = \"bpf\",\n        LLVMInitializeBPFTargetInfo,\n        LLVMInitializeBPFTarget,\n"
+    }
+  ],
+  "search_commands": [
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs",
+    "rg --context 5 \"unexpected `cfg` condition name: `llvm_component`\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" submodules/rust/compiler/rustc_llvm/src/lib.rs",
+    "rg --context 5 \"llvm_component\" Cargo.toml",
+    "rg --context 5 \"llvm_component\" build.rs"
+  ],
+  "referenced_files": [
+    {
+      "file_path": "submodules/rust/compiler/rustc_llvm/src/lib.rs",
+      "content": "// tidy-alphabetical-start\n#![feature(extern_types)]\n// tidy-alphabetical-end\n\nuse std::cell::RefCell;\nuse std::{ptr, slice};\n\nuse libc::size_t;\n\nunsafe extern \"C\" {\n    /// Opaque type that allows C++ code to write bytes to a Rust-side buffer,\n    /// in conjunction with `RawRustStringOstream`. Use this as `&RustString`\n    /// (Rust) and `RustStringRef` (C++) in FFI signatures.\n    pub type RustString;\n}\n\nimpl RustString {\n    pub fn build_byte_buffer(closure: impl FnOnce(&Self)) -> Vec<u8> {\n        let buf = RustStringInner::default();\n        closure(buf.as_opaque());\n        buf.into_inner()\n    }\n}\n\n/// Underlying implementation of [`RustString`].\n///\n/// Having two separate types makes it possible to use the opaque [`RustString`]\n/// in FFI signatures without `improper_ctypes` warnings. This is a workaround\n/// for the fact that there is no way to opt out of `improper_ctypes` when\n/// _declaring_ a type (as opposed to using that type).\n#[derive(Default)]\nstruct RustStringInner {\n    bytes: RefCell<Vec<u8>>,\n}\n\nimpl RustStringInner {\n    fn as_opaque(&self) -> &RustString {\n        let ptr: *const RustStringInner = ptr::from_ref(self);\n        // We can't use `ptr::cast` here because extern types are `!Sized`.\n        let ptr = ptr as *const RustString;\n        unsafe { &*ptr }\n    }\n\n    fn from_opaque(opaque: &RustString) -> &Self {\n        // SAFETY: A valid `&RustString` must have been created via `as_opaque`.\n        let ptr: *const RustString = ptr::from_ref(opaque);\n        let ptr: *const RustStringInner = ptr.cast();\n        unsafe { &*ptr }\n    }\n\n    fn into_inner(self) -> Vec<u8> {\n        self.bytes.into_inner()\n    }\n}\n\n/// Appends the contents of a byte slice to a [`RustString`].\n///\n/// This function is implemented in `rustc_llvm` so that the C++ code in this\n/// crate can link to it directly, without an implied link-time dependency on\n/// `rustc_codegen_llvm`.\n#[unsafe(no_mangle)]\npub unsafe extern \"C\" fn LLVMRustStringWriteImpl(\n    buf: &RustString,\n    slice_ptr: *const u8, // Same ABI as `*const c_char`\n    slice_len: size_t,\n) {\n    let slice = unsafe { slice::from_raw_parts(slice_ptr, slice_len) };\n    RustStringInner::from_opaque(buf).bytes.borrow_mut().extend_from_slice(slice);\n}\n\n/// Initialize targets enabled by the build script via `cfg(llvm_component = \"...\")`.\n/// N.B., this function can't be moved to `rustc_codegen_llvm` because of the `cfg`s.\npub fn initialize_available_targets() {\n    macro_rules! init_target(\n        ($cfg:meta, $($method:ident),*) => { {\n            #[cfg($cfg)]\n            fn init() {\n                unsafe extern \"C\" {\n                    $(fn $method();)*\n                }\n                unsafe {\n                    $($method();)*\n                }\n            }\n            #[cfg(not($cfg))]\n            fn init() { }\n            init();\n        } }\n    );\n    init_target!(\n        llvm_component = \"x86\",\n        LLVMInitializeX86TargetInfo,\n        LLVMInitializeX86Target,\n        LLVMInitializeX86TargetMC,\n        LLVMInitializeX86AsmPrinter,\n        LLVMInitializeX86AsmParser\n    );\n    init_target!(\n        llvm_component = \"arm\",\n        LLVMInitializeARMTargetInfo,\n        LLVMInitializeARMTarget,\n        LLVMInitializeARMTargetMC,\n        LLVMInitializeARMAsmPrinter,\n        LLVMInitializeARMAsmParser\n    );\n    init_target!(\n        llvm_component = \"aarch64\",\n        LLVMInitializeAArch64TargetInfo,\n        LLVMInitializeAArch64Target,\n        LLVMInitializeAArch64TargetMC,\n        LLVMInitializeAArch64AsmPrinter,\n        LLVMInitializeAArch64AsmParser\n    );\n    init_target!(\n        llvm_component = \"amdgpu\",\n        LLVMInitializeAMDGPUTargetInfo,\n        LLVMInitializeAMDGPUTarget,\n        LLVMInitializeAMDGPUTargetMC,\n        LLVMInitializeAMDGPUAsmPrinter,\n        LLVMInitializeAMDGPUAsmParser\n    );\n    init_target!(\n        llvm_component = \"avr\",\n        LLVMInitializeAVRTargetInfo,\n        LLVMInitializeAVRTarget,\n        LLVMInitializeAVRTargetMC,\n        LLVMInitializeAVRAsmPrinter,\n        LLVMInitializeAVRAsmParser\n    );\n    init_target!(\n        llvm_component = \"m68k\",\n        LLVMInitializeM68kTargetInfo,\n        LLVMInitializeM68kTarget,\n        LLVMInitializeM68kTargetMC,\n        LLVMInitializeM68kAsmPrinter,\n        LLVMInitializeM68kAsmParser\n    );\n    init_target!(\n        llvm_component = \"csky\",\n        LLVMInitializeCSKYTargetInfo,\n        LLVMInitializeCSKYTarget,\n        LLVMInitializeCSKYTargetMC,\n        LLVMInitializeCSKYAsmPrinter,\n        LLVMInitializeCSKYAsmParser\n    );\n    init_target!(\n        llvm_component = \"loongarch\",\n        LLVMInitializeLoongArchTargetInfo,\n        LLVMInitializeLoongArchTarget,\n        LLVMInitializeLoongArchTargetMC,\n        LLVMInitializeLoongArchAsmPrinter,\n        LLVMInitializeLoongArchAsmParser\n    );\n    init_target!(\n        llvm_component = \"mips\",\n        LLVMInitializeMipsTargetInfo,\n        LLVMInitializeMipsTarget,\n        LLVMInitializeMipsTargetMC,\n        LLVMInitializeMipsAsmPrinter,\n        LLVMInitializeMipsAsmParser\n    );\n    init_target!(\n        llvm_component = \"powerpc\",\n        LLVMInitializePowerPCTargetInfo,\n        LLVMInitializePowerPCTarget,\n        LLVMInitializePowerPCTargetMC,\n        LLVMInitializePowerPCAsmPrinter,\n        LLVMInitializePowerPCAsmParser\n    );\n    init_target!(\n        llvm_component = \"systemz\",\n        LLVMInitializeSystemZTargetInfo,\n        LLVMInitializeSystemZTarget,\n        LLVMInitializeSystemZTargetMC,\n        LLVMInitializeSystemZAsmPrinter,\n        LLVMInitializeSystemZAsmParser\n    );\n    init_target!(\n        llvm_component = \"msp430\",\n        LLVMInitializeMSP430TargetInfo,\n        LLVMInitializeMSP430Target,\n        LLVMInitializeMSP430TargetMC,\n        LLVMInitializeMSP430AsmPrinter,\n        LLVMInitializeMSP430AsmParser\n    );\n    init_target!(\n        llvm_component = \"riscv\",\n        LLVMInitializeRISCVTargetInfo,\n        LLVMInitializeRISCVTarget,\n        LLVMInitializeRISCVTargetMC,\n        LLVMInitializeRISCVAsmPrinter,\n        LLVMInitializeRISCVAsmParser\n    );\n    init_target!(\n        llvm_component = \"sparc\",\n        LLVMInitializeSparcTargetInfo,\n        LLVMInitializeSparcTarget,\n        LLVMInitializeSparcTargetMC,\n        LLVMInitializeSparcAsmPrinter,\n        LLVMInitializeSparcAsmParser\n    );\n    init_target!(\n        llvm_component = \"nvptx\",\n        LLVMInitializeNVPTXTargetInfo,\n        LLVMInitializeNVPTXTarget,\n        LLVMInitializeNVPTXTargetMC,\n        LLVMInitializeNVPTXAsmPrinter\n    );\n    init_target!(\n        llvm_component = \"hexagon\",\n        LLVMInitializeHexagonTargetInfo,\n        LLVMInitializeHexagonTarget,\n        LLVMInitializeHexagonTargetMC,\n        LLVMInitializeHexagonAsmPrinter,\n        LLVMInitializeHexagonAsmParser\n    );\n    init_target!(\n        llvm_component = \"xtensa\",\n        LLVMInitializeXtensaTargetInfo,\n        LLVMInitializeXtensaTarget,\n        LLVMInitializeXtensaTargetMC,\n        LLVMInitializeXtensaAsmPrinter,\n        LLVMInitializeXtensaAsmParser\n    );\n    init_target!(\n        llvm_component = \"webassembly\",\n        LLVMInitializeWebAssemblyTargetInfo,\n        LLVMInitializeWebAssemblyTarget,\n        LLVMInitializeWebAssemblyTargetMC,\n        LLVMInitializeWebAssemblyAsmPrinter,\n        LLVMInitializeWebAssemblyAsmParser\n    );\n    init_target!(\n        llvm_component = \"bpf\",\n        LLVMInitializeBPFTargetInfo,\n        LLVMInitializeBPFTarget,\n        LLVMInitializeBPFTargetMC,\n        LLVMInitializeBPFAsmPrinter,\n        LLVMInitializeBPFAsmParser\n    );\n}\n"
+    }
+  ],
+  "project_documentation": [],
+  "macro_expanded_code_paths": [],
+  "external_documentation_links": [
+    "https://docs.rs/rustc_llvm/latest",
+    "https://doc.rust-lang.org/book/"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "ticket_id": "a553a7ab057b776f7a1c542abe831b5ec6655d3e7616e3ee52aa490a2febdbca",
+  "target_name": "build-script-build",
+  "error_reason": "compiler-message",
+  "summary_message": "Compiler messages for target: build-script-build",
+  "occurrences": [
+    {
+      "rendered_message": "warning: unused import: `Path`\n --> submodules/rust/compiler/rustc_expand_base_lib_errors/build.rs:1:27\n  |\n1 | use std::{env, fs, path::{Path, PathBuf}};\n  |                           ^^^^\n  |\n  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default\n\n",
+      "file_path": "submodules/rust/compiler/rustc_expand_base_lib_errors/build.rs",
+      "line_start": 1,
+      "line_end": 1,
+      "code_snippet": "use std::{env, fs, path::{Path, PathBuf}};\nuse syn::{parse_file, Item};\nuse quote::quote;\n"
+    },
+    {
+      "rendered_message": "warning: unused variable: `original_lib_rs_content`\n  --> submodules/rust/compiler/rustc_expand_base_lib_errors/build.rs:64:9\n   |\n64 |     let original_lib_rs_content = fs::read_to_string(&original_lib_rs_path)?;\n   |         ^^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_original_lib_rs_content`\n   |\n   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default\n\n",
+      "file_path": "submodules/rust/compiler/rustc_expand_base_lib_errors/build.rs",
+      "line_start": 64,
+      "line_end": 64,
+      "code_snippet": "    let original_lib_rs_path = src_dir.join(\"lib.rs\");\n    println!(\"cargo:rerun-if-changed={}\", original_lib_rs_path.display());\n    let original_lib_rs_content = fs::read_to_string(&original_lib_rs_path)?;\n\n    let wrapping_macros_str = r#\"\\\n"
+    }
+  ],
+  "search_commands": [
+    "rg --context 5 \"unused import: `Path`\" submodules/rust/compiler/rustc_expand_base_lib_errors/build.rs",
+    "rg --context 5 \"use Path\" submodules/rust/compiler/rustc_expand_base_lib_errors/build.rs",
+    "rg \"Path\" submodules/rust/compiler/rustc_expand_base_lib_errors/build.rs",
+    "rg --context 5 \"unused variable: `original_lib_rs_content`\" submodules/rust/compiler/rustc_expand_base_lib_errors/build.rs"
+  ],
+  "referenced_files": [
+    {
+      "file_path": "submodules/rust/compiler/rustc_expand_base_lib_errors/build.rs",
+      "content": "use std::{env, fs, path::{Path, PathBuf}};\nuse syn::{parse_file, Item};\nuse quote::quote;\n\nfn main() -> Result<(), Box<dyn std::error::Error>> {\n    println!(\"cargo:rerun-if-changed=build.rs\");\n    println!(\"cargo:rerun-if-changed=src/\");\n\n    let out_dir = PathBuf::from(env::var(\"OUT_DIR\")?);\n    let manifest_dir = PathBuf::from(env::var(\"CARGO_MANIFEST_DIR\")?);\n    let src_dir = manifest_dir.join(\"src\");\n\n    fs::create_dir_all(&out_dir)?;\n\n    let mut generated_includes = String::new();\n    let mut generated_pub_uses = String::new();\n\n    // Only process our specific struct files for now\n    let files_to_process = vec![\"trace_macro_base.rs\", \"trace_macro_note.rs\"];\n\n    for file_name in files_to_process {\n        let path = src_dir.join(file_name);\n        println!(\"cargo:rerun-if-changed={}\", path.display());\n        let original_code = fs::read_to_string(&path)?;\n        let file_stem = path.file_stem().ok_or(\"No file stem\")?.to_string_lossy();\n\n        let ast = parse_file(&original_code)?;\n        let mut transformed_items = Vec::new();\n\n        let mut struct_names_in_file = Vec::new(); // Collect struct names for pub use\n\n        for item in ast.items {\n            let wrapped_item = match item {\n                Item::Struct(item_struct) => {\n                    struct_names_in_file.push(item_struct.ident.clone());\n                    quote! { wrap_struct! { #item_struct } }\n                },\n                _ => quote! { #item }, // Pass through other items without wrapping\n            };\n            transformed_items.push(wrapped_item);\n        }\n\n        let transformed_file_content = quote! {\n            #(#transformed_items)*\n        }.to_string();\n\n        let output_file_name = format!(\"transformed_{}.rs\", file_stem);\n        let output_path = out_dir.join(&output_file_name);\n        fs::write(&output_path, transformed_file_content)?;\n\n        // Add include! for this transformed file\n        generated_includes.push_str(&format!(\"pub mod {};\\n\", output_file_name.replace(\".rs\", \"\")));\n\n        // Add pub use for structs found in this file\n        for struct_name in struct_names_in_file {\n            generated_pub_uses.push_str(&format!(\"pub use {}::{};\\n\", output_file_name.replace(\".rs\", \"\"), struct_name));\n        }\n    }\n\n    // Now, create the actual lib.rs for this crate that includes the transformed files\n    // and re-exports items from the original lib.rs (which has the traits)\n    let original_lib_rs_path = src_dir.join(\"lib.rs\");\n    println!(\"cargo:rerun-if-changed={}\", original_lib_rs_path.display());\n    let original_lib_rs_content = fs::read_to_string(&original_lib_rs_path)?;\n\n    let wrapping_macros_str = r#\"\\\n        macro_rules! wrap_struct {\n            ($($item:item)*) => { $(\n                #[cfg(debug_assertions)]\n                eprintln!(\"Wrapped struct: {}\", stringify!($item));\n                $item\n            )* };\n        }\n        // Add other wrapping macros (fn, enum, etc.) if needed for this crate\n    \"#;\n\n    let final_lib_rs_content = format!(\n        \"{}\\n{}\\n{}\",\n        wrapping_macros_str,\n        generated_includes,\n        generated_pub_uses\n    );\n\n    fs::write(out_dir.join(\"lib.rs\"), final_lib_rs_content)?;\n\n    Ok(())\n}\n"
+    }
+  ],
+  "project_documentation": [],
+  "macro_expanded_code_paths": [],
+  "external_documentation_links": [
+    "https://docs.rs/build-script-build/latest",
+    "https://doc.rust-lang.org/book/"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "ticket_id": "6d90b38c126d59c803c6538e1c0910feda11e928f43ec0f20db903439461e97f",
+  "target_name": "rustc_data_structures",
+  "error_reason": "compiler-message",
+  "summary_message": "Compiler messages for target: rustc_data_structures",
+  "occurrences": [
+    {
+      "rendered_message": "warning: unused import: `smallvec::SmallVec`\n --> submodules/rust/compiler/rustc_data_structures/src/flat_map_in_place.rs:3:5\n  |\n3 | use smallvec::SmallVec;\n  |     ^^^^^^^^^^^^^^^^^^\n  |\n  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default\n\n",
+      "file_path": "submodules/rust/compiler/rustc_data_structures/src/flat_map_in_place.rs",
+      "line_start": 3,
+      "line_end": 3,
+      "code_snippet": "use std::{mem, ptr};\n\nuse smallvec::SmallVec;\nuse thin_vec::ThinVec;\n\n"
+    }
+  ],
+  "search_commands": [
+    "rg --context 5 \"unused import: `smallvec::SmallVec`\" submodules/rust/compiler/rustc_data_structures/src/flat_map_in_place.rs",
+    "rg --context 5 \"use smallvec::SmallVec\" submodules/rust/compiler/rustc_data_structures/src/flat_map_in_place.rs",
+    "rg \"smallvec::SmallVec\" submodules/rust/compiler/rustc_data_structures/src/flat_map_in_place.rs"
+  ],
+  "referenced_files": [
+    {
+      "file_path": "submodules/rust/compiler/rustc_data_structures/src/flat_map_in_place.rs",
+      "content": "use std::{mem, ptr};\n\nuse smallvec::SmallVec;\nuse thin_vec::ThinVec;\n\npub trait FlatMapInPlace<T>: Sized {\n    fn flat_map_in_place<F, I>(&mut self, f: F)\n    where\n        F: FnMut(T) -> I,\n        I: IntoIterator<Item = T>;\n}\n\n// The implementation of this method is syntactically identical for all the\n// different vector types.\nmacro_rules! flat_map_in_place {\n    ($vec:ident $( where T: $bound:path)?) => {\n        fn flat_map_in_place<F, I>(&mut self, mut f: F)\n        where\n            F: FnMut(T) -> I,\n            I: IntoIterator<Item = T>,\n        {\n            struct LeakGuard<'a, T $(: $bound)?>(&'a mut $vec<T>);\n\n            impl<'a, T $(: $bound)?> Drop for LeakGuard<'a, T> {\n                fn drop(&mut self) {\n                    unsafe {\n                        self.0.set_len(0); // make sure we just leak elements in case of panic\n                    }\n                }\n            }\n\n            let this = LeakGuard(self);\n\n            let mut read_i = 0;\n            let mut write_i = 0;\n            unsafe {\n                while read_i < this.0.len() {\n                    // move the read_i'th item out of the vector and map it\n                    // to an iterator\n                    let e = ptr::read(this.0.as_ptr().add(read_i));\n                    let iter = f(e).into_iter();\n                    read_i += 1;\n\n                    for e in iter {\n                        if write_i < read_i {\n                            ptr::write(this.0.as_mut_ptr().add(write_i), e);\n                            write_i += 1;\n                        } else {\n                            // If this is reached we ran out of space\n                            // in the middle of the vector.\n                            // However, the vector is in a valid state here,\n                            // so we just do a somewhat inefficient insert.\n                            this.0.insert(write_i, e);\n\n                            read_i += 1;\n                            write_i += 1;\n                        }\n                    }\n                }\n\n                // write_i tracks the number of actually written new items.\n                this.0.set_len(write_i);\n\n                // The ThinVec is in a sane state again. Prevent the LeakGuard from leaking the data.\n                mem::forget(this);\n            }\n        }\n    };\n}\n\nimpl<T> FlatMapInPlace<T> for Vec<T> {\n    flat_map_in_place!(Vec);\n}\n\n// impl<T, A: Array<Item = T>> FlatMapInPlace<T> for SmallVec<A> {\n//     flat_map_in_place!(SmallVec where T: Array);\n// }\n\nimpl<T> FlatMapInPlace<T> for ThinVec<T> {\n    flat_map_in_place!(ThinVec);\n}\n"
+    }
+  ],
+  "project_documentation": [],
+  "macro_expanded_code_paths": [],
+  "external_documentation_links": [
+    "https://docs.rs/rustc_data_structures/latest",
+    "https://doc.rust-lang.org/book/"
+  ]
+}

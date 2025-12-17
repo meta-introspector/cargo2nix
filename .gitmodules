@@ -1750,3 +1750,6 @@
 	path = submodules/solana-sdk
 	url = https://github.com/meta-introspector/solana-sdk
 	branch = master
+[submodule "submodules/patch-build-rs"]
+	path = submodules/patch-build-rs
+	url = https://github.com/meta-introspector/patch-build-rs
