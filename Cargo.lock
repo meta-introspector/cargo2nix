@@ -17495,6 +17495,9 @@ version = "0.1.0"
 dependencies = [
  "anyhow 1.0.100",
  "introspector_decl2_macros",
+ "introspector_decl_common",
+ "introspector_decl_core",
+ "introspector_macro_helpers",
  "proc-macro2 1.0.103",
  "quote 1.0.42",
  "syn 2.0.110",

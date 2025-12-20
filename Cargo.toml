@@ -14,6 +14,7 @@ homepage = ""
 [workspace.lints]
 
 [workspace]
+resolver = "3"
 members = [
     "submodules/hyper",
     "crates/addr2line-bin",
