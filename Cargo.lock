@@ -500,7 +500,7 @@ dependencies = [
  "cargo-repo-sync-lib",
  "cargo-submodule-tool-lib",
  "cargo_metadata 0.23.1",
- "clap 4.5.53",
+ "clap 3.2.25",
  "git-wrapper-lib",
  "git2",
  "hex 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -1983,7 +1983,7 @@ dependencies = [
  "anyhow 1.0.100",
  "cargo-submodule-tool-lib",
  "cargo_metadata 0.23.1",
- "clap 4.5.53",
+ "clap 3.2.25",
  "git-wrapper-lib",
  "git2",
  "hex 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -1993,7 +1993,7 @@ dependencies = [
  "serde",
  "serde_json",
  "sha1 0.10.6",
- "syn 2.0.110",
+ "syn 0.11.11",
  "toml_edit 0.23.7",
  "walkdir 2.5.0",
 ]
@@ -2090,7 +2090,7 @@ dependencies = [
  "serde",
  "serde_json",
  "sha1 0.10.6",
- "syn 2.0.110",
+ "syn 0.11.11",
  "toml 0.9.8",
  "toml_edit 0.23.7",
  "walkdir 2.5.0",
@@ -2117,7 +2117,7 @@ dependencies = [
  "serde_json",
  "sha1 0.10.6",
  "sha2 0.11.0-rc.3",
- "syn 2.0.110",
+ "syn 0.11.11",
  "toml 0.9.8",
  "toml_edit 0.23.7",
  "tool-traits-lib",
@@ -2211,7 +2211,7 @@ dependencies = [
  "serde",
  "serde_json",
  "sha1 0.10.6",
- "syn 2.0.110",
+ "syn 0.11.11",
  "toml_edit 0.23.7",
  "walkdir 2.5.0",
 ]
@@ -2573,6 +2573,7 @@ dependencies = [
  "anstyle",
  "clap_lex 0.6.0",
  "strsim 0.10.0",
+ "terminal_size 0.3.0",
 ]
 
 [[package]]
@@ -2587,7 +2588,7 @@ dependencies = [
  "snapbox 0.6.23",
  "static_assertions 1.1.0",
  "strsim 0.11.1",
- "terminal_size",
+ "terminal_size 0.4.3",
  "unicase 2.8.1",
  "unicode-width 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -3081,7 +3082,7 @@ version = "0.5.1"
 dependencies = [
  "afl",
  "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "clap 4.5.53",
+ "clap 4.4.18",
  "diff",
 ]
 
@@ -3240,7 +3241,7 @@ dependencies = [
  "anes",
  "cast",
  "ciborium",
- "clap 4.5.53",
+ "clap 4.4.18",
  "criterion-plot 0.5.0",
  "is-terminal",
  "itertools 0.10.5",
@@ -3306,7 +3307,7 @@ dependencies = [
 
 [[package]]
 name = "criterion"
-version = "1.9.1"
+version = "1.0.0"
 dependencies = [
  "anes",
  "approx",
@@ -3821,19 +3822,19 @@ dependencies = [
 
 [[package]]
 name = "dep2submodule"
-version = "1.9.1"
+version = "1.0.0"
 dependencies = [
  "anyhow 1.0.100",
  "cargo-submodule-tool-lib",
  "cargo_metadata 0.23.1",
  "clap 4.5.53",
  "git2",
- "hex 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "hex 0.3.2",
  "pathdiff 0.2.3",
  "serde",
  "serde_json",
- "sha1 0.10.6",
- "syn 2.0.110",
+ "sha1 0.6.1",
+ "syn 0.11.11",
  "toml_edit 0.23.7",
  "walkdir 2.5.0",
 ]
@@ -4168,7 +4169,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ccc40f214f0d9e897cfc72e2edfa5c225d3252f758c537f11ac0a80371c073a6"
 dependencies = [
  "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "clap 4.5.53",
+ "clap 4.4.18",
  "condtype",
  "divan-macros",
  "libc 0.2.178",
@@ -4549,7 +4550,7 @@ checksum = "7d88f747710a968a0a32ce4c4ae90ead21dc36a06aceabbb4367452679a95eb6"
 
 [[package]]
 name = "expand_utils_macros"
-version = "1.9.1"
+version = "1.0.0"
 dependencies = [
  "proc-macro2 1.0.103",
  "quote 1.0.42",
@@ -4564,7 +4565,7 @@ dependencies = [
 
 [[package]]
 name = "expand_utils_test"
-version = "1.9.1"
+version = "1.0.0"
 dependencies = [
  "expand_utils_macros",
  "rustc_ast",
@@ -4725,7 +4726,7 @@ dependencies = [
  "cargo-repo-sync-lib",
  "cargo-submodule-tool-lib",
  "cargo_metadata 0.23.1",
- "clap 4.5.53",
+ "clap 3.2.25",
  "git-wrapper-lib",
  "git2",
  "hex 0.4.3",
@@ -4733,7 +4734,7 @@ dependencies = [
  "serde",
  "serde_json",
  "sha1 0.11.0-rc.3",
- "syn 2.0.110",
+ "syn 0.11.11",
  "toml_edit 0.23.5",
  "walkdir 2.5.0",
 ]
@@ -4874,7 +4875,7 @@ dependencies = [
 name = "fluent-syntax"
 version = "0.12.0"
 dependencies = [
- "criterion 1.9.1",
+ "criterion 1.0.0",
  "glob 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "iai",
  "memchr 2.7.6 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -5353,7 +5354,7 @@ dependencies = [
  "cargo-repo-sync-lib",
  "cargo-submodule-tool-lib",
  "cargo_metadata 0.23.1",
- "clap 4.5.53",
+ "clap 3.2.25",
  "git2",
  "hex 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "pathdiff 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -5361,7 +5362,7 @@ dependencies = [
  "serde",
  "serde_json",
  "sha1 0.10.6",
- "syn 2.0.110",
+ "syn 0.11.11",
  "toml_edit 0.23.5",
  "walkdir 2.5.0",
 ]
@@ -5509,7 +5510,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow 1.0.100",
  "cargo_metadata 0.23.1",
- "clap 4.5.53",
+ "clap 3.2.25",
  "git2",
  "hex 0.4.3",
  "pathdiff 0.2.3",
@@ -5517,7 +5518,7 @@ dependencies = [
  "serde",
  "serde_json",
  "sha1 0.11.0-rc.3",
- "syn 2.0.110",
+ "syn 0.11.11",
  "toml_edit 0.23.7",
  "tool-traits-lib",
  "walkdir 2.5.0",
@@ -5528,7 +5529,7 @@ name = "git2"
 version = "0.21.0"
 dependencies = [
  "bitflags 2.9.1",
- "clap 4.5.53",
+ "clap 4.4.18",
  "libc 0.2.178",
  "libgit2-sys",
  "log 0.4.27",
@@ -5896,7 +5897,7 @@ dependencies = [
  "gix-trace",
  "gix-utils",
  "libc 0.2.175",
- "libz-rs-sys 1.9.1",
+ "libz-rs-sys 1.0.0",
  "once_cell 1.21.3",
  "parking_lot 0.12.6",
  "prodash",
@@ -6638,7 +6639,7 @@ dependencies = [
 name = "graph-petal-generator"
 version = "0.1.0"
 dependencies = [
- "clap 4.5.53",
+ "clap 4.4.18",
  "petgraph 0.6.3",
  "serde",
  "serde_json",
@@ -6888,7 +6889,7 @@ checksum = "805026a5d0141ffc30abb3be3173848ad46a1b1664fe632428479619a3644d77"
 name = "hex"
 version = "0.4.3"
 dependencies = [
- "criterion 1.9.1",
+ "criterion 1.0.0",
  "data-encoding",
  "faster-hex 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "pretty_assertions",
@@ -8502,7 +8503,7 @@ checksum = "5297962ef19edda4ce33aaa484386e0a5b3d7f2f4e037cbeee00503ef6b29d33"
 dependencies = [
  "anstream",
  "anstyle",
- "clap 4.5.53",
+ "clap 4.4.18",
  "escape8259",
 ]
 
@@ -8541,9 +8542,9 @@ dependencies = [
 
 [[package]]
 name = "libz-rs-sys"
-version = "1.9.1"
+version = "1.0.0"
 dependencies = [
- "zlib-rs 1.9.1",
+ "zlib-rs 1.0.0",
 ]
 
 [[package]]
@@ -8711,7 +8712,7 @@ name = "lzma-rust2"
 version = "0.15.3"
 dependencies = [
  "crc 2.1.0",
- "criterion 0.7.0",
+ "criterion 0.4.0",
  "liblzma",
  "sha2 0.10.9",
 ]
@@ -8840,7 +8841,7 @@ version = "0.8.0"
 
 [[package]]
 name = "measureme"
-version = "1.9.1"
+version = "1.0.0"
 dependencies = [
  "log 0.4.27",
  "memmap2 0.9.9",
@@ -9206,7 +9207,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow 1.0.100 (registry+https://github.com/rust-lang/crates.io-index)",
  "chrono 0.4.40",
- "clap 4.5.53",
+ "clap 4.4.18",
  "serde",
  "serde_json",
 ]
@@ -10371,7 +10372,7 @@ dependencies = [
  "anyhow 1.0.100 (registry+https://github.com/rust-lang/crates.io-index)",
  "async-trait",
  "cargo_metadata 0.18.1",
- "clap 4.5.53",
+ "clap 4.4.18",
  "hex 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "pathdiff 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde",
@@ -10570,7 +10571,7 @@ dependencies = [
  "cargo-submodule-tool-lib",
  "cargo_metadata 0.23.1",
  "chrono 0.4.40",
- "clap 4.5.53",
+ "clap 4.4.18",
  "git-wrapper-lib",
  "glob 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "hex 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -11344,7 +11345,7 @@ dependencies = [
  "anyhow 1.0.100 (registry+https://github.com/rust-lang/crates.io-index)",
  "cargo-repo-sync-lib",
  "cargo_metadata 0.23.1",
- "clap 4.5.53",
+ "clap 3.2.25",
  "git-wrapper-lib",
  "git2",
  "hex 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -11353,7 +11354,7 @@ dependencies = [
  "serde",
  "serde_json",
  "sha1 0.10.6",
- "syn 2.0.110",
+ "syn 0.11.11",
  "toml_edit 0.23.5",
  "tool-traits-lib",
  "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -11896,7 +11897,7 @@ checksum = "a157657054ffe556d8858504af8a672a054a6e0bd9e8ee531059100c0fa11bb2"
 
 [[package]]
 name = "rust-nix-bootstrap"
-version = "1.9.1"
+version = "1.0.0"
 
 [[package]]
 name = "rust-src-scanner"
@@ -12013,10 +12014,10 @@ dependencies = [
 
 [[package]]
 name = "rustc_apfloat"
-version = "1.9.1"
+version = "1.0.0"
 dependencies = [
  "bitflags 2.10.0",
- "criterion 1.9.1",
+ "criterion 1.0.0",
  "smallvec 2.0.0-alpha.12",
 ]
 
@@ -13850,7 +13851,7 @@ dependencies = [
 name = "ruzstd"
 version = "0.8.2"
 dependencies = [
- "criterion 1.9.1",
+ "criterion 1.0.0",
  "fastrand 2.3.0",
  "rand 0.10.0-rc.5",
  "twox-hash 2.1.2",
@@ -14038,7 +14039,7 @@ dependencies = [
 
 [[package]]
 name = "secret-manager-rs"
-version = "1.9.1"
+version = "1.0.0"
 dependencies = [
  "anyhow 1.0.100 (registry+https://github.com/rust-lang/crates.io-index)",
  "async-trait",
@@ -14046,18 +14047,18 @@ dependencies = [
  "cargo-repo-sync-lib",
  "cargo-submodule-tool-lib",
  "cargo_metadata 0.23.1",
- "clap 4.5.53",
+ "clap 4.4.18",
  "git-wrapper-lib",
  "git2",
- "hex 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "hex 0.3.2",
  "pathdiff 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde",
  "serde_json",
  "serde_yaml",
- "sha1 0.10.6",
- "syn 2.0.110",
+ "sha1 0.6.1",
+ "syn 0.11.11",
  "tokio 1.48.0",
- "toml_edit 0.23.5",
+ "toml_edit 0.19.15",
  "tracing 0.1.40",
  "tracing-subscriber",
  "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -14892,13 +14893,13 @@ dependencies = [
 name = "split-decls-rs"
 version = "0.1.0"
 dependencies = [
- "anyhow 1.0.100 (registry+https://github.com/rust-lang/crates.io-index)",
+ "anyhow 1.0.100",
  "assert_cmd",
  "introspector_decl2_macros",
  "introspector_decl_common",
  "introspector_decl_core",
  "introspector_macro_helpers",
- "once_cell 1.20.3",
+ "once_cell 1.21.3",
  "predicates 2.1.5",
  "proc-macro2 1.0.103",
  "quote 1.0.42",
@@ -14906,10 +14907,10 @@ dependencies = [
  "serde_json",
  "syn 2.0.110",
  "tempfile 3.23.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "toml 0.8.23",
+ "toml 0.9.8",
  "unimacro_derive",
- "url 2.5.7 (registry+https://github.com/rust-lang/crates.io-index)",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "url 2.5.7",
+ "walkdir 2.5.0",
 ]
 
 [[package]]
@@ -14921,7 +14922,7 @@ dependencies = [
  "cargo-submodule-tool-lib",
  "cargo_metadata 0.23.1",
  "chrono 0.4.40",
- "clap 4.5.53",
+ "clap 3.2.25",
  "git-wrapper-lib",
  "git2",
  "hex 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -15339,7 +15340,7 @@ dependencies = [
  "cargo-repo-sync-lib",
  "cargo-submodule-tool-lib",
  "cargo_metadata 0.23.1",
- "clap 4.5.53",
+ "clap 3.2.25",
  "git-wrapper-lib",
  "git2",
  "hex 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -15556,6 +15557,16 @@ dependencies = [
 
 [[package]]
 name = "terminal_size"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "21bebf2b7c9e0a515f6e0f8c51dc0f8e4696391e6f1ff30379559f8365fb0df7"
+dependencies = [
+ "rustix 0.38.44",
+ "windows-sys 0.48.0",
+]
+
+[[package]]
+name = "terminal_size"
 version = "0.4.3"
 dependencies = [
  "rustix 1.1.2 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -15738,7 +15749,7 @@ dependencies = [
 
 [[package]]
 name = "ticket_data_generator"
-version = "1.9.1"
+version = "1.0.0"
 dependencies = [
  "hex 0.4.3",
  "regex 1.12.2",
@@ -16461,7 +16472,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow 1.0.100",
  "cargo_metadata 0.23.1",
- "clap 4.5.53",
+ "clap 3.2.25",
  "git2",
  "hex 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "pathdiff 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -16469,7 +16480,7 @@ dependencies = [
  "serde",
  "serde_json",
  "sha1 0.10.6",
- "syn 2.0.110",
+ "syn 0.11.11",
  "toml_edit 0.23.7",
  "walkdir 2.5.0",
 ]
@@ -16595,7 +16606,7 @@ dependencies = [
 name = "tracing-chrome"
 version = "0.7.0"
 dependencies = [
- "criterion 1.9.1",
+ "criterion 1.0.0",
  "rayon 1.11.0",
  "serde_json",
  "tracing 0.1.41",
@@ -17137,7 +17148,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "97fee6b57c6a41524a810daee9286c02d7752c4253064d0b05472833a438f675"
 dependencies = [
  "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "rand 0.8.5",
+ "rand 0.7.3",
  "static_assertions 1.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -17167,7 +17178,7 @@ dependencies = [
 
 [[package]]
 name = "type-reporter"
-version = "1.9.1"
+version = "1.0.0"
 dependencies = [
  "regex 1.12.2",
  "serde",
@@ -19069,7 +19080,7 @@ checksum = "51f936044d677be1a1168fae1d03b583a285a5dd9d8cbf7b24c23aa1fc775235"
 
 [[package]]
 name = "zlib-rs"
-version = "1.9.1"
+version = "1.0.0"
 dependencies = [
  "arbitrary 1.4.2",
  "crc32fast 1.4.2",

@@ -1,3 +1,17 @@
+[workspace.package]
+edition = "2024"
+version = "1.0.0"
+publish  = false
+keywords = []
+rust-version = "1.85.0"
+include = []
+license = "AGPL 3.0"
+authors = []
+description = ""
+categories = []
+repository = ""
+homepage = ""
+[workspace.lints]
 [workspace]
 members = [
     "submodules/hyper",
@@ -553,8 +567,13 @@ path = "submodules/walkdir"
 [workspace.dependencies.base64]
 path = "submodules/rust-base64"
 
+[workspace.dependencies.introspector_macro_helpers]
+
+path = "submodules/patch-build-rs/introspector_macro_helpers"
+
 [workspace.dependencies.introspector_decl2_macros]
-workspace = true
+
+path = "submodules/patch-build-rs/introspector_decl2_macros"
 
 [workspace.dependencies.tinyvec_macros]
 path = "submodules/tinyvec_macros"
@@ -787,7 +806,8 @@ path = "submodules/zlib-rs/zlib-rs"
 path = "submodules/anstyle/crates/anstream"
 
 [workspace.dependencies.syn]
-workspace = true
+
+path = "submodules/syn"
 
 [workspace.dependencies.cargo]
 path = "submodules/cargo"
@@ -978,7 +998,7 @@ path = "./submodules/rust-analyzer/crates/span"
 path = "submodules/futures-rs/futures-task"
 
 [workspace.dependencies.proc-macro2]
-workspace = true
+path = "submodules/proc-macro2"
 
 [workspace.dependencies.proc-macro-api]
 path = "submodules/rust-analyzer/crates/proc-macro-api"
@@ -1088,8 +1108,6 @@ path = "submodules/icu4x/components/properties"
 [workspace.dependencies.profile]
 path = "submodules/rust-analyzer/crates/profile"
 
-[workspace.dependencies.introspector_macro_helpers]
-workspace = true
 
 [workspace.dependencies.http-auth]
 path = "submodules/http-auth"
@@ -1294,7 +1312,7 @@ path = "./submodules/rust-analyzer/crates/intern"
 path = "submodules/pest/meta"
 
 [workspace.dependencies.quote]
-workspace = true
+path = "submodules/quote"
 
 [workspace.dependencies.xz2]
 path = "submodules/xz2-rs"
@@ -1432,7 +1450,8 @@ path = "submodules/os_info/os_info"
 path = "submodules/rust/compiler/rustc_expand_base_lib"
 
 [workspace.dependencies.introspector_decl_core]
-workspace = true
+
+path = "submodules/patch-build-rs/introspector_decl_core"
 
 [workspace.dependencies.gix-config-value]
 path = "submodules/gitoxide/gix-config-value"
@@ -1465,7 +1484,7 @@ path = "submodules/windows-rs/crates/libs/sys"
 path = "submodules/cargo/crates/cargo-test-macro"
 
 [workspace.dependencies.anyhow]
-workspace = true
+path = "submodules/anyhow"
 
 [workspace.dependencies.serial_test]
 path = "submodules/serial_test/serial_test"
@@ -1531,7 +1550,8 @@ path = "submodules/rocksdb"
 path = "submodules/async-stream-vendored"
 
 [workspace.dependencies.introspector_decl_common]
-workspace = true
+#workspace = true
+path = "submodules/patch-build-rs/introspector_decl_common"
 
 [workspace.dependencies.block-buffer]
 path = "submodules/utils/block-buffer"
