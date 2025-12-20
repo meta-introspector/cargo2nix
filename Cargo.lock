@@ -139,7 +139,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "891477e0c6a8957309ee5c45a6368af3ae14bb510732d2684ffa19af310920f9"
 dependencies = [
  "getrandom 0.2.16",
- "once_cell 1.20.3",
+ "once_cell",
  "version_check 0.9.5",
 ]
 
@@ -156,7 +156,7 @@ dependencies = [
  "hashbrown 0.14.5",
  "hex 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "no-panic",
- "once_cell 1.20.3",
+ "once_cell",
  "pcg-mwc",
  "portable-atomic",
  "rand 0.8.5",
@@ -175,7 +175,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5a15f179cd60c4584b8a8c596927aadc462e27f2ca70c04e0071964a73ba7a75"
 dependencies = [
  "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "once_cell 1.20.3",
+ "once_cell",
  "version_check 0.9.5",
  "zerocopy",
 ]
@@ -473,20 +473,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "assert_cmd"
-version = "2.0.8"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9834fcc22e0874394a010230586367d4a3e9f11b560f469262678547e1d2575e"
-dependencies = [
- "bstr 1.12.1",
- "doc-comment",
- "predicates 2.1.5",
- "predicates-core",
- "predicates-tree",
- "wait-timeout",
-]
-
-[[package]]
 name = "assert_matches"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -513,7 +499,7 @@ dependencies = [
  "syn 2.0.110",
  "tokio 1.48.0",
  "toml_edit 0.23.5",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -523,7 +509,7 @@ dependencies = [
  "anyhow 1.0.100 (registry+https://github.com/rust-lang/crates.io-index)",
  "lazy_static 1.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "monster_math_traits",
- "once_cell 1.20.3",
+ "once_cell",
  "prelude-generator",
  "proc-macro2 1.0.103",
  "quote 1.0.42",
@@ -629,7 +615,7 @@ dependencies = [
  "async-lock",
  "blocking 1.6.0",
  "futures-lite 2.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "once_cell 1.20.3",
+ "once_cell",
  "tokio 0.2.25",
  "tokio 0.3.7",
  "tokio 1.48.0",
@@ -742,7 +728,7 @@ dependencies = [
  "kv-log-macro",
  "log 0.4.27",
  "memchr 2.7.6 (registry+https://github.com/rust-lang/crates.io-index)",
- "once_cell 1.20.3",
+ "once_cell",
  "pin-project-lite 0.2.16 (registry+https://github.com/rust-lang/crates.io-index)",
  "pin-utils 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "slab 0.4.11 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -771,7 +757,7 @@ dependencies = [
  "kv-log-macro",
  "log 0.4.27",
  "memchr 2.7.6 (registry+https://github.com/rust-lang/crates.io-index)",
- "once_cell 1.20.3",
+ "once_cell",
  "pin-project-lite 0.2.16 (registry+https://github.com/rust-lang/crates.io-index)",
  "pin-utils 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "rand 0.8.5",
@@ -888,7 +874,7 @@ dependencies = [
  "serde",
  "syn 2.0.110",
  "toml 0.9.8",
- "walkdir 2.5.0",
+ "walkdir",
 ]
 
 [[package]]
@@ -923,7 +909,7 @@ dependencies = [
  "http 0.2.12",
  "http-body 0.4.6",
  "lazy_static 1.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "percent-encoding 2.3.2",
  "pin-project-lite 0.2.16 (registry+https://github.com/rust-lang/crates.io-index)",
  "tracing 0.1.40",
 ]
@@ -967,7 +953,7 @@ dependencies = [
  "aws-types",
  "fastrand 2.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "http 0.2.12",
- "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "percent-encoding 2.3.2",
  "tracing 0.1.40",
  "uuid 1.11.0",
 ]
@@ -1004,12 +990,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b7b28f4910bb956b7ab320b62e98096402354eca976c587d1eeccd523d9bac03"
 dependencies = [
  "aws-smithy-http",
- "form_urlencoded 1.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "form_urlencoded",
  "hex 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "hmac 0.12.1",
  "http 0.2.12",
- "once_cell 1.20.3",
- "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "once_cell",
+ "percent-encoding 2.3.2",
  "regex 1.12.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "sha2 0.10.9",
  "time 0.3.44",
@@ -1065,8 +1051,8 @@ dependencies = [
  "http 0.2.12",
  "http-body 0.4.6",
  "hyper 0.14.32",
- "once_cell 1.20.3",
- "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "once_cell",
+ "percent-encoding 2.3.2",
  "pin-project-lite 0.2.16 (registry+https://github.com/rust-lang/crates.io-index)",
  "pin-utils 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "tokio 1.48.0",
@@ -1114,7 +1100,7 @@ dependencies = [
  "fastrand 2.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "http 0.2.12",
  "http-body 0.4.6",
- "once_cell 1.20.3",
+ "once_cell",
  "pin-project-lite 0.2.16 (registry+https://github.com/rust-lang/crates.io-index)",
  "pin-utils 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "tokio 1.48.0",
@@ -1185,7 +1171,7 @@ dependencies = [
  "matchit",
  "memchr 2.7.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "mime 0.3.17",
- "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "percent-encoding 2.3.2",
  "pin-project-lite 0.2.16 (registry+https://github.com/rust-lang/crates.io-index)",
  "rustversion 1.0.22 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde",
@@ -1629,7 +1615,7 @@ version = "1.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bf4918709cc4dd777ad2b6303ed03cb37f3ca0ccede8c1b0d28ac6db8f4710e0"
 dependencies = [
- "once_cell 1.20.3",
+ "once_cell",
  "proc-macro-crate 2.0.0",
  "proc-macro2 1.0.103",
  "quote 1.0.42",
@@ -1932,7 +1918,7 @@ dependencies = [
  "unicode-ident 1.0.22",
  "unicode-width 0.2.2",
  "url 2.5.7",
- "walkdir 2.5.0",
+ "walkdir",
  "windows-sys 0.61.2",
  "winnow 0.7.14",
 ]
@@ -1995,7 +1981,7 @@ dependencies = [
  "sha1 0.10.6",
  "syn 0.11.11",
  "toml_edit 0.23.7",
- "walkdir 2.5.0",
+ "walkdir",
 ]
 
 [[package]]
@@ -2020,7 +2006,7 @@ dependencies = [
  "syn 2.0.110",
  "tempfile 3.23.0",
  "toml_edit 0.23.7",
- "walkdir 2.5.0",
+ "walkdir",
 ]
 
 [[package]]
@@ -2035,7 +2021,7 @@ dependencies = [
  "syn 2.0.110",
  "thiserror 2.0.17",
  "toml 0.9.8",
- "walkdir 2.5.0",
+ "walkdir",
 ]
 
 [[package]]
@@ -2093,7 +2079,7 @@ dependencies = [
  "syn 0.11.11",
  "toml 0.9.8",
  "toml_edit 0.23.7",
- "walkdir 2.5.0",
+ "walkdir",
 ]
 
 [[package]]
@@ -2122,7 +2108,7 @@ dependencies = [
  "toml_edit 0.23.7",
  "tool-traits-lib",
  "url 2.5.7",
- "walkdir 2.5.0",
+ "walkdir",
 ]
 
 [[package]]
@@ -2153,7 +2139,7 @@ dependencies = [
  "time 0.3.44",
  "toml 0.9.8",
  "url 2.5.7",
- "walkdir 2.5.0",
+ "walkdir",
  "windows-sys 0.61.2",
 ]
 
@@ -2174,7 +2160,7 @@ dependencies = [
  "shell-escape",
  "tempfile 3.23.0",
  "tracing 0.1.41",
- "walkdir 2.5.0",
+ "walkdir",
  "windows-sys 0.61.2",
 ]
 
@@ -2213,7 +2199,7 @@ dependencies = [
  "sha1 0.10.6",
  "syn 0.11.11",
  "toml_edit 0.23.7",
- "walkdir 2.5.0",
+ "walkdir",
 ]
 
 [[package]]
@@ -2234,7 +2220,7 @@ dependencies = [
  "tempfile 3.23.0",
  "tera",
  "toml 0.9.8",
- "walkdir 2.5.0",
+ "walkdir",
 ]
 
 [[package]]
@@ -2519,7 +2505,7 @@ dependencies = [
  "clap_derive 3.2.25",
  "clap_lex 0.2.4",
  "indexmap 1.8.2",
- "once_cell 1.20.3",
+ "once_cell",
  "strsim 0.10.0",
  "termcolor",
  "textwrap 0.16.0",
@@ -2719,7 +2705,7 @@ dependencies = [
  "color-spantrace",
  "eyre",
  "indenter",
- "once_cell 1.20.3",
+ "once_cell",
  "owo-colors 3.5.0",
  "tracing-error",
 ]
@@ -2751,7 +2737,7 @@ version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1ba75b3d9449ecdccb27ecbc479fdc0b87fa2dd43d2f8298f9bf0e59aacc8dce"
 dependencies = [
- "once_cell 1.20.3",
+ "once_cell",
  "owo-colors 3.5.0",
  "tracing-core 0.1.35",
  "tracing-error",
@@ -2822,7 +2808,7 @@ dependencies = [
  "serde",
  "serde_derive",
  "serde_json",
- "tester 0.6.0",
+ "tester",
  "winapi 0.3.9",
 ]
 
@@ -2927,7 +2913,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f9d839f2a20b0aee515dc581a6172f2321f96cab76c1a38a4c584a194955390e"
 dependencies = [
  "getrandom 0.2.16",
- "once_cell 1.20.3",
+ "once_cell",
  "tiny-keccak",
 ]
 
@@ -2968,7 +2954,7 @@ dependencies = [
  "base64 0.13.1",
  "hkdf 0.10.0",
  "hmac 0.10.1",
- "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "percent-encoding 2.3.2",
  "rand 0.8.5",
  "sha2 0.9.9",
  "time 0.1.45",
@@ -2984,7 +2970,7 @@ dependencies = [
  "base64 0.13.1",
  "hkdf 0.10.0",
  "hmac 0.10.1",
- "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "percent-encoding 2.3.2",
  "rand 0.8.5",
  "sha2 0.9.9",
  "time 0.2.27",
@@ -2997,7 +2983,7 @@ version = "0.18.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4ddef33a339a91ea89fb53151bd0a4689cfce27055c291dfa69945475d22c747"
 dependencies = [
- "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "percent-encoding 2.3.2",
  "time 0.3.44",
  "version_check 0.9.5",
 ]
@@ -3016,7 +3002,7 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "time 0.3.44",
- "url 2.5.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "url 2.5.7",
 ]
 
 [[package]]
@@ -3124,7 +3110,7 @@ name = "crates-io"
 version = "0.40.16"
 dependencies = [
  "curl",
- "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "percent-encoding 2.3.2",
  "serde",
  "serde_json",
  "thiserror 2.0.17",
@@ -3203,7 +3189,7 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "tinytemplate",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -3229,7 +3215,7 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "tinytemplate",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -3246,7 +3232,7 @@ dependencies = [
  "is-terminal",
  "itertools 0.10.5",
  "num-traits",
- "once_cell 1.20.3",
+ "once_cell",
  "oorandom",
  "plotters",
  "rayon 1.5.3",
@@ -3255,7 +3241,7 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "tinytemplate",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -3278,7 +3264,7 @@ dependencies = [
  "serde",
  "serde_json",
  "tinytemplate",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -3302,7 +3288,7 @@ dependencies = [
  "serde",
  "serde_json",
  "tinytemplate",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -3332,7 +3318,7 @@ dependencies = [
  "tempfile 3.23.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "tinytemplate",
  "tokio 1.48.0",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -3731,7 +3717,7 @@ dependencies = [
  "crossbeam-utils 0.8.21 (registry+https://github.com/rust-lang/crates.io-index)",
  "hashbrown 0.14.5",
  "lock_api 0.4.11",
- "once_cell 1.20.3",
+ "once_cell",
  "parking_lot_core 0.9.13",
 ]
 
@@ -3836,7 +3822,7 @@ dependencies = [
  "sha1 0.6.1",
  "syn 0.11.11",
  "toml_edit 0.23.7",
- "walkdir 2.5.0",
+ "walkdir",
 ]
 
 [[package]]
@@ -4015,12 +4001,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "524cbf6897b527295dff137cec09ecf3a05f4fddffd7dfcd1585403449e74198"
 
 [[package]]
-name = "difflib"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6184e33543162437515c2e2b48714794e37845ec9851711914eec9d308f6ebe8"
-
-[[package]]
 name = "digest"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4084,16 +4064,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "dirs-next"
-version = "2.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b98cf8ebf19c3d1b223e151f99a4f9f0690dca41414773390fc824184ac833e1"
-dependencies = [
- "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "dirs-sys-next",
-]
-
-[[package]]
 name = "dirs-sys"
 version = "0.3.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4114,17 +4084,6 @@ dependencies = [
  "option-ext",
  "redox_users",
  "windows-sys 0.48.0",
-]
-
-[[package]]
-name = "dirs-sys-next"
-version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4ebda144c4fe02d1f7ea1a7d9641b6fc6b580adcfa024ae48797ecdeb6825b4d"
-dependencies = [
- "libc 0.2.178",
- "redox_users",
- "winapi 0.3.9",
 ]
 
 [[package]]
@@ -4510,7 +4469,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "83f351750780493fc33fa0ce8ba3c7d61f9736cfa3b3bb9ee2342643ffe40211"
 dependencies = [
  "log 0.4.27",
- "once_cell 1.20.3",
+ "once_cell",
  "serde",
  "serde_json",
 ]
@@ -4580,7 +4539,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "30d9eafeadd538e68fb28016364c9732d78e420b9ff8853fa5e4058861e9f8d3"
 dependencies = [
  "dissimilar",
- "once_cell 1.20.3",
+ "once_cell",
 ]
 
 [[package]]
@@ -4588,7 +4547,7 @@ name = "expect-test"
 version = "1.5.1"
 dependencies = [
  "dissimilar",
- "once_cell 1.20.3",
+ "once_cell",
 ]
 
 [[package]]
@@ -4616,7 +4575,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4c2b6b5a29c02cdc822728b7d7b8ae1bab3e3b05d44522770ddd49722eeac7eb"
 dependencies = [
  "indenter",
- "once_cell 1.20.3",
+ "once_cell",
 ]
 
 [[package]]
@@ -4736,7 +4695,7 @@ dependencies = [
  "sha1 0.11.0-rc.3",
  "syn 0.11.11",
  "toml_edit 0.23.5",
- "walkdir 2.5.0",
+ "walkdir",
 ]
 
 [[package]]
@@ -4935,17 +4894,10 @@ checksum = "00b0228411908ca8685dba7fc2cdd70ec9990a6e753e89b6ac91a84c40fbaf4b"
 [[package]]
 name = "form_urlencoded"
 version = "1.2.2"
-dependencies = [
- "percent-encoding 2.3.2",
-]
-
-[[package]]
-name = "form_urlencoded"
-version = "1.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cb4cb245038516f5f85277875cdaa4f7d2c9a0fa0468de06ed190163b1581fcf"
 dependencies = [
- "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "percent-encoding 2.3.2",
 ]
 
 [[package]]
@@ -5339,7 +5291,7 @@ dependencies = [
 name = "gemini_rustc_data_structures"
 version = "0.1.0"
 dependencies = [
- "once_cell 1.20.3",
+ "once_cell",
  "parking_lot 0.12.6",
  "serde",
  "serde_json",
@@ -5364,7 +5316,7 @@ dependencies = [
  "sha1 0.10.6",
  "syn 0.11.11",
  "toml_edit 0.23.5",
- "walkdir 2.5.0",
+ "walkdir",
 ]
 
 [[package]]
@@ -5521,7 +5473,7 @@ dependencies = [
  "syn 0.11.11",
  "toml_edit 0.23.7",
  "tool-traits-lib",
- "walkdir 2.5.0",
+ "walkdir",
 ]
 
 [[package]]
@@ -5537,7 +5489,7 @@ dependencies = [
  "openssl-sys",
  "tempfile 3.23.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "time 0.3.44",
- "url 2.5.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "url 2.5.7",
 ]
 
 [[package]]
@@ -5548,7 +5500,7 @@ dependencies = [
  "git2",
  "log 0.4.27",
  "tempfile 3.23.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "url 2.5.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "url 2.5.7",
 ]
 
 [[package]]
@@ -5621,7 +5573,7 @@ dependencies = [
  "smallvec 2.0.0-alpha.12",
  "termtree 0.5.1",
  "thiserror 2.0.17 (registry+https://github.com/rust-lang/crates.io-index)",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -5898,11 +5850,11 @@ dependencies = [
  "gix-utils",
  "libc 0.2.175",
  "libz-rs-sys 1.0.0",
- "once_cell 1.21.3",
+ "once_cell",
  "parking_lot 0.12.6",
  "prodash",
  "thiserror 2.0.17",
- "walkdir 2.5.0",
+ "walkdir",
 ]
 
 [[package]]
@@ -6499,7 +6451,7 @@ dependencies = [
  "gix-features",
  "gix-path",
  "gix-testtools",
- "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "percent-encoding 2.3.2",
  "serde",
  "thiserror 2.0.17 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -6620,7 +6572,7 @@ checksum = "0bf760ebf69878d9fd8f110c89703d90ce35095324d1f1edcb595c63945ee757"
 dependencies = [
  "bitflags 2.9.1",
  "ignore",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -6926,14 +6878,14 @@ dependencies = [
  "futures-util 0.3.31",
  "idna 1.1.0",
  "ipnet",
- "once_cell 1.20.3",
+ "once_cell",
  "rand 0.9.2",
  "ring 0.17.8",
  "thiserror 2.0.17 (registry+https://github.com/rust-lang/crates.io-index)",
  "tinyvec",
  "tokio 1.48.0",
  "tracing 0.1.40",
- "url 2.5.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "url 2.5.7",
 ]
 
 [[package]]
@@ -6947,7 +6899,7 @@ dependencies = [
  "hickory-proto",
  "ipconfig",
  "moka",
- "once_cell 1.20.3",
+ "once_cell",
  "parking_lot 0.12.6",
  "rand 0.9.2",
  "resolv-conf",
@@ -7150,7 +7102,7 @@ dependencies = [
  "serde_json",
  "serde_qs",
  "serde_urlencoded",
- "url 2.5.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "url 2.5.7",
 ]
 
 [[package]]
@@ -7254,7 +7206,7 @@ version = "1.8.1"
 dependencies = [
  "atomic-waker",
  "bytes 1.10.1",
- "form_urlencoded 1.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "form_urlencoded",
  "futures-channel 0.3.31",
  "futures-core 0.3.31",
  "futures-util 0.3.31",
@@ -7346,7 +7298,7 @@ dependencies = [
  "hyper 1.8.1",
  "ipnet",
  "libc 0.2.178",
- "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "percent-encoding 2.3.2",
  "pin-project-lite 0.2.16 (registry+https://github.com/rust-lang/crates.io-index)",
  "socket2 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "system-configuration",
@@ -7495,12 +7447,8 @@ dependencies = [
 name = "idna"
 version = "1.1.0"
 dependencies = [
- "assert_matches",
- "bencher",
  "idna_adapter",
- "serde_json",
  "smallvec 2.0.0-alpha.12",
- "tester 0.9.1",
  "utf8_iter",
 ]
 
@@ -7542,7 +7490,7 @@ dependencies = [
  "memchr 2.7.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "regex-automata 0.4.13 (registry+https://github.com/rust-lang/crates.io-index)",
  "same-file 1.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
  "winapi-util",
 ]
 
@@ -7709,7 +7657,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b5c943d4415edd8153251b6f197de5eb1640e56d84e8d9159bea190421c73698"
 dependencies = [
  "console",
- "once_cell 1.20.3",
+ "once_cell",
  "similar",
 ]
 
@@ -7768,7 +7716,7 @@ name = "introspector_decl_common"
 version = "0.1.0"
 dependencies = [
  "lru 0.12.5",
- "once_cell 1.21.3",
+ "once_cell",
 ]
 
 [[package]]
@@ -7901,12 +7849,12 @@ dependencies = [
  "futures-lite 1.13.0",
  "http 0.2.12",
  "log 0.4.27",
- "once_cell 1.20.3",
+ "once_cell",
  "slab 0.4.11 (registry+https://github.com/rust-lang/crates.io-index)",
  "sluice",
  "tracing 0.1.40",
  "tracing-futures 0.2.5 (registry+https://github.com/rust-lang/crates.io-index)",
- "url 2.5.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "url 2.5.7",
  "waker-fn",
 ]
 
@@ -8041,7 +7989,7 @@ dependencies = [
  "jni-sys",
  "log 0.4.27",
  "thiserror 1.0.39",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
  "windows-sys 0.45.0",
 ]
 
@@ -8067,7 +8015,7 @@ version = "0.3.82"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b011eec8cc36da2aab2d5cff675ec18454fad408585853910a202391cf9f8e65"
 dependencies = [
- "once_cell 1.20.3",
+ "once_cell",
  "wasm-bindgen",
 ]
 
@@ -9003,7 +8951,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4869b6a491569605d66d3952bcdf03df789e5b536e5f0cf7758a7f08a55ae24d"
 dependencies = [
  "cc",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -9150,7 +9098,7 @@ dependencies = [
  "futures 0.3.31",
  "mockall_derive",
  "mockall_double",
- "predicates 3.0.3",
+ "predicates",
  "predicates-tree",
  "serde",
  "serde_derive",
@@ -9190,7 +9138,7 @@ dependencies = [
  "crossbeam-channel 0.5.15 (registry+https://github.com/rust-lang/crates.io-index)",
  "crossbeam-epoch 0.9.15",
  "crossbeam-utils 0.8.21 (registry+https://github.com/rust-lang/crates.io-index)",
- "once_cell 1.20.3",
+ "once_cell",
  "parking_lot 0.12.6",
  "quanta",
  "rustc_version 0.4.1",
@@ -9218,7 +9166,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow 1.0.100 (registry+https://github.com/rust-lang/crates.io-index)",
  "lazy_static 1.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "once_cell 1.20.3",
+ "once_cell",
  "proc-macro2 1.0.103",
  "quote 1.0.42",
  "regex 1.12.2 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -9399,7 +9347,7 @@ dependencies = [
  "libc 0.2.178",
  "log 0.4.27",
  "mio 0.8.11",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
  "windows-sys 0.48.0",
 ]
 
@@ -9718,23 +9666,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "once_cell"
-version = "1.21.3"
-dependencies = [
- "critical-section",
- "parking_lot 0.12.6",
- "parking_lot_core 0.9.13",
- "portable-atomic",
- "regex 1.12.2 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
 name = "once_cell_polyfill"
 version = "1.56.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8aab899efe6ce4fe821f6dda30c02d7041c79f147598ab4b60197f181e12d001"
 dependencies = [
- "once_cell 1.20.3",
+ "once_cell",
 ]
 
 [[package]]
@@ -9755,7 +9692,7 @@ version = "0.8.3"
 dependencies = [
  "bstr 1.12.1",
  "normpath",
- "url 2.5.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "url 2.5.7",
  "windows-sys 0.60.2",
  "zbus",
 ]
@@ -9770,7 +9707,7 @@ dependencies = [
  "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
  "foreign-types",
  "libc 0.2.178",
- "once_cell 1.20.3",
+ "once_cell",
  "openssl-macros",
  "openssl-sys",
 ]
@@ -10079,7 +10016,7 @@ dependencies = [
  "introspector_decl2_macros",
  "introspector_decl_common",
  "introspector_decl_core",
- "once_cell 1.21.3",
+ "once_cell",
  "proc-macro2 1.0.103",
  "quote 1.0.42",
  "reqwest 0.12.24",
@@ -10089,7 +10026,7 @@ dependencies = [
  "syn 2.0.110",
  "toml 0.9.8",
  "toml_edit 0.23.7",
- "walkdir 2.5.0",
+ "walkdir",
 ]
 
 [[package]]
@@ -10165,10 +10102,6 @@ checksum = "31010dd2e1ac33d5b46a5b413495239882813e0369f8ed8a5e266f173602f831"
 [[package]]
 name = "percent-encoding"
 version = "2.3.2"
-
-[[package]]
-name = "percent-encoding"
-version = "2.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9b4f627cb1b25917193a259e49bdad08f671f8d9708acfd5fe0a8c1455d87220"
 
@@ -10227,7 +10160,7 @@ version = "2.7.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e1e58089ea25d717bfd31fb534e4f3afcc2cc569c70de3e239778991ea3b7dea"
 dependencies = [
- "once_cell 1.20.3",
+ "once_cell",
  "pest",
  "sha2 0.10.9",
 ]
@@ -10382,7 +10315,7 @@ dependencies = [
  "tokio 1.48.0",
  "toml 0.8.23",
  "toml_edit 0.20.2",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -10521,20 +10454,6 @@ checksum = "5b40af805b3121feab8a3c29f04d8ad262fa8e0561883e7653e024ae4479e6de"
 
 [[package]]
 name = "predicates"
-version = "2.1.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "59230a63c37f3e18569bdb90e4a89cbf5bf8b06fea0b84e65ea10cc4df47addd"
-dependencies = [
- "difflib",
- "float-cmp",
- "itertools 0.10.5",
- "normalize-line-endings",
- "predicates-core",
- "regex 1.12.2 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "predicates"
 version = "3.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "09963355b9f467184c04017ced4a2ba2d75cbcb4e7462690d388233253d4b1a9"
@@ -10578,7 +10497,7 @@ dependencies = [
  "indoc 1.0.9",
  "lazy_static 1.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "md5",
- "once_cell 1.20.3",
+ "once_cell",
  "pathdiff 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "pipeline-traits",
  "prettyplease",
@@ -10596,7 +10515,7 @@ dependencies = [
  "toml 0.8.23",
  "toml_edit 0.23.5",
  "tool-traits-lib",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -10768,7 +10687,7 @@ dependencies = [
  "is-terminal",
  "jiff",
  "log 0.4.27",
- "once_cell 1.20.3",
+ "once_cell",
  "parking_lot 0.12.6",
  "rand 0.8.5",
  "ratatui",
@@ -10936,7 +10855,7 @@ checksum = "8e5167a477619228a0b284fac2674e3c388cba90631d7b7de620e6f1fcd08da5"
 dependencies = [
  "crossbeam-utils 0.8.21 (registry+https://github.com/rust-lang/crates.io-index)",
  "libc 0.2.178",
- "once_cell 1.20.3",
+ "once_cell",
  "raw-cpuid",
  "wasi 0.11.1+wasi-snapshot-preview1",
  "web-sys",
@@ -11028,7 +10947,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8bffec3605b73c6f1754535084a85229fa8a30f86014e6c81aeec4abb68b0285"
 dependencies = [
  "libc 0.2.178",
- "once_cell 1.20.3",
+ "once_cell",
  "socket2 0.5.10",
  "tracing 0.1.40",
  "windows-sys 0.52.0",
@@ -11357,7 +11276,7 @@ dependencies = [
  "syn 0.11.11",
  "toml_edit 0.23.5",
  "tool-traits-lib",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -11569,8 +11488,8 @@ dependencies = [
  "log 0.4.27",
  "mime 0.3.17",
  "native-tls",
- "once_cell 1.20.3",
- "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "once_cell",
+ "percent-encoding 2.3.2",
  "pin-project-lite 0.2.16 (registry+https://github.com/rust-lang/crates.io-index)",
  "rustls-pemfile 2.2.0",
  "serde",
@@ -11581,7 +11500,7 @@ dependencies = [
  "tokio 1.48.0",
  "tokio-native-tls",
  "tower-service",
- "url 2.5.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "url 2.5.7",
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-sys",
@@ -11623,8 +11542,8 @@ dependencies = [
  "mime_guess",
  "native-tls",
  "num_cpus",
- "once_cell 1.20.3",
- "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "once_cell",
+ "percent-encoding 2.3.2",
  "pin-project-lite 0.2.16 (registry+https://github.com/rust-lang/crates.io-index)",
  "quinn",
  "rustls 0.23.31",
@@ -11641,7 +11560,7 @@ dependencies = [
  "tower 0.5.2",
  "tower-http",
  "tower-service",
- "url 2.5.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "url 2.5.7",
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "wasm-bindgen-test",
@@ -11679,7 +11598,7 @@ checksum = "3053cf52e236a3ed746dfc745aa9cacf1b791d846bdaf412f60a8d7d6e17c8fc"
 dependencies = [
  "cc",
  "libc 0.2.178",
- "once_cell 1.20.3",
+ "once_cell",
  "spin 0.5.2",
  "untrusted 0.7.1",
  "web-sys",
@@ -11876,7 +11795,7 @@ dependencies = [
  "tempfile 3.23.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "time 0.3.44",
  "unicase 2.8.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "url 2.5.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "url 2.5.7",
  "uuid 1.11.0",
 ]
 
@@ -11914,7 +11833,7 @@ dependencies = [
  "sha2 0.11.0-rc.3",
  "syn 2.0.110",
  "toml 0.9.8",
- "walkdir 2.5.0",
+ "walkdir",
 ]
 
 [[package]]
@@ -13614,7 +13533,7 @@ dependencies = [
  "libc 0.2.175",
  "linux-raw-sys 0.11.0",
  "memoffset 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "once_cell 1.20.3",
+ "once_cell",
  "rustc-std-workspace-alloc",
  "rustc-std-workspace-core",
  "serial_test",
@@ -13655,7 +13574,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c0ebcbd2f03de0fc1122ad9bb24b127a5a6cd51d72604a3f3c50ac459762b6cc"
 dependencies = [
  "aws-lc-rs",
- "once_cell 1.20.3",
+ "once_cell",
  "ring 0.17.8",
  "rustls-pki-types",
  "rustls-webpki 0.103.4",
@@ -13752,7 +13671,7 @@ dependencies = [
  "core-foundation-sys",
  "jni",
  "log 0.4.27",
- "once_cell 1.20.3",
+ "once_cell",
  "rustls 0.23.31",
  "rustls-native-certs 0.8.0",
  "rustls-platform-verifier-android",
@@ -14061,7 +13980,7 @@ dependencies = [
  "toml_edit 0.19.15",
  "tracing 0.1.40",
  "tracing-subscriber",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -14244,19 +14163,11 @@ dependencies = [
 name = "serde_json"
 version = "1.0.145"
 dependencies = [
- "automod",
- "indoc 2.0.7",
  "itoa 1.0.15",
  "memchr 2.7.6 (registry+https://github.com/rust-lang/crates.io-index)",
- "ref-cast",
- "rustversion 1.0.22 (registry+https://github.com/rust-lang/crates.io-index)",
  "ryu",
  "serde",
- "serde_bytes",
  "serde_core",
- "serde_derive",
- "serde_stacker",
- "trybuild 1.0.111",
 ]
 
 [[package]]
@@ -14275,7 +14186,7 @@ version = "0.8.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c7715380eec75f029a4ef7de39a9200e0a63823176b759d055b613f5a87df6a6"
 dependencies = [
- "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "percent-encoding 2.3.2",
  "serde",
  "thiserror 1.0.39",
 ]
@@ -14321,16 +14232,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "serde_stacker"
-version = "0.1.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "575a017b0b52bb5c72edd2545e449ce9900fe7f4b3f99392351baee0444f7f8e"
-dependencies = [
- "serde",
- "stacker",
-]
-
-[[package]]
 name = "serde_test"
 version = "1.0.175"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -14345,7 +14246,7 @@ version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d3491c14715ca2294c4d6a88f15e84739788c1d030eed8c110436aafdaa2f3fd"
 dependencies = [
- "form_urlencoded 1.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "form_urlencoded",
  "itoa 1.0.15",
  "ryu",
  "serde",
@@ -14375,7 +14276,7 @@ dependencies = [
  "futures-util 0.3.31",
  "itertools 0.14.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.4.27",
- "once_cell 1.20.3",
+ "once_cell",
  "parking_lot 0.12.6",
  "scc",
  "serial_test_derive",
@@ -14657,7 +14558,7 @@ dependencies = [
  "glob 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "pulldown-cmark 0.9.6",
  "tempfile 3.23.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -14767,7 +14668,7 @@ dependencies = [
  "snapbox-macros 0.4.0",
  "tempfile 3.23.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "wait-timeout",
- "walkdir 2.5.0",
+ "walkdir",
  "windows-sys 0.60.2",
 ]
 
@@ -14792,7 +14693,7 @@ dependencies = [
  "snapbox-macros 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "tempfile 3.23.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "wait-timeout",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
  "windows-sys 0.60.2",
 ]
 
@@ -14894,13 +14795,11 @@ name = "split-decls-rs"
 version = "0.1.0"
 dependencies = [
  "anyhow 1.0.100",
- "assert_cmd",
  "introspector_decl2_macros",
  "introspector_decl_common",
  "introspector_decl_core",
  "introspector_macro_helpers",
- "once_cell 1.21.3",
- "predicates 2.1.5",
+ "once_cell",
  "proc-macro2 1.0.103",
  "quote 1.0.42",
  "serde",
@@ -14910,7 +14809,7 @@ dependencies = [
  "toml 0.9.8",
  "unimacro_derive",
  "url 2.5.7",
- "walkdir 2.5.0",
+ "walkdir",
 ]
 
 [[package]]
@@ -14936,7 +14835,7 @@ dependencies = [
  "tokio 1.48.0",
  "toml 0.8.23",
  "toml_edit 0.23.5",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -15177,7 +15076,7 @@ dependencies = [
  "http-types",
  "log 0.4.27",
  "mime_guess",
- "once_cell 1.20.3",
+ "once_cell",
  "pin-project-lite 0.2.16 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde",
  "serde_json",
@@ -15329,7 +15228,7 @@ dependencies = [
  "tar",
  "termcolor",
  "unicode-ident 1.0.22 (registry+https://github.com/rust-lang/crates.io-index)",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -15352,7 +15251,7 @@ dependencies = [
  "sha1 0.10.6",
  "syn 2.0.110",
  "toml_edit 0.23.5",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -15418,7 +15317,7 @@ dependencies = [
  "byteorder",
  "libc 0.2.178",
  "thiserror 1.0.39",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
 ]
 
 [[package]]
@@ -15484,7 +15383,7 @@ dependencies = [
  "doc-comment",
  "fastrand 2.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "getrandom 0.3.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "once_cell 1.20.3",
+ "once_cell",
  "rustix 1.1.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "windows-sys 0.61.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -15497,7 +15396,7 @@ checksum = "2d31c77bdf42a745371d260a26ca7163f1e0924b64afa0b688e61b5a9fa02f16"
 dependencies = [
  "fastrand 2.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "getrandom 0.3.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "once_cell 1.20.3",
+ "once_cell",
  "rustix 1.1.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "windows-sys 0.61.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -15511,7 +15410,7 @@ dependencies = [
  "globwalk",
  "humansize",
  "lazy_static 1.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "percent-encoding 2.3.2",
  "pest",
  "pest_derive",
  "pretty_assertions",
@@ -15532,17 +15431,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c0863a3345e70f61d613eab32ee046ccd1bcc5f9105fe402c61fcd0c13eeb8b5"
 dependencies = [
  "dirs 2.0.2",
- "winapi 0.3.9",
-]
-
-[[package]]
-name = "term"
-version = "0.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c59df8ac95d96ff9bede18eb7300b0fda5e5d8d90960e76f8e14ae765eedbf1f"
-dependencies = [
- "dirs-next",
- "rustversion 1.0.22 (registry+https://github.com/rust-lang/crates.io-index)",
  "winapi 0.3.9",
 ]
 
@@ -15616,20 +15504,7 @@ checksum = "7647e6d732eb84375d8e7abda37818f81861ddbfc7235e33f4983cb254b71e4f"
 dependencies = [
  "getopts",
  "libc 0.2.178",
- "term 0.6.1",
-]
-
-[[package]]
-name = "tester"
-version = "0.9.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "89e8bf7e0eb2dd7b4228cc1b6821fc5114cd6841ae59f652a85488c016091e5f"
-dependencies = [
- "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "getopts",
- "libc 0.2.178",
- "num_cpus",
- "term 0.7.0",
+ "term",
 ]
 
 [[package]]
@@ -15744,7 +15619,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3fdd6f064ccff2d6567adcb3873ca630700f00b5ad3f060c25b5dcfd9a4ce152"
 dependencies = [
  "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "once_cell 1.20.3",
+ "once_cell",
 ]
 
 [[package]]
@@ -16284,7 +16159,7 @@ dependencies = [
  "toml_datetime 0.7.3",
  "toml_parser 1.0.4",
  "toml_writer 1.0.4",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
  "winnow 0.7.14",
 ]
 
@@ -16421,7 +16296,7 @@ dependencies = [
  "toml_datetime 0.7.3",
  "toml_parser 1.0.4",
  "toml_writer 1.0.4",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
  "winnow 0.7.14",
 ]
 
@@ -16482,7 +16357,7 @@ dependencies = [
  "sha1 0.10.6",
  "syn 0.11.11",
  "toml_edit 0.23.7",
- "walkdir 2.5.0",
+ "walkdir",
 ]
 
 [[package]]
@@ -16618,7 +16493,7 @@ dependencies = [
 name = "tracing-core"
 version = "0.1.34"
 dependencies = [
- "once_cell 1.20.3",
+ "once_cell",
  "valuable",
 ]
 
@@ -16628,7 +16503,7 @@ version = "0.1.35"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7a04e24fab5c89c6a36eb8558c9656f30d81de51dfa4d3b45f26b21d61fa0a6c"
 dependencies = [
- "once_cell 1.20.3",
+ "once_cell",
  "valuable",
 ]
 
@@ -16679,7 +16554,7 @@ dependencies = [
  "criterion 0.3.6",
  "log 0.4.27",
  "lru 0.7.8",
- "once_cell 1.20.3",
+ "once_cell",
  "tracing 0.1.41",
  "tracing-core 0.1.34",
  "tracing-subscriber",
@@ -16715,7 +16590,7 @@ dependencies = [
  "log 0.4.27",
  "matchers",
  "nu-ansi-term",
- "once_cell 1.20.3",
+ "once_cell",
  "parking_lot 0.12.6",
  "regex 1.12.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "regex-automata 0.4.13 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -17228,7 +17103,7 @@ dependencies = [
  "simd-json",
  "time 0.3.44",
  "typesize-derive",
- "url 2.5.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "url 2.5.7",
  "web-time",
 ]
 
@@ -17247,7 +17122,7 @@ version = "0.1.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fc2d0556a998f4c55500ce1730901ba32bafbe820068cbdc091421525d61253b"
 dependencies = [
- "once_cell 1.20.3",
+ "once_cell",
  "regex 1.12.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -17551,26 +17426,12 @@ dependencies = [
 [[package]]
 name = "url"
 version = "2.5.7"
-dependencies = [
- "bencher",
- "form_urlencoded 1.2.2",
- "idna 1.1.0",
- "percent-encoding 2.3.2",
- "serde",
- "serde_derive",
- "serde_json",
- "wasm-bindgen-test",
-]
-
-[[package]]
-name = "url"
-version = "2.5.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "08bc136a29a3d1758e07a9cca267be308aeebf5cfd5a10f3f67ab2097683ef5b"
 dependencies = [
- "form_urlencoded 1.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "form_urlencoded",
  "idna 1.1.0",
- "percent-encoding 2.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "percent-encoding 2.3.2",
  "serde",
 ]
 
@@ -17747,7 +17608,7 @@ dependencies = [
  "semver 1.0.26",
  "syn 2.0.110",
  "toml 0.7.8",
- "url 2.5.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "url 2.5.7",
 ]
 
 [[package]]
@@ -17834,15 +17695,6 @@ checksum = "317211a0dc0ceedd78fb2ca9a44aed3d7b9b26f81870d485c07122b4350673b7"
 [[package]]
 name = "walkdir"
 version = "2.5.0"
-dependencies = [
- "doc-comment",
- "same-file 1.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
- "winapi-util",
-]
-
-[[package]]
-name = "walkdir"
-version = "2.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "29790946404f91d9c5d06f9874efddea1dc06c5efe94541a7d6863108e3a5e4b"
 dependencies = [
@@ -17893,7 +17745,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "da95793dfc411fbbd93f5be7715b0578ec61fe87cb1a42b12eb625caa5c5ea60"
 dependencies = [
  "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "once_cell 1.20.3",
+ "once_cell",
  "rustversion 1.0.22 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde",
  "serde_json",
@@ -17909,7 +17761,7 @@ checksum = "551f88106c6d5e7ccc7cd9a16f312dd3b5d36ea8b4954304657d5dfba115d4a0"
 dependencies = [
  "cfg-if 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
  "js-sys",
- "once_cell 1.20.3",
+ "once_cell",
  "wasm-bindgen",
  "web-sys",
 ]
@@ -18094,7 +17946,7 @@ checksum = "8ad25fe5717e59ada8ea33511bbbf7420b11031730a24c65e82428766c307006"
 dependencies = [
  "dirs 5.0.1",
  "either 1.13.0",
- "once_cell 1.20.3",
+ "once_cell",
  "rustix 0.38.44",
 ]
 
@@ -19069,7 +18921,7 @@ dependencies = [
  "sha1 0.10.6",
  "tempfile 3.23.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "time 0.3.44",
- "walkdir 2.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "walkdir",
  "zeroize",
  "zopfli",
  "zstd",
@@ -19140,7 +18992,7 @@ dependencies = [
  "endi",
  "enumflags2",
  "serde",
- "url 2.5.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "url 2.5.7",
  "winnow 0.7.14",
  "zvariant_derive",
  "zvariant_utils",
