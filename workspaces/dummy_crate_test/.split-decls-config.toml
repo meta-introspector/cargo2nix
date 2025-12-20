@@ -1,0 +1,8 @@
+active_overlay_modules = []
+default_branches_to_patch = []
+
+[patches]
+
+[crates_io_patches]
+
+[repo_fork_mapping]

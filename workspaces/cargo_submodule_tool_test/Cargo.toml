@@ -2,9 +2,32 @@
 name = "cargo_submodule_tool_test_pkg"
 version = "0.1.0"
 edition = "2024"
-resolver = "3"
 
-[dependencies]
-anyhow = { path = "../../submodules/anyhow"}
-cargo-submodule-tool-lib = { path = "../../tools/cargo-submodule-tool-lib", default-features = false }
-git-wrapper-lib = { path = "../../tools/git-wrapper-lib", default-features = false, features = []}
+[dependencies.anyhow]
+workspace = true
+
+[dependencies.cargo-submodule-tool-lib]
+default-features = false
+path = "../../tools/cargo-submodule-tool-lib"
+
+[dependencies.git-wrapper-lib]
+default-features = false
+features = []
+path = "../../tools/git-wrapper-lib"
+
+[build-dependencies.anyhow]
+workspace = true
+
+[build-dependencies.introspector_decl2_macros]
+workspace = true
+
+[build-dependencies.proc-macro2]
+workspace = true
+
+[build-dependencies.quote]
+workspace = true
+
+[build-dependencies.syn]
+workspace = true
+
+[patch]

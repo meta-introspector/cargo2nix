@@ -3,5 +3,22 @@ name = "dummy_crate_test_pkg"
 version = "0.1.0"
 edition = "2021"
 
-[dependencies]
-dummy_crate = { path = "../../submodules/dummy_crate" }
+[dependencies.dummy_crate]
+path = "../../submodules/dummy_crate"
+
+[build-dependencies.anyhow]
+workspace = true
+
+[build-dependencies.introspector_decl2_macros]
+workspace = true
+
+[build-dependencies.proc-macro2]
+workspace = true
+
+[build-dependencies.quote]
+workspace = true
+
+[build-dependencies.syn]
+workspace = true
+
+[patch]
