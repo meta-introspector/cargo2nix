@@ -1,4 +1,18 @@
-[workspace.lints]
+[workspace.package]
+authors = []
+categories = []
+description = ""
+edition = "2024"
+homepage = ""
+include = []
+keywords = []
+license = "AGPL 3.0"
+publish = false
+repository = ""
+rust-version = "1.85.0"
+version = "1.0.0"
+
+
 [workspace]
 members = [
     "submodules/hyper",
@@ -96,169 +110,799 @@ members = [
 ]
 
 [workspace.dependencies]
+aho_corasick.path = "submodules/aho-corasick"
+
 shell-escape = "0.1.5"
-schemars = "1.0.5"
-security-framework = "3.5.1"
-ignore = "0.4.25"
-log = "0.4"
-intl_pluralrules = "7.0"
-serde-untagged = "0.1.9"
-similar = "2.7.0"
-iai = "0.1"
-filetime = "0.2.26"
-memfd = "0.6.5"
-proptest = "1.9.0"
-notify = "6.1.1"
-async-trait = "0.1.79"
-jobserver = "0.1.34"
-percent-encoding = "2.3.2"
-openssl = "0.10.74"
-fluent-langneg = "0.13"
-miow = "0.6.1"
-perf-event-open-sys = "3.0.0"
-unic-langid = "0.9"
-rustyline = "14.0.0"
 winnow = "0.7.13"
+schemars = "1.0.5"
+unic-langid = "0.9"
+notify = "6.1.1"
+proptest = "1.9.0"
+miow = "0.6.1"
+percent-encoding = "2.3.2"
+iai = "0.1"
+intl_pluralrules = "7.0"
+similar = "2.7.0"
+perf-event-open-sys = "3.0.0"
+security-framework = "3.5.1"
+filetime = "0.2.26"
+jobserver = "0.1.34"
+async-trait = "0.1.79"
+serde-untagged = "0.1.9"
+fluent-langneg = "0.13"
+log = "0.4"
+rustyline = "14.0.0"
+openssl = "0.10.74"
+memfd = "0.6.5"
+ignore = "0.4.25"
 
-[workspace.dependencies.gix-macros]
-path = "submodules/gitoxide/gix-macros"
+[workspace.dependencies.strsim]
+path = "submodules/strsim-rs"
 
-[workspace.dependencies.gix-quote]
-path = "submodules/gitoxide/gix-quote"
+[workspace.dependencies.ide-db]
+path = "submodules/rust-analyzer/crates/ide-db"
 
-[workspace.dependencies.itertools]
-path = "submodules/itertools"
+[workspace.dependencies.getrandom]
+path = "submodules/getrandom"
 
-[workspace.dependencies.loom]
-path = "submodules/loom"
+[workspace.dependencies.opener]
+path = "submodules/opener/opener"
 
-[workspace.dependencies.ra-ap-rustc_pattern_analysis]
-package = "rustc_pattern_analysis"
-path = "./submodules/rust/compiler/rustc_pattern_analysis"
+[workspace.dependencies.async-std]
+path = "submodules/async-std"
 
-[workspace.dependencies.mio]
-path = "submodules/mio"
+[workspace.dependencies.ra-ap-rustc_type_ir]
+package = "rustc_type_ir"
+path = "./submodules/rust/compiler/rustc_type_ir"
 
-[workspace.dependencies.byteorder]
-path = "submodules/byteorder"
+[workspace.dependencies.ppv-lite86]
+path = "submodules/cryptocorrosion/utils-simd/ppv-lite86"
+
+[workspace.dependencies.sharded-slab]
+path = "submodules/sharded-slab"
 
 [workspace.dependencies.trybuild]
 path = "submodules/trybuild"
 
-[workspace.dependencies.unicode-ident]
-path = "submodules/unicode-ident"
+[workspace.dependencies.iana-time-zone]
+path = "submodules/iana-time-zone"
 
-[workspace.dependencies.typesize-derive]
-path = "submodules/typesize/typesize-derive"
+[workspace.dependencies.libgit2-sys]
+path = "submodules/git2-rs/libgit2-sys"
 
-[workspace.dependencies.aho_corasick]
-path = "submodules/aho-corasick"
+[workspace.dependencies.syn]
+path = "submodules/syn"
 
-[workspace.dependencies.mockall]
-path = "submodules/mockall/mockall"
+[workspace.dependencies.group]
+path = "submodules/group"
 
-[workspace.dependencies.supports-hyperlinks]
-path = "submodules/supports-hyperlinks"
+[workspace.dependencies.arrayvec]
+path = "submodules/arrayvec"
 
-[workspace.dependencies.powerfmt-macros]
-path = "submodules/powerfmt/powerfmt-macros"
+[workspace.dependencies.gix-revwalk]
+path = "submodules/gitoxide/gix-revwalk"
 
-[workspace.dependencies.human_format]
-path = "submodules/human-format-rs"
+[workspace.dependencies.cfg-if]
+path = "submodules/cfg-if"
 
-[workspace.dependencies.supports-unicode]
-path = "submodules/supports-unicode"
+[workspace.dependencies.md5]
+path = "submodules/md5"
 
-[workspace.dependencies.serde_core]
-path = "submodules/serde/serde_core"
+[workspace.dependencies.fuzz]
+path = "submodules/quinn/fuzz"
 
-[workspace.dependencies.cpp_demangle]
-path = "submodules/cpp_demangle"
+[workspace.dependencies.constant_time_eq]
+path = "submodules/constant_time_eq"
 
-[workspace.dependencies.gix-blame]
-path = "submodules/gitoxide/gix-blame"
+[workspace.dependencies.gix-validate]
+path = "submodules/gitoxide/gix-validate"
 
-[workspace.dependencies.git-wrapper-lib]
-path = "tools/git-wrapper-lib"
+[workspace.dependencies.introspector_decl2_macros]
+path = "submodules/patch-build-rs/introspector_decl2_macros"
 
-[workspace.dependencies.openssl-probe]
-path = "submodules/openssl-probe"
+[workspace.dependencies.is_executable]
+path = "submodules/is_executable"
+
+[workspace.dependencies.gix-ignore]
+path = "submodules/gitoxide/gix-ignore"
+
+[workspace.dependencies.toml_parser]
+path = "submodules/toml/crates/toml_parser"
+
+[workspace.dependencies.windows_i686_gnullvm]
+path = "submodules/windows-rs/crates/targets/i686_gnullvm"
+
+[workspace.dependencies.cpufeatures]
+path = "submodules/utils/cpufeatures"
+
+[workspace.dependencies.lock_api]
+path = "submodules/parking_lot/lock_api"
 
 [workspace.dependencies.serde]
 features = ["derive"]
 version = "1.0"
 
-[workspace.dependencies.trycmd]
-path = "submodules/snapbox/crates/trycmd"
-
-[workspace.dependencies.gix-transport]
-path = "submodules/gitoxide/gix-transport"
-
-[workspace.dependencies.ide-assists]
-path = "submodules/rust-analyzer/crates/ide-assists"
-
-[workspace.dependencies.proc-macro-srv-cli]
-path = "submodules/rust-analyzer/crates/proc-macro-srv-cli"
-
-[workspace.dependencies.oorandom]
-path = "submodules/oorandom"
-
-[workspace.dependencies.rustc_feature]
-path = "submodules/rust/compiler/rustc_feature"
-
-[workspace.dependencies.adler2]
-path = "submodules/adler2"
-
-[workspace.dependencies.http-auth]
-path = "submodules/http-auth"
-
-[workspace.dependencies.hir-ty]
-path = "submodules/rust-analyzer/crates/hir-ty"
-
-[workspace.dependencies.assert-impl]
-path = "submodules/assert-impl"
-
-[workspace.dependencies.span]
-path = "./submodules/rust-analyzer/crates/span"
-
-[workspace.dependencies.gix-lfs]
-path = "submodules/gitoxide/gix-lfs"
-
-[workspace.dependencies.async-std]
-path = "submodules/async-std"
-
 [workspace.dependencies.rustfix]
 path = "submodules/cargo/crates/rustfix"
 
-[workspace.dependencies.gix-prompt]
-path = "submodules/gitoxide/gix-prompt"
+[workspace.dependencies.serde-value]
+path = "submodules/serde-value"
 
-[workspace.dependencies.wasm_sync]
-path = "submodules/wasm_sync"
+[workspace.dependencies.gix-fetchhead]
+path = "submodules/gitoxide/gix-fetchhead"
 
-[workspace.dependencies.socket2]
-path = "submodules/socket2"
+[workspace.dependencies.expand_utils_lib]
+path = "submodules/rust/compiler/expand_utils_lib"
+
+[workspace.dependencies.gix-pathspec]
+path = "submodules/gitoxide/gix-pathspec"
+
+[workspace.dependencies.serde_core]
+path = "submodules/serde/serde_core"
+
+[workspace.dependencies.paths]
+path = "submodules/rust-analyzer/crates/paths"
+
+[workspace.dependencies.yoke-derive]
+path = "submodules/icu4x/utils/yoke/derive"
+
+[workspace.dependencies.async-graphql-derive]
+path = "submodules/async-graphql/derive"
+
+[workspace.dependencies.imara-diff]
+path = "submodules/imara-diff"
+
+[workspace.dependencies.sval]
+path = "submodules/sval"
+
+[workspace.dependencies.gix-features]
+path = "submodules/gitoxide/gix-features"
+
+[workspace.dependencies.sized-chunks]
+path = "submodules/sized-chunks"
 
 [workspace.dependencies.crossbeam]
 path = "submodules/crossbeam/"
 
-[workspace.dependencies.rustc_errors]
-path = "submodules/rust/compiler/rustc_errors"
+[workspace.dependencies.crosstermion]
+path = "submodules/crosstermion/"
 
-[workspace.dependencies.rustc_expand]
-path = "submodules/rust/compiler/rustc_expand"
+[workspace.dependencies.is-terminal]
+path = "submodules/is-terminal/"
+
+[workspace.dependencies.glob]
+path = "submodules/glob"
+
+[workspace.dependencies.document-features]
+path = "submodules/document-features"
+
+[workspace.dependencies.hmac]
+path = "submodules/MACs/hmac"
+
+[workspace.dependencies.memoffset]
+path = "submodules/memoffset"
+
+[workspace.dependencies.hash32]
+path = "submodules/hash32"
+
+[workspace.dependencies.simd-adler32]
+path = "submodules/simd-adler32"
+
+[workspace.dependencies.unicode-segmentation]
+path = "submodules/unicode-segmentation"
+
+[workspace.dependencies.futures-lite]
+path = "submodules/futures-lite"
+
+[workspace.dependencies.p384]
+path = "submodules/elliptic-curves/p384"
+
+[workspace.dependencies.potential_utf]
+path = "submodules/icu4x/utils/potential_utf"
+
+[workspace.dependencies.gix-packetline]
+path = "submodules/gitoxide/gix-packetline"
+
+[workspace.dependencies.linux-raw-sys]
+path = "submodules/linux-raw-sys"
+
+[workspace.dependencies.anstyle-parse]
+path = "submodules/anstyle/crates/anstyle-parse"
+
+[workspace.dependencies.assert-impl]
+path = "submodules/assert-impl"
+
+[workspace.dependencies.const-oid]
+path = "submodules/formats/const-oid"
+
+[workspace.dependencies.env_logger]
+path = "submodules/env_logger"
+
+[workspace.dependencies.nix]
+path = "submodules/nix"
+
+[workspace.dependencies.lib-metavar-expr]
+path = "submodules/rust/compiler/lib-metavar-expr"
+
+[workspace.dependencies.tracing-tower]
+path = "submodules/tracing/tracing-tower"
+
+[workspace.dependencies.fallible-iterator]
+path = "submodules/rust-fallible-iterator"
+
+[workspace.dependencies.gix-status]
+path = "submodules/gitoxide/gix-status"
+
+[workspace.dependencies.gix-dir]
+path = "submodules/gitoxide/gix-dir"
+
+[workspace.dependencies.gix-merge]
+path = "submodules/gitoxide/gix-merge"
+
+[workspace.dependencies.crates-io]
+path = "submodules/cargo/crates/crates-io"
+
+[workspace.dependencies.addr2line]
+path = "submodules/addr2line"
+
+[workspace.dependencies.faster-hex]
+path = "submodules/faster-hex"
+
+[workspace.dependencies.bytes]
+path = "submodules/bytes"
+
+[workspace.dependencies.ruzstd]
+path = "submodules/zstd-rs/ruzstd"
+
+[workspace.dependencies.clap_builder]
+path = "submodules/clap/clap_builder"
+
+[workspace.dependencies.unicode-ident]
+path = "submodules/unicode-ident"
+
+[workspace.dependencies.fixedbitset]
+path = "submodules/fixedbitset"
+
+[workspace.dependencies.scoped-tls]
+path = "submodules/scoped-tls"
+
+[workspace.dependencies.lazy_static]
+path = "submodules/lazy-static"
+
+[workspace.dependencies.ra-ap-rustc_pattern_analysis]
+package = "rustc_pattern_analysis"
+path = "./submodules/rust/compiler/rustc_pattern_analysis"
+
+[workspace.dependencies.anstyle]
+path = "submodules/anstyle/crates/anstyle"
+
+[workspace.dependencies.rand]
+path = "submodules/rand"
+
+[workspace.dependencies.rustc_session]
+path = "submodules/rust/compiler/rustc_session"
+
+[workspace.dependencies.lzma-rust2]
+path = "submodules/lzma-rust2"
+
+[workspace.dependencies.env_filter]
+path = "submodules/env_logger/crates/env_filter"
+
+[workspace.dependencies.gix-prompt]
+path = "submodules/gitoxide/gix-prompt"
+
+[workspace.dependencies.memchr]
+path = "submodules/memchr"
+
+[workspace.dependencies.query-group]
+package = "query-group-macro"
+path = "./submodules/rust-analyzer/crates/query-group-macro"
+
+[workspace.dependencies.introspector_decl_common]
+path = "submodules/patch-build-rs/introspector_decl_common"
+
+[workspace.dependencies.prodash]
+path = "submodules/prodash"
+
+[workspace.dependencies.test-utils]
+path = "submodules/rust-analyzer/crates/test-utils"
+
+[workspace.dependencies.gix-filter]
+path = "submodules/gitoxide/gix-filter"
+
+[workspace.dependencies.gix-utils]
+path = "submodules/gitoxide/gix-utils"
+
+[workspace.dependencies.syntax]
+path = "./submodules/rust-analyzer/crates/syntax"
+
+[workspace.dependencies.crossbeam-deque]
+path = "submodules/crossbeam/crossbeam-deque"
+
+[workspace.dependencies.rustc_ast]
+path = "submodules/rust/compiler/rustc_ast"
+
+[workspace.dependencies.typesize-derive]
+path = "submodules/typesize/typesize-derive"
+
+[workspace.dependencies.hir-def]
+path = "submodules/rust-analyzer/crates/hir-def"
+
+[workspace.dependencies.libloading]
+path = "submodules/rust_libloading"
+
+[workspace.dependencies.rustc_feature]
+path = "submodules/rust/compiler/rustc_feature"
+
+[workspace.dependencies.is_terminal_polyfill]
+path = "submodules/is_terminal_polyfill"
+
+[workspace.dependencies.unicode-bom]
+path = "submodules/unicode-bom"
+
+[workspace.dependencies.itoa]
+path = "submodules/itoa"
+
+[workspace.dependencies.dot-parser-macros]
+path = "submodules/dot-parser/macros"
+
+[workspace.dependencies.supports-unicode]
+path = "submodules/supports-unicode"
+
+[workspace.dependencies.colorchoice]
+path = "submodules/anstyle/crates/colorchoice"
+
+[workspace.dependencies.gix-tempfile]
+features = []
+path = "submodules/gitoxide/gix-tempfile"
+
+[workspace.dependencies.cargo-credential]
+path = "submodules/cargo/credential/cargo-credential"
+
+[workspace.dependencies.rustc_serialize]
+path = "submodules/rust/compiler/rustc_serialize"
+
+[workspace.dependencies.xattr]
+path = "submodules/xattr"
+
+[workspace.dependencies.pasetors]
+features = [
+    "v3",
+    "serde",
+]
+path = "submodules/pasetors"
+
+[workspace.dependencies.syntax-bridge]
+path = "./submodules/rust-analyzer/crates/syntax-bridge"
+
+[workspace.dependencies.gix-actor]
+path = "submodules/gitoxide/gix-actor"
+
+[workspace.dependencies.minimal-lexical]
+path = "submodules/minimal-lexical"
+
+[workspace.dependencies.tera]
+path = "submodules/tera"
+
+[workspace.dependencies.thread_local]
+path = "submodules/thread_local-rs"
+
+[workspace.dependencies.ide-completion]
+path = "submodules/rust-analyzer/crates/ide-completion"
+
+[workspace.dependencies.http-auth]
+path = "submodules/http-auth"
+
+[workspace.dependencies.aho-corasick]
+path = "submodules/aho-corasick"
+
+[workspace.dependencies.primeorder]
+path = "submodules/elliptic-curves/primeorder"
+
+[workspace.dependencies.regex-syntax]
+path = "submodules/regex/regex-syntax"
+
+[workspace.dependencies.clap]
+features = ["derive"]
+path = "submodules/clap"
+
+[workspace.dependencies.gix-lfs]
+path = "submodules/gitoxide/gix-lfs"
+
+[workspace.dependencies.load-cargo]
+path = "submodules/rust-analyzer/crates/load-cargo"
+
+[workspace.dependencies.ra-ap-rustc_next_trait_solver]
+package = "rustc_next_trait_solver"
+path = "./submodules/rust/compiler/rustc_next_trait_solver"
+
+[workspace.dependencies.mio]
+path = "submodules/mio"
+
+[workspace.dependencies.tokio-test]
+path = "submodules/tokio/tokio-test"
+
+[workspace.dependencies.tracing-tree]
+path = "submodules/tracing-tree"
+
+[workspace.dependencies.windows-implement]
+path = "submodules/windows-rs/crates/libs/implement"
+
+[workspace.dependencies.windows-numerics]
+path = "submodules/windows-rs/crates/libs/numerics"
+
+[workspace.dependencies.rustc_apfloat]
+path = "submodules/rustc_apfloat"
+
+[workspace.dependencies.pest_derive]
+path = "submodules/pest/derive"
+
+[workspace.dependencies.powerfmt-macros]
+path = "submodules/powerfmt/powerfmt-macros"
+
+[workspace.dependencies.dashmap]
+features = [
+    "raw-api",
+    "inline",
+]
+path = "submodules/dashmap"
+version = "7.0.0-hack"
+
+[workspace.dependencies.futures-util]
+path = "submodules/futures-rs/futures-util"
+
+[workspace.dependencies.triomphe]
+features = ["std"]
+version = "0.1.14"
+
+[workspace.dependencies.anyhow]
+path = "submodules/anyhow"
+
+[workspace.dependencies.futures-macro]
+path = "submodules/futures-rs/futures-macro"
+
+[workspace.dependencies.windows_x86_64_gnullvm]
+path = "submodules/windows-rs/crates/targets/x86_64_gnullvm"
+
+[workspace.dependencies.rustc_middle]
+path = "submodules/rust/compiler/rustc_middle"
+
+[workspace.dependencies.flate2]
+features = ["zlib-rs"]
+version = "1.1.5"
+
+[workspace.dependencies.jemallocator]
+path = "submodules/jemallocator/jemallocator"
+
+[workspace.dependencies.crossbeam-utils]
+path = "submodules/crossbeam/crossbeam-utils"
+
+[workspace.dependencies.indexmap]
+path = "submodules/indexmap"
+
+[workspace.dependencies.camino]
+path = "submodules/camino"
+
+[workspace.dependencies.static_assertions]
+path = "submodules/static-assertions-rs"
+
+[workspace.dependencies.gix-odb]
+path = "submodules/gitoxide/gix-odb"
+
+[workspace.dependencies.clap_complete]
+path = "submodules/clap/clap_complete"
+
+[workspace.dependencies.colorify]
+path = "submodules/colorify"
+
+[workspace.dependencies.crypto-bigint]
+path = "submodules/crypto-bigint"
+
+[workspace.dependencies.autocfg]
+path = "submodules/autocfg"
+
+[workspace.dependencies.proc-macro-srv]
+path = "submodules/rust-analyzer/crates/proc-macro-srv"
+
+[workspace.dependencies.tool-traits-lib]
+path = "./tools/tool-traits-lib"
+
+[workspace.dependencies.heapless]
+path = "submodules/heapless"
+
+[workspace.dependencies.parking_lot_core]
+path = "submodules/parking_lot/core"
+version = "0.9.13"
+
+[workspace.dependencies.quickcheck]
+path = "submodules/quickcheck"
+
+[workspace.dependencies.windows_x86_64_msvc]
+path = "submodules/windows-rs/crates/targets/x86_64_msvc"
+
+[workspace.dependencies.rustc_parse]
+path = "submodules/rust/compiler/rustc_parse"
+
+[workspace.dependencies.windows_x86_64_gnu]
+path = "submodules/windows-rs/crates/targets/x86_64_gnu"
+
+[workspace.dependencies.thin-vec]
+path = "submodules/thin-vec"
+version = "0.2.14"
+
+[workspace.dependencies.tikv-jemalloc-sys]
+path = "submodules/jemallocator/jemalloc-sys"
+
+[workspace.dependencies.salsa-macros]
+path = "submodules/salsa/components/salsa-macros"
 
 [workspace.dependencies.tt]
 path = "./submodules/rust-analyzer/crates/tt"
 
-[workspace.dependencies.gix-commitgraph]
-path = "submodules/gitoxide/gix-commitgraph"
+[workspace.dependencies.windows-bindings]
+path = "submodules/jni-rs/windows-bindings"
 
-[workspace.dependencies.rocksdb]
-path = "submodules/rocksdb"
+[workspace.dependencies.block-buffer]
+path = "submodules/utils/block-buffer"
 
-[workspace.dependencies.orion]
-path = "submodules/orion"
+[workspace.dependencies.base-db]
+path = "submodules/rust-analyzer/crates/base-db"
+
+[workspace.dependencies.parser]
+path = "submodules/rust-analyzer/crates/parser"
+
+[workspace.dependencies.windows-bindgen]
+path = "submodules/windows-rs/crates/libs/bindgen"
+
+[workspace.dependencies.toml_datetime]
+path = "submodules/toml/crates/toml_datetime"
+
+[workspace.dependencies.atomic-maybe-uninit]
+path = "submodules/atomic-maybe-uninit"
+
+[workspace.dependencies.split-decls-rs]
+path = "submodules/split-decls-rs"
+
+[workspace.dependencies.md-5]
+path = "submodules/hashes/md5"
+
+[workspace.dependencies.rand_xorshift]
+path = "submodules/rngs/rand_xorshift"
+
+[workspace.dependencies.tokio]
+features = ["full"]
+path = "submodules/tokio/tokio"
+
+[workspace.dependencies.span]
+path = "./submodules/rust-analyzer/crates/span"
+
+[workspace.dependencies.digest]
+path = "submodules/traits/digest"
+
+[workspace.dependencies.rustc_driver_impl]
+path = "submodules/rust/compiler/rustc_driver_impl"
+
+[workspace.dependencies.fnv]
+path = "submodules/rust-fnv"
+
+[workspace.dependencies.curl-sys]
+path = "submodules/curl-rust/curl-sys"
+
+[workspace.dependencies.gix-index]
+path = "submodules/gitoxide/gix-index"
+
+[workspace.dependencies.clru]
+path = "submodules/clru-rs"
+
+[workspace.dependencies.rustc_span]
+path = "submodules/rust/compiler/rustc_span"
+
+[workspace.dependencies.cpp_demangle]
+path = "submodules/cpp_demangle"
+
+[workspace.dependencies.serial_test]
+path = "submodules/serial_test/serial_test"
+
+[workspace.dependencies.gix-tui]
+path = "submodules/gitoxide/gix-tui"
+
+[workspace.dependencies.line-index]
+path = "submodules/rust-analyzer/lib/line-index"
+
+[workspace.dependencies.os_info]
+path = "submodules/os_info/os_info"
+
+[workspace.dependencies.windows-services]
+path = "submodules/windows-rs/crates/libs/services"
+
+[workspace.dependencies.cargo-repo-sync-lib]
+path = "tools/cargo-repo-sync-lib"
+
+[workspace.dependencies.git2-curl]
+path = "submodules/git2-rs/git2-curl"
+
+[workspace.dependencies.gix-path]
+path = "submodules/gitoxide/gix-path"
+
+[workspace.dependencies.itertools]
+path = "submodules/itertools"
+
+[workspace.dependencies.arc-swap]
+path = "submodules/arc-swap"
+
+[workspace.dependencies.bstr]
+path = "submodules/bstr"
+
+[workspace.dependencies.rustc_ast_pretty]
+path = "./submodules/rust/compiler/rustc_ast_pretty"
+
+[workspace.dependencies.async-stream]
+path = "submodules/async-stream-vendored"
+
+[workspace.dependencies.gix-attributes]
+path = "submodules/gitoxide/gix-attributes"
+
+[workspace.dependencies.gix-quote]
+path = "submodules/gitoxide/gix-quote"
+
+[workspace.dependencies.icu_properties_data]
+path = "submodules/icu4x/provider/data/properties"
+
+[workspace.dependencies.async-graphql]
+path = "submodules/async-graphql"
+
+[workspace.dependencies.tracing-core]
+path = "submodules/tracing/tracing-core"
+
+[workspace.dependencies.rustix]
+path = "submodules/rustix"
+
+[workspace.dependencies.mockall]
+path = "submodules/mockall/mockall"
+
+[workspace.dependencies.cargo-util-schemas]
+path = "submodules/cargo/crates/cargo-util-schemas"
+
+[workspace.dependencies.rustc_infer]
+path = "submodules/rust/compiler/rustc_infer"
+
+[workspace.dependencies.cargo_metadata]
+path = "submodules/cargo_metadata"
+
+[workspace.dependencies.gix-trace]
+path = "submodules/gitoxide/gix-trace"
+
+[workspace.dependencies.nohash-hasher]
+path = "submodules/nohash-hasher"
+
+[workspace.dependencies.blocking]
+path = "submodules/blocking"
+
+[workspace.dependencies.tokio-util]
+path = "submodules/tokio/tokio-util"
+
+[workspace.dependencies.toml_writer]
+path = "submodules/toml/crates/toml_writer"
+
+[workspace.dependencies.gix-submodule]
+path = "submodules/gitoxide/gix-submodule"
+
+[workspace.dependencies.foldhash]
+path = "submodules/foldhash"
+
+[workspace.dependencies.lib-macro-rule]
+path = "submodules/rust/compiler/lib-macro-rule"
+
+[workspace.dependencies.icu_normalizer]
+path = "submodules/icu4x/components/normalizer"
+
+[workspace.dependencies.color-print]
+path = "submodules/color-print/color-print"
+
+[workspace.dependencies.rustc_expand_meta_macros]
+path = "submodules/rust/compiler/rustc_expand_meta_macros"
+
+[workspace.dependencies.gix-chunk]
+path = "submodules/gitoxide/gix-chunk"
+
+[workspace.dependencies.gix-refspec]
+path = "submodules/gitoxide/gix-refspec"
+
+[workspace.dependencies.rfc6979]
+path = "submodules/signatures/rfc6979"
+
+[workspace.dependencies.im-rc]
+path = "submodules/im-rs/rc"
+
+[workspace.dependencies.crossbeam-channel]
+path = "submodules/crossbeam/crossbeam-channel"
+
+[workspace.dependencies.rusqlite]
+features = ["fallible_uint"]
+path = "submodules/rusqlite"
+
+[workspace.dependencies.version_check]
+path = "submodules/version_check"
+
+[workspace.dependencies.git2]
+path = "submodules/git2-rs"
+
+[workspace.dependencies.nu-ansi-term]
+path = "submodules/nu-ansi-term"
+
+[workspace.dependencies.rustc_macros]
+path = "submodules/rust/compiler/rustc_macros"
+
+[workspace.dependencies.windows-interface]
+path = "submodules/windows-rs/crates/libs/interface"
+
+[workspace.dependencies.miniz_oxide]
+path = "submodules/miniz_oxide/miniz_oxide"
+
+[workspace.dependencies.gix-fsck]
+path = "submodules/gitoxide/gix-fsck"
+
+[workspace.dependencies.ahash]
+path = "submodules/ahash"
+
+[workspace.dependencies.rustc_interface]
+path = "submodules/rust/compiler/rustc_interface"
+
+[workspace.dependencies.chrono]
+path = "submodules/chrono"
+
+[workspace.dependencies.signal-hook-mio]
+path = "submodules/signal-hook/signal-hook-mio"
+
+[workspace.dependencies.rustc_hir_id]
+path = "submodules/rust/compiler/rustc_hir_id"
+
+[workspace.dependencies.base64ct]
+path = "submodules/formats/base64ct"
+
+[workspace.dependencies.futures-timer]
+path = "submodules/futures-timer"
+
+[workspace.dependencies.core-foundation]
+features = ["mac_os_10_7_support"]
+version = "0.10.1"
+
+[workspace.dependencies.ecdsa]
+path = "submodules/signatures/ecdsa"
+
+[workspace.dependencies.tinystr]
+path = "submodules/icu4x/utils/tinystr"
+
+[workspace.dependencies.test-fixture]
+path = "submodules/rust-analyzer/crates/test-fixture"
+
+[workspace.dependencies.futures-task]
+path = "submodules/futures-rs/futures-task"
+
+[workspace.dependencies.fastrand]
+path = "submodules/fastrand"
+
+[workspace.dependencies.windows-core]
+path = "submodules/windows-rs/crates/libs/core"
+
+[workspace.dependencies.futures-executor]
+path = "submodules/futures-rs/futures-executor"
+
+[workspace.dependencies.ra-ap-rustc_lexer]
+package = "rustc_lexer"
+path = "./submodules/rust/compiler/rustc_lexer"
+
+[workspace.dependencies.tinyvec]
+path = "submodules/tinyvec"
+
+[workspace.dependencies.rustc-literal-escaper]
+path = "submodules/rustc-literal-escaper"
+
+[workspace.dependencies.gix-macros]
+path = "submodules/gitoxide/gix-macros"
+
+[workspace.dependencies.litemap]
+path = "submodules/icu4x/utils/litemap"
 
 [workspace.dependencies.gix-testtools]
 path = "submodules/gitoxide/tests/tools"
@@ -267,339 +911,281 @@ path = "submodules/gitoxide/tests/tools"
 features = ["env-filter"]
 path = "submodules/tracing/tracing-subscriber"
 
-[workspace.dependencies.windows-bindings]
-path = "submodules/jni-rs/windows-bindings"
+[workspace.dependencies.libm]
+path = "submodules/compiler-builtins/libm"
 
-[workspace.dependencies.serde-value]
-path = "submodules/serde-value"
+[workspace.dependencies.cfg]
+features = ["tt"]
+path = "submodules/rust-analyzer/crates/cfg"
 
-[workspace.dependencies.gix-object]
-path = "submodules/gitoxide/gix-object"
-
-[workspace.dependencies.gix-refspec]
-path = "submodules/gitoxide/gix-refspec"
-
-[workspace.dependencies.fuzz]
-path = "submodules/quinn/fuzz"
-
-[workspace.dependencies.group]
-path = "submodules/group"
-
-[workspace.dependencies.walkdir]
-version = "2.5"
-
-[workspace.dependencies.faster-hex]
-path = "submodules/faster-hex"
-
-[workspace.dependencies.cargo-credential-wincred]
-path = "submodules/cargo/credential/cargo-credential-wincred"
-
-[workspace.dependencies.libnghttp2-sys]
-path = "submodules/nghttp2-rs"
-
-[workspace.dependencies.fallible-iterator]
-path = "submodules/rust-fallible-iterator"
-
-[workspace.dependencies.aho-corasick]
-path = "submodules/aho-corasick"
-
-[workspace.dependencies.rusqlite]
-features = ["fallible_uint"]
-path = "submodules/rusqlite"
-
-[workspace.dependencies.gix-worktree]
-path = "submodules/gitoxide/gix-worktree"
+[workspace.dependencies.futures-sink]
+path = "submodules/futures-rs/futures-sink"
 
 [workspace.dependencies.jiff]
 features = ["std"]
 version = "0.2.15"
 
-[workspace.dependencies.gix-diff]
-path = "submodules/gitoxide/gix-diff"
+[workspace.dependencies.windows-result]
+path = "submodules/windows-rs/crates/libs/result"
 
-[workspace.dependencies.minimal-lexical]
-path = "submodules/minimal-lexical"
+[workspace.dependencies.erased-serde]
+path = "submodules/erased-serde"
 
-[workspace.dependencies.serde_spanned]
-path = "submodules/toml/crates/serde_spanned"
+[workspace.dependencies.byteorder]
+path = "submodules/byteorder"
 
-[workspace.dependencies.io-uring]
-path = "submodules/io-uring"
+[workspace.dependencies.rustc_index]
+path = "submodules/rust/compiler/rustc_index"
 
-[workspace.dependencies.cargo-platform]
-path = "submodules/cargo/crates/cargo-platform"
+[workspace.dependencies.temp-dir]
+path = "submodules/temp-dir/temp-dir"
 
-[workspace.dependencies.fixedbitset]
-path = "submodules/fixedbitset"
+[workspace.dependencies.tracing]
+path = "submodules/tracing/tracing"
 
-[workspace.dependencies.libm]
-path = "submodules/compiler-builtins/libm"
+[workspace.dependencies.hkdf]
+path = "submodules/KDFs/hkdf"
 
-[workspace.dependencies.rustc_macros]
-path = "submodules/rust/compiler/rustc_macros"
-
-[workspace.dependencies.gix-config-value]
-path = "submodules/gitoxide/gix-config-value"
-
-[workspace.dependencies.imara-diff]
-path = "submodules/imara-diff"
-
-[workspace.dependencies.flate2]
-features = ["zlib-rs"]
-version = "1.1.5"
-
-[workspace.dependencies.gix-features]
-path = "submodules/gitoxide/gix-features"
-
-[workspace.dependencies.gix-fetchhead]
-path = "submodules/gitoxide/gix-fetchhead"
-
-[workspace.dependencies.globwalk]
-path = "submodules/globwalk"
-
-[workspace.dependencies.block-buffer]
-path = "submodules/utils/block-buffer"
-
-[workspace.dependencies.gix-discover]
-path = "submodules/gitoxide/gix-discover"
-
-[workspace.dependencies.query-group]
-package = "query-group-macro"
-path = "./submodules/rust-analyzer/crates/query-group-macro"
-
-[workspace.dependencies.syn-codegen]
-path = "submodules/syn/json"
-
-[workspace.dependencies.tool-traits-lib]
-path = "./tools/tool-traits-lib"
-
-[workspace.dependencies.allocator-api2]
-path = "submodules/allocator-api2"
-
-[workspace.dependencies.windows-metadata]
-path = "submodules/windows-rs/crates/libs/metadata"
-
-[workspace.dependencies.clap_builder]
-path = "submodules/clap/clap_builder"
-
-[workspace.dependencies.itoa]
-path = "submodules/itoa"
-
-[workspace.dependencies.ra-ap-rustc_index]
-package = "rustc_index"
-path = "./submodules/rust/compiler/rustc_index"
-
-[workspace.dependencies.signal-hook-async-std]
-path = "submodules/signal-hook/signal-hook-async-std"
-
-[workspace.dependencies.tokio-util]
-path = "submodules/tokio/tokio-util"
-
-[workspace.dependencies.crypto-common]
-path = "submodules/traits/crypto-common"
-
-[workspace.dependencies.fastrand]
-path = "submodules/fastrand"
-
-[workspace.dependencies.gix-odb]
-path = "submodules/gitoxide/gix-odb"
-
-[workspace.dependencies.temp-env]
-path = "submodules/temp-env"
-
-[workspace.dependencies.digest]
-path = "submodules/traits/digest"
-
-[workspace.dependencies.typesize]
-path = "submodules/typesize"
-
-[workspace.dependencies.ct-codecs]
-path = "submodules/rust-ct-codecs"
-
-[workspace.dependencies.gix-url]
-path = "submodules/gitoxide/gix-url"
-
-[workspace.dependencies.split-decls-rs]
-path = "submodules/split-decls-rs"
-
-[workspace.dependencies.load-cargo]
-path = "submodules/rust-analyzer/crates/load-cargo"
-
-[workspace.dependencies.futures-task]
-path = "submodules/futures-rs/futures-task"
-
-[workspace.dependencies.futures-sink]
-path = "submodules/futures-rs/futures-sink"
-
-[workspace.dependencies.rustc_builtin_macros]
-path = "submodules/rust/compiler/rustc_builtin_macros"
-
-[workspace.dependencies.async-graphql]
-path = "submodules/async-graphql"
-
-[workspace.dependencies.clap_complete]
-path = "submodules/clap/clap_complete"
-
-[workspace.dependencies.profile]
-path = "submodules/rust-analyzer/crates/profile"
-
-[workspace.dependencies.zerocopy]
-path = "submodules/zerocopy"
-
-[workspace.dependencies.introspector_decl2_macros]
-path = "submodules/patch-build-rs/introspector_decl2_macros"
-
-[workspace.dependencies.proc-macro-srv]
-path = "submodules/rust-analyzer/crates/proc-macro-srv"
-
-[workspace.dependencies.rustc_infer]
-path = "submodules/rust/compiler/rustc_infer"
-
-[workspace.dependencies.gix-submodule]
-path = "submodules/gitoxide/gix-submodule"
-
-[workspace.dependencies.litrs]
-path = "submodules/litrs"
-
-[workspace.dependencies.toml_datetime]
-path = "submodules/toml/crates/toml_datetime"
-
-[workspace.dependencies.ide-db]
-path = "submodules/rust-analyzer/crates/ide-db"
-
-[workspace.dependencies.pest_derive]
-path = "submodules/pest/derive"
-
-[workspace.dependencies.fluent-syntax]
-path = "submodules/fluent-rs/fluent-syntax"
-
-[workspace.dependencies.futures]
-path = "submodules/futures-rs/futures"
-
-[workspace.dependencies.tracing-log]
-path = "submodules/tracing/tracing-log"
-
-[workspace.dependencies.signal-hook-mio]
-path = "submodules/signal-hook/signal-hook-mio"
-
-[workspace.dependencies.env_logger]
-path = "submodules/env_logger"
-
-[workspace.dependencies.serial_test]
-path = "submodules/serial_test/serial_test"
-
-[workspace.dependencies.syntax-bridge]
-path = "./submodules/rust-analyzer/crates/syntax-bridge"
-
-[workspace.dependencies.getrandom]
-path = "submodules/getrandom"
-
-[workspace.dependencies.nu-ansi-term]
-path = "submodules/nu-ansi-term"
-
-[workspace.dependencies.windows]
-path = "submodules/windows-rs/crates/libs/windows"
-
-[workspace.dependencies.potential_utf]
-path = "submodules/icu4x/utils/potential_utf"
-
-[workspace.dependencies.semver]
-features = ["serde"]
-path = "submodules/semver"
-
-[workspace.dependencies.gix-ref]
-path = "submodules/gitoxide/gix-ref"
-
-[workspace.dependencies.async-graphql-derive]
-path = "submodules/async-graphql/derive"
+[workspace.dependencies.annotate-snippets]
+path = "submodules/annotate-snippets-rs"
 
 [workspace.dependencies.gix-command]
 path = "submodules/gitoxide/gix-command"
 
-[workspace.dependencies.rowan]
-path = "submodules/rowan"
+[workspace.dependencies.gix-object]
+path = "submodules/gitoxide/gix-object"
 
-[workspace.dependencies.lazy_static]
-path = "submodules/lazy-static"
+[workspace.dependencies.gix-revision]
+path = "submodules/gitoxide/gix-revision"
 
-[workspace.dependencies.introspector_core]
-path = "submodules/rust/compiler/introspector/core"
+[workspace.dependencies.profile]
+path = "submodules/rust-analyzer/crates/profile"
 
-[workspace.dependencies.expand_utils_lib]
-path = "submodules/rust/compiler/expand_utils_lib"
-
-[workspace.dependencies.simd-adler32]
-path = "submodules/simd-adler32"
-
-[workspace.dependencies.is_terminal_polyfill]
-path = "submodules/is_terminal_polyfill"
-
-[workspace.dependencies.tar]
-version = "0.4.44"
-
-[workspace.dependencies.windows-targets]
-path = "submodules/rust/library/windows_targets"
+[workspace.dependencies.windows-sys]
+path = "submodules/windows-rs/crates/libs/sys"
 
 [workspace.dependencies.xz2]
 path = "submodules/xz2-rs"
 
-[workspace.dependencies.cargo]
-path = "submodules/cargo"
+[workspace.dependencies.oorandom]
+path = "submodules/oorandom"
 
-[workspace.dependencies.toml]
-#version = "0.8"
-path = "submodules/toml/crates/toml"
+[workspace.dependencies.rustc-stable-hash]
+path = "submodules/rustc-stable-hash"
 
-[workspace.dependencies.cargo-util]
-path = "submodules/cargo/crates/cargo-util"
+[workspace.dependencies.introspector_decl_core]
+path = "submodules/patch-build-rs/introspector_decl_core"
 
-[workspace.dependencies.toml_writer]
-path = "submodules/toml/crates/toml_writer"
+[workspace.dependencies.home]
+path = "submodules/cargo/crates/home"
 
-[workspace.dependencies.tokio-test]
-path = "submodules/tokio/tokio-test"
+[workspace.dependencies.arbitrary]
+path = "submodules/arbitrary/"
 
-[workspace.dependencies.windows-bindgen]
-path = "submodules/windows-rs/crates/libs/bindgen"
+[workspace.dependencies.serde_derive]
+path = "submodules/serde/serde_derive"
 
-[workspace.dependencies.scoped-tls]
-path = "submodules/scoped-tls"
+[workspace.dependencies.sha1-checked]
+path = "submodules/hashes/sha1-checked"
 
-[workspace.dependencies.rustc_session]
-path = "submodules/rust/compiler/rustc_session"
+[workspace.dependencies.windows-strings]
+path = "submodules/windows-rs/crates/libs/strings"
 
-[workspace.dependencies.rustc_parse]
-path = "submodules/rust/compiler/rustc_parse"
+[workspace.dependencies.loom]
+path = "submodules/loom"
 
-[workspace.dependencies.opener]
-path = "submodules/opener/opener"
+[workspace.dependencies.equivalent]
+path = "submodules/equivalent"
 
-[workspace.dependencies.rand]
-path = "submodules/rand"
+[workspace.dependencies.futures-io]
+path = "submodules/futures-rs/futures-io"
 
-[workspace.dependencies.lsp-server]
-path = "submodules/rust-analyzer/lib/lsp-server"
+[workspace.dependencies.vfs]
+path = "./submodules/rust-analyzer/crates/vfs"
 
-[workspace.dependencies.gix-archive]
-path = "submodules/gitoxide/gix-archive"
+[workspace.dependencies.windows-collections]
+path = "submodules/windows-rs/crates/libs/collections"
 
-[workspace.dependencies.gemini_rustc_data_structures]
-path = "submodules/rust/crates/gemini_rustc_data_structures/"
+[workspace.dependencies.rustc_lint_defs]
+path = "submodules/rust/compiler/rustc_lint_defs"
+
+[workspace.dependencies.introspector_macro_helpers]
+path = "submodules/patch-build-rs/introspector_macro_helpers"
+
+[workspace.dependencies.rustc_builtin_macros]
+path = "submodules/rust/compiler/rustc_builtin_macros"
+
+[workspace.dependencies.thiserror]
+path = "submodules/thiserror"
+
+[workspace.dependencies.typesize]
+path = "submodules/typesize"
+
+[workspace.dependencies.ra-ap-rustc_abi]
+package = "rustc_abi"
+path = "./submodules/rust/compiler/rustc_abi"
+
+[workspace.dependencies.ra-ap-rustc_parse_format]
+package = "rustc_parse_format"
+path = "./submodules/rust/compiler/rustc_parse_format"
+
+[workspace.dependencies.gix-ref]
+path = "submodules/gitoxide/gix-ref"
+
+[workspace.dependencies.socket2]
+path = "submodules/socket2"
+
+[workspace.dependencies.libnghttp2-sys]
+path = "submodules/nghttp2-rs"
+
+[workspace.dependencies.rayon-core]
+path = "submodules/rayon/rayon-core"
+
+[workspace.dependencies.syn-adapter-lib]
+path = "tools/syn-adapter-lib"
+
+[workspace.dependencies.gix-blame]
+path = "submodules/gitoxide/gix-blame"
+
+[workspace.dependencies.sec1]
+path = "submodules/formats/sec1"
 
 [workspace.dependencies.rustc_lint]
 path = "submodules/rust/compiler/rustc_lint"
 
-[workspace.dependencies.constant_time_eq]
-path = "submodules/constant_time_eq"
+[workspace.dependencies.intl-memoizer]
+path = "submodules/fluent-rs/intl-memoizer"
 
-[workspace.dependencies.gix-chunk]
-path = "submodules/gitoxide/gix-chunk"
-
-[workspace.dependencies.gix-pack]
-path = "submodules/gitoxide/gix-pack"
+[workspace.dependencies.regex-automata]
+path = "submodules/regex/regex-automata"
 
 [workspace.dependencies.rustc-hash]
 path = "submodules/rustc-hash"
+
+[workspace.dependencies.futures-concurrency]
+path = "submodules/futures-concurrency"
+
+[workspace.dependencies.tokio-core]
+path = "submodules/tokio-core"
+
+[workspace.dependencies.typenum]
+path = "submodules/typenum"
+
+[workspace.dependencies.tinyvec_macros]
+path = "submodules/tinyvec_macros"
+
+[workspace.dependencies.gix-date]
+path = "submodules/gitoxide/gix-date"
+
+[workspace.dependencies.odds]
+path = "submodules/odds"
+
+[workspace.dependencies.gix-worktree-stream]
+path = "submodules/gitoxide/gix-worktree-stream"
+
+[workspace.dependencies.rowan]
+path = "submodules/rowan"
+
+[workspace.dependencies.gix-config]
+path = "submodules/gitoxide/gix-config"
+
+[workspace.dependencies.serde_spanned]
+path = "submodules/toml/crates/serde_spanned"
+
+[workspace.dependencies.lsp-server]
+path = "submodules/rust-analyzer/lib/lsp-server"
+
+[workspace.dependencies.git-wrapper-lib]
+path = "tools/git-wrapper-lib"
+
+[workspace.dependencies.signal-hook-registry]
+path = "submodules/signal-hook/signal-hook-registry"
+
+[workspace.dependencies.allocator-api2]
+path = "submodules/allocator-api2"
+
+[workspace.dependencies.async-graphql-value]
+path = "submodules/async-graphql/value"
+
+[workspace.dependencies.serde_ignored]
+path = "submodules/serde-ignored"
+
+[workspace.dependencies.dot-parser]
+path = "submodules/dot-parser"
+
+[workspace.dependencies.unicase]
+path = "submodules/unicase"
+
+[workspace.dependencies.ed25519-compact]
+path = "submodules/rust-ed25519-compact"
+
+[workspace.dependencies.windows-future]
+path = "submodules/windows-rs/crates/libs/future"
+
+[workspace.dependencies.cargo-platform]
+path = "submodules/cargo/crates/cargo-platform"
+
+[workspace.dependencies.quote]
+path = "submodules/quote"
+
+[workspace.dependencies.gix]
+features = [
+    "progress-tree",
+    "parallel",
+    "dirwalk",
+    "status",
+]
+path = "submodules/gitoxide/gix"
+
+[workspace.dependencies.crypto-common]
+path = "submodules/traits/crypto-common"
+
+[workspace.dependencies.uluru]
+path = "submodules/uluru"
+
+[workspace.dependencies.sha1]
+path = "submodules/hashes/sha1"
+
+[workspace.dependencies.maybe-async]
+path = "submodules/maybe-async-rs"
+
+[workspace.dependencies.text-size]
+path = "submodules/text-size"
+
+[workspace.dependencies.project-model]
+path = "submodules/rust-analyzer/crates/project-model"
+
+
+[workspace.dependencies.windows_aarch64_gnullvm]
+path = "submodules/windows-rs/crates/targets/aarch64_gnullvm"
+
+[workspace.dependencies.gix-credentials]
+path = "submodules/gitoxide/gix-credentials"
+
+[workspace.dependencies.ide-diagnostics]
+path = "submodules/rust-analyzer/crates/ide-diagnostics"
+
+[workspace.dependencies.pin-utils]
+path = "submodules/pin-utils"
+
+[workspace.dependencies.temp-env]
+path = "submodules/temp-env"
+
+[workspace.dependencies.hashlink]
+path = "submodules/hashlink"
+
+[workspace.dependencies.pathdiff]
+path = "submodules/pathdiff"
+
+[workspace.dependencies.gix-transport]
+path = "submodules/gitoxide/gix-transport"
+
+[workspace.dependencies.tracing-chrome]
+path = "submodules/tracing-chrome"
+
+[workspace.dependencies.ra-ap-rustc_ast_ir]
+package = "rustc_ast_ir"
+path = "./submodules/rust/compiler/rustc_ast_ir"
 
 [workspace.dependencies.snapbox]
 features = [
@@ -608,191 +1194,194 @@ features = [
 ]
 path = "submodules/snapbox/crates/snapbox"
 
-[workspace.dependencies.toml_parser]
-path = "submodules/toml/crates/toml_parser"
-
-[workspace.dependencies.cargo_metadata]
-path = "submodules/cargo_metadata"
-
-[workspace.dependencies.fiat-crypto]
-path = "submodules/fiat-crypto/fiat-rust"
-
-[workspace.dependencies.glob]
-path = "submodules/glob"
-
-[workspace.dependencies.line-index]
-path = "submodules/rust-analyzer/lib/line-index"
-
-[workspace.dependencies.sharded-slab]
-path = "submodules/sharded-slab"
-
-[workspace.dependencies.memmap2]
-path = "submodules/memmap2-rs"
-
-[workspace.dependencies.gix-actor]
-path = "submodules/gitoxide/gix-actor"
-
-[workspace.dependencies.gix-worktree-state]
-path = "submodules/gitoxide/gix-worktree-state"
-
-[workspace.dependencies.tokio-stream]
-path = "submodules/tokio/tokio-stream"
-
-[workspace.dependencies.windows_x86_64_gnu]
-path = "submodules/windows-rs/crates/targets/x86_64_gnu"
-
-[workspace.dependencies.git2]
-path = "submodules/git2-rs"
-
-[workspace.dependencies.crossbeam-utils]
-path = "submodules/crossbeam/crossbeam-utils"
-
-[workspace.dependencies.windows-implement]
-path = "submodules/windows-rs/crates/libs/implement"
-
-[workspace.dependencies.windows_aarch64_gnullvm]
-path = "submodules/windows-rs/crates/targets/aarch64_gnullvm"
-
-[workspace.dependencies.lib-matcher-loc]
-path = "submodules/rust/compiler/lib-matcher-loc"
-
-[workspace.dependencies.include-dir-macro]
-path = "submodules/include-dir-macro-rs/"
-
-[workspace.dependencies.signature]
-path = "submodules/traits/signature"
-
-[workspace.dependencies.zerofrom-derive]
-path = "submodules/icu4x/utils/zerofrom/derive"
-
-[workspace.dependencies.rustc-stable-hash]
-path = "submodules/rustc-stable-hash"
-
-[workspace.dependencies.gix-sequencer]
-path = "submodules/gitoxide/gix-sequencer"
-
-[workspace.dependencies.crates-io]
-path = "submodules/cargo/crates/crates-io"
-
-[workspace.dependencies.windows_x86_64_msvc]
-path = "submodules/windows-rs/crates/targets/x86_64_msvc"
-
-[workspace.dependencies.http]
-package = "http"
-version = "1.1.0"
-
-[workspace.dependencies.is_executable]
-path = "submodules/is_executable"
-
-[workspace.dependencies.rustc_lint_defs]
-path = "submodules/rust/compiler/rustc_lint_defs"
-
-[workspace.dependencies.rustc_data_structures]
-path = "submodules/rust/compiler/rustc_data_structures"
-
-[workspace.dependencies.unicode-normalization]
-path = "submodules/unicode-normalization"
-
-[workspace.dependencies.memoffset]
-path = "submodules/memoffset"
-
-[workspace.dependencies.tokio]
-features = ["full"]
-path = "submodules/tokio/tokio"
-
-[workspace.dependencies.prodash]
-path = "submodules/prodash"
-
-[workspace.dependencies.intl-memoizer]
-path = "submodules/fluent-rs/intl-memoizer"
-
-[workspace.dependencies.libz-rs-sys]
-path = "submodules/zlib-rs/libz-rs-sys"
-
-[workspace.dependencies.strsim]
-path = "submodules/strsim-rs"
-
-[workspace.dependencies.windows-future]
-path = "submodules/windows-rs/crates/libs/future"
-
-[workspace.dependencies.syn]
-path = "submodules/syn"
-
-[workspace.dependencies.windows-collections]
-path = "submodules/windows-rs/crates/libs/collections"
-
-[workspace.dependencies.defmac]
-path = "submodules/defmac"
-
-[workspace.dependencies.git2-curl]
-path = "submodules/git2-rs/git2-curl"
-
-[workspace.dependencies.rayon]
-path = "submodules/rayon"
-
-[workspace.dependencies.windows-numerics]
-path = "submodules/windows-rs/crates/libs/numerics"
-
-[workspace.dependencies.gix-lock]
-path = "submodules/gitoxide/gix-lock"
+[workspace.dependencies.expect-test]
+path = "submodules/expect-test"
 
 [workspace.dependencies.gix-rebase]
 path = "submodules/gitoxide/gix-rebase"
 
-[workspace.dependencies.bytes]
-path = "submodules/bytes"
+[workspace.dependencies.windows-metadata]
+path = "submodules/windows-rs/crates/libs/metadata"
 
-[workspace.dependencies.ra-ap-rustc_abi]
-package = "rustc_abi"
-path = "./submodules/rust/compiler/rustc_abi"
+[workspace.dependencies.gix-config-value]
+path = "submodules/gitoxide/gix-config-value"
 
-[workspace.dependencies.gix-ignore]
-path = "submodules/gitoxide/gix-ignore"
+[workspace.dependencies.terminal_size]
+path = "submodules/terminal-size"
 
-[workspace.dependencies.paths]
-path = "submodules/rust-analyzer/crates/paths"
+[workspace.dependencies.gix-bitmap]
+path = "submodules/gitoxide/gix-bitmap"
+
+[workspace.dependencies.anstream]
+path = "submodules/anstyle/crates/anstream"
+
+[workspace.dependencies.crc32fast]
+path = "submodules/rust-crc32fast"
+
+[workspace.dependencies.fallible-streaming-iterator]
+path = "submodules/fallible-streaming-iterator"
+
+[workspace.dependencies.gix-diff]
+path = "submodules/gitoxide/gix-diff"
+
+[workspace.dependencies.ryu]
+path = "submodules/ryu"
+
+[workspace.dependencies.windows]
+path = "submodules/windows-rs/crates/libs/windows"
+
+[workspace.dependencies.trycmd]
+path = "submodules/snapbox/crates/trycmd"
+
+[workspace.dependencies.thiserror-impl]
+path = "submodules/thiserror/impl"
+
+[workspace.dependencies.cargo-util]
+path = "submodules/cargo/crates/cargo-util"
+
+[workspace.dependencies.ide-ssr]
+path = "submodules/rust-analyzer/crates/ide-ssr"
+
+[workspace.dependencies.icu_properties]
+path = "submodules/icu4x/components/properties"
+
+[workspace.dependencies.hir-ty]
+path = "submodules/rust-analyzer/crates/hir-ty"
+
+[workspace.dependencies.fluent-syntax]
+path = "submodules/fluent-rs/fluent-syntax"
+
+[workspace.dependencies.gix-hash]
+path = "submodules/gitoxide/gix-hash"
+
+[workspace.dependencies.once_cell]
+version = "1.19"
+
+[workspace.dependencies.macros]
+path = "submodules/rust-analyzer/crates/macros"
+
+[workspace.dependencies.adler2]
+path = "submodules/adler2"
+
+[workspace.dependencies.find-msvc-tools]
+path = "submodules/cc-rs/find-msvc-tools"
+
+[workspace.dependencies.introspector_core]
+path = "submodules/rust/compiler/introspector/core"
+
+[workspace.dependencies.rustc-demangle]
+path = "submodules/rustc-demangle"
+
+[workspace.dependencies.toolchain]
+path = "submodules/rust-analyzer/crates/toolchain"
+
+[workspace.dependencies.windows-registry]
+path = "submodules/windows-rs/crates/libs/registry"
+
+[workspace.dependencies.generator]
+path = "submodules/generator-rs"
+
+[workspace.dependencies.axum]
+version = "0.7.5"
+
+[workspace.dependencies.autowrap_tool]
+path = "submodules/patch-build-rs/autowrap_tool/"
+
+[workspace.dependencies.proc-macro-srv-cli]
+path = "submodules/rust-analyzer/crates/proc-macro-srv-cli"
+
+[workspace.dependencies.gix-tix]
+path = "submodules/gitoxide/gix-tix"
+
+[workspace.dependencies.pest_generator]
+path = "submodules/pest/generator"
+
+[workspace.dependencies.url]
+version = "2.0"
+
+[workspace.dependencies.rustc_expand_base_lib_errors]
+path = "submodules/rust/compiler/rustc_expand_base_lib_errors"
+
+[workspace.dependencies.rustc-arg-builder-lib]
+path = "submodules/cargo/crates/rustc-arg-builder-lib/"
+
+[workspace.dependencies.gix-sec]
+path = "submodules/gitoxide/gix-sec"
+
+[workspace.dependencies.signal-hook-async-std]
+path = "submodules/signal-hook/signal-hook-async-std"
+
+[workspace.dependencies.either]
+path = "submodules/either"
+
+[workspace.dependencies.memmap2]
+path = "submodules/memmap2-rs"
+
+[workspace.dependencies.blake3]
+path = "submodules/BLAKE3"
+
+[workspace.dependencies.futures-channel]
+path = "submodules/futures-rs/futures-channel"
+
+[workspace.dependencies.human_format]
+path = "submodules/human-format-rs"
 
 [workspace.dependencies.pin-project-lite]
 path = "submodules/pin-project-lite"
 
-[workspace.dependencies.document-features]
-path = "submodules/document-features"
+[workspace.dependencies.toml_edit]
+path = "submodules/toml/crates/toml_edit"
 
-[workspace.dependencies.cargo-submodule-tool-lib]
-path = "tools/cargo-submodule-tool-lib"
+[workspace.dependencies.zerocopy]
+path = "submodules/zerocopy"
+
+[workspace.dependencies.windows-threading]
+path = "submodules/windows-rs/crates/libs/threading"
+
+[workspace.dependencies.lib-matcher-loc]
+path = "submodules/rust/compiler/lib-matcher-loc"
+
+[workspace.dependencies.gix-fs]
+path = "submodules/gitoxide/gix-fs"
+
+[workspace.dependencies.gix-protocol]
+path = "submodules/gitoxide/gix-protocol"
+
+[workspace.dependencies.gix-shallow]
+path = "submodules/gitoxide/gix-shallow"
+
+[workspace.dependencies.proc-macro2]
+path = "submodules/proc-macro2"
+
+[workspace.dependencies.cfg_aliases]
+path = "submodules/cfg_aliases"
 
 [workspace.dependencies.gix-glob]
 path = "submodules/gitoxide/gix-glob"
 
-[workspace.dependencies.uuid]
-path = "submodules/uuid"
+[workspace.dependencies.num-conv]
+path = "submodules/num-conv"
 
-[workspace.dependencies.tracing-core]
-path = "submodules/tracing/tracing-core"
+[workspace.dependencies.rustc_transmute]
+path = "submodules/rust/compiler/rustc_transmute"
 
-[workspace.dependencies.tempfile]
-path = "submodules/tempfile"
+[workspace.dependencies.bitflags]
+path = "submodules/bitflags"
 
-[workspace.dependencies.rustc_trait_selection]
-path = "submodules/rust/compiler/rustc_trait_selection"
-
-[workspace.dependencies.curl-sys]
-path = "submodules/curl-rust/curl-sys"
-
-[workspace.dependencies.pin-utils]
-path = "submodules/pin-utils"
-
-[workspace.dependencies.hir]
-path = "submodules/rust-analyzer/crates/hir"
-
-[workspace.dependencies.project-model]
-path = "submodules/rust-analyzer/crates/project-model"
+[workspace.dependencies.zlib-rs]
+path = "submodules/zlib-rs/zlib-rs"
 
 [workspace.dependencies.rustversion]
 path = "submodules/rustversion"
 
-[workspace.dependencies.text-size]
-path = "submodules/text-size"
+[workspace.dependencies.cargo-credential-wincred]
+path = "submodules/cargo/credential/cargo-credential-wincred"
+
+[workspace.dependencies.signature]
+path = "submodules/traits/signature"
+
+[workspace.dependencies.hir]
+path = "submodules/rust-analyzer/crates/hir"
 
 [workspace.dependencies.time]
 features = [
@@ -802,150 +1391,188 @@ features = [
 ]
 version = "0.3.44"
 
-[workspace.dependencies.autocfg]
-path = "submodules/autocfg"
+[workspace.dependencies.nom]
+path = "submodules/nom"
 
-[workspace.dependencies.parser]
-path = "submodules/rust-analyzer/crates/parser"
+[workspace.dependencies.libz-rs-sys]
+path = "submodules/zlib-rs/libz-rs-sys"
 
-[workspace.dependencies.ucd-trie]
-path = "submodules/ucd-generate/ucd-trie"
+[workspace.dependencies.rust-nix-bootstrap]
+path = "crates/rust-nix-bootstrap"
 
-[workspace.dependencies.windows_i686_msvc]
-path = "submodules/windows-rs/crates/targets/i686_msvc"
+[workspace.dependencies.gix-worktree-state]
+path = "submodules/gitoxide/gix-worktree-state"
 
-[workspace.dependencies.core-foundation]
-features = ["mac_os_10_7_support"]
-version = "0.10.1"
+[workspace.dependencies.supports-hyperlinks]
+path = "submodules/supports-hyperlinks"
 
-[workspace.dependencies.dot-parser-macros]
-path = "submodules/dot-parser/macros"
+[workspace.dependencies.openssl-probe]
+path = "submodules/openssl-probe"
 
-[workspace.dependencies.static_assertions]
-path = "submodules/static-assertions-rs"
+[workspace.dependencies.litrs]
+path = "submodules/litrs"
 
-[workspace.dependencies.regex-automata]
-path = "submodules/regex/regex-automata"
-
-[workspace.dependencies.nix]
-path = "submodules/nix"
-
-[workspace.dependencies.serde_json]
-version = "1.0"
-
-[workspace.dependencies.lib-metavar-expr]
-path = "submodules/rust/compiler/lib-metavar-expr"
-
-[workspace.dependencies.introspector_macro_helpers]
-path = "submodules/patch-build-rs/introspector_macro_helpers"
-
-[workspace.dependencies.anstyle]
-path = "submodules/anstyle/crates/anstyle"
-
-[workspace.dependencies.unicode-segmentation]
-path = "submodules/unicode-segmentation"
-
-[workspace.dependencies.colorchoice]
-path = "submodules/anstyle/crates/colorchoice"
-
-[workspace.dependencies.atomic-maybe-uninit]
-path = "submodules/atomic-maybe-uninit"
-
-[workspace.dependencies.smol_str]
-path = "submodules/rust-analyzer/lib/smol_str"
-
-[workspace.dependencies.arc-swap]
-path = "submodules/arc-swap"
-
-[workspace.dependencies.dissimilar]
-path = "submodules/dissimilar"
-
-[workspace.dependencies.ra-ap-rustc_parse_format]
-package = "rustc_parse_format"
-path = "./submodules/rust/compiler/rustc_parse_format"
-
-[workspace.dependencies.rustc_error_codes]
-path = "submodules/rust/compiler/rustc_error_codes"
-
-[workspace.dependencies.rustc_hir_id]
-path = "submodules/rust/compiler/rustc_hir_id"
-
-[workspace.dependencies.rustc_tools_util]
-path = "submodules/rust/src/tools/clippy/rustc_tools_util"
-
-[workspace.dependencies.hashbrown]
-path = "submodules/hashbrown"
-
-[workspace.dependencies.gix-shallow]
-path = "submodules/gitoxide/gix-shallow"
-
-[workspace.dependencies.ahash]
-path = "submodules/ahash"
-
-[workspace.dependencies.backtrace]
-path = "submodules/backtrace-rs"
-
-[workspace.dependencies.erased-serde]
-path = "submodules/erased-serde"
-
-[workspace.dependencies.lib-token-tree]
-path = "submodules/rust/compiler/lib-token-tree"
-
-[workspace.dependencies.unicase]
-path = "submodules/unicase"
-
-[workspace.dependencies.gix-config]
-path = "submodules/gitoxide/gix-config"
-
-[workspace.dependencies.gix-fsck]
-path = "submodules/gitoxide/gix-fsck"
-
-[workspace.dependencies.gix-hash]
-path = "submodules/gitoxide/gix-hash"
-
-[workspace.dependencies.windows-core]
-path = "submodules/windows-rs/crates/libs/core"
+[workspace.dependencies.macrotest]
+path = "submodules/macrotest"
 
 [workspace.dependencies.pest_meta]
 path = "submodules/pest/meta"
 
-[workspace.dependencies.tracing-attributes]
-path = "submodules/tracing/tracing-attributes"
+[workspace.dependencies.gix-lock]
+path = "submodules/gitoxide/gix-lock"
+
+[workspace.dependencies.unicode-normalization]
+path = "submodules/unicode-normalization"
+
+[workspace.dependencies.wasm_sync]
+path = "submodules/wasm_sync"
+
+[workspace.dependencies.macro_wrapper_lib]
+path = "submodules/rust/compiler/macro_wrapper_lib"
+
+[workspace.dependencies.gix-hashtable]
+path = "submodules/gitoxide/gix-hashtable"
+
+[workspace.dependencies.bincode]
+path = "submodules/bincode"
+
+[workspace.dependencies.syn-codegen]
+path = "submodules/syn/json"
+
+[workspace.dependencies.backtrace]
+path = "submodules/backtrace-rs"
+
+[workspace.dependencies.fiat-crypto]
+path = "submodules/fiat-crypto/fiat-rust"
+
+[workspace.dependencies.zerofrom-derive]
+path = "submodules/icu4x/utils/zerofrom/derive"
+
+[workspace.dependencies.cargo-submodule-tool-lib]
+path = "tools/cargo-submodule-tool-lib"
+
+[workspace.dependencies.cargo-test-macro]
+path = "submodules/cargo/crates/cargo-test-macro"
+
+[workspace.dependencies.ide-assists]
+path = "submodules/rust-analyzer/crates/ide-assists"
+
+[workspace.dependencies.rustc_errors]
+path = "submodules/rust/compiler/rustc_errors"
+
+[workspace.dependencies.smol_str]
+path = "submodules/rust-analyzer/lib/smol_str"
+
+[workspace.dependencies.dissimilar]
+path = "submodules/dissimilar"
+
+[workspace.dependencies.rayon]
+path = "submodules/rayon"
+
+[workspace.dependencies.http]
+package = "http"
+version = "1.1.0"
+
+[workspace.dependencies.gix-archive]
+path = "submodules/gitoxide/gix-archive"
+
+[workspace.dependencies.io-uring]
+path = "submodules/io-uring"
+
+[workspace.dependencies.petgraph]
+path = "submodules/petgraph"
+
+[workspace.dependencies.gix-url]
+path = "submodules/gitoxide/gix-url"
+
+[workspace.dependencies.gix-negotiate]
+path = "submodules/gitoxide/gix-negotiate"
+
+[workspace.dependencies.defmac]
+path = "submodules/defmac"
+
+[workspace.dependencies.color-print-proc-macro]
+path = "submodules/color-print/color-print-proc-macro"
+
+[workspace.dependencies.la-arena]
+path = "submodules/rust-analyzer/lib/la-arena"
+
+[workspace.dependencies.smallvec]
+path = "submodules/rust-smallvec"
+
+[workspace.dependencies.encoding_rs]
+path = "submodules/encoding_rs"
+
+[workspace.dependencies.futures-test]
+path = "submodules/futures-rs/futures-test"
+
+[workspace.dependencies.rustc_tools_util]
+path = "submodules/rust/src/tools/clippy/rustc_tools_util"
+
+[workspace.dependencies.twox-hash]
+path = "submodules/twox-hash"
+
+[workspace.dependencies.regex]
+features = ["std"]
+path = "submodules/regex"
+
+[workspace.dependencies.same-file]
+path = "submodules/same-file"
+
+[workspace.dependencies.intern]
+path = "./submodules/rust-analyzer/crates/intern"
+
+[workspace.dependencies.signal-hook-tokio]
+path = "submodules/signal-hook/signal-hook-tokio"
+
+[workspace.dependencies.tar]
+version = "0.4.44"
+
+[workspace.dependencies.unicode-width]
+path = "submodules/unicode-width"
+
+[workspace.dependencies.cargo-credential-macos-keychain]
+path = "submodules/cargo/credential/cargo-credential-macos-keychain"
+
+[workspace.dependencies.windows_aarch64_msvc]
+path = "submodules/windows-rs/crates/targets/aarch64_msvc"
 
 [workspace.dependencies.windows_i686_gnu]
 path = "submodules/windows-rs/crates/targets/i686_gnu"
 
-[workspace.dependencies.lib-macro-rule]
-path = "submodules/rust/compiler/lib-macro-rule"
+[workspace.dependencies.gix-worktree]
+path = "submodules/gitoxide/gix-worktree"
 
-[workspace.dependencies.pasetors]
-features = [
-    "v3",
-    "serde",
-]
-path = "submodules/pasetors"
+[workspace.dependencies.zip]
+path = "submodules/zip2"
 
-[workspace.dependencies.temp-dir]
-path = "submodules/temp-dir/temp-dir"
+[workspace.dependencies.libc]
+features = ["extra_traits"]
+path = "submodules/libc"
 
-[workspace.dependencies.jemalloc-ctl]
-package = "tikv-jemalloc-ctl"
-path = "submodules/jemallocator/jemalloc-ctl"
+[workspace.dependencies.uuid]
+path = "submodules/uuid"
 
-[workspace.dependencies.once_cell]
-version = "1.19"
+[workspace.dependencies.lib-token-tree]
+path = "submodules/rust/compiler/lib-token-tree"
 
-[workspace.dependencies.icu_properties]
-path = "submodules/icu4x/components/properties"
+[workspace.dependencies.mbe]
+path = "submodules/rust-analyzer/crates/mbe"
 
-[workspace.dependencies.quote]
-path = "submodules/quote"
+[workspace.dependencies.rustc_hir]
+path = "submodules/rust/compiler/rustc_hir"
 
-[workspace.dependencies.fxhash]
-path = "submodules/fxhash"
+[workspace.dependencies.gix-traverse]
+path = "submodules/gitoxide/gix-traverse"
 
-[workspace.dependencies.futures-concurrency]
-path = "submodules/futures-concurrency"
+[workspace.dependencies.gemini_rustc_data_structures]
+path = "submodules/rust/crates/gemini_rustc_data_structures/"
+
+[workspace.dependencies.gix-commitgraph]
+path = "submodules/gitoxide/gix-commitgraph"
+
+[workspace.dependencies.futures]
+path = "submodules/futures-rs/futures"
 
 [workspace.dependencies.object]
 features = [
@@ -959,640 +1586,194 @@ features = [
 ]
 path = "submodules/object"
 
-[workspace.dependencies.rustc_driver_impl]
-path = "submodules/rust/compiler/rustc_driver_impl"
+[workspace.dependencies.sha2]
+path = "submodules/hashes/sha2"
 
-[workspace.dependencies.xattr]
-path = "submodules/xattr"
+[workspace.dependencies.signal-hook]
+path = "submodules/signal-hook"
 
-[workspace.dependencies.async-graphql-parser]
-path = "submodules/async-graphql/parser"
+[workspace.dependencies.measureme]
+path = "submodules/measureme/measureme"
 
-[workspace.dependencies.terminal_size]
-path = "submodules/terminal-size"
+[workspace.dependencies.hir-expand]
+path = "submodules/rust-analyzer/crates/hir-expand"
 
-[workspace.dependencies.gix-credentials]
-path = "submodules/gitoxide/gix-credentials"
+[workspace.dependencies.rustc_expand]
+path = "submodules/rust/compiler/rustc_expand"
 
-[workspace.dependencies.bytesize]
-path = "submodules/bytesize"
+[workspace.dependencies.ct-codecs]
+path = "submodules/rust-ct-codecs"
 
-[workspace.dependencies.anyhow]
-path = "submodules/anyhow"
-
-[workspace.dependencies.rustc_expand_base_lib_errors]
-path = "submodules/rust/compiler/rustc_expand_base_lib_errors"
-
-[workspace.dependencies.cargo-test-macro]
-path = "submodules/cargo/crates/cargo-test-macro"
-
-[workspace.dependencies.primeorder]
-path = "submodules/elliptic-curves/primeorder"
-
-[workspace.dependencies.cargo-util-schemas]
-path = "submodules/cargo/crates/cargo-util-schemas"
-
-[workspace.dependencies.colorify]
-path = "submodules/colorify"
-
-[workspace.dependencies.tracing-chrome]
-path = "submodules/tracing-chrome"
-
-[workspace.dependencies.ryu]
-path = "submodules/ryu"
+[workspace.dependencies.globwalk]
+path = "submodules/globwalk"
 
 [workspace.dependencies.stdx]
 path = "submodules/rust-analyzer/crates/stdx"
 
-[workspace.dependencies.gix-attributes]
-path = "submodules/gitoxide/gix-attributes"
+[workspace.dependencies.toml]
+version = "0.8"
 
-[workspace.dependencies.regex-syntax]
-path = "submodules/regex/regex-syntax"
+[workspace.dependencies.rustc_driver]
+path = "submodules/rust/compiler/rustc_driver"
 
-[workspace.dependencies.rustc-arg-builder-lib]
-path = "submodules/cargo/crates/rustc-arg-builder-lib/"
+[workspace.dependencies.gix-pack]
+path = "submodules/gitoxide/gix-pack"
 
-[workspace.dependencies.tikv-jemalloc-sys]
-path = "submodules/jemallocator/jemalloc-sys"
+[workspace.dependencies.serde_json]
+version = "1.0"
 
-[workspace.dependencies.tracing-tree]
-path = "submodules/tracing-tree"
+[workspace.dependencies.arrayref]
+path = "submodules/arrayref"
 
-[workspace.dependencies.rustix]
-path = "submodules/rustix"
+[workspace.dependencies.tempfile]
+path = "submodules/tempfile"
 
-[workspace.dependencies.rustc_span]
-path = "submodules/rust/compiler/rustc_span"
+[workspace.dependencies.reqwest]
+path = "submodules/reqwest"
 
-[workspace.dependencies.toml_edit]
-path = "submodules/toml/crates/toml_edit"
+[workspace.dependencies.parking_lot]
+path = "submodules/parking_lot"
+version = "0.12.6"
 
-[workspace.dependencies.vfs]
-path = "./submodules/rust-analyzer/crates/vfs"
+[workspace.dependencies.tracing-attributes]
+path = "submodules/tracing/tracing-attributes"
 
-[workspace.dependencies.futures-core]
-path = "submodules/futures-rs/futures-core"
+[workspace.dependencies.tracing-log]
+path = "submodules/tracing/tracing-log"
 
-[workspace.dependencies.gix-trace]
-path = "submodules/gitoxide/gix-trace"
+[workspace.dependencies.gix-sequencer]
+path = "submodules/gitoxide/gix-sequencer"
 
-[workspace.dependencies.syn-adapter-lib]
-path = "tools/syn-adapter-lib"
+[workspace.dependencies.fxhash]
+path = "submodules/fxhash"
 
-[workspace.dependencies.rustc_middle]
-path = "submodules/rust/compiler/rustc_middle"
+[workspace.dependencies.ide]
+path = "submodules/rust-analyzer/crates/ide"
 
-[workspace.dependencies.gix-mailmap]
-path = "submodules/gitoxide/gix-mailmap"
+[workspace.dependencies.rustc_expand_base_lib]
+path = "submodules/rust/compiler/rustc_expand_base_lib"
 
-[workspace.dependencies.sha1-checked]
-path = "submodules/hashes/sha1-checked"
+[workspace.dependencies.vfs-notify]
+path = "submodules/rust-analyzer/crates/vfs-notify"
 
-[workspace.dependencies.hmac]
-path = "submodules/MACs/hmac"
+[workspace.dependencies.pulldown-cmark]
+version = "0.9.6"
 
-[workspace.dependencies.fnv]
-path = "submodules/rust-fnv"
-
-[workspace.dependencies.zip]
-path = "submodules/zip2"
-
-[workspace.dependencies.futures-lite]
-path = "submodules/futures-lite"
-
-[workspace.dependencies.futures-macro]
-path = "submodules/futures-rs/futures-macro"
+[workspace.dependencies.windows_i686_msvc]
+path = "submodules/windows-rs/crates/targets/i686_msvc"
 
 [workspace.dependencies.curl]
 features = ["http2"]
 path = "submodules/curl-rust"
 
-[workspace.dependencies.same-file]
-path = "submodules/same-file"
-
-[workspace.dependencies.arrayvec]
-path = "submodules/arrayvec"
-
-[workspace.dependencies.cargo-credential-libsecret]
-path = "submodules/cargo/credential/cargo-credential-libsecret"
-
-[workspace.dependencies.serde_ignored]
-path = "submodules/serde-ignored"
-
-[workspace.dependencies.md5]
-path = "submodules/md5"
-
-[workspace.dependencies.nom]
-path = "submodules/nom"
-
-[workspace.dependencies.hir-def]
-path = "submodules/rust-analyzer/crates/hir-def"
-
-[workspace.dependencies.regex]
-features = ["std"]
-path = "submodules/regex"
-
-[workspace.dependencies.ra-ap-rustc_next_trait_solver]
-package = "rustc_next_trait_solver"
-path = "./submodules/rust/compiler/rustc_next_trait_solver"
-
-[workspace.dependencies.bincode]
-path = "submodules/bincode"
-
-[workspace.dependencies.ed25519-compact]
-path = "submodules/rust-ed25519-compact"
-
-[workspace.dependencies.salsa-macros]
-path = "submodules/salsa/components/salsa-macros"
-
-[workspace.dependencies.unicode-bom]
-path = "submodules/unicode-bom"
-
-[workspace.dependencies.unicode-width]
-path = "submodules/unicode-width"
-
-[workspace.dependencies.windows-interface]
-path = "submodules/windows-rs/crates/libs/interface"
-
-[workspace.dependencies.gix-merge]
-path = "submodules/gitoxide/gix-merge"
-
-[workspace.dependencies.futures-channel]
-path = "submodules/futures-rs/futures-channel"
-
-[workspace.dependencies.lock_api]
-path = "submodules/parking_lot/lock_api"
-
-[workspace.dependencies.test-utils]
-path = "submodules/rust-analyzer/crates/test-utils"
-
-[workspace.dependencies.windows-result]
-path = "submodules/windows-rs/crates/libs/result"
-
-[workspace.dependencies.anstream]
-path = "submodules/anstyle/crates/anstream"
-
-[workspace.dependencies.litemap]
-path = "submodules/icu4x/utils/litemap"
-
-[workspace.dependencies.windows-sys]
-path = "submodules/windows-rs/crates/libs/sys"
-
-[workspace.dependencies.icu_properties_data]
-path = "submodules/icu4x/provider/data/properties"
-
-[workspace.dependencies.windows-threading]
-path = "submodules/windows-rs/crates/libs/threading"
-
-[workspace.dependencies.dashmap]
-features = [
-    "raw-api",
-    "inline",
-]
-path = "submodules/dashmap"
-version = "7.0.0-hack"
-
-[workspace.dependencies.introspector_decl_core]
-path = "submodules/patch-build-rs/introspector_decl_core"
-
-[workspace.dependencies.pest_generator]
-path = "submodules/pest/generator"
-
-[workspace.dependencies.rustc_interface]
-path = "submodules/rust/compiler/rustc_interface"
-
-[workspace.dependencies.gix-pathspec]
-path = "submodules/gitoxide/gix-pathspec"
-
-[workspace.dependencies.bitflags]
-path = "submodules/bitflags"
-
-[workspace.dependencies.md-5]
-path = "submodules/hashes/md5"
-
-[workspace.dependencies.memchr]
-path = "submodules/memchr"
-
-[workspace.dependencies.intern]
-path = "./submodules/rust-analyzer/crates/intern"
-
-[workspace.dependencies.find-msvc-tools]
-path = "submodules/cc-rs/find-msvc-tools"
-
-[workspace.dependencies.gix-hashtable]
-path = "submodules/gitoxide/gix-hashtable"
-
-[workspace.dependencies.futures-executor]
-path = "submodules/futures-rs/futures-executor"
-
-[workspace.dependencies.dot-parser]
-path = "submodules/dot-parser"
-
-[workspace.dependencies.ecdsa]
-path = "submodules/signatures/ecdsa"
-
-[workspace.dependencies.yoke-derive]
-path = "submodules/icu4x/utils/yoke/derive"
-
-[workspace.dependencies.cargo-test-support]
-path = "submodules/cargo/crates/cargo-test-support"
-
-[workspace.dependencies.rustc_expand_meta_macros]
-path = "submodules/rust/compiler/rustc_expand_meta_macros"
-
-[workspace.dependencies.ra-ap-rustc_type_ir]
-package = "rustc_type_ir"
-path = "./submodules/rust/compiler/rustc_type_ir"
-
-[workspace.dependencies.ppv-lite86]
-path = "submodules/cryptocorrosion/utils-simd/ppv-lite86"
-
-[workspace.dependencies.os_info]
-path = "submodules/os_info/os_info"
-
-[workspace.dependencies.pathdiff]
-path = "submodules/pathdiff"
-
-[workspace.dependencies.futures-io]
-path = "submodules/futures-rs/futures-io"
-
-[workspace.dependencies.ide-ssr]
-path = "submodules/rust-analyzer/crates/ide-ssr"
-
-[workspace.dependencies.windows_i686_gnullvm]
-path = "submodules/windows-rs/crates/targets/i686_gnullvm"
-
-[workspace.dependencies.bstr]
-path = "submodules/bstr"
-
-[workspace.dependencies.linux-raw-sys]
-path = "submodules/linux-raw-sys"
-
-[workspace.dependencies.cargo-credential]
-path = "submodules/cargo/credential/cargo-credential"
-
-[workspace.dependencies.gix-worktree-stream]
-path = "submodules/gitoxide/gix-worktree-stream"
-
-[workspace.dependencies.odds]
-path = "submodules/odds"
-
-[workspace.dependencies.rustc_expand_base_lib]
-path = "submodules/rust/compiler/rustc_expand_base_lib"
-
-[workspace.dependencies.async-graphql-value]
-path = "submodules/async-graphql/value"
-
-[workspace.dependencies.const-oid]
-path = "submodules/formats/const-oid"
-
-[workspace.dependencies.generator]
-path = "submodules/generator-rs"
-
-[workspace.dependencies.gix-validate]
-path = "submodules/gitoxide/gix-validate"
-
-[workspace.dependencies.windows-version]
-path = "submodules/windows-rs/crates/libs/version"
-
-[workspace.dependencies.tinystr]
-path = "submodules/icu4x/utils/tinystr"
-
-[workspace.dependencies.smallvec]
-path = "submodules/rust-smallvec"
-
-[workspace.dependencies.arbitrary]
-path = "submodules/arbitrary/"
-
-[workspace.dependencies.sha2]
-path = "submodules/hashes/sha2"
-
-[workspace.dependencies.criterion]
-path = "submodules/criterion"
-
-[workspace.dependencies.futures-timer]
-path = "submodules/futures-timer"
-
-[workspace.dependencies.equivalent]
-path = "submodules/equivalent"
-
-[workspace.dependencies.annotate-snippets]
-path = "submodules/annotate-snippets-rs"
-
-[workspace.dependencies.gix-path]
-path = "submodules/gitoxide/gix-path"
-
-[workspace.dependencies.lzma-rust2]
-path = "submodules/lzma-rust2"
-
-[workspace.dependencies.clru]
-path = "submodules/clru-rs"
-
-[workspace.dependencies.color-print-proc-macro]
-path = "submodules/color-print/color-print-proc-macro"
-
-[workspace.dependencies.macros]
-path = "submodules/rust-analyzer/crates/macros"
-
-[workspace.dependencies.rustc_attr_parsing]
-path = "submodules/rust/compiler/rustc_attr_parsing"
-
-[workspace.dependencies.gix-revision]
-path = "submodules/gitoxide/gix-revision"
-
-[workspace.dependencies.rustc_transmute]
-path = "submodules/rust/compiler/rustc_transmute"
-
-[workspace.dependencies.libloading]
-path = "submodules/rust_libloading"
-
-[workspace.dependencies.url]
-version = "2.0"
-
-[workspace.dependencies.generic-array]
-path = "submodules/generic-array"
+[workspace.dependencies.tokio-stream]
+path = "submodules/tokio/tokio-stream"
 
 [workspace.dependencies.hex]
 path = "submodules/rust-hex"
 
-[workspace.dependencies.tera]
-path = "submodules/tera"
+[workspace.dependencies.walkdir]
+version = "2.5"
 
-[workspace.dependencies.version_check]
-path = "submodules/version_check"
+[workspace.dependencies.anstyle-query]
+path = "submodules/anstyle/crates/anstyle-query"
+
+[workspace.dependencies.fs_extra]
+path = "submodules/fs_extra"
+
+[workspace.dependencies.rustc_trait_selection]
+path = "submodules/rust/compiler/rustc_trait_selection"
+
+[workspace.dependencies.cargo-credential-libsecret]
+path = "submodules/cargo/credential/cargo-credential-libsecret"
 
 [workspace.dependencies.zerovec-derive]
 path = "submodules/icu4x/utils/zerovec/derive"
 
-[workspace.dependencies.clap]
-features = ["derive"]
-path = "submodules/clap"
+[workspace.dependencies.hashbrown]
+path = "submodules/hashbrown"
 
-[workspace.dependencies.hkdf]
-path = "submodules/KDFs/hkdf"
+[workspace.dependencies.slab]
+path = "submodules/slab"
 
-[workspace.dependencies.gix-sec]
-path = "submodules/gitoxide/gix-sec"
+[workspace.dependencies.futures-core]
+path = "submodules/futures-rs/futures-core"
 
-[workspace.dependencies.gix-tui]
-path = "submodules/gitoxide/gix-tui"
+[workspace.dependencies.rocksdb]
+path = "submodules/rocksdb"
 
-[workspace.dependencies.rust-nix-bootstrap]
-path = "crates/rust-nix-bootstrap"
+[workspace.dependencies.semver]
+features = ["serde"]
+path = "submodules/semver"
 
-[workspace.dependencies.windows-strings]
-path = "submodules/windows-rs/crates/libs/strings"
+[workspace.dependencies.bytesize]
+path = "submodules/bytesize"
 
-[workspace.dependencies.gix-fs]
-path = "submodules/gitoxide/gix-fs"
+[workspace.dependencies.edition]
+path = "submodules/rust-analyzer/crates/edition"
 
-[workspace.dependencies.libc]
-features = ["extra_traits"]
-path = "submodules/libc"
+[workspace.dependencies.jemalloc-ctl]
+package = "tikv-jemalloc-ctl"
+path = "submodules/jemallocator/jemalloc-ctl"
 
-[workspace.dependencies.icu_normalizer]
-path = "submodules/icu4x/components/normalizer"
+[workspace.dependencies.async-graphql-parser]
+path = "submodules/async-graphql/parser"
 
-[workspace.dependencies.gix-revwalk]
-path = "submodules/gitoxide/gix-revwalk"
+[workspace.dependencies.ra-ap-rustc_index]
+package = "rustc_index"
+path = "./submodules/rust/compiler/rustc_index"
 
-[workspace.dependencies.ruzstd]
-path = "submodules/zstd-rs/ruzstd"
+[workspace.dependencies.rustc_data_structures]
+path = "submodules/rust/compiler/rustc_data_structures"
 
-[workspace.dependencies.ide-completion]
-path = "submodules/rust-analyzer/crates/ide-completion"
-
-[workspace.dependencies.syntax]
-path = "./submodules/rust-analyzer/crates/syntax"
-
-[workspace.dependencies.crossbeam-channel]
-path = "submodules/crossbeam/crossbeam-channel"
-
-[workspace.dependencies.either]
-path = "submodules/either"
-
-[workspace.dependencies.ra-ap-rustc_ast_ir]
-package = "rustc_ast_ir"
-path = "./submodules/rust/compiler/rustc_ast_ir"
-
-[workspace.dependencies.parking_lot_core]
-path = "submodules/parking_lot/core"
-version = "0.9.13"
+[workspace.dependencies.orion]
+path = "submodules/orion"
 
 [workspace.dependencies.process-wrap]
 features = ["std"]
 version = "8.2.1"
 
-[workspace.dependencies.base-db]
-path = "submodules/rust-analyzer/crates/base-db"
-
-[workspace.dependencies.gix-tempfile]
-features = []
-path = "submodules/gitoxide/gix-tempfile"
-
-[workspace.dependencies.im-rc]
-path = "submodules/im-rs/rc"
-
-[workspace.dependencies.lib-kleene-op]
-path = "submodules/rust/compiler/lib-kleene-op"
-
-[workspace.dependencies.heapless]
-path = "submodules/heapless"
-
-[workspace.dependencies.color-print]
-path = "submodules/color-print/color-print"
-
-[workspace.dependencies.p384]
-path = "submodules/elliptic-curves/p384"
-
-[workspace.dependencies.base64ct]
-path = "submodules/formats/base64ct"
-
-[workspace.dependencies.proc-macro2]
-path = "submodules/proc-macro2"
-
-[workspace.dependencies.rustc_ast]
-path = "submodules/rust/compiler/rustc_ast"
-
-[workspace.dependencies.thin-vec]
-path = "submodules/thin-vec"
-version = "0.2.14"
-
-[workspace.dependencies.gix-dir]
-path = "submodules/gitoxide/gix-dir"
-
-[workspace.dependencies.signal-hook-registry]
-path = "submodules/signal-hook/signal-hook-registry"
-
-[workspace.dependencies.tokio-core]
-path = "submodules/tokio-core"
-
-[workspace.dependencies.rustc_index]
-path = "submodules/rust/compiler/rustc_index"
-
-[workspace.dependencies.sval]
-path = "submodules/sval"
-
-[workspace.dependencies.rustc_hir]
-path = "submodules/rust/compiler/rustc_hir"
-
-[workspace.dependencies.slab]
-path = "submodules/slab"
-
-[workspace.dependencies.ide]
-path = "submodules/rust-analyzer/crates/ide"
-
-[workspace.dependencies.gix-date]
-path = "submodules/gitoxide/gix-date"
-
-[workspace.dependencies.cfg_aliases]
-path = "submodules/cfg_aliases"
-
-[workspace.dependencies.tinyvec]
-path = "submodules/tinyvec"
-
-[workspace.dependencies.cargo-repo-sync-lib]
-path = "tools/cargo-repo-sync-lib"
-
-[workspace.dependencies.signal-hook]
-path = "submodules/signal-hook"
-
 [workspace.dependencies.gix-note]
 path = "submodules/gitoxide/gix-note"
 
-[workspace.dependencies.crc32fast]
-path = "submodules/rust-crc32fast"
-
-[workspace.dependencies.rustc_ast_pretty]
-path = "./submodules/rust/compiler/rustc_ast_pretty"
-
-[workspace.dependencies.hash32]
-path = "submodules/hash32"
+[workspace.dependencies.ucd-trie]
+path = "submodules/ucd-generate/ucd-trie"
 
 [workspace.dependencies.windows-link]
 path = "submodules/windows-rs/crates/libs/link"
 
-[workspace.dependencies.indexmap]
-path = "submodules/indexmap"
+[workspace.dependencies.cargo]
+path = "submodules/cargo"
 
-[workspace.dependencies.camino]
-path = "submodules/camino"
+[workspace.dependencies.windows-targets]
+path = "submodules/rust/library/windows_targets"
 
-[workspace.dependencies.typenum]
-path = "submodules/typenum"
+[workspace.dependencies.cargo-test-support]
+path = "submodules/cargo/crates/cargo-test-support"
 
-[workspace.dependencies.home]
-path = "submodules/cargo/crates/home"
+[workspace.dependencies.windows-version]
+path = "submodules/windows-rs/crates/libs/version"
 
-[workspace.dependencies.quickcheck]
-path = "submodules/quickcheck"
+[workspace.dependencies.gix-discover]
+path = "submodules/gitoxide/gix-discover"
 
-[workspace.dependencies.windows_aarch64_msvc]
-path = "submodules/windows-rs/crates/targets/aarch64_msvc"
+[workspace.dependencies.generic-array]
+path = "submodules/generic-array"
 
-[workspace.dependencies.gix-status]
-path = "submodules/gitoxide/gix-status"
+[workspace.dependencies.gix-mailmap]
+path = "submodules/gitoxide/gix-mailmap"
 
-[workspace.dependencies.uluru]
-path = "submodules/uluru"
-
-[workspace.dependencies.tracing]
-path = "submodules/tracing/tracing"
-
-[workspace.dependencies.vfs-notify]
-path = "submodules/rust-analyzer/crates/vfs-notify"
-
-[workspace.dependencies.thread_local]
-path = "submodules/thread_local-rs"
-
-[workspace.dependencies.cfg]
-features = ["tt"]
-path = "submodules/rust-analyzer/crates/cfg"
-
-[workspace.dependencies.gix-traverse]
-path = "submodules/gitoxide/gix-traverse"
-
-[workspace.dependencies.petgraph]
-path = "submodules/petgraph"
-
-[workspace.dependencies.rustc_apfloat]
-path = "submodules/rustc_apfloat"
-
-[workspace.dependencies.num-conv]
-path = "submodules/num-conv"
-
-[workspace.dependencies.rfc6979]
-path = "submodules/signatures/rfc6979"
-
-[workspace.dependencies.encoding_rs]
-path = "submodules/encoding_rs"
-
-[workspace.dependencies.crossbeam-deque]
-path = "submodules/crossbeam/crossbeam-deque"
+[workspace.dependencies.base64]
+path = "submodules/rust-base64"
 
 [workspace.dependencies.proc-macro-api]
 path = "submodules/rust-analyzer/crates/proc-macro-api"
 
-[workspace.dependencies.measureme]
-path = "submodules/measureme/measureme"
+[workspace.dependencies.lib-kleene-op]
+path = "submodules/rust/compiler/lib-kleene-op"
 
-[workspace.dependencies.anstyle-query]
-path = "submodules/anstyle/crates/anstyle-query"
-
-[workspace.dependencies.hashlink]
-path = "submodules/hashlink"
-
-[workspace.dependencies.toolchain]
-path = "submodules/rust-analyzer/crates/toolchain"
-
-[workspace.dependencies.hir-expand]
-path = "submodules/rust-analyzer/crates/hir-expand"
-
-[workspace.dependencies.sec1]
-path = "submodules/formats/sec1"
-
-[workspace.dependencies.gix-index]
-path = "submodules/gitoxide/gix-index"
-
-[workspace.dependencies.thiserror-impl]
-path = "submodules/thiserror/impl"
-
-[workspace.dependencies.gix]
-features = [
-    "progress-tree",
-    "parallel",
-    "dirwalk",
-    "status",
-]
-path = "submodules/gitoxide/gix"
-
-[workspace.dependencies.async-stream]
-path = "submodules/async-stream-vendored"
-
-[workspace.dependencies.gix-tix]
-path = "submodules/gitoxide/gix-tix"
-
-[workspace.dependencies.rustc-demangle]
-path = "submodules/rustc-demangle"
-
-[workspace.dependencies.windows-registry]
-path = "submodules/windows-rs/crates/libs/registry"
-
-[workspace.dependencies.serde_derive]
-path = "submodules/serde/serde_derive"
-
-[workspace.dependencies.thiserror]
-path = "submodules/thiserror"
-
-[workspace.dependencies.gix-negotiate]
-path = "submodules/gitoxide/gix-negotiate"
-
-[workspace.dependencies.la-arena]
-path = "submodules/rust-analyzer/lib/la-arena"
-
-[workspace.dependencies.macrotest]
-path = "submodules/macrotest"
+[workspace.dependencies.criterion]
+path = "submodules/criterion"
 
 [workspace.dependencies.salsa]
 features = [
@@ -1603,190 +1784,35 @@ features = [
 ]
 path = "submodules/salsa"
 
-[workspace.dependencies.signal-hook-tokio]
-path = "submodules/signal-hook/signal-hook-tokio"
+[workspace.dependencies.include-dir-macro]
+path = "submodules/include-dir-macro-rs/"
 
-[workspace.dependencies.zlib-rs]
-path = "submodules/zlib-rs/zlib-rs"
+[workspace.dependencies.rustc_error_codes]
+path = "submodules/rust/compiler/rustc_error_codes"
 
-[workspace.dependencies.rustc_serialize]
-path = "submodules/rust/compiler/rustc_serialize"
+[workspace.dependencies.rustc_attr_parsing]
+path = "submodules/rust/compiler/rustc_attr_parsing"
 
-[workspace.dependencies.blocking]
-path = "submodules/blocking"
 
-[workspace.dependencies.windows_x86_64_gnullvm]
-path = "submodules/windows-rs/crates/targets/x86_64_gnullvm"
+[workspace.lints]
 
-[workspace.dependencies.libgit2-sys]
-path = "submodules/git2-rs/libgit2-sys"
-
-[workspace.dependencies.ide-diagnostics]
-path = "submodules/rust-analyzer/crates/ide-diagnostics"
-
-[workspace.dependencies.foldhash]
-path = "submodules/foldhash"
-
-[workspace.dependencies.introspector_decl_common]
-path = "submodules/patch-build-rs/introspector_decl_common"
-
-[workspace.dependencies.anstyle-parse]
-path = "submodules/anstyle/crates/anstyle-parse"
-
-[workspace.dependencies.ra-ap-rustc_lexer]
-package = "rustc_lexer"
-path = "./submodules/rust/compiler/rustc_lexer"
-
-[workspace.dependencies.tracing-tower]
-path = "submodules/tracing/tracing-tower"
-
-[workspace.dependencies.futures-util]
-path = "submodules/futures-rs/futures-util"
-
-[workspace.dependencies.gix-filter]
-path = "submodules/gitoxide/gix-filter"
-
-[workspace.dependencies.twox-hash]
-path = "submodules/twox-hash"
-
-[workspace.dependencies.blake3]
-path = "submodules/BLAKE3"
-
-[workspace.dependencies.addr2line]
+[patch.crates-io.addr2line]
 path = "submodules/addr2line"
 
-[workspace.dependencies.windows-services]
-path = "submodules/windows-rs/crates/libs/services"
+[patch.crates-io.adler2]
+path = "submodules/adler2"
 
-[workspace.dependencies.env_filter]
-path = "submodules/env_logger/crates/env_filter"
+[patch.crates-io.ahash]
+path = "submodules/ahash"
 
-[workspace.dependencies.parking_lot]
-path = "submodules/parking_lot"
-version = "0.12.6"
+[patch.crates-io.aho-corasick]
+path = "submodules/aho-corasick"
 
-[workspace.dependencies.arrayref]
-path = "submodules/arrayref"
+#[patch.crates-io.aho_corasick]
+#path = "submodules/aho-corasick"
 
-[workspace.dependencies.test-fixture]
-path = "submodules/rust-analyzer/crates/test-fixture"
-
-[workspace.dependencies.autowrap_tool]
-path = "submodules/patch-build-rs/autowrap_tool/"
-
-[workspace.dependencies.fallible-streaming-iterator]
-path = "submodules/fallible-streaming-iterator"
-
-[workspace.dependencies.nohash-hasher]
-path = "submodules/nohash-hasher"
-
-[workspace.dependencies.cpufeatures]
-path = "submodules/utils/cpufeatures"
-
-[workspace.dependencies.rustc-literal-escaper]
-path = "submodules/rustc-literal-escaper"
-
-[workspace.dependencies.fs_extra]
-path = "submodules/fs_extra"
-
-[workspace.dependencies.sha1]
-path = "submodules/hashes/sha1"
-
-[workspace.dependencies.iana-time-zone]
-path = "submodules/iana-time-zone"
-
-[workspace.dependencies.tinyvec_macros]
-path = "submodules/tinyvec_macros"
-
-[workspace.dependencies.crypto-bigint]
-path = "submodules/crypto-bigint"
-
-[workspace.dependencies.gix-protocol]
-path = "submodules/gitoxide/gix-protocol"
-
-[workspace.dependencies.axum]
-version = "0.7.5"
-
-[workspace.dependencies.chrono]
-path = "submodules/chrono"
-
-[workspace.dependencies.edition]
-path = "submodules/rust-analyzer/crates/edition"
-
-[workspace.dependencies.expect-test]
-path = "submodules/expect-test"
-
-[workspace.dependencies.macro_wrapper_lib]
-path = "submodules/rust/compiler/macro_wrapper_lib"
-
-[workspace.dependencies.futures-test]
-path = "submodules/futures-rs/futures-test"
-
-[workspace.dependencies.jemallocator]
-path = "submodules/jemallocator/jemallocator"
-
-[workspace.dependencies.cargo-credential-macos-keychain]
-path = "submodules/cargo/credential/cargo-credential-macos-keychain"
-
-[workspace.dependencies.pulldown-cmark]
-version = "0.9.6"
-
-[workspace.dependencies.triomphe]
-features = ["std"]
-version = "0.1.14"
-
-[workspace.dependencies.sized-chunks]
-path = "submodules/sized-chunks"
-
-[workspace.dependencies.gix-packetline]
-path = "submodules/gitoxide/gix-packetline"
-
-[workspace.dependencies.miniz_oxide]
-path = "submodules/miniz_oxide/miniz_oxide"
-
-[workspace.dependencies.cfg-if]
-path = "submodules/cfg-if"
-
-[workspace.dependencies.maybe-async]
-path = "submodules/maybe-async-rs"
-
-[workspace.dependencies.gix-bitmap]
-path = "submodules/gitoxide/gix-bitmap"
-
-[workspace.dependencies.rand_xorshift]
-path = "submodules/rngs/rand_xorshift"
-
-[workspace.dependencies.reqwest]
-path = "submodules/reqwest"
-
-[workspace.dependencies.base64]
-path = "submodules/rust-base64"
-
-[workspace.dependencies.mbe]
-path = "submodules/rust-analyzer/crates/mbe"
-
-[workspace.dependencies.rustc_driver]
-path = "submodules/rust/compiler/rustc_driver"
-
-[workspace.dependencies.rayon-core]
-path = "submodules/rayon/rayon-core"
-
-[workspace.dependencies.gix-utils]
-path = "submodules/gitoxide/gix-utils"
-
-[workspace.package]
-authors = []
-categories = []
-description = ""
-edition = "2024"
-homepage = ""
-include = []
-keywords = []
-license = "AGPL 3.0"
-publish = false
-repository = ""
-rust-version = "1.85.0"
-version = "1.0.0"
+[patch.crates-io.allocator-api2]
+path = "submodules/allocator-api2"
 
 [patch.crates-io.annotate-snippets]
 path = "submodules/annotate-snippets-rs"
@@ -1803,23 +1829,211 @@ path = "submodules/anstyle/crates/anstyle-parse"
 [patch.crates-io.anstyle-query]
 path = "submodules/anstyle/crates/anstyle-query"
 
+[patch.crates-io.anyhow]
+path = "submodules/anyhow"
+
+[patch.crates-io.arbitrary]
+path = "submodules/arbitrary/"
+
+[patch.crates-io.arc-swap]
+path = "submodules/arc-swap"
+
+[patch.crates-io.arrayref]
+path = "submodules/arrayref"
+
+[patch.crates-io.arrayvec]
+path = "submodules/arrayvec"
+
+[patch.crates-io.assert-impl]
+path = "submodules/assert-impl"
+
+[patch.crates-io.async-graphql]
+path = "submodules/async-graphql"
+
+[patch.crates-io.async-graphql-derive]
+path = "submodules/async-graphql/derive"
+
+[patch.crates-io.async-graphql-parser]
+path = "submodules/async-graphql/parser"
+
+[patch.crates-io.async-graphql-value]
+path = "submodules/async-graphql/value"
+
+[patch.crates-io.async-std]
+path = "submodules/async-std"
+
 [patch.crates-io.async-stream]
 path = "submodules/async-stream-vendored"
+
+[patch.crates-io.atomic-maybe-uninit]
+path = "submodules/atomic-maybe-uninit"
+
+[patch.crates-io.autocfg]
+path = "submodules/autocfg"
+
+[patch.crates-io.autowrap_tool]
+path = "submodules/patch-build-rs/autowrap_tool/"
+
+[patch.crates-io.backtrace]
+path = "submodules/backtrace-rs"
+
+[patch.crates-io.base-db]
+path = "submodules/rust-analyzer/crates/base-db"
+
+[patch.crates-io.base64]
+path = "submodules/rust-base64"
+
+[patch.crates-io.base64ct]
+path = "submodules/formats/base64ct"
+
+[patch.crates-io.bincode]
+path = "submodules/bincode"
+
+[patch.crates-io.bitflags]
+path = "submodules/bitflags"
+
+[patch.crates-io.blake3]
+path = "submodules/BLAKE3"
+
+[patch.crates-io.block-buffer]
+path = "submodules/utils/block-buffer"
+
+[patch.crates-io.blocking]
+path = "submodules/blocking"
 
 [patch.crates-io.bstr]
 path = "submodules/bstr"
 
+[patch.crates-io.byteorder]
+path = "submodules/byteorder"
+
+[patch.crates-io.bytes]
+path = "submodules/bytes"
+
+[patch.crates-io.bytesize]
+path = "submodules/bytesize"
+
+[patch.crates-io.camino]
+path = "submodules/camino"
+
 [patch.crates-io.cargo]
 path = "submodules/cargo"
+
+[patch.crates-io.cargo-credential]
+path = "submodules/cargo/credential/cargo-credential"
+
+[patch.crates-io.cargo-credential-libsecret]
+path = "submodules/cargo/credential/cargo-credential-libsecret"
+
+[patch.crates-io.cargo-credential-macos-keychain]
+path = "submodules/cargo/credential/cargo-credential-macos-keychain"
+
+[patch.crates-io.cargo-credential-wincred]
+path = "submodules/cargo/credential/cargo-credential-wincred"
+
+[patch.crates-io.cargo-platform]
+path = "submodules/cargo/crates/cargo-platform"
+
+[patch.crates-io.cargo-repo-sync-lib]
+path = "tools/cargo-repo-sync-lib"
+
+[patch.crates-io.cargo-submodule-tool-lib]
+path = "tools/cargo-submodule-tool-lib"
+
+[patch.crates-io.cargo-test-macro]
+path = "submodules/cargo/crates/cargo-test-macro"
+
+[patch.crates-io.cargo-test-support]
+path = "submodules/cargo/crates/cargo-test-support"
+
+[patch.crates-io.cargo-util]
+path = "submodules/cargo/crates/cargo-util"
+
+[patch.crates-io.cargo-util-schemas]
+path = "submodules/cargo/crates/cargo-util-schemas"
+
+[patch.crates-io.cargo_metadata]
+path = "submodules/cargo_metadata"
+
+[patch.crates-io.cfg]
+path = "submodules/rust-analyzer/crates/cfg"
+
+[patch.crates-io.cfg-if]
+path = "submodules/cfg-if"
+
+[patch.crates-io.cfg_aliases]
+path = "submodules/cfg_aliases"
+
+[patch.crates-io.chrono]
+path = "submodules/chrono"
 
 [patch.crates-io.clap]
 path = "submodules/clap"
 
+[patch.crates-io.clap_builder]
+path = "submodules/clap/clap_builder"
+
+[patch.crates-io.clap_complete]
+path = "submodules/clap/clap_complete"
+
+[patch.crates-io.clru]
+path = "submodules/clru-rs"
+
+[patch.crates-io.color-print]
+path = "submodules/color-print/color-print"
+
+[patch.crates-io.color-print-proc-macro]
+path = "submodules/color-print/color-print-proc-macro"
+
 [patch.crates-io.colorchoice]
 path = "submodules/anstyle/crates/colorchoice"
 
+[patch.crates-io.colorify]
+path = "submodules/colorify"
+
+[patch.crates-io.const-oid]
+path = "submodules/formats/const-oid"
+
+[patch.crates-io.constant_time_eq]
+path = "submodules/constant_time_eq"
+
+[patch.crates-io.cpp_demangle]
+path = "submodules/cpp_demangle"
+
+[patch.crates-io.cpufeatures]
+path = "submodules/utils/cpufeatures"
+
+[patch.crates-io.crates-io]
+path = "submodules/cargo/crates/crates-io"
+
+[patch.crates-io.crc32fast]
+path = "submodules/rust-crc32fast"
+
+[patch.crates-io.criterion]
+path = "submodules/criterion"
+
+[patch.crates-io.crossbeam]
+path = "submodules/crossbeam/"
+
+[patch.crates-io.crossbeam-channel]
+path = "submodules/crossbeam/crossbeam-channel"
+
+[patch.crates-io.crossbeam-deque]
+path = "submodules/crossbeam/crossbeam-deque"
+
+[patch.crates-io.crossbeam-utils]
+path = "submodules/crossbeam/crossbeam-utils"
+
+[patch.crates-io.crypto-bigint]
+path = "submodules/crypto-bigint"
+
+[patch.crates-io.crypto-common]
+path = "submodules/traits/crypto-common"
+
+[patch.crates-io.ct-codecs]
+path = "submodules/rust-ct-codecs"
+
 [patch.crates-io.curl]
-features = ["http2"]
 path = "submodules/curl-rust"
 
 [patch.crates-io.curl-sys]
@@ -1827,13 +2041,102 @@ path = "submodules/curl-rust/curl-sys"
 
 [patch.crates-io.dashmap]
 path = "submodules/dashmap"
-version = "7.0.0-hack"
+
+[patch.crates-io.defmac]
+path = "submodules/defmac"
+
+[patch.crates-io.digest]
+path = "submodules/traits/digest"
+
+[patch.crates-io.dissimilar]
+path = "submodules/dissimilar"
+
+[patch.crates-io.document-features]
+path = "submodules/document-features"
+
+[patch.crates-io.dot-parser]
+path = "submodules/dot-parser"
+
+[patch.crates-io.dot-parser-macros]
+path = "submodules/dot-parser/macros"
+
+[patch.crates-io.ecdsa]
+path = "submodules/signatures/ecdsa"
+
+[patch.crates-io.ed25519-compact]
+path = "submodules/rust-ed25519-compact"
+
+[patch.crates-io.edition]
+path = "submodules/rust-analyzer/crates/edition"
+
+[patch.crates-io.either]
+path = "submodules/either"
+
+[patch.crates-io.encoding_rs]
+path = "submodules/encoding_rs"
+
+[patch.crates-io.env_filter]
+path = "submodules/env_logger/crates/env_filter"
+
+[patch.crates-io.env_logger]
+path = "submodules/env_logger"
+
+[patch.crates-io.equivalent]
+path = "submodules/equivalent"
+
+[patch.crates-io.erased-serde]
+path = "submodules/erased-serde"
+
+[patch.crates-io.expand_utils_lib]
+path = "submodules/rust/compiler/expand_utils_lib"
+
+[patch.crates-io.expect-test]
+path = "submodules/expect-test"
+
+[patch.crates-io.fallible-iterator]
+path = "submodules/rust-fallible-iterator"
+
+[patch.crates-io.fallible-streaming-iterator]
+path = "submodules/fallible-streaming-iterator"
+
+[patch.crates-io.faster-hex]
+path = "submodules/faster-hex"
+
+[patch.crates-io.fastrand]
+path = "submodules/fastrand"
+
+[patch.crates-io.fiat-crypto]
+path = "submodules/fiat-crypto/fiat-rust"
+
+[patch.crates-io.find-msvc-tools]
+path = "submodules/cc-rs/find-msvc-tools"
+
+[patch.crates-io.fixedbitset]
+path = "submodules/fixedbitset"
 
 [patch.crates-io.fluent-bundle]
 path = "submodules/fluent-rs/fluent-bundle"
 
+[patch.crates-io.fluent-syntax]
+path = "submodules/fluent-rs/fluent-syntax"
+
+[patch.crates-io.fnv]
+path = "submodules/rust-fnv"
+
+[patch.crates-io.foldhash]
+path = "submodules/foldhash"
+
+[patch.crates-io.fs_extra]
+path = "submodules/fs_extra"
+
+[patch.crates-io.futures]
+path = "submodules/futures-rs/futures"
+
 [patch.crates-io.futures-channel]
 path = "submodules/futures-rs/futures-channel"
+
+[patch.crates-io.futures-concurrency]
+path = "submodules/futures-concurrency"
 
 [patch.crates-io.futures-core]
 path = "submodules/futures-rs/futures-core"
@@ -1844,47 +2147,619 @@ path = "submodules/futures-rs/futures-executor"
 [patch.crates-io.futures-io]
 path = "submodules/futures-rs/futures-io"
 
+[patch.crates-io.futures-lite]
+path = "submodules/futures-lite"
+
+[patch.crates-io.futures-macro]
+path = "submodules/futures-rs/futures-macro"
+
 [patch.crates-io.futures-sink]
 path = "submodules/futures-rs/futures-sink"
 
 [patch.crates-io.futures-task]
 path = "submodules/futures-rs/futures-task"
 
+[patch.crates-io.futures-test]
+path = "submodules/futures-rs/futures-test"
+
+[patch.crates-io.futures-timer]
+path = "submodules/futures-timer"
+
 [patch.crates-io.futures-util]
 path = "submodules/futures-rs/futures-util"
+
+[patch.crates-io.fuzz]
+path = "submodules/quinn/fuzz"
+
+[patch.crates-io.fxhash]
+path = "submodules/fxhash"
+
+[patch.crates-io.gemini_rustc_data_structures]
+path = "submodules/rust/crates/gemini_rustc_data_structures/"
+
+[patch.crates-io.generator]
+path = "submodules/generator-rs"
+
+[patch.crates-io.generic-array]
+path = "submodules/generic-array"
+
+[patch.crates-io.getrandom]
+path = "submodules/getrandom"
+
+[patch.crates-io.git-wrapper-lib]
+path = "tools/git-wrapper-lib"
 
 [patch.crates-io.git2]
 path = "submodules/git2-rs"
 
+[patch.crates-io.git2-curl]
+path = "submodules/git2-rs/git2-curl"
+
+[patch.crates-io.gix]
+path = "submodules/gitoxide/gix"
+
+[patch.crates-io.gix-actor]
+path = "submodules/gitoxide/gix-actor"
+
+[patch.crates-io.gix-archive]
+path = "submodules/gitoxide/gix-archive"
+
+[patch.crates-io.gix-attributes]
+path = "submodules/gitoxide/gix-attributes"
+
+[patch.crates-io.gix-bitmap]
+path = "submodules/gitoxide/gix-bitmap"
+
+[patch.crates-io.gix-blame]
+path = "submodules/gitoxide/gix-blame"
+
+[patch.crates-io.gix-chunk]
+path = "submodules/gitoxide/gix-chunk"
+
+[patch.crates-io.gix-command]
+path = "submodules/gitoxide/gix-command"
+
+[patch.crates-io.gix-commitgraph]
+path = "submodules/gitoxide/gix-commitgraph"
+
+[patch.crates-io.gix-config]
+path = "submodules/gitoxide/gix-config"
+
+[patch.crates-io.gix-config-value]
+path = "submodules/gitoxide/gix-config-value"
+
+[patch.crates-io.gix-credentials]
+path = "submodules/gitoxide/gix-credentials"
+
+[patch.crates-io.gix-date]
+path = "submodules/gitoxide/gix-date"
+
+[patch.crates-io.gix-diff]
+path = "submodules/gitoxide/gix-diff"
+
+[patch.crates-io.gix-dir]
+path = "submodules/gitoxide/gix-dir"
+
+[patch.crates-io.gix-discover]
+path = "submodules/gitoxide/gix-discover"
+
+[patch.crates-io.gix-features]
+path = "submodules/gitoxide/gix-features"
+
+[patch.crates-io.gix-fetchhead]
+path = "submodules/gitoxide/gix-fetchhead"
+
+[patch.crates-io.gix-filter]
+path = "submodules/gitoxide/gix-filter"
+
+[patch.crates-io.gix-fs]
+path = "submodules/gitoxide/gix-fs"
+
+[patch.crates-io.gix-fsck]
+path = "submodules/gitoxide/gix-fsck"
+
+[patch.crates-io.gix-glob]
+path = "submodules/gitoxide/gix-glob"
+
+[patch.crates-io.gix-hash]
+path = "submodules/gitoxide/gix-hash"
+
+[patch.crates-io.gix-hashtable]
+path = "submodules/gitoxide/gix-hashtable"
+
+[patch.crates-io.gix-ignore]
+path = "submodules/gitoxide/gix-ignore"
+
+[patch.crates-io.gix-index]
+path = "submodules/gitoxide/gix-index"
+
+[patch.crates-io.gix-lfs]
+path = "submodules/gitoxide/gix-lfs"
+
+[patch.crates-io.gix-lock]
+path = "submodules/gitoxide/gix-lock"
+
+[patch.crates-io.gix-macros]
+path = "submodules/gitoxide/gix-macros"
+
+[patch.crates-io.gix-mailmap]
+path = "submodules/gitoxide/gix-mailmap"
+
+[patch.crates-io.gix-merge]
+path = "submodules/gitoxide/gix-merge"
+
+[patch.crates-io.gix-negotiate]
+path = "submodules/gitoxide/gix-negotiate"
+
+[patch.crates-io.gix-note]
+path = "submodules/gitoxide/gix-note"
+
+[patch.crates-io.gix-object]
+path = "submodules/gitoxide/gix-object"
+
+[patch.crates-io.gix-odb]
+path = "submodules/gitoxide/gix-odb"
+
+[patch.crates-io.gix-pack]
+path = "submodules/gitoxide/gix-pack"
+
+[patch.crates-io.gix-packetline]
+path = "submodules/gitoxide/gix-packetline"
+
+[patch.crates-io.gix-path]
+path = "submodules/gitoxide/gix-path"
+
+[patch.crates-io.gix-pathspec]
+path = "submodules/gitoxide/gix-pathspec"
+
+[patch.crates-io.gix-prompt]
+path = "submodules/gitoxide/gix-prompt"
+
+[patch.crates-io.gix-protocol]
+path = "submodules/gitoxide/gix-protocol"
+
+[patch.crates-io.gix-quote]
+path = "submodules/gitoxide/gix-quote"
+
+[patch.crates-io.gix-rebase]
+path = "submodules/gitoxide/gix-rebase"
+
+[patch.crates-io.gix-ref]
+path = "submodules/gitoxide/gix-ref"
+
+[patch.crates-io.gix-refspec]
+path = "submodules/gitoxide/gix-refspec"
+
+[patch.crates-io.gix-revision]
+path = "submodules/gitoxide/gix-revision"
+
+[patch.crates-io.gix-revwalk]
+path = "submodules/gitoxide/gix-revwalk"
+
+[patch.crates-io.gix-sec]
+path = "submodules/gitoxide/gix-sec"
+
+[patch.crates-io.gix-sequencer]
+path = "submodules/gitoxide/gix-sequencer"
+
+[patch.crates-io.gix-shallow]
+path = "submodules/gitoxide/gix-shallow"
+
+[patch.crates-io.gix-status]
+path = "submodules/gitoxide/gix-status"
+
+[patch.crates-io.gix-submodule]
+path = "submodules/gitoxide/gix-submodule"
+
+[patch.crates-io.gix-tempfile]
+path = "submodules/gitoxide/gix-tempfile"
+
+[patch.crates-io.gix-testtools]
+path = "submodules/gitoxide/tests/tools"
+
+[patch.crates-io.gix-tix]
+path = "submodules/gitoxide/gix-tix"
+
+[patch.crates-io.gix-trace]
+path = "submodules/gitoxide/gix-trace"
+
+[patch.crates-io.gix-transport]
+path = "submodules/gitoxide/gix-transport"
+
+[patch.crates-io.gix-traverse]
+path = "submodules/gitoxide/gix-traverse"
+
+[patch.crates-io.gix-tui]
+path = "submodules/gitoxide/gix-tui"
+
+[patch.crates-io.gix-url]
+path = "submodules/gitoxide/gix-url"
+
+[patch.crates-io.gix-utils]
+path = "submodules/gitoxide/gix-utils"
+
+[patch.crates-io.gix-validate]
+path = "submodules/gitoxide/gix-validate"
+
+[patch.crates-io.gix-worktree]
+path = "submodules/gitoxide/gix-worktree"
+
+[patch.crates-io.gix-worktree-state]
+path = "submodules/gitoxide/gix-worktree-state"
+
+[patch.crates-io.gix-worktree-stream]
+path = "submodules/gitoxide/gix-worktree-stream"
+
+[patch.crates-io.glob]
+path = "submodules/glob"
+
+[patch.crates-io.globwalk]
+path = "submodules/globwalk"
+
+[patch.crates-io.group]
+path = "submodules/group"
+
+[patch.crates-io.hash32]
+path = "submodules/hash32"
+
+[patch.crates-io.hashbrown]
+path = "submodules/hashbrown"
+
+[patch.crates-io.hashlink]
+path = "submodules/hashlink"
+
+[patch.crates-io.heapless]
+path = "submodules/heapless"
+
+[patch.crates-io.hex]
+path = "submodules/rust-hex"
+
+[patch.crates-io.hir]
+path = "submodules/rust-analyzer/crates/hir"
+
+[patch.crates-io.hir-def]
+path = "submodules/rust-analyzer/crates/hir-def"
+
+[patch.crates-io.hir-expand]
+path = "submodules/rust-analyzer/crates/hir-expand"
+
+[patch.crates-io.hir-ty]
+path = "submodules/rust-analyzer/crates/hir-ty"
+
+[patch.crates-io.hkdf]
+path = "submodules/KDFs/hkdf"
+
+[patch.crates-io.hmac]
+path = "submodules/MACs/hmac"
+
+[patch.crates-io.home]
+path = "submodules/cargo/crates/home"
+
+[patch.crates-io.http-auth]
+path = "submodules/http-auth"
+
+[patch.crates-io.human_format]
+path = "submodules/human-format-rs"
+
 [patch.crates-io.hyper]
 path = "submodules/hyper"
+
+[patch.crates-io.iana-time-zone]
+path = "submodules/iana-time-zone"
+
+[patch.crates-io.icu_normalizer]
+path = "submodules/icu4x/components/normalizer"
+
+[patch.crates-io.icu_properties]
+path = "submodules/icu4x/components/properties"
+
+[patch.crates-io.icu_properties_data]
+path = "submodules/icu4x/provider/data/properties"
+
+[patch.crates-io.ide]
+path = "submodules/rust-analyzer/crates/ide"
+
+[patch.crates-io.ide-assists]
+path = "submodules/rust-analyzer/crates/ide-assists"
+
+[patch.crates-io.ide-completion]
+path = "submodules/rust-analyzer/crates/ide-completion"
+
+[patch.crates-io.ide-db]
+path = "submodules/rust-analyzer/crates/ide-db"
+
+[patch.crates-io.ide-diagnostics]
+path = "submodules/rust-analyzer/crates/ide-diagnostics"
+
+[patch.crates-io.ide-ssr]
+path = "submodules/rust-analyzer/crates/ide-ssr"
 
 [patch.crates-io.idna]
 path = "submodules/rust-url/idna/"
 
+[patch.crates-io.im-rc]
+path = "submodules/im-rs/rc"
+
+[patch.crates-io.imara-diff]
+path = "submodules/imara-diff"
+
+[patch.crates-io.include-dir-macro]
+path = "submodules/include-dir-macro-rs/"
+
+[patch.crates-io.indexmap]
+path = "submodules/indexmap"
+
+[patch.crates-io.intern]
+path = "./submodules/rust-analyzer/crates/intern"
+
+[patch.crates-io.intl-memoizer]
+path = "submodules/fluent-rs/intl-memoizer"
+
+[patch.crates-io.introspector_core]
+path = "submodules/rust/compiler/introspector/core"
+
+[patch.crates-io.introspector_decl2_macros]
+path = "submodules/patch-build-rs/introspector_decl2_macros"
+
+[patch.crates-io.introspector_decl_common]
+path = "submodules/patch-build-rs/introspector_decl_common"
+
+[patch.crates-io.introspector_decl_core]
+path = "submodules/patch-build-rs/introspector_decl_core"
+
+[patch.crates-io.introspector_macro_helpers]
+path = "submodules/patch-build-rs/introspector_macro_helpers"
+
+[patch.crates-io.io-uring]
+path = "submodules/io-uring"
+
+[patch.crates-io.is_executable]
+path = "submodules/is_executable"
+
+[patch.crates-io.is_terminal_polyfill]
+path = "submodules/is_terminal_polyfill"
+
+[patch.crates-io.itertools]
+path = "submodules/itertools"
+
+[patch.crates-io.itoa]
+path = "submodules/itoa"
+
+[patch.crates-io.jemalloc-ctl]
+package = "tikv-jemalloc-ctl"
+path = "submodules/jemallocator/jemalloc-ctl"
+
+[patch.crates-io.jemallocator]
+path = "submodules/jemallocator/jemallocator"
+
+[patch.crates-io.la-arena]
+path = "submodules/rust-analyzer/lib/la-arena"
+
+[patch.crates-io.lazy_static]
+path = "submodules/lazy-static"
+
+[patch.crates-io.lib-kleene-op]
+path = "submodules/rust/compiler/lib-kleene-op"
+
+[patch.crates-io.lib-macro-rule]
+path = "submodules/rust/compiler/lib-macro-rule"
+
+[patch.crates-io.lib-matcher-loc]
+path = "submodules/rust/compiler/lib-matcher-loc"
+
+[patch.crates-io.lib-metavar-expr]
+path = "submodules/rust/compiler/lib-metavar-expr"
+
+[patch.crates-io.lib-token-tree]
+path = "submodules/rust/compiler/lib-token-tree"
+
 [patch.crates-io.libc]
-features = ["extra_traits"]
 path = "submodules/libc"
 
 [patch.crates-io.libgit2-sys]
 path = "submodules/git2-rs/libgit2-sys"
 
+[patch.crates-io.libloading]
+path = "submodules/rust_libloading"
+
+[patch.crates-io.libm]
+path = "submodules/compiler-builtins/libm"
+
+[patch.crates-io.libnghttp2-sys]
+path = "submodules/nghttp2-rs"
+
+[patch.crates-io.libz-rs-sys]
+path = "submodules/zlib-rs/libz-rs-sys"
+
+[patch.crates-io.line-index]
+path = "submodules/rust-analyzer/lib/line-index"
+
+[patch.crates-io.linux-raw-sys]
+path = "submodules/linux-raw-sys"
+
+[patch.crates-io.litemap]
+path = "submodules/icu4x/utils/litemap"
+
+[patch.crates-io.litrs]
+path = "submodules/litrs"
+
+[patch.crates-io.load-cargo]
+path = "submodules/rust-analyzer/crates/load-cargo"
+
+[patch.crates-io.lock_api]
+path = "submodules/parking_lot/lock_api"
+
+[patch.crates-io.loom]
+path = "submodules/loom"
+
+[patch.crates-io.lsp-server]
+path = "submodules/rust-analyzer/lib/lsp-server"
+
+[patch.crates-io.lzma-rust2]
+path = "submodules/lzma-rust2"
+
 [patch.crates-io.lzma-sys]
 path = "submodules/xz2-rs/lzma-sys"
+
+[patch.crates-io.macro_wrapper_lib]
+path = "submodules/rust/compiler/macro_wrapper_lib"
+
+[patch.crates-io.macros]
+path = "submodules/rust-analyzer/crates/macros"
+
+[patch.crates-io.macrotest]
+path = "submodules/macrotest"
+
+[patch.crates-io.maybe-async]
+path = "submodules/maybe-async-rs"
+
+[patch.crates-io.mbe]
+path = "submodules/rust-analyzer/crates/mbe"
+
+[patch.crates-io.md-5]
+path = "submodules/hashes/md5"
+
+[patch.crates-io.md5]
+path = "submodules/md5"
 
 [patch.crates-io.measureme]
 path = "submodules/measureme/measureme"
 
+[patch.crates-io.memchr]
+path = "submodules/memchr"
+
+[patch.crates-io.memmap2]
+path = "submodules/memmap2-rs"
+
+[patch.crates-io.memoffset]
+path = "submodules/memoffset"
+
+[patch.crates-io.minimal-lexical]
+path = "submodules/minimal-lexical"
+
+[patch.crates-io.miniz_oxide]
+path = "submodules/miniz_oxide/miniz_oxide"
+
+[patch.crates-io.mio]
+path = "submodules/mio"
+
+[patch.crates-io.mockall]
+path = "submodules/mockall/mockall"
+
+[patch.crates-io.nix]
+path = "submodules/nix"
+
+[patch.crates-io.nohash-hasher]
+path = "submodules/nohash-hasher"
+
+[patch.crates-io.nom]
+path = "submodules/nom"
+
+[patch.crates-io.nu-ansi-term]
+path = "submodules/nu-ansi-term"
+
+[patch.crates-io.num-conv]
+path = "submodules/num-conv"
+
+[patch.crates-io.object]
+path = "submodules/object"
+
+[patch.crates-io.odds]
+path = "submodules/odds"
+
+[patch.crates-io.oorandom]
+path = "submodules/oorandom"
+
+[patch.crates-io.opener]
+path = "submodules/opener/opener"
+
+[patch.crates-io.openssl-probe]
+path = "submodules/openssl-probe"
+
+[patch.crates-io.orion]
+path = "submodules/orion"
+
+[patch.crates-io.os_info]
+path = "submodules/os_info/os_info"
+
+[patch.crates-io.p384]
+path = "submodules/elliptic-curves/p384"
+
 [patch.crates-io.parking_lot]
 path = "submodules/parking_lot"
-version = "0.12.6"
 
 [patch.crates-io.parking_lot_core]
 path = "submodules/parking_lot/core"
-version = "0.9.13"
+
+[patch.crates-io.parser]
+path = "submodules/rust-analyzer/crates/parser"
+
+[patch.crates-io.pasetors]
+path = "submodules/pasetors"
+
+[patch.crates-io.pathdiff]
+path = "submodules/pathdiff"
+
+[patch.crates-io.paths]
+path = "submodules/rust-analyzer/crates/paths"
+
+[patch.crates-io.pest_derive]
+path = "submodules/pest/derive"
+
+[patch.crates-io.pest_generator]
+path = "submodules/pest/generator"
+
+[patch.crates-io.pest_meta]
+path = "submodules/pest/meta"
+
+[patch.crates-io.petgraph]
+path = "submodules/petgraph"
+
+[patch.crates-io.pin-project-lite]
+path = "submodules/pin-project-lite"
+
+[patch.crates-io.pin-utils]
+path = "submodules/pin-utils"
+
+[patch.crates-io.potential_utf]
+path = "submodules/icu4x/utils/potential_utf"
+
+[patch.crates-io.powerfmt-macros]
+path = "submodules/powerfmt/powerfmt-macros"
+
+[patch.crates-io.ppv-lite86]
+path = "submodules/cryptocorrosion/utils-simd/ppv-lite86"
+
+[patch.crates-io.primeorder]
+path = "submodules/elliptic-curves/primeorder"
+
+[patch.crates-io.proc-macro-api]
+path = "submodules/rust-analyzer/crates/proc-macro-api"
+
+[patch.crates-io.proc-macro-srv]
+path = "submodules/rust-analyzer/crates/proc-macro-srv"
+
+[patch.crates-io.proc-macro-srv-cli]
+path = "submodules/rust-analyzer/crates/proc-macro-srv-cli"
 
 [patch.crates-io.proc-macro2]
 path = "submodules/proc-macro2"
+
+[patch.crates-io.prodash]
+path = "submodules/prodash"
+
+[patch.crates-io.profile]
+path = "submodules/rust-analyzer/crates/profile"
+
+[patch.crates-io.project-model]
+path = "submodules/rust-analyzer/crates/project-model"
+
+[patch.crates-io.query-group]
+package = "query-group-macro"
+path = "./submodules/rust-analyzer/crates/query-group-macro"
+
+[patch.crates-io.quickcheck]
+path = "submodules/quickcheck"
 
 [patch.crates-io.quote]
 path = "submodules/quote"
@@ -1899,11 +2774,15 @@ path = "./submodules/rust/compiler/rustc_ast_ir"
 
 [patch.crates-io.ra-ap-rustc_index]
 package = "rustc_index"
-path = "submodules/rust/compiler/rustc_index"
+path = "./submodules/rust/compiler/rustc_index"
 
 [patch.crates-io.ra-ap-rustc_lexer]
 package = "rustc_lexer"
 path = "./submodules/rust/compiler/rustc_lexer"
+
+[patch.crates-io.ra-ap-rustc_next_trait_solver]
+package = "rustc_next_trait_solver"
+path = "./submodules/rust/compiler/rustc_next_trait_solver"
 
 [patch.crates-io.ra-ap-rustc_parse_format]
 package = "rustc_parse_format"
@@ -1917,15 +2796,191 @@ path = "./submodules/rust/compiler/rustc_pattern_analysis"
 package = "rustc_type_ir"
 path = "./submodules/rust/compiler/rustc_type_ir"
 
+[patch.crates-io.rand]
+path = "submodules/rand"
+
+[patch.crates-io.rand_xorshift]
+path = "submodules/rngs/rand_xorshift"
+
+[patch.crates-io.rayon]
+path = "submodules/rayon"
+
 [patch.crates-io.rayon-core]
 path = "submodules/rayon/rayon-core"
 
+[patch.crates-io.regex]
+path = "submodules/regex"
+
+[patch.crates-io.regex-automata]
+path = "submodules/regex/regex-automata"
+
+[patch.crates-io.regex-syntax]
+path = "submodules/regex/regex-syntax"
+
+[patch.crates-io.reqwest]
+path = "submodules/reqwest"
+
+[patch.crates-io.rfc6979]
+path = "submodules/signatures/rfc6979"
+
+[patch.crates-io.rocksdb]
+path = "submodules/rocksdb"
+
+[patch.crates-io.rowan]
+path = "submodules/rowan"
+
 [patch.crates-io.rusqlite]
-features = ["fallible_uint"]
 path = "submodules/rusqlite"
+
+[patch.crates-io.rust-nix-bootstrap]
+path = "crates/rust-nix-bootstrap"
+
+[patch.crates-io.rustc-arg-builder-lib]
+path = "submodules/cargo/crates/rustc-arg-builder-lib/"
+
+[patch.crates-io.rustc-demangle]
+path = "submodules/rustc-demangle"
+
+[patch.crates-io.rustc-hash]
+path = "submodules/rustc-hash"
+
+[patch.crates-io.rustc-literal-escaper]
+path = "submodules/rustc-literal-escaper"
+
+[patch.crates-io.rustc-stable-hash]
+path = "submodules/rustc-stable-hash"
+
+[patch.crates-io.rustc_apfloat]
+path = "submodules/rustc_apfloat"
+
+[patch.crates-io.rustc_ast]
+path = "submodules/rust/compiler/rustc_ast"
+
+[patch.crates-io.rustc_ast_pretty]
+path = "./submodules/rust/compiler/rustc_ast_pretty"
+
+[patch.crates-io.rustc_attr_parsing]
+path = "submodules/rust/compiler/rustc_attr_parsing"
+
+[patch.crates-io.rustc_builtin_macros]
+path = "submodules/rust/compiler/rustc_builtin_macros"
+
+[patch.crates-io.rustc_data_structures]
+path = "submodules/rust/compiler/rustc_data_structures"
+
+[patch.crates-io.rustc_driver]
+path = "submodules/rust/compiler/rustc_driver"
+
+[patch.crates-io.rustc_driver_impl]
+path = "submodules/rust/compiler/rustc_driver_impl"
+
+[patch.crates-io.rustc_error_codes]
+path = "submodules/rust/compiler/rustc_error_codes"
+
+[patch.crates-io.rustc_errors]
+path = "submodules/rust/compiler/rustc_errors"
+
+[patch.crates-io.rustc_expand]
+path = "submodules/rust/compiler/rustc_expand"
+
+[patch.crates-io.rustc_expand_base_lib]
+path = "submodules/rust/compiler/rustc_expand_base_lib"
+
+[patch.crates-io.rustc_expand_base_lib_errors]
+path = "submodules/rust/compiler/rustc_expand_base_lib_errors"
+
+[patch.crates-io.rustc_expand_meta_macros]
+path = "submodules/rust/compiler/rustc_expand_meta_macros"
+
+[patch.crates-io.rustc_feature]
+path = "submodules/rust/compiler/rustc_feature"
+
+[patch.crates-io.rustc_hir]
+path = "submodules/rust/compiler/rustc_hir"
+
+[patch.crates-io.rustc_hir_id]
+path = "submodules/rust/compiler/rustc_hir_id"
+
+[patch.crates-io.rustc_index]
+path = "submodules/rust/compiler/rustc_index"
+
+[patch.crates-io.rustc_infer]
+path = "submodules/rust/compiler/rustc_infer"
+
+[patch.crates-io.rustc_interface]
+path = "submodules/rust/compiler/rustc_interface"
+
+[patch.crates-io.rustc_lint]
+path = "submodules/rust/compiler/rustc_lint"
+
+[patch.crates-io.rustc_lint_defs]
+path = "submodules/rust/compiler/rustc_lint_defs"
+
+[patch.crates-io.rustc_macros]
+path = "submodules/rust/compiler/rustc_macros"
+
+[patch.crates-io.rustc_middle]
+path = "submodules/rust/compiler/rustc_middle"
+
+[patch.crates-io.rustc_parse]
+path = "submodules/rust/compiler/rustc_parse"
+
+[patch.crates-io.rustc_serialize]
+path = "submodules/rust/compiler/rustc_serialize"
+
+[patch.crates-io.rustc_session]
+path = "submodules/rust/compiler/rustc_session"
+
+[patch.crates-io.rustc_span]
+path = "submodules/rust/compiler/rustc_span"
+
+[patch.crates-io.rustc_tools_util]
+path = "submodules/rust/src/tools/clippy/rustc_tools_util"
+
+[patch.crates-io.rustc_trait_selection]
+path = "submodules/rust/compiler/rustc_trait_selection"
+
+[patch.crates-io.rustc_transmute]
+path = "submodules/rust/compiler/rustc_transmute"
+
+[patch.crates-io.rustfix]
+path = "submodules/cargo/crates/rustfix"
+
+[patch.crates-io.rustix]
+path = "submodules/rustix"
+
+[patch.crates-io.rustversion]
+path = "submodules/rustversion"
+
+[patch.crates-io.ruzstd]
+path = "submodules/zstd-rs/ruzstd"
+
+[patch.crates-io.ryu]
+path = "submodules/ryu"
+
+[patch.crates-io.salsa]
+path = "submodules/salsa"
+
+[patch.crates-io.salsa-macros]
+path = "submodules/salsa/components/salsa-macros"
+
+[patch.crates-io.same-file]
+path = "submodules/same-file"
+
+[patch.crates-io.scoped-tls]
+path = "submodules/scoped-tls"
+
+[patch.crates-io.sec1]
+path = "submodules/formats/sec1"
+
+[patch.crates-io.semver]
+path = "submodules/semver"
 
 [patch.crates-io.serde]
 path = "submodules/serde/serde"
+
+[patch.crates-io.serde-value]
+path = "submodules/serde-value"
 
 [patch.crates-io.serde_core]
 path = "submodules/serde/serde_core"
@@ -1933,15 +2988,155 @@ path = "submodules/serde/serde_core"
 [patch.crates-io.serde_derive]
 path = "submodules/serde/serde_derive"
 
+[patch.crates-io.serde_ignored]
+path = "submodules/serde-ignored"
+
 [patch.crates-io.serde_json]
 path = "submodules/json"
+
+[patch.crates-io.serde_spanned]
+path = "submodules/toml/crates/serde_spanned"
+
+[patch.crates-io.serial_test]
+path = "submodules/serial_test/serial_test"
+
+[patch.crates-io.sha1]
+path = "submodules/hashes/sha1"
+
+[patch.crates-io.sha1-checked]
+path = "submodules/hashes/sha1-checked"
+
+[patch.crates-io.sha2]
+path = "submodules/hashes/sha2"
+
+[patch.crates-io.sharded-slab]
+path = "submodules/sharded-slab"
+
+[patch.crates-io.signal-hook]
+path = "submodules/signal-hook"
+
+[patch.crates-io.signal-hook-async-std]
+path = "submodules/signal-hook/signal-hook-async-std"
+
+[patch.crates-io.signal-hook-mio]
+path = "submodules/signal-hook/signal-hook-mio"
+
+[patch.crates-io.signal-hook-registry]
+path = "submodules/signal-hook/signal-hook-registry"
+
+[patch.crates-io.signal-hook-tokio]
+path = "submodules/signal-hook/signal-hook-tokio"
+
+[patch.crates-io.signature]
+path = "submodules/traits/signature"
+
+[patch.crates-io.simd-adler32]
+path = "submodules/simd-adler32"
+
+[patch.crates-io.sized-chunks]
+path = "submodules/sized-chunks"
+
+[patch.crates-io.slab]
+path = "submodules/slab"
+
+[patch.crates-io.smallvec]
+path = "submodules/rust-smallvec"
+
+[patch.crates-io.smol_str]
+path = "submodules/rust-analyzer/lib/smol_str"
+
+[patch.crates-io.snapbox]
+path = "submodules/snapbox/crates/snapbox"
+
+[patch.crates-io.socket2]
+path = "submodules/socket2"
+
+[patch.crates-io.span]
+path = "./submodules/rust-analyzer/crates/span"
+
+[patch.crates-io.split-decls-rs]
+path = "submodules/split-decls-rs"
+
+[patch.crates-io.static_assertions]
+path = "submodules/static-assertions-rs"
+
+[patch.crates-io.stdx]
+path = "submodules/rust-analyzer/crates/stdx"
+
+[patch.crates-io.strsim]
+path = "submodules/strsim-rs"
+
+[patch.crates-io.supports-hyperlinks]
+path = "submodules/supports-hyperlinks"
+
+[patch.crates-io.supports-unicode]
+path = "submodules/supports-unicode"
+
+[patch.crates-io.sval]
+path = "submodules/sval"
 
 [patch.crates-io.syn]
 path = "submodules/syn"
 
+[patch.crates-io.syn-adapter-lib]
+path = "tools/syn-adapter-lib"
+
+[patch.crates-io.syn-codegen]
+path = "submodules/syn/json"
+
+[patch.crates-io.syntax]
+path = "./submodules/rust-analyzer/crates/syntax"
+
+[patch.crates-io.syntax-bridge]
+path = "./submodules/rust-analyzer/crates/syntax-bridge"
+
+[patch.crates-io.temp-dir]
+path = "submodules/temp-dir/temp-dir"
+
+[patch.crates-io.temp-env]
+path = "submodules/temp-env"
+
+[patch.crates-io.tempfile]
+path = "submodules/tempfile"
+
+[patch.crates-io.tera]
+path = "submodules/tera"
+
+[patch.crates-io.terminal_size]
+path = "submodules/terminal-size"
+
+[patch.crates-io.test-fixture]
+path = "submodules/rust-analyzer/crates/test-fixture"
+
+[patch.crates-io.test-utils]
+path = "submodules/rust-analyzer/crates/test-utils"
+
+[patch.crates-io.text-size]
+path = "submodules/text-size"
+
 [patch.crates-io.thin-vec]
 path = "submodules/thin-vec"
-version = "0.2.14"
+
+[patch.crates-io.thiserror]
+path = "submodules/thiserror"
+
+[patch.crates-io.thiserror-impl]
+path = "submodules/thiserror/impl"
+
+[patch.crates-io.thread_local]
+path = "submodules/thread_local-rs"
+
+[patch.crates-io.tikv-jemalloc-sys]
+path = "submodules/jemallocator/jemalloc-sys"
+
+[patch.crates-io.tinystr]
+path = "submodules/icu4x/utils/tinystr"
+
+[patch.crates-io.tinyvec]
+path = "submodules/tinyvec"
+
+[patch.crates-io.tinyvec_macros]
+path = "submodules/tinyvec_macros"
 
 [patch.crates-io.tokio]
 path = "submodules/tokio/tokio"
@@ -1958,15 +3153,212 @@ path = "submodules/tokio/tokio-test"
 [patch.crates-io.tokio-util]
 path = "submodules/tokio/tokio-util"
 
+[patch.crates-io.toml]
+path = "submodules/toml/crates/toml"
+
+[patch.crates-io.toml_datetime]
+path = "submodules/toml/crates/toml_datetime"
+
+[patch.crates-io.toml_edit]
+path = "submodules/toml/crates/toml_edit"
+
+[patch.crates-io.toml_parser]
+path = "submodules/toml/crates/toml_parser"
+
+[patch.crates-io.toml_writer]
+path = "submodules/toml/crates/toml_writer"
+
+[patch.crates-io.tool-traits-lib]
+path = "./tools/tool-traits-lib"
+
+[patch.crates-io.toolchain]
+path = "submodules/rust-analyzer/crates/toolchain"
+
+[patch.crates-io.tracing]
+path = "submodules/tracing/tracing"
+
+[patch.crates-io.tracing-attributes]
+path = "submodules/tracing/tracing-attributes"
+
+[patch.crates-io.tracing-chrome]
+path = "submodules/tracing-chrome"
+
+[patch.crates-io.tracing-core]
+path = "submodules/tracing/tracing-core"
+
+[patch.crates-io.tracing-log]
+path = "submodules/tracing/tracing-log"
+
 [patch.crates-io.tracing-subscriber]
 path = "submodules/tracing/tracing-subscriber"
 
+[patch.crates-io.tracing-tower]
+path = "submodules/tracing/tracing-tower"
+
 [patch.crates-io.tracing-tree]
 path = "submodules/tracing-tree"
-version = "0.4.1"
+
+[patch.crates-io.trybuild]
+path = "submodules/trybuild"
+
+[patch.crates-io.trycmd]
+path = "submodules/snapbox/crates/trycmd"
+
+[patch.crates-io.tt]
+path = "./submodules/rust-analyzer/crates/tt"
+
+[patch.crates-io.twox-hash]
+path = "submodules/twox-hash"
+
+[patch.crates-io.typenum]
+path = "submodules/typenum"
+
+[patch.crates-io.typesize]
+path = "submodules/typesize"
+
+[patch.crates-io.typesize-derive]
+path = "submodules/typesize/typesize-derive"
+
+[patch.crates-io.ucd-trie]
+path = "submodules/ucd-generate/ucd-trie"
+
+[patch.crates-io.uluru]
+path = "submodules/uluru"
+
+[patch.crates-io.unicase]
+path = "submodules/unicase"
+
+[patch.crates-io.unicode-bom]
+path = "submodules/unicode-bom"
+
+[patch.crates-io.unicode-ident]
+path = "submodules/unicode-ident"
+
+[patch.crates-io.unicode-normalization]
+path = "submodules/unicode-normalization"
+
+[patch.crates-io.unicode-segmentation]
+path = "submodules/unicode-segmentation"
+
+[patch.crates-io.unicode-width]
+path = "submodules/unicode-width"
+
+[patch.crates-io.uuid]
+path = "submodules/uuid"
+
+[patch.crates-io.version_check]
+path = "submodules/version_check"
+
+[patch.crates-io.vfs]
+path = "./submodules/rust-analyzer/crates/vfs"
+
+[patch.crates-io.vfs-notify]
+path = "submodules/rust-analyzer/crates/vfs-notify"
+
+[patch.crates-io.wasm_sync]
+path = "submodules/wasm_sync"
+
+[patch.crates-io.windows]
+path = "submodules/windows-rs/crates/libs/windows"
+
+[patch.crates-io.windows-bindgen]
+path = "submodules/windows-rs/crates/libs/bindgen"
+
+[patch.crates-io.windows-bindings]
+path = "submodules/jni-rs/windows-bindings"
+
+[patch.crates-io.windows-collections]
+path = "submodules/windows-rs/crates/libs/collections"
+
+[patch.crates-io.windows-core]
+path = "submodules/windows-rs/crates/libs/core"
+
+[patch.crates-io.windows-future]
+path = "submodules/windows-rs/crates/libs/future"
+
+[patch.crates-io.windows-implement]
+path = "submodules/windows-rs/crates/libs/implement"
+
+[patch.crates-io.windows-interface]
+path = "submodules/windows-rs/crates/libs/interface"
+
+[patch.crates-io.windows-link]
+path = "submodules/windows-rs/crates/libs/link"
+
+[patch.crates-io.windows-metadata]
+path = "submodules/windows-rs/crates/libs/metadata"
+
+[patch.crates-io.windows-numerics]
+path = "submodules/windows-rs/crates/libs/numerics"
+
+[patch.crates-io.windows-registry]
+path = "submodules/windows-rs/crates/libs/registry"
+
+[patch.crates-io.windows-result]
+path = "submodules/windows-rs/crates/libs/result"
+
+[patch.crates-io.windows-services]
+path = "submodules/windows-rs/crates/libs/services"
+
+[patch.crates-io.windows-strings]
+path = "submodules/windows-rs/crates/libs/strings"
+
+[patch.crates-io.windows-sys]
+path = "submodules/windows-rs/crates/libs/sys"
+
+[patch.crates-io.windows-targets]
+path = "submodules/rust/library/windows_targets"
+
+[patch.crates-io.windows-threading]
+path = "submodules/windows-rs/crates/libs/threading"
+
+[patch.crates-io.windows-version]
+path = "submodules/windows-rs/crates/libs/version"
+
+[patch.crates-io.windows_aarch64_gnullvm]
+path = "submodules/windows-rs/crates/targets/aarch64_gnullvm"
+
+[patch.crates-io.windows_aarch64_msvc]
+path = "submodules/windows-rs/crates/targets/aarch64_msvc"
+
+[patch.crates-io.windows_i686_gnu]
+path = "submodules/windows-rs/crates/targets/i686_gnu"
+
+[patch.crates-io.windows_i686_gnullvm]
+path = "submodules/windows-rs/crates/targets/i686_gnullvm"
+
+[patch.crates-io.windows_i686_msvc]
+path = "submodules/windows-rs/crates/targets/i686_msvc"
+
+[patch.crates-io.windows_x86_64_gnu]
+path = "submodules/windows-rs/crates/targets/x86_64_gnu"
+
+[patch.crates-io.windows_x86_64_gnullvm]
+path = "submodules/windows-rs/crates/targets/x86_64_gnullvm"
+
+[patch.crates-io.windows_x86_64_msvc]
+path = "submodules/windows-rs/crates/targets/x86_64_msvc"
+
+[patch.crates-io.xattr]
+path = "submodules/xattr"
 
 [patch.crates-io.xz2]
 path = "submodules/xz2-rs"
 
-[patch.crates-io.toml]
-path = "submodules/toml/crates/toml"
+[patch.crates-io.yoke-derive]
+path = "submodules/icu4x/utils/yoke/derive"
+
+[patch.crates-io.zerocopy]
+path = "submodules/zerocopy"
+
+[patch.crates-io.zerofrom-derive]
+path = "submodules/icu4x/utils/zerofrom/derive"
+
+[patch.crates-io.zerovec-derive]
+path = "submodules/icu4x/utils/zerovec/derive"
+
+[patch.crates-io.zip]
+path = "submodules/zip2"
+
+[patch.crates-io.zlib-rs]
+path = "submodules/zlib-rs/zlib-rs"
