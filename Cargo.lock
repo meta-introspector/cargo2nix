@@ -14227,6 +14227,7 @@ dependencies = [
  "toml 0.9.8",
  "unimacro_derive",
  "url 2.5.7",
+ "walkdir",
 ]
 
 [[package]]
