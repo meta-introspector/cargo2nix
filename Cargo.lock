@@ -14213,21 +14213,25 @@ name = "split-decls-rs"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "introspector_decl2_macros",
- "introspector_decl_common",
- "introspector_decl_core",
- "introspector_macro_helpers",
- "once_cell",
  "proc-macro2 1.0.103",
  "quote 1.0.42",
  "serde",
- "serde_json",
+ "serde_derive",
+ "split-decls-types",
  "syn 2.0.110",
  "tempfile",
  "toml 0.9.8",
- "unimacro_derive",
  "url 2.5.7",
  "walkdir",
+]
+
+[[package]]
+name = "split-decls-types"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "serde",
+ "toml 0.9.8",
 ]
 
 [[package]]
@@ -14699,8 +14703,6 @@ dependencies = [
 [[package]]
 name = "synstructure"
 version = "0.13.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "728a70f3dbaf5bab7f0c4b1ac8d7ae5ea60a4b5549c8a5914361c99147a709d2"
 dependencies = [
  "proc-macro2 1.0.103",
  "quote 1.0.42",
@@ -16696,22 +16698,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ebc1c04c71510c7f702b52b7c350734c9ff1295c464a03335b00bb84fc54f853"
 
 [[package]]
-name = "unimacro_derive"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "introspector_decl2_macros",
- "introspector_decl_common",
- "introspector_decl_core",
- "introspector_macro_helpers",
- "proc-macro2 1.0.103",
- "quote 1.0.42",
- "serde",
- "syn 2.0.110",
- "toml 0.9.8",
-]
-
-[[package]]
 name = "universal-hash"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -17911,6 +17897,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f17a85883d4e6d00e8a97c586de764dabcc06133f7f1d55dce5cdc070ad7fe59"
 
 [[package]]
+name = "workspace-merge"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clap 4.4.18",
+ "serde",
+ "toml 0.8.23",
+]
+
+[[package]]
 name = "writeable"
 version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -17989,7 +17985,7 @@ dependencies = [
  "proc-macro2 1.0.103",
  "quote 1.0.42",
  "syn 2.0.110",
- "synstructure 0.12.6",
+ "synstructure 0.13.2",
 ]
 
 [[package]]
@@ -18089,7 +18085,7 @@ dependencies = [
  "proc-macro2 1.0.103",
  "quote 1.0.42",
  "syn 2.0.110",
- "synstructure 0.12.6",
+ "synstructure 0.13.2",
 ]
 
 [[package]]

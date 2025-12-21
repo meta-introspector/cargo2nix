@@ -108,9 +108,15 @@ members = [
     "submodules/rust/compiler/rustc_expand_base_lib_test_driver",
     "ticket_data_generator",
     "submodules/split-decls-rs",
+    #        
+    "submodules/split-decls-rs/workspace-merge",
+    "submodules/split-decls-rs/split-decls-types",
 ]
 
 [workspace.dependencies]
+split-decls-types.path=  "submodules/split-decls-rs/split-decls-types"
+split_decls_types.path=  "submodules/split-decls-rs/split-decls-types"
+#visit.path=  "submodules/visit"
 #databake.path = "submodules/databake"
 databake = "*"
 harfbuzz-traits = "*"
@@ -126,7 +132,7 @@ icu_normalizer_data.path = "*"
 detone.path = "*"
 icu_locale_core = "*"
 displaydoc = "*"
-synstructure = "*"
+synstructure.path = "submodules/synstructure"
 unicode-bidi="*"
 zerotrie="*"
 dot="*"
@@ -3387,3 +3393,6 @@ path = "submodules/zip2"
 
 [patch.crates-io.zlib-rs]
 path = "submodules/zlib-rs/zlib-rs"
+
+[patch.crates-io.synstructure]
+path = "submodules/synstructure"

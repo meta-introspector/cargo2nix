@@ -13,6 +13,7 @@ workspace = true
 workspace = true
 
 [dependencies.syn]
+features = ["full"]
 workspace = true
 
 [dev-dependencies]
@@ -38,7 +39,15 @@ workspace = true
 [build-dependencies.quote]
 workspace = true
 
+[build-dependencies.serde]
+features = ["derive"]
+workspace = true
+
 [build-dependencies.syn]
+features = ["full", "visit"]
+workspace = true
+
+[build-dependencies.toml]
 workspace = true
 
 [patch]

@@ -6,3 +6,5 @@ default_branches_to_patch = []
 [crates_io_patches]
 
 [repo_fork_mapping]
+
+[workspace_dependencies]
