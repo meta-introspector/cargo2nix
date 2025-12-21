@@ -14,6 +14,7 @@ version = "1.0.0"
 
 
 [workspace]
+resolver="3"
 members = [
     "submodules/hyper",
     "crates/addr2line-bin",
@@ -110,6 +111,30 @@ members = [
 ]
 
 [workspace.dependencies]
+#databake.path = "submodules/databake"
+databake = "*"
+harfbuzz-traits = "*"
+icu_collections = "*"
+icu_provider = "*"
+utf16_iter = "*"
+utf8_iter = "*"
+write16 = "*"
+zerovec = "*"
+arraystring = "*"
+atoi.path = "*"
+icu_normalizer_data.path = "*"
+detone.path = "*"
+icu_locale_core = "*"
+displaydoc = "*"
+synstructure = "*"
+unicode-bidi="*"
+zerotrie="*"
+dot="*"
+yoke="*"
+postcard="*"
+rkyv="*"
+writeable="*"
+pulldown-cmark-to-cmark="*"
 aho_corasick.path = "submodules/aho-corasick"
 
 shell-escape = "0.1.5"
@@ -571,8 +596,8 @@ path = "submodules/rust/compiler/rustc_middle"
 features = ["zlib-rs"]
 version = "1.1.5"
 
-[workspace.dependencies.jemallocator]
-path = "submodules/jemallocator/jemallocator"
+#[workspace.dependencies.jemallocator]
+#path = "submodules/jemallocator/jemallocator"
 
 [workspace.dependencies.crossbeam-utils]
 path = "submodules/crossbeam/crossbeam-utils"
@@ -630,8 +655,8 @@ path = "submodules/windows-rs/crates/targets/x86_64_gnu"
 path = "submodules/thin-vec"
 version = "0.2.14"
 
-[workspace.dependencies.tikv-jemalloc-sys]
-path = "submodules/jemallocator/jemalloc-sys"
+#[workspace.dependencies.tikv-jemalloc-sys]
+#path = "submodules/jemallocator/jemalloc-sys"
 
 [workspace.dependencies.salsa-macros]
 path = "submodules/salsa/components/salsa-macros"
@@ -1302,8 +1327,8 @@ version = "2.0"
 [workspace.dependencies.rustc_expand_base_lib_errors]
 path = "submodules/rust/compiler/rustc_expand_base_lib_errors"
 
-[workspace.dependencies.rustc-arg-builder-lib]
-path = "submodules/cargo/crates/rustc-arg-builder-lib/"
+#[workspace.dependencies.rustc-arg-builder-lib]
+#path = "submodules/cargo/crates/rustc-arg-builder-lib/"
 
 [workspace.dependencies.gix-sec]
 path = "submodules/gitoxide/gix-sec"
@@ -1611,7 +1636,7 @@ path = "submodules/globwalk"
 path = "submodules/rust-analyzer/crates/stdx"
 
 [workspace.dependencies.toml]
-version = "0.8"
+path = "submodules/toml/crates/toml"
 
 [workspace.dependencies.rustc_driver]
 path = "submodules/rust/compiler/rustc_driver"
@@ -1712,15 +1737,15 @@ path = "submodules/bytesize"
 [workspace.dependencies.edition]
 path = "submodules/rust-analyzer/crates/edition"
 
-[workspace.dependencies.jemalloc-ctl]
-package = "tikv-jemalloc-ctl"
-path = "submodules/jemallocator/jemalloc-ctl"
+#[workspace.dependencies.jemalloc-ctl]
+#package = "tikv-jemalloc-ctl"
+#path = "submodules/jemallocator/jemalloc-ctl"
 
 [workspace.dependencies.async-graphql-parser]
 path = "submodules/async-graphql/parser"
 
 [workspace.dependencies.ra-ap-rustc_index]
-package = "rustc_index"
+#package = "rustc_index"
 path = "./submodules/rust/compiler/rustc_index"
 
 [workspace.dependencies.rustc_data_structures]
@@ -2525,12 +2550,12 @@ path = "submodules/itertools"
 [patch.crates-io.itoa]
 path = "submodules/itoa"
 
-[patch.crates-io.jemalloc-ctl]
-package = "tikv-jemalloc-ctl"
-path = "submodules/jemallocator/jemalloc-ctl"
+#[patch.crates-io.jemalloc-ctl]
+#package = "tikv-jemalloc-ctl"
+#path = "submodules/jemallocator/jemalloc-ctl"
 
-[patch.crates-io.jemallocator]
-path = "submodules/jemallocator/jemallocator"
+#[patch.crates-io.jemallocator]
+#path = "submodules/jemallocator/jemallocator"
 
 [patch.crates-io.la-arena]
 path = "submodules/rust-analyzer/lib/la-arena"
@@ -2772,9 +2797,9 @@ path = "./submodules/rust/compiler/rustc_abi"
 package = "rustc_ast_ir"
 path = "./submodules/rust/compiler/rustc_ast_ir"
 
-[patch.crates-io.ra-ap-rustc_index]
-package = "rustc_index"
-path = "./submodules/rust/compiler/rustc_index"
+#[patch.crates-io.ra-ap-rustc_index]
+#package = "rustc_index"
+#path = "./submodules/rust/compiler/rustc_index"
 
 [patch.crates-io.ra-ap-rustc_lexer]
 package = "rustc_lexer"
@@ -2835,8 +2860,8 @@ path = "submodules/rusqlite"
 [patch.crates-io.rust-nix-bootstrap]
 path = "crates/rust-nix-bootstrap"
 
-[patch.crates-io.rustc-arg-builder-lib]
-path = "submodules/cargo/crates/rustc-arg-builder-lib/"
+#[patch.crates-io.rustc-arg-builder-lib]
+#path = "submodules/cargo/crates/rustc-arg-builder-lib/"
 
 [patch.crates-io.rustc-demangle]
 path = "submodules/rustc-demangle"
@@ -3126,8 +3151,8 @@ path = "submodules/thiserror/impl"
 [patch.crates-io.thread_local]
 path = "submodules/thread_local-rs"
 
-[patch.crates-io.tikv-jemalloc-sys]
-path = "submodules/jemallocator/jemalloc-sys"
+#[patch.crates-io.tikv-jemalloc-sys]
+#path = "submodules/jemallocator/jemalloc-sys"
 
 [patch.crates-io.tinystr]
 path = "submodules/icu4x/utils/tinystr"
